@@ -4,7 +4,7 @@
 /// output format can evolve independently of the pipeline mechanics.
 library;
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 /// Immutable summary produced by `AggregateStage`.
 class Report {

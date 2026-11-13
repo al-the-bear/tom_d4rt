@@ -51,7 +51,7 @@ dart run example/tomexample/error_handling.dart
 ### File Operations
 
 ```dart
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 // Create file
 touch('file.txt', create: true);

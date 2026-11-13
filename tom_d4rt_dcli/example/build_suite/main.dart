@@ -22,7 +22,7 @@ library;
 
 import 'dart:io';
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 import 'logger.dart';
 import 'tasks.dart';

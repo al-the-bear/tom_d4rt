@@ -5,7 +5,7 @@
 /// cross-file class usage in a multi-file D4rt CLI script.
 library;
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 /// Records counters and renders coloured, step-numbered build output.
 class BuildLogger {

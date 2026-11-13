@@ -5,7 +5,7 @@
 /// Run with: dart run tomexample/color_output.dart
 library;
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   print('=== DCli Color Output Examples ===\n');

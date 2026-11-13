@@ -100,7 +100,7 @@ Scripts executed inside the REPL or passed as files have transparent access to t
 Scripts can use the standard dcli idioms directly in D4rt:
 
 ```dart
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 // File operations
 touch('output.txt', create: true);
@@ -213,7 +213,7 @@ directly:
 
 ```dart
 #!/usr/bin/env dcli
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 // A throwaway maintenance script — no compile step needed.
 final stale = find('*.tmp', workingDirectory: '.').toList();

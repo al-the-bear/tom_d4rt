@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 76 files
-// Generated: 2026-11-12T21:43:25.557712 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-13T07:43:04.379645 by tom_d4rt_generator 1.63.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -12,50 +12,6 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart' as $crypto_1;
 import 'package:dart_console/dart_console.dart' as $dart_console_1;
-import 'package:dcli/dcli.dart' as $dcli_1;
-import 'package:dcli/dcli.dart' as $dcli_2;
-import 'package:dcli/dcli.dart' as $dcli_3;
-import 'package:dcli/dcli.dart' as $dcli_4;
-import 'package:dcli/dcli.dart' as $dcli_5;
-import 'package:dcli/dcli.dart' as $dcli_6;
-import 'package:dcli/dcli.dart' as $dcli_7;
-import 'package:dcli/src/functions/find.dart' as $dcli_8;
-import 'package:dcli/src/functions/head.dart' as $dcli_9;
-import 'package:dcli/dcli.dart' as $dcli_10;
-import 'package:dcli/src/functions/menu.dart' as $dcli_11;
-import 'package:dcli/dcli.dart' as $dcli_12;
-import 'package:dcli/dcli.dart' as $dcli_13;
-import 'package:dcli/dcli.dart' as $dcli_14;
-import 'package:dcli/dcli.dart' as $dcli_15;
-import 'package:dcli/src/functions/tail.dart' as $dcli_16;
-import 'package:dcli/dcli.dart' as $dcli_17;
-import 'package:dcli/dcli.dart' as $dcli_18;
-import 'package:dcli/dcli.dart' as $dcli_19;
-import 'package:dcli/dcli.dart' as $dcli_20;
-import 'package:dcli/dcli.dart' as $dcli_21;
-import 'package:dcli/dcli.dart' as $dcli_22;
-import 'package:dcli/dcli.dart' as $dcli_23;
-import 'package:dcli/src/script/dart_script.dart' as $dcli_24;
-import 'package:dcli/src/script/dart_sdk.dart' as $dcli_25;
-import 'package:dcli/src/script/pub_get.dart' as $dcli_26;
-import 'package:dcli/dcli.dart' as $dcli_27;
-import 'package:dcli/dcli.dart' as $dcli_28;
-import 'package:dcli/dcli.dart' as $dcli_29;
-import 'package:dcli/dcli.dart' as $dcli_30;
-import 'package:dcli/src/util/capture.dart' as $dcli_31;
-import 'package:dcli/dcli.dart' as $dcli_32;
-import 'package:dcli/dcli.dart' as $dcli_33;
-import 'package:dcli/src/util/editor.dart' as $dcli_34;
-import 'package:dcli/dcli.dart' as $dcli_35;
-import 'package:dcli/src/util/file_sort.dart' as $dcli_36;
-import 'package:dcli/dcli.dart' as $dcli_37;
-import 'package:dcli/dcli.dart' as $dcli_38;
-import 'package:dcli/dcli.dart' as $dcli_39;
-import 'package:dcli/src/util/process_helper.dart' as $dcli_40;
-import 'package:dcli/dcli.dart' as $dcli_41;
-import 'package:dcli/src/util/remote.dart' as $dcli_42;
-import 'package:dcli/src/util/runnable_process.dart' as $dcli_43;
-import 'package:dcli/dcli.dart' as $dcli_44;
 import 'package:dcli_core/dcli_core.dart' as $dcli_core_1;
 import 'package:dcli_core/dcli_core.dart' as $dcli_core_2;
 import 'package:dcli_core/dcli_core.dart' as $dcli_core_3;
@@ -93,9 +49,54 @@ import 'package:pubspec_manager/src/pubspec/internal_parts.dart'
 import 'package:scope/src/scope.dart' as $scope_1;
 import 'package:settings_yaml/settings_yaml.dart' as $settings_yaml_1;
 import 'package:stack_trace/stack_trace.dart' as $stack_trace_1;
-import 'package:dcli/dcli.dart' as $aux_dcli;
-import 'package:dcli/src/functions/internal_progress.dart' as $aux_dcli_3;
-import 'package:dcli/src/util/parser.dart' as $aux_dcli_6;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_1;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_2;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_3;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_4;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_5;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_6;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_7;
+import 'package:tom_dcli/src/functions/find.dart' as $tom_dcli_8;
+import 'package:tom_dcli/src/functions/head.dart' as $tom_dcli_9;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_10;
+import 'package:tom_dcli/src/functions/menu.dart' as $tom_dcli_11;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_12;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_13;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_14;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_15;
+import 'package:tom_dcli/src/functions/tail.dart' as $tom_dcli_16;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_17;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_18;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_19;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_20;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_21;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_22;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_23;
+import 'package:tom_dcli/src/script/dart_script.dart' as $tom_dcli_24;
+import 'package:tom_dcli/src/script/dart_sdk.dart' as $tom_dcli_25;
+import 'package:tom_dcli/src/script/pub_get.dart' as $tom_dcli_26;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_27;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_28;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_29;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_30;
+import 'package:tom_dcli/src/util/capture.dart' as $tom_dcli_31;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_32;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_33;
+import 'package:tom_dcli/src/util/editor.dart' as $tom_dcli_34;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_35;
+import 'package:tom_dcli/src/util/file_sort.dart' as $tom_dcli_36;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_37;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_38;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_39;
+import 'package:tom_dcli/src/util/process_helper.dart' as $tom_dcli_40;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_41;
+import 'package:tom_dcli/src/util/remote.dart' as $tom_dcli_42;
+import 'package:tom_dcli/src/util/runnable_process.dart' as $tom_dcli_43;
+import 'package:tom_dcli/dcli.dart' as $tom_dcli_44;
+import 'package:tom_dcli/dcli.dart' as $aux_tom_dcli;
+import 'package:tom_dcli/src/functions/internal_progress.dart'
+    as $aux_tom_dcli_3;
+import 'package:tom_dcli/src/util/parser.dart' as $aux_tom_dcli_6;
 
 /// Bridge class for dcli module.
 class DcliBridge {
@@ -292,55 +293,55 @@ class DcliBridge {
       'AnsiColor': $dcli_terminal_2.AnsiColor,
       'Format': $dcli_terminal_3.Format,
       'Terminal': $dcli_terminal_4.Terminal,
-      'Ask': $dcli_1.Ask,
-      'AskValidatorException': $dcli_1.AskValidatorException,
-      'AskValidator': $dcli_1.AskValidator,
-      'AskValidatorIPAddress': $dcli_1.AskValidatorIPAddress,
-      'Confirm': $dcli_3.Confirm,
-      'FetchData': $dcli_6.FetchData,
-      'FetchUrl': $dcli_6.FetchUrl,
-      'FetchProgress': $dcli_6.FetchProgress,
-      'FetchException': $dcli_6.FetchException,
-      'ReadException': $dcli_12.ReadException,
-      'Progress': $dcli_19.Progress,
-      'PackedResource': $dcli_20.PackedResource,
-      'PackedResourcePart': $dcli_20.PackedResourcePart,
-      'Resources': $dcli_21.Resources,
-      'ResourceException': $dcli_21.ResourceException,
-      'CompiledExecutable': $dcli_22.CompiledExecutable,
-      'DartProject': $dcli_23.DartProject,
-      'DartProjectException': $dcli_23.DartProjectException,
-      'TemplateNotFoundException': $dcli_23.TemplateNotFoundException,
+      'Ask': $tom_dcli_1.Ask,
+      'AskValidatorException': $tom_dcli_1.AskValidatorException,
+      'AskValidator': $tom_dcli_1.AskValidator,
+      'AskValidatorIPAddress': $tom_dcli_1.AskValidatorIPAddress,
+      'Confirm': $tom_dcli_3.Confirm,
+      'FetchData': $tom_dcli_6.FetchData,
+      'FetchUrl': $tom_dcli_6.FetchUrl,
+      'FetchProgress': $tom_dcli_6.FetchProgress,
+      'FetchException': $tom_dcli_6.FetchException,
+      'ReadException': $tom_dcli_12.ReadException,
+      'Progress': $tom_dcli_19.Progress,
+      'PackedResource': $tom_dcli_20.PackedResource,
+      'PackedResourcePart': $tom_dcli_20.PackedResourcePart,
+      'Resources': $tom_dcli_21.Resources,
+      'ResourceException': $tom_dcli_21.ResourceException,
+      'CompiledExecutable': $tom_dcli_22.CompiledExecutable,
+      'DartProject': $tom_dcli_23.DartProject,
+      'DartProjectException': $tom_dcli_23.DartProjectException,
+      'TemplateNotFoundException': $tom_dcli_23.TemplateNotFoundException,
       'InvalidProjectTemplateException':
-          $dcli_23.InvalidProjectTemplateException,
-      'DartScript': $dcli_24.DartScript,
-      'DartSdk': $dcli_25.DartSdk,
-      'PubGetException': $dcli_26.PubGetException,
-      'Settings': $dcli_27.Settings,
-      'Shell': $dcli_28.Shell,
-      'ShellException': $dcli_28.ShellException,
-      'ShellDetection': $dcli_29.ShellDetection,
-      'UnknownShell': $dcli_30.UnknownShell,
-      'DCliPaths': $dcli_32.DCliPaths,
-      'InvalidArgumentException': $dcli_35.InvalidArgumentException,
-      'InvalidTemplateException': $dcli_35.InvalidTemplateException,
-      'InstallException': $dcli_35.InstallException,
-      'ProcessSyncException': $dcli_35.ProcessSyncException,
-      'FileSort': $dcli_36.FileSort,
-      'Column': $dcli_36.Column,
-      'FileSync': $dcli_37.FileSync,
-      'FileNotFoundException': $dcli_38.FileNotFoundException,
-      'NotAFileException': $dcli_38.NotAFileException,
-      'NamedLock': $dcli_39.NamedLock,
-      'NamedLockObservation': $dcli_39.NamedLockObservation,
-      'LockException': $dcli_39.LockException,
-      'ProcessHelper': $dcli_40.ProcessHelper,
-      'ProcessDetails': $dcli_40.ProcessDetails,
-      'PubCache': $dcli_41.PubCache,
-      'Remote': $dcli_42.Remote,
-      'FindProgress': $dcli_8.FindProgress,
-      'HeadProgress': $dcli_9.HeadProgress,
-      'TailProgress': $dcli_16.TailProgress,
+          $tom_dcli_23.InvalidProjectTemplateException,
+      'DartScript': $tom_dcli_24.DartScript,
+      'DartSdk': $tom_dcli_25.DartSdk,
+      'PubGetException': $tom_dcli_26.PubGetException,
+      'Settings': $tom_dcli_27.Settings,
+      'Shell': $tom_dcli_28.Shell,
+      'ShellException': $tom_dcli_28.ShellException,
+      'ShellDetection': $tom_dcli_29.ShellDetection,
+      'UnknownShell': $tom_dcli_30.UnknownShell,
+      'DCliPaths': $tom_dcli_32.DCliPaths,
+      'InvalidArgumentException': $tom_dcli_35.InvalidArgumentException,
+      'InvalidTemplateException': $tom_dcli_35.InvalidTemplateException,
+      'InstallException': $tom_dcli_35.InstallException,
+      'ProcessSyncException': $tom_dcli_35.ProcessSyncException,
+      'FileSort': $tom_dcli_36.FileSort,
+      'Column': $tom_dcli_36.Column,
+      'FileSync': $tom_dcli_37.FileSync,
+      'FileNotFoundException': $tom_dcli_38.FileNotFoundException,
+      'NotAFileException': $tom_dcli_38.NotAFileException,
+      'NamedLock': $tom_dcli_39.NamedLock,
+      'NamedLockObservation': $tom_dcli_39.NamedLockObservation,
+      'LockException': $tom_dcli_39.LockException,
+      'ProcessHelper': $tom_dcli_40.ProcessHelper,
+      'ProcessDetails': $tom_dcli_40.ProcessDetails,
+      'PubCache': $tom_dcli_41.PubCache,
+      'Remote': $tom_dcli_42.Remote,
+      'FindProgress': $tom_dcli_8.FindProgress,
+      'HeadProgress': $tom_dcli_9.HeadProgress,
+      'TailProgress': $tom_dcli_16.TailProgress,
       'Which': $dcli_core_17.Which,
       'PubSpec': $pubspec_manager_1.PubSpec,
       'ScopeKey': $scope_1.ScopeKey,
@@ -376,55 +377,58 @@ class DcliBridge {
       'AnsiColor': 'package:dcli_terminal/src/ansi_color.dart',
       'Format': 'package:dcli_terminal/src/format.dart',
       'Terminal': 'package:dcli_terminal/src/terminal.dart',
-      'Ask': 'package:dcli/src/functions/ask.dart',
-      'AskValidatorException': 'package:dcli/src/functions/ask.dart',
-      'AskValidator': 'package:dcli/src/functions/ask.dart',
-      'AskValidatorIPAddress': 'package:dcli/src/functions/ask.dart',
-      'Confirm': 'package:dcli/src/functions/confirm.dart',
-      'FetchData': 'package:dcli/src/functions/fetch.dart',
-      'FetchUrl': 'package:dcli/src/functions/fetch.dart',
-      'FetchProgress': 'package:dcli/src/functions/fetch.dart',
-      'FetchException': 'package:dcli/src/functions/fetch.dart',
-      'ReadException': 'package:dcli/src/functions/read.dart',
-      'Progress': 'package:dcli/src/progress/progress.dart',
-      'PackedResource': 'package:dcli/src/resources/packed_resource.dart',
-      'PackedResourcePart': 'package:dcli/src/resources/packed_resource.dart',
-      'Resources': 'package:dcli/src/resources/resources.dart',
-      'ResourceException': 'package:dcli/src/resources/resources.dart',
-      'CompiledExecutable': 'package:dcli/src/script/compiled_executable.dart',
-      'DartProject': 'package:dcli/src/script/dart_project.dart',
-      'DartProjectException': 'package:dcli/src/script/dart_project.dart',
-      'TemplateNotFoundException': 'package:dcli/src/script/dart_project.dart',
+      'Ask': 'package:tom_dcli/src/functions/ask.dart',
+      'AskValidatorException': 'package:tom_dcli/src/functions/ask.dart',
+      'AskValidator': 'package:tom_dcli/src/functions/ask.dart',
+      'AskValidatorIPAddress': 'package:tom_dcli/src/functions/ask.dart',
+      'Confirm': 'package:tom_dcli/src/functions/confirm.dart',
+      'FetchData': 'package:tom_dcli/src/functions/fetch.dart',
+      'FetchUrl': 'package:tom_dcli/src/functions/fetch.dart',
+      'FetchProgress': 'package:tom_dcli/src/functions/fetch.dart',
+      'FetchException': 'package:tom_dcli/src/functions/fetch.dart',
+      'ReadException': 'package:tom_dcli/src/functions/read.dart',
+      'Progress': 'package:tom_dcli/src/progress/progress.dart',
+      'PackedResource': 'package:tom_dcli/src/resources/packed_resource.dart',
+      'PackedResourcePart':
+          'package:tom_dcli/src/resources/packed_resource.dart',
+      'Resources': 'package:tom_dcli/src/resources/resources.dart',
+      'ResourceException': 'package:tom_dcli/src/resources/resources.dart',
+      'CompiledExecutable':
+          'package:tom_dcli/src/script/compiled_executable.dart',
+      'DartProject': 'package:tom_dcli/src/script/dart_project.dart',
+      'DartProjectException': 'package:tom_dcli/src/script/dart_project.dart',
+      'TemplateNotFoundException':
+          'package:tom_dcli/src/script/dart_project.dart',
       'InvalidProjectTemplateException':
-          'package:dcli/src/script/dart_project.dart',
-      'DartScript': 'package:dcli/src/script/dart_script.dart',
-      'DartSdk': 'package:dcli/src/script/dart_sdk.dart',
-      'PubGetException': 'package:dcli/src/script/pub_get.dart',
-      'Settings': 'package:dcli/src/settings.dart',
-      'Shell': 'package:dcli/src/shell/shell.dart',
-      'ShellException': 'package:dcli/src/shell/shell.dart',
-      'ShellDetection': 'package:dcli/src/shell/shell_detection.dart',
-      'UnknownShell': 'package:dcli/src/shell/unknown_shell.dart',
-      'DCliPaths': 'package:dcli/src/util/dcli_paths.dart',
-      'InvalidArgumentException': 'package:dcli/src/util/exceptions.dart',
-      'InvalidTemplateException': 'package:dcli/src/util/exceptions.dart',
-      'InstallException': 'package:dcli/src/util/exceptions.dart',
-      'ProcessSyncException': 'package:dcli/src/util/exceptions.dart',
-      'FileSort': 'package:dcli/src/util/file_sort.dart',
-      'Column': 'package:dcli/src/util/file_sort.dart',
-      'FileSync': 'package:dcli/src/util/file_sync.dart',
-      'FileNotFoundException': 'package:dcli/src/util/file_util.dart',
-      'NotAFileException': 'package:dcli/src/util/file_util.dart',
-      'NamedLock': 'package:dcli/src/util/named_lock.dart',
-      'NamedLockObservation': 'package:dcli/src/util/named_lock.dart',
-      'LockException': 'package:dcli/src/util/named_lock.dart',
-      'ProcessHelper': 'package:dcli/src/util/process_helper.dart',
-      'ProcessDetails': 'package:dcli/src/util/process_helper.dart',
-      'PubCache': 'package:dcli/src/util/pub_cache.dart',
-      'Remote': 'package:dcli/src/util/remote.dart',
-      'FindProgress': 'package:dcli/src/functions/find.dart',
-      'HeadProgress': 'package:dcli/src/functions/head.dart',
-      'TailProgress': 'package:dcli/src/functions/tail.dart',
+          'package:tom_dcli/src/script/dart_project.dart',
+      'DartScript': 'package:tom_dcli/src/script/dart_script.dart',
+      'DartSdk': 'package:tom_dcli/src/script/dart_sdk.dart',
+      'PubGetException': 'package:tom_dcli/src/script/pub_get.dart',
+      'Settings': 'package:tom_dcli/src/settings.dart',
+      'Shell': 'package:tom_dcli/src/shell/shell.dart',
+      'ShellException': 'package:tom_dcli/src/shell/shell.dart',
+      'ShellDetection': 'package:tom_dcli/src/shell/shell_detection.dart',
+      'UnknownShell': 'package:tom_dcli/src/shell/unknown_shell.dart',
+      'DCliPaths': 'package:tom_dcli/src/util/dcli_paths.dart',
+      'InvalidArgumentException': 'package:tom_dcli/src/util/exceptions.dart',
+      'InvalidTemplateException': 'package:tom_dcli/src/util/exceptions.dart',
+      'InstallException': 'package:tom_dcli/src/util/exceptions.dart',
+      'ProcessSyncException': 'package:tom_dcli/src/util/exceptions.dart',
+      'FileSort': 'package:tom_dcli/src/util/file_sort.dart',
+      'Column': 'package:tom_dcli/src/util/file_sort.dart',
+      'FileSync': 'package:tom_dcli/src/util/file_sync.dart',
+      'FileNotFoundException': 'package:tom_dcli/src/util/file_util.dart',
+      'NotAFileException': 'package:tom_dcli/src/util/file_util.dart',
+      'NamedLock': 'package:tom_dcli/src/util/named_lock.dart',
+      'NamedLockObservation': 'package:tom_dcli/src/util/named_lock.dart',
+      'LockException': 'package:tom_dcli/src/util/named_lock.dart',
+      'ProcessHelper': 'package:tom_dcli/src/util/process_helper.dart',
+      'ProcessDetails': 'package:tom_dcli/src/util/process_helper.dart',
+      'PubCache': 'package:tom_dcli/src/util/pub_cache.dart',
+      'Remote': 'package:tom_dcli/src/util/remote.dart',
+      'FindProgress': 'package:tom_dcli/src/functions/find.dart',
+      'HeadProgress': 'package:tom_dcli/src/functions/head.dart',
+      'TailProgress': 'package:tom_dcli/src/functions/tail.dart',
       'Which': 'package:dcli_core/src/functions/which.dart',
       'PubSpec': 'package:pubspec_manager/src/pubspec/internal_parts.dart',
       'ScopeKey': 'package:scope/src/scope.dart',
@@ -559,21 +563,21 @@ class DcliBridge {
         name: 'TerminalClearMode',
         values: $dcli_terminal_4.TerminalClearMode.values,
       ),
-      BridgedEnumDefinition<$dcli_6.FetchMethod>(
+      BridgedEnumDefinition<$tom_dcli_6.FetchMethod>(
         name: 'FetchMethod',
-        values: $dcli_6.FetchMethod.values,
+        values: $tom_dcli_6.FetchMethod.values,
       ),
-      BridgedEnumDefinition<$dcli_6.FetchStatus>(
+      BridgedEnumDefinition<$tom_dcli_6.FetchStatus>(
         name: 'FetchStatus',
-        values: $dcli_6.FetchStatus.values,
+        values: $tom_dcli_6.FetchStatus.values,
       ),
-      BridgedEnumDefinition<$dcli_15.Interval>(
+      BridgedEnumDefinition<$tom_dcli_15.Interval>(
         name: 'Interval',
-        values: $dcli_15.Interval.values,
+        values: $tom_dcli_15.Interval.values,
       ),
-      BridgedEnumDefinition<$dcli_36.SortDirection>(
+      BridgedEnumDefinition<$tom_dcli_36.SortDirection>(
         name: 'SortDirection',
-        values: $dcli_36.SortDirection.values,
+        values: $tom_dcli_36.SortDirection.values,
       ),
     ];
   }
@@ -586,10 +590,10 @@ class DcliBridge {
     return {
       'TableAlignment': 'package:dcli_terminal/src/format.dart',
       'TerminalClearMode': 'package:dcli_terminal/src/terminal.dart',
-      'FetchMethod': 'package:dcli/src/functions/fetch.dart',
-      'FetchStatus': 'package:dcli/src/functions/fetch.dart',
-      'Interval': 'package:dcli/src/functions/sleep.dart',
-      'SortDirection': 'package:dcli/src/util/file_sort.dart',
+      'FetchMethod': 'package:tom_dcli/src/functions/fetch.dart',
+      'FetchStatus': 'package:tom_dcli/src/functions/fetch.dart',
+      'Interval': 'package:tom_dcli/src/functions/sleep.dart',
+      'SortDirection': 'package:tom_dcli/src/util/file_sort.dart',
     };
   }
 
@@ -720,8 +724,9 @@ class DcliBridge {
   static Map<String, String> extensionSourceUris() {
     return {
       'PlatformEx@Platform': 'package:dcli_core/src/util/platform.dart',
-      'DigestHelper@Digest': 'package:dcli/src/util/digest_helper.dart',
-      'StringAsProcess@String': 'package:dcli/src/util/string_as_process.dart',
+      'DigestHelper@Digest': 'package:tom_dcli/src/util/digest_helper.dart',
+      'StringAsProcess@String':
+          'package:tom_dcli/src/util/string_as_process.dart',
     };
   }
 
@@ -735,13 +740,13 @@ class DcliBridge {
   bridgeReExports() {
     return [
       (
-        source: 'package:dcli/dcli.dart',
+        source: 'package:tom_dcli/dcli.dart',
         target: 'package:crypto/crypto.dart',
         show: {'Digest'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
+        source: 'package:tom_dcli/dcli.dart',
         target: 'package:dcli_core/dcli_core.dart',
         show: {
           'CancelableLineAction',
@@ -795,56 +800,56 @@ class DcliBridge {
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
+        source: 'package:tom_dcli/dcli.dart',
         target: 'package:dcli_core/src/util/dev_null.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
+        source: 'package:tom_dcli/dcli.dart',
         target: 'package:dcli_core/src/util/platform.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
+        source: 'package:tom_dcli/dcli.dart',
         target: 'package:dcli_terminal/dcli_terminal.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/ask.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/ask.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/backup.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/backup.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/confirm.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/confirm.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/delete.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/delete.dart',
         show: {'DeleteException', 'delete'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/echo.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/echo.dart',
         show: {'echo'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/fetch.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/fetch.dart',
         show: {
           'FetchData',
           'FetchException',
@@ -859,230 +864,230 @@ class DcliBridge {
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/file_list.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/file_list.dart',
         show: {'fileList'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/find.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/find.dart',
         show: {'Find', 'find'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/head.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/head.dart',
         show: {'head'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/is.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/is.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/menu.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/menu.dart',
         show: {'menu'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/read.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/read.dart',
         show: {'ReadException', 'read', 'readStdin'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/replace.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/replace.dart',
         show: {'replace'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/run.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/run.dart',
         show: {'run', 'start', 'startFromArgs'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/sleep.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/sleep.dart',
         show: {'Interval', 'sleep', 'sleepAsync'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/tail.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/tail.dart',
         show: {'tail'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/functions/which.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/functions/which.dart',
         show: {'which'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/installers/installer.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/installers/installer.dart',
         show: {'installFromSourceKey'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/progress/progress.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/progress/progress.dart',
         show: {'Progress'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/resources/packed_resource.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/resources/packed_resource.dart',
         show: {'PackedResource', 'PackedResourcePart'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/resources/resources.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/resources/resources.dart',
         show: {'ResourceException', 'Resources'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/script/compiled_executable.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/script/compiled_executable.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/script/dart_project.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/script/dart_project.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/script/dart_script.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/script/dart_script.dart',
         show: {'DartScript'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/script/dart_sdk.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/script/dart_sdk.dart',
         show: {'DartSdk'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/script/pub_get.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/script/pub_get.dart',
         show: {'PubGetException'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/settings.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/settings.dart',
         show: {'Settings'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/shell/shell.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/shell/shell.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/shell/shell_detection.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/shell/shell_detection.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/shell/unknown_shell.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/shell/unknown_shell.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/capture.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/capture.dart',
         show: {'capture'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/dcli_paths.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/dcli_paths.dart',
         show: {'DCliPaths'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/digest_helper.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/digest_helper.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/editor.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/editor.dart',
         show: {'showEditor'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/exceptions.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/exceptions.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/file_sort.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/file_sort.dart',
         show: {'Column', 'FileSort', 'SortDirection'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/file_sync.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/file_sync.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/file_util.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/file_util.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/named_lock.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/named_lock.dart',
         show: {'LockException', 'NamedLock', 'NamedLockObservation'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/process_helper.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/process_helper.dart',
         show: {'ProcessDetails', 'ProcessHelper'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/pub_cache.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/pub_cache.dart',
         show: null,
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/remote.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/remote.dart',
         show: {'Remote'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/runnable_process.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/runnable_process.dart',
         show: {'printerr'},
         hide: null,
       ),
       (
-        source: 'package:dcli/dcli.dart',
-        target: 'package:dcli/src/util/string_as_process.dart',
+        source: 'package:tom_dcli/dcli.dart',
+        target: 'package:tom_dcli/src/util/string_as_process.dart',
         show: null,
         hide: null,
       ),
@@ -1323,19 +1328,19 @@ class DcliBridge {
         hide: null,
       ),
       (
-        source: 'package:dcli/src/functions/backup.dart',
+        source: 'package:tom_dcli/src/functions/backup.dart',
         target: 'package:dcli_core/dcli_core.dart',
         show: {'BackupFileException', 'RestoreFileException'},
         hide: null,
       ),
       (
-        source: 'package:dcli/src/functions/delete.dart',
+        source: 'package:tom_dcli/src/functions/delete.dart',
         target: 'package:dcli_core/dcli_core.dart',
         show: {'DeleteException'},
         hide: null,
       ),
       (
-        source: 'package:dcli/src/functions/find.dart',
+        source: 'package:tom_dcli/src/functions/find.dart',
         target: 'package:dcli_core/dcli_core.dart',
         show: {'Find'},
         hide: null,
@@ -1450,9 +1455,9 @@ class DcliBridge {
     try {
       interpreter.registerGlobalVariable(
         'installFromSourceKey',
-        $dcli_18.installFromSourceKey,
+        $tom_dcli_18.installFromSourceKey,
         importPath,
-        sourceUri: 'package:dcli/src/installers/installer.dart',
+        sourceUri: 'package:tom_dcli/src/installers/installer.dart',
       );
     } catch (e) {
       errors.add('Failed to register variable "installFromSourceKey": $e');
@@ -1460,9 +1465,9 @@ class DcliBridge {
     try {
       interpreter.registerGlobalVariable(
         'overrideDCliPathKey',
-        $dcli_23.overrideDCliPathKey,
+        $tom_dcli_23.overrideDCliPathKey,
         importPath,
-        sourceUri: 'package:dcli/src/script/dart_project.dart',
+        sourceUri: 'package:tom_dcli/src/script/dart_project.dart',
       );
     } catch (e) {
       errors.add('Failed to register variable "overrideDCliPathKey": $e');
@@ -1511,9 +1516,9 @@ class DcliBridge {
     );
     interpreter.registerGlobalGetter(
       'fileList',
-      () => $dcli_7.fileList,
+      () => $tom_dcli_7.fileList,
       importPath,
-      sourceUri: 'package:dcli/src/functions/file_list.dart',
+      sourceUri: 'package:tom_dcli/src/functions/file_list.dart',
     );
 
     if (errors.isNotEmpty) {
@@ -2092,17 +2097,17 @@ class DcliBridge {
           named,
           'defaultValue',
         );
-        final validator = D4.getNamedArgWithDefault<$dcli_1.AskValidator>(
+        final validator = D4.getNamedArgWithDefault<$tom_dcli_1.AskValidator>(
           named,
           'validator',
-          $aux_dcli.Ask.dontCare,
+          $aux_tom_dcli.Ask.dontCare,
         );
         final customErrorMessage = D4.getOptionalNamedArg<String?>(
           named,
           'customErrorMessage',
         );
         if (!named.containsKey('customPrompt')) {
-          return $dcli_1.ask(
+          return $tom_dcli_1.ask(
             prompt,
             toLower: toLower,
             hidden: hidden,
@@ -2124,7 +2129,7 @@ class DcliBridge {
                         as String;
                   })
                   as String Function(String, String?, bool);
-          return $dcli_1.ask(
+          return $tom_dcli_1.ask(
             prompt,
             toLower: toLower,
             hidden: hidden,
@@ -2152,7 +2157,7 @@ class DcliBridge {
           'ignoreMissing',
           false,
         );
-        return $dcli_2.backupFile(pathToFile, ignoreMissing: ignoreMissing);
+        return $tom_dcli_2.backupFile(pathToFile, ignoreMissing: ignoreMissing);
       },
       'restoreFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'restoreFile');
@@ -2167,7 +2172,10 @@ class DcliBridge {
           'ignoreMissing',
           false,
         );
-        return $dcli_2.restoreFile(pathToFile, ignoreMissing: ignoreMissing);
+        return $tom_dcli_2.restoreFile(
+          pathToFile,
+          ignoreMissing: ignoreMissing,
+        );
       },
       'withFileProtectionAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'withFileProtectionAsync');
@@ -2194,7 +2202,7 @@ class DcliBridge {
           named,
           'workingDirectory',
         );
-        return $dcli_2.withFileProtectionAsync<dynamic>(
+        return $tom_dcli_2.withFileProtectionAsync<dynamic>(
           protected,
           action,
           workingDirectory: workingDirectory,
@@ -2213,7 +2221,7 @@ class DcliBridge {
           'defaultValue',
         );
         if (!named.containsKey('customPrompt')) {
-          return $dcli_3.confirm(prompt, defaultValue: defaultValue);
+          return $tom_dcli_3.confirm(prompt, defaultValue: defaultValue);
         }
         if (named.containsKey('customPrompt')) {
           final customPromptRaw = named['customPrompt'];
@@ -2227,7 +2235,7 @@ class DcliBridge {
                         as String;
                   })
                   as String Function(String, bool?);
-          return $dcli_3.confirm(
+          return $tom_dcli_3.confirm(
             prompt,
             defaultValue: defaultValue,
             customPrompt: customPrompt,
@@ -2241,7 +2249,7 @@ class DcliBridge {
         D4.requireMinArgs(positional, 1, 'delete');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'delete');
         final ask = D4.getNamedArgWithDefault<bool>(named, 'ask', false);
-        return $dcli_4.delete(path, ask: ask);
+        return $tom_dcli_4.delete(path, ask: ask);
       },
       'echo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'echo');
@@ -2251,7 +2259,7 @@ class DcliBridge {
           'newline',
           false,
         );
-        return $dcli_5.echo(text, newline: newline);
+        return $tom_dcli_5.echo(text, newline: newline);
       },
       'fetch': (visitor, positional, named, typeArgs) {
         final url = D4.getRequiredNamedArg<String>(named, 'url', 'fetch');
@@ -2260,18 +2268,21 @@ class DcliBridge {
           'saveToPath',
           'fetch',
         );
-        final method = D4.getNamedArgWithDefault<$dcli_6.FetchMethod>(
+        final method = D4.getNamedArgWithDefault<$tom_dcli_6.FetchMethod>(
           named,
           'method',
-          $dcli_6.FetchMethod.get,
+          $tom_dcli_6.FetchMethod.get,
         );
         final headers = D4.getOptionalNamedArg<Map<String, String>?>(
           named,
           'headers',
         );
-        final data = D4.getOptionalNamedArg<$dcli_6.FetchData?>(named, 'data');
+        final data = D4.getOptionalNamedArg<$tom_dcli_6.FetchData?>(
+          named,
+          'data',
+        );
         if (!named.containsKey('fetchProgress')) {
-          return $dcli_6.fetch(
+          return $tom_dcli_6.fetch(
             url: url,
             saveToPath: saveToPath,
             method: method,
@@ -2281,10 +2292,10 @@ class DcliBridge {
         }
         if (named.containsKey('fetchProgress')) {
           final fetchProgressRaw = named['fetchProgress'];
-          final fetchProgress = ($dcli_6.FetchProgress p0) {
+          final fetchProgress = ($tom_dcli_6.FetchProgress p0) {
             D4.callInterpreterCallback(visitor!, fetchProgressRaw, [p0]);
           };
-          return $dcli_6.fetch(
+          return $tom_dcli_6.fetch(
             url: url,
             saveToPath: saveToPath,
             method: method,
@@ -2303,8 +2314,8 @@ class DcliBridge {
             'fetchMultiple: Missing required named argument "urls"',
           );
         }
-        final urls = D4.coerceList<$dcli_6.FetchUrl>(named['urls'], 'urls');
-        return $dcli_6.fetchMultiple(urls: urls);
+        final urls = D4.coerceList<$tom_dcli_6.FetchUrl>(named['urls'], 'urls');
+        return $tom_dcli_6.fetchMultiple(urls: urls);
       },
       'find': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'find');
@@ -2334,12 +2345,12 @@ class DcliBridge {
           'workingDirectory',
           '.',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
         if (!named.containsKey('types')) {
-          return $dcli_8.find(
+          return $tom_dcli_8.find(
             pattern,
             caseSensitive: caseSensitive,
             recursive: recursive,
@@ -2353,7 +2364,7 @@ class DcliBridge {
             named['types'],
             'types',
           );
-          return $dcli_8.find(
+          return $tom_dcli_8.find(
             pattern,
             caseSensitive: caseSensitive,
             recursive: recursive,
@@ -2371,7 +2382,7 @@ class DcliBridge {
         D4.requireMinArgs(positional, 2, 'head');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'head');
         final lines = D4.getRequiredArg<int>(positional, 1, 'lines', 'head');
-        return $dcli_9.head(path, lines);
+        return $tom_dcli_9.head(path, lines);
       },
       'isWritable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isWritable');
@@ -2381,7 +2392,7 @@ class DcliBridge {
           'path',
           'isWritable',
         );
-        return $dcli_10.isWritable(path);
+        return $tom_dcli_10.isWritable(path);
       },
       'isReadable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isReadable');
@@ -2391,7 +2402,7 @@ class DcliBridge {
           'path',
           'isReadable',
         );
-        return $dcli_10.isReadable(path);
+        return $tom_dcli_10.isReadable(path);
       },
       'isExecutable': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isExecutable');
@@ -2401,7 +2412,7 @@ class DcliBridge {
           'path',
           'isExecutable',
         );
-        return $dcli_10.isExecutable(path);
+        return $tom_dcli_10.isExecutable(path);
       },
       'isMemberOfGroup': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'isMemberOfGroup');
@@ -2411,7 +2422,7 @@ class DcliBridge {
           'group',
           'isMemberOfGroup',
         );
-        return $dcli_10.isMemberOfGroup(group);
+        return $tom_dcli_10.isMemberOfGroup(group);
       },
       'menu': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'menu');
@@ -2446,7 +2457,7 @@ class DcliBridge {
           true,
         );
         if (!named.containsKey('customPrompt')) {
-          return $dcli_11.menu(
+          return $tom_dcli_11.menu(
             prompt,
             options: options,
             defaultOption: defaultOption,
@@ -2467,7 +2478,7 @@ class DcliBridge {
                         as String;
                   })
                   as String Function(String, String?);
-          return $dcli_11.menu(
+          return $tom_dcli_11.menu(
             prompt,
             options: options,
             defaultOption: defaultOption,
@@ -2485,10 +2496,10 @@ class DcliBridge {
         D4.requireMinArgs(positional, 1, 'read');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'read');
         final delim = D4.getNamedArgWithDefault<String>(named, 'delim', '\n');
-        return $dcli_12.read(path, delim: delim);
+        return $tom_dcli_12.read(path, delim: delim);
       },
       'readStdin': (visitor, positional, named, typeArgs) {
-        return $dcli_12.readStdin();
+        return $tom_dcli_12.readStdin();
       },
       'replace': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'replace');
@@ -2511,7 +2522,7 @@ class DcliBridge {
           'replace',
         );
         final all = D4.getNamedArgWithDefault<bool>(named, 'all', false);
-        return $dcli_13.replace(path, existing, replacement, all: all);
+        return $tom_dcli_13.replace(path, existing, replacement, all: all);
       },
       'run': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'run');
@@ -2546,7 +2557,7 @@ class DcliBridge {
           true,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_14.run(
+          return $tom_dcli_14.run(
             commandLine,
             runInShell: runInShell,
             nothrow: nothrow,
@@ -2561,7 +2572,7 @@ class DcliBridge {
             'encoding',
             'run',
           );
-          return $dcli_14.run(
+          return $tom_dcli_14.run(
             commandLine,
             runInShell: runInShell,
             nothrow: nothrow,
@@ -2589,7 +2600,7 @@ class DcliBridge {
           'args',
           'startFromArgs',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -2633,7 +2644,7 @@ class DcliBridge {
           true,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_14.startFromArgs(
+          return $tom_dcli_14.startFromArgs(
             command,
             args,
             progress: progress,
@@ -2653,7 +2664,7 @@ class DcliBridge {
             'encoding',
             'startFromArgs',
           );
-          return $dcli_14.startFromArgs(
+          return $tom_dcli_14.startFromArgs(
             command,
             args,
             progress: progress,
@@ -2680,7 +2691,7 @@ class DcliBridge {
           'commandLine',
           'start',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -2724,7 +2735,7 @@ class DcliBridge {
           true,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_14.start(
+          return $tom_dcli_14.start(
             commandLine,
             progress: progress,
             runInShell: runInShell,
@@ -2743,7 +2754,7 @@ class DcliBridge {
             'encoding',
             'start',
           );
-          return $dcli_14.start(
+          return $tom_dcli_14.start(
             commandLine,
             progress: progress,
             runInShell: runInShell,
@@ -2769,12 +2780,12 @@ class DcliBridge {
           'duration',
           'sleep',
         );
-        final interval = D4.getNamedArgWithDefault<$dcli_15.Interval>(
+        final interval = D4.getNamedArgWithDefault<$tom_dcli_15.Interval>(
           named,
           'interval',
-          $dcli_15.Interval.seconds,
+          $tom_dcli_15.Interval.seconds,
         );
-        return $dcli_15.sleep(duration, interval: interval);
+        return $tom_dcli_15.sleep(duration, interval: interval);
       },
       'sleepAsync': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'sleepAsync');
@@ -2784,18 +2795,18 @@ class DcliBridge {
           'duration',
           'sleepAsync',
         );
-        final interval = D4.getNamedArgWithDefault<$dcli_15.Interval>(
+        final interval = D4.getNamedArgWithDefault<$tom_dcli_15.Interval>(
           named,
           'interval',
-          $dcli_15.Interval.seconds,
+          $tom_dcli_15.Interval.seconds,
         );
-        return $dcli_15.sleepAsync(duration, interval: interval);
+        return $tom_dcli_15.sleepAsync(duration, interval: interval);
       },
       'tail': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'tail');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'tail');
         final lines = D4.getRequiredArg<int>(positional, 1, 'lines', 'tail');
-        return $dcli_16.tail(path, lines);
+        return $tom_dcli_16.tail(path, lines);
       },
       'which': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'which');
@@ -2820,7 +2831,7 @@ class DcliBridge {
           named,
           'progress',
         );
-        return $dcli_17.which(
+        return $tom_dcli_17.which(
           appname,
           first: first,
           verbose: verbose,
@@ -2836,7 +2847,7 @@ class DcliBridge {
           'pathToProject',
           'addUnitTestOverrides',
         );
-        return $dcli_23.addUnitTestOverrides(pathToProject);
+        return $tom_dcli_23.addUnitTestOverrides(pathToProject);
       },
       'fixTemplatePubspec': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'fixTemplatePubspec');
@@ -2858,7 +2869,11 @@ class DcliBridge {
           'pathToPubSpec',
           'fixTemplatePubspec',
         );
-        return $dcli_23.fixTemplatePubspec(projectName, pubSpec, pathToPubSpec);
+        return $tom_dcli_23.fixTemplatePubspec(
+          projectName,
+          pubSpec,
+          pathToPubSpec,
+        );
       },
       'capture': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'capture');
@@ -2875,11 +2890,11 @@ class DcliBridge {
                   ).then((v) => v as dynamic);
                 })
                 as Future<dynamic> Function();
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
-        return $dcli_31.capture<dynamic>(action, progress: progress);
+        return $tom_dcli_31.capture<dynamic>(action, progress: progress);
       },
       'showEditor': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showEditor');
@@ -2889,7 +2904,7 @@ class DcliBridge {
           'path',
           'showEditor',
         );
-        return $dcli_34.showEditor(path);
+        return $tom_dcli_34.showEditor(path);
       },
       'withOpenFile': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'withOpenFile');
@@ -2905,7 +2920,7 @@ class DcliBridge {
           );
         }
         final actionRaw = positional[1];
-        final action = ($dcli_37.FileSync p0) {
+        final action = ($tom_dcli_37.FileSync p0) {
           return D4.castCallbackResult<dynamic>(
             D4.callInterpreterCallback(visitor!, actionRaw, [p0]),
           );
@@ -2915,7 +2930,7 @@ class DcliBridge {
           'fileMode',
           FileMode.writeOnlyAppend,
         );
-        return $dcli_37.withOpenFile<dynamic>(
+        return $tom_dcli_37.withOpenFile<dynamic>(
           pathToFile,
           action,
           fileMode: fileMode,
@@ -2932,7 +2947,7 @@ class DcliBridge {
           'linkPath',
           'createSymLink',
         );
-        return $dcli_37.createSymLink(
+        return $tom_dcli_37.createSymLink(
           targetPath: targetPath,
           linkPath: linkPath,
         );
@@ -2945,7 +2960,7 @@ class DcliBridge {
           'linkPath',
           'deleteSymlink',
         );
-        return $dcli_37.deleteSymlink(linkPath);
+        return $tom_dcli_37.deleteSymlink(linkPath);
       },
       'resolveSymLink': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'resolveSymLink');
@@ -2955,12 +2970,12 @@ class DcliBridge {
           'pathToLink',
           'resolveSymLink',
         );
-        return $dcli_37.resolveSymLink(pathToLink);
+        return $tom_dcli_37.resolveSymLink(pathToLink);
       },
       'stat': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stat');
         final path = D4.getRequiredArg<String>(positional, 0, 'path', 'stat');
-        return $dcli_38.stat(path);
+        return $tom_dcli_38.stat(path);
       },
       'fileLength': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fileLength');
@@ -2970,7 +2985,7 @@ class DcliBridge {
           'pathToFile',
           'fileLength',
         );
-        return $dcli_38.fileLength(pathToFile);
+        return $tom_dcli_38.fileLength(pathToFile);
       },
       'calculateHash': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'calculateHash');
@@ -2980,7 +2995,7 @@ class DcliBridge {
           'path',
           'calculateHash',
         );
-        return $dcli_38.calculateHash(path);
+        return $tom_dcli_38.calculateHash(path);
       },
       'printerr': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'printerr');
@@ -2990,7 +3005,7 @@ class DcliBridge {
           'object',
           'printerr',
         );
-        return $dcli_43.printerr(object);
+        return $tom_dcli_43.printerr(object);
       },
     };
   }
@@ -3035,44 +3050,44 @@ class DcliBridge {
       'white': 'package:dcli_terminal/src/ansi_color.dart',
       'orange': 'package:dcli_terminal/src/ansi_color.dart',
       'grey': 'package:dcli_terminal/src/ansi_color.dart',
-      'ask': 'package:dcli/src/functions/ask.dart',
-      'backupFile': 'package:dcli/src/functions/backup.dart',
-      'restoreFile': 'package:dcli/src/functions/backup.dart',
-      'withFileProtectionAsync': 'package:dcli/src/functions/backup.dart',
-      'confirm': 'package:dcli/src/functions/confirm.dart',
-      'delete': 'package:dcli/src/functions/delete.dart',
-      'echo': 'package:dcli/src/functions/echo.dart',
-      'fetch': 'package:dcli/src/functions/fetch.dart',
-      'fetchMultiple': 'package:dcli/src/functions/fetch.dart',
-      'find': 'package:dcli/src/functions/find.dart',
-      'head': 'package:dcli/src/functions/head.dart',
-      'isWritable': 'package:dcli/src/functions/is.dart',
-      'isReadable': 'package:dcli/src/functions/is.dart',
-      'isExecutable': 'package:dcli/src/functions/is.dart',
-      'isMemberOfGroup': 'package:dcli/src/functions/is.dart',
-      'menu': 'package:dcli/src/functions/menu.dart',
-      'read': 'package:dcli/src/functions/read.dart',
-      'readStdin': 'package:dcli/src/functions/read.dart',
-      'replace': 'package:dcli/src/functions/replace.dart',
-      'run': 'package:dcli/src/functions/run.dart',
-      'startFromArgs': 'package:dcli/src/functions/run.dart',
-      'start': 'package:dcli/src/functions/run.dart',
-      'sleep': 'package:dcli/src/functions/sleep.dart',
-      'sleepAsync': 'package:dcli/src/functions/sleep.dart',
-      'tail': 'package:dcli/src/functions/tail.dart',
-      'which': 'package:dcli/src/functions/which.dart',
-      'addUnitTestOverrides': 'package:dcli/src/script/dart_project.dart',
-      'fixTemplatePubspec': 'package:dcli/src/script/dart_project.dart',
-      'capture': 'package:dcli/src/util/capture.dart',
-      'showEditor': 'package:dcli/src/util/editor.dart',
-      'withOpenFile': 'package:dcli/src/util/file_sync.dart',
-      'createSymLink': 'package:dcli/src/util/file_sync.dart',
-      'deleteSymlink': 'package:dcli/src/util/file_sync.dart',
-      'resolveSymLink': 'package:dcli/src/util/file_sync.dart',
-      'stat': 'package:dcli/src/util/file_util.dart',
-      'fileLength': 'package:dcli/src/util/file_util.dart',
-      'calculateHash': 'package:dcli/src/util/file_util.dart',
-      'printerr': 'package:dcli/src/util/runnable_process.dart',
+      'ask': 'package:tom_dcli/src/functions/ask.dart',
+      'backupFile': 'package:tom_dcli/src/functions/backup.dart',
+      'restoreFile': 'package:tom_dcli/src/functions/backup.dart',
+      'withFileProtectionAsync': 'package:tom_dcli/src/functions/backup.dart',
+      'confirm': 'package:tom_dcli/src/functions/confirm.dart',
+      'delete': 'package:tom_dcli/src/functions/delete.dart',
+      'echo': 'package:tom_dcli/src/functions/echo.dart',
+      'fetch': 'package:tom_dcli/src/functions/fetch.dart',
+      'fetchMultiple': 'package:tom_dcli/src/functions/fetch.dart',
+      'find': 'package:tom_dcli/src/functions/find.dart',
+      'head': 'package:tom_dcli/src/functions/head.dart',
+      'isWritable': 'package:tom_dcli/src/functions/is.dart',
+      'isReadable': 'package:tom_dcli/src/functions/is.dart',
+      'isExecutable': 'package:tom_dcli/src/functions/is.dart',
+      'isMemberOfGroup': 'package:tom_dcli/src/functions/is.dart',
+      'menu': 'package:tom_dcli/src/functions/menu.dart',
+      'read': 'package:tom_dcli/src/functions/read.dart',
+      'readStdin': 'package:tom_dcli/src/functions/read.dart',
+      'replace': 'package:tom_dcli/src/functions/replace.dart',
+      'run': 'package:tom_dcli/src/functions/run.dart',
+      'startFromArgs': 'package:tom_dcli/src/functions/run.dart',
+      'start': 'package:tom_dcli/src/functions/run.dart',
+      'sleep': 'package:tom_dcli/src/functions/sleep.dart',
+      'sleepAsync': 'package:tom_dcli/src/functions/sleep.dart',
+      'tail': 'package:tom_dcli/src/functions/tail.dart',
+      'which': 'package:tom_dcli/src/functions/which.dart',
+      'addUnitTestOverrides': 'package:tom_dcli/src/script/dart_project.dart',
+      'fixTemplatePubspec': 'package:tom_dcli/src/script/dart_project.dart',
+      'capture': 'package:tom_dcli/src/util/capture.dart',
+      'showEditor': 'package:tom_dcli/src/util/editor.dart',
+      'withOpenFile': 'package:tom_dcli/src/util/file_sync.dart',
+      'createSymLink': 'package:tom_dcli/src/util/file_sync.dart',
+      'deleteSymlink': 'package:tom_dcli/src/util/file_sync.dart',
+      'resolveSymLink': 'package:tom_dcli/src/util/file_sync.dart',
+      'stat': 'package:tom_dcli/src/util/file_util.dart',
+      'fileLength': 'package:tom_dcli/src/util/file_util.dart',
+      'calculateHash': 'package:tom_dcli/src/util/file_util.dart',
+      'printerr': 'package:tom_dcli/src/util/runnable_process.dart',
     };
   }
 
@@ -3198,48 +3213,6 @@ class DcliBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
-      'package:dcli/src/functions/ask.dart',
-      'package:dcli/src/functions/backup.dart',
-      'package:dcli/src/functions/confirm.dart',
-      'package:dcli/src/functions/delete.dart',
-      'package:dcli/src/functions/echo.dart',
-      'package:dcli/src/functions/fetch.dart',
-      'package:dcli/src/functions/file_list.dart',
-      'package:dcli/src/functions/find.dart',
-      'package:dcli/src/functions/head.dart',
-      'package:dcli/src/functions/is.dart',
-      'package:dcli/src/functions/menu.dart',
-      'package:dcli/src/functions/read.dart',
-      'package:dcli/src/functions/replace.dart',
-      'package:dcli/src/functions/run.dart',
-      'package:dcli/src/functions/sleep.dart',
-      'package:dcli/src/functions/tail.dart',
-      'package:dcli/src/functions/which.dart',
-      'package:dcli/src/installers/installer.dart',
-      'package:dcli/src/progress/progress.dart',
-      'package:dcli/src/resources/packed_resource.dart',
-      'package:dcli/src/resources/resources.dart',
-      'package:dcli/src/script/compiled_executable.dart',
-      'package:dcli/src/script/dart_project.dart',
-      'package:dcli/src/script/dart_script.dart',
-      'package:dcli/src/script/dart_sdk.dart',
-      'package:dcli/src/script/pub_get.dart',
-      'package:dcli/src/settings.dart',
-      'package:dcli/src/shell/shell.dart',
-      'package:dcli/src/shell/shell_detection.dart',
-      'package:dcli/src/shell/unknown_shell.dart',
-      'package:dcli/src/util/capture.dart',
-      'package:dcli/src/util/dcli_paths.dart',
-      'package:dcli/src/util/editor.dart',
-      'package:dcli/src/util/exceptions.dart',
-      'package:dcli/src/util/file_sort.dart',
-      'package:dcli/src/util/file_sync.dart',
-      'package:dcli/src/util/file_util.dart',
-      'package:dcli/src/util/named_lock.dart',
-      'package:dcli/src/util/process_helper.dart',
-      'package:dcli/src/util/pub_cache.dart',
-      'package:dcli/src/util/remote.dart',
-      'package:dcli/src/util/runnable_process.dart',
       'package:dcli_core/src/functions/backup.dart',
       'package:dcli_core/src/functions/cat.dart',
       'package:dcli_core/src/functions/copy.dart',
@@ -3271,6 +3244,48 @@ class DcliBridge {
       'package:dcli_terminal/src/terminal.dart',
       'package:pubspec_manager/src/pubspec/internal_parts.dart',
       'package:scope/src/scope.dart',
+      'package:tom_dcli/src/functions/ask.dart',
+      'package:tom_dcli/src/functions/backup.dart',
+      'package:tom_dcli/src/functions/confirm.dart',
+      'package:tom_dcli/src/functions/delete.dart',
+      'package:tom_dcli/src/functions/echo.dart',
+      'package:tom_dcli/src/functions/fetch.dart',
+      'package:tom_dcli/src/functions/file_list.dart',
+      'package:tom_dcli/src/functions/find.dart',
+      'package:tom_dcli/src/functions/head.dart',
+      'package:tom_dcli/src/functions/is.dart',
+      'package:tom_dcli/src/functions/menu.dart',
+      'package:tom_dcli/src/functions/read.dart',
+      'package:tom_dcli/src/functions/replace.dart',
+      'package:tom_dcli/src/functions/run.dart',
+      'package:tom_dcli/src/functions/sleep.dart',
+      'package:tom_dcli/src/functions/tail.dart',
+      'package:tom_dcli/src/functions/which.dart',
+      'package:tom_dcli/src/installers/installer.dart',
+      'package:tom_dcli/src/progress/progress.dart',
+      'package:tom_dcli/src/resources/packed_resource.dart',
+      'package:tom_dcli/src/resources/resources.dart',
+      'package:tom_dcli/src/script/compiled_executable.dart',
+      'package:tom_dcli/src/script/dart_project.dart',
+      'package:tom_dcli/src/script/dart_script.dart',
+      'package:tom_dcli/src/script/dart_sdk.dart',
+      'package:tom_dcli/src/script/pub_get.dart',
+      'package:tom_dcli/src/settings.dart',
+      'package:tom_dcli/src/shell/shell.dart',
+      'package:tom_dcli/src/shell/shell_detection.dart',
+      'package:tom_dcli/src/shell/unknown_shell.dart',
+      'package:tom_dcli/src/util/capture.dart',
+      'package:tom_dcli/src/util/dcli_paths.dart',
+      'package:tom_dcli/src/util/editor.dart',
+      'package:tom_dcli/src/util/exceptions.dart',
+      'package:tom_dcli/src/util/file_sort.dart',
+      'package:tom_dcli/src/util/file_sync.dart',
+      'package:tom_dcli/src/util/file_util.dart',
+      'package:tom_dcli/src/util/named_lock.dart',
+      'package:tom_dcli/src/util/process_helper.dart',
+      'package:tom_dcli/src/util/pub_cache.dart',
+      'package:tom_dcli/src/util/remote.dart',
+      'package:tom_dcli/src/util/runnable_process.dart',
     ];
   }
 
@@ -3280,7 +3295,7 @@ class DcliBridge {
   /// bridged classes available to scripts.
   static String getImportBlock() {
     final imports = StringBuffer();
-    imports.writeln("import 'package:dcli/dcli.dart';");
+    imports.writeln("import 'package:tom_dcli/dcli.dart';");
     imports.writeln("import 'package:dcli_core/dcli_core.dart';");
     imports.writeln("import 'package:dcli_terminal/dcli_terminal.dart';");
     imports.writeln("import 'package:pubspec_manager/pubspec_manager.dart';");
@@ -5645,25 +5660,25 @@ BridgedClass _createTerminalBridge() {
 
 BridgedClass _createAskBridge() {
   return BridgedClass(
-    nativeType: $dcli_1.Ask,
+    nativeType: $tom_dcli_1.Ask,
     name: 'Ask',
-    isAssignable: (v) => v is $dcli_1.Ask,
+    isAssignable: (v) => v is $tom_dcli_1.Ask,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_1.Ask();
+        return $tom_dcli_1.Ask();
       },
     },
     staticGetters: {
-      'dontCare': (visitor) => $dcli_1.Ask.dontCare,
-      'required': (visitor) => $dcli_1.Ask.required,
-      'email': (visitor) => $dcli_1.Ask.email,
-      'fqdn': (visitor) => $dcli_1.Ask.fqdn,
-      'date': (visitor) => $dcli_1.Ask.date,
-      'integer': (visitor) => $dcli_1.Ask.integer,
-      'decimal': (visitor) => $dcli_1.Ask.decimal,
-      'alpha': (visitor) => $dcli_1.Ask.alpha,
-      'alphaNumeric': (visitor) => $dcli_1.Ask.alphaNumeric,
+      'dontCare': (visitor) => $tom_dcli_1.Ask.dontCare,
+      'required': (visitor) => $tom_dcli_1.Ask.required,
+      'email': (visitor) => $tom_dcli_1.Ask.email,
+      'fqdn': (visitor) => $tom_dcli_1.Ask.fqdn,
+      'date': (visitor) => $tom_dcli_1.Ask.date,
+      'integer': (visitor) => $tom_dcli_1.Ask.integer,
+      'decimal': (visitor) => $tom_dcli_1.Ask.decimal,
+      'alpha': (visitor) => $tom_dcli_1.Ask.alpha,
+      'alphaNumeric': (visitor) => $tom_dcli_1.Ask.alphaNumeric,
     },
     staticMethods: {
       'defaultPrompt': (visitor, positional, named, typeArgs) {
@@ -5686,7 +5701,7 @@ BridgedClass _createAskBridge() {
           'hidden',
           'defaultPrompt',
         );
-        return $dcli_1.Ask.defaultPrompt(prompt, defaultValue, hidden);
+        return $tom_dcli_1.Ask.defaultPrompt(prompt, defaultValue, hidden);
       },
       'any': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'any');
@@ -5695,11 +5710,11 @@ BridgedClass _createAskBridge() {
             'any: Missing required argument "validators" at position 0',
           );
         }
-        final validators = D4.coerceList<$dcli_1.AskValidator>(
+        final validators = D4.coerceList<$tom_dcli_1.AskValidator>(
           positional[0],
           'validators',
         );
-        return $dcli_1.Ask.any(validators);
+        return $tom_dcli_1.Ask.any(validators);
       },
       'all': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'all');
@@ -5708,19 +5723,19 @@ BridgedClass _createAskBridge() {
             'all: Missing required argument "validators" at position 0',
           );
         }
-        final validators = D4.coerceList<$dcli_1.AskValidator>(
+        final validators = D4.coerceList<$tom_dcli_1.AskValidator>(
           positional[0],
           'validators',
         );
-        return $dcli_1.Ask.all(validators);
+        return $tom_dcli_1.Ask.all(validators);
       },
       'ipAddress': (visitor, positional, named, typeArgs) {
         final version = D4.getNamedArgWithDefault<int>(
           named,
           'version',
-          $aux_dcli.AskValidatorIPAddress.either,
+          $aux_tom_dcli.AskValidatorIPAddress.either,
         );
-        return $dcli_1.Ask.ipAddress(version: version);
+        return $tom_dcli_1.Ask.ipAddress(version: version);
       },
       'regExp': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'regExp');
@@ -5731,7 +5746,7 @@ BridgedClass _createAskBridge() {
           'regExp',
         );
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
-        return $dcli_1.Ask.regExp(regExp, error: error);
+        return $tom_dcli_1.Ask.regExp(regExp, error: error);
       },
       'lengthMax': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'lengthMax');
@@ -5741,7 +5756,7 @@ BridgedClass _createAskBridge() {
           'maxLength',
           'lengthMax',
         );
-        return $dcli_1.Ask.lengthMax(maxLength);
+        return $tom_dcli_1.Ask.lengthMax(maxLength);
       },
       'lengthMin': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'lengthMin');
@@ -5751,7 +5766,7 @@ BridgedClass _createAskBridge() {
           'minLength',
           'lengthMin',
         );
-        return $dcli_1.Ask.lengthMin(minLength);
+        return $tom_dcli_1.Ask.lengthMin(minLength);
       },
       'lengthRange': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'lengthRange');
@@ -5767,7 +5782,7 @@ BridgedClass _createAskBridge() {
           'maxLength',
           'lengthRange',
         );
-        return $dcli_1.Ask.lengthRange(minLength, maxLength);
+        return $tom_dcli_1.Ask.lengthRange(minLength, maxLength);
       },
       'valueRange': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'valueRange');
@@ -5783,7 +5798,7 @@ BridgedClass _createAskBridge() {
           'maxValue',
           'valueRange',
         );
-        return $dcli_1.Ask.valueRange(minValue, maxValue);
+        return $tom_dcli_1.Ask.valueRange(minValue, maxValue);
       },
       'inList': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'inList');
@@ -5798,14 +5813,14 @@ BridgedClass _createAskBridge() {
           'caseSensitive',
           false,
         );
-        return $dcli_1.Ask.inList(validItems, caseSensitive: caseSensitive);
+        return $tom_dcli_1.Ask.inList(validItems, caseSensitive: caseSensitive);
       },
       'url': (visitor, positional, named, typeArgs) {
         final protocols =
             named.containsKey('protocols') && named['protocols'] != null
             ? D4.coerceList<String>(named['protocols'], 'protocols')
             : const ['https'];
-        return $dcli_1.Ask.url(protocols: protocols);
+        return $tom_dcli_1.Ask.url(protocols: protocols);
       },
     },
     constructorSignatures: {'': 'Ask()'},
@@ -5845,9 +5860,9 @@ BridgedClass _createAskBridge() {
 
 BridgedClass _createAskValidatorExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_1.AskValidatorException,
+    nativeType: $tom_dcli_1.AskValidatorException,
     name: 'AskValidatorException',
-    isAssignable: (v) => v is $dcli_1.AskValidatorException,
+    isAssignable: (v) => v is $tom_dcli_1.AskValidatorException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -5858,24 +5873,24 @@ BridgedClass _createAskValidatorExceptionBridge() {
           'message',
           'AskValidatorException',
         );
-        return $dcli_1.AskValidatorException(message);
+        return $tom_dcli_1.AskValidatorException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_1.AskValidatorException>(
+          .validateTarget<$tom_dcli_1.AskValidatorException>(
             target,
             'AskValidatorException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_1.AskValidatorException>(
+          .validateTarget<$tom_dcli_1.AskValidatorException>(
             target,
             'AskValidatorException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_1.AskValidatorException>(
+          .validateTarget<$tom_dcli_1.AskValidatorException>(
             target,
             'AskValidatorException',
           )
@@ -5884,7 +5899,7 @@ BridgedClass _createAskValidatorExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_1.AskValidatorException>(
+              .validateTarget<$tom_dcli_1.AskValidatorException>(
                 target,
                 'AskValidatorException',
               )
@@ -5895,14 +5910,14 @@ BridgedClass _createAskValidatorExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidatorException>(
+        final t = D4.validateTarget<$tom_dcli_1.AskValidatorException>(
           target,
           'AskValidatorException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidatorException>(
+        final t = D4.validateTarget<$tom_dcli_1.AskValidatorException>(
           target,
           'AskValidatorException',
         );
@@ -5910,14 +5925,14 @@ BridgedClass _createAskValidatorExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidatorException>(
+        final t = D4.validateTarget<$tom_dcli_1.AskValidatorException>(
           target,
           'AskValidatorException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidatorException>(
+        final t = D4.validateTarget<$tom_dcli_1.AskValidatorException>(
           target,
           'AskValidatorException',
         );
@@ -5946,14 +5961,14 @@ BridgedClass _createAskValidatorExceptionBridge() {
 
 BridgedClass _createAskValidatorBridge() {
   return BridgedClass(
-    nativeType: $dcli_1.AskValidator,
+    nativeType: $tom_dcli_1.AskValidator,
     name: 'AskValidator',
-    isAssignable: (v) => v is $dcli_1.AskValidator,
+    isAssignable: (v) => v is $tom_dcli_1.AskValidator,
     isAbstract: true,
     constructors: {},
     methods: {
       'validate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidator>(
+        final t = D4.validateTarget<$tom_dcli_1.AskValidator>(
           target,
           'AskValidator',
         );
@@ -5983,14 +5998,14 @@ BridgedClass _createAskValidatorBridge() {
 
 BridgedClass _createAskValidatorIPAddressBridge() {
   return BridgedClass(
-    nativeType: $dcli_1.AskValidatorIPAddress,
+    nativeType: $tom_dcli_1.AskValidatorIPAddress,
     name: 'AskValidatorIPAddress',
-    isAssignable: (v) => v is $dcli_1.AskValidatorIPAddress,
+    isAssignable: (v) => v is $tom_dcli_1.AskValidatorIPAddress,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
         if (!named.containsKey('version')) {
-          return $dcli_1.AskValidatorIPAddress();
+          return $tom_dcli_1.AskValidatorIPAddress();
         }
         if (named.containsKey('version')) {
           final version = D4.getRequiredNamedArg<int>(
@@ -5998,7 +6013,7 @@ BridgedClass _createAskValidatorIPAddressBridge() {
             'version',
             'AskValidatorIPAddress',
           );
-          return $dcli_1.AskValidatorIPAddress(version: version);
+          return $tom_dcli_1.AskValidatorIPAddress(version: version);
         }
         throw StateError(
           'Unreachable: all named parameter combinations should be covered',
@@ -6007,7 +6022,7 @@ BridgedClass _createAskValidatorIPAddressBridge() {
     },
     getters: {
       'version': (visitor, target) => D4
-          .validateTarget<$dcli_1.AskValidatorIPAddress>(
+          .validateTarget<$tom_dcli_1.AskValidatorIPAddress>(
             target,
             'AskValidatorIPAddress',
           )
@@ -6015,7 +6030,7 @@ BridgedClass _createAskValidatorIPAddressBridge() {
     },
     methods: {
       'validate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_1.AskValidatorIPAddress>(
+        final t = D4.validateTarget<$tom_dcli_1.AskValidatorIPAddress>(
           target,
           'AskValidatorIPAddress',
         );
@@ -6034,9 +6049,9 @@ BridgedClass _createAskValidatorIPAddressBridge() {
       },
     },
     staticGetters: {
-      'either': (visitor) => $dcli_1.AskValidatorIPAddress.either,
-      'ipv4': (visitor) => $dcli_1.AskValidatorIPAddress.ipv4,
-      'ipv6': (visitor) => $dcli_1.AskValidatorIPAddress.ipv6,
+      'either': (visitor) => $tom_dcli_1.AskValidatorIPAddress.either,
+      'ipv4': (visitor) => $tom_dcli_1.AskValidatorIPAddress.ipv4,
+      'ipv6': (visitor) => $tom_dcli_1.AskValidatorIPAddress.ipv6,
     },
     constructorSignatures: {
       '': 'const AskValidatorIPAddress({int version = either})',
@@ -6059,12 +6074,12 @@ BridgedClass _createAskValidatorIPAddressBridge() {
 
 BridgedClass _createConfirmBridge() {
   return BridgedClass(
-    nativeType: $dcli_3.Confirm,
+    nativeType: $tom_dcli_3.Confirm,
     name: 'Confirm',
-    isAssignable: (v) => v is $dcli_3.Confirm,
+    isAssignable: (v) => v is $tom_dcli_3.Confirm,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_3.Confirm();
+        return $tom_dcli_3.Confirm();
       },
     },
     staticMethods: {
@@ -6082,7 +6097,7 @@ BridgedClass _createConfirmBridge() {
           'defaultValue',
           'defaultPrompt',
         );
-        return $dcli_3.Confirm.defaultPrompt(prompt, defaultValue);
+        return $tom_dcli_3.Confirm.defaultPrompt(prompt, defaultValue);
       },
     },
     constructorSignatures: {'': 'Confirm()'},
@@ -6099,9 +6114,9 @@ BridgedClass _createConfirmBridge() {
 
 BridgedClass _createFetchDataBridge() {
   return BridgedClass(
-    nativeType: $dcli_6.FetchData,
+    nativeType: $tom_dcli_6.FetchData,
     name: 'FetchData',
-    isAssignable: (v) => v is $dcli_6.FetchData,
+    isAssignable: (v) => v is $tom_dcli_6.FetchData,
     constructors: {
       'fromString': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
@@ -6116,7 +6131,7 @@ BridgedClass _createFetchDataBridge() {
           'mimeType',
           'text/plain',
         );
-        return $dcli_6.FetchData.fromString(string, mimeType: mimeType);
+        return $tom_dcli_6.FetchData.fromString(string, mimeType: mimeType);
       },
       'fromFile': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
@@ -6127,7 +6142,7 @@ BridgedClass _createFetchDataBridge() {
           'FetchData',
         );
         final mimeType = D4.getOptionalNamedArg<String?>(named, 'mimeType');
-        return $dcli_6.FetchData.fromFile(pathToData, mimeType: mimeType);
+        return $tom_dcli_6.FetchData.fromFile(pathToData, mimeType: mimeType);
       },
       'fromBytes': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
@@ -6142,7 +6157,7 @@ BridgedClass _createFetchDataBridge() {
           'mimeType',
           'application/octet-stream',
         );
-        return $dcli_6.FetchData.fromBytes(bytes, mimeType: mimeType);
+        return $tom_dcli_6.FetchData.fromBytes(bytes, mimeType: mimeType);
       },
       'fromStream': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchData');
@@ -6157,12 +6172,13 @@ BridgedClass _createFetchDataBridge() {
           'mimeType',
           'application/octet-stream',
         );
-        return $dcli_6.FetchData.fromStream(stream, mimeType: mimeType);
+        return $tom_dcli_6.FetchData.fromStream(stream, mimeType: mimeType);
       },
     },
     getters: {
-      'mimeType': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchData>(target, 'FetchData').mimeType,
+      'mimeType': (visitor, target) => D4
+          .validateTarget<$tom_dcli_6.FetchData>(target, 'FetchData')
+          .mimeType,
     },
     constructorSignatures: {
       'fromString':
@@ -6183,9 +6199,9 @@ BridgedClass _createFetchDataBridge() {
 
 BridgedClass _createFetchUrlBridge() {
   return BridgedClass(
-    nativeType: $dcli_6.FetchUrl,
+    nativeType: $tom_dcli_6.FetchUrl,
     name: 'FetchUrl',
-    isAssignable: (v) => v is $dcli_6.FetchUrl,
+    isAssignable: (v) => v is $tom_dcli_6.FetchUrl,
     constructors: {
       '': (visitor, positional, named) {
         final url = D4.getRequiredNamedArg<String>(named, 'url', 'FetchUrl');
@@ -6198,14 +6214,17 @@ BridgedClass _createFetchUrlBridge() {
           named['headers'],
           'headers',
         );
-        final method = D4.getNamedArgWithDefault<$dcli_6.FetchMethod>(
+        final method = D4.getNamedArgWithDefault<$tom_dcli_6.FetchMethod>(
           named,
           'method',
-          $dcli_6.FetchMethod.get,
+          $tom_dcli_6.FetchMethod.get,
         );
-        final data = D4.getOptionalNamedArg<$dcli_6.FetchData?>(named, 'data');
+        final data = D4.getOptionalNamedArg<$tom_dcli_6.FetchData?>(
+          named,
+          'data',
+        );
         if (!named.containsKey('progress')) {
-          return $dcli_6.FetchUrl(
+          return $tom_dcli_6.FetchUrl(
             url: url,
             saveToPath: saveToPath,
             headers: headers,
@@ -6215,10 +6234,10 @@ BridgedClass _createFetchUrlBridge() {
         }
         if (named.containsKey('progress')) {
           final progressRaw = named['progress'];
-          final progress = ($dcli_6.FetchProgress p0) {
+          final progress = ($tom_dcli_6.FetchProgress p0) {
             D4.callInterpreterCallback(visitor!, progressRaw, [p0]);
           };
-          return $dcli_6.FetchUrl(
+          return $tom_dcli_6.FetchUrl(
             url: url,
             saveToPath: saveToPath,
             headers: headers,
@@ -6234,22 +6253,23 @@ BridgedClass _createFetchUrlBridge() {
     },
     getters: {
       'url': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').url,
-      'saveToPath': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').saveToPath,
+          D4.validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl').url,
+      'saveToPath': (visitor, target) => D4
+          .validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl')
+          .saveToPath,
       'progress': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').progress,
+          D4.validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl').progress,
       'method': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').method,
+          D4.validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl').method,
       'headers': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').headers,
+          D4.validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl').headers,
       'data': (visitor, target) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').data,
+          D4.validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl').data,
     },
     setters: {
       'data': (visitor, target, value) =>
-          D4.validateTarget<$dcli_6.FetchUrl>(target, 'FetchUrl').data = D4
-              .extractBridgedArgOrNull<$dcli_6.FetchData>(value, 'data'),
+          D4.validateTarget<$tom_dcli_6.FetchUrl>(target, 'FetchUrl').data = D4
+              .extractBridgedArgOrNull<$tom_dcli_6.FetchData>(value, 'data'),
     },
     constructorSignatures: {
       '': 'FetchUrl({required String url, required String saveToPath, Map<String, String>? headers, FetchMethod method = FetchMethod.get, OnFetchProgress progress = _devNull, FetchData? data})',
@@ -6275,53 +6295,53 @@ BridgedClass _createFetchUrlBridge() {
 
 BridgedClass _createFetchProgressBridge() {
   return BridgedClass(
-    nativeType: $dcli_6.FetchProgress,
+    nativeType: $tom_dcli_6.FetchProgress,
     name: 'FetchProgress',
-    isAssignable: (v) => v is $dcli_6.FetchProgress,
+    isAssignable: (v) => v is $tom_dcli_6.FetchProgress,
     constructors: {
       'initialising': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.initialising(fetch);
+        return $tom_dcli_6.FetchProgress.initialising(fetch);
       },
       'connecting': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
           'FetchProgress',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.connecting(fetch, prior: prior);
+        return $tom_dcli_6.FetchProgress.connecting(fetch, prior: prior);
       },
       'connected': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
           'FetchProgress',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.connected(fetch, prior: prior);
+        return $tom_dcli_6.FetchProgress.connected(fetch, prior: prior);
       },
       'downloading': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
@@ -6339,12 +6359,12 @@ BridgedClass _createFetchProgressBridge() {
           'downloaded',
           'FetchProgress',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.downloading(
+        return $tom_dcli_6.FetchProgress.downloading(
           fetch,
           length,
           downloaded,
@@ -6353,7 +6373,7 @@ BridgedClass _createFetchProgressBridge() {
       },
       'complete': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
@@ -6371,12 +6391,12 @@ BridgedClass _createFetchProgressBridge() {
           'downloaded',
           'FetchProgress',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.complete(
+        return $tom_dcli_6.FetchProgress.complete(
           fetch,
           length,
           downloaded,
@@ -6385,22 +6405,22 @@ BridgedClass _createFetchProgressBridge() {
       },
       'error': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
           'FetchProgress',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.error(fetch, prior: prior);
+        return $tom_dcli_6.FetchProgress.error(fetch, prior: prior);
       },
       'forHeaders': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
@@ -6415,16 +6435,20 @@ BridgedClass _createFetchProgressBridge() {
           positional[1],
           'headers',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.forHeaders(fetch, headers, prior: prior);
+        return $tom_dcli_6.FetchProgress.forHeaders(
+          fetch,
+          headers,
+          prior: prior,
+        );
       },
       'response': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FetchProgress');
-        final fetch = D4.getRequiredArg<$dcli_6.FetchUrl>(
+        final fetch = D4.getRequiredArg<$tom_dcli_6.FetchUrl>(
           positional,
           0,
           'fetch',
@@ -6436,12 +6460,12 @@ BridgedClass _createFetchProgressBridge() {
           'responseCode',
           'FetchProgress',
         );
-        final prior = D4.getRequiredNamedArg<$dcli_6.FetchProgress?>(
+        final prior = D4.getRequiredNamedArg<$tom_dcli_6.FetchProgress?>(
           named,
           'prior',
           'FetchProgress',
         );
-        return $dcli_6.FetchProgress.response(
+        return $tom_dcli_6.FetchProgress.response(
           fetch,
           responseCode,
           prior: prior,
@@ -6450,42 +6474,45 @@ BridgedClass _createFetchProgressBridge() {
     },
     getters: {
       'headers': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .headers,
       'responseCode': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .responseCode,
       'status': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .status,
       'fetch': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .fetch,
       'length': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .length,
       'downloaded': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .downloaded,
       'progress': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .progress,
       'prior': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
+          .validateTarget<$tom_dcli_6.FetchProgress>(target, 'FetchProgress')
           .prior,
     },
     setters: {
       'prior': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_6.FetchProgress>(target, 'FetchProgress')
-              .prior = D4.extractBridgedArgOrNull<$dcli_6.FetchProgress>(
+              .validateTarget<$tom_dcli_6.FetchProgress>(
+                target,
+                'FetchProgress',
+              )
+              .prior = D4.extractBridgedArgOrNull<$tom_dcli_6.FetchProgress>(
             value,
             'prior',
           ),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_6.FetchProgress>(
+        final t = D4.validateTarget<$tom_dcli_6.FetchProgress>(
           target,
           'FetchProgress',
         );
@@ -6495,27 +6522,27 @@ BridgedClass _createFetchProgressBridge() {
     staticMethods: {
       'showBytes': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'showBytes');
-        final progress = D4.getRequiredArg<$dcli_6.FetchProgress>(
+        final progress = D4.getRequiredArg<$tom_dcli_6.FetchProgress>(
           positional,
           0,
           'progress',
           'showBytes',
         );
-        return $dcli_6.FetchProgress.showBytes(progress);
+        return $tom_dcli_6.FetchProgress.showBytes(progress);
       },
       'formatByteLine': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'formatByteLine');
-        final progress = D4.getRequiredArg<$dcli_6.FetchProgress>(
+        final progress = D4.getRequiredArg<$tom_dcli_6.FetchProgress>(
           positional,
           0,
           'progress',
           'formatByteLine',
         );
-        return $dcli_6.FetchProgress.formatByteLine(progress);
+        return $tom_dcli_6.FetchProgress.formatByteLine(progress);
       },
       'show': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'show');
-        final progress = D4.getRequiredArg<$dcli_6.FetchProgress>(
+        final progress = D4.getRequiredArg<$tom_dcli_6.FetchProgress>(
           positional,
           0,
           'progress',
@@ -6524,12 +6551,12 @@ BridgedClass _createFetchProgressBridge() {
         final formatRaw = named['format'];
         final format = formatRaw == null
             ? null
-            : (($dcli_6.FetchProgress p0) {
+            : (($tom_dcli_6.FetchProgress p0) {
                     return D4.callInterpreterCallback(visitor!, formatRaw, [p0])
                         as String;
                   })
-                  as String Function($dcli_6.FetchProgress);
-        return $dcli_6.FetchProgress.show(progress, format: format);
+                  as String Function($tom_dcli_6.FetchProgress);
+        return $tom_dcli_6.FetchProgress.show(progress, format: format);
       },
     },
     constructorSignatures: {
@@ -6577,9 +6604,9 @@ BridgedClass _createFetchProgressBridge() {
 
 BridgedClass _createFetchExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_6.FetchException,
+    nativeType: $tom_dcli_6.FetchException,
     name: 'FetchException',
-    isAssignable: (v) => v is $dcli_6.FetchException,
+    isAssignable: (v) => v is $tom_dcli_6.FetchException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -6590,7 +6617,7 @@ BridgedClass _createFetchExceptionBridge() {
           'message',
           'FetchException',
         );
-        return $dcli_6.FetchException(message);
+        return $tom_dcli_6.FetchException(message);
       },
       'fromException': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FetchException');
@@ -6600,7 +6627,7 @@ BridgedClass _createFetchExceptionBridge() {
           'cause',
           'FetchException',
         );
-        return $dcli_6.FetchException.fromException(cause);
+        return $tom_dcli_6.FetchException.fromException(cause);
       },
       'fromHttpError': (visitor, positional, named) {
         D4.requireMinArgs(positional, 2, 'FetchException');
@@ -6616,34 +6643,43 @@ BridgedClass _createFetchExceptionBridge() {
           'reasonPhrase',
           'FetchException',
         );
-        return $dcli_6.FetchException.fromHttpError(errorCode, reasonPhrase);
+        return $tom_dcli_6.FetchException.fromHttpError(
+          errorCode,
+          reasonPhrase,
+        );
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchException>(target, 'FetchException')
+          .validateTarget<$tom_dcli_6.FetchException>(target, 'FetchException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchException>(target, 'FetchException')
+          .validateTarget<$tom_dcli_6.FetchException>(target, 'FetchException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchException>(target, 'FetchException')
+          .validateTarget<$tom_dcli_6.FetchException>(target, 'FetchException')
           .stackTrace,
       'errorCode': (visitor, target) => D4
-          .validateTarget<$dcli_6.FetchException>(target, 'FetchException')
+          .validateTarget<$tom_dcli_6.FetchException>(target, 'FetchException')
           .errorCode,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_6.FetchException>(target, 'FetchException')
+              .validateTarget<$tom_dcli_6.FetchException>(
+                target,
+                'FetchException',
+              )
               .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
             value,
             'stackTrace',
           ),
       'errorCode': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_6.FetchException>(target, 'FetchException')
+              .validateTarget<$tom_dcli_6.FetchException>(
+                target,
+                'FetchException',
+              )
               .errorCode = D4.extractBridgedArgOrNull<int>(
             value,
             'errorCode',
@@ -6651,14 +6687,14 @@ BridgedClass _createFetchExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_6.FetchException>(
+        final t = D4.validateTarget<$tom_dcli_6.FetchException>(
           target,
           'FetchException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_6.FetchException>(
+        final t = D4.validateTarget<$tom_dcli_6.FetchException>(
           target,
           'FetchException',
         );
@@ -6666,14 +6702,14 @@ BridgedClass _createFetchExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_6.FetchException>(
+        final t = D4.validateTarget<$tom_dcli_6.FetchException>(
           target,
           'FetchException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_6.FetchException>(
+        final t = D4.validateTarget<$tom_dcli_6.FetchException>(
           target,
           'FetchException',
         );
@@ -6711,9 +6747,9 @@ BridgedClass _createFetchExceptionBridge() {
 
 BridgedClass _createReadExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_12.ReadException,
+    nativeType: $tom_dcli_12.ReadException,
     name: 'ReadException',
-    isAssignable: (v) => v is $dcli_12.ReadException,
+    isAssignable: (v) => v is $tom_dcli_12.ReadException,
     hierarchyDepth: 3,
     constructors: {
       '': (visitor, positional, named) {
@@ -6729,24 +6765,27 @@ BridgedClass _createReadExceptionBridge() {
           1,
           'stackTrace',
         );
-        return $dcli_12.ReadException(message, stackTrace);
+        return $tom_dcli_12.ReadException(message, stackTrace);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_12.ReadException>(target, 'ReadException')
+          .validateTarget<$tom_dcli_12.ReadException>(target, 'ReadException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_12.ReadException>(target, 'ReadException')
+          .validateTarget<$tom_dcli_12.ReadException>(target, 'ReadException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_12.ReadException>(target, 'ReadException')
+          .validateTarget<$tom_dcli_12.ReadException>(target, 'ReadException')
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_12.ReadException>(target, 'ReadException')
+              .validateTarget<$tom_dcli_12.ReadException>(
+                target,
+                'ReadException',
+              )
               .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
             value,
             'stackTrace',
@@ -6754,14 +6793,14 @@ BridgedClass _createReadExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_12.ReadException>(
+        final t = D4.validateTarget<$tom_dcli_12.ReadException>(
           target,
           'ReadException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_12.ReadException>(
+        final t = D4.validateTarget<$tom_dcli_12.ReadException>(
           target,
           'ReadException',
         );
@@ -6769,14 +6808,14 @@ BridgedClass _createReadExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_12.ReadException>(
+        final t = D4.validateTarget<$tom_dcli_12.ReadException>(
           target,
           'ReadException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_12.ReadException>(
+        final t = D4.validateTarget<$tom_dcli_12.ReadException>(
           target,
           'ReadException',
         );
@@ -6807,9 +6846,9 @@ BridgedClass _createReadExceptionBridge() {
 
 BridgedClass _createProgressBridge() {
   return BridgedClass(
-    nativeType: $dcli_19.Progress,
+    nativeType: $tom_dcli_19.Progress,
     name: 'Progress',
-    isAssignable: (v) => v is $dcli_19.Progress,
+    isAssignable: (v) => v is $tom_dcli_19.Progress,
     isAbstract: true,
     constructors: {
       '': (visitor, positional, named) {
@@ -6831,7 +6870,7 @@ BridgedClass _createProgressBridge() {
           false,
         );
         if (!named.containsKey('stderr') && !named.containsKey('encoding')) {
-          return $dcli_19.Progress(
+          return $tom_dcli_19.Progress(
             (String p0) {
               D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]);
             },
@@ -6844,7 +6883,7 @@ BridgedClass _createProgressBridge() {
           final stderr = (String p0) {
             D4.callInterpreterCallback(visitor!, stderrRaw, [p0]);
           };
-          return $dcli_19.Progress(
+          return $tom_dcli_19.Progress(
             (String p0) {
               D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]);
             },
@@ -6859,7 +6898,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress(
+          return $tom_dcli_19.Progress(
             (String p0) {
               D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]);
             },
@@ -6878,7 +6917,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress(
+          return $tom_dcli_19.Progress(
             (String p0) {
               D4.callInterpreterCallback(visitor!, stdoutRaw, [p0]);
             },
@@ -6899,7 +6938,7 @@ BridgedClass _createProgressBridge() {
           false,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.print(capture: capture);
+          return $tom_dcli_19.Progress.print(capture: capture);
         }
         if (named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(
@@ -6907,7 +6946,10 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.print(capture: capture, encoding: encoding);
+          return $tom_dcli_19.Progress.print(
+            capture: capture,
+            encoding: encoding,
+          );
         }
         throw StateError(
           'Unreachable: all named parameter combinations should be covered',
@@ -6922,7 +6964,7 @@ BridgedClass _createProgressBridge() {
         }
         final bothRaw = positional[0];
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.both((String p0) {
+          return $tom_dcli_19.Progress.both((String p0) {
             D4.callInterpreterCallback(visitor!, bothRaw, [p0]);
           });
         }
@@ -6932,7 +6974,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.both((String p0) {
+          return $tom_dcli_19.Progress.both((String p0) {
             D4.callInterpreterCallback(visitor!, bothRaw, [p0]);
           }, encoding: encoding);
         }
@@ -6952,7 +6994,7 @@ BridgedClass _createProgressBridge() {
           true,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.capture(
+          return $tom_dcli_19.Progress.capture(
             captureStdout: captureStdout,
             captureStderr: captureStderr,
           );
@@ -6963,7 +7005,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.capture(
+          return $tom_dcli_19.Progress.capture(
             captureStdout: captureStdout,
             captureStderr: captureStderr,
             encoding: encoding,
@@ -6975,7 +7017,7 @@ BridgedClass _createProgressBridge() {
       },
       'devNull': (visitor, positional, named) {
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.devNull();
+          return $tom_dcli_19.Progress.devNull();
         }
         if (named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(
@@ -6983,7 +7025,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.devNull(encoding: encoding);
+          return $tom_dcli_19.Progress.devNull(encoding: encoding);
         }
         throw StateError(
           'Unreachable: all named parameter combinations should be covered',
@@ -6996,7 +7038,7 @@ BridgedClass _createProgressBridge() {
           false,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.printStdErr(capture: capture);
+          return $tom_dcli_19.Progress.printStdErr(capture: capture);
         }
         if (named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(
@@ -7004,7 +7046,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.printStdErr(
+          return $tom_dcli_19.Progress.printStdErr(
             capture: capture,
             encoding: encoding,
           );
@@ -7020,7 +7062,7 @@ BridgedClass _createProgressBridge() {
           false,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.printStdOut(capture: capture);
+          return $tom_dcli_19.Progress.printStdOut(capture: capture);
         }
         if (named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(
@@ -7028,7 +7070,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.printStdOut(
+          return $tom_dcli_19.Progress.printStdOut(
             capture: capture,
             encoding: encoding,
           );
@@ -7044,7 +7086,7 @@ BridgedClass _createProgressBridge() {
           false,
         );
         if (!named.containsKey('encoding')) {
-          return $dcli_19.Progress.stream(includeStderr: includeStderr);
+          return $tom_dcli_19.Progress.stream(includeStderr: includeStderr);
         }
         if (named.containsKey('encoding')) {
           final encoding = D4.getRequiredNamedArg<Encoding>(
@@ -7052,7 +7094,7 @@ BridgedClass _createProgressBridge() {
             'encoding',
             'Progress',
           );
-          return $dcli_19.Progress.stream(
+          return $tom_dcli_19.Progress.stream(
             includeStderr: includeStderr,
             encoding: encoding,
           );
@@ -7064,21 +7106,22 @@ BridgedClass _createProgressBridge() {
     },
     getters: {
       'exitCode': (visitor, target) =>
-          D4.validateTarget<$dcli_19.Progress>(target, 'Progress').exitCode,
+          D4.validateTarget<$tom_dcli_19.Progress>(target, 'Progress').exitCode,
       'lines': (visitor, target) =>
-          D4.validateTarget<$dcli_19.Progress>(target, 'Progress').lines,
+          D4.validateTarget<$tom_dcli_19.Progress>(target, 'Progress').lines,
       'stream': (visitor, target) =>
-          D4.validateTarget<$dcli_19.Progress>(target, 'Progress').stream,
-      'firstLine': (visitor, target) =>
-          D4.validateTarget<$dcli_19.Progress>(target, 'Progress').firstLine,
+          D4.validateTarget<$tom_dcli_19.Progress>(target, 'Progress').stream,
+      'firstLine': (visitor, target) => D4
+          .validateTarget<$tom_dcli_19.Progress>(target, 'Progress')
+          .firstLine,
     },
     methods: {
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_19.Progress>(target, 'Progress');
+        final t = D4.validateTarget<$tom_dcli_19.Progress>(target, 'Progress');
         return t.toList();
       },
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_19.Progress>(target, 'Progress');
+        final t = D4.validateTarget<$tom_dcli_19.Progress>(target, 'Progress');
         D4.requireMinArgs(positional, 1, 'forEach');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -7092,7 +7135,7 @@ BridgedClass _createProgressBridge() {
         return null;
       },
       'toParagraph': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_19.Progress>(target, 'Progress');
+        final t = D4.validateTarget<$tom_dcli_19.Progress>(target, 'Progress');
         return t.toParagraph();
       },
     },
@@ -7132,28 +7175,28 @@ BridgedClass _createProgressBridge() {
 
 BridgedClass _createPackedResourceBridge() {
   return BridgedClass(
-    nativeType: $dcli_20.PackedResource,
+    nativeType: $tom_dcli_20.PackedResource,
     name: 'PackedResource',
-    isAssignable: (v) => v is $dcli_20.PackedResource,
+    isAssignable: (v) => v is $tom_dcli_20.PackedResource,
     isAbstract: true,
     constructors: {},
     getters: {
       'content': (visitor, target) => D4
-          .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
+          .validateTarget<$tom_dcli_20.PackedResource>(target, 'PackedResource')
           .content,
       'parts': (visitor, target) => D4
-          .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
+          .validateTarget<$tom_dcli_20.PackedResource>(target, 'PackedResource')
           .parts,
       'checksum': (visitor, target) => D4
-          .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
+          .validateTarget<$tom_dcli_20.PackedResource>(target, 'PackedResource')
           .checksum,
       'originalPath': (visitor, target) => D4
-          .validateTarget<$dcli_20.PackedResource>(target, 'PackedResource')
+          .validateTarget<$tom_dcli_20.PackedResource>(target, 'PackedResource')
           .originalPath,
     },
     methods: {
       'unpack': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_20.PackedResource>(
+        final t = D4.validateTarget<$tom_dcli_20.PackedResource>(
           target,
           'PackedResource',
         );
@@ -7184,20 +7227,20 @@ BridgedClass _createPackedResourceBridge() {
 
 BridgedClass _createPackedResourcePartBridge() {
   return BridgedClass(
-    nativeType: $dcli_20.PackedResourcePart,
+    nativeType: $tom_dcli_20.PackedResourcePart,
     name: 'PackedResourcePart',
-    isAssignable: (v) => v is $dcli_20.PackedResourcePart,
+    isAssignable: (v) => v is $tom_dcli_20.PackedResourcePart,
     isAbstract: true,
     constructors: {},
     getters: {
       'content': (visitor, target) => D4
-          .validateTarget<$dcli_20.PackedResourcePart>(
+          .validateTarget<$tom_dcli_20.PackedResourcePart>(
             target,
             'PackedResourcePart',
           )
           .content,
       'length': (visitor, target) => D4
-          .validateTarget<$dcli_20.PackedResourcePart>(
+          .validateTarget<$tom_dcli_20.PackedResourcePart>(
             target,
             'PackedResourcePart',
           )
@@ -7216,28 +7259,31 @@ BridgedClass _createPackedResourcePartBridge() {
 
 BridgedClass _createResourcesBridge() {
   return BridgedClass(
-    nativeType: $dcli_21.Resources,
+    nativeType: $tom_dcli_21.Resources,
     name: 'Resources',
-    isAssignable: (v) => v is $dcli_21.Resources,
+    isAssignable: (v) => v is $tom_dcli_21.Resources,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_21.Resources();
+        return $tom_dcli_21.Resources();
       },
     },
     getters: {
       'pathToRegistry': (visitor, target) => D4
-          .validateTarget<$dcli_21.Resources>(target, 'Resources')
+          .validateTarget<$tom_dcli_21.Resources>(target, 'Resources')
           .pathToRegistry,
       'resourceRoot': (visitor, target) => D4
-          .validateTarget<$dcli_21.Resources>(target, 'Resources')
+          .validateTarget<$tom_dcli_21.Resources>(target, 'Resources')
           .resourceRoot,
       'generatedRoot': (visitor, target) => D4
-          .validateTarget<$dcli_21.Resources>(target, 'Resources')
+          .validateTarget<$tom_dcli_21.Resources>(target, 'Resources')
           .generatedRoot,
     },
     methods: {
       'pack': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.Resources>(target, 'Resources');
+        final t = D4.validateTarget<$tom_dcli_21.Resources>(
+          target,
+          'Resources',
+        );
         final includeHidden = D4.getNamedArgWithDefault<bool>(
           named,
           'includeHidden',
@@ -7247,7 +7293,10 @@ BridgedClass _createResourcesBridge() {
         return null;
       },
       'isExcluded': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.Resources>(target, 'Resources');
+        final t = D4.validateTarget<$tom_dcli_21.Resources>(
+          target,
+          'Resources',
+        );
         D4.requireMinArgs(positional, 2, 'isExcluded');
         final path = D4.getRequiredArg<String>(
           positional,
@@ -7264,7 +7313,10 @@ BridgedClass _createResourcesBridge() {
         return t.isExcluded(path, excludes);
       },
       'getExcludedPaths': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.Resources>(target, 'Resources');
+        final t = D4.validateTarget<$tom_dcli_21.Resources>(
+          target,
+          'Resources',
+        );
         D4.requireMinArgs(positional, 3, 'getExcludedPaths');
         final yaml = D4.getRequiredArg<$settings_yaml_1.SettingsYaml>(
           positional,
@@ -7289,9 +7341,9 @@ BridgedClass _createResourcesBridge() {
     },
     staticGetters: {
       'scopeKeyProjectRoot': (visitor) =>
-          $dcli_21.Resources.scopeKeyProjectRoot,
-      'pathToPackYaml': (visitor) => $dcli_21.Resources.pathToPackYaml,
-      'projectRoot': (visitor) => $dcli_21.Resources.projectRoot,
+          $tom_dcli_21.Resources.scopeKeyProjectRoot,
+      'pathToPackYaml': (visitor) => $tom_dcli_21.Resources.pathToPackYaml,
+      'projectRoot': (visitor) => $tom_dcli_21.Resources.projectRoot,
     },
     constructorSignatures: {'': 'Resources()'},
     methodSignatures: {
@@ -7319,9 +7371,9 @@ BridgedClass _createResourcesBridge() {
 
 BridgedClass _createResourceExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_21.ResourceException,
+    nativeType: $tom_dcli_21.ResourceException,
     name: 'ResourceException',
-    isAssignable: (v) => v is $dcli_21.ResourceException,
+    isAssignable: (v) => v is $tom_dcli_21.ResourceException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7332,24 +7384,24 @@ BridgedClass _createResourceExceptionBridge() {
           'message',
           'ResourceException',
         );
-        return $dcli_21.ResourceException(message);
+        return $tom_dcli_21.ResourceException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_21.ResourceException>(
+          .validateTarget<$tom_dcli_21.ResourceException>(
             target,
             'ResourceException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_21.ResourceException>(
+          .validateTarget<$tom_dcli_21.ResourceException>(
             target,
             'ResourceException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_21.ResourceException>(
+          .validateTarget<$tom_dcli_21.ResourceException>(
             target,
             'ResourceException',
           )
@@ -7358,7 +7410,7 @@ BridgedClass _createResourceExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_21.ResourceException>(
+              .validateTarget<$tom_dcli_21.ResourceException>(
                 target,
                 'ResourceException',
               )
@@ -7369,14 +7421,14 @@ BridgedClass _createResourceExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.ResourceException>(
+        final t = D4.validateTarget<$tom_dcli_21.ResourceException>(
           target,
           'ResourceException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.ResourceException>(
+        final t = D4.validateTarget<$tom_dcli_21.ResourceException>(
           target,
           'ResourceException',
         );
@@ -7384,14 +7436,14 @@ BridgedClass _createResourceExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.ResourceException>(
+        final t = D4.validateTarget<$tom_dcli_21.ResourceException>(
           target,
           'ResourceException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_21.ResourceException>(
+        final t = D4.validateTarget<$tom_dcli_21.ResourceException>(
           target,
           'ResourceException',
         );
@@ -7420,9 +7472,9 @@ BridgedClass _createResourceExceptionBridge() {
 
 BridgedClass _createCompiledExecutableBridge() {
   return BridgedClass(
-    nativeType: $dcli_22.CompiledExecutable,
+    nativeType: $tom_dcli_22.CompiledExecutable,
     name: 'CompiledExecutable',
-    isAssignable: (v) => v is $dcli_22.CompiledExecutable,
+    isAssignable: (v) => v is $tom_dcli_22.CompiledExecutable,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'CompiledExecutable');
@@ -7442,7 +7494,7 @@ BridgedClass _createCompiledExecutableBridge() {
           'isPacked',
           false,
         );
-        return $dcli_22.CompiledExecutable(
+        return $tom_dcli_22.CompiledExecutable(
           pathToExe,
           hasBundle: hasBundle,
           isPacked: isPacked,
@@ -7451,25 +7503,25 @@ BridgedClass _createCompiledExecutableBridge() {
     },
     getters: {
       'pathToExe': (visitor, target) => D4
-          .validateTarget<$dcli_22.CompiledExecutable>(
+          .validateTarget<$tom_dcli_22.CompiledExecutable>(
             target,
             'CompiledExecutable',
           )
           .pathToExe,
       'hasBundle': (visitor, target) => D4
-          .validateTarget<$dcli_22.CompiledExecutable>(
+          .validateTarget<$tom_dcli_22.CompiledExecutable>(
             target,
             'CompiledExecutable',
           )
           .hasBundle,
       'isPacked': (visitor, target) => D4
-          .validateTarget<$dcli_22.CompiledExecutable>(
+          .validateTarget<$tom_dcli_22.CompiledExecutable>(
             target,
             'CompiledExecutable',
           )
           .isPacked,
       'pathToBundle': (visitor, target) => D4
-          .validateTarget<$dcli_22.CompiledExecutable>(
+          .validateTarget<$tom_dcli_22.CompiledExecutable>(
             target,
             'CompiledExecutable',
           )
@@ -7477,7 +7529,7 @@ BridgedClass _createCompiledExecutableBridge() {
     },
     methods: {
       'report': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.CompiledExecutable>(
+        final t = D4.validateTarget<$tom_dcli_22.CompiledExecutable>(
           target,
           'CompiledExecutable',
         );
@@ -7498,7 +7550,7 @@ BridgedClass _createCompiledExecutableBridge() {
         );
       },
       'install': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_22.CompiledExecutable>(
+        final t = D4.validateTarget<$tom_dcli_22.CompiledExecutable>(
           target,
           'CompiledExecutable',
         );
@@ -7526,7 +7578,7 @@ BridgedClass _createCompiledExecutableBridge() {
           'executable',
           'bundlePath',
         );
-        return $dcli_22.CompiledExecutable.bundlePath(executable);
+        return $tom_dcli_22.CompiledExecutable.bundlePath(executable);
       },
     },
     constructorSignatures: {
@@ -7555,9 +7607,9 @@ BridgedClass _createCompiledExecutableBridge() {
 
 BridgedClass _createDartProjectBridge() {
   return BridgedClass(
-    nativeType: $dcli_23.DartProject,
+    nativeType: $tom_dcli_23.DartProject,
     name: 'DartProject',
-    isAssignable: (v) => v is $dcli_23.DartProject,
+    isAssignable: (v) => v is $tom_dcli_23.DartProject,
     constructors: {
       'create': (visitor, positional, named) {
         final pathTo = D4.getRequiredNamedArg<String>(
@@ -7570,7 +7622,7 @@ BridgedClass _createDartProjectBridge() {
           'templateName',
           'DartProject',
         );
-        return $dcli_23.DartProject.create(
+        return $tom_dcli_23.DartProject.create(
           pathTo: pathTo,
           templateName: templateName,
         );
@@ -7589,7 +7641,7 @@ BridgedClass _createDartProjectBridge() {
           'version',
           'DartProject',
         );
-        return $dcli_23.DartProject.fromCache(name, version);
+        return $tom_dcli_23.DartProject.fromCache(name, version);
       },
       'fromPath': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'DartProject');
@@ -7600,65 +7652,68 @@ BridgedClass _createDartProjectBridge() {
           'DartProject',
         );
         final search = D4.getNamedArgWithDefault<bool>(named, 'search', true);
-        return $dcli_23.DartProject.fromPath(pathToSearchFrom, search: search);
+        return $tom_dcli_23.DartProject.fromPath(
+          pathToSearchFrom,
+          search: search,
+        );
       },
     },
     getters: {
       'pubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pubSpec,
       'pathToProjectRoot': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToProjectRoot,
       'pathToDartToolDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToDartToolDir,
       'pathToDartToolPackageConfig': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToDartToolPackageConfig,
       'pathToBinDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToBinDir,
       'pathToExampleDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToExampleDir,
       'pathToLibDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToLibDir,
       'pathToLibSrcDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToLibSrcDir,
       'pathToTestDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToTestDir,
       'pathToToolDir': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToToolDir,
       'pathToAnalysisOptions': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToAnalysisOptions,
       'pathToPubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToPubSpec,
       'pathToPubSpecLock': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .pathToPubSpecLock,
       'isReadyToRun': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .isReadyToRun,
       'isFlutterProject': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .isFlutterProject,
       'hasPubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .hasPubSpec,
       'hasAnalysisOptions': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProject>(target, 'DartProject')
+          .validateTarget<$tom_dcli_23.DartProject>(target, 'DartProject')
           .hasAnalysisOptions,
     },
     methods: {
       'doctor': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProject>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProject>(
           target,
           'DartProject',
         );
@@ -7666,7 +7721,7 @@ BridgedClass _createDartProjectBridge() {
         return null;
       },
       'warmup': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProject>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProject>(
           target,
           'DartProject',
         );
@@ -7683,14 +7738,14 @@ BridgedClass _createDartProjectBridge() {
         return t.warmup(background: background, upgrade: upgrade);
       },
       'clean': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProject>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProject>(
           target,
           'DartProject',
         );
         return t.clean();
       },
       'compile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProject>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProject>(
           target,
           'DartProject',
         );
@@ -7712,7 +7767,7 @@ BridgedClass _createDartProjectBridge() {
         );
       },
     },
-    staticGetters: {'self': (visitor) => $dcli_23.DartProject.self},
+    staticGetters: {'self': (visitor) => $tom_dcli_23.DartProject.self},
     staticMethods: {
       'findProject': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'findProject');
@@ -7723,7 +7778,7 @@ BridgedClass _createDartProjectBridge() {
           'findProject',
         );
         final search = D4.getNamedArgWithDefault<bool>(named, 'search', true);
-        return $dcli_23.DartProject.findProject(
+        return $tom_dcli_23.DartProject.findProject(
           pathToSearchFrom,
           search: search,
         );
@@ -7777,9 +7832,9 @@ BridgedClass _createDartProjectBridge() {
 
 BridgedClass _createDartProjectExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_23.DartProjectException,
+    nativeType: $tom_dcli_23.DartProjectException,
     name: 'DartProjectException',
-    isAssignable: (v) => v is $dcli_23.DartProjectException,
+    isAssignable: (v) => v is $tom_dcli_23.DartProjectException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7790,24 +7845,24 @@ BridgedClass _createDartProjectExceptionBridge() {
           'message',
           'DartProjectException',
         );
-        return $dcli_23.DartProjectException(message);
+        return $tom_dcli_23.DartProjectException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProjectException>(
+          .validateTarget<$tom_dcli_23.DartProjectException>(
             target,
             'DartProjectException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProjectException>(
+          .validateTarget<$tom_dcli_23.DartProjectException>(
             target,
             'DartProjectException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_23.DartProjectException>(
+          .validateTarget<$tom_dcli_23.DartProjectException>(
             target,
             'DartProjectException',
           )
@@ -7816,7 +7871,7 @@ BridgedClass _createDartProjectExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_23.DartProjectException>(
+              .validateTarget<$tom_dcli_23.DartProjectException>(
                 target,
                 'DartProjectException',
               )
@@ -7827,14 +7882,14 @@ BridgedClass _createDartProjectExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProjectException>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProjectException>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
@@ -7842,14 +7897,14 @@ BridgedClass _createDartProjectExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProjectException>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.DartProjectException>(
+        final t = D4.validateTarget<$tom_dcli_23.DartProjectException>(
           target,
           'DartProjectException',
         );
@@ -7878,9 +7933,9 @@ BridgedClass _createDartProjectExceptionBridge() {
 
 BridgedClass _createTemplateNotFoundExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_23.TemplateNotFoundException,
+    nativeType: $tom_dcli_23.TemplateNotFoundException,
     name: 'TemplateNotFoundException',
-    isAssignable: (v) => v is $dcli_23.TemplateNotFoundException,
+    isAssignable: (v) => v is $tom_dcli_23.TemplateNotFoundException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7891,24 +7946,24 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
           'pathTo',
           'TemplateNotFoundException',
         );
-        return $dcli_23.TemplateNotFoundException(pathTo);
+        return $tom_dcli_23.TemplateNotFoundException(pathTo);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_23.TemplateNotFoundException>(
+          .validateTarget<$tom_dcli_23.TemplateNotFoundException>(
             target,
             'TemplateNotFoundException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_23.TemplateNotFoundException>(
+          .validateTarget<$tom_dcli_23.TemplateNotFoundException>(
             target,
             'TemplateNotFoundException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_23.TemplateNotFoundException>(
+          .validateTarget<$tom_dcli_23.TemplateNotFoundException>(
             target,
             'TemplateNotFoundException',
           )
@@ -7917,7 +7972,7 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_23.TemplateNotFoundException>(
+              .validateTarget<$tom_dcli_23.TemplateNotFoundException>(
                 target,
                 'TemplateNotFoundException',
               )
@@ -7928,14 +7983,14 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
@@ -7943,14 +7998,14 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.TemplateNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_23.TemplateNotFoundException>(
           target,
           'TemplateNotFoundException',
         );
@@ -7979,9 +8034,9 @@ BridgedClass _createTemplateNotFoundExceptionBridge() {
 
 BridgedClass _createInvalidProjectTemplateExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_23.InvalidProjectTemplateException,
+    nativeType: $tom_dcli_23.InvalidProjectTemplateException,
     name: 'InvalidProjectTemplateException',
-    isAssignable: (v) => v is $dcli_23.InvalidProjectTemplateException,
+    isAssignable: (v) => v is $tom_dcli_23.InvalidProjectTemplateException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -7992,24 +8047,24 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
           'message',
           'InvalidProjectTemplateException',
         );
-        return $dcli_23.InvalidProjectTemplateException(message);
+        return $tom_dcli_23.InvalidProjectTemplateException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_23.InvalidProjectTemplateException>(
+          .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
             target,
             'InvalidProjectTemplateException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_23.InvalidProjectTemplateException>(
+          .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
             target,
             'InvalidProjectTemplateException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_23.InvalidProjectTemplateException>(
+          .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
             target,
             'InvalidProjectTemplateException',
           )
@@ -8018,7 +8073,7 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_23.InvalidProjectTemplateException>(
+              .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
                 target,
                 'InvalidProjectTemplateException',
               )
@@ -8029,32 +8084,36 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
-          target,
-          'InvalidProjectTemplateException',
-        );
+        final t = D4
+            .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
+              target,
+              'InvalidProjectTemplateException',
+            );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
-          target,
-          'InvalidProjectTemplateException',
-        );
+        final t = D4
+            .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
+              target,
+              'InvalidProjectTemplateException',
+            );
         t.printStackTrace();
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
-          target,
-          'InvalidProjectTemplateException',
-        );
+        final t = D4
+            .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
+              target,
+              'InvalidProjectTemplateException',
+            );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_23.InvalidProjectTemplateException>(
-          target,
-          'InvalidProjectTemplateException',
-        );
+        final t = D4
+            .validateTarget<$tom_dcli_23.InvalidProjectTemplateException>(
+              target,
+              'InvalidProjectTemplateException',
+            );
         return t.toJsonString();
       },
     },
@@ -8082,12 +8141,12 @@ BridgedClass _createInvalidProjectTemplateExceptionBridge() {
 
 BridgedClass _createDartScriptBridge() {
   return BridgedClass(
-    nativeType: $dcli_24.DartScript,
+    nativeType: $tom_dcli_24.DartScript,
     name: 'DartScript',
-    isAssignable: (v) => v is $dcli_24.DartScript,
+    isAssignable: (v) => v is $tom_dcli_24.DartScript,
     constructors: {
       'createScript': (visitor, positional, named) {
-        final project = D4.getRequiredNamedArg<$dcli_23.DartProject>(
+        final project = D4.getRequiredNamedArg<$tom_dcli_23.DartProject>(
           named,
           'project',
           'DartScript',
@@ -8102,7 +8161,7 @@ BridgedClass _createDartScriptBridge() {
           'templateName',
           'DartScript',
         );
-        return $dcli_24.DartScript.createScript(
+        return $tom_dcli_24.DartScript.createScript(
           project: project,
           scriptName: scriptName,
           templateName: templateName,
@@ -8116,67 +8175,75 @@ BridgedClass _createDartScriptBridge() {
           'scriptPathTo',
           'DartScript',
         );
-        final project = D4.getOptionalNamedArg<$dcli_23.DartProject?>(
+        final project = D4.getOptionalNamedArg<$tom_dcli_23.DartProject?>(
           named,
           'project',
         );
-        return $dcli_24.DartScript.fromFile(scriptPathTo, project: project);
+        return $tom_dcli_24.DartScript.fromFile(scriptPathTo, project: project);
       },
     },
     getters: {
       'pathToScript': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pathToScript,
       'scriptName': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .scriptName,
       'pathToScriptDirectory': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pathToScriptDirectory,
       'pubsecNameKey': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pubsecNameKey,
-      'basename': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').basename,
+      'basename': (visitor, target) => D4
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
+          .basename,
       'pathToPubSpec': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pathToPubSpec,
       'isReadyToRun': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .isReadyToRun,
       'isCompiled': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .isCompiled,
       'inUnitTest': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .inUnitTest,
       'isInstalled': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .isInstalled,
       'isPubGlobalActivated': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .isPubGlobalActivated,
       'pathToProjectRoot': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pathToProjectRoot,
-      'project': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').project,
-      'doctor': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').doctor,
-      'pubSpec': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').pubSpec,
-      'exeName': (visitor, target) =>
-          D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript').exeName,
+      'project': (visitor, target) => D4
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
+          .project,
+      'doctor': (visitor, target) => D4
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
+          .doctor,
+      'pubSpec': (visitor, target) => D4
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
+          .pubSpec,
+      'exeName': (visitor, target) => D4
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
+          .exeName,
       'pathToExe': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pathToExe,
       'pathToInstalledExe': (visitor, target) => D4
-          .validateTarget<$dcli_24.DartScript>(target, 'DartScript')
+          .validateTarget<$tom_dcli_24.DartScript>(target, 'DartScript')
           .pathToInstalledExe,
     },
     methods: {
       'compile': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$tom_dcli_24.DartScript>(
+          target,
+          'DartScript',
+        );
         final install = D4.getNamedArgWithDefault<bool>(
           named,
           'install',
@@ -8202,18 +8269,24 @@ BridgedClass _createDartScriptBridge() {
         );
       },
       'run': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$tom_dcli_24.DartScript>(
+          target,
+          'DartScript',
+        );
         final args = named.containsKey('args') && named['args'] != null
             ? D4.coerceList<String>(named['args'], 'args')
             : const <String>[];
         return t.run(args: args);
       },
       'start': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$tom_dcli_24.DartScript>(
+          target,
+          'DartScript',
+        );
         final args = named.containsKey('args') && named['args'] != null
             ? D4.coerceList<String>(named['args'], 'args')
             : const <String>[];
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8264,12 +8337,15 @@ BridgedClass _createDartScriptBridge() {
         );
       },
       'runPubGet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_24.DartScript>(target, 'DartScript');
+        final t = D4.validateTarget<$tom_dcli_24.DartScript>(
+          target,
+          'DartScript',
+        );
         t.runPubGet();
         return null;
       },
     },
-    staticGetters: {'self': (visitor) => $dcli_24.DartScript.self},
+    staticGetters: {'self': (visitor) => $tom_dcli_24.DartScript.self},
     staticMethods: {
       'sansRoot': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'sansRoot');
@@ -8279,7 +8355,7 @@ BridgedClass _createDartScriptBridge() {
           'path',
           'sansRoot',
         );
-        return $dcli_24.DartScript.sansRoot(path);
+        return $tom_dcli_24.DartScript.sansRoot(path);
       },
       'stripDartVersionSuffix': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'stripDartVersionSuffix');
@@ -8289,7 +8365,9 @@ BridgedClass _createDartScriptBridge() {
           'pathToCurrentScript',
           'stripDartVersionSuffix',
         );
-        return $dcli_24.DartScript.stripDartVersionSuffix(pathToCurrentScript);
+        return $tom_dcli_24.DartScript.stripDartVersionSuffix(
+          pathToCurrentScript,
+        );
       },
     },
     constructorSignatures: {
@@ -8341,48 +8419,53 @@ BridgedClass _createDartScriptBridge() {
 
 BridgedClass _createDartSdkBridge() {
   return BridgedClass(
-    nativeType: $dcli_25.DartSdk,
+    nativeType: $tom_dcli_25.DartSdk,
     name: 'DartSdk',
-    isAssignable: (v) => v is $dcli_25.DartSdk,
+    isAssignable: (v) => v is $tom_dcli_25.DartSdk,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_25.DartSdk();
+        return $tom_dcli_25.DartSdk();
       },
     },
     getters: {
       'pathToSdk': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').pathToSdk,
-      'pathToDartExe': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').pathToDartExe,
-      'pathToPubExe': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').pathToPubExe,
+          D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk').pathToSdk,
+      'pathToDartExe': (visitor, target) => D4
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
+          .pathToDartExe,
+      'pathToPubExe': (visitor, target) => D4
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
+          .pathToPubExe,
       'pathToDartToNativeExe': (visitor, target) => D4
-          .validateTarget<$dcli_25.DartSdk>(target, 'DartSdk')
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
           .pathToDartToNativeExe,
-      'versionMajor': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').versionMajor,
-      'versionMinor': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').versionMinor,
-      'useDartCommand': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').useDartCommand,
+      'versionMajor': (visitor, target) => D4
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
+          .versionMajor,
+      'versionMinor': (visitor, target) => D4
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
+          .versionMinor,
+      'useDartCommand': (visitor, target) => D4
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
+          .useDartCommand,
       'useDartDocCommand': (visitor, target) => D4
-          .validateTarget<$dcli_25.DartSdk>(target, 'DartSdk')
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
           .useDartDocCommand,
       'version': (visitor, target) =>
-          D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk').version,
+          D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk').version,
       'pathToPackageConfig': (visitor, target) => D4
-          .validateTarget<$dcli_25.DartSdk>(target, 'DartSdk')
+          .validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk')
           .pathToPackageConfig,
     },
     methods: {
       'getVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         return t.getVersion();
       },
       'runDartCompiler': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'runDartCompiler');
-        final script = D4.getRequiredArg<$dcli_24.DartScript>(
+        final script = D4.getRequiredArg<$tom_dcli_24.DartScript>(
           positional,
           0,
           'script',
@@ -8393,7 +8476,7 @@ BridgedClass _createDartSdkBridge() {
           'pathToExe',
           'runDartCompiler',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8411,9 +8494,9 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'hasBuildHooks': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'hasBuildHooks');
-        final script = D4.getRequiredArg<$dcli_24.DartScript>(
+        final script = D4.getRequiredArg<$tom_dcli_24.DartScript>(
           positional,
           0,
           'script',
@@ -8422,7 +8505,7 @@ BridgedClass _createDartSdkBridge() {
         return t.hasBuildHooks(script);
       },
       'run': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         if (!named.containsKey('args') || named['args'] == null) {
           throw ArgumentError('run: Missing required named argument "args"');
         }
@@ -8431,7 +8514,7 @@ BridgedClass _createDartSdkBridge() {
           named,
           'workingDirectory',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8460,7 +8543,7 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'runPub': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         if (!named.containsKey('args') || named['args'] == null) {
           throw ArgumentError('runPub: Missing required named argument "args"');
         }
@@ -8469,7 +8552,7 @@ BridgedClass _createDartSdkBridge() {
           named,
           'workingDirectory',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8486,7 +8569,7 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'runDartDoc': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         final pathToProject = D4.getOptionalNamedArg<String?>(
           named,
           'pathToProject',
@@ -8495,7 +8578,7 @@ BridgedClass _createDartSdkBridge() {
         final args = named.containsKey('args') && named['args'] != null
             ? D4.coerceList<String>(named['args'], 'args')
             : const <String>[];
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8513,7 +8596,7 @@ BridgedClass _createDartSdkBridge() {
         );
       },
       'isPubGetRequired': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'isPubGetRequired');
         final workingDirectory = D4.getRequiredArg<String>(
           positional,
@@ -8524,7 +8607,7 @@ BridgedClass _createDartSdkBridge() {
         return t.isPubGetRequired(workingDirectory);
       },
       'runPubGet': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'runPubGet');
         final workingDirectory = D4.getRequiredArg<String?>(
           positional,
@@ -8532,7 +8615,7 @@ BridgedClass _createDartSdkBridge() {
           'workingDirectory',
           'runPubGet',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8549,7 +8632,7 @@ BridgedClass _createDartSdkBridge() {
         return null;
       },
       'runPubUpgrade': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'runPubUpgrade');
         final workingDirectory = D4.getRequiredArg<String?>(
           positional,
@@ -8557,7 +8640,7 @@ BridgedClass _createDartSdkBridge() {
           'workingDirectory',
           'runPubUpgrade',
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -8574,7 +8657,7 @@ BridgedClass _createDartSdkBridge() {
         return null;
       },
       'installFromArchive': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         D4.requireMinArgs(positional, 1, 'installFromArchive');
         final defaultDartSdkPath = D4.getRequiredArg<String>(
           positional,
@@ -8586,16 +8669,17 @@ BridgedClass _createDartSdkBridge() {
         return t.installFromArchive(defaultDartSdkPath, askUser: askUser);
       },
       'resolveArchitecture': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_25.DartSdk>(target, 'DartSdk');
+        final t = D4.validateTarget<$tom_dcli_25.DartSdk>(target, 'DartSdk');
         return t.resolveArchitecture();
       },
     },
     staticGetters: {
-      'dartExeName': (visitor) => $dcli_25.DartSdk.dartExeName,
-      'pubExeName': (visitor) => $dcli_25.DartSdk.pubExeName,
-      'dart2NativeExeName': (visitor) => $dcli_25.DartSdk.dart2NativeExeName,
+      'dartExeName': (visitor) => $tom_dcli_25.DartSdk.dartExeName,
+      'pubExeName': (visitor) => $tom_dcli_25.DartSdk.pubExeName,
+      'dart2NativeExeName': (visitor) =>
+          $tom_dcli_25.DartSdk.dart2NativeExeName,
       'isUsingDartFromFlutter': (visitor) =>
-          $dcli_25.DartSdk.isUsingDartFromFlutter,
+          $tom_dcli_25.DartSdk.isUsingDartFromFlutter,
     },
     constructorSignatures: {'': 'factory DartSdk()'},
     methodSignatures: {
@@ -8645,9 +8729,9 @@ BridgedClass _createDartSdkBridge() {
 
 BridgedClass _createPubGetExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_26.PubGetException,
+    nativeType: $tom_dcli_26.PubGetException,
     name: 'PubGetException',
-    isAssignable: (v) => v is $dcli_26.PubGetException,
+    isAssignable: (v) => v is $tom_dcli_26.PubGetException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -8658,27 +8742,39 @@ BridgedClass _createPubGetExceptionBridge() {
           'exitCode',
           'PubGetException',
         );
-        return $dcli_26.PubGetException(exitCode);
+        return $tom_dcli_26.PubGetException(exitCode);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .validateTarget<$tom_dcli_26.PubGetException>(
+            target,
+            'PubGetException',
+          )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .validateTarget<$tom_dcli_26.PubGetException>(
+            target,
+            'PubGetException',
+          )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .validateTarget<$tom_dcli_26.PubGetException>(
+            target,
+            'PubGetException',
+          )
           .stackTrace,
       'exitCode': (visitor, target) => D4
-          .validateTarget<$dcli_26.PubGetException>(target, 'PubGetException')
+          .validateTarget<$tom_dcli_26.PubGetException>(
+            target,
+            'PubGetException',
+          )
           .exitCode,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_26.PubGetException>(
+              .validateTarget<$tom_dcli_26.PubGetException>(
                 target,
                 'PubGetException',
               )
@@ -8689,14 +8785,14 @@ BridgedClass _createPubGetExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.PubGetException>(
+        final t = D4.validateTarget<$tom_dcli_26.PubGetException>(
           target,
           'PubGetException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.PubGetException>(
+        final t = D4.validateTarget<$tom_dcli_26.PubGetException>(
           target,
           'PubGetException',
         );
@@ -8704,14 +8800,14 @@ BridgedClass _createPubGetExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.PubGetException>(
+        final t = D4.validateTarget<$tom_dcli_26.PubGetException>(
           target,
           'PubGetException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_26.PubGetException>(
+        final t = D4.validateTarget<$tom_dcli_26.PubGetException>(
           target,
           'PubGetException',
         );
@@ -8741,66 +8837,70 @@ BridgedClass _createPubGetExceptionBridge() {
 
 BridgedClass _createSettingsBridge() {
   return BridgedClass(
-    nativeType: $dcli_27.Settings,
+    nativeType: $tom_dcli_27.Settings,
     name: 'Settings',
-    isAssignable: (v) => v is $dcli_27.Settings,
+    isAssignable: (v) => v is $tom_dcli_27.Settings,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_27.Settings();
+        return $tom_dcli_27.Settings();
       },
       'forScope': (visitor, positional, named) {
-        return $dcli_27.Settings.forScope();
+        return $tom_dcli_27.Settings.forScope();
       },
     },
     getters: {
       'version': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').version,
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').version,
       'dcliDir': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').dcliDir,
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').dcliDir,
       'isMacOS': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isMacOS,
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').isMacOS,
       'isLinux': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isLinux,
-      'isWindows': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isWindows,
-      'pathToDCli': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').pathToDCli,
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').isLinux,
+      'isWindows': (visitor, target) => D4
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
+          .isWindows,
+      'pathToDCli': (visitor, target) => D4
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
+          .pathToDCli,
       'pathToDCliBin': (visitor, target) => D4
-          .validateTarget<$dcli_27.Settings>(target, 'Settings')
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
           .pathToDCliBin,
       'pathToTemplateProject': (visitor, target) => D4
-          .validateTarget<$dcli_27.Settings>(target, 'Settings')
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
           .pathToTemplateProject,
       'pathToTemplateProjectCustom': (visitor, target) => D4
-          .validateTarget<$dcli_27.Settings>(target, 'Settings')
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
           .pathToTemplateProjectCustom,
       'pathToTemplateScript': (visitor, target) => D4
-          .validateTarget<$dcli_27.Settings>(target, 'Settings')
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
           .pathToTemplateScript,
       'pathToTemplateScriptCustom': (visitor, target) => D4
-          .validateTarget<$dcli_27.Settings>(target, 'Settings')
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
           .pathToTemplateScriptCustom,
-      'isVerbose': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isVerbose,
+      'isVerbose': (visitor, target) => D4
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
+          .isVerbose,
       'logger': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').logger,
-      'isInstalled': (visitor, target) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').isInstalled,
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').logger,
+      'isInstalled': (visitor, target) => D4
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
+          .isInstalled,
       'installCompletedIndicator': (visitor, target) => D4
-          .validateTarget<$dcli_27.Settings>(target, 'Settings')
+          .validateTarget<$tom_dcli_27.Settings>(target, 'Settings')
           .installCompletedIndicator,
     },
     setters: {
       'version': (visitor, target, value) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').version = D4
-              .extractBridgedArgOrNull<String>(value, 'version'),
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').version =
+              D4.extractBridgedArgOrNull<String>(value, 'version'),
       'dcliDir': (visitor, target, value) =>
-          D4.validateTarget<$dcli_27.Settings>(target, 'Settings').dcliDir = D4
-              .extractBridgedArg<String>(value, 'dcliDir'),
+          D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings').dcliDir =
+              D4.extractBridgedArg<String>(value, 'dcliDir'),
     },
     methods: {
       'setVerbose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_27.Settings>(target, 'Settings');
+        final t = D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings');
         final enabled = D4.getRequiredNamedArg<bool>(
           named,
           'enabled',
@@ -8810,7 +8910,7 @@ BridgedClass _createSettingsBridge() {
         return null;
       },
       'verbose': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_27.Settings>(target, 'Settings');
+        final t = D4.validateTarget<$tom_dcli_27.Settings>(target, 'Settings');
         D4.requireMinArgs(positional, 1, 'verbose');
         final string = D4.getRequiredArg<String?>(
           positional,
@@ -8823,18 +8923,18 @@ BridgedClass _createSettingsBridge() {
       },
     },
     staticGetters: {
-      'scopeKey': (visitor) => $dcli_27.Settings.scopeKey,
-      'templateDir': (visitor) => $dcli_27.Settings.templateDir,
-      'dcliAppName': (visitor) => $dcli_27.Settings.dcliAppName,
+      'scopeKey': (visitor) => $tom_dcli_27.Settings.scopeKey,
+      'templateDir': (visitor) => $tom_dcli_27.Settings.templateDir,
+      'dcliAppName': (visitor) => $tom_dcli_27.Settings.dcliAppName,
     },
     staticSetters: {
-      'scopeKey': (visitor, value) => $dcli_27.Settings.scopeKey = D4
-          .extractBridgedArg<$scope_1.ScopeKey<$dcli_27.Settings>>(
+      'scopeKey': (visitor, value) => $tom_dcli_27.Settings.scopeKey = D4
+          .extractBridgedArg<$scope_1.ScopeKey<$tom_dcli_27.Settings>>(
             value,
             'scopeKey',
           ),
-      'mock': (visitor, value) => $dcli_27.Settings.mock = D4
-          .extractBridgedArg<$dcli_27.Settings>(value, 'mock'),
+      'mock': (visitor, value) => $tom_dcli_27.Settings.mock = D4
+          .extractBridgedArg<$tom_dcli_27.Settings>(value, 'mock'),
     },
     constructorSignatures: {
       '': 'factory Settings()',
@@ -8883,49 +8983,52 @@ BridgedClass _createSettingsBridge() {
 
 BridgedClass _createShellBridge() {
   return BridgedClass(
-    nativeType: $dcli_28.Shell,
+    nativeType: $tom_dcli_28.Shell,
     name: 'Shell',
-    isAssignable: (v) => v is $dcli_28.Shell,
+    isAssignable: (v) => v is $tom_dcli_28.Shell,
     isAbstract: true,
     constructors: {},
     getters: {
       'name': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').name,
+          D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell').name,
       'hasStartScript': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').hasStartScript,
-      'startScriptName': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').startScriptName,
-      'pathToStartScript': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').pathToStartScript,
+          D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell').hasStartScript,
+      'startScriptName': (visitor, target) => D4
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
+          .startScriptName,
+      'pathToStartScript': (visitor, target) => D4
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
+          .pathToStartScript,
       'canModifyPath': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').canModifyPath,
+          D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell').canModifyPath,
       'isCompletionSupported': (visitor, target) => D4
-          .validateTarget<$dcli_28.Shell>(target, 'Shell')
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
           .isCompletionSupported,
       'isCompletionInstalled': (visitor, target) => D4
-          .validateTarget<$dcli_28.Shell>(target, 'Shell')
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
           .isCompletionInstalled,
       'isSudo': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').isSudo,
+          D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell').isSudo,
       'loggedInUser': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').loggedInUser,
-      'isPrivilegedUser': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').isPrivilegedUser,
+          D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell').loggedInUser,
+      'isPrivilegedUser': (visitor, target) => D4
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
+          .isPrivilegedUser,
       'isPrivilegedPasswordRequired': (visitor, target) => D4
-          .validateTarget<$dcli_28.Shell>(target, 'Shell')
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
           .isPrivilegedPasswordRequired,
       'isPrivilegedProcess': (visitor, target) => D4
-          .validateTarget<$dcli_28.Shell>(target, 'Shell')
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
           .isPrivilegedProcess,
       'installInstructions': (visitor, target) => D4
-          .validateTarget<$dcli_28.Shell>(target, 'Shell')
+          .validateTarget<$tom_dcli_28.Shell>(target, 'Shell')
           .installInstructions,
       'pid': (visitor, target) =>
-          D4.validateTarget<$dcli_28.Shell>(target, 'Shell').pid,
+          D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell').pid,
     },
     methods: {
       'matchByName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'matchByName');
         final name = D4.getRequiredArg<String>(
           positional,
@@ -8936,7 +9039,7 @@ BridgedClass _createShellBridge() {
         return t.matchByName(name);
       },
       'appendToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'appendToPATH');
         final path = D4.getRequiredArg<String>(
           positional,
@@ -8947,7 +9050,7 @@ BridgedClass _createShellBridge() {
         return t.appendToPATH(path);
       },
       'prependToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'prependToPATH');
         final path = D4.getRequiredArg<String>(
           positional,
@@ -8958,7 +9061,7 @@ BridgedClass _createShellBridge() {
         return t.prependToPATH(path);
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'addFileAssocation');
         final dcliPath = D4.getRequiredArg<String>(
           positional,
@@ -8970,23 +9073,23 @@ BridgedClass _createShellBridge() {
         return null;
       },
       'installTabCompletion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         final quiet = D4.getNamedArgWithDefault<bool>(named, 'quiet', true);
         t.installTabCompletion(quiet: quiet);
         return null;
       },
       'releasePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         t.releasePrivileges();
         return null;
       },
       'restorePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         t.restorePrivileges();
         return null;
       },
       'withPrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'withPrivileges');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -9005,7 +9108,7 @@ BridgedClass _createShellBridge() {
         return null;
       },
       'withPrivilegesAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         D4.requireMinArgs(positional, 1, 'withPrivilegesAsync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -9030,7 +9133,7 @@ BridgedClass _createShellBridge() {
       },
       'privilegesRequiredMessage':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+            final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
             D4.requireMinArgs(positional, 1, 'privilegesRequiredMessage');
             final appname = D4.getRequiredArg<String>(
               positional,
@@ -9041,7 +9144,7 @@ BridgedClass _createShellBridge() {
             return t.privilegesRequiredMessage(appname);
           },
       'install': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+        final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
         final installDart = D4.getNamedArgWithDefault<bool>(
           named,
           'installDart',
@@ -9051,11 +9154,11 @@ BridgedClass _createShellBridge() {
       },
       'checkInstallPreconditions':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_28.Shell>(target, 'Shell');
+            final t = D4.validateTarget<$tom_dcli_28.Shell>(target, 'Shell');
             return t.checkInstallPreconditions();
           },
     },
-    staticGetters: {'current': (visitor) => $dcli_28.Shell.current},
+    staticGetters: {'current': (visitor) => $tom_dcli_28.Shell.current},
     methodSignatures: {
       'matchByName': 'bool matchByName(String name)',
       'appendToPATH': 'bool appendToPATH(String path)',
@@ -9099,9 +9202,9 @@ BridgedClass _createShellBridge() {
 
 BridgedClass _createShellExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_28.ShellException,
+    nativeType: $tom_dcli_28.ShellException,
     name: 'ShellException',
-    isAssignable: (v) => v is $dcli_28.ShellException,
+    isAssignable: (v) => v is $tom_dcli_28.ShellException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9112,24 +9215,27 @@ BridgedClass _createShellExceptionBridge() {
           'message',
           'ShellException',
         );
-        return $dcli_28.ShellException(message);
+        return $tom_dcli_28.ShellException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
+          .validateTarget<$tom_dcli_28.ShellException>(target, 'ShellException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
+          .validateTarget<$tom_dcli_28.ShellException>(target, 'ShellException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
+          .validateTarget<$tom_dcli_28.ShellException>(target, 'ShellException')
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_28.ShellException>(target, 'ShellException')
+              .validateTarget<$tom_dcli_28.ShellException>(
+                target,
+                'ShellException',
+              )
               .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
             value,
             'stackTrace',
@@ -9137,14 +9243,14 @@ BridgedClass _createShellExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.ShellException>(
+        final t = D4.validateTarget<$tom_dcli_28.ShellException>(
           target,
           'ShellException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.ShellException>(
+        final t = D4.validateTarget<$tom_dcli_28.ShellException>(
           target,
           'ShellException',
         );
@@ -9152,14 +9258,14 @@ BridgedClass _createShellExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.ShellException>(
+        final t = D4.validateTarget<$tom_dcli_28.ShellException>(
           target,
           'ShellException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_28.ShellException>(
+        final t = D4.validateTarget<$tom_dcli_28.ShellException>(
           target,
           'ShellException',
         );
@@ -9188,17 +9294,17 @@ BridgedClass _createShellExceptionBridge() {
 
 BridgedClass _createShellDetectionBridge() {
   return BridgedClass(
-    nativeType: $dcli_29.ShellDetection,
+    nativeType: $tom_dcli_29.ShellDetection,
     name: 'ShellDetection',
-    isAssignable: (v) => v is $dcli_29.ShellDetection,
+    isAssignable: (v) => v is $tom_dcli_29.ShellDetection,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_29.ShellDetection();
+        return $tom_dcli_29.ShellDetection();
       },
     },
     methods: {
       'identifyShell': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_29.ShellDetection>(
+        final t = D4.validateTarget<$tom_dcli_29.ShellDetection>(
           target,
           'ShellDetection',
         );
@@ -9216,9 +9322,9 @@ BridgedClass _createShellDetectionBridge() {
 
 BridgedClass _createUnknownShellBridge() {
   return BridgedClass(
-    nativeType: $dcli_30.UnknownShell,
+    nativeType: $tom_dcli_30.UnknownShell,
     name: 'UnknownShell',
-    isAssignable: (v) => v is $dcli_30.UnknownShell,
+    isAssignable: (v) => v is $tom_dcli_30.UnknownShell,
     hierarchyDepth: 2,
     constructors: {
       'withPid': (visitor, positional, named) {
@@ -9233,60 +9339,62 @@ BridgedClass _createUnknownShellBridge() {
           named,
           'processName',
         );
-        return $dcli_30.UnknownShell.withPid(pid, processName: processName);
+        return $tom_dcli_30.UnknownShell.withPid(pid, processName: processName);
       },
     },
     getters: {
       'processName': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .processName,
-      'pid': (visitor, target) =>
-          D4.validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell').pid,
+      'pid': (visitor, target) => D4
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
+          .pid,
       'canModifyPath': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .canModifyPath,
       'isCompletionInstalled': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .isCompletionInstalled,
       'isCompletionSupported': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .isCompletionSupported,
-      'name': (visitor, target) =>
-          D4.validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell').name,
+      'name': (visitor, target) => D4
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
+          .name,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .hashCode,
       'hasStartScript': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .hasStartScript,
       'startScriptName': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .startScriptName,
       'pathToStartScript': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .pathToStartScript,
       'isPrivilegedUser': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .isPrivilegedUser,
       'loggedInUser': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .loggedInUser,
       'isSudo': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .isSudo,
       'isPrivilegedProcess': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .isPrivilegedProcess,
       'isPrivilegedPasswordRequired': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .isPrivilegedPasswordRequired,
       'installInstructions': (visitor, target) => D4
-          .validateTarget<$dcli_30.UnknownShell>(target, 'UnknownShell')
+          .validateTarget<$tom_dcli_30.UnknownShell>(target, 'UnknownShell')
           .installInstructions,
     },
     methods: {
       'appendToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9300,7 +9408,7 @@ BridgedClass _createUnknownShellBridge() {
         return t.appendToPATH(path);
       },
       'prependToPATH': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9314,7 +9422,7 @@ BridgedClass _createUnknownShellBridge() {
         return t.prependToPATH(path);
       },
       'appendPathToMacOsPathd': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9328,7 +9436,7 @@ BridgedClass _createUnknownShellBridge() {
         return t.appendPathToMacOsPathd(path);
       },
       'installTabCompletion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9338,7 +9446,7 @@ BridgedClass _createUnknownShellBridge() {
       },
       'privilegesRequiredMessage':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_30.UnknownShell>(
+            final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
               target,
               'UnknownShell',
             );
@@ -9352,7 +9460,7 @@ BridgedClass _createUnknownShellBridge() {
             return t.privilegesRequiredMessage(app);
           },
       'install': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9370,14 +9478,14 @@ BridgedClass _createUnknownShellBridge() {
       },
       'checkInstallPreconditions':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_30.UnknownShell>(
+            final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
               target,
               'UnknownShell',
             );
             return t.checkInstallPreconditions();
           },
       'releasePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9385,7 +9493,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'restorePrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9393,7 +9501,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'withPrivileges': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9415,7 +9523,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'withPrivilegesAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9442,7 +9550,7 @@ BridgedClass _createUnknownShellBridge() {
         );
       },
       'addFileAssocation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9457,7 +9565,7 @@ BridgedClass _createUnknownShellBridge() {
         return null;
       },
       'matchByName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
@@ -9471,13 +9579,13 @@ BridgedClass _createUnknownShellBridge() {
         return t.matchByName(name);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_30.UnknownShell>(
+        final t = D4.validateTarget<$tom_dcli_30.UnknownShell>(
           target,
           'UnknownShell',
         );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<$dcli_30.UnknownShell>(
+        final other = D4.getRequiredArg<$tom_dcli_30.UnknownShell>(
           positional,
           0,
           'other',
@@ -9486,7 +9594,9 @@ BridgedClass _createUnknownShellBridge() {
         return t == other;
       },
     },
-    staticGetters: {'shellName': (visitor) => $dcli_30.UnknownShell.shellName},
+    staticGetters: {
+      'shellName': (visitor) => $tom_dcli_30.UnknownShell.shellName,
+    },
     constructorSignatures: {
       'withPid': 'UnknownShell.withPid(int? pid, {String? processName})',
     },
@@ -9537,40 +9647,46 @@ BridgedClass _createUnknownShellBridge() {
 
 BridgedClass _createDCliPathsBridge() {
   return BridgedClass(
-    nativeType: $dcli_32.DCliPaths,
+    nativeType: $tom_dcli_32.DCliPaths,
     name: 'DCliPaths',
-    isAssignable: (v) => v is $dcli_32.DCliPaths,
+    isAssignable: (v) => v is $tom_dcli_32.DCliPaths,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_32.DCliPaths();
+        return $tom_dcli_32.DCliPaths();
       },
     },
     getters: {
-      'dcliName': (visitor, target) =>
-          D4.validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths').dcliName,
+      'dcliName': (visitor, target) => D4
+          .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
+          .dcliName,
       'dcliInstallName': (visitor, target) => D4
-          .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
+          .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
           .dcliInstallName,
       'dcliCompleteName': (visitor, target) => D4
-          .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
+          .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
           .dcliCompleteName,
-      'pathToDCli': (visitor, target) =>
-          D4.validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths').pathToDCli,
+      'pathToDCli': (visitor, target) => D4
+          .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
+          .pathToDCli,
     },
     setters: {
       'dcliName': (visitor, target, value) =>
-          D4.validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths').dcliName =
-              D4.extractBridgedArg<String>(value, 'dcliName'),
+          D4
+              .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
+              .dcliName = D4.extractBridgedArg<String>(
+            value,
+            'dcliName',
+          ),
       'dcliInstallName': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
+              .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
               .dcliInstallName = D4.extractBridgedArg<String>(
             value,
             'dcliInstallName',
           ),
       'dcliCompleteName': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_32.DCliPaths>(target, 'DCliPaths')
+              .validateTarget<$tom_dcli_32.DCliPaths>(target, 'DCliPaths')
               .dcliCompleteName = D4.extractBridgedArg<String>(
             value,
             'dcliCompleteName',
@@ -9597,9 +9713,9 @@ BridgedClass _createDCliPathsBridge() {
 
 BridgedClass _createInvalidArgumentExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_35.InvalidArgumentException,
+    nativeType: $tom_dcli_35.InvalidArgumentException,
     name: 'InvalidArgumentException',
-    isAssignable: (v) => v is $dcli_35.InvalidArgumentException,
+    isAssignable: (v) => v is $tom_dcli_35.InvalidArgumentException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9610,24 +9726,24 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
           'message',
           'InvalidArgumentException',
         );
-        return $dcli_35.InvalidArgumentException(message);
+        return $tom_dcli_35.InvalidArgumentException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_35.InvalidArgumentException>(
+          .validateTarget<$tom_dcli_35.InvalidArgumentException>(
             target,
             'InvalidArgumentException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_35.InvalidArgumentException>(
+          .validateTarget<$tom_dcli_35.InvalidArgumentException>(
             target,
             'InvalidArgumentException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_35.InvalidArgumentException>(
+          .validateTarget<$tom_dcli_35.InvalidArgumentException>(
             target,
             'InvalidArgumentException',
           )
@@ -9636,7 +9752,7 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_35.InvalidArgumentException>(
+              .validateTarget<$tom_dcli_35.InvalidArgumentException>(
                 target,
                 'InvalidArgumentException',
               )
@@ -9647,14 +9763,14 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
@@ -9662,14 +9778,14 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidArgumentException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidArgumentException>(
           target,
           'InvalidArgumentException',
         );
@@ -9698,9 +9814,9 @@ BridgedClass _createInvalidArgumentExceptionBridge() {
 
 BridgedClass _createInvalidTemplateExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_35.InvalidTemplateException,
+    nativeType: $tom_dcli_35.InvalidTemplateException,
     name: 'InvalidTemplateException',
-    isAssignable: (v) => v is $dcli_35.InvalidTemplateException,
+    isAssignable: (v) => v is $tom_dcli_35.InvalidTemplateException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9711,24 +9827,24 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
           'message',
           'InvalidTemplateException',
         );
-        return $dcli_35.InvalidTemplateException(message);
+        return $tom_dcli_35.InvalidTemplateException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_35.InvalidTemplateException>(
+          .validateTarget<$tom_dcli_35.InvalidTemplateException>(
             target,
             'InvalidTemplateException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_35.InvalidTemplateException>(
+          .validateTarget<$tom_dcli_35.InvalidTemplateException>(
             target,
             'InvalidTemplateException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_35.InvalidTemplateException>(
+          .validateTarget<$tom_dcli_35.InvalidTemplateException>(
             target,
             'InvalidTemplateException',
           )
@@ -9737,7 +9853,7 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_35.InvalidTemplateException>(
+              .validateTarget<$tom_dcli_35.InvalidTemplateException>(
                 target,
                 'InvalidTemplateException',
               )
@@ -9748,14 +9864,14 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
@@ -9763,14 +9879,14 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InvalidTemplateException>(
+        final t = D4.validateTarget<$tom_dcli_35.InvalidTemplateException>(
           target,
           'InvalidTemplateException',
         );
@@ -9799,9 +9915,9 @@ BridgedClass _createInvalidTemplateExceptionBridge() {
 
 BridgedClass _createInstallExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_35.InstallException,
+    nativeType: $tom_dcli_35.InstallException,
     name: 'InstallException',
-    isAssignable: (v) => v is $dcli_35.InstallException,
+    isAssignable: (v) => v is $tom_dcli_35.InstallException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9812,24 +9928,33 @@ BridgedClass _createInstallExceptionBridge() {
           'message',
           'InstallException',
         );
-        return $dcli_35.InstallException(message);
+        return $tom_dcli_35.InstallException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_35.InstallException>(target, 'InstallException')
+          .validateTarget<$tom_dcli_35.InstallException>(
+            target,
+            'InstallException',
+          )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_35.InstallException>(target, 'InstallException')
+          .validateTarget<$tom_dcli_35.InstallException>(
+            target,
+            'InstallException',
+          )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_35.InstallException>(target, 'InstallException')
+          .validateTarget<$tom_dcli_35.InstallException>(
+            target,
+            'InstallException',
+          )
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_35.InstallException>(
+              .validateTarget<$tom_dcli_35.InstallException>(
                 target,
                 'InstallException',
               )
@@ -9840,14 +9965,14 @@ BridgedClass _createInstallExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InstallException>(
+        final t = D4.validateTarget<$tom_dcli_35.InstallException>(
           target,
           'InstallException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InstallException>(
+        final t = D4.validateTarget<$tom_dcli_35.InstallException>(
           target,
           'InstallException',
         );
@@ -9855,14 +9980,14 @@ BridgedClass _createInstallExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InstallException>(
+        final t = D4.validateTarget<$tom_dcli_35.InstallException>(
           target,
           'InstallException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.InstallException>(
+        final t = D4.validateTarget<$tom_dcli_35.InstallException>(
           target,
           'InstallException',
         );
@@ -9891,9 +10016,9 @@ BridgedClass _createInstallExceptionBridge() {
 
 BridgedClass _createProcessSyncExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_35.ProcessSyncException,
+    nativeType: $tom_dcli_35.ProcessSyncException,
     name: 'ProcessSyncException',
-    isAssignable: (v) => v is $dcli_35.ProcessSyncException,
+    isAssignable: (v) => v is $tom_dcli_35.ProcessSyncException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -9904,24 +10029,24 @@ BridgedClass _createProcessSyncExceptionBridge() {
           'message',
           'ProcessSyncException',
         );
-        return $dcli_35.ProcessSyncException(message);
+        return $tom_dcli_35.ProcessSyncException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_35.ProcessSyncException>(
+          .validateTarget<$tom_dcli_35.ProcessSyncException>(
             target,
             'ProcessSyncException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_35.ProcessSyncException>(
+          .validateTarget<$tom_dcli_35.ProcessSyncException>(
             target,
             'ProcessSyncException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_35.ProcessSyncException>(
+          .validateTarget<$tom_dcli_35.ProcessSyncException>(
             target,
             'ProcessSyncException',
           )
@@ -9930,7 +10055,7 @@ BridgedClass _createProcessSyncExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_35.ProcessSyncException>(
+              .validateTarget<$tom_dcli_35.ProcessSyncException>(
                 target,
                 'ProcessSyncException',
               )
@@ -9941,14 +10066,14 @@ BridgedClass _createProcessSyncExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
+        final t = D4.validateTarget<$tom_dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
+        final t = D4.validateTarget<$tom_dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
@@ -9956,14 +10081,14 @@ BridgedClass _createProcessSyncExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
+        final t = D4.validateTarget<$tom_dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_35.ProcessSyncException>(
+        final t = D4.validateTarget<$tom_dcli_35.ProcessSyncException>(
           target,
           'ProcessSyncException',
         );
@@ -9992,9 +10117,9 @@ BridgedClass _createProcessSyncExceptionBridge() {
 
 BridgedClass _createFileSortBridge() {
   return BridgedClass(
-    nativeType: $dcli_36.FileSort,
+    nativeType: $tom_dcli_36.FileSort,
     name: 'FileSort',
-    isAssignable: (v) => v is $dcli_36.FileSort,
+    isAssignable: (v) => v is $tom_dcli_36.FileSort,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 5, 'FileSort');
@@ -10015,7 +10140,7 @@ BridgedClass _createFileSortBridge() {
             'FileSort: Missing required argument "columns" at position 2',
           );
         }
-        final columns = D4.coerceList<$dcli_36.Column>(
+        final columns = D4.coerceList<$tom_dcli_36.Column>(
           positional[2],
           'columns',
         );
@@ -10036,7 +10161,7 @@ BridgedClass _createFileSortBridge() {
           'verbose',
           false,
         );
-        return $dcli_36.FileSort(
+        return $tom_dcli_36.FileSort(
           inputPath,
           outputPath,
           columns,
@@ -10048,11 +10173,11 @@ BridgedClass _createFileSortBridge() {
     },
     getters: {
       'verbose': (visitor, target) =>
-          D4.validateTarget<$dcli_36.FileSort>(target, 'FileSort').verbose,
+          D4.validateTarget<$tom_dcli_36.FileSort>(target, 'FileSort').verbose,
     },
     methods: {
       'sort': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.FileSort>(target, 'FileSort');
+        final t = D4.validateTarget<$tom_dcli_36.FileSort>(target, 'FileSort');
         t.sort();
         return null;
       },
@@ -10066,7 +10191,7 @@ BridgedClass _createFileSortBridge() {
           );
         }
         final values = D4.coerceList<String>(positional[0], 'values');
-        return $dcli_36.FileSort.expandColumns(values);
+        return $tom_dcli_36.FileSort.expandColumns(values);
       },
     },
     constructorSignatures: {
@@ -10086,9 +10211,9 @@ BridgedClass _createFileSortBridge() {
 
 BridgedClass _createColumnBridge() {
   return BridgedClass(
-    nativeType: $dcli_36.Column,
+    nativeType: $tom_dcli_36.Column,
     name: 'Column',
-    isAssignable: (v) => v is $dcli_36.Column,
+    isAssignable: (v) => v is $tom_dcli_36.Column,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'Column');
@@ -10098,19 +10223,19 @@ BridgedClass _createColumnBridge() {
           'ordinal',
           'Column',
         );
-        final comparator = D4.getRequiredArg<$dcli_36.ColumnComparator?>(
+        final comparator = D4.getRequiredArg<$tom_dcli_36.ColumnComparator?>(
           positional,
           1,
           '_comparator',
           'Column',
         );
-        final sortDirection = D4.getRequiredArg<$dcli_36.SortDirection?>(
+        final sortDirection = D4.getRequiredArg<$tom_dcli_36.SortDirection?>(
           positional,
           2,
           '_sortDirection',
           'Column',
         );
-        return $dcli_36.Column(ordinal, comparator, sortDirection);
+        return $tom_dcli_36.Column(ordinal, comparator, sortDirection);
       },
       'parse': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'Column');
@@ -10125,21 +10250,21 @@ BridgedClass _createColumnBridge() {
           'ordinalOnly',
           false,
         );
-        return $dcli_36.Column.parse(column, ordinalOnly: ordinalOnly);
+        return $tom_dcli_36.Column.parse(column, ordinalOnly: ordinalOnly);
       },
     },
     getters: {
       'ordinal': (visitor, target) =>
-          D4.validateTarget<$dcli_36.Column>(target, 'Column').ordinal,
+          D4.validateTarget<$tom_dcli_36.Column>(target, 'Column').ordinal,
     },
     setters: {
       'ordinal': (visitor, target, value) =>
-          D4.validateTarget<$dcli_36.Column>(target, 'Column').ordinal = D4
+          D4.validateTarget<$tom_dcli_36.Column>(target, 'Column').ordinal = D4
               .extractBridgedArgOrNull<int>(value, 'ordinal'),
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_36.Column>(target, 'Column');
+        final t = D4.validateTarget<$tom_dcli_36.Column>(target, 'Column');
         return t.toString();
       },
     },
@@ -10159,9 +10284,9 @@ BridgedClass _createColumnBridge() {
 
 BridgedClass _createFileSyncBridge() {
   return BridgedClass(
-    nativeType: $dcli_37.FileSync,
+    nativeType: $tom_dcli_37.FileSync,
     name: 'FileSync',
-    isAssignable: (v) => v is $dcli_37.FileSync,
+    isAssignable: (v) => v is $tom_dcli_37.FileSync,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FileSync');
@@ -10176,18 +10301,18 @@ BridgedClass _createFileSyncBridge() {
           'fileMode',
           FileMode.writeOnlyAppend,
         );
-        return $dcli_37.FileSync(path, fileMode: fileMode);
+        return $tom_dcli_37.FileSync(path, fileMode: fileMode);
       },
     },
     getters: {
       'path': (visitor, target) =>
-          D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync').path,
+          D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync').path,
       'length': (visitor, target) =>
-          D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync').length,
+          D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync').length,
     },
     methods: {
       'readLine': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         final lineDelimiter = D4.getOptionalNamedArg<String?>(
           named,
           'lineDelimiter',
@@ -10195,17 +10320,17 @@ BridgedClass _createFileSyncBridge() {
         return t.readLine(lineDelimiter: lineDelimiter);
       },
       'flush': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         t.flush();
         return null;
       },
       'close': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         t.close();
         return null;
       },
       'read': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'read');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -10223,11 +10348,11 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'resolveSymLink': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         return t.resolveSymLink();
       },
       'write': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'write');
         final line = D4.getRequiredArg<String>(positional, 0, 'line', 'write');
         final newline = D4.getOptionalNamedArg<String?>(named, 'newline');
@@ -10235,7 +10360,7 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'writeFromSync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'writeFromSync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -10254,7 +10379,7 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'readIntoSync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'readIntoSync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -10272,7 +10397,7 @@ BridgedClass _createFileSyncBridge() {
         return t.readIntoSync(buffer, start, end);
       },
       'append': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         D4.requireMinArgs(positional, 1, 'append');
         final line = D4.getRequiredArg<String>(positional, 0, 'line', 'append');
         final newline = D4.getOptionalNamedArg<String?>(named, 'newline');
@@ -10280,7 +10405,7 @@ BridgedClass _createFileSyncBridge() {
         return null;
       },
       'truncate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_37.FileSync>(target, 'FileSync');
+        final t = D4.validateTarget<$tom_dcli_37.FileSync>(target, 'FileSync');
         t.truncate();
         return null;
       },
@@ -10312,9 +10437,9 @@ BridgedClass _createFileSyncBridge() {
 
 BridgedClass _createFileNotFoundExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_38.FileNotFoundException,
+    nativeType: $tom_dcli_38.FileNotFoundException,
     name: 'FileNotFoundException',
-    isAssignable: (v) => v is $dcli_38.FileNotFoundException,
+    isAssignable: (v) => v is $tom_dcli_38.FileNotFoundException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -10325,24 +10450,24 @@ BridgedClass _createFileNotFoundExceptionBridge() {
           'path',
           'FileNotFoundException',
         );
-        return $dcli_38.FileNotFoundException(path);
+        return $tom_dcli_38.FileNotFoundException(path);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_38.FileNotFoundException>(
+          .validateTarget<$tom_dcli_38.FileNotFoundException>(
             target,
             'FileNotFoundException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_38.FileNotFoundException>(
+          .validateTarget<$tom_dcli_38.FileNotFoundException>(
             target,
             'FileNotFoundException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_38.FileNotFoundException>(
+          .validateTarget<$tom_dcli_38.FileNotFoundException>(
             target,
             'FileNotFoundException',
           )
@@ -10351,7 +10476,7 @@ BridgedClass _createFileNotFoundExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_38.FileNotFoundException>(
+              .validateTarget<$tom_dcli_38.FileNotFoundException>(
                 target,
                 'FileNotFoundException',
               )
@@ -10362,14 +10487,14 @@ BridgedClass _createFileNotFoundExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
@@ -10377,14 +10502,14 @@ BridgedClass _createFileNotFoundExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.FileNotFoundException>(
+        final t = D4.validateTarget<$tom_dcli_38.FileNotFoundException>(
           target,
           'FileNotFoundException',
         );
@@ -10413,9 +10538,9 @@ BridgedClass _createFileNotFoundExceptionBridge() {
 
 BridgedClass _createNotAFileExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_38.NotAFileException,
+    nativeType: $tom_dcli_38.NotAFileException,
     name: 'NotAFileException',
-    isAssignable: (v) => v is $dcli_38.NotAFileException,
+    isAssignable: (v) => v is $tom_dcli_38.NotAFileException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -10426,24 +10551,24 @@ BridgedClass _createNotAFileExceptionBridge() {
           'path',
           'NotAFileException',
         );
-        return $dcli_38.NotAFileException(path);
+        return $tom_dcli_38.NotAFileException(path);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_38.NotAFileException>(
+          .validateTarget<$tom_dcli_38.NotAFileException>(
             target,
             'NotAFileException',
           )
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_38.NotAFileException>(
+          .validateTarget<$tom_dcli_38.NotAFileException>(
             target,
             'NotAFileException',
           )
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_38.NotAFileException>(
+          .validateTarget<$tom_dcli_38.NotAFileException>(
             target,
             'NotAFileException',
           )
@@ -10452,7 +10577,7 @@ BridgedClass _createNotAFileExceptionBridge() {
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_38.NotAFileException>(
+              .validateTarget<$tom_dcli_38.NotAFileException>(
                 target,
                 'NotAFileException',
               )
@@ -10463,14 +10588,14 @@ BridgedClass _createNotAFileExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.NotAFileException>(
+        final t = D4.validateTarget<$tom_dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.NotAFileException>(
+        final t = D4.validateTarget<$tom_dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
@@ -10478,14 +10603,14 @@ BridgedClass _createNotAFileExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.NotAFileException>(
+        final t = D4.validateTarget<$tom_dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_38.NotAFileException>(
+        final t = D4.validateTarget<$tom_dcli_38.NotAFileException>(
           target,
           'NotAFileException',
         );
@@ -10514,9 +10639,9 @@ BridgedClass _createNotAFileExceptionBridge() {
 
 BridgedClass _createNamedLockBridge() {
   return BridgedClass(
-    nativeType: $dcli_39.NamedLock,
+    nativeType: $tom_dcli_39.NamedLock,
     name: 'NamedLock',
-    isAssignable: (v) => v is $dcli_39.NamedLock,
+    isAssignable: (v) => v is $tom_dcli_39.NamedLock,
     constructors: {
       '': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(named, 'name', 'NamedLock');
@@ -10531,7 +10656,7 @@ BridgedClass _createNamedLockBridge() {
           'timeout',
           const Duration(seconds: 30),
         );
-        return $dcli_39.NamedLock(
+        return $tom_dcli_39.NamedLock(
           name: name,
           lockPath: lockPath,
           description: description,
@@ -10541,19 +10666,22 @@ BridgedClass _createNamedLockBridge() {
     },
     getters: {
       'port': (visitor, target) =>
-          D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock').port,
+          D4.validateTarget<$tom_dcli_39.NamedLock>(target, 'NamedLock').port,
       'name': (visitor, target) =>
-          D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock').name,
+          D4.validateTarget<$tom_dcli_39.NamedLock>(target, 'NamedLock').name,
       'incLockCount': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLock>(target, 'NamedLock')
+          .validateTarget<$tom_dcli_39.NamedLock>(target, 'NamedLock')
           .incLockCount,
       'decLockCount': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLock>(target, 'NamedLock')
+          .validateTarget<$tom_dcli_39.NamedLock>(target, 'NamedLock')
           .decLockCount,
     },
     methods: {
       'withLockAsync': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock');
+        final t = D4.validateTarget<$tom_dcli_39.NamedLock>(
+          target,
+          'NamedLock',
+        );
         D4.requireMinArgs(positional, 1, 'withLockAsync');
         if (positional.isEmpty) {
           throw ArgumentError(
@@ -10573,7 +10701,10 @@ BridgedClass _createNamedLockBridge() {
         );
       },
       'observe': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.NamedLock>(target, 'NamedLock');
+        final t = D4.validateTarget<$tom_dcli_39.NamedLock>(
+          target,
+          'NamedLock',
+        );
         return t.observe();
       },
     },
@@ -10600,9 +10731,9 @@ BridgedClass _createNamedLockBridge() {
 
 BridgedClass _createNamedLockObservationBridge() {
   return BridgedClass(
-    nativeType: $dcli_39.NamedLockObservation,
+    nativeType: $tom_dcli_39.NamedLockObservation,
     name: 'NamedLockObservation',
-    isAssignable: (v) => v is $dcli_39.NamedLockObservation,
+    isAssignable: (v) => v is $tom_dcli_39.NamedLockObservation,
     constructors: {
       'held': (visitor, positional, named) {
         final name = D4.getRequiredNamedArg<String>(
@@ -10625,7 +10756,7 @@ BridgedClass _createNamedLockObservationBridge() {
           'acquiredAt',
           'NamedLockObservation',
         );
-        return $dcli_39.NamedLockObservation.held(
+        return $tom_dcli_39.NamedLockObservation.held(
           name: name,
           ownerPid: ownerPid,
           ownerIsolateId: ownerIsolateId,
@@ -10638,36 +10769,36 @@ BridgedClass _createNamedLockObservationBridge() {
           'name',
           'NamedLockObservation',
         );
-        return $dcli_39.NamedLockObservation.notHeld(name: name);
+        return $tom_dcli_39.NamedLockObservation.notHeld(name: name);
       },
     },
     getters: {
       'name': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLockObservation>(
+          .validateTarget<$tom_dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .name,
       'isHeld': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLockObservation>(
+          .validateTarget<$tom_dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .isHeld,
       'ownerPid': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLockObservation>(
+          .validateTarget<$tom_dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .ownerPid,
       'ownerIsolateId': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLockObservation>(
+          .validateTarget<$tom_dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
           .ownerIsolateId,
       'acquiredAt': (visitor, target) => D4
-          .validateTarget<$dcli_39.NamedLockObservation>(
+          .validateTarget<$tom_dcli_39.NamedLockObservation>(
             target,
             'NamedLockObservation',
           )
@@ -10694,9 +10825,9 @@ BridgedClass _createNamedLockObservationBridge() {
 
 BridgedClass _createLockExceptionBridge() {
   return BridgedClass(
-    nativeType: $dcli_39.LockException,
+    nativeType: $tom_dcli_39.LockException,
     name: 'LockException',
-    isAssignable: (v) => v is $dcli_39.LockException,
+    isAssignable: (v) => v is $tom_dcli_39.LockException,
     hierarchyDepth: 2,
     constructors: {
       '': (visitor, positional, named) {
@@ -10707,24 +10838,27 @@ BridgedClass _createLockExceptionBridge() {
           'message',
           'LockException',
         );
-        return $dcli_39.LockException(message);
+        return $tom_dcli_39.LockException(message);
       },
     },
     getters: {
       'message': (visitor, target) => D4
-          .validateTarget<$dcli_39.LockException>(target, 'LockException')
+          .validateTarget<$tom_dcli_39.LockException>(target, 'LockException')
           .message,
       'cause': (visitor, target) => D4
-          .validateTarget<$dcli_39.LockException>(target, 'LockException')
+          .validateTarget<$tom_dcli_39.LockException>(target, 'LockException')
           .cause,
       'stackTrace': (visitor, target) => D4
-          .validateTarget<$dcli_39.LockException>(target, 'LockException')
+          .validateTarget<$tom_dcli_39.LockException>(target, 'LockException')
           .stackTrace,
     },
     setters: {
       'stackTrace': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_39.LockException>(target, 'LockException')
+              .validateTarget<$tom_dcli_39.LockException>(
+                target,
+                'LockException',
+              )
               .stackTrace = D4.extractBridgedArg<$stack_trace_1.Trace>(
             value,
             'stackTrace',
@@ -10732,14 +10866,14 @@ BridgedClass _createLockExceptionBridge() {
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.LockException>(
+        final t = D4.validateTarget<$tom_dcli_39.LockException>(
           target,
           'LockException',
         );
         return t.toString();
       },
       'printStackTrace': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.LockException>(
+        final t = D4.validateTarget<$tom_dcli_39.LockException>(
           target,
           'LockException',
         );
@@ -10747,14 +10881,14 @@ BridgedClass _createLockExceptionBridge() {
         return null;
       },
       'toJson': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.LockException>(
+        final t = D4.validateTarget<$tom_dcli_39.LockException>(
           target,
           'LockException',
         );
         return t.toJson();
       },
       'toJsonString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_39.LockException>(
+        final t = D4.validateTarget<$tom_dcli_39.LockException>(
           target,
           'LockException',
         );
@@ -10783,17 +10917,17 @@ BridgedClass _createLockExceptionBridge() {
 
 BridgedClass _createProcessHelperBridge() {
   return BridgedClass(
-    nativeType: $dcli_40.ProcessHelper,
+    nativeType: $tom_dcli_40.ProcessHelper,
     name: 'ProcessHelper',
-    isAssignable: (v) => v is $dcli_40.ProcessHelper,
+    isAssignable: (v) => v is $tom_dcli_40.ProcessHelper,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_40.ProcessHelper();
+        return $tom_dcli_40.ProcessHelper();
       },
     },
     methods: {
       'getProcessName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10807,7 +10941,7 @@ BridgedClass _createProcessHelperBridge() {
         return t.getProcessName(pid);
       },
       'getParentPID': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10821,7 +10955,7 @@ BridgedClass _createProcessHelperBridge() {
         return t.getParentPID(childPid);
       },
       'isRunning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10831,7 +10965,7 @@ BridgedClass _createProcessHelperBridge() {
       },
       'getProcessStartIdentity':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+            final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
               target,
               'ProcessHelper',
             );
@@ -10845,7 +10979,7 @@ BridgedClass _createProcessHelperBridge() {
             return t.getProcessStartIdentity(pid);
           },
       'isProcessRunning': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10859,14 +10993,14 @@ BridgedClass _createProcessHelperBridge() {
         return t.isProcessRunning(name);
       },
       'getProcesses': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
         return t.getProcesses();
       },
       'getProcessesByName': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessHelper>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessHelper>(
           target,
           'ProcessHelper',
         );
@@ -10889,7 +11023,7 @@ BridgedClass _createProcessHelperBridge() {
           'process',
           'parseWMICLine',
         );
-        return $dcli_40.ProcessHelper.parseWMICLine(process);
+        return $tom_dcli_40.ProcessHelper.parseWMICLine(process);
       },
     },
     constructorSignatures: {'': 'factory ProcessHelper()'},
@@ -10916,9 +11050,9 @@ BridgedClass _createProcessHelperBridge() {
 
 BridgedClass _createProcessDetailsBridge() {
   return BridgedClass(
-    nativeType: $dcli_40.ProcessDetails,
+    nativeType: $tom_dcli_40.ProcessDetails,
     name: 'ProcessDetails',
-    isAssignable: (v) => v is $dcli_40.ProcessDetails,
+    isAssignable: (v) => v is $tom_dcli_40.ProcessDetails,
     constructors: {
       '': (visitor, positional, named) {
         D4.requireMinArgs(positional, 3, 'ProcessDetails');
@@ -10940,30 +11074,33 @@ BridgedClass _createProcessDetailsBridge() {
           'memory',
           'ProcessDetails',
         );
-        return $dcli_40.ProcessDetails(pid, name, memory);
+        return $tom_dcli_40.ProcessDetails(pid, name, memory);
       },
     },
     getters: {
       'pid': (visitor, target) => D4
-          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$tom_dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .pid,
       'name': (visitor, target) => D4
-          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$tom_dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .name,
       'memoryUnits': (visitor, target) => D4
-          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$tom_dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .memoryUnits,
       'memory': (visitor, target) => D4
-          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$tom_dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .memory,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
+          .validateTarget<$tom_dcli_40.ProcessDetails>(target, 'ProcessDetails')
           .hashCode,
     },
     setters: {
       'memoryUnits': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_40.ProcessDetails>(target, 'ProcessDetails')
+              .validateTarget<$tom_dcli_40.ProcessDetails>(
+                target,
+                'ProcessDetails',
+              )
               .memoryUnits = D4.extractBridgedArgOrNull<String>(
             value,
             'memoryUnits',
@@ -10971,12 +11108,12 @@ BridgedClass _createProcessDetailsBridge() {
     },
     methods: {
       'compareTo': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessDetails>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessDetails>(
           target,
           'ProcessDetails',
         );
         D4.requireMinArgs(positional, 1, 'compareTo');
-        final other = D4.getRequiredArg<$dcli_40.ProcessDetails>(
+        final other = D4.getRequiredArg<$tom_dcli_40.ProcessDetails>(
           positional,
           0,
           'other',
@@ -10985,13 +11122,13 @@ BridgedClass _createProcessDetailsBridge() {
         return t.compareTo(other);
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_40.ProcessDetails>(
+        final t = D4.validateTarget<$tom_dcli_40.ProcessDetails>(
           target,
           'ProcessDetails',
         );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
-        final other = D4.getRequiredArg<$dcli_40.ProcessDetails>(
+        final other = D4.getRequiredArg<$tom_dcli_40.ProcessDetails>(
           positional,
           0,
           'other',
@@ -11021,38 +11158,40 @@ BridgedClass _createProcessDetailsBridge() {
 
 BridgedClass _createPubCacheBridge() {
   return BridgedClass(
-    nativeType: $dcli_41.PubCache,
+    nativeType: $tom_dcli_41.PubCache,
     name: 'PubCache',
-    isAssignable: (v) => v is $dcli_41.PubCache,
+    isAssignable: (v) => v is $tom_dcli_41.PubCache,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_41.PubCache();
+        return $tom_dcli_41.PubCache();
       },
       'forScope': (visitor, positional, named) {
-        return $dcli_41.PubCache.forScope();
+        return $tom_dcli_41.PubCache.forScope();
       },
     },
     getters: {
       'pathTo': (visitor, target) =>
-          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathTo,
-      'pathToBin': (visitor, target) =>
-          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathToBin,
-      'pathToHosted': (visitor, target) =>
-          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathToHosted,
+          D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache').pathTo,
+      'pathToBin': (visitor, target) => D4
+          .validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache')
+          .pathToBin,
+      'pathToHosted': (visitor, target) => D4
+          .validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache')
+          .pathToHosted,
       'cacheDir': (visitor, target) =>
-          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').cacheDir,
+          D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache').cacheDir,
       'pathToDartLang': (visitor, target) => D4
-          .validateTarget<$dcli_41.PubCache>(target, 'PubCache')
+          .validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache')
           .pathToDartLang,
     },
     setters: {
       'pathTo': (visitor, target, value) =>
-          D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache').pathTo = D4
-              .extractBridgedArg<String>(value, 'pathTo'),
+          D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache').pathTo =
+              D4.extractBridgedArg<String>(value, 'pathTo'),
     },
     methods: {
       'pathToPackage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 2, 'pathToPackage');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11069,7 +11208,7 @@ BridgedClass _createPubCacheBridge() {
         return t.pathToPackage(packageName, version);
       },
       'pathToGlobalPackage': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'pathToGlobalPackage');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11080,7 +11219,7 @@ BridgedClass _createPubCacheBridge() {
         return t.pathToGlobalPackage(packageName);
       },
       'isInstalled': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'isInstalled');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11091,7 +11230,7 @@ BridgedClass _createPubCacheBridge() {
         return t.isInstalled(packageName);
       },
       'findPrimaryVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'findPrimaryVersion');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11102,7 +11241,7 @@ BridgedClass _createPubCacheBridge() {
         return t.findPrimaryVersion(packageName);
       },
       'findVersion': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 2, 'findVersion');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11119,7 +11258,7 @@ BridgedClass _createPubCacheBridge() {
         return t.findVersion(packageName, requestedVersion);
       },
       'globalActivate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'globalActivate');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11138,7 +11277,10 @@ BridgedClass _createPubCacheBridge() {
       },
       'globalActivateFromSource':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+            final t = D4.validateTarget<$tom_dcli_41.PubCache>(
+              target,
+              'PubCache',
+            );
             D4.requireMinArgs(positional, 1, 'globalActivateFromSource');
             final path = D4.getRequiredArg<String>(
               positional,
@@ -11155,7 +11297,7 @@ BridgedClass _createPubCacheBridge() {
             return null;
           },
       'globalDeactivate': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'globalDeactivate');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11167,7 +11309,7 @@ BridgedClass _createPubCacheBridge() {
         return null;
       },
       'isGloballyActivated': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+        final t = D4.validateTarget<$tom_dcli_41.PubCache>(target, 'PubCache');
         D4.requireMinArgs(positional, 1, 'isGloballyActivated');
         final packageName = D4.getRequiredArg<String>(
           positional,
@@ -11179,7 +11321,10 @@ BridgedClass _createPubCacheBridge() {
       },
       'isGloballyActivatedFromSource':
           (visitor, target, positional, named, typeArgs) {
-            final t = D4.validateTarget<$dcli_41.PubCache>(target, 'PubCache');
+            final t = D4.validateTarget<$tom_dcli_41.PubCache>(
+              target,
+              'PubCache',
+            );
             D4.requireMinArgs(positional, 1, 'isGloballyActivatedFromSource');
             final packageName = D4.getRequiredArg<String>(
               positional,
@@ -11191,12 +11336,12 @@ BridgedClass _createPubCacheBridge() {
           },
     },
     staticGetters: {
-      'scopeKey': (visitor) => $dcli_41.PubCache.scopeKey,
-      'envVarPubCache': (visitor) => $dcli_41.PubCache.envVarPubCache,
+      'scopeKey': (visitor) => $tom_dcli_41.PubCache.scopeKey,
+      'envVarPubCache': (visitor) => $tom_dcli_41.PubCache.envVarPubCache,
     },
     staticSetters: {
-      'scopeKey': (visitor, value) => $dcli_41.PubCache.scopeKey = D4
-          .extractBridgedArg<$scope_1.ScopeKey<$dcli_41.PubCache>>(
+      'scopeKey': (visitor, value) => $tom_dcli_41.PubCache.scopeKey = D4
+          .extractBridgedArg<$scope_1.ScopeKey<$tom_dcli_41.PubCache>>(
             value,
             'scopeKey',
           ),
@@ -11244,17 +11389,17 @@ BridgedClass _createPubCacheBridge() {
 
 BridgedClass _createRemoteBridge() {
   return BridgedClass(
-    nativeType: $dcli_42.Remote,
+    nativeType: $tom_dcli_42.Remote,
     name: 'Remote',
-    isAssignable: (v) => v is $dcli_42.Remote,
+    isAssignable: (v) => v is $tom_dcli_42.Remote,
     constructors: {
       '': (visitor, positional, named) {
-        return $dcli_42.Remote();
+        return $tom_dcli_42.Remote();
       },
     },
     methods: {
       'exec': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_42.Remote>(target, 'Remote');
+        final t = D4.validateTarget<$tom_dcli_42.Remote>(target, 'Remote');
         final host = D4.getRequiredNamedArg<String>(named, 'host', 'exec');
         final command = D4.getRequiredNamedArg<String>(
           named,
@@ -11264,7 +11409,7 @@ BridgedClass _createRemoteBridge() {
         final agent = D4.getNamedArgWithDefault<bool>(named, 'agent', true);
         final sudo = D4.getNamedArgWithDefault<bool>(named, 'sudo', false);
         final password = D4.getOptionalNamedArg<String?>(named, 'password');
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -11301,7 +11446,7 @@ BridgedClass _createRemoteBridge() {
         );
       },
       'execList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_42.Remote>(target, 'Remote');
+        final t = D4.validateTarget<$tom_dcli_42.Remote>(target, 'Remote');
         final host = D4.getRequiredNamedArg<String>(named, 'host', 'execList');
         if (!named.containsKey('commands') || named['commands'] == null) {
           throw ArgumentError(
@@ -11312,7 +11457,7 @@ BridgedClass _createRemoteBridge() {
         final agent = D4.getNamedArgWithDefault<bool>(named, 'agent', true);
         final sudo = D4.getNamedArgWithDefault<bool>(named, 'sudo', false);
         final password = D4.getOptionalNamedArg<String?>(named, 'password');
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -11349,7 +11494,7 @@ BridgedClass _createRemoteBridge() {
         );
       },
       'scp': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_42.Remote>(target, 'Remote');
+        final t = D4.validateTarget<$tom_dcli_42.Remote>(target, 'Remote');
         if (!named.containsKey('from') || named['from'] == null) {
           throw ArgumentError('scp: Missing required named argument "from"');
         }
@@ -11364,7 +11509,7 @@ BridgedClass _createRemoteBridge() {
           'recursive',
           false,
         );
-        final progress = D4.getOptionalNamedArg<$dcli_19.Progress?>(
+        final progress = D4.getOptionalNamedArg<$tom_dcli_19.Progress?>(
           named,
           'progress',
         );
@@ -11414,7 +11559,7 @@ BridgedClass _createRemoteBridge() {
           'commands',
           'buildPasswordedCommand',
         );
-        return $dcli_42.Remote.buildPasswordedCommand(commands);
+        return $tom_dcli_42.Remote.buildPasswordedCommand(commands);
       },
     },
     constructorSignatures: {'': 'factory Remote()'},
@@ -11439,9 +11584,9 @@ BridgedClass _createRemoteBridge() {
 
 BridgedClass _createFindProgressBridge() {
   return BridgedClass(
-    nativeType: $dcli_8.FindProgress,
+    nativeType: $tom_dcli_8.FindProgress,
     name: 'FindProgress',
-    isAssignable: (v) => v is $dcli_8.FindProgress,
+    isAssignable: (v) => v is $tom_dcli_8.FindProgress,
     hierarchyDepth: 1,
     constructors: {
       '': (visitor, positional, named) {
@@ -11481,7 +11626,7 @@ BridgedClass _createFindProgressBridge() {
           named['types'],
           'types',
         );
-        return $dcli_8.FindProgress(
+        return $tom_dcli_8.FindProgress(
           pattern,
           caseSensitive: caseSensitive,
           recursion: recursion,
@@ -11493,65 +11638,66 @@ BridgedClass _createFindProgressBridge() {
     },
     getters: {
       'pattern': (visitor, target) => D4
-          .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
           .pattern,
       'caseSensitive': (visitor, target) => D4
-          .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
           .caseSensitive,
       'recursion': (visitor, target) => D4
-          .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
           .recursion,
       'includeHidden': (visitor, target) => D4
-          .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
           .includeHidden,
       'workingDirectory': (visitor, target) => D4
-          .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
           .workingDirectory,
-      'types': (visitor, target) =>
-          D4.validateTarget<$dcli_8.FindProgress>(target, 'FindProgress').types,
+      'types': (visitor, target) => D4
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
+          .types,
       'firstLine': (visitor, target) => D4
-          .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+          .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
           .firstLine,
     },
     setters: {
       'pattern': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+              .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
               .pattern = D4.extractBridgedArg<String>(
             value,
             'pattern',
           ),
       'caseSensitive': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+              .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
               .caseSensitive = D4.extractBridgedArg<bool>(
             value,
             'caseSensitive',
           ),
       'recursion': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+              .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
               .recursion = D4.extractBridgedArg<bool>(
             value,
             'recursion',
           ),
       'includeHidden': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+              .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
               .includeHidden = D4.extractBridgedArg<bool>(
             value,
             'includeHidden',
           ),
       'workingDirectory': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+              .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
               .workingDirectory = D4.extractBridgedArg<String>(
             value,
             'workingDirectory',
           ),
       'types': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_8.FindProgress>(target, 'FindProgress')
+              .validateTarget<$tom_dcli_8.FindProgress>(target, 'FindProgress')
               .types = D4.coerceList<FileSystemEntityType>(
             value,
             'types',
@@ -11559,7 +11705,7 @@ BridgedClass _createFindProgressBridge() {
     },
     methods: {
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_8.FindProgress>(
+        final t = D4.validateTarget<$tom_dcli_8.FindProgress>(
           target,
           'FindProgress',
         );
@@ -11576,7 +11722,7 @@ BridgedClass _createFindProgressBridge() {
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_8.FindProgress>(
+        final t = D4.validateTarget<$tom_dcli_8.FindProgress>(
           target,
           'FindProgress',
         );
@@ -11616,14 +11762,14 @@ BridgedClass _createFindProgressBridge() {
 
 BridgedClass _createHeadProgressBridge() {
   return BridgedClass(
-    nativeType: $dcli_9.HeadProgress,
+    nativeType: $tom_dcli_9.HeadProgress,
     name: 'HeadProgress',
-    isAssignable: (v) => v is $dcli_9.HeadProgress,
+    isAssignable: (v) => v is $tom_dcli_9.HeadProgress,
     hierarchyDepth: 1,
     constructors: {},
     methods: {
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_9.HeadProgress>(
+        final t = D4.validateTarget<$tom_dcli_9.HeadProgress>(
           target,
           'HeadProgress',
         );
@@ -11640,7 +11786,7 @@ BridgedClass _createHeadProgressBridge() {
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_9.HeadProgress>(
+        final t = D4.validateTarget<$tom_dcli_9.HeadProgress>(
           target,
           'HeadProgress',
         );
@@ -11660,30 +11806,30 @@ BridgedClass _createHeadProgressBridge() {
 
 BridgedClass _createTailProgressBridge() {
   return BridgedClass(
-    nativeType: $dcli_16.TailProgress,
+    nativeType: $tom_dcli_16.TailProgress,
     name: 'TailProgress',
-    isAssignable: (v) => v is $dcli_16.TailProgress,
+    isAssignable: (v) => v is $tom_dcli_16.TailProgress,
     hierarchyDepth: 1,
     constructors: {},
     getters: {
       'pathTo': (visitor, target) => D4
-          .validateTarget<$dcli_16.TailProgress>(target, 'TailProgress')
+          .validateTarget<$tom_dcli_16.TailProgress>(target, 'TailProgress')
           .pathTo,
       'lines': (visitor, target) => D4
-          .validateTarget<$dcli_16.TailProgress>(target, 'TailProgress')
+          .validateTarget<$tom_dcli_16.TailProgress>(target, 'TailProgress')
           .lines,
     },
     setters: {
       'pathTo': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_16.TailProgress>(target, 'TailProgress')
+              .validateTarget<$tom_dcli_16.TailProgress>(target, 'TailProgress')
               .pathTo = D4.extractBridgedArg<String>(
             value,
             'pathTo',
           ),
       'lines': (visitor, target, value) =>
           D4
-              .validateTarget<$dcli_16.TailProgress>(target, 'TailProgress')
+              .validateTarget<$tom_dcli_16.TailProgress>(target, 'TailProgress')
               .lines = D4.extractBridgedArg<int>(
             value,
             'lines',
@@ -11691,7 +11837,7 @@ BridgedClass _createTailProgressBridge() {
     },
     methods: {
       'forEach': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_16.TailProgress>(
+        final t = D4.validateTarget<$tom_dcli_16.TailProgress>(
           target,
           'TailProgress',
         );
@@ -11708,7 +11854,7 @@ BridgedClass _createTailProgressBridge() {
         return null;
       },
       'toList': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$dcli_16.TailProgress>(
+        final t = D4.validateTarget<$tom_dcli_16.TailProgress>(
           target,
           'TailProgress',
         );
@@ -12254,16 +12400,15 @@ BridgedClass _createScopeKeyBridge() {
             return $scope_1.ScopeKey<
               $dcli_core_14.MoveTreeException
             >.withDefault(defaultValue, debugName);
-          case $dcli_12.ReadException _:
-            return $scope_1.ScopeKey<$dcli_12.ReadException>.withDefault(
+          case $tom_dcli_12.ReadException _:
+            return $scope_1.ScopeKey<$tom_dcli_12.ReadException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_1.AskValidatorException _:
-            return $scope_1.ScopeKey<$dcli_1.AskValidatorException>.withDefault(
-              defaultValue,
-              debugName,
-            );
+          case $tom_dcli_1.AskValidatorException _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_1.AskValidatorException
+            >.withDefault(defaultValue, debugName);
           case $dcli_core_1.BackupFileException _:
             return $scope_1.ScopeKey<
               $dcli_core_1.BackupFileException
@@ -12272,62 +12417,58 @@ BridgedClass _createScopeKeyBridge() {
             return $scope_1.ScopeKey<
               $dcli_core_6.DCliFunctionException
             >.withDefault(defaultValue, debugName);
-          case $dcli_23.DartProjectException _:
-            return $scope_1.ScopeKey<$dcli_23.DartProjectException>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_6.FetchException _:
-            return $scope_1.ScopeKey<$dcli_6.FetchException>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_38.FileNotFoundException _:
+          case $tom_dcli_23.DartProjectException _:
             return $scope_1.ScopeKey<
-              $dcli_38.FileNotFoundException
+              $tom_dcli_23.DartProjectException
             >.withDefault(defaultValue, debugName);
-          case $dcli_35.InstallException _:
-            return $scope_1.ScopeKey<$dcli_35.InstallException>.withDefault(
+          case $tom_dcli_6.FetchException _:
+            return $scope_1.ScopeKey<$tom_dcli_6.FetchException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_35.InvalidArgumentException _:
+          case $tom_dcli_38.FileNotFoundException _:
             return $scope_1.ScopeKey<
-              $dcli_35.InvalidArgumentException
+              $tom_dcli_38.FileNotFoundException
             >.withDefault(defaultValue, debugName);
-          case $dcli_23.InvalidProjectTemplateException _:
+          case $tom_dcli_35.InstallException _:
+            return $scope_1.ScopeKey<$tom_dcli_35.InstallException>.withDefault(
+              defaultValue,
+              debugName,
+            );
+          case $tom_dcli_35.InvalidArgumentException _:
             return $scope_1.ScopeKey<
-              $dcli_23.InvalidProjectTemplateException
+              $tom_dcli_35.InvalidArgumentException
             >.withDefault(defaultValue, debugName);
-          case $dcli_35.InvalidTemplateException _:
+          case $tom_dcli_23.InvalidProjectTemplateException _:
             return $scope_1.ScopeKey<
-              $dcli_35.InvalidTemplateException
+              $tom_dcli_23.InvalidProjectTemplateException
             >.withDefault(defaultValue, debugName);
-          case $dcli_39.LockException _:
-            return $scope_1.ScopeKey<$dcli_39.LockException>.withDefault(
+          case $tom_dcli_35.InvalidTemplateException _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_35.InvalidTemplateException
+            >.withDefault(defaultValue, debugName);
+          case $tom_dcli_39.LockException _:
+            return $scope_1.ScopeKey<$tom_dcli_39.LockException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_38.NotAFileException _:
-            return $scope_1.ScopeKey<$dcli_38.NotAFileException>.withDefault(
+          case $tom_dcli_38.NotAFileException _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_38.NotAFileException
+            >.withDefault(defaultValue, debugName);
+          case $tom_dcli_35.ProcessSyncException _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_35.ProcessSyncException
+            >.withDefault(defaultValue, debugName);
+          case $tom_dcli_26.PubGetException _:
+            return $scope_1.ScopeKey<$tom_dcli_26.PubGetException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_35.ProcessSyncException _:
-            return $scope_1.ScopeKey<$dcli_35.ProcessSyncException>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_26.PubGetException _:
-            return $scope_1.ScopeKey<$dcli_26.PubGetException>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_21.ResourceException _:
-            return $scope_1.ScopeKey<$dcli_21.ResourceException>.withDefault(
-              defaultValue,
-              debugName,
-            );
+          case $tom_dcli_21.ResourceException _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_21.ResourceException
+            >.withDefault(defaultValue, debugName);
           case $dcli_core_1.RestoreFileException _:
             return $scope_1.ScopeKey<
               $dcli_core_1.RestoreFileException
@@ -12337,30 +12478,29 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_28.ShellException _:
-            return $scope_1.ScopeKey<$dcli_28.ShellException>.withDefault(
+          case $tom_dcli_28.ShellException _:
+            return $scope_1.ScopeKey<$tom_dcli_28.ShellException>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_23.TemplateNotFoundException _:
+          case $tom_dcli_23.TemplateNotFoundException _:
             return $scope_1.ScopeKey<
-              $dcli_23.TemplateNotFoundException
+              $tom_dcli_23.TemplateNotFoundException
             >.withDefault(defaultValue, debugName);
-          case $dcli_30.UnknownShell _:
-            return $scope_1.ScopeKey<$dcli_30.UnknownShell>.withDefault(
+          case $tom_dcli_30.UnknownShell _:
+            return $scope_1.ScopeKey<$tom_dcli_30.UnknownShell>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_1.Ask _:
-            return $scope_1.ScopeKey<$dcli_1.Ask>.withDefault(
+          case $tom_dcli_1.Ask _:
+            return $scope_1.ScopeKey<$tom_dcli_1.Ask>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_1.AskValidatorIPAddress _:
-            return $scope_1.ScopeKey<$dcli_1.AskValidatorIPAddress>.withDefault(
-              defaultValue,
-              debugName,
-            );
+          case $tom_dcli_1.AskValidatorIPAddress _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_1.AskValidatorIPAddress
+            >.withDefault(defaultValue, debugName);
           case $dcli_core_19.DCliException _:
             return $scope_1.ScopeKey<$dcli_core_19.DCliException>.withDefault(
               defaultValue,
@@ -12376,18 +12516,18 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_8.FindProgress _:
-            return $scope_1.ScopeKey<$dcli_8.FindProgress>.withDefault(
+          case $tom_dcli_8.FindProgress _:
+            return $scope_1.ScopeKey<$tom_dcli_8.FindProgress>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_9.HeadProgress _:
-            return $scope_1.ScopeKey<$dcli_9.HeadProgress>.withDefault(
+          case $tom_dcli_9.HeadProgress _:
+            return $scope_1.ScopeKey<$tom_dcli_9.HeadProgress>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_16.TailProgress _:
-            return $scope_1.ScopeKey<$dcli_16.TailProgress>.withDefault(
+          case $tom_dcli_16.TailProgress _:
+            return $scope_1.ScopeKey<$tom_dcli_16.TailProgress>.withDefault(
               defaultValue,
               debugName,
             );
@@ -12401,23 +12541,22 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_1.AskValidator _:
-            return $scope_1.ScopeKey<$dcli_1.AskValidator>.withDefault(
+          case $tom_dcli_1.AskValidator _:
+            return $scope_1.ScopeKey<$tom_dcli_1.AskValidator>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_36.Column _:
-            return $scope_1.ScopeKey<$dcli_36.Column>.withDefault(
+          case $tom_dcli_36.Column _:
+            return $scope_1.ScopeKey<$tom_dcli_36.Column>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_22.CompiledExecutable _:
-            return $scope_1.ScopeKey<$dcli_22.CompiledExecutable>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_3.Confirm _:
-            return $scope_1.ScopeKey<$dcli_3.Confirm>.withDefault(
+          case $tom_dcli_22.CompiledExecutable _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_22.CompiledExecutable
+            >.withDefault(defaultValue, debugName);
+          case $tom_dcli_3.Confirm _:
+            return $scope_1.ScopeKey<$tom_dcli_3.Confirm>.withDefault(
               defaultValue,
               debugName,
             );
@@ -12426,48 +12565,48 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_32.DCliPaths _:
-            return $scope_1.ScopeKey<$dcli_32.DCliPaths>.withDefault(
+          case $tom_dcli_32.DCliPaths _:
+            return $scope_1.ScopeKey<$tom_dcli_32.DCliPaths>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_23.DartProject _:
-            return $scope_1.ScopeKey<$dcli_23.DartProject>.withDefault(
+          case $tom_dcli_23.DartProject _:
+            return $scope_1.ScopeKey<$tom_dcli_23.DartProject>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_24.DartScript _:
-            return $scope_1.ScopeKey<$dcli_24.DartScript>.withDefault(
+          case $tom_dcli_24.DartScript _:
+            return $scope_1.ScopeKey<$tom_dcli_24.DartScript>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_25.DartSdk _:
-            return $scope_1.ScopeKey<$dcli_25.DartSdk>.withDefault(
+          case $tom_dcli_25.DartSdk _:
+            return $scope_1.ScopeKey<$tom_dcli_25.DartSdk>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_6.FetchData _:
-            return $scope_1.ScopeKey<$dcli_6.FetchData>.withDefault(
+          case $tom_dcli_6.FetchData _:
+            return $scope_1.ScopeKey<$tom_dcli_6.FetchData>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_6.FetchProgress _:
-            return $scope_1.ScopeKey<$dcli_6.FetchProgress>.withDefault(
+          case $tom_dcli_6.FetchProgress _:
+            return $scope_1.ScopeKey<$tom_dcli_6.FetchProgress>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_6.FetchUrl _:
-            return $scope_1.ScopeKey<$dcli_6.FetchUrl>.withDefault(
+          case $tom_dcli_6.FetchUrl _:
+            return $scope_1.ScopeKey<$tom_dcli_6.FetchUrl>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_36.FileSort _:
-            return $scope_1.ScopeKey<$dcli_36.FileSort>.withDefault(
+          case $tom_dcli_36.FileSort _:
+            return $scope_1.ScopeKey<$tom_dcli_36.FileSort>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_37.FileSync _:
-            return $scope_1.ScopeKey<$dcli_37.FileSync>.withDefault(
+          case $tom_dcli_37.FileSync _:
+            return $scope_1.ScopeKey<$tom_dcli_37.FileSync>.withDefault(
               defaultValue,
               debugName,
             );
@@ -12481,43 +12620,41 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_39.NamedLock _:
-            return $scope_1.ScopeKey<$dcli_39.NamedLock>.withDefault(
+          case $tom_dcli_39.NamedLock _:
+            return $scope_1.ScopeKey<$tom_dcli_39.NamedLock>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_39.NamedLockObservation _:
-            return $scope_1.ScopeKey<$dcli_39.NamedLockObservation>.withDefault(
+          case $tom_dcli_39.NamedLockObservation _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_39.NamedLockObservation
+            >.withDefault(defaultValue, debugName);
+          case $tom_dcli_20.PackedResource _:
+            return $scope_1.ScopeKey<$tom_dcli_20.PackedResource>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_20.PackedResource _:
-            return $scope_1.ScopeKey<$dcli_20.PackedResource>.withDefault(
+          case $tom_dcli_20.PackedResourcePart _:
+            return $scope_1.ScopeKey<
+              $tom_dcli_20.PackedResourcePart
+            >.withDefault(defaultValue, debugName);
+          case $tom_dcli_40.ProcessDetails _:
+            return $scope_1.ScopeKey<$tom_dcli_40.ProcessDetails>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_20.PackedResourcePart _:
-            return $scope_1.ScopeKey<$dcli_20.PackedResourcePart>.withDefault(
+          case $tom_dcli_40.ProcessHelper _:
+            return $scope_1.ScopeKey<$tom_dcli_40.ProcessHelper>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_40.ProcessDetails _:
-            return $scope_1.ScopeKey<$dcli_40.ProcessDetails>.withDefault(
+          case $tom_dcli_19.Progress _:
+            return $scope_1.ScopeKey<$tom_dcli_19.Progress>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_40.ProcessHelper _:
-            return $scope_1.ScopeKey<$dcli_40.ProcessHelper>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_19.Progress _:
-            return $scope_1.ScopeKey<$dcli_19.Progress>.withDefault(
-              defaultValue,
-              debugName,
-            );
-          case $dcli_41.PubCache _:
-            return $scope_1.ScopeKey<$dcli_41.PubCache>.withDefault(
+          case $tom_dcli_41.PubCache _:
+            return $scope_1.ScopeKey<$tom_dcli_41.PubCache>.withDefault(
               defaultValue,
               debugName,
             );
@@ -12526,28 +12663,28 @@ BridgedClass _createScopeKeyBridge() {
               defaultValue,
               debugName,
             );
-          case $dcli_42.Remote _:
-            return $scope_1.ScopeKey<$dcli_42.Remote>.withDefault(
+          case $tom_dcli_42.Remote _:
+            return $scope_1.ScopeKey<$tom_dcli_42.Remote>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_21.Resources _:
-            return $scope_1.ScopeKey<$dcli_21.Resources>.withDefault(
+          case $tom_dcli_21.Resources _:
+            return $scope_1.ScopeKey<$tom_dcli_21.Resources>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_27.Settings _:
-            return $scope_1.ScopeKey<$dcli_27.Settings>.withDefault(
+          case $tom_dcli_27.Settings _:
+            return $scope_1.ScopeKey<$tom_dcli_27.Settings>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_28.Shell _:
-            return $scope_1.ScopeKey<$dcli_28.Shell>.withDefault(
+          case $tom_dcli_28.Shell _:
+            return $scope_1.ScopeKey<$tom_dcli_28.Shell>.withDefault(
               defaultValue,
               debugName,
             );
-          case $dcli_29.ShellDetection _:
-            return $scope_1.ScopeKey<$dcli_29.ShellDetection>.withDefault(
+          case $tom_dcli_29.ShellDetection _:
+            return $scope_1.ScopeKey<$tom_dcli_29.ShellDetection>.withDefault(
               defaultValue,
               debugName,
             );

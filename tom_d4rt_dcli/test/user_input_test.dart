@@ -11,7 +11,7 @@
 @TestOn('vm')
 library;
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -5,7 +5,7 @@
 /// across files, with the DCli filesystem bridges used to read inputs.
 library;
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 import 'models.dart';
 import 'report.dart';

@@ -5,7 +5,7 @@
 library;
 
 import 'dart:io';
-import 'package:dcli/dcli.dart' hide isEmpty;
+import 'package:tom_dcli/dcli.dart' hide isEmpty;
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 

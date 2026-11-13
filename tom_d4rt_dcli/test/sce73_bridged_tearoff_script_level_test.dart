@@ -37,7 +37,7 @@ void main() {
         '(PASS)', () {
       expect(
         _run('''
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 main() {
   var seen = <String>[];
   'echo hello'.forEach(seen.add);
@@ -59,7 +59,7 @@ main() {
       // record that it proves nothing on its own — not as extra coverage.
       expect(
         _run('''
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 main() {
   var seen = <String>[];
   'echo hello'.forEach((l) => seen.add(l));

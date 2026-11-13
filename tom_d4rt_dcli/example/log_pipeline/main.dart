@@ -19,7 +19,7 @@
 ///   dart run example/log_pipeline/main.dart INFO
 library;
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:path/path.dart' as p;
 
 import 'stages.dart';
