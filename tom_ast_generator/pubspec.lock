@@ -613,10 +613,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_build_base
-      sha256: "7d1d0d83c58d70e9de0f8e61045a0149efbf68cc859e111504c224dfe5680e5e"
+      sha256: ea26693266fb6f1f8fa2f12df8cb37a8a89c70f2aebdfdf8d7ac70eddd228162
       url: "https://pub.dev"
     source: hosted
-    version: "2.27.0"
+    version: "2.28.0"
   tom_d4rt:
     dependency: transitive
     description:
