@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: de5ac590b8155e4e676088d714bd41ea620449a6adc0f7950c5073874b287ddb
+      sha256: "4bb7d60637561012df2a7b04e48bcc2485e849e81048dc075a6d45b95c342910"
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.0"
+    version: "4.7.0"
   args:
     dependency: transitive
     description:
@@ -548,10 +548,10 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: "5e630521b9e1195298a928e28ba8e7a70229bd1ce2fa563d6b71e20ae243b4fe"
+      sha256: "37124f5f544d0a9230df32e2d19c25f3c20ba50b6a9be422292a25b33573ef31"
       url: "https://pub.dev"
     source: hosted
-    version: "2.25.0"
+    version: "2.26.1"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
