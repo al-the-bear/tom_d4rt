@@ -516,10 +516,10 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_ast_generator
-      sha256: "45b5fdf1f6a45c260d653a835d8bb0dba59ee0acabcabd2004b7fb9d797cac4d"
+      sha256: d2000788f0a9561f1c81b9229891c74f67bc2bdfaf762099dfff773d7ba97e7e
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.4"
   tom_ast_model:
     dependency: transitive
     description:
