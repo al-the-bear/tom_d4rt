@@ -8,6 +8,24 @@
   (build_tom build_cleanup9). Bridges pick it up when they are regenerated.
 - The generator's own doc comments use `my_package` in their examples.
 
+### Added — a relaxer output too large for one file is split into part files
+
+- Above 25 MB before formatting (`defaultRelaxerMaxFileBytes`, a new
+  `maxFileBytes` parameter of `generateRelaxers`), the RC-2 generic
+  constructor factories move, in order, into `<name>_part<N>.b.dart` part
+  files beside the relaxer file, each under that size; the relaxer file names
+  them with `part` directives. The parts are the same library, so the code is
+  unchanged and nothing that imports the relaxer file changes. A regeneration
+  deletes the part files it no longer writes; `RelaxerGenerationResult.partFiles`
+  lists those it wrote. Below the budget the output is one file, as before.
+- Why: the Flutter twins' `flutter_relaxers.b.dart` was 93.4 MB (98.8% RC-2
+  leaf functions), and GitHub refuses a push with a file above 100 MB. Split, it
+  is a 4.2 MB relaxer file and three parts of 28-31 MB (d4rt quest relaxsize1).
+- The build_runner path writes only its declared output; there the output stays
+  one file and a warning names its size.
+- (This change was committed with 1.63.2's examples commit and published in
+  1.63.2; this section records it.)
+
 ## 1.63.1
 
 ### Changed — the workspace root is the nearest `buildkit_master.yaml`

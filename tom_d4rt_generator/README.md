@@ -284,6 +284,17 @@ output file defaults to `relaxers.b.dart` alongside the first module's bridge
 file and can be overridden via `relaxerOutputPath`. Upstream relaxer modules
 can be imported and re-used rather than re-generated via `priorRelaxerModules`.
 
+A relaxer output above 25 MB before formatting (`defaultRelaxerMaxFileBytes`)
+is split: its RC-2 generic constructor factories move, in order, into part files
+`<name>_part1.b.dart`, `<name>_part2.b.dart`, … beside the relaxer file, each
+under the same budget, and the relaxer file names them with `part` directives.
+The parts belong to the same library, so the code is the same as in one file and
+nothing that imports the relaxer file changes. A regeneration deletes the part
+files it no longer writes. This keeps every generated file well below GitHub's
+100 MB limit per file (the Flutter twins' relaxer output is about 93 MB). The
+build_runner path writes only its declared output, so there the output stays one
+file and a warning names its size.
+
 ### Proxy classes for abstract delegates
 
 Configuring `generateProxies: true` and listing class names under `proxyClasses`
@@ -557,6 +568,7 @@ The primary output files per project are:
 |---|---|
 | `<outputPath>.b.dart` (per module) | `BridgedClass` registrations for all classes, enums, extensions, and globals in that module |
 | `relaxers.b.dart` | `$Relaxed<T><V>` wrapper classes and `registerRelaxers()` |
+| `relaxers_part<N>.b.dart` (only for a large output) | RC-2 generic constructor factories moved out of `relaxers.b.dart`, `part of` it |
 | `proxies.b.dart` (optional) | Concrete proxy subclasses for abstract delegates |
 | `d4rt_bridges.b.dart` (barrel) | Re-exports all module bridge files |
 | `dartscript.b.dart` | Top-level `registerBridges()` / `register()` entry-point |
