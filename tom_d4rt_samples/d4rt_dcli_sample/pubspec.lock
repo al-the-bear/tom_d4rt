@@ -645,10 +645,10 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_d4rt_generator
-      sha256: efe60c4b66c92c61690f4201d4e5c570e4270eb7f0c4cffab99bc5ff72ef04a0
+      sha256: ad0de72cd359c0732f3bdde8b4ebaf3477a737a2911d5a457c1110de1dd633fa
       url: "https://pub.dev"
     source: hosted
-    version: "1.63.0"
+    version: "1.63.2"
   tom_todo_model:
     dependency: transitive
     description:
