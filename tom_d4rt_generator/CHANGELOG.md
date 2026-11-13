@@ -1,3 +1,13 @@
+## 1.63.2
+
+### Changed — examples no longer name the archived tom_build packages
+
+- The doc comment of every generated `registerBridges` names
+  `'package:my_package/my_package.dart'` as its example import path instead of
+  `'package:tom_build/tom.dart'`; tom_build and tom_build_cli are archived
+  (build_tom build_cleanup9). Bridges pick it up when they are regenerated.
+- The generator's own doc comments use `my_package` in their examples.
+
 ## 1.63.1
 
 ### Changed — the workspace root is the nearest `buildkit_master.yaml`

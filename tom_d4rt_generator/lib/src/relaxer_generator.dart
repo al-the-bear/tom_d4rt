@@ -60,12 +60,17 @@ class RelaxerGenerationResult {
   /// Non-fatal warnings.
   final List<String> warnings;
 
+  /// The part files written beside [outputFile] when the relaxer output was
+  /// too large for one file (relaxsize1); empty when it fits in one.
+  final List<String> partFiles;
+
   const RelaxerGenerationResult({
     this.outputFile,
     this.wrapperClassesGenerated = 0,
     this.factoryFunctionsGenerated = 0,
     this.errors = const [],
     this.warnings = const [],
+    this.partFiles = const [],
   });
 
   bool get isSuccess => errors.isEmpty;
@@ -100,6 +105,36 @@ class _RelaxerTarget {
 // Main entry point
 // =============================================================================
 
+/// The largest relaxer output, in bytes before formatting, that is written as
+/// one file (relaxsize1).
+///
+/// Above it the RC-2 generic constructor factories - one per constructor,
+/// each a dispatch function with its bounded leaves - move into `part` files
+/// beside the relaxer file, packed in order up to this size each. A part file
+/// belongs to the same library, so the factories keep their private names
+/// and the library's imports, and the code is the same as in one file.
+///
+/// Why: the Flutter twins' relaxer file reached 93 MB at generator 1.63.0,
+/// and GitHub refuses a push with a file above 100 MB (and warns above
+/// 50 MB). The formatter adds about a quarter (measured on the twins, 2026-11-13:
+/// 30 MB of factories became a 38 MB part), so 25 MB gives parts of about
+/// 32 MB, leaving half again of growth below the twins' 50 MB guard.
+const int defaultRelaxerMaxFileBytes = 25 * 1000 * 1000;
+
+/// The file name of part [index] (1-based) of the relaxer file
+/// [relaxerFileName] (`flutter_relaxers.b.dart` → `flutter_relaxers_part1.b.dart`).
+@visibleForTesting
+String relaxerPartFileName(String relaxerFileName, int index) {
+  final stem = relaxerFileName.endsWith('.b.dart')
+      ? relaxerFileName.substring(0, relaxerFileName.length - 7)
+      : p.basenameWithoutExtension(relaxerFileName);
+  return '${stem}_part$index.b.dart';
+}
+
+/// Marks where the RC-2 factory functions go in the main relaxer file: inline
+/// when the output fits in one file, removed when they move to part files.
+const String _rc2FactoriesMarker = '// @@d4rtgen-rc2-factories@@\n';
+
 /// Generates relaxer wrapper classes and factory functions.
 ///
 /// Uses pre-collected data from the bridge generator rather than scanning
@@ -117,6 +152,11 @@ class _RelaxerTarget {
 ///   of writing directly to the filesystem. The build_runner path passes this
 ///   so relaxer output is written through the build asset writer rather than
 ///   `dart:io`. When null, the file is written directly under [projectPath].
+/// - [maxFileBytes]: the largest output written as one file; above it the
+///   RC-2 factories move into part files (see [defaultRelaxerMaxFileBytes]).
+///   Parts are written only when the generator writes the files itself: a
+///   build_runner [writeFile] sink can only write its declared output, so
+///   there the output stays one file and a warning names its size.
 Future<RelaxerGenerationResult> generateRelaxers({
   required BridgeConfig config,
   required String projectPath,
@@ -125,6 +165,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
   Set<String> gen075Classes = const {},
   void Function(String)? onWarning,
   Future<void> Function(String relativePath, String content)? writeFile,
+  int maxFileBytes = defaultRelaxerMaxFileBytes,
 }) async {
   // relaxerOutputPath always has a value (auto-derived default), but guard
   // for programmatic callers who pass a config with the constructor default.
@@ -139,24 +180,44 @@ Future<RelaxerGenerationResult> generateRelaxers({
     onWarning?.call(msg);
   }
 
-  // Writes [content] to the relaxer output, honouring the [writeFile] sink
-  // when provided (build_runner) and falling back to direct `dart:io` writes.
-  Future<String> emit(String unformatted) async {
+  // Writes [content] to the relaxer output (or to [relPath], a part file
+  // beside it), honouring the [writeFile] sink when provided (build_runner)
+  // and falling back to direct `dart:io` writes.
+  Future<String> emit(String unformatted, {String? relPath}) async {
+    final target = relPath ?? relaxerRelPath;
     final content = formatGeneratedDart(
       unformatted,
-      outputPath: p.join(projectPath, relaxerRelPath),
+      outputPath: p.join(projectPath, target),
     );
     if (writeFile != null) {
-      await writeFile(relaxerRelPath, content);
-      return relaxerRelPath;
+      await writeFile(target, content);
+      return target;
     }
-    final outputFilePath = p.join(projectPath, relaxerRelPath);
+    final outputFilePath = p.join(projectPath, target);
     final outputDir = Directory(p.dirname(outputFilePath));
     if (!outputDir.existsSync()) {
       outputDir.createSync(recursive: true);
     }
     await File(outputFilePath).writeAsString(content);
     return outputFilePath;
+  }
+
+  // Deletes the part files of an earlier run that this run does not write
+  // (fewer parts, or none), so no stale part is left beside the relaxer file.
+  // Only when the generator writes the files itself.
+  void deleteStaleParts(Set<String> keep) {
+    if (writeFile != null) return;
+    final dir = Directory(p.dirname(p.join(projectPath, relaxerRelPath)));
+    if (!dir.existsSync()) return;
+    final mainName = p.basename(relaxerRelPath);
+    final stem = mainName.substring(0, mainName.length - '.b.dart'.length);
+    final partPattern = RegExp('^${RegExp.escape(stem)}_part\\d+\\.b\\.dart\$');
+    for (final file in dir.listSync().whereType<File>()) {
+      final name = p.basename(file.path);
+      if (partPattern.hasMatch(name) && !keep.contains(name)) {
+        file.deleteSync();
+      }
+    }
   }
 
   // Emits a no-op stub so the dartscript.b.dart import of `relaxers.b.dart`
@@ -182,6 +243,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     );
     stub.writeln('void registerGenericConstructors() {}');
     final outputFilePath = await emit(stub.toString());
+    deleteStaleParts(const {});
     print('  RELAXER: Generated empty stub ($reason) → $outputFilePath');
     return RelaxerGenerationResult(
       outputFile: outputFilePath,
@@ -436,8 +498,10 @@ Future<RelaxerGenerationResult> generateRelaxers({
   // -------------------------------------------------------------------------
   // Step 3b: Generate RC-2 generic constructor registrations
   // -------------------------------------------------------------------------
+  final rc2Factories = <String>[];
   final genericCtorCount = _writeGenericConstructorSection(
     buffer,
+    rc2Factories,
     globalClassLookup,
     inScopePackagePrefixes,
     warn,
@@ -467,14 +531,55 @@ Future<RelaxerGenerationResult> generateRelaxers({
     );
   }
 
-  final outputFilePath = await emit(
-    _withUserRelaxerImports(buffer.toString(), userRelaxerImports),
+  final mainSource = _withUserRelaxerImports(
+    buffer.toString(),
+    userRelaxerImports,
   );
+  final oneFile = _replaceRc2Marker(mainSource, rc2Factories.join());
+  final totalBytes = oneFile.length;
+  final split = writeFile == null && totalBytes > maxFileBytes;
+  if (writeFile != null && totalBytes > maxFileBytes) {
+    warn(
+      'relaxer output is $totalBytes bytes before formatting, above '
+      '$maxFileBytes; a build_runner sink writes it as one file '
+      '(run d4rtgen to split it into part files)',
+    );
+  }
+
+  final partFiles = <String>[];
+  final String outputFilePath;
+  if (!split) {
+    outputFilePath = await emit(oneFile);
+    deleteStaleParts(const {});
+  } else {
+    final mainName = p.basename(relaxerRelPath);
+    final parts = _packRelaxerParts(rc2Factories, maxFileBytes);
+    final partNames = [
+      for (var i = 0; i < parts.length; i++)
+        relaxerPartFileName(mainName, i + 1),
+    ];
+    outputFilePath = await emit(
+      _withPartDirectives(_replaceRc2Marker(mainSource, ''), partNames),
+    );
+    for (var i = 0; i < parts.length; i++) {
+      final partSource = StringBuffer();
+      _writePartHeader(partSource, config, mainName, i + 1, parts.length);
+      parts[i].forEach(partSource.write);
+      partFiles.add(
+        await emit(
+          partSource.toString(),
+          relPath: p.join(p.dirname(relaxerRelPath), partNames[i]),
+        ),
+      );
+    }
+    deleteStaleParts(partNames.toSet());
+  }
 
   print(
     '  RELAXER: Generated $wrappersGenerated wrapper classes, '
     '$factoriesGenerated factory functions, '
-    '$genericCtorCount generic constructor registrations → $outputFilePath',
+    '$genericCtorCount generic constructor registrations → $outputFilePath'
+    '${partFiles.isEmpty ? '' : ' (+ ${partFiles.length} part files)'}',
   );
 
   return RelaxerGenerationResult(
@@ -483,6 +588,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     factoryFunctionsGenerated: factoriesGenerated,
     errors: errors,
     warnings: warnings,
+    partFiles: partFiles,
   );
 }
 
@@ -787,6 +893,10 @@ const _sdkGenericTypesWithoutRelaxers = {
 // Step 3a: File header and imports
 // =============================================================================
 
+/// The analyzer ignores of every relaxer file; a part file needs its own.
+const String _ignoreForFileLine =
+    '// ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unused_local_variable, unintended_html_in_doc_comment, non_constant_identifier_names, unreachable_switch_case, must_call_super, no_logic_in_create_state, unused_field, unused_element, unnecessary_cast, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, use_key_in_widget_constructors, annotate_overrides, unnecessary_import';
+
 void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln(generatedStampLine());
   buffer.writeln('/// D4rt GEN-079 Relaxer Wrappers for ${config.name}');
@@ -804,9 +914,7 @@ void _writeFileHeader(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln('/// DO NOT EDIT — generated by d4rtgen relaxer generator.');
   buffer.writeln('library;');
   buffer.writeln();
-  buffer.writeln(
-    '// ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unused_local_variable, unintended_html_in_doc_comment, non_constant_identifier_names, unreachable_switch_case, must_call_super, no_logic_in_create_state, unused_field, unused_element, unnecessary_cast, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, use_key_in_widget_constructors, annotate_overrides, unnecessary_import',
-  );
+  buffer.writeln(_ignoreForFileLine);
   buffer.writeln();
 }
 
@@ -1701,6 +1809,74 @@ String? _packageNameOf(String projectPath) {
 /// Dart requires directives to precede declarations, and the relaxer file's
 /// import block is written long before the user-relaxer scan runs, so these
 /// cannot simply be appended (scd12).
+/// Puts [factories] (or nothing) where [_rc2FactoriesMarker] stands.
+String _replaceRc2Marker(String source, String factories) {
+  final at = source.indexOf(_rc2FactoriesMarker);
+  if (at < 0) return source;
+  return source.replaceRange(at, at + _rc2FactoriesMarker.length, factories);
+}
+
+/// Inserts a `part` directive for each of [partNames] after the last import
+/// (directives must precede every declaration).
+String _withPartDirectives(String source, List<String> partNames) {
+  final lines = source.split('\n');
+  var lastImport = -1;
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith('import ')) lastImport = i;
+  }
+  final directives = [
+    '',
+    for (final name in partNames) "part '$name';",
+  ].join('\n');
+  lines.insert(lastImport + 1, directives);
+  return lines.join('\n');
+}
+
+/// Packs [factories] in order into parts of at most [maxBytes] each; a
+/// factory larger than [maxBytes] gets a part of its own.
+List<List<String>> _packRelaxerParts(List<String> factories, int maxBytes) {
+  final parts = <List<String>>[];
+  var current = <String>[];
+  var size = 0;
+  for (final factory in factories) {
+    if (current.isNotEmpty && size + factory.length > maxBytes) {
+      parts.add(current);
+      current = <String>[];
+      size = 0;
+    }
+    current.add(factory);
+    size += factory.length;
+  }
+  if (current.isNotEmpty) parts.add(current);
+  return parts;
+}
+
+/// The header of part [index] of [count] of the relaxer file [mainName].
+void _writePartHeader(
+  StringBuffer buffer,
+  BridgeConfig config,
+  String mainName,
+  int index,
+  int count,
+) {
+  buffer.writeln(generatedStampLine());
+  buffer.writeln(
+    '/// D4rt RC-2 generic constructor factories for ${config.name}, '
+    'part $index of $count of `$mainName`.',
+  );
+  buffer.writeln('///');
+  buffer.writeln(
+    '/// The relaxer output is split into part files when it is too large '
+    'for one file.',
+  );
+  buffer.writeln('///');
+  buffer.writeln('/// DO NOT EDIT — generated by d4rtgen relaxer generator.');
+  buffer.writeln("part of '$mainName';");
+  buffer.writeln();
+  buffer.writeln(_ignoreForFileLine);
+  buffer.writeln();
+}
+
 String _withUserRelaxerImports(String source, String imports) {
   if (imports.trim().isEmpty) return source;
   final lines = source.split('\n');
@@ -2247,8 +2423,13 @@ const _rc2SkipTypes = {
 /// Generates the RC-2 generic constructor registration section.
 ///
 /// Returns the number of generic constructor registrations generated.
+///
+/// Each factory function (dispatch and leaves) is written to its own entry of
+/// [factories], in order; [buffer] gets [_rc2FactoriesMarker] where they go,
+/// so the caller can put them inline or into part files (relaxsize1).
 int _writeGenericConstructorSection(
   StringBuffer buffer,
+  List<String> factories,
   Map<String, ClassInfo> globalClassLookup,
   Set<String> inScopePackagePrefixes,
   void Function(String) warn,
@@ -2334,6 +2515,7 @@ int _writeGenericConstructorSection(
   // Generate per-class factory functions
   final registrations =
       <({String className, String ctorName, String funcName})>[];
+  buffer.write(_rc2FactoriesMarker);
 
   for (final entry
       in eligible.entries.toList()..sort((a, b) => a.key.compareTo(b.key))) {
@@ -2347,8 +2529,9 @@ int _writeGenericConstructorSection(
       final safeName = ctorName.isEmpty ? '' : '_$ctorName';
       final funcName = '_rc2$className$safeName';
 
+      final factory = StringBuffer();
       _writeGenericConstructorFactory(
-        buffer,
+        factory,
         cls,
         ctor,
         className,
@@ -2357,6 +2540,7 @@ int _writeGenericConstructorSection(
         globalClassLookup,
         yieldVoidCallbacks: yieldVoidCallbacks,
       );
+      factories.add(factory.toString());
       registrations.add((
         className: className,
         ctorName: ctorName,

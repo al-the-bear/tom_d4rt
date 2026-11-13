@@ -581,7 +581,7 @@ class ExtensionInfo {
 
   /// GEN-063: Source URIs for type arguments in the on-type.
   /// Maps type arg name to its source URI for prefix resolution during generation.
-  /// e.g., {'CommandResult': 'package:tom_build_cli/src/...'} for List<CommandResult>
+  /// e.g., {'CommandResult': 'package:my_package/src/...'} for List<CommandResult>
   final Map<String, String> onTypeArgUris;
 
   /// The source URI for the on-type (e.g., 'dart:io' for Platform).
@@ -1179,7 +1179,7 @@ class BridgeGenerator {
   /// Workspace root path.
   final String workspacePath;
 
-  /// Package name for imports (e.g., 'tom_build').
+  /// Package name for imports (e.g., 'my_package').
   final String? packageName;
 
   /// Import path for helper functions.
@@ -2238,7 +2238,7 @@ class BridgeGenerator {
 
   /// Parses export barrel files to extract the list of exported source files.
   ///
-  /// Scans the given barrel files (e.g., `lib/tom_build.dart`) and extracts
+  /// Scans the given barrel files (e.g., `lib/my_package.dart`) and extracts
   /// all `export '...'` directives to build a list of source files to bridge.
   /// Recursively follows re-exported barrel files.
   ///
@@ -2609,7 +2609,7 @@ class BridgeGenerator {
   /// to bridge based on what's exported from the barrel files.
   ///
   /// [barrelFiles] - List of barrel file paths or package URIs
-  ///   (e.g., `lib/tom_build.dart` or `package:tom_build/tom_build.dart`)
+  ///   (e.g., `lib/my_package.dart` or `package:my_package/my_package.dart`)
   /// [outputPath] - Where to write the generated bridge file
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
@@ -2725,7 +2725,7 @@ class BridgeGenerator {
   /// instead of direct file system access.
   ///
   /// [barrelFiles] - List of barrel file paths or package URIs
-  ///   (e.g., `lib/tom_build.dart` or `package:tom_build/tom_build.dart`)
+  ///   (e.g., `lib/my_package.dart` or `package:my_package/my_package.dart`)
   /// [outputFileId] - FileId for the output bridge file
   /// [moduleName] - Name for the generated bridge class
   /// [excludePatterns] - File path patterns to exclude (e.g., `_bridge.dart`)
@@ -4684,7 +4684,7 @@ class BridgeGenerator {
   ///
   /// Uses a '$' prefix to avoid conflicts with local variables.
   /// doc-ref: ok — an example URI, chosen to show the prefix derivation.
-  /// Example: 'package:tom_build/src/tom/generation/placeholder_resolver.dart'
+  /// Example: 'package:my_package/src/generation/placeholder_resolver.dart'
   /// becomes '$placeholder_resolver'.
   String _generateImportPrefix(String importPath) {
     // Get the filename without extension
@@ -7146,7 +7146,7 @@ class BridgeGenerator {
       '  /// [importPath] is the package import path that D4rt scripts will use',
     );
     buffer.writeln(
-      "  /// to access these classes (e.g., 'package:tom_build/tom.dart').",
+      "  /// to access these classes (e.g., 'package:my_package/my_package.dart').",
     );
     buffer.writeln(
       '  static void registerBridges(D4rt interpreter, String importPath) {',
@@ -13050,8 +13050,8 @@ class BridgeGenerator {
         final sourceUri = _getPackageUri(sourceFilePath);
         // Only use sourceFilePath prefix if the type is NOT exported from the barrel.
         // For exported types, sourceFilePath is the USING class's file, not the file
-        // that defines the type. Using it would give a wrong prefix (e.g., $tom_build_cli_4
-        // for a type defined in bridge_configuration.dart/$tom_build_cli_1).
+        // that defines the type. Using it would give a wrong prefix (e.g., $my_package_4
+        // for a type defined in bridge_configuration.dart/$my_package_1).
         // Exported types should have been resolved by typeToUri, _resolveTypeFromSourceImports,
         // or _globalTypeToUri above. If we get here, the type genuinely can't be found.
         if (sourceUri.startsWith('package:') &&

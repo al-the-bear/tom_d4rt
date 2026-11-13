@@ -1,4 +1,4 @@
-// Generated: 2026-11-07T14:21:33.523934 by tom_d4rt_generator 1.54.0
+// Generated: 2026-11-13T08:03:10.245362 by tom_d4rt_generator 1.63.2
 /// D4rt GEN-079 Relaxer Wrappers for userbridge_override_example
 ///
 /// Auto-generated wrapper classes and factory functions for generic

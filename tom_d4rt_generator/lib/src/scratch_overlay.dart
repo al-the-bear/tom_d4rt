@@ -14,7 +14,7 @@
 ///
 /// Reads MUST keep resolving to the package. Redirecting them too was tried
 /// and is observably wrong: packages import their own generated files
-/// (`tom_build_cli` imports its `dartscript.b.dart`), so the analyzer then
+/// (`tom_d4rt_dcli` imports its `dartscript.b.dart`), so the analyzer then
 /// meets one library under two URIs and fails with a library-cycle error.
 ///
 /// WHAT IS REDIRECTED. Writes to files in the package whose name ends in
