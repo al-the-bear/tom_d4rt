@@ -18,7 +18,7 @@ class DcliVersionInfo {
   static const String gitCommit = 'e48086fce';
 
   /// Build number (increments with each build)
-  static const int buildNumber = 1;
+  static const int buildNumber = 6;
 
   /// Dart SDK version used to build
   static const String dartSdkVersion = '3.13.7';
