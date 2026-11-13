@@ -1,7 +1,7 @@
 #!/usr/bin/env dcli
 // DCli Scripting Guide - File Write Extensions Example
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   var filePath = '/tmp/dcli_write_test.txt';

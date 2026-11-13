@@ -20,7 +20,7 @@ dependencies:
   # so this fixture measures the interpreter the generator is developed against.
   tom_d4rt: ">=1.257.0"
   path: ^1.9.0
-  dcli: ^10.0.0
+  tom_dcli: ^10.4.7+tom.1
   dcli_core: ^10.0.0
 
 dev_dependencies:

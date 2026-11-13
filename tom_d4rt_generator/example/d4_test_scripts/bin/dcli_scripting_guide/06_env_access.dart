@@ -1,7 +1,7 @@
 #!/usr/bin/env dcli
 // DCli Scripting Guide - Environment Variables Example
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   // Access environment variables

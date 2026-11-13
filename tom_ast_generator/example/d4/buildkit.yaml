@@ -79,8 +79,8 @@ d4rtgen:
       outputPath: lib/src/d4rt_bridges/path_bridges.b.dart
     - name: dcli
       barrelFiles:
-        - package:dcli/dcli.dart
-      barrelImport: package:dcli/dcli.dart
+        - package:tom_dcli/dcli.dart
+      barrelImport: package:tom_dcli/dcli.dart
       outputPath: lib/src/d4rt_bridges/dcli_bridges.b.dart
       followAllReExports: true
       skipReExports:
