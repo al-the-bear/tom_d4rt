@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "4bb7d60637561012df2a7b04e48bcc2485e849e81048dc075a6d45b95c342910"
+      sha256: "2fda90592c0afd219c5e285618a98da835cd10df38372666093d25dfe457a2d0"
       url: "https://pub.dev"
     source: hosted
-    version: "4.7.0"
+    version: "4.7.1"
   args:
     dependency: "direct main"
     description:
@@ -177,14 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.14"
-  dcli:
-    dependency: transitive
-    description:
-      name: dcli
-      sha256: e18ef1e869c2b42327d543ed0a368d4fab5755f2f7e04a07d66393f893e9b887
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.4.7"
   dcli_common:
     dependency: transitive
     description:
@@ -297,14 +289,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
-  ini:
-    dependency: transitive
-    description:
-      name: ini
-      sha256: "12a76c53591ffdf86d1265be3f986888a6dfeb34a85957774bc65912d989a173"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   intl:
     dependency: transitive
     description:
@@ -629,10 +613,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_build_base
-      sha256: "37124f5f544d0a9230df32e2d19c25f3c20ba50b6a9be422292a25b33573ef31"
+      sha256: "7d1d0d83c58d70e9de0f8e61045a0149efbf68cc859e111504c224dfe5680e5e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.26.1"
+    version: "2.27.0"
   tom_d4rt:
     dependency: transitive
     description:
@@ -665,6 +649,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.63.2"
+  tom_dcli:
+    dependency: transitive
+    description:
+      name: tom_dcli
+      sha256: dd3b50f6c35e0dee4245c5d8554a23f5581db8d57a9b019f0e7c023de72549c5
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.4.7+tom.1"
   typed_data:
     dependency: transitive
     description:
