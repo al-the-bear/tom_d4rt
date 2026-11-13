@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
 # Tom Build Configuration for tom_d4rt_generator
 
 project_id: D4G

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../../../.tom/json-schema/buildkit/buildkit.schema.json
 # Tom Build Configuration for d4_example
 # This project contains all bridgeable test classes for D4rt testing.
 # Also includes DCli bridges for running d4_test_scripts.

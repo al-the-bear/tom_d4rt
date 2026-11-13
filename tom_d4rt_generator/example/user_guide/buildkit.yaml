@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../../../.tom/json-schema/buildkit/buildkit.schema.json
 # Tom Build Configuration for user_guide_example
 
 d4rtgen:

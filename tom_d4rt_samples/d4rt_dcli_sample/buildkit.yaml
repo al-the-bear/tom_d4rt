@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../../.tom/json-schema/buildkit/buildkit.schema.json
 # Bridge-generator configuration for the dcli sample.
 #
 # Regenerate the *.b.dart bridges with:

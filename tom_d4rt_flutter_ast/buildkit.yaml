@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../.tom/json-schema/buildkit/buildkit.schema.json
 # D4rt Bridge Generation Configuration for Flutter Material
 
 d4rtgen:

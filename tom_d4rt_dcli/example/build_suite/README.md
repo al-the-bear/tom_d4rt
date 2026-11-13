@@ -7,8 +7,8 @@
 A miniature build/automation tool, written as a multi-file D4rt CLI script.
 It is the command-line analog of the Flutter "extended sample" apps: a real
 multi-file program with classes and functions split across files, driven by
-the DCli **shell** and **filesystem** bridges, and wireable into a **BuildKit**
-pipeline.
+the DCli **shell** and **filesystem** bridges, and runnable through
+**BuildKit**.
 
 The suite never touches the surrounding workspace — every run builds a
 throw-away Dart project inside a temp directory (`createTempDir`) and
@@ -21,7 +21,6 @@ discards it on exit.
 | [`main.dart`](main.dart) | Entry point — argument parsing + target dispatch |
 | [`tasks.dart`](tasks.dart) | `BuildTask` hierarchy (`EnvCheck`, `Clean`, `Generate`, `Analyze`, `Package`) + `TaskRunner` |
 | [`logger.dart`](logger.dart) | `BuildLogger` — coloured, step-numbered output via the DCli colour bridges |
-| [`buildkit.yaml`](buildkit.yaml) | BuildKit pipelines (`ci`, `quick`) that drive the script |
 
 ## What it exercises
 
@@ -32,7 +31,8 @@ discards it on exit.
 - **Filesystem bridges** — `createDir`, `find`, `read`, `exists`,
   `deleteDir`, `createTempDir`, and the `String.write` path extension.
 - **Colour output** — `cyan`, `green`, `yellow`, `red`, `grey` from DCli.
-- **BuildKit integration** — `buildkit.yaml` runs the script as pipeline steps.
+- **BuildKit integration** — `buildkit :dcli` runs the script, alone or as a
+  step of a workspace pipeline.
 
 ## Running
 
@@ -56,9 +56,20 @@ Targets and the tasks they run are defined by `tasksForTarget` in
 ## Via BuildKit
 
 ```bash
-bk :pipeline ci      # clean → analyze → all
-bk :pipeline quick   # analyze only
+bk :dcli main.dart analyze   # from this folder
+bk :dcli main.dart all
 ```
 
-See the DCli scripting guide, Appendix C (BuildKit Integration) for the
-pipeline contract.
+As steps of a pipeline, in the workspace's `buildkit_master.yaml` (pipelines
+live there, not in a project's `buildkit.yaml`), run with `bk build-suite`:
+
+```yaml
+pipelines:
+  build-suite:
+    core:
+      - commands:
+          - shell cd tom_ai/d4rt/tom_d4rt_dcli/example/build_suite && dcli main.dart clean
+          - shell cd tom_ai/d4rt/tom_d4rt_dcli/example/build_suite && dcli main.dart all
+```
+
+See the DCli scripting guide, Appendix C (BuildKit Integration).

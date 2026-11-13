@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../../../../.tom/json-schema/buildkit/buildkit.schema.json
 # Tom Build Configuration for AST Generator Test Project
 #
 # This file is used by the astgen tool to determine if this project
