@@ -1,5 +1,11 @@
 # Tom Build Configuration for tom_ast_generator
 
+project_id: ASTG
+name: astgen
+description: >-
+  D4rt AST generator.
+license: BSD-3-Clause
+
 versioner:
   variable-prefix: astgen
 
