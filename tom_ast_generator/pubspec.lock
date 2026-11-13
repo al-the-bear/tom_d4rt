@@ -653,10 +653,10 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_d4rt_exec
-      sha256: d1430b556cbe27af2a8956e95ce7ee280acbdb3ebc2cc0ceb39ff4659cbda783
+      sha256: "32529e76a7808512bcab5104bb31c0a5b92325a1d43a952a2a402d9da4f1751f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.58.0"
+    version: "1.59.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
