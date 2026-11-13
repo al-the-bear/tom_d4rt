@@ -3,7 +3,7 @@
 // Creates a scratch directory, writes a few files, finds them, reads one back,
 // and cleans up. Every call here is a bridged dcli function running natively.
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main(List<String> args) {
   const dir = 'scratch';

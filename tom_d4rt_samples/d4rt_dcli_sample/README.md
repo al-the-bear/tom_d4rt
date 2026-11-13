@@ -49,7 +49,7 @@ sandboxed interpreter. The other two examples are summarised at the end.
 Consider this script:
 
 ```dart
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:d4rt_dcli_sample/d4rt_dcli_sample.dart';
 
 void main() {
@@ -118,7 +118,7 @@ the `tom_d4rt_dcli` package, not here.
 ./run_example.ps1 log_report
 
 # a one-off script on stdin
-echo "import 'package:dcli/dcli.dart'; void main(){ print(exists('.')); }" \
+echo "import 'package:tom_dcli/dcli.dart'; void main(){ print(exists('.')); }" \
   | ./run_example.sh
 ```
 
@@ -283,7 +283,7 @@ d4rt.execute(source: ..., library: ..., sources: ..., positionalArgs: [args]);
 ```
 
 Order does not matter here — the two sources register types under different
-package URIs (`package:d4rt_dcli_sample/...` and `package:dcli/...`), so there is
+package URIs (`package:d4rt_dcli_sample/...` and `package:tom_dcli/...`), so there is
 no collision. After both calls the single interpreter knows the union of both
 APIs, and a script can `import` and use either.
 
@@ -306,7 +306,7 @@ behaves when you `cd` into a directory first.
 Here is the whole script (`example/log_report/main.dart`):
 
 ```dart
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:d4rt_dcli_sample/d4rt_dcli_sample.dart';
 
 void main(List<String> args) {
@@ -411,7 +411,7 @@ Two more scripts in `example/` reuse the same runner and registrations:
   `'dart --version'.toList()`, stream one with `.run`, and read a variable with
   `env['PATH']`.
 
-Both work the same way as the focus example: they `import 'package:dcli/dcli.dart'`
+Both work the same way as the focus example: they `import 'package:tom_dcli/dcli.dart'`
 and rely on the dcli bridges the runner registered.
 
 ---

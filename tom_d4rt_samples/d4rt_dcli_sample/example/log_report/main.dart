@@ -9,7 +9,7 @@
 // runner switches the working directory to this folder before running, so the
 // relative paths below resolve to the files next to this script.
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:d4rt_dcli_sample/d4rt_dcli_sample.dart';
 
 void main(List<String> args) {

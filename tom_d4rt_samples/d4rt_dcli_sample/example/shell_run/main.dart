@@ -3,7 +3,7 @@
 // The `'command'.run` / `'command'.toList()` extensions execute real processes;
 // `env` exposes environment variables. All of it is bridged native code.
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main(List<String> args) {
   // Capture a command's output instead of streaming it to the console.
