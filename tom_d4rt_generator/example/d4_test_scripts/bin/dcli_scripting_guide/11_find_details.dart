@@ -2,7 +2,7 @@
 // DCli Scripting Guide - Find Function Details Example
 
 import 'dart:io';
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   print('Find Function Examples');

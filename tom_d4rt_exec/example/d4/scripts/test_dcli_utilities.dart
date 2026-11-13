@@ -1,6 +1,6 @@
 // DCli utilities test script for d4 example
 // Uses imports that d4 has bridged
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:path/path.dart' as p;
 
 void main() {

@@ -1,5 +1,5 @@
 // Simple test script for d4
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   print('Testing d4 with DCli...');

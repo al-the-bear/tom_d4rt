@@ -26,7 +26,7 @@ const String version = '1.0.0';
 const String coreExtensionsImport = 'package:d4_example/test_extensions.dart';
 
 /// Import path for DCli.
-const String dcliImport = 'package:dcli/dcli.dart';
+const String dcliImport = 'package:tom_dcli/dcli.dart';
 
 /// Import path for path package.
 const String pathImport = 'package:path/path.dart';
