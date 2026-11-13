@@ -1,7 +1,7 @@
 #!/usr/bin/env dcli
 // DCli Scripting Guide - Command Execution Example
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   // Simple run

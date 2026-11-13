@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_dcli_exec
-// Generated: 2026-11-12T21:36:36.062792 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-13T08:19:45.554952 by tom_d4rt_generator 1.63.0
 
 /// D4rt Bridge Registration for tom_dcli_exec
 library;
@@ -39,7 +39,7 @@ class TomD4rtDcliBridge {
       tom_vscode_scripting_api_bridges
           .TomVscodeScriptingApiBridge.registerBridges(d4rt, barrel);
     }
-    dcli_bridges.DcliBridge.registerBridges(d4rt, 'package:dcli/dcli.dart');
+    dcli_bridges.DcliBridge.registerBridges(d4rt, 'package:tom_dcli/dcli.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in dcli_bridges.DcliBridge.subPackageBarrels()) {
       dcli_bridges.DcliBridge.registerBridges(d4rt, barrel);

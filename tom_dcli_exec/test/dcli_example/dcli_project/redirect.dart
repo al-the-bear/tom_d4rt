@@ -1,7 +1,7 @@
 // example mains.
 // ignore_for_file: unnecessary_lambdas, unreachable_from_main
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 /// redirect stdout to a log file
 /// @Throwing(ArgumentError)

@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 ///
 /// Demonstrates reading from stdin and writing to stdout.

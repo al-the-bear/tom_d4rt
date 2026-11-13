@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for tom_dcli_exec
-// Generated: 2026-11-12T21:36:36.067899 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-13T08:19:45.560454 by tom_d4rt_generator 1.63.0
 
 // ignore_for_file: avoid_print
 
@@ -29,7 +29,7 @@ import 'package:tom_dcli_exec/src/bridges/path_bridges.b.dart' as path_bridges;
 const String _initSource = '''
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 import 'package:tom_vscode_scripting_api/script_globals.dart';
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:path/path.dart';
 
 void main() {}
@@ -45,7 +45,7 @@ void _registerBridges(D4rt d4rt) {
     d4rt,
     'package:tom_vscode_scripting_api/script_globals.dart',
   );
-  dcli_bridges.DcliBridge.registerBridges(d4rt, 'package:dcli/dcli.dart');
+  dcli_bridges.DcliBridge.registerBridges(d4rt, 'package:tom_dcli/dcli.dart');
   path_bridges.PathBridge.registerBridges(d4rt, 'package:path/path.dart');
 }
 

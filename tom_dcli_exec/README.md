@@ -109,7 +109,7 @@ generated from the real DCli source. Bridge coverage also includes:
 - `tom_vscode_scripting_api` — VS Code bridge client
 
 Bridges are registered with `TomD4rtDcliBridge.register(d4rt)` and the corresponding import
-block is injected automatically so D4rt scripts can use `import 'package:dcli/dcli.dart';`
+block is injected automatically so D4rt scripts can use `import 'package:tom_dcli/dcli.dart';`
 without further setup.
 
 ### Interactive REPL
@@ -206,7 +206,7 @@ D4rt script can carry a shebang and run directly like any shell script:
 
 ```dart
 #!/usr/bin/env dclie
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 // A throwaway maintenance script — no compile step needed.
 final stale = find('*.tmp', workingDirectory: '.').toList();

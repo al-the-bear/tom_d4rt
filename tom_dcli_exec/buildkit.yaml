@@ -48,8 +48,8 @@ d4rtgen:
         - "**/*_generated.dart"
     - name: dcli
       barrelFiles:
-        - package:dcli/dcli.dart
-      barrelImport: package:dcli/dcli.dart
+        - package:tom_dcli/dcli.dart
+      barrelImport: package:tom_dcli/dcli.dart
       outputPath: lib/src/bridges/dcli_bridges.b.dart
       followAllReExports: true
       skipReExports:

@@ -76,7 +76,7 @@ class BridgeTestContext {
       output,
       () => controller.execute('''
 import 'package:dcli_core/dcli_core.dart';
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 import 'package:tom_dcli_exec/tom_d4rt_cli_api.dart';
 
 $code

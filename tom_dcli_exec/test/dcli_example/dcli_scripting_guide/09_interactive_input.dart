@@ -2,7 +2,7 @@
 // DCli Scripting Guide - Interactive Input Example
 // NOTE: This example requires a terminal to run interactively
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   print('DCli Interactive Input Examples');

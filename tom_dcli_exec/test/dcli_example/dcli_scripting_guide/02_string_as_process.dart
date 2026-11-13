@@ -1,7 +1,7 @@
 #!/usr/bin/env dcli
 // DCli Scripting Guide - StringAsProcess Extension Example
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   // Run and print

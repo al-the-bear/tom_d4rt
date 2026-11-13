@@ -5,7 +5,7 @@
  * Written by Brett Sutton <bsutton@onepub.dev>, Jan 2022
  */
 
-import 'package:dcli/dcli.dart';
+import 'package:tom_dcli/dcli.dart';
 
 void main() {
   // find all java processes
