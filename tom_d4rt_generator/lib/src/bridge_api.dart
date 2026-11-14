@@ -15,6 +15,7 @@ import 'bridge_generator.dart';
 import 'build_config_loader.dart';
 import 'd4rtgen_logging.dart';
 import 'file_generators.dart';
+import 'imported_names.dart';
 import 'proxy_generator.dart';
 import 'relaxer_generator.dart';
 import 'generated_code_formatter.dart';
@@ -608,6 +609,26 @@ Future<GenerationResult> generateBridges({
     // Generate relaxer wrappers (GEN-079) — always runs, output path
     // auto-derived from first module when not explicitly configured.
     {
+      // ghissues55: what the relaxer file's imports let it name, resolved in
+      // the generator's analysis context. When an import does not resolve,
+      // the set would be missing that library's names, so the path-based
+      // scope rule decides instead.
+      ImportedNames? importedNames;
+      if (lastGenerator != null) {
+        final resolved = await lastGenerator.importedNamesOf(
+          relaxerImportUris(bridgeConfig),
+        );
+        if (resolved.unresolved.isEmpty) {
+          importedNames = resolved;
+        } else {
+          final message =
+              'GEN-079: relaxer imports did not resolve '
+              '(${resolved.unresolved.join(', ')}) - relaxer types fall back '
+              'to the source-path scope rule';
+          warnings.add(message);
+          print('  $message');
+        }
+      }
       final relaxerResult = await generateRelaxers(
         config: bridgeConfig,
         projectPath: projectDir,
@@ -615,6 +636,7 @@ Future<GenerationResult> generateBridges({
         genericExtractionSites: allExtractionSites,
         gen075Classes: allGen075Classes,
         bridgedClassNames: barrelExportedClasses,
+        importedNames: importedNames,
       );
       if (relaxerResult.outputFile != null) {
         outputFiles.add(relaxerResult.outputFile!);

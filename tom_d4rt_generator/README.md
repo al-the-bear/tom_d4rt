@@ -544,6 +544,16 @@ type argument (split into leaves of at most 64 selectors by
 `lib/src/bounded_dispatch.dart`), and a `registerRelaxers()` registration
 function.
 
+Which classes become wrapper targets and type arguments is decided by what
+the relaxer file can name: the export namespaces of the libraries it imports
+(every module's `barrelImport`, plus `dart:async` and `dart:core`), resolved
+in the generator's analysis context (`ImportedNames`). A class no imported
+library exports is left out, and so is a name two imported libraries export
+from different declarations (it would be ambiguous; a warning names the
+libraries). A declaration from a `dart:` library yields to a package
+library's, as in Dart. When an import does not resolve, the generator falls
+back to judging a class by its source file's location.
+
 ### `ProxyGenerator`
 
 Reads the `proxyClasses` list from `BridgeConfig`, resolves each class through
@@ -581,7 +591,8 @@ The primary output files per project are:
 ```dart
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
-// Generate from a buildkit.yaml config file:
+// Generate from a config file: the `d4rtgen:` section of the YAML file
+// configPath names (any file name; a directory means its buildkit.yaml):
 final result = await generateBridges(
   configPath: '/path/to/project/buildkit.yaml',
 );

@@ -33,6 +33,7 @@ import 'user_bridge_scanner.dart';
 import 'generated_stamp.dart';
 import 'source_package.dart';
 import 'generated_code_formatter.dart';
+import 'imported_names.dart';
 import 'public_import_targets.dart';
 
 // =============================================================================
@@ -1972,6 +1973,30 @@ class BridgeGenerator {
         ),
       );
     }
+  }
+
+  /// ghissues55: the names a file importing [importUris] can name
+  /// unprefixed - resolved in this generator's analysis context, so the
+  /// answer does not depend on how a class's source file is spelled.
+  Future<ImportedNames> importedNamesOf(Iterable<String> importUris) async {
+    final dynamic context = _getAnalysisContext().contextFor(
+      analysisIncludedPath(workspacePath),
+    );
+    final namespaces = <String, ExportNamespace>{};
+    final unresolved = <String>[];
+    for (final uri in importUris) {
+      final namespace = await _exportNamespaceOf(context, uri);
+      if (namespace == null) {
+        unresolved.add(uri);
+      } else {
+        namespaces[uri] = namespace;
+      }
+    }
+    return ImportedNames.compute(
+      namespaces,
+      dartCore: await _exportNamespaceOf(context, 'dart:core') ?? const {},
+      unresolved: unresolved,
+    );
   }
 
   /// The export namespace of the library at [uri], each name with the URI of

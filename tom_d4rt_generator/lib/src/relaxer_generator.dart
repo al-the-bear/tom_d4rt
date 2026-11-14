@@ -34,6 +34,7 @@ import 'bridge_generator.dart'
         ParameterInfo;
 import 'file_generators.dart' show ensureBDartExtension;
 import 'generated_stamp.dart';
+import 'imported_names.dart';
 import 'type_arg_selector.dart';
 import 'generic_constructor_generator.dart' show generateGenericConstructor;
 import 'generic_interceptor_generator.dart' show generateGenericInterceptor;
@@ -152,6 +153,13 @@ const String _rc2FactoriesMarker = '// @@d4rtgen-rc2-factories@@\n';
 ///   of writing directly to the filesystem. The build_runner path passes this
 ///   so relaxer output is written through the build asset writer rather than
 ///   `dart:io`. When null, the file is written directly under [projectPath].
+/// - [importedNames]: the names the relaxer file's imports
+///   ([relaxerImportUris]) make nameable (ghissues55). Given, a bridged class
+///   is a wrapper target or type argument exactly when its name is in it -
+///   independent of how its source file is spelled; a bridged class whose
+///   name is ambiguous there is skipped with a warning naming the libraries.
+///   Null keeps the path-based scope rule ([bridgedClassNames] rescues a
+///   bridged `package:<pkg>/src/` class).
 /// - [maxFileBytes]: the largest output written as one file; above it the
 ///   RC-2 factories move into part files (see [defaultRelaxerMaxFileBytes]).
 ///   Parts are written only when the generator writes the files itself: a
@@ -167,6 +175,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
   Future<void> Function(String relativePath, String content)? writeFile,
   int maxFileBytes = defaultRelaxerMaxFileBytes,
   Set<String>? bridgedClassNames,
+  ImportedNames? importedNames,
 }) async {
   // relaxerOutputPath always has a value (auto-derived default), but guard
   // for programmatic callers who pass a config with the constructor default.
@@ -317,6 +326,21 @@ Future<RelaxerGenerationResult> generateRelaxers({
       ? null
       : _buildReducedTypeArgAllowlist(config, genericExtractionSites);
 
+  // ghissues55: a bridged class whose name two imported libraries export
+  // from different declarations cannot be written unprefixed; it is left out
+  // (by [_isReachableViaBarrels]) and named here once.
+  if (importedNames != null) {
+    for (final name in globalClassLookup.keys.toList()..sort()) {
+      final libraries = importedNames.ambiguous[name];
+      if (libraries == null) continue;
+      warn(
+        '$name is exported by more than one imported library '
+        '(${libraries.join(', ')}) - ambiguous in the relaxer file, skipped '
+        'as a relaxer type',
+      );
+    }
+  }
+
   final targets = _buildRelaxerTargets(
     genericExtractionSites,
     globalClassLookup,
@@ -325,6 +349,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     warn,
     reducedTypeArgAllowlist,
     bridgedClassNames: bridgedClassNames,
+    importedNames: importedNames,
   );
 
   // sce46: `userRelaxers.isEmpty` for the same reason as Step 1 — a package
@@ -373,6 +398,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
       target.classInfo!,
       inScopePackagePrefixes,
       bridgedClassNames,
+      importedNames,
     )) {
       warn(
         '${target.baseTypeName} is not re-exported by any barrel import — '
@@ -406,6 +432,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
       target.classInfo!,
       inScopePackagePrefixes,
       bridgedClassNames,
+      importedNames,
     )) {
       continue;
     }
@@ -519,6 +546,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     yieldVoidCallbacks: config.yieldVoidCallbacks,
     genericConstructors: config.genericConstructors,
     bridgedClassNames: bridgedClassNames,
+    importedNames: importedNames,
   );
 
   // -------------------------------------------------------------------------
@@ -653,6 +681,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   void Function(String) warn,
   Set<String>? reducedTypeArgAllowlist, {
   Set<String>? bridgedClassNames,
+  ImportedNames? importedNames,
 }) {
   // Group by base type → module → Set<typeArg>
   final grouped = <String, Map<String, Set<String>>>{};
@@ -714,6 +743,7 @@ List<_RelaxerTarget> _buildRelaxerTargets(
               e.value,
               inScopePackagePrefixes,
               bridgedClassNames,
+              importedNames,
             ),
           )
           .where(
@@ -966,26 +996,9 @@ void _writeImports(StringBuffer buffer, BridgeConfig config) {
   buffer.writeln();
 
   // Import all barrel files from modules to get access to all types
-  final dartImports = <String>[];
-  final packageImports = <String>[];
-
-  for (final module in config.modules) {
-    final barrel = module.barrelImport;
-    if (barrel == null) continue;
-    if (barrel.startsWith('dart:')) {
-      if (!dartImports.contains(barrel)) dartImports.add(barrel);
-    } else if (barrel.startsWith('package:')) {
-      if (!packageImports.contains(barrel)) packageImports.add(barrel);
-    }
-  }
-
-  dartImports.sort();
-  packageImports.sort();
-
-  // Always include dart:async for FutureOr used in method delegates
-  if (!dartImports.contains('dart:async')) {
-    dartImports.insert(0, 'dart:async');
-  }
+  final uris = relaxerImportUris(config);
+  final dartImports = uris.where((u) => u.startsWith('dart:')).toList();
+  final packageImports = uris.where((u) => u.startsWith('package:')).toList();
 
   for (final uri in dartImports) {
     buffer.writeln("import '$uri';");
@@ -995,6 +1008,28 @@ void _writeImports(StringBuffer buffer, BridgeConfig config) {
     buffer.writeln("import '$uri';");
   }
   buffer.writeln();
+}
+
+/// The unprefixed imports the relaxer file of [config] writes besides the D4
+/// runtime's (which is `show D4` only): `dart:async`, then every module's
+/// `barrelImport`, `dart:` before `package:`, each sorted. ghissues55 resolves
+/// their export namespaces to learn what the file can name.
+List<String> relaxerImportUris(BridgeConfig config) {
+  final dartImports = <String>{};
+  final packageImports = <String>{};
+  for (final module in config.modules) {
+    final barrel = module.barrelImport;
+    if (barrel == null) continue;
+    if (barrel.startsWith('dart:')) {
+      dartImports.add(barrel);
+    } else if (barrel.startsWith('package:')) {
+      packageImports.add(barrel);
+    }
+  }
+  final sortedDart = dartImports.toList()..sort();
+  // Always include dart:async for FutureOr used in method delegates.
+  if (!sortedDart.contains('dart:async')) sortedDart.insert(0, 'dart:async');
+  return [...sortedDart, ...(packageImports.toList()..sort())];
 }
 
 // =============================================================================
@@ -2455,6 +2490,7 @@ int _writeGenericConstructorSection(
   bool yieldVoidCallbacks = false,
   List<GenericConstructorConfig> genericConstructors = const [],
   Set<String>? bridgedClassNames,
+  ImportedNames? importedNames,
 }) {
   // Templated RC-2 generic-constructor reifiers for the configured
   // `genericConstructors`. Each emits a `switch (typeName)` that reifies a
@@ -2485,6 +2521,7 @@ int _writeGenericConstructorSection(
       cls,
       inScopePackagePrefixes,
       bridgedClassNames,
+      importedNames,
     )) {
       continue;
     }
@@ -2522,6 +2559,7 @@ int _writeGenericConstructorSection(
                   e.value,
                   inScopePackagePrefixes,
                   bridgedClassNames,
+                  importedNames,
                 ) &&
                 (reducedTypeArgAllowlist == null ||
                     reducedTypeArgAllowlist.contains(e.key)),
@@ -3419,7 +3457,16 @@ bool _isReachableViaBarrels(
   ClassInfo classInfo,
   Set<String> inScopePackagePrefixes, [
   Set<String>? bridgedClassNames,
+  ImportedNames? importedNames,
 ]) {
+  // ghissues55: given the names the relaxer file's imports make nameable
+  // (their export namespaces, ambiguous names removed), that set decides -
+  // whatever the class's source file looks like (a `package:` URI or a
+  // pub-cache / Flutter SDK path). The path rules below are the fallback
+  // for callers that cannot resolve the imports.
+  if (importedNames != null) {
+    return importedNames.nameable.contains(classInfo.name);
+  }
   if (!_isTypeInScope(classInfo, inScopePackagePrefixes)) return false;
   final src = classInfo.sourceFile;
   if (src.startsWith('dart:')) return true;

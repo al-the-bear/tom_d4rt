@@ -1,3 +1,29 @@
+## 1.65.0
+
+### Changed — relaxer types are what the relaxer file's imports export (ghissues55)
+
+Whether a bridged class is a relaxer wrapper target or a type argument of the
+relaxer dispatches was decided by how its source file is spelled: a `package:`
+prefix of a configured barrel, or a Flutter / sky_engine path fragment. A
+class from a pub-cache package whose barrel the relaxer file imports has a
+filesystem path and was never offered (vector_math's `Vector3` through the
+Flutter twins' vector_math layer), while on a setup with `package:` source
+files it would be. The generator now resolves the relaxer file's imports
+(`relaxerImportUris`) in its analysis context
+(`BridgeGenerator.importedNamesOf`, `ImportedNames`) and
+`generateRelaxers(importedNames:)` decides by that set: the union of the
+imports' export namespaces with `dart:core`, minus the names two imports
+export from different declarations (a `dart:` declaration yields to a
+package's, as in Dart). An ambiguous bridged name is skipped with a warning
+naming the libraries (`Colors`: material and vector_math). A class bridged but
+exported by no import stays out (`Immutable`). When an import does not resolve
+the source-path rule decides, with a warning.
+
+Regenerated with this rule, both Flutter twins' relaxer files gain the 17
+vector_math types and their nullable forms as type arguments and lose none.
+
+Name resolution: no
+
 ## 1.64.2
 
 ### Fixed — no generated import names a part file (GitHub #17)
