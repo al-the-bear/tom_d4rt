@@ -1,3 +1,25 @@
+## 0.243.0
+
+### Fixed — an extension holds a getter and a setter of one name
+
+`extension E on Box { int get w => v * 10; set w(int x) { v = x; } }` -
+`b.w = 3` then `b.w` threw `Undefined property 'w' on Box`: an extension kept
+its instance members in one map keyed by name, so the setter replaced the
+getter (a bridged extension's `getters` and `setters` were merged the same
+way). Setters now sit apart (`InterpretedExtension.setters`, `findSetter`;
+`BridgedExtensionDefinition.buildInterpretedExtension` too), the setter sites
+look them up with `Environment.findExtensionMember(..., setter: true)`, and
+the explicit override `E(x).p = v` takes the setter. Reachable now and routed
+through the extension as well: an extension setter on a native receiver
+(`list.p = v` threw "No setter adapter found"), and a compound update or
+`++` / `--` of an extension property (`b.w += 1`, `b.w++`, `E(x).p++`). A
+property the receiver's class declares itself wins over an extension of the
+same name. `Introspection` lists setter-only members.
+
+Name resolution: yes — an extension setter now resolves where the getter of
+the same name hid it, and an extension property where the receiver's own
+members were the only candidates for a compound update.
+
 ## 0.242.0
 
 ### Fixed — an explicit extension override `E(x).member` works (GitHub #14)

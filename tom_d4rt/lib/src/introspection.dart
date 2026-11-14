@@ -558,6 +558,11 @@ class IntrospectionBuilder {
     for (final methodName in ext.members.keys) {
       methods.add(methodName);
     }
+    // ghissues56: setters are kept apart; a setter whose name a getter does
+    // not already list is a member too.
+    for (final setterName in ext.setters.keys) {
+      if (!methods.contains(setterName)) methods.add(setterName);
+    }
 
     return ExtensionInfo(name: name, onType: ext.onType.name, methods: methods);
   }

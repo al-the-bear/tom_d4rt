@@ -22,9 +22,9 @@
 //
 // Name resolution: a name now resolves as an extension override.
 //
-// Compound assignment and increment of a PROPERTY (`E(x).p += 1`) need a
-// getter and a setter of one name, which an extension cannot hold yet
-// (ghissues56); they are tested on the index operators here.
+// Compound assignment and increment are tested here on the index operators;
+// on a property (`E(x).p += 1`, a getter and a setter of one name) in
+// ghissues56_extension_getter_setter_pair_test.dart.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

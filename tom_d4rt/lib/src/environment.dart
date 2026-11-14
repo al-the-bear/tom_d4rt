@@ -2266,14 +2266,20 @@ class Environment {
   }
 
   // Method to find applicable extension members (Placeholder)
+  ///
+  /// ghissues56: [setter] looks up the setter [name] instead of the getter,
+  /// method or operator - an extension may declare both under one name.
   Callable? findExtensionMember(
     Object? target,
     String name, {
     InterpreterVisitor? visitor,
+    bool setter = false,
   }) {
+    Callable? lookup(InterpretedExtension extension) =>
+        setter ? extension.findSetter(name) : extension.findMember(name);
     // G-DOV-10/11 FIX: Handle null targets by searching extensions on nullable types
     if (target == null) {
-      return _findNullableExtensionMember(name);
+      return _findNullableExtensionMember(name, setter: setter);
     }
     final targetType = getRuntimeType(target); // Helper to get RuntimeType
     if (targetType == null) return null;
@@ -2285,7 +2291,7 @@ class Environment {
       for (final ext in current._unnamedExtensions) {
         if (!ext.hasOnType) continue;
         if (_matchesExtensionType(targetType, ext.onType, value: target)) {
-          final member = ext.findMember(name);
+          final member = lookup(ext);
           if (member != null) {
             if (Logger.isDebug) {
               Logger.debug(
@@ -2302,7 +2308,7 @@ class Environment {
       for (final value in current._values.values) {
         if (value is InterpretedExtension && value.hasOnType) {
           if (_matchesExtensionType(targetType, value.onType, value: target)) {
-            final member = value.findMember(name);
+            final member = lookup(value);
             if (member != null) {
               if (Logger.isDebug) {
                 Logger.debug(
@@ -2316,7 +2322,7 @@ class Environment {
               value.onType is NativeFunction) {
             final valueType = value.onType as NativeFunction;
             if (valueType.name == targetType.name) {
-              final member = value.findMember(name);
+              final member = lookup(value);
               if (member != null) {
                 if (Logger.isDebug) {
                   Logger.debug(
@@ -2352,13 +2358,15 @@ class Environment {
 
   /// G-DOV-10/11 FIX: Find extension members for null targets by checking
   /// extensions declared with nullable on-types (e.g., `extension on String?`).
-  Callable? _findNullableExtensionMember(String name) {
+  Callable? _findNullableExtensionMember(String name, {bool setter = false}) {
+    Callable? lookup(InterpretedExtension extension) =>
+        setter ? extension.findSetter(name) : extension.findMember(name);
     // ghissues47: the extensions of a prefixed import apply too.
     for (final current in _extensionScopes()) {
       // Check unnamed extensions with nullable on-type
       for (final ext in current._unnamedExtensions) {
         if (ext.isOnNullableType && ext.hasOnType) {
-          final member = ext.findMember(name);
+          final member = lookup(ext);
           if (member != null) {
             if (Logger.isDebug) {
               Logger.debug(
@@ -2374,7 +2382,7 @@ class Environment {
         if (value is InterpretedExtension &&
             value.isOnNullableType &&
             value.hasOnType) {
-          final member = value.findMember(name);
+          final member = lookup(value);
           if (member != null) {
             if (Logger.isDebug) {
               Logger.debug(

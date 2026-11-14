@@ -3095,7 +3095,7 @@ class InterpretedExtension {
   /// Sets [onType], on the extension and on its instance members.
   void resolveOnType(RuntimeType type) {
     _onType = type;
-    for (final member in members.values) {
+    for (final member in [...members.values, ...setters.values]) {
       if (member is InterpretedExtensionMethod) member.onType = type;
     }
   }
@@ -3103,7 +3103,12 @@ class InterpretedExtension {
   final bool
   isOnNullableType; // G-DOV-10/11: Whether the extension is on T? (nullable)
   final Map<String, Callable>
-  members; // Instance methods, getters, setters, operators
+  members; // Instance methods, getters, operators
+
+  /// ghissues56: the instance setters, apart from [members], so a getter and
+  /// a setter of one name (`int get w` / `set w(int v)`) are both kept - in
+  /// one map the second replaced the first.
+  final Map<String, Callable> setters;
 
   // Static members
   final Map<String, Callable> staticMethods;
@@ -3116,11 +3121,13 @@ class InterpretedExtension {
     required RuntimeType? onType,
     this.isOnNullableType = false,
     required this.members,
+    Map<String, Callable>? setters,
     Map<String, Callable>? staticMethods,
     Map<String, Callable>? staticGetters,
     Map<String, Callable>? staticSetters,
     Map<String, Object?>? staticFields,
   }) : _onType = onType,
+       setters = setters ?? {},
        staticMethods = staticMethods ?? {},
        staticGetters = staticGetters ?? {},
        staticSetters = staticSetters ?? {},
@@ -3129,6 +3136,15 @@ class InterpretedExtension {
   // Helper to find an instance member
   Callable? findMember(String name) {
     return members[name];
+  }
+
+  /// ghissues56: the instance setter [name] - from [setters], or a setter a
+  /// caller put into [members] (the single map of earlier versions).
+  Callable? findSetter(String name) {
+    final setter = setters[name];
+    if (setter != null) return setter;
+    final member = members[name];
+    return member is ExtensionMemberCallable && member.isSetter ? member : null;
   }
 
   // Helper to find a static method

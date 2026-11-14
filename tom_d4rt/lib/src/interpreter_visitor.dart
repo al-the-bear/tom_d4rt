@@ -3276,6 +3276,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 final extensionSetter = environment.findExtensionMember(
                   thisInstance,
                   variableName,
+                  setter: true,
                 );
                 if (extensionSetter is ExtensionMemberCallable &&
                     extensionSetter.isSetter) {
@@ -3627,6 +3628,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           final extensionSetter = environment.findExtensionMember(
             targetValue,
             propertyName,
+            setter: true,
           );
           if (extensionSetter is ExtensionMemberCallable &&
               extensionSetter.isSetter) {
@@ -3658,6 +3660,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return rhsValue; // Simple Assignment returns RHS value
         } else {
           // Compound assignment: target.property op= rhsValue
+          // ghissues56: a property only an extension declares.
+          if (!_instanceDeclaresProperty(targetValue, propertyName)) {
+            final updated = _extensionPropertyUpdate(
+              targetValue,
+              propertyName,
+              operatorType,
+              rhsValue,
+            );
+            if (!identical(updated, _noOverride)) return updated;
+          }
           // 1. Get current value
           final currentValue = targetValue.get(
             propertyName,
@@ -3833,6 +3845,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
             }
           }
+          // ghissues56: an extension setter applying to the native receiver.
+          final viaExtension = _extensionPropertyUpdate(
+            bridgedInstance.nativeObject,
+            propertyName,
+            operatorType,
+            rhsValue,
+          );
+          if (!identical(viaExtension, _noOverride)) return viaExtension;
           // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
             "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found."
@@ -3983,6 +4003,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           final extensionSetter = environment.findExtensionMember(
             target,
             propertyName,
+            setter: true,
           );
           if (extensionSetter is ExtensionMemberCallable &&
               extensionSetter.isSetter) {
@@ -4014,6 +4035,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           return rhsValue; // Simple Assignment returns RHS value
         } else {
           // Compound assignment: target.property op= rhsValue
+          // ghissues56: a property only an extension declares.
+          if (!_instanceDeclaresProperty(target, propertyName)) {
+            final updated = _extensionPropertyUpdate(
+              target,
+              propertyName,
+              operatorType,
+              rhsValue,
+            );
+            if (!identical(updated, _noOverride)) return updated;
+          }
           final currentValue = target.get(propertyName, visitor: this);
           Object? newValue = computeCompoundValue(
             currentValue,
@@ -4289,6 +4320,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
             }
           }
+          // ghissues56: an extension setter applying to the native receiver.
+          final viaExtension = _extensionPropertyUpdate(
+            bridgedInstance.nativeObject,
+            propertyName,
+            operatorType,
+            rhsValue,
+          );
+          if (!identical(viaExtension, _noOverride)) return viaExtension;
           // No setter adapter found and no script-defined fallback.
           throw RuntimeD4rtException(
             "Cannot assign to property '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}': No setter adapter found."
@@ -10473,6 +10512,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
           if (targetValue is InterpretedInstance) {
             // Get current value via getter or field
+            // ghissues56: a property only an extension declares.
+            if (!_instanceDeclaresProperty(targetValue, propertyName)) {
+              final step = _stepExtensionProperty(
+                targetValue,
+                propertyName,
+                operatorType,
+              );
+              if (step != null) return step.$2;
+            }
             final currentValue = targetValue.get(propertyName);
 
             // Calculate new value
@@ -10547,6 +10595,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
           if (targetValue is InterpretedInstance) {
             // Get current value via getter or field
+            // ghissues56: a property only an extension declares.
+            if (!_instanceDeclaresProperty(targetValue, propertyName)) {
+              final step = _stepExtensionProperty(
+                targetValue,
+                propertyName,
+                operatorType,
+              );
+              if (step != null) return step.$2;
+            }
             final currentValue = targetValue.get(propertyName);
 
             // Calculate new value
@@ -10950,6 +11007,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       if (targetValue is InterpretedInstance) {
         // Get current value via getter or field
+        // ghissues56: a property only an extension declares.
+        if (!_instanceDeclaresProperty(targetValue, propertyName)) {
+          final step = _stepExtensionProperty(
+            targetValue,
+            propertyName,
+            operatorType,
+          );
+          if (step != null) return step.$1;
+        }
         final currentValue = targetValue.get(propertyName);
         final originalValue = currentValue; // Save for return
 
@@ -11023,6 +11089,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       if (targetValue is InterpretedInstance) {
         // Get current value via getter or field
+        // ghissues56: a property only an extension declares.
+        if (!_instanceDeclaresProperty(targetValue, propertyName)) {
+          final step = _stepExtensionProperty(
+            targetValue,
+            propertyName,
+            operatorType,
+          );
+          if (step != null) return step.$1;
+        }
         final currentValue = targetValue.get(propertyName);
         final originalValue = currentValue; // Save for return
 
@@ -12713,6 +12788,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final getter = bridgedClass.findReachableGetterAdapter(propertyName, this);
     final setter = bridgedClass.findReachableSetterAdapter(propertyName, this);
     if (getter == null || setter == null) {
+      // ghissues56: an extension property on the native receiver.
+      final viaExtension = _stepExtensionProperty(
+        bridged.nativeObject,
+        propertyName,
+        operatorType,
+      );
+      if (viaExtension != null) return viaExtension;
       throw RuntimeD4rtException(
         "Cannot increment/decrement '${bridgedClass.name}.$propertyName': "
         "the bridge has ${getter == null ? 'no getter' : 'no setter'} for it.",
@@ -14394,8 +14476,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   /// ghissues53: `E(x).name = value`.
   Object? _overrideSet(ExtensionOverrideValue override, String name, Object? value) {
-    final member = override.member(name);
-    if (!member.isSetter) {
+    // ghissues56: the setter of the name, which may sit beside a getter.
+    final member = override.extension.findSetter(name);
+    if (member is! ExtensionMemberCallable) {
       throw RuntimeD4rtException(
         "The extension '${override.extensionName}' declares no setter "
         "'$name'.",
@@ -14453,6 +14536,116 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     String operator,
     List<Object?> arguments,
   ) => _callOverrideMember(override, override.member(operator), arguments);
+
+  /// ghissues56: whether [instance]'s class declares the property [name]
+  /// itself (a getter, a setter or a field, mixins and superclasses included,
+  /// or a bridged superclass's adapter) - only then does an extension of the
+  /// same name not apply to it.
+  bool _instanceDeclaresProperty(InterpretedInstance instance, String name) {
+    final klass = instance.klass;
+    if (klass.findInstanceGetter(name) != null ||
+        klass.findInstanceSetter(name) != null ||
+        klass.getInstanceFieldNames().contains(name)) {
+      return true;
+    }
+    for (InterpretedClass? c = klass; c != null; c = c.superclass) {
+      final bridged = c.bridgedSuperclass;
+      if (bridged != null &&
+          (bridged.findInstanceGetterAdapter(name) != null ||
+              bridged.findInstanceSetterAdapter(name) != null)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// ghissues56: `target.name = rhs` / `target.name op= rhs` through the
+  /// extension setter [name] applying to [target] (a compound assignment
+  /// reads the extension getter of the same name first); [_noOverride] when
+  /// no extension declares that setter.
+  Object? _extensionPropertyUpdate(
+    Object? target,
+    String name,
+    TokenType operatorType,
+    Object? rhs,
+  ) {
+    final setter = environment.findExtensionMember(
+      target,
+      name,
+      visitor: this,
+      setter: true,
+    );
+    if (setter is! ExtensionMemberCallable) return _noOverride;
+    Object? value = rhs;
+    if (operatorType != TokenType.EQ) {
+      final getter = environment.findExtensionMember(
+        target,
+        name,
+        visitor: this,
+      );
+      if (getter is! ExtensionMemberCallable || !getter.isGetter) {
+        throw RuntimeD4rtException(
+          "Cannot read '$name' for a compound assignment: an extension "
+          'declares its setter but no getter.',
+        );
+      }
+      final current = _callExtensionMember(getter, [target]);
+      if (operatorType == TokenType.QUESTION_QUESTION_EQ) {
+        if (current != null) return current;
+      } else {
+        value = computeCompoundValue(current, rhs, operatorType);
+      }
+    }
+    _callExtensionMember(setter, [target, value]);
+    return value;
+  }
+
+  /// ghissues56: `target.name++` / `--target.name` through an extension's
+  /// getter and setter of [name]; `(old, new)`, or null when no extension
+  /// declares the setter.
+  (Object?, Object?)? _stepExtensionProperty(
+    Object? target,
+    String name,
+    TokenType operatorType,
+  ) {
+    final setter = environment.findExtensionMember(
+      target,
+      name,
+      visitor: this,
+      setter: true,
+    );
+    if (setter is! ExtensionMemberCallable) return null;
+    final getter = environment.findExtensionMember(
+      target,
+      name,
+      visitor: this,
+    );
+    if (getter is! ExtensionMemberCallable || !getter.isGetter) {
+      throw RuntimeD4rtException(
+        "Cannot increment/decrement '$name': an extension declares its setter "
+        'but no getter.',
+      );
+    }
+    final oldValue = _callExtensionMember(getter, [target]);
+    final newValue = computeCompoundValue(
+      oldValue,
+      1,
+      operatorType == TokenType.PLUS_PLUS
+          ? TokenType.PLUS_EQ
+          : TokenType.MINUS_EQ,
+    );
+    _callExtensionMember(setter, [target, newValue]);
+    return (oldValue, newValue);
+  }
+
+  /// Calls an extension member with its receiver first in [arguments].
+  Object? _callExtensionMember(Callable member, List<Object?> arguments) {
+    try {
+      return member.call(this, arguments, {});
+    } on ReturnException catch (e) {
+      return e.value;
+    }
+  }
 
   /// ghissues53: what [_overrideIncrement] and [_overrideAssignment] answer
   /// when their operand is no extension override.
@@ -17160,6 +17353,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     // 2. Process members (methods, getters, setters, operators) - both instance and static
     final members = <String, Callable>{};
+    // ghissues56: setters apart, so a getter and a setter of one name are
+    // both kept.
+    final setters = <String, Callable>{};
     final staticMethods = <String, Callable>{};
     final staticGetters = <String, Callable>{};
     final staticSetters = <String, Callable>{};
@@ -17214,7 +17410,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             ],
             onTypeAnnotation: onTypeNode,
           );
-          members[methodName] = function;
+          if (member.isSetter) {
+            setters[methodName] = function;
+          } else {
+            members[methodName] = function;
+          }
           String memberType = "method";
           if (member.isGetter) memberType = "getter";
           if (member.isSetter) memberType = "setter";
@@ -17268,6 +17468,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       onType: onRuntimeType,
       isOnNullableType: isOnNullableType, // G-DOV-10/11: Pass nullable flag
       members: members,
+      setters: setters,
       staticMethods: staticMethods,
       staticGetters: staticGetters,
       staticSetters: staticSetters,

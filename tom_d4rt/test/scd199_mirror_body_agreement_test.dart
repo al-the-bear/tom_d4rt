@@ -368,7 +368,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // setter-miss message.
     // GHISSUES53: 3a03f289 -> 3aae082b, both trees dispatch an explicit extension
     // override alike.
-    'InterpreterVisitor.visitAssignmentExpression': '3aae082b',
+    // GHISSUES56: 3aae082b -> eeaf74ed, both trees update an extension-only property through the extension alike.
+    'InterpreterVisitor.visitAssignmentExpression': 'eeaf74ed',
     // GHISSUES53: de77a7f3 -> 722454d8, both trees dispatch an explicit extension
     // override alike.
     'InterpreterVisitor.visitBinaryExpression': '722454d8',
@@ -398,7 +399,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // here and `moduleContext` in the twin.
     // GHISSUES49: 4b256eea -> 10cc3007, both trees pass the extension's type
     // parameters and on-type to its methods alike.
-    'InterpreterVisitor.visitExtensionDeclaration': '10cc3007',
+    // GHISSUES56: 10cc3007 -> 13f71145, both trees keep a getter and a setter of one name apart alike.
+    'InterpreterVisitor.visitExtensionDeclaration': '13f71145',
     // GHISSUES49: the receiver-type helpers; the analyzer's non-nullable
     // names (`name.lexeme`, `fields.variables`) against the mirror model's
     // nullable ones (`name?.name`, `fields?.variables`).
@@ -441,6 +443,11 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES53: the same update; the analyzer's TokenType against the
     // mirror model's operator strings.
     'InterpreterVisitor._overrideUpdate': 'ca5fb301',
+    // GHISSUES56: an extension property updated or stepped through the
+    // extension's getter and setter; the analyzer's TokenType against the
+    // mirror model's operator strings.
+    'InterpreterVisitor._extensionPropertyUpdate': '9ef7f9ed',
+    'InterpreterVisitor._stepExtensionProperty': '15618af1',
     // GHISSUES36: the same resolver; the analyzer's `question` token against
     // the mirror model's `isNullable` flag.
     'InterpreterVisitor._resolveTypeArgument': '7028b122',
@@ -457,10 +464,12 @@ const _divergentBodies = <String, Map<String, String>>{
     // class-target branch, identically again.
     // GHISSUES53: c9e1cab1 -> 6296768f, both trees dispatch an explicit extension
     // override alike.
-    'InterpreterVisitor.visitPostfixExpression': '6296768f',
+    // GHISSUES56: 6296768f -> 7497e879, both trees step an extension-only property through the extension alike.
+    'InterpreterVisitor.visitPostfixExpression': '7497e879',
     // GHISSUES53: f5947d6e -> 5f15137f, both trees dispatch an explicit extension
     // override alike.
-    'InterpreterVisitor.visitPrefixExpression': '5f15137f',
+    // GHISSUES56: 5f15137f -> bd44fa13, both trees step an extension-only property through the extension alike.
+    'InterpreterVisitor.visitPrefixExpression': 'bd44fa13',
     // SCF37: the bridged step. The only difference is the operator spelling —
     // `TokenType.PLUS_PLUS` / `PLUS_EQ` here, the strings `'++'` / `'+='` in
     // the twin, as in [computeCompoundValue] which it calls.

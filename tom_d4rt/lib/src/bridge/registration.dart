@@ -261,9 +261,11 @@ class BridgedExtensionDefinition {
       );
     }
 
-    // Wrap setters as NativeExtensionCallable
+    // Wrap setters as NativeExtensionCallable. ghissues56: into their own
+    // map, so a getter and a setter of one name are both kept.
+    final setterMembers = <String, Callable>{};
     for (final entry in setters.entries) {
-      members[entry.key] = NativeExtensionCallable(
+      setterMembers[entry.key] = NativeExtensionCallable(
         name: entry.key,
         adapter:
             (
@@ -324,7 +326,12 @@ class BridgedExtensionDefinition {
       );
     }
 
-    return InterpretedExtension(name: name, onType: onType, members: members);
+    return InterpretedExtension(
+      name: name,
+      onType: onType,
+      members: members,
+      setters: setterMembers,
+    );
   }
 }
 

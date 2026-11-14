@@ -7894,6 +7894,13 @@ class ExtensionOverrideValue {
   ExtensionMemberCallable member(String name) {
     final member = extension.findMember(name);
     if (member is ExtensionMemberCallable) return member;
+    // ghissues56: a setter is kept apart from the getters and methods.
+    if (extension.findSetter(name) != null) {
+      throw RuntimeD4rtException(
+        "The extension '$extensionName' declares no getter or method '$name' "
+        '(only a setter; explicit extension override $extensionName(...)).',
+      );
+    }
     throw RuntimeD4rtException(
       "The extension '$extensionName' does not declare a member '$name' "
       '(explicit extension override $extensionName(...)).',

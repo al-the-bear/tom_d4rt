@@ -473,9 +473,34 @@ const _partialTwinBudget = 0;
 /// Its ast twin holds the mechanism. ghissues1001 ports it after publishing.
 /// The copier surface a port would have added is calls of an extension name,
 /// prefixed and with type arguments, which the corpus copies on every run.
-const _copierGapBudget = 46;
+/// 46 -> 47: GHISSUES56 added `ghissues56_extension_getter_setter_pair_test.dart`,
+/// which runs source to check that an extension holds a getter and a setter
+/// of one name (implicitly, through a prefixed import, on a native receiver,
+/// bridged, and through an explicit override), that compound updates and
+/// `++` / `--` of an extension property go through the extension, and that a
+/// property the class declares wins. Exec resolves tom_d4rt_ast 0.237.0 from
+/// pub.dev, where the setter replaces the getter until the batch release
+/// (ghissues1001), so a port would fail. Its ast twin holds the mechanism.
+/// ghissues1001 ports it after publishing. The copier surface a port would
+/// have added is extension getters and setters of one name, which the corpus
+/// copies on every run.
+const _copierGapBudget = 47;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues56_extension_getter_setter_pair_test.dart': _Coverage(
+    'ast:runtime/ghissues56_extension_getter_setter_pair_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 8,
+    twinCases: 5,
+    whyPartial:
+        'the twin pins the measured script, compound and ++ / -- on the '
+        'property, an interpreted extension on a native receiver, a bridged '
+        'pair and the explicit override forms. The reference adds the '
+        'prefixed import, a field of another object, the class-declares-it '
+        'precedence and the setter-only override message, which take the '
+        'same lookups and a hand-built bundle would only restate.',
+  ),
   'ghissues53_explicit_extension_override_test.dart': _Coverage(
     'ast:runtime/ghissues53_explicit_extension_override_test.dart',
     _astTwin,

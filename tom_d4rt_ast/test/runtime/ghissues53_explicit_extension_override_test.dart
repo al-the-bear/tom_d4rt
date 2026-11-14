@@ -10,9 +10,9 @@
 // bare or through an import prefix - now evaluates to an extension override,
 // and the access that follows calls the extension's member with x as `this`.
 //
-// Compound assignment and increment of a PROPERTY need a getter and a setter
-// of one name, which an extension cannot hold yet (ghissues56); they are
-// tested on the index operators here.
+// Compound assignment and increment are tested here on the index operators;
+// on a property (`E(x).p += 1`, a getter and a setter of one name) in
+// ghissues56_extension_getter_setter_pair_test.dart.
 
 @TestOn('vm')
 library;
