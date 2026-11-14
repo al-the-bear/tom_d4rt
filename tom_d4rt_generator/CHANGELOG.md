@@ -1,3 +1,24 @@
+## 1.64.2
+
+### Fixed — no generated import names a part file (GitHub #17)
+
+A bridge for an adapter that uses vector_math's `Matrix4` imported
+`package:vector_math/src/vector_math_64/matrix4.dart` - a part of
+`vector_math_64.dart` - and failed to analyze (`import_of_non_library`). An
+extension found through an imported library (GEN-049) took its on-type's URI
+from the declaring fragment, which for a type declared in a part is the part
+file, and on-type URIs of packages no bridged file covers were imported
+unresolved. The on-type (and its type arguments) now carry the library's URI,
+and every URI of the prefixed import list goes through the part-of resolution
+before it is written; a part's types are reached through its library's
+prefix. Bridges whose types come from no part file are unchanged.
+
+A repo-wide guard (`ghissues51_no_part_file_imports_test.dart`) resolves every
+`package:` import of every committed `*.b.dart` of the repository through its
+package config and fails on a part file.
+
+Name resolution: no
+
 ## 1.64.1
 
 ### Fixed — `generateBridges(configPath:)` reads the file it names (GitHub #16)

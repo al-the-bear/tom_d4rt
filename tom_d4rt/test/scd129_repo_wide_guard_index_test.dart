@@ -168,7 +168,7 @@ const Map<String, int> _bannerCensus = {
   'tom_d4rt_exec': 7, // +1 ghissues47: dart313b1's port reads tom_d4rt_ast's audit
   'tom_d4rt_flutter': 3,
   'tom_d4rt_flutter_ast': 19,
-  'tom_d4rt_generator': 4,
+  'tom_d4rt_generator': 5, // +1 ghissues51: no committed *.b.dart imports a part file
 };
 
 /// The CODE of every `tool/` script [testFile] imports by a relative path,

@@ -1943,8 +1943,9 @@ class BridgeGenerator {
       if (publicFiles.isEmpty) continue;
       final dynamic context;
       try {
-        context = _getAnalysisContextFor(publicFiles.first)
-            .contextFor(publicFiles.first);
+        context = _getAnalysisContextFor(
+          publicFiles.first,
+        ).contextFor(publicFiles.first);
       } catch (_) {
         continue;
       }
@@ -4563,24 +4564,16 @@ class BridgeGenerator {
             if (displayType != onTypeName) {
               onTypeFullName = displayType;
             }
-            onTypeUri = extendedType
-                .element
-                .firstFragment
-                .libraryFragment
-                .source
-                .uri
-                .toString();
+            // ghissues51: the LIBRARY's URI. A fragment's source is the part
+            // file for a type declared in a part (vector_math's Matrix4), and
+            // a part cannot be imported (GitHub #17).
+            onTypeUri = extendedType.element.library.uri.toString();
             for (final typeArg in extendedType.typeArguments) {
               if (typeArg is InterfaceType) {
                 final argElement = typeArg.element;
                 final argName = argElement.name;
                 if (argName != null) {
-                  onTypeArgUris[argName] = argElement
-                      .firstFragment
-                      .libraryFragment
-                      .source
-                      .uri
-                      .toString();
+                  onTypeArgUris[argName] = argElement.library.uri.toString();
                 }
               }
             }
@@ -6509,9 +6502,16 @@ class BridgeGenerator {
       }
     }
 
+    // ghissues51: every URI collected above reaches the import list through
+    // the part-of resolution, so no path can emit an import of a part file
+    // (GitHub #17: `package:vector_math/src/vector_math_64/matrix4.dart`).
+    final importUris = {
+      for (final uri in allImportUris) _resolvePartOfToParent(uri),
+    };
+
     // Assign $<pkgname>_<counter> prefixes and write import statements
     final packageCounters = <String, int>{};
-    for (final uri in allImportUris.toList()..sort()) {
+    for (final uri in importUris.toList()..sort()) {
       final parsed = _parsePackageUri(uri);
       final pkgName = parsed?.$1 ?? 'pkg';
       final sanitized = pkgName.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
@@ -6522,6 +6522,14 @@ class BridgeGenerator {
       final prefix = '\$${sanitized}_$counter';
       _importPrefixes[uri] = prefix;
       buffer.writeln("import '${_importTargetFor(uri)}' as $prefix;");
+    }
+
+    // A part's types are reached through its library's prefix.
+    for (final uri in allImportUris) {
+      final parent = _resolvePartOfToParent(uri);
+      if (parent != uri && _importPrefixes.containsKey(parent)) {
+        _importPrefixes.putIfAbsent(uri, () => _importPrefixes[parent]!);
+      }
     }
 
     // Also map absolute file paths to their URI prefix
