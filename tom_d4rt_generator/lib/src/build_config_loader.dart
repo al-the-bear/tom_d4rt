@@ -25,12 +25,15 @@ class BuildConfigLoader {
   ///
   /// The [projectPath] is the directory containing buildkit.yaml.
   /// Returns null if buildkit.yaml doesn't exist or has no d4rtgen section.
-  static BridgeConfig? loadFromTomBuildYaml(String projectPath) {
-    final buildkitYamlPath = p.join(
-      projectPath,
-      TomBuildConfig.projectFilename,
-    );
-    final buildkitYamlFile = File(buildkitYamlPath);
+  static BridgeConfig? loadFromTomBuildYaml(String projectPath) =>
+      loadFromYamlFile(p.join(projectPath, TomBuildConfig.projectFilename));
+
+  /// Loads bridge configuration from the `d4rtgen:` section of the YAML file
+  /// at [yamlPath], whatever the file is named.
+  ///
+  /// Returns null if the file doesn't exist or has no d4rtgen section.
+  static BridgeConfig? loadFromYamlFile(String yamlPath) {
+    final buildkitYamlFile = File(yamlPath);
 
     if (!buildkitYamlFile.existsSync()) {
       return null;

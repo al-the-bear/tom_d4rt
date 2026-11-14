@@ -1,3 +1,17 @@
+## 1.64.1
+
+### Fixed — `generateBridges(configPath:)` reads the file it names (GitHub #16)
+
+`configPath` was used only for its folder: the configuration was then read
+from that folder's `buildkit.yaml`, so a YAML file of another name was
+ignored. The `d4rtgen:` section is now read from the named file
+(`BuildConfigLoader.loadFromYamlFile`); a `configPath` naming a directory
+reads that directory's `buildkit.yaml`, and the project directory is that
+directory rather than its parent. The "no d4rtgen configuration" error names
+the file.
+
+Name resolution: no
+
 ## 1.64.0
 
 ### Fixed — a src/ class a public barrel exports keeps its relaxer (GitHub #16)

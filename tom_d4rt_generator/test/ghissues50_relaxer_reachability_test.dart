@@ -16,9 +16,13 @@
 // barrel, so it is now reachable whatever its source file looks like; a
 // `src/` class nobody bridged stays out.
 
+@Tags(['generation'])
+library;
+
 import 'dart:io';
 
 import 'package:test/test.dart';
+import 'package:tom_d4rt_generator/src/build_config_loader.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
 void main() {
@@ -105,4 +109,53 @@ void main() {
       });
     },
   );
+
+  // The side note on GitHub #16: `generateBridges(configPath: ...)` with a
+  // YAML named other than buildkit.yaml read the folder's buildkit.yaml.
+  group('ghissues50: configPath names the YAML file read', () {
+    String yaml(String name) =>
+        'd4rtgen:\n'
+        '  name: $name\n'
+        '  modules:\n'
+        '    - name: m\n'
+        '      barrelFiles: [lib/m.dart]\n'
+        '      outputPath: lib/src/m.b.dart\n';
+
+    test('GHI50-4: BuildConfigLoader.loadFromYamlFile reads a file of any '
+        'name, and loadFromTomBuildYaml still reads buildkit.yaml '
+        '[2026-11-14]', () {
+      File('${tempDir.path}/buildkit.yaml').writeAsStringSync(yaml('canon'));
+      File('${tempDir.path}/d4rtgen_alt.yaml').writeAsStringSync(yaml('alt'));
+      expect(
+        BuildConfigLoader.loadFromYamlFile(
+          '${tempDir.path}/d4rtgen_alt.yaml',
+        )?.name,
+        'alt',
+      );
+      expect(
+        BuildConfigLoader.loadFromTomBuildYaml(tempDir.path)?.name,
+        'canon',
+      );
+    });
+
+    test('GHI50-5: generateBridges reads the configPath file, not the '
+        "folder's buildkit.yaml (GitHub #16) [2026-11-14]", () async {
+      // buildkit.yaml has a d4rtgen section, the named file has none: the
+      // old code found buildkit.yaml's and went on; reading the named file
+      // finds nothing and says so, naming that file.
+      File('${tempDir.path}/buildkit.yaml').writeAsStringSync(yaml('canon'));
+      final alt = File('${tempDir.path}/other.yaml')
+        ..writeAsStringSync('name: x\n');
+      await expectLater(
+        generateBridges(configPath: alt.path, runPubGet: false),
+        throwsA(
+          isA<ArgumentError>().having(
+            (e) => e.message,
+            'message',
+            contains('other.yaml'),
+          ),
+        ),
+      );
+    });
+  });
 }

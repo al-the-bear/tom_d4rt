@@ -135,7 +135,9 @@ List<String> builderOnlyOptionWarnings(BridgeConfig config) {
 ///
 /// Generates bridges from a [BridgeConfig] or from a buildkit.yaml file path.
 ///
-/// Either [config] or [configPath] must be provided.
+/// Either [config] or [configPath] must be provided. [configPath] names the
+/// YAML file whose `d4rtgen:` section is read - any name, not only
+/// `buildkit.yaml` - or a project directory, whose `buildkit.yaml` is read.
 ///
 /// When using [config], specify [projectPath] to set the project root directory
 /// for resolving relative paths in the config. Defaults to [Directory.current].
@@ -170,14 +172,27 @@ Future<GenerationResult> generateBridges({
     throw ArgumentError('Only one of config or configPath should be provided');
   }
 
-  // Resolve project directory: explicit projectPath > configPath parent > cwd
+  // Resolve project directory: explicit projectPath > configPath's folder
+  // (configPath itself when it names a directory) > cwd
   final projectDir =
       projectPath ??
-      (configPath != null ? p.dirname(configPath) : Directory.current.path);
+      (configPath == null
+          ? Directory.current.path
+          : FileSystemEntity.isDirectorySync(configPath)
+          ? configPath
+          : p.dirname(configPath));
+  // configPath names the YAML file itself, so a file named other than
+  // buildkit.yaml is read as given (GitHub #16); a directory still means
+  // that directory's buildkit.yaml.
   final bridgeConfig =
-      config ?? BuildConfigLoader.loadFromTomBuildYaml(projectDir);
+      config ??
+      (FileSystemEntity.isDirectorySync(configPath!)
+          ? BuildConfigLoader.loadFromTomBuildYaml(configPath)
+          : BuildConfigLoader.loadFromYamlFile(configPath));
   if (bridgeConfig == null) {
-    throw ArgumentError('No d4rtgen configuration found in $projectDir');
+    throw ArgumentError(
+      'No d4rtgen configuration found in ${configPath ?? projectDir}',
+    );
   }
 
   // Ensure package_config.json exists — required for resolving package: URIs
