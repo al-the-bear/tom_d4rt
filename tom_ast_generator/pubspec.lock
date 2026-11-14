@@ -633,6 +633,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.243.0"
+  tom_d4rt_exec:
+    dependency: "direct dev"
+    description:
+      name: tom_d4rt_exec
+      sha256: b2046a3dce671d12d34230e3a634ee6f03149109abf78c5465b69baec4d9eb51
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.60.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
