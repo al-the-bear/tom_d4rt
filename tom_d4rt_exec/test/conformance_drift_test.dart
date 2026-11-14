@@ -420,9 +420,35 @@ const _partialTwinBudget = 0;
 /// of an enum name from another library, which tom_d4rt's per-module
 /// registration accepts (ghissues21).
 ///
-const _copierGapBudget = 41;
+/// 41 -> 42: GHISSUES46 added `ghissues46_nosuchmethod_satisfies_interface_test.dart`,
+/// which runs source to check that a class whose superclass (bridged or
+/// interpreted) or own body declares noSuchMethod satisfies the interfaces it
+/// does not implement, that a missing member reaches that noSuchMethod (a
+/// bridged one on the native object), and that Object's noSuchMethod still
+/// satisfies nothing (GitHub #13). Exec resolves tom_d4rt_ast 0.237.0 from
+/// pub.dev, which refuses the class until the batch release (ghissues1001),
+/// so a port would fail. Its ast twin holds the mechanism. ghissues1001 ports
+/// it after publishing and lowers this budget again. The copier surface a port
+/// would have added is class declarations with extends and implements
+/// clauses and a noSuchMethod member, which the corpus copies on every run.
+const _copierGapBudget = 42;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues46_nosuchmethod_satisfies_interface_test.dart': _Coverage(
+    'ast:runtime/ghissues46_nosuchmethod_satisfies_interface_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 5,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins a bridged noSuchMethod superclass accepted, a missing '
+        'method and getter reaching it, an interpreted superclass\'s and the '
+        'class\'s own noSuchMethod, and the refusal without one. The '
+        'reference adds the abstract-superclass member forwarded to the '
+        'class\'s own noSuchMethod and the refusal behind a bridged '
+        'superclass without one, which take the same paths and a hand-built '
+        'bundle would only restate.',
+  ),
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
     'ast:runtime/sce208_bind_forwarding_source_errors_test.dart',
     _astTwin,
@@ -3341,8 +3367,10 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // The type is the contract — `null` is how "nothing blocks the publish" is
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
+// GHISSUES46 (2026-11-14): the GitHub #13-#19 fixes land in the tree one by
+// one and are published together by the batch release, which deletes this.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = null;
+const String? _astPublishBlock = 'ghissues1001_aknl-batch-release-github-13-19';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

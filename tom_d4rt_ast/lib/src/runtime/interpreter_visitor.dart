@@ -4860,11 +4860,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   );
                 }
 
-                // Bug-78 FIX: Check for noSuchMethod before throwing error
-                final noSuchMethod = targetValue.klass.findInstanceMethod(
-                  'noSuchMethod',
-                );
-                if (noSuchMethod != null) {
+                // Bug-78 FIX: Check for noSuchMethod before throwing error.
+                // ghissues46: a bridged superclass's or mixin's noSuchMethod
+                // answers too (run on the native object).
+                if (targetValue.klass.hasNonTrivialNoSuchMethod) {
                   if (Logger.isDebug) {
                     Logger.debug(
                       "[SMethodInvocation] Found noSuchMethod on ${targetValue.klass.name}. Invoking...",
@@ -4891,12 +4890,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                     namedArgsSymbol,
                   );
 
-                  final boundNoSuchMethod = noSuchMethod.bind(targetValue);
-                  try {
-                    return boundNoSuchMethod.call(this, [invocation], {});
-                  } on ReturnException catch (returnExc) {
-                    return returnExc.value;
-                  }
+                  return targetValue.invokeNoSuchMethod(this, invocation);
                 }
 
                 throw D4rtNoSuchMethodError(
@@ -4911,11 +4905,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                 );
               }
 
-              // Bug-78 FIX: Check for noSuchMethod before throwing error
-              final noSuchMethod = targetValue.klass.findInstanceMethod(
-                'noSuchMethod',
-              );
-              if (noSuchMethod != null) {
+              // Bug-78 FIX: Check for noSuchMethod before throwing error.
+              // ghissues46: a bridged superclass's or mixin's noSuchMethod
+              // answers too (run on the native object).
+              if (targetValue.klass.hasNonTrivialNoSuchMethod) {
                 if (Logger.isDebug) {
                   Logger.debug(
                     "[SMethodInvocation] Found noSuchMethod on ${targetValue.klass.name}. Invoking...",
@@ -4942,12 +4935,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                   namedArgsSymbol,
                 );
 
-                final boundNoSuchMethod = noSuchMethod.bind(targetValue);
-                try {
-                  return boundNoSuchMethod.call(this, [invocation], {});
-                } on ReturnException catch (returnExc) {
-                  return returnExc.value;
-                }
+                return targetValue.invokeNoSuchMethod(this, invocation);
               }
 
               throw RuntimeD4rtException.resolutionFailure(
@@ -11586,6 +11574,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         _relationshipLookupName(type),
     ];
     void checkInheritedMembers() {
+      // ghissues46: a class with a noSuchMethod other than Object's (its own,
+      // an interpreted superclass's or mixin's, or a bridged superclass's or
+      // mixin's) gets a forwarder for every member its interfaces and
+      // abstract superclasses leave unimplemented, so nothing is missing. A
+      // class relying on Object's noSuchMethod is still checked.
+      if (klass.isAbstract || klass.hasNonTrivialNoSuchMethod) return;
+
       // Check for unimplemented abstract members
       if (!klass.isAbstract) {
         final inheritedAbstract = klass.getAbstractInheritedMembers();

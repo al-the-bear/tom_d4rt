@@ -22,7 +22,7 @@ import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/core/int.dart';
 import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 
-import 'member_audit.dart';
+import '../tool/stdlib_member_diff.dart';
 import 'interpreter_test.dart';
 
 /// Whether the running SDK is Dart 3.13 or newer, where the native members

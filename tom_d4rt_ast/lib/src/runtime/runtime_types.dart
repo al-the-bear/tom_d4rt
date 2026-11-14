@@ -318,6 +318,32 @@ class InterpretedClass implements Callable, RuntimeType {
     _freezeTable(constructors);
   }
 
+  /// ghissues46: whether this class has a `noSuchMethod` other than
+  /// Object's - declared here, by a mixin or a superclass, or by a bridged
+  /// superclass or bridged mixin. Dart then gives the class a forwarder for
+  /// every member its interfaces and abstract superclasses leave
+  /// unimplemented, so it is a complete implementation of them.
+  bool get hasNonTrivialNoSuchMethod =>
+      findInstanceMethod('noSuchMethod') != null ||
+      bridgedNoSuchMethodSource() != null;
+
+  /// ghissues46: the bridged class (a superclass or a mixin on the chain)
+  /// whose `noSuchMethod` an instance of this class answers a missing member
+  /// with when no interpreted class on the chain declares one.
+  BridgedClass? bridgedNoSuchMethodSource() {
+    for (InterpretedClass? c = this; c != null; c = c.superclass) {
+      for (final mixin in c.bridgedMixins.reversed) {
+        if (mixin.methods.containsKey('noSuchMethod')) return mixin;
+      }
+      final bridgedSuper = c.bridgedSuperclass;
+      if (bridgedSuper != null &&
+          bridgedSuper.methods.containsKey('noSuchMethod')) {
+        return bridgedSuper;
+      }
+    }
+    return null;
+  }
+
   // Finders for different member types
   InterpretedFunction? findInstanceMethod(String name) {
     final cached = _methodResolutionCache[name];
@@ -1432,6 +1458,46 @@ class InterpretedInstance implements RuntimeValue {
           ? null
           : D4.receiverProxyFor(bridgedTypeName, this, visitor));
 
+  /// ghissues46: answers [invocation] - a member this instance's class does
+  /// not have - with its `noSuchMethod`: an interpreted one, else the one a
+  /// bridged superclass or mixin declares, run on the native object. Returns
+  /// [noNoSuchMethod] when the class has neither (Object's noSuchMethod: the
+  /// caller reports the miss).
+  Object? invokeNoSuchMethod(
+    InterpreterVisitor visitor,
+    Invocation invocation,
+  ) {
+    final interpreted = klass.findInstanceMethod('noSuchMethod');
+    if (interpreted != null) {
+      try {
+        return interpreted.bind(this).call(visitor, [invocation], {});
+      } on ReturnException catch (returnExc) {
+        return returnExc.value;
+      }
+    }
+    final bridged = klass.bridgedNoSuchMethodSource();
+    if (bridged == null) return noNoSuchMethod;
+    final target = nativeReceiverFor(bridged.name, visitor);
+    if (target == null) throw noReceiverError(bridged.name, 'noSuchMethod');
+    return bridged.methods['noSuchMethod']!(
+      visitor,
+      target,
+      [invocation],
+      const {},
+      null,
+    );
+  }
+
+  /// ghissues46: whether [member], found for this instance, is an abstract
+  /// declaration Dart replaces with a noSuchMethod forwarder - the class has
+  /// a non-trivial noSuchMethod - so a lookup must not run it.
+  bool _forwardsToNoSuchMethod(InterpretedFunction member) =>
+      member.isAbstract && klass.hasNonTrivialNoSuchMethod;
+
+  /// What [invokeNoSuchMethod] returns when the class has no noSuchMethod of
+  /// its own.
+  static const Object noNoSuchMethod = _NoNoSuchMethod();
+
   /// ghissues31: the error for a member this instance's class inherits from
   /// the bridged class [bridgedName] when there is no native object to run
   /// it on - neither a native super-object nor a native or receiver proxy.
@@ -1886,7 +1952,9 @@ class InterpretedInstance implements RuntimeValue {
     InterpretedClass? currentClass = klass;
     while (currentClass != null) {
       final getter = currentClass.findInstanceGetter(name);
-      if (getter != null) {
+      // ghissues46: an abstract member of a class with a non-trivial
+      // noSuchMethod is a forwarder to it, so it is answered as a miss.
+      if (getter != null && !_forwardsToNoSuchMethod(getter)) {
         if (visitor != null) {
           return getter.bind(this).call(visitor, [], {});
         } else {
@@ -1918,7 +1986,7 @@ class InterpretedInstance implements RuntimeValue {
       }
 
       final method = currentClass.findInstanceMethod(name);
-      if (method != null) {
+      if (method != null && !_forwardsToNoSuchMethod(method)) {
         // Perf S2: cached tear-off — bind once, reuse on subsequent accesses.
         return bindMethodCached(method); // Bound to the *original* 'this'
       }
@@ -2230,18 +2298,11 @@ class InterpretedInstance implements RuntimeValue {
       return objectMember(name);
     }
 
-    // Check for noSuchMethod before throwing an error
-    final noSuchMethod = klass.findInstanceMethod('noSuchMethod');
-    if (answerMissWithNoSuchMethod && noSuchMethod != null && visitor != null) {
-      if (Logger.isDebug) {
-        Logger.debug(
-          "[Instance.get] Property '$name' not found but noSuchMethod exists. Invoking noSuchMethod...",
-        );
-      }
-      // Create an Invocation.getter for this property access
-      final invocation = Invocation.getter(Symbol(name));
-      final boundNoSuchMethod = noSuchMethod.bind(this);
-      return boundNoSuchMethod.call(visitor, [invocation], {});
+    // Check for noSuchMethod before throwing an error. ghissues46: a
+    // bridged superclass's or mixin's noSuchMethod answers too.
+    if (answerMissWithNoSuchMethod && visitor != null) {
+      final answer = invokeNoSuchMethod(visitor, Invocation.getter(Symbol(name)));
+      if (!identical(answer, noNoSuchMethod)) return answer;
     }
 
     // RC-9: last-chance fallback for bridged-super members when there is
@@ -3511,4 +3572,9 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
       "Extension type '${extensionType.name}' has no setter '$name'",
     );
   }
+}
+
+/// The type of [InterpretedInstance.noNoSuchMethod].
+class _NoNoSuchMethod {
+  const _NoNoSuchMethod();
 }

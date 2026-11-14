@@ -1,3 +1,26 @@
+## 1.258.0
+
+### Fixed — noSuchMethod satisfies an interface (GitHub #13)
+
+A class with a `noSuchMethod` other than Object's - its own, an interpreted
+superclass's or mixin's, or a bridged superclass's or mixin's - was refused
+when it left an interface member or an inherited abstract member
+unimplemented: `class Sentinel extends UndefinedSentinel implements Contract
+{}` (Serverpod's nullable copyWith models) failed with `Missing concrete
+implementation for interface method 'read'`. Dart gives such a class a
+forwarder for every member it leaves unimplemented, so the class is valid and
+a call of that member reaches `noSuchMethod`. Now:
+
+- the class is accepted, and `is` holds for its interfaces;
+- a missing method, getter, or an abstract inherited member reaches the
+  class's `noSuchMethod` with its `Invocation`; a bridged superclass's or
+  mixin's `noSuchMethod` now answers too, run on the native object (it was
+  never consulted) - Serverpod's sentinel throws its native
+  `UnsupportedError` there, as in Dart;
+- a class relying on Object's `noSuchMethod` is still refused.
+
+Name resolution: no
+
 ## 1.257.0
 
 ### Changed — a generic call's type arguments keep their `?` and their own type arguments

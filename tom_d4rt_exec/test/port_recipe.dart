@@ -175,21 +175,6 @@ const List<PortImport> portImports = <PortImport>[
     'package:tom_d4rt/src/unbridged_reasons.dart',
     'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart',
   ),
-  // EXECPORT1: the member audit is a TOOL of each interpreter package, not
-  // library code: `tom_d4rt/tool/stdlib_member_diff.dart` reflects over that
-  // package's registry, and `tom_d4rt_ast/tool/stdlib_member_audit.dart` is
-  // the same design over this line's registry, with the same three names
-  // `dart313b1_sdk_313_members_test.dart` uses (`buildFullyRegisteredEnvironment`,
-  // `sdkMembersNewerThanFloor`, `auditSdkFloor`). Exec owns no audit of its
-  // own, so its port reaches the runtime package's - the registry it
-  // interprets with - through `member_audit.dart`, the one exec file that
-  // names the sibling path (SCE191). Importing the reference tool instead
-  // would measure the other interpreter while appearing to measure this one.
-  PortImport(
-    '@MEMBER_AUDIT@',
-    "'../tool/stdlib_member_diff.dart'",
-    "'member_audit.dart'",
-  ),
   // SCH1: the static name pass is FRONT-END code, so, like `d4rt.dart` and
   // unlike the runtime pairs above, it ports to exec rather than to
   // `tom_d4rt_ast`. exec carries a byte-identical copy of

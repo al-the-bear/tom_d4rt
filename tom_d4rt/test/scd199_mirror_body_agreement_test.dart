@@ -379,7 +379,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES7: both trees look every relationship type up through
     // `_relationshipLookupName`, which replaced the per-clause bare-name
     // accessors; the residue left is the loader field's name.
-    'InterpreterVisitor.visitClassDeclaration': '799fab94',
+    // GHISSUES46: 799fab94 -> 0ec82bb0, both trees skip the missing-member
+    // check for a class with a non-trivial noSuchMethod alike.
+    'InterpreterVisitor.visitClassDeclaration': '0ec82bb0',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
@@ -413,7 +415,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // null target alike.
     // GHISSUES36: 8cc20343 -> 06ec31b3, both trees resolve a call's type arguments
     // with `_resolveTypeArgument` alike.
-    'InterpreterVisitor.visitMethodInvocation': '06ec31b3',
+    // GHISSUES46: 06ec31b3 -> e42ec5fb, both trees answer a missing member
+    // with InterpretedInstance.invokeNoSuchMethod alike.
+    'InterpreterVisitor.visitMethodInvocation': 'e42ec5fb',
     // GHISSUES36: the same resolver; the analyzer's `question` token against
     // the mirror model's `isNullable` flag.
     'InterpreterVisitor._resolveTypeArgument': '7028b122',
