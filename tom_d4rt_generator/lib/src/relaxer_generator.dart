@@ -166,6 +166,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
   void Function(String)? onWarning,
   Future<void> Function(String relativePath, String content)? writeFile,
   int maxFileBytes = defaultRelaxerMaxFileBytes,
+  Set<String>? bridgedClassNames,
 }) async {
   // relaxerOutputPath always has a value (auto-derived default), but guard
   // for programmatic callers who pass a config with the constructor default.
@@ -323,6 +324,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     inScopePackagePrefixes,
     warn,
     reducedTypeArgAllowlist,
+    bridgedClassNames: bridgedClassNames,
   );
 
   // sce46: `userRelaxers.isEmpty` for the same reason as Step 1 — a package
@@ -367,7 +369,11 @@ Future<RelaxerGenerationResult> generateRelaxers({
     // (e.g. `package:dcli/dcli.dart`), so a private `ScopeKey` in
     // `package:dcli/src/...` cannot be referenced as a bare identifier
     // and the wrapper's `extends ScopeKey` won't resolve.
-    if (!_isReachableViaBarrels(target.classInfo!, inScopePackagePrefixes)) {
+    if (!_isReachableViaBarrels(
+      target.classInfo!,
+      inScopePackagePrefixes,
+      bridgedClassNames,
+    )) {
       warn(
         '${target.baseTypeName} is not re-exported by any barrel import — '
         'skipping wrapper',
@@ -396,7 +402,11 @@ Future<RelaxerGenerationResult> generateRelaxers({
     // skipped (unreachable via barrel imports). Emitting a factory that
     // references a nonexistent `$RelaxedX` class would leak a compile
     // error into the generated relaxer file.
-    if (!_isReachableViaBarrels(target.classInfo!, inScopePackagePrefixes)) {
+    if (!_isReachableViaBarrels(
+      target.classInfo!,
+      inScopePackagePrefixes,
+      bridgedClassNames,
+    )) {
       continue;
     }
 
@@ -508,6 +518,7 @@ Future<RelaxerGenerationResult> generateRelaxers({
     reducedTypeArgAllowlist,
     yieldVoidCallbacks: config.yieldVoidCallbacks,
     genericConstructors: config.genericConstructors,
+    bridgedClassNames: bridgedClassNames,
   );
 
   // -------------------------------------------------------------------------
@@ -640,8 +651,9 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   Set<String> gen075Classes,
   Set<String> inScopePackagePrefixes,
   void Function(String) warn,
-  Set<String>? reducedTypeArgAllowlist,
-) {
+  Set<String>? reducedTypeArgAllowlist, {
+  Set<String>? bridgedClassNames,
+}) {
   // Group by base type → module → Set<typeArg>
   final grouped = <String, Map<String, Set<String>>>{};
   for (final site in extractions) {
@@ -697,7 +709,13 @@ List<_RelaxerTarget> _buildRelaxerTargets(
   final allConcreteBridgedTypes =
       globalClassLookup.entries
           .where((e) => !e.value.isAbstract && !e.value.isSealed)
-          .where((e) => _isReachableViaBarrels(e.value, inScopePackagePrefixes))
+          .where(
+            (e) => _isReachableViaBarrels(
+              e.value,
+              inScopePackagePrefixes,
+              bridgedClassNames,
+            ),
+          )
           .where(
             (e) =>
                 reducedTypeArgAllowlist == null ||
@@ -2436,6 +2454,7 @@ int _writeGenericConstructorSection(
   Set<String>? reducedTypeArgAllowlist, {
   bool yieldVoidCallbacks = false,
   List<GenericConstructorConfig> genericConstructors = const [],
+  Set<String>? bridgedClassNames,
 }) {
   // Templated RC-2 generic-constructor reifiers for the configured
   // `genericConstructors`. Each emits a `switch (typeName)` that reifies a
@@ -2462,7 +2481,11 @@ int _writeGenericConstructorSection(
     if (cls.typeParameters.length != 1) continue; // Single type param only
     if (cls.isAbstract || cls.isSealed) continue;
     if (!cls.constructors.any((c) => !c.isFactory)) continue;
-    if (!_isReachableViaBarrels(cls, inScopePackagePrefixes)) {
+    if (!_isReachableViaBarrels(
+      cls,
+      inScopePackagePrefixes,
+      bridgedClassNames,
+    )) {
       continue;
     }
     eligible[entry.key] = cls;
@@ -2495,7 +2518,11 @@ int _writeGenericConstructorSection(
                 !e.value.isAbstract &&
                 !e.value.isSealed &&
                 !_rc2SkipTypes.contains(e.key) &&
-                _isReachableViaBarrels(e.value, inScopePackagePrefixes) &&
+                _isReachableViaBarrels(
+                  e.value,
+                  inScopePackagePrefixes,
+                  bridgedClassNames,
+                ) &&
                 (reducedTypeArgAllowlist == null ||
                     reducedTypeArgAllowlist.contains(e.key)),
           )
@@ -3390,19 +3417,37 @@ bool _isSourceInScope(String sourceFile, Set<String> inScopePackagePrefixes) {
 /// mapped engine/Flutter path whose target URI is in scope.
 bool _isReachableViaBarrels(
   ClassInfo classInfo,
-  Set<String> inScopePackagePrefixes,
-) {
+  Set<String> inScopePackagePrefixes, [
+  Set<String>? bridgedClassNames,
+]) {
   if (!_isTypeInScope(classInfo, inScopePackagePrefixes)) return false;
   final src = classInfo.sourceFile;
   if (src.startsWith('dart:')) return true;
   // Private under package: package:<pkg>/src/... is not re-exported via
-  // the barrel and cannot be referenced by bare identifier.
+  // the barrel and cannot be referenced by bare identifier - unless a barrel
+  // does export it.
   // A package: URI looks like 'package:<pkg>/<path>'. Check whether the
   // first path segment after the slash is 'src'.
   if (src.startsWith('package:')) {
     final afterPkg = src.indexOf('/');
     if (afterPkg > 0 && src.substring(afterPkg + 1).startsWith('src/')) {
-      return false;
+      // ghissues50 (GitHub #16): `package:flutter/src/animation/tween.dart`
+      // is under src/, yet `package:flutter/animation.dart` exports Tween.
+      // Judged by the path alone, every such class was refused and the
+      // relaxer file came out empty wherever a source file arrived as a
+      // `package:` URI (the reporter's Flutter 3.50 setup; ours keeps
+      // filesystem paths, which this test never matches). A src/ class a
+      // module bridged from a barrel the relaxer file imports
+      // ([bridgedClassNames]) is exported by that barrel, so it stays.
+      //
+      // Only here: being bridged is not proof that the relaxer file can name
+      // a class in general - a module may bridge a class its barrel does not
+      // export (flutter/foundation bridges meta's `Immutable` but exports
+      // only `immutable`), and two imported barrels may both export a name
+      // (`Colors`: material and vector_math), so the scope rule above stays
+      // the deciding one.
+      return bridgedClassNames != null &&
+          bridgedClassNames.contains(classInfo.name);
     }
   }
   return true;

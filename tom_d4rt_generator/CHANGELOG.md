@@ -1,3 +1,22 @@
+## 1.64.0
+
+### Fixed — a src/ class a public barrel exports keeps its relaxer (GitHub #16)
+
+The relaxer reachability check refused every class whose source file reads
+`package:<pkg>/src/...`, by the path alone, although a public barrel exports
+many of them (`package:flutter/animation.dart` exports Tween from
+`src/animation/tween.dart`). Where a source file arrived as a `package:` URI
+(reported on Flutter 3.50 / Dart 3.14) the Flutter relaxer file came out
+empty and the runtime registrations' `$RelaxedTween` references no longer
+compiled. Such a class is now reachable when a module whose barrel the
+relaxer file imports (`barrelImport`) bridged it; a `src/` class no such
+module bridged stays out. `generateRelaxers` takes the set as
+`bridgedClassNames` (the orchestrator passes it; other callers keep the old
+rule). Where source files are filesystem paths, as on our setups, the output
+is unchanged.
+
+Name resolution: no
+
 ## 1.63.3
 
 ### Changed — doc comments name the binaries layer

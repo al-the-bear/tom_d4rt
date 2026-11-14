@@ -321,6 +321,10 @@ Future<GenerationResult> generateBridges({
     // duplicate registrations. Only deduplicates when BOTH name AND source match,
     // so different classes with the same name (e.g., dart:ui vs Flutter) are kept.
     final globallyGeneratedClasses = <String, String>{};
+    // ghissues50: the classes bridged by a module whose barrel the relaxer
+    // file imports (`barrelImport`) - exactly what that barrel exports, so the
+    // relaxer file can name them whatever their source file looks like.
+    final barrelExportedClasses = <String>{};
 
     // GEN-079: Collect class lookup across modules for relaxer generation.
     final globalClassLookup = <String, ClassInfo>{};
@@ -451,6 +455,9 @@ Future<GenerationResult> generateBridges({
       }
       // GEN-076: Accumulate generated class sources for next module
       globallyGeneratedClasses.addAll(result.generatedClassSources);
+      if (module.barrelImport != null) {
+        barrelExportedClasses.addAll(result.generatedClassSources.keys);
+      }
       // GEN-079: Accumulate class lookup for relaxer generation
       globalClassLookup.addAll(generator.classLookup);
       // GEN-079: Accumulate generic extraction sites and GEN-075 classes
@@ -592,6 +599,7 @@ Future<GenerationResult> generateBridges({
         globalClassLookup: globalClassLookup,
         genericExtractionSites: allExtractionSites,
         gen075Classes: allGen075Classes,
+        bridgedClassNames: barrelExportedClasses,
       );
       if (relaxerResult.outputFile != null) {
         outputFiles.add(relaxerResult.outputFile!);
