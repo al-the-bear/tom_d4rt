@@ -1,3 +1,29 @@
+## 0.242.0
+
+### Fixed — an explicit extension override `E(x).member` works (GitHub #14)
+
+`extension L on List<int> { List<int> toJson() => this; }`
+
+`L(list).toJson()`, `ListEncoding(list).toJson()` (imported) and
+`api.ListEncoding(list).toJson()` (through an import prefix) threw
+`'L' (type: InterpretedExtension) is not callable`. Neither front end resolves
+`E(x)`, so the interpreter decides it: calling an extension by its name - bare
+or through an import prefix, interpreted or a bridged named extension -
+evaluates to an `ExtensionOverrideValue` (the extension and x), and the access
+that follows calls the extension's member with x as `this`: a method, a
+getter (a function it returns is called), a tear-off, a setter, a binary or
+unary operator, `[]` and `[]=`, compound assignment and `++` / `--` on an
+index, and the null-aware `E(x)?.m()`. A member the extension does not declare
+is an error naming the extension - no fallback to x's own members or to
+another extension, which is what makes an override resolve a conflict between
+two extensions. `E<T>(x)` binds the extension's type parameters as written;
+without type arguments they are bound from x as for implicit application.
+An extension cannot yet declare a getter and a setter of one name (ghissues56),
+so a compound update of an extension property is not available.
+
+Name resolution: yes — a call of an extension's name now resolves as an
+explicit extension override instead of failing as a call of a non-callable.
+
 ## 0.241.0
 
 ### Fixed — an extension's own type parameters are bound (GitHub #18)

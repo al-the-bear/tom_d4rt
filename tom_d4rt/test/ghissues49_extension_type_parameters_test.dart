@@ -19,8 +19,8 @@
 // (limitations doc, Lim-13). The same in tom_d4rt_ast
 // (test/runtime/ghissues49_extension_type_parameters_test.dart).
 //
-// The explicit override `KeyKind<Object, int>(m)` is not tested here: no
-// explicit extension override works yet (ghissues53).
+// Type arguments of an explicit override (`Kind<num>(list)`) are tested in
+// ghissues53_explicit_extension_override_test.dart.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

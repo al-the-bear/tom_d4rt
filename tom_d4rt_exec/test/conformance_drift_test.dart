@@ -462,9 +462,37 @@ const _partialTwinBudget = 0;
 /// The copier surface a port would have added is generic extension
 /// declarations and typed variable declarations, which the corpus copies on
 /// every run.
-const _copierGapBudget = 45;
+/// 45 -> 46: GHISSUES53 added `ghissues53_explicit_extension_override_test.dart`,
+/// which runs source to check that an explicit extension override `E(x)` -
+/// bare, imported, through an import prefix, bridged, with type arguments -
+/// applies the extension's method, getter, tear-off, setter, operators and
+/// index operators to x, resolves a conflict between two extensions, short-
+/// circuits `E(x)?.m()` on null and refuses an undeclared member. Exec resolves
+/// tom_d4rt_ast 0.237.0 from pub.dev, which refuses `E(x)` as calling a
+/// non-callable until the batch release (ghissues1001), so a port would fail.
+/// Its ast twin holds the mechanism. ghissues1001 ports it after publishing.
+/// The copier surface a port would have added is calls of an extension name,
+/// prefixed and with type arguments, which the corpus copies on every run.
+const _copierGapBudget = 46;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues53_explicit_extension_override_test.dart': _Coverage(
+    'ast:runtime/ghissues53_explicit_extension_override_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 8,
+    whyPartial:
+        'the twin pins every access form on a local extension (method, '
+        'getter, setter, binary and unary operators, index read, write, '
+        'compound and increment), the conflict between two extensions, the '
+        'imported and prefixed extension, a bridged extension, explicit and '
+        'receiver-bound type arguments, the null-aware form and the '
+        'undeclared-member error. The reference adds a getter returning a '
+        'function, a tear-off, an interpreted class receiver and the '
+        'one-argument check, which take the same dispatch and a hand-built '
+        'bundle would only restate.',
+  ),
   'ghissues49_extension_type_parameters_test.dart': _Coverage(
     'ast:runtime/ghissues49_extension_type_parameters_test.dart',
     _astTwin,

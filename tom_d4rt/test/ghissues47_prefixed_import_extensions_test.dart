@@ -22,10 +22,8 @@
 //
 // Name resolution: an extension member now resolves through a prefixed import.
 //
-// The explicit override `api.ListEncoding(list).toJson()` is not tested here:
-// measured 2026-11-14, no explicit extension override works in either tree,
-// prefixed or not (`ListEncoding(list)` is refused as calling a non-callable)
-// - ghissues53.
+// The explicit override `api.ListEncoding(list).toJson()` is tested in
+// ghissues53_explicit_extension_override_test.dart.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';

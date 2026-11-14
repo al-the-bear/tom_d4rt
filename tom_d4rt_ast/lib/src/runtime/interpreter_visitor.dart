@@ -2258,6 +2258,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     final rightOperandValue = node.rightOperand!.accept<Object?>(this);
 
+    // ghissues53: `E(x) op y` - the extension's operator.
+    if (leftOperandValue is ExtensionOverrideValue) {
+      if (rightOperandValue is AsyncSuspensionRequest) return rightOperandValue;
+      return _overrideOperator(leftOperandValue, operator, [
+        rightOperandValue,
+      ]);
+    }
+
     if (Logger.isDebug) {
       Logger.debug("[SBinaryExpression DEBUG] Operator: $operator");
       if (Logger.isDebug) {
@@ -2894,6 +2902,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final index = node.index;
     final targetValue = target?.accept<Object?>(this);
 
+    // ghissues53: `E(x)[i]`, `E(x)?[i]` - the extension's `[]`.
+    if (targetValue is ExtensionOverrideValue) {
+      if (targetValue.receiver == null && node.isNullAware) return null;
+      final indexValue = index!.accept<Object?>(this);
+      if (indexValue is AsyncSuspensionRequest) return indexValue;
+      return _overrideOperator(targetValue, '[]', [indexValue]);
+    }
+
     // Handle null-aware indexing: x?[i] returns null if x is null
     if (node.isNullAware && targetValue == null) {
       return null;
@@ -3156,6 +3172,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // END NEW
 
     final operatorType = node.operator;
+
+    // ghissues53: `E(x).p = v`, `E(x)[i] += v` - the extension's members.
+    final overridden = _overrideAssignment(lhs!, operatorType, rhsValue);
+    if (!identical(overridden, _noOverride)) return overridden;
 
     // Case 1: Simple variable assignment (lexical or implicit this)
     if (lhs is SSimpleIdentifier) {
@@ -4729,6 +4749,24 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
       final methodName = node.methodName!.name;
 
+      // ghissues53: `E(x).m(...)`, `E(x)?.m(...)` - the extension's member.
+      if (targetValue is ExtensionOverrideValue) {
+        if (targetValue.receiver == null && isNullAware) return null;
+        final evaluationResult = _evaluateArgumentsAsync(node.argumentList);
+        if (evaluationResult is AsyncSuspensionRequest) {
+          return evaluationResult;
+        }
+        final (positionalArgs, namedArgs) =
+            evaluationResult as (List<Object?>, Map<String, Object?>);
+        return _overrideInvoke(
+          targetValue,
+          methodName,
+          positionalArgs,
+          namedArgs,
+          node.typeArguments?.arguments.map(_resolveTypeArgument).toList(),
+        );
+      }
+
       // Null safety support: if the target is null and the call is null-aware, return null
       if (targetValue == null) {
         if (isNullAware) {
@@ -6028,6 +6066,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
+    // ghissues53: calling an extension by its name - bare or through an
+    // import prefix - is an explicit extension override.
+    if (calleeValue is InterpretedExtension &&
+        (node.target == null || targetValue is Environment)) {
+      return _extensionOverride(node, calleeValue);
+    }
+
     // SCE176: an interpreted instance whose class declares `call` is
     // callable; resolve it to the bound method so the branch below runs it.
     calleeValue = interpretedCallMethod(calleeValue) ?? calleeValue;
@@ -6442,6 +6487,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Determine if this is a conditional access by checking the operator field
     final isNullAware = node.operator == '?.';
     final propertyName = node.propertyName!.name;
+
+    // ghissues53: `E(x).p`, `E(x)?.p` - the extension's getter or tear-off.
+    if (target is ExtensionOverrideValue) {
+      if (target.receiver == null && isNullAware) return null;
+      return _overrideGet(target, propertyName);
+    }
 
     // Null safety support: if the target is null and the access is null-aware, return null
     if (target == null) {
@@ -9987,11 +10038,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitPrefixExpression(SPrefixExpression node) {
     final operatorType = node.operator;
     final operandNode = node.operand;
+    // ghissues53: `++E(x).p`, `--E(x)[i]` - through the extension's members.
+    if (operatorType == '++' || operatorType == '--') {
+      final stepped = _overrideIncrement(operandNode!, operatorType, false);
+      if (!identical(stepped, _noOverride)) return stepped;
+    }
     final operandValue = operandNode!.accept<Object?>(this);
     // SCF29: an awaited operand (`!await f()`, `-await g()`) suspends. Hand
     // the suspension up to the machine instead of applying the operator to
     // the interpreter's own request object, which is what `!` used to try.
     if (operandValue is AsyncSuspensionRequest) return operandValue;
+    // ghissues53: `-E(x)`, `~E(x)` - the extension's unary operator.
+    if (operandValue is ExtensionOverrideValue) {
+      return _overrideOperator(operandValue, operatorType, []);
+    }
     final bridgedInstance = toBridgedInstance(operandValue);
     final operand = bridgedInstance.$2
         ? bridgedInstance.$1!.nativeObject
@@ -10725,6 +10785,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
       return operandValue;
     }
+
+    // ghissues53: `E(x).p++`, `E(x)[i]--` - through the extension's members.
+    final stepped = _overrideIncrement(node.operand!, operatorType, true);
+    if (!identical(stepped, _noOverride)) return stepped;
 
     // Check if operand is assignable (SSimpleIdentifier or SPropertyAccess)
     if (node.operand is SSimpleIdentifier) {
@@ -14128,6 +14192,17 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // The receiver may reach the member wrapped or unwrapped (a native
     // object and its BridgedInstance), so the comparison is of what it holds.
     Object? held(Object? v) => v is BridgedInstance ? v.nativeObject : v;
+    // ghissues53: `E<int>(x).m()` binds the extension's type parameters as
+    // written.
+    final explicit = _overrideTypeArguments;
+    if (explicit != null &&
+        identical(held(explicit.$1), held(target)) &&
+        explicit.$2.length == names.length) {
+      _overrideTypeArguments = null;
+      _extensionReceiver = null;
+      _extensionReceiverExpression = null;
+      return {for (var i = 0; i < names.length; i++) names[i]: explicit.$2[i]};
+    }
     final expression = identical(held(_extensionReceiver), held(target))
         ? _extensionReceiverExpression
         : null;
@@ -14149,6 +14224,279 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           : type;
     }
     return bound;
+  }
+
+  /// ghissues53: the explicit type arguments of the extension override whose
+  /// member is being called, with its receiver; read once by
+  /// [bindExtensionTypeParameters].
+  (Object?, List<RuntimeType>)? _overrideTypeArguments;
+
+  /// ghissues53 (GitHub #14): `E(x)` / `E<T>(x)` / `prefix.E(x)` - the call
+  /// [node] of the extension [extension] - evaluates to an
+  /// [ExtensionOverrideValue], the target of the access that follows.
+  Object? _extensionOverride(
+    SMethodInvocation node,
+    InterpretedExtension extension,
+  ) {
+    final arguments = node.argumentList?.arguments ?? const <SArgument>[];
+    if (arguments.length != 1 || arguments.first is SNamedArgument) {
+      throw RuntimeD4rtException(
+        "An extension override takes exactly one positional argument: "
+        "'${extension.name ?? '<unnamed>'}(...)'.",
+      );
+    }
+    final receiverExpression = arguments.first as SExpression;
+    final receiver = receiverExpression.accept<Object?>(this);
+    if (receiver is AsyncSuspensionRequest) return receiver;
+    final typeArguments = node.typeArguments?.arguments
+        .map(_resolveTypeArgument)
+        .toList();
+    return ExtensionOverrideValue(
+      extension,
+      receiver,
+      receiverExpression,
+      typeArguments,
+    );
+  }
+
+  /// ghissues53: the extension an override expression [target] names - a
+  /// call of an extension by its name, bare or through an import prefix -
+  /// looked up without evaluating anything; null for every other expression.
+  /// Lets an assignment or increment take the override path before it
+  /// evaluates its target.
+  InterpretedExtension? _overrideExtensionOf(SExpression? target) {
+    if (target is! SMethodInvocation) return null;
+    Object? callee;
+    try {
+      final prefix = target.target;
+      if (prefix == null) {
+        callee = environment.get(target.methodName!.name);
+      } else if (prefix is SSimpleIdentifier) {
+        final prefixEnvironment = environment.get(prefix.name);
+        if (prefixEnvironment is! Environment) return null;
+        callee = prefixEnvironment.get(target.methodName!.name);
+      }
+    } on RuntimeD4rtException {
+      return null;
+    }
+    return callee is InterpretedExtension ? callee : null;
+  }
+
+  /// ghissues53: calls [member] of [override] with its receiver as `this`.
+  Object? _callOverrideMember(
+    ExtensionOverrideValue override,
+    ExtensionMemberCallable member,
+    List<Object?> arguments, [
+    Map<String, Object?> namedArguments = const {},
+    List<RuntimeType>? typeArguments,
+  ]) {
+    final explicit = override.typeArguments;
+    _overrideTypeArguments = explicit == null
+        ? null
+        : (override.receiver, explicit);
+    noteExtensionReceiver(override.receiver, override.receiverExpression);
+    try {
+      return member.call(
+        this,
+        [override.receiver, ...arguments],
+        namedArguments,
+        typeArguments,
+      );
+    } on ReturnException catch (e) {
+      return e.value;
+    } finally {
+      _overrideTypeArguments = null;
+    }
+  }
+
+  /// ghissues53: `E(x).name` - the getter, or a tear-off of the method.
+  Object? _overrideGet(ExtensionOverrideValue override, String name) {
+    final member = override.member(name);
+    if (member.isGetter) return _callOverrideMember(override, member, []);
+    if (member.isSetter) {
+      throw RuntimeD4rtException(
+        "The extension '${override.extensionName}' declares no getter "
+        "'$name' (only a setter).",
+      );
+    }
+    return BoundExtensionCallable(override.receiver, member);
+  }
+
+  /// ghissues53: `E(x).name = value`.
+  Object? _overrideSet(ExtensionOverrideValue override, String name, Object? value) {
+    final member = override.member(name);
+    if (!member.isSetter) {
+      throw RuntimeD4rtException(
+        "The extension '${override.extensionName}' declares no setter "
+        "'$name'.",
+      );
+    }
+    _callOverrideMember(override, member, [value]);
+    return value;
+  }
+
+  /// ghissues53: `E(x).name(args)` - the method, or the function a getter
+  /// returns.
+  Object? _overrideInvoke(
+    ExtensionOverrideValue override,
+    String name,
+    List<Object?> arguments,
+    Map<String, Object?> namedArguments,
+    List<RuntimeType>? typeArguments,
+  ) {
+    final member = override.member(name);
+    if (member.isSetter) {
+      throw RuntimeD4rtException(
+        "The extension '${override.extensionName}' declares no method "
+        "'$name' (only a setter).",
+      );
+    }
+    if (!member.isGetter) {
+      return _callOverrideMember(
+        override,
+        member,
+        arguments,
+        namedArguments,
+        typeArguments,
+      );
+    }
+    final function = _callOverrideMember(override, member, []);
+    if (function is Callable) {
+      return function.call(this, arguments, namedArguments, typeArguments);
+    }
+    if (function is Function) {
+      return Function.apply(function, arguments, {
+        for (final entry in namedArguments.entries)
+          Symbol(entry.key): entry.value,
+      });
+    }
+    throw RuntimeD4rtException(
+      "The getter '$name' of the extension '${override.extensionName}' "
+      'returned ${function?.runtimeType}, which is not callable.',
+    );
+  }
+
+  /// ghissues53: an operator of the extension - `E(x) + y`, `E(x)[i]`,
+  /// `E(x)[i] = v`, `-E(x)`, `~E(x)`.
+  Object? _overrideOperator(
+    ExtensionOverrideValue override,
+    String operator,
+    List<Object?> arguments,
+  ) => _callOverrideMember(override, override.member(operator), arguments);
+
+  /// ghissues53: what [_overrideIncrement] and [_overrideAssignment] answer
+  /// when their operand is no extension override.
+  static const Object _noOverride = Object();
+
+  /// ghissues53: `++E(x).p`, `E(x)[i]--` ([postfix]) when [operand] is a
+  /// property or index access on an extension override; else [_noOverride],
+  /// with nothing evaluated.
+  Object? _overrideIncrement(
+    SExpression operand,
+    String operatorType,
+    bool postfix,
+  ) {
+    final SExpression? target = operand is SPropertyAccess
+        ? operand.target
+        : operand is SIndexExpression
+        ? operand.target
+        : null;
+    if (_overrideExtensionOf(target) == null) return _noOverride;
+    final override = target!.accept<Object?>(this);
+    if (override is AsyncSuspensionRequest) return override;
+    if (override is! ExtensionOverrideValue) return _noOverride;
+    if (operand is SPropertyAccess) {
+      return _overrideUpdate(
+        override: override,
+        property: operand.propertyName!.name,
+        operatorType: operatorType,
+        postfix: postfix,
+      );
+    }
+    final index = (operand as SIndexExpression).index!.accept<Object?>(this);
+    if (index is AsyncSuspensionRequest) return index;
+    return _overrideUpdate(
+      override: override,
+      index: index,
+      operatorType: operatorType,
+      postfix: postfix,
+    );
+  }
+
+  /// ghissues53: `E(x).p = v`, `E(x)[i] op= v` when [lhs] is a property or
+  /// index access on an extension override; else [_noOverride], with
+  /// nothing evaluated.
+  Object? _overrideAssignment(
+    SExpression lhs,
+    String operatorType,
+    Object? rhs,
+  ) {
+    final SExpression? target = lhs is SPropertyAccess
+        ? lhs.target
+        : lhs is SIndexExpression
+        ? lhs.target
+        : null;
+    if (_overrideExtensionOf(target) == null) return _noOverride;
+    final override = target!.accept<Object?>(this);
+    if (override is AsyncSuspensionRequest) return override;
+    if (override is! ExtensionOverrideValue) return _noOverride;
+    if (lhs is SPropertyAccess) {
+      return _overrideUpdate(
+        override: override,
+        property: lhs.propertyName!.name,
+        operatorType: operatorType,
+        rhs: rhs,
+      );
+    }
+    final index = (lhs as SIndexExpression).index!.accept<Object?>(this);
+    if (index is AsyncSuspensionRequest) return index;
+    return _overrideUpdate(
+      override: override,
+      index: index,
+      operatorType: operatorType,
+      rhs: rhs,
+    );
+  }
+
+  /// ghissues53: `E(x).p op= v`, `E(x)[i] op= v`, `E(x).p++`, `++E(x)[i]`:
+  /// reads the current value, combines it with [rhs] by [operatorType] and
+  /// writes it back; returns the value the expression yields ([postfix]:
+  /// the old one).
+  Object? _overrideUpdate({
+    required ExtensionOverrideValue override,
+    String? property,
+    Object? index,
+    required String operatorType,
+    Object? rhs,
+    bool postfix = false,
+  }) {
+    if (operatorType == '=') {
+      if (property != null) return _overrideSet(override, property, rhs);
+      _overrideOperator(override, '[]=', [index, rhs]);
+      return rhs;
+    }
+    final current = property != null
+        ? _overrideGet(override, property)
+        : _overrideOperator(override, '[]', [index]);
+    Object? updated;
+    if (operatorType == '??=') {
+      if (current != null) return current;
+      updated = rhs;
+    } else if (operatorType == '++' || operatorType == '--') {
+      updated = computeCompoundValue(
+        current,
+        1,
+        operatorType == '++' ? '+=' : '-=',
+      );
+    } else {
+      updated = computeCompoundValue(current, rhs, operatorType);
+    }
+    if (property != null) {
+      _overrideSet(override, property, updated);
+    } else {
+      _overrideOperator(override, '[]=', [index, updated]);
+    }
+    return postfix ? current : updated;
   }
 
   /// The resolved written type of a receiver that is a typed local or

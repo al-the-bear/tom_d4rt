@@ -7859,6 +7859,48 @@ class BoundExtensionCallable implements Callable {
   }
 }
 
+/// ghissues53 (GitHub #14): the value of an explicit extension override -
+/// `E(x)`, `E<T>(x)`, `prefix.E(x)`. Not a first-class value in Dart: it is
+/// only the target of the access that follows, which calls the member of
+/// [extension] with [receiver] as `this` - never the receiver's own member
+/// nor another extension's (the way to resolve a conflict between two
+/// extensions, or to name the extension of a prefixed import).
+class ExtensionOverrideValue {
+  ExtensionOverrideValue(
+    this.extension,
+    this.receiver,
+    this.receiverExpression,
+    this.typeArguments,
+  );
+
+  /// The extension named by the override.
+  final InterpretedExtension extension;
+
+  /// The value the override applies the extension to (`x` of `E(x)`).
+  final Object? receiver;
+
+  /// The expression [receiver] came from; its written type binds the
+  /// extension's type parameters when no [typeArguments] are given.
+  final SExpression receiverExpression;
+
+  /// The explicit type arguments of `E<T>(x)`, else null.
+  final List<RuntimeType>? typeArguments;
+
+  /// The extension's name, for messages.
+  String get extensionName => extension.name ?? '<unnamed>';
+
+  /// The member [name] the extension declares; an error naming the
+  /// extension when it declares none.
+  ExtensionMemberCallable member(String name) {
+    final member = extension.findMember(name);
+    if (member is ExtensionMemberCallable) return member;
+    throw RuntimeD4rtException(
+      "The extension '$extensionName' does not declare a member '$name' "
+      '(explicit extension override $extensionName(...)).',
+    );
+  }
+}
+
 // Represents an extension method during interpretation.
 class InterpretedExtensionMethod implements ExtensionMemberCallable {
   final SMethodDeclaration declaration; // The AST node for the method
