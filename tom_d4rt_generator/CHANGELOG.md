@@ -1,3 +1,14 @@
+## 1.63.3
+
+### Changed — doc comments name the binaries layer
+
+- `sdk_utils.dart`'s doc comments take the binaries layer
+  (`$TOM_BINARY_PATH/<platform>/`) as the example location of a compiled
+  `d4rtgen` instead of `~/.tom/bin/`, where nothing is installed any more
+  (build_tom build_cleanup1002). No behaviour changes.
+
+Name resolution: no
+
 ## 1.63.2
 
 ### Changed — examples no longer name the archived tom_build packages
