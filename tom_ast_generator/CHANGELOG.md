@@ -1,3 +1,15 @@
+## 0.2.5
+
+### Changed — takes tom_d4rt_ast 0.243.0
+
+`tom_d4rt_ast ^0.243.0` (from `^0.237.0`): the interpreter release for GitHub
+#13-#18 - a bridged `noSuchMethod` satisfies an interface, the extensions of a
+prefixed import apply, generic function references keep their type
+arguments, an extension's own type parameters are bound, explicit extension
+overrides `E(x).member`, and an extension's getter and setter of one name.
+
+Name resolution: no.
+
 ## 0.2.4
 
 ### Changed — the workspace root is the nearest `buildkit_master.yaml`

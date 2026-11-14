@@ -621,34 +621,26 @@ packages:
     dependency: transitive
     description:
       name: tom_d4rt
-      sha256: eec43dcd850a1111cc01405adaa06604d53ad8e2833d52cf1b4067cd9805bb93
+      sha256: def560ee2d4a06ed587653f6465fae8cfa7c81379e45f1ef3c2a89d97cde2501
       url: "https://pub.dev"
     source: hosted
-    version: "1.257.0"
+    version: "1.263.0"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
       name: tom_d4rt_ast
-      sha256: "3f8f9da1f7b40112f09303e59d9b93024314f7f130595d3c3850e5455e0b8b48"
+      sha256: a79e10d7423aa67fb84637905aa15663dbd5c37b554245bbe21a70f9e4f51127
       url: "https://pub.dev"
     source: hosted
-    version: "0.237.0"
-  tom_d4rt_exec:
-    dependency: "direct dev"
-    description:
-      name: tom_d4rt_exec
-      sha256: "32529e76a7808512bcab5104bb31c0a5b92325a1d43a952a2a402d9da4f1751f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.59.0"
+    version: "0.243.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
       name: tom_d4rt_generator
-      sha256: ad0de72cd359c0732f3bdde8b4ebaf3477a737a2911d5a457c1110de1dd633fa
+      sha256: "40213d6da4736e1316c0396f9f39dbc0650e16d180c535fbd729b4a6fba11919"
       url: "https://pub.dev"
     source: hosted
-    version: "1.63.2"
+    version: "1.65.0"
   tom_dcli:
     dependency: transitive
     description:
