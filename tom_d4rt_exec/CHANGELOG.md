@@ -1,3 +1,19 @@
+## 1.60.0
+
+### Changed — takes tom_d4rt_ast 0.243.0 and tom_ast_generator 0.2.5
+
+`tom_d4rt_ast ^0.243.0` (from `^0.237.0`) and `tom_ast_generator ^0.2.5`: the
+interpreter release for GitHub #13-#18 - a bridged `noSuchMethod` satisfies
+an interface, the extensions of a prefixed import apply, generic function
+references keep their type arguments, an extension's own type parameters are
+bound, explicit extension overrides `E(x).member`, and an extension's getter
+and setter of one name. The six conformance suites the batch paired with
+their ast twins while exec resolved 0.237.0 now run here as ports.
+
+Name resolution: yes — through tom_d4rt_ast 0.243.0 (an extension member
+through a prefixed import, a call of an extension's name as an explicit
+override, an extension setter beside its getter).
+
 ## 1.59.0
 
 ### Fixed — one enum name registered by two libraries no longer refuses the import

@@ -420,161 +420,15 @@ const _partialTwinBudget = 0;
 /// of an enum name from another library, which tom_d4rt's per-module
 /// registration accepts (ghissues21).
 ///
-/// 41 -> 42: GHISSUES46 added `ghissues46_nosuchmethod_satisfies_interface_test.dart`,
-/// which runs source to check that a class whose superclass (bridged or
-/// interpreted) or own body declares noSuchMethod satisfies the interfaces it
-/// does not implement, that a missing member reaches that noSuchMethod (a
-/// bridged one on the native object), and that Object's noSuchMethod still
-/// satisfies nothing (GitHub #13). Exec resolves tom_d4rt_ast 0.237.0 from
-/// pub.dev, which refuses the class until the batch release (ghissues1001),
-/// so a port would fail. Its ast twin holds the mechanism. ghissues1001 ports
-/// it after publishing and lowers this budget again. The copier surface a port
-/// would have added is class declarations with extends and implements
-/// clauses and a noSuchMethod member, which the corpus copies on every run.
-/// 42 -> 43: GHISSUES47 added `ghissues47_prefixed_import_extensions_test.dart`,
-/// which runs source to check that the extensions a prefixed import declares
-/// or exports apply implicitly, interpreted and bridged, that hide removes a
-/// named one, and the unprefixed and no-import controls (GitHub #14). Exec
-/// resolves tom_d4rt_ast 0.237.0 from pub.dev, where the lookup never visits
-/// a prefix environment until the batch release (ghissues1001), so a port
-/// would fail. Its ast twin holds the mechanism. ghissues1001 ports it after
-/// publishing. The copier surface a port would have added is prefixed import
-/// directives with hide and show, export directives and extension
-/// declarations, which the corpus copies on every run.
-/// 43 -> 44: GHISSUES48 added `ghissues48_instantiated_function_reference_test.dart`,
-/// which runs source to check that a generic function, method or bridged
-/// function referenced with explicit type arguments keeps them for its later
-/// calls, that a parameter typed `T` with `T = int?` admits null, and that an
-/// instantiated reference takes no type arguments again (GitHub #15). Exec
-/// resolves tom_d4rt_ast 0.237.0 from pub.dev, which drops the type arguments
-/// until the batch release (ghissues1001), so a port would fail. Its ast twin
-/// holds the mechanism. ghissues1001 ports it after publishing. The copier
-/// surface a port would have added is function references with type
-/// arguments and generic function declarations, which the corpus copies on
-/// every run.
-/// 44 -> 45: GHISSUES49 added `ghissues49_extension_type_parameters_test.dart`,
-/// which runs source to check that an extension's own type parameters are
-/// bound from the receiver's written type (typed local, parameter, field),
-/// else its runtime type arguments, else dynamic, and that `is K` works
-/// (GitHub #18). Exec resolves tom_d4rt_ast 0.237.0 from pub.dev, which leaves
-/// K undefined until the batch release (ghissues1001), so a port would fail.
-/// Its ast twin holds the mechanism. ghissues1001 ports it after publishing.
-/// The copier surface a port would have added is generic extension
-/// declarations and typed variable declarations, which the corpus copies on
-/// every run.
-/// 45 -> 46: GHISSUES53 added `ghissues53_explicit_extension_override_test.dart`,
-/// which runs source to check that an explicit extension override `E(x)` -
-/// bare, imported, through an import prefix, bridged, with type arguments -
-/// applies the extension's method, getter, tear-off, setter, operators and
-/// index operators to x, resolves a conflict between two extensions, short-
-/// circuits `E(x)?.m()` on null and refuses an undeclared member. Exec resolves
-/// tom_d4rt_ast 0.237.0 from pub.dev, which refuses `E(x)` as calling a
-/// non-callable until the batch release (ghissues1001), so a port would fail.
-/// Its ast twin holds the mechanism. ghissues1001 ports it after publishing.
-/// The copier surface a port would have added is calls of an extension name,
-/// prefixed and with type arguments, which the corpus copies on every run.
-/// 46 -> 47: GHISSUES56 added `ghissues56_extension_getter_setter_pair_test.dart`,
-/// which runs source to check that an extension holds a getter and a setter
-/// of one name (implicitly, through a prefixed import, on a native receiver,
-/// bridged, and through an explicit override), that compound updates and
-/// `++` / `--` of an extension property go through the extension, and that a
-/// property the class declares wins. Exec resolves tom_d4rt_ast 0.237.0 from
-/// pub.dev, where the setter replaces the getter until the batch release
-/// (ghissues1001), so a port would fail. Its ast twin holds the mechanism.
-/// ghissues1001 ports it after publishing. The copier surface a port would
-/// have added is extension getters and setters of one name, which the corpus
-/// copies on every run.
-const _copierGapBudget = 47;
+/// 47 -> 41: GHISSUES1001 ported the six script-level suites the second
+/// GitHub-issue batch had added here (GHISSUES46-49, GHISSUES53, GHISSUES56),
+/// each paired with its ast twin while exec resolved tom_d4rt_ast 0.237.0
+/// without the fix. Since the batch release exec resolves tom_d4rt_ast
+/// 0.243.0, so each is now a verbatim port and runs through exec's own front
+/// end.
+const _copierGapBudget = 41;
 
 const Map<String, _Coverage> _coveredElsewhere = {
-  'ghissues56_extension_getter_setter_pair_test.dart': _Coverage(
-    'ast:runtime/ghissues56_extension_getter_setter_pair_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 8,
-    twinCases: 5,
-    whyPartial:
-        'the twin pins the measured script, compound and ++ / -- on the '
-        'property, an interpreted extension on a native receiver, a bridged '
-        'pair and the explicit override forms. The reference adds the '
-        'prefixed import, a field of another object, the class-declares-it '
-        'precedence and the setter-only override message, which take the '
-        'same lookups and a hand-built bundle would only restate.',
-  ),
-  'ghissues53_explicit_extension_override_test.dart': _Coverage(
-    'ast:runtime/ghissues53_explicit_extension_override_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 9,
-    twinCases: 8,
-    whyPartial:
-        'the twin pins every access form on a local extension (method, '
-        'getter, setter, binary and unary operators, index read, write, '
-        'compound and increment), the conflict between two extensions, the '
-        'imported and prefixed extension, a bridged extension, explicit and '
-        'receiver-bound type arguments, the null-aware form and the '
-        'undeclared-member error. The reference adds a getter returning a '
-        'function, a tear-off, an interpreted class receiver and the '
-        'one-argument check, which take the same dispatch and a hand-built '
-        'bundle would only restate.',
-  ),
-  'ghissues49_extension_type_parameters_test.dart': _Coverage(
-    'ast:runtime/ghissues49_extension_type_parameters_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 6,
-    twinCases: 3,
-    whyPartial:
-        'the twin pins the issue\'s two typed views of one native map, the '
-        'runtime binding of K and V for an untyped receiver, and the dynamic '
-        'fallback. The reference adds typed parameters and fields, an '
-        'extension on List<T> with a getter and `is K`, which take the same '
-        'binding and a hand-built bundle would only restate.',
-  ),
-  'ghissues48_instantiated_function_reference_test.dart': _Coverage(
-    'ast:runtime/ghissues48_instantiated_function_reference_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 9,
-    twinCases: 4,
-    whyPartial:
-        'the twin pins a reference to an interpreted generic function binding '
-        'T (nested and nullable), a bridged function receiving the type '
-        'arguments, T = int? admitting null, and the re-instantiation error. '
-        'The reference adds the native control, the direct-call and closure '
-        'controls, a method tear-off, a reference called by native code and '
-        'equality, which go through the same InstantiatedCallable and a '
-        'hand-built bundle would only restate.',
-  ),
-  'ghissues47_prefixed_import_extensions_test.dart': _Coverage(
-    'ast:runtime/ghissues47_prefixed_import_extensions_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 6,
-    twinCases: 4,
-    whyPartial:
-        'the twin pins an exported extension applying through a prefix, the '
-        'unprefixed and no-import controls, hide, and a bridged extension '
-        'through a prefix. The reference adds unnamed and named extensions '
-        'declared by the prefixed library itself, a getter, and show of '
-        'another name, which take the same lookup and a hand-built bundle '
-        'would only restate.',
-  ),
-  'ghissues46_nosuchmethod_satisfies_interface_test.dart': _Coverage(
-    'ast:runtime/ghissues46_nosuchmethod_satisfies_interface_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 5,
-    twinCases: 4,
-    whyPartial:
-        'the twin pins a bridged noSuchMethod superclass accepted, a missing '
-        'method and getter reaching it, an interpreted superclass\'s and the '
-        'class\'s own noSuchMethod, and the refusal without one. The '
-        'reference adds the abstract-superclass member forwarded to the '
-        'class\'s own noSuchMethod and the refusal behind a bridged '
-        'superclass without one, which take the same paths and a hand-built '
-        'bundle would only restate.',
-  ),
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
     'ast:runtime/sce208_bind_forwarding_source_errors_test.dart',
     _astTwin,
@@ -3500,10 +3354,8 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // The type is the contract — `null` is how "nothing blocks the publish" is
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
-// GHISSUES46 (2026-11-14): the GitHub #13-#19 fixes land in the tree one by
-// one and are published together by the batch release, which deletes this.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = 'ghissues1001_aknl-batch-release-github-13-19';
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});
