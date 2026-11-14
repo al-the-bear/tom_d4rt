@@ -685,10 +685,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_build_base
-      sha256: ff65880a8f0b16a64d305e0144f33c0a908d337958ca716559ee7222059b6389
+      sha256: "8dbc6352be74709772b939b35fae31c2adf0b8dfc29ecfacc860549908944349"
       url: "https://pub.dev"
     source: hosted
-    version: "2.34.2"
+    version: "2.35.2"
   tom_d4rt:
     dependency: "direct main"
     description:
