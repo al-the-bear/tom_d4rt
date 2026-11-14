@@ -441,9 +441,35 @@ const _partialTwinBudget = 0;
 /// publishing. The copier surface a port would have added is prefixed import
 /// directives with hide and show, export directives and extension
 /// declarations, which the corpus copies on every run.
-const _copierGapBudget = 43;
+/// 43 -> 44: GHISSUES48 added `ghissues48_instantiated_function_reference_test.dart`,
+/// which runs source to check that a generic function, method or bridged
+/// function referenced with explicit type arguments keeps them for its later
+/// calls, that a parameter typed `T` with `T = int?` admits null, and that an
+/// instantiated reference takes no type arguments again (GitHub #15). Exec
+/// resolves tom_d4rt_ast 0.237.0 from pub.dev, which drops the type arguments
+/// until the batch release (ghissues1001), so a port would fail. Its ast twin
+/// holds the mechanism. ghissues1001 ports it after publishing. The copier
+/// surface a port would have added is function references with type
+/// arguments and generic function declarations, which the corpus copies on
+/// every run.
+const _copierGapBudget = 44;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues48_instantiated_function_reference_test.dart': _Coverage(
+    'ast:runtime/ghissues48_instantiated_function_reference_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins a reference to an interpreted generic function binding '
+        'T (nested and nullable), a bridged function receiving the type '
+        'arguments, T = int? admitting null, and the re-instantiation error. '
+        'The reference adds the native control, the direct-call and closure '
+        'controls, a method tear-off, a reference called by native code and '
+        'equality, which go through the same InstantiatedCallable and a '
+        'hand-built bundle would only restate.',
+  ),
   'ghissues47_prefixed_import_extensions_test.dart': _Coverage(
     'ast:runtime/ghissues47_prefixed_import_extensions_test.dart',
     _astTwin,

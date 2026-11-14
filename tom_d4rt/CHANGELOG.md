@@ -1,3 +1,24 @@
+## 1.260.0
+
+### Fixed — an instantiated generic function reference keeps its type arguments (GitHub #15)
+
+`typeOf<List<int?>>` - a generic function, method or bridged function
+referenced with explicit type arguments and called later - dropped the type
+arguments: `const types = [typeOf<String>]; types[0]()` answered `T`, a method
+tear-off `obj.m<int?>` ran with `T` unbound, and a bridged function received
+no type arguments (Serverpod's generated `getType<Model>` metadata). The
+reference now evaluates to an `InstantiatedCallable` that calls the function
+with the resolved type arguments, `?` and nesting kept; calling it with type
+arguments again is an error, and two instantiations are `==` when they name
+the same function and type arguments. A reference handed to native code runs
+with its type arguments when called there, but is no Dart generic
+instantiation for native code (limitations doc, Lim-12).
+
+Also fixed: a parameter typed `T` with `T` bound to a nullable type refused
+null - `g<int?>(null)` threw `type 'Null' is not a subtype of type 'int?'`.
+
+Name resolution: no
+
 ## 1.259.0
 
 ### Fixed — the extensions of a prefixed import apply (GitHub #14)

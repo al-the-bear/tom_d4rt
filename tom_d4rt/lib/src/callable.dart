@@ -34,6 +34,71 @@ abstract class Callable {
   ]);
 }
 
+/// ghissues48 (GitHub #15): a generic function, method or bridged function
+/// referenced with explicit type arguments - `typeOf<List<int?>>`,
+/// `obj.m<int>` - without being called. A call runs [target] with
+/// [typeArguments], as `typeOf<List<int?>>()` would; Dart allows no further
+/// type arguments on an instantiated reference.
+///
+/// Two instantiations are equal when they reference the same callable with
+/// type arguments of the same names, which is what Dart's `==` on
+/// instantiated tear-offs compares. A reference handed to NATIVE code is
+/// converted like any callable (`D4.coerceCallableToFunction`) and still runs
+/// with its type arguments when called; native code cannot see them as a Dart
+/// generic instantiation.
+class InstantiatedCallable implements Callable {
+  InstantiatedCallable(this.target, this.typeArguments);
+
+  /// The referenced callable.
+  final Callable target;
+
+  /// The resolved type arguments, `?` and nesting kept.
+  final List<RuntimeType> typeArguments;
+
+  @override
+  int get arity => target.arity;
+
+  @override
+  Object? call(
+    InterpreterVisitor visitor,
+    List<Object?> positionalArguments, [
+    Map<String, Object?> namedArguments = const {},
+    List<RuntimeType>? typeArguments,
+  ]) {
+    if (typeArguments != null && typeArguments.isNotEmpty) {
+      throw RuntimeD4rtException(
+        'An instantiated generic function cannot take type arguments again '
+        '(it is already instantiated with '
+        '<${this.typeArguments.map((t) => t.name).join(', ')}>).',
+      );
+    }
+    return target.call(
+      visitor,
+      positionalArguments,
+      namedArguments,
+      this.typeArguments,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is InstantiatedCallable &&
+      other.target == target &&
+      other.typeArguments.length == typeArguments.length &&
+      [
+        for (var i = 0; i < typeArguments.length; i++)
+          other.typeArguments[i].name == typeArguments[i].name,
+      ].every((same) => same);
+
+  @override
+  int get hashCode =>
+      Object.hash(target, Object.hashAll(typeArguments.map((t) => t.name)));
+
+  @override
+  String toString() =>
+      '$target<${typeArguments.map((t) => t.name).join(', ')}>';
+}
+
 class _ExecutionPreparationResult {
   final Environment environment;
   final bool redirected;
@@ -450,6 +515,22 @@ class InterpretedFunction implements Callable {
     // comparison would be against the placeholder rather than against what the
     // caller actually supplied.
     if (declaredType is TypeParameter) return null;
+
+    // ghissues48: a type parameter bound to a nullable type - `T` with
+    // `T = int?` from `g<int?>(...)` or `typeOf<int?>` - resolves to a
+    // NullableRuntimeType; the binding admits null and checks the rest against
+    // the inner type, as a written `int?` annotation does.
+    if (declaredType is NullableRuntimeType) {
+      final inner = declaredType.inner;
+      if (inner is TypeParameter) return null;
+      return ResolvedBinding._(
+        inner,
+        inner.name,
+        true,
+        describedAs == null ? '' : " of '$describedAs'",
+        null,
+      );
+    }
 
     final declaredName = declaredType.name;
     // SCD90 removed a by-name repeat of the top-type test that used to stand

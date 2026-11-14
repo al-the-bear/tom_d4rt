@@ -121,6 +121,7 @@ nothing to link to. Every other row's link resolves, and a test enforces that
 | Lim-3 | [Isolate execution with interpreted code](#lim-3-isolate-execution-with-interpreted-code) — `limitations_and_bugs_test: Lim-3` (1) | Fundamental | ⚠️ Limited |
 | Lim-10 | [Per-step allocation rate drives stop-the-world major GC](#lim-10-per-step-allocation-rate-drives-major-gc) | Fundamental | ⚠️ Limited |
 | Lim-11 | [A native callable's `runtimeType` and typed `is` are not function types](#lim-11-native-callable-runtimetype-and-typed-is) | High | ⚠️ Limited |
+| Lim-12 | [An instantiated generic function reference is not a Dart generic instantiation for native code](#lim-12-instantiated-generic-function-references-and-native-code) | Fundamental | ⚠️ Limited |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
 **Status Legend:**
@@ -3017,6 +3018,49 @@ silent wrong answers rather than a visible one.
 
 Test callability with `is Function`, which is the question a script can act on.
 Do not switch on `runtimeType.toString()` for a callable.
+
+---
+
+### Lim-12: Instantiated Generic Function References and Native Code
+
+**Status:** ⚠️ Limited
+**Recorded:** 2026-11-14 (ghissues48, GitHub #15)
+**Complexity:** Fundamental
+
+#### What works
+
+A generic function, method or bridged function referenced with explicit type
+arguments keeps them for its later calls, `?` and nesting included:
+
+```dart
+Type typeOf<T>() => T;
+const types = [typeOf<String>, typeOf<List<int?>>];
+types[1]();              // List<int?>
+final f = obj.m<int?>;   // T is int? on every call of f
+```
+
+A bridged generic function referenced this way receives the type arguments as
+its `typeArguments` on every call. A reference handed to native code (as a
+callback) still runs with them when native code calls it. Two instantiations
+are `==` when they reference the same function with type arguments of the
+same names.
+
+#### What does not
+
+Native code cannot see the instantiation as a Dart generic instantiation: the
+reference reaches it as a Dart `Function` whose own type is not
+`List<int?> Function()`, and a native API that inspects or re-instantiates a
+generic function (rather than calling it) gets nothing from the type
+arguments. The interpreter cannot mint a native generic instantiation for an
+interpreted type at runtime; only what a bridge reads from `typeArguments`
+carries them. `runtimeType` of an instantiated reference is not a function
+type either (Lim-11).
+
+#### Workaround
+
+Let the bridge read the type arguments (`typeArguments` in the adapter), or
+pass the type itself (`Type`) to native code instead of an instantiated
+reference.
 
 ## Intentionally-Unbridged SDK Classes
 

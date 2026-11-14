@@ -15154,11 +15154,23 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitFunctionReference(SFunctionReference node) {
-    // The actual logic is in visiting the underlying function expression
-    // (Identifier, SPropertyAccess, SConstructorReference, etc.)
-    // which should return the Callable/Function object itself.
-    return node.function.accept<Object?>(this);
+    // The underlying function expression (an identifier, a property access, a
+    // constructor reference) evaluates to the callable itself.
+    final referenced = node.function.accept<Object?>(this);
+    // ghissues48 (GitHub #15): `typeOf<List<int?>>` keeps its type arguments
+    // for the later call; they were dropped, so the call saw `T` unbound (an
+    // interpreted function) or no type arguments (a bridged one).
+    final typeArgumentNodes = node.typeArguments?.arguments;
+    if (typeArgumentNodes == null ||
+        typeArgumentNodes.isEmpty ||
+        referenced is! Callable) {
+      return referenced;
+    }
+    return InstantiatedCallable(referenced, [
+      for (final typeNode in typeArgumentNodes) _resolveTypeArgument(typeNode),
+    ]);
   }
+
 
   @override
   Object? visitEmptyStatement(SEmptyStatement node) {
