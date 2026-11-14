@@ -1,3 +1,21 @@
+## 0.239.0
+
+### Fixed — the extensions of a prefixed import apply (GitHub #14)
+
+`import 'package:r/public.dart' as api;` left the extensions the library
+declares or exports out of scope: `<int>[1, 2].toJson()` threw `Bridged class
+'List' has no instance method named 'toJson'`, while the same import without
+the prefix applied the extension. In Dart a prefixed import brings the
+library's extensions into scope for implicit application; only naming one
+needs the prefix. The extension lookup now visits each scope's import-prefix
+environments after the scope itself, with the import's `show` / `hide`
+applied - interpreted and bridged extensions alike.
+
+An explicit extension override (`ListEncoding(list).toJson()`, prefixed or
+not) is not supported yet in either tree.
+
+Name resolution: yes — an extension member resolves through a prefixed import.
+
 ## 0.238.0
 
 ### Fixed — noSuchMethod satisfies an interface (GitHub #13)

@@ -165,7 +165,7 @@ const int _bannerWindow = 12;
 const Map<String, int> _bannerCensus = {
   'tom_d4rt': 33,
   'tom_d4rt_ast': 8,
-  'tom_d4rt_exec': 6,
+  'tom_d4rt_exec': 7, // +1 ghissues47: dart313b1's port reads tom_d4rt_ast's audit
   'tom_d4rt_flutter': 3,
   'tom_d4rt_flutter_ast': 19,
   'tom_d4rt_generator': 4,

@@ -431,9 +431,33 @@ const _partialTwinBudget = 0;
 /// it after publishing and lowers this budget again. The copier surface a port
 /// would have added is class declarations with extends and implements
 /// clauses and a noSuchMethod member, which the corpus copies on every run.
-const _copierGapBudget = 42;
+/// 42 -> 43: GHISSUES47 added `ghissues47_prefixed_import_extensions_test.dart`,
+/// which runs source to check that the extensions a prefixed import declares
+/// or exports apply implicitly, interpreted and bridged, that hide removes a
+/// named one, and the unprefixed and no-import controls (GitHub #14). Exec
+/// resolves tom_d4rt_ast 0.237.0 from pub.dev, where the lookup never visits
+/// a prefix environment until the batch release (ghissues1001), so a port
+/// would fail. Its ast twin holds the mechanism. ghissues1001 ports it after
+/// publishing. The copier surface a port would have added is prefixed import
+/// directives with hide and show, export directives and extension
+/// declarations, which the corpus copies on every run.
+const _copierGapBudget = 43;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues47_prefixed_import_extensions_test.dart': _Coverage(
+    'ast:runtime/ghissues47_prefixed_import_extensions_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins an exported extension applying through a prefix, the '
+        'unprefixed and no-import controls, hide, and a bridged extension '
+        'through a prefix. The reference adds unnamed and named extensions '
+        'declared by the prefixed library itself, a getter, and show of '
+        'another name, which take the same lookup and a hand-built bundle '
+        'would only restate.',
+  ),
   'ghissues46_nosuchmethod_satisfies_interface_test.dart': _Coverage(
     'ast:runtime/ghissues46_nosuchmethod_satisfies_interface_test.dart',
     _astTwin,
@@ -2205,6 +2229,12 @@ const Map<String, _Divergence> _divergentBaseline = {
   //
   // scd34 drops F-SCD34-7/8 and F-SCE70-1/2 (the wrap-site census).
   'scd34_constructor_trace_forwarding_test.dart': _Divergence.deliberate,
+  // GHISSUES47: exec's copy carries the REPO-WIDE GUARD banner and nothing
+  // else differs. Its `tool/stdlib_member_diff.dart` re-exports
+  // tom_d4rt_ast's stdlib member audit, so this port reads a sibling tree
+  // (SCD129 follows a test's `tool/` imports one hop); the reference reads
+  // its own package's tool and carries no banner.
+  'dart313b1_sdk_313_members_test.dart': _Divergence.necessary,
   // scd35 drops F-SCD35-9, -13 and -14 (the stdlib and generated-bridge
   // narrowing scans).
   'scd35_bridged_tearoff_as_callback_test.dart': _Divergence.deliberate,
@@ -2296,6 +2326,7 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'dart313b1_sdk_313_members_test.dart': '7b2fbfaa832e8b8a',
   'scd34_constructor_trace_forwarding_test.dart': '239ecf0a3afc35f2',
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
   'scc28_typed_undefined_member_test.dart': '607adb1f1f551b29',

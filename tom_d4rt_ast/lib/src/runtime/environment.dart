@@ -2250,8 +2250,8 @@ class Environment {
     final targetType = getRuntimeType(target); // Helper to get RuntimeType
     if (targetType == null) return null;
     // Search current environment and enclosing ones
-    Environment? current = this;
-    while (current != null) {
+    // ghissues47: the extensions of a prefixed import apply too.
+    for (final current in _extensionScopes()) {
       // Check unnamed extensions. One whose `on` type is not resolved yet
       // (declared in a library still loading, GitHub #9) applies to nothing.
       for (final ext in current._unnamedExtensions) {
@@ -2301,16 +2301,32 @@ class Environment {
           }
         }
       }
-      current = current._enclosing;
     }
     return null; // Not found
+  }
+
+  /// The scopes whose extensions apply here, nearest first: this environment
+  /// and each enclosing one, each followed by the environments it binds to an
+  /// import prefix.
+  ///
+  /// ghissues47 (GitHub #14): a prefixed import brings the library's
+  /// extensions into scope for implicit application as an unprefixed one does
+  /// - only naming the extension needs the prefix. The prefix environment is a
+  /// filtered copy without an enclosing scope (`prefixSurface`), so its own
+  /// extensions are exactly what the import makes visible, `show` / `hide`
+  /// applied.
+  Iterable<Environment> _extensionScopes() sync* {
+    for (Environment? env = this; env != null; env = env._enclosing) {
+      yield env;
+      yield* env._prefixedImports.values;
+    }
   }
 
   /// G-DOV-10/11 FIX: Find extension members for null targets by checking
   /// extensions declared with nullable on-types (e.g., `extension on String?`).
   Callable? _findNullableExtensionMember(String name) {
-    Environment? current = this;
-    while (current != null) {
+    // ghissues47: the extensions of a prefixed import apply too.
+    for (final current in _extensionScopes()) {
       // Check unnamed extensions with nullable on-type
       for (final ext in current._unnamedExtensions) {
         if (ext.isOnNullableType && ext.hasOnType) {
@@ -2341,7 +2357,6 @@ class Environment {
           }
         }
       }
-      current = current._enclosing;
     }
     return null;
   }

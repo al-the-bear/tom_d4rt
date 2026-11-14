@@ -1,3 +1,8 @@
+// REPO-WIDE GUARD (tom_d4rt_exec) — the Dart 3.13 members, read through tom_d4rt_ast's stdlib member audit.
+//
+// Exec's copy only: its `tool/stdlib_member_diff.dart` re-exports the runtime
+// package's audit (`../tom_d4rt_ast/tool/stdlib_member_audit.dart`), so this
+// port reads a sibling tree, and SCD129 asks it to say so.
 // DART313B1: the members Dart 3.13 added to bridged classes.
 //
 // Dart 3.13 added `int.oneBitCount`, `int.trailingZeroBitCount`,

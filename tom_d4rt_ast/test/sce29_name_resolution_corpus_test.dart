@@ -87,6 +87,13 @@ const Map<String, String> _deferred = {
   // the post-publish full corpus recorded under `Verification runs` at that
   // pair (ghissues999, 2026-11-13). An empty map is the normal state; each
   // entry is a debt with its reason, deleted when the run is made.
+  // ghissues47 (GitHub #14): an extension now applies through a prefixed
+  // import. Unpublished; the twins resolve from pub.dev, so the base corpus
+  // runs after the batch release publishes it (ghissues1001).
+  '1.259.0': 'ghissues47 - extensions through a prefixed import; corpus run '
+      'owed after the ghissues1001 publish',
+  '0.239.0': 'ghissues47 - extensions through a prefixed import; corpus run '
+      'owed after the ghissues1001 publish',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
