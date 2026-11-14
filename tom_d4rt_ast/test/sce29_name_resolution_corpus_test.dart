@@ -94,6 +94,10 @@ const Map<String, String> _deferred = {
       'owed after the ghissues1001 publish',
   '0.239.0': 'ghissues47 - extensions through a prefixed import; corpus run '
       'owed after the ghissues1001 publish',
+  '1.261.0': 'ghissues49 - extension type parameters bound; corpus run owed '
+      'after the ghissues1001 publish',
+  '0.241.0': 'ghissues49 - extension type parameters bound; corpus run owed '
+      'after the ghissues1001 publish',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

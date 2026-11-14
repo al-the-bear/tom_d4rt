@@ -384,6 +384,30 @@ class Environment {
   /// none pays one null probe per assignment.
   Map<String, ResolvedBinding>? _declaredTypes;
 
+  /// ghissues49: the written type annotation of a typed local or parameter,
+  /// by name - the AST node itself, resolved only when an extension call on
+  /// that name needs its type arguments (an extension's type parameters are
+  /// inferred from the receiver's static type, and a written type is the one
+  /// static type the interpreter has).
+  Map<String, Object>? _declaredAnnotations;
+
+  /// Records [annotation] as the type [name] was written with here.
+  void declareAnnotation(String name, Object annotation) {
+    (_declaredAnnotations ??= <String, Object>{})[name] = annotation;
+  }
+
+  /// The annotation the nearest declaration of [name] was written with, or
+  /// null when that declaration has none or [name] is not declared.
+  Object? declaredAnnotationOf(String name) {
+    for (Environment? env = this; env != null; env = env._enclosing) {
+      if (env._values.containsKey(name) ||
+          (env._slotIndex?.containsKey(name) ?? false)) {
+        return env._declaredAnnotations?[name];
+      }
+    }
+    return null;
+  }
+
   /// Records [binding] as the declared type of [name] in this environment, so
   /// [assign] can hold later writes to it.
   void declareType(String name, ResolvedBinding binding) {

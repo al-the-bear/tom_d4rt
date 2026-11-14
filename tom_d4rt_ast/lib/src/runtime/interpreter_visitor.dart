@@ -1359,6 +1359,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitPrefixedIdentifier(SPrefixedIdentifier node) {
     final prefixValue = node.prefix!.accept<Object?>(this);
+    noteExtensionReceiver(prefixValue, node.prefix!);
     if (prefixValue is AsyncSuspensionRequest) {
       // Propagate the suspension so that the state machine resumes this node after resolution
       return prefixValue;
@@ -4714,6 +4715,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     } else {
       // Property/Method call on a target (instance or class)
       targetValue = node.target!.accept<Object?>(this);
+      noteExtensionReceiver(targetValue, node.target!);
 
       // SCB14 — `await` in RECEIVER position, e.g. `(await f).join(',')`.
       // Why: evaluating the target can suspend, and the sentinel must travel
@@ -6431,6 +6433,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitPropertyAccess(SPropertyAccess node) {
     final target = node.target?.accept<Object?>(this);
+    if (node.target != null) noteExtensionReceiver(target, node.target!);
     if (target is AsyncSuspensionRequest) {
       // Propagate suspension so the state machine resumes this node after resolution
       return target;
@@ -8227,6 +8230,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // exactly as permissive as they are today rather than half-checked.
         if (declaredBinding != null && !isLate) {
           environment.declareType(variableName, declaredBinding);
+        }
+        // ghissues49: the written type, for an extension call on this local.
+        final writtenType = node.type;
+        if (writtenType != null) {
+          environment.declareAnnotation(variableName, writtenType);
         }
 
         if (isLate) {
@@ -13890,9 +13898,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             final targetType = environment.get(typeName);
             final typeArgNodes = typeNode.typeArguments?.arguments;
             // ghissues36: a type parameter bound by a call's type argument may
-            // carry a `?` or its own type arguments.
+            // carry a `?` or its own type arguments. ghissues49: any type a
+            // type parameter is bound to - its name differs from the one
+            // written, e.g. an extension's `K` bound to `String` or `dynamic`
+            // - is decided by that type.
             if ((targetType is NullableRuntimeType ||
-                    targetType is AppliedRuntimeType) &&
+                    targetType is AppliedRuntimeType ||
+                    (targetType is RuntimeType &&
+                        targetType.name != typeName)) &&
                 (typeArgNodes == null || typeArgNodes.isEmpty)) {
               result = valueHasRuntimeType(expressionValue, targetType);
               break;
@@ -14083,6 +14096,198 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   }
 
   // Resolve TypeAnnotation AST node to RuntimeType
+  // ghissues49 (GitHub #18): the receiver of the member access being
+  // evaluated, with the expression that produced it. An extension member
+  // reads it to bind its type parameters from the receiver's WRITTEN type
+  // (`Map<dynamic, dynamic> wide` gives K = dynamic even when the map is a
+  // Map<String, int>), which is the static type Dart infers them from. Taken
+  // only for the identical receiver, so a stale note never applies.
+  Object? _extensionReceiver;
+  SExpression? _extensionReceiverExpression;
+
+  /// Notes [value], produced by [expression], as the receiver of the member
+  /// access being evaluated (see [bindExtensionTypeParameters]).
+  void noteExtensionReceiver(Object? value, SExpression expression) {
+    _extensionReceiver = value;
+    _extensionReceiverExpression = expression;
+  }
+
+  /// The extension type parameters [names], bound for a call on [target]:
+  /// matched in [onType] against the receiver's written type when the
+  /// receiver is a typed local, parameter or field (the static type Dart
+  /// infers them from), else against its runtime type arguments (a native
+  /// generic object, an interpreted generic instance); a parameter neither
+  /// determines is `dynamic`. An expression with no written type (a call
+  /// result, an index) falls back to the runtime type - the interpreter has
+  /// no static types (limitations doc, Lim-13).
+  Map<String, RuntimeType> bindExtensionTypeParameters(
+    List<String> names,
+    STypeAnnotation? onType,
+    Object? target,
+  ) {
+    // The receiver may reach the member wrapped or unwrapped (a native
+    // object and its BridgedInstance), so the comparison is of what it holds.
+    Object? held(Object? v) => v is BridgedInstance ? v.nativeObject : v;
+    final expression = identical(held(_extensionReceiver), held(target))
+        ? _extensionReceiverExpression
+        : null;
+    _extensionReceiver = null;
+    _extensionReceiverExpression = null;
+    final source =
+        (expression == null ? null : _writtenTypeOfReceiver(expression)) ??
+        _reifiedTypeOf(target);
+    final bound = <String, RuntimeType>{};
+    if (onType != null && source != null) {
+      _matchExtensionTypeParameters(onType, source, names.toSet(), bound);
+    }
+    for (final name in names) {
+      final type = bound[name];
+      // `dynamic` resolves to the interpreter's placeholder for it; bind the
+      // type every other unbound parameter gets, which reads as `dynamic`.
+      bound[name] = type == null || type.name == 'dynamic'
+          ? const NamedRuntimeType('dynamic')
+          : type;
+    }
+    return bound;
+  }
+
+  /// The resolved written type of a receiver that is a typed local or
+  /// parameter (`x`), a field of `this` (`f`, `this.f`) or a field of a
+  /// typed-or-not variable's interpreted instance (`x.f`); null otherwise.
+  RuntimeType? _writtenTypeOfReceiver(SExpression expression) {
+    Object? annotation;
+    if (expression is SSimpleIdentifier) {
+      annotation = environment.declaredAnnotationOf(expression.name);
+      annotation ??= _fieldAnnotation(environment.lookup('this'), expression.name);
+    } else if (expression is SPrefixedIdentifier) {
+      final String? prefix = expression.prefix?.name;
+      final String? field = expression.identifier?.name;
+      if (prefix != null && field != null) {
+        annotation = _fieldAnnotation(environment.lookup(prefix), field);
+      }
+    } else if (expression is SPropertyAccess && expression.target is SThisExpression) {
+      final String? field = expression.propertyName?.name;
+      if (field != null) {
+        annotation = _fieldAnnotation(environment.lookup('this'), field);
+      }
+    }
+    if (annotation is! STypeAnnotation) return null;
+    try {
+      return _resolveTypeArgument(annotation);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// The written type of the instance field [name] of [instance]'s class or
+  /// a superclass; null when [instance] is not an interpreted instance or the
+  /// field is untyped.
+  STypeAnnotation? _fieldAnnotation(Object? instance, String name) {
+    if (instance is! InterpretedInstance) return null;
+    for (InterpretedClass? klass = instance.klass;
+        klass != null;
+        klass = klass.superclass) {
+      for (final fieldDecl in klass.fieldDeclarations) {
+        if (fieldDecl.isStatic) continue;
+        for (final variable in (fieldDecl.fields?.variables ?? const [])) {
+          if (variable.name?.name == name) return fieldDecl.fields?.type;
+        }
+      }
+    }
+    return null;
+  }
+
+  /// The runtime type of [value] with the type arguments it carries: an
+  /// interpreted generic instance's, or a native generic object's as its
+  /// runtime type names them (`_Map<String, int>`). Collections a script
+  /// creates are not reified (`Map<Object?, Object?>`), so an `Object?`
+  /// argument reads as unknown (`dynamic`). Null when nothing is known.
+  RuntimeType? _reifiedTypeOf(Object? value) {
+    if (value is InterpretedInstance) {
+      final args = value.typeArguments;
+      return args == null || args.isEmpty
+          ? null
+          : AppliedRuntimeType(value.klass, args);
+    }
+    final native = value is BridgedInstance ? value.nativeObject : value;
+    if (native is! Map && native is! Iterable) return null;
+    final text = native.runtimeType.toString();
+    final open = text.indexOf('<');
+    if (open < 0 || !text.endsWith('>')) return null;
+    final args = _splitTypeArguments(text.substring(open + 1, text.length - 1));
+    return AppliedRuntimeType(const NamedRuntimeType('Object'), [
+      for (final arg in args) _typeFromName(arg),
+    ]);
+  }
+
+  /// [text] (`String, List<int?>`) split at its top-level commas.
+  static List<String> _splitTypeArguments(String text) {
+    final parts = <String>[];
+    var depth = 0;
+    var start = 0;
+    for (var i = 0; i < text.length; i++) {
+      final c = text[i];
+      if (c == '<' || c == '(') depth++;
+      if (c == '>' || c == ')') depth--;
+      if (c == ',' && depth == 0) {
+        parts.add(text.substring(start, i).trim());
+        start = i + 1;
+      }
+    }
+    parts.add(text.substring(start).trim());
+    return parts;
+  }
+
+  /// A runtime type for the type name [text] as a native runtime type spells
+  /// it; `Object?` (an unreified script collection) reads as `dynamic`.
+  RuntimeType _typeFromName(String text) {
+    if (text == 'Object?') return const NamedRuntimeType('dynamic');
+    if (text.endsWith('?')) {
+      return NullableRuntimeType(_typeFromName(text.substring(0, text.length - 1)));
+    }
+    final open = text.indexOf('<');
+    final baseName = open < 0 ? text : text.substring(0, open);
+    final found = environment.lookup(baseName);
+    final RuntimeType baseType = found is RuntimeType
+        ? found
+        : NamedRuntimeType(baseName);
+    if (open < 0 || !text.endsWith('>')) return baseType;
+    return AppliedRuntimeType(baseType, [
+      for (final arg in _splitTypeArguments(
+        text.substring(open + 1, text.length - 1),
+      ))
+        _typeFromName(arg),
+    ]);
+  }
+
+  /// Binds the type parameters [names] written in [pattern] (the extension's
+  /// `on` type, e.g. `Map<K, V>`) to the corresponding parts of [source],
+  /// position by position.
+  void _matchExtensionTypeParameters(
+    STypeAnnotation pattern,
+    RuntimeType source,
+    Set<String> names,
+    Map<String, RuntimeType> bound,
+  ) {
+    if (pattern is! SNamedType) return;
+    final String? patternName = pattern.name?.name;
+    final patternArgs = pattern.typeArguments?.arguments;
+    if (patternName != null &&
+        names.contains(patternName) &&
+        (patternArgs == null || patternArgs.isEmpty)) {
+      bound.putIfAbsent(patternName, () => source);
+      return;
+    }
+    if (patternArgs == null || patternArgs.isEmpty) return;
+    final unwrapped = source is NullableRuntimeType ? source.inner : source;
+    if (unwrapped is! AppliedRuntimeType) return;
+    final sourceArgs = unwrapped.typeArguments;
+    if (sourceArgs.length != patternArgs.length) return;
+    for (var i = 0; i < patternArgs.length; i++) {
+      _matchExtensionTypeParameters(patternArgs[i], sourceArgs[i], names, bound);
+    }
+  }
+
   /// A call's type argument as written (ghissues36): a `?` stays as a
   /// [NullableRuntimeType] and the argument's own type arguments as an
   /// [AppliedRuntimeType], so `whereType<int?>()` keeps null and
@@ -16516,6 +16721,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             member,
             environment,
             onRuntimeType,
+            extensionTypeParameters: [
+              for (final typeParameter
+                  in node.typeParameters?.typeParameters ?? const [])
+                ?typeParameter.name?.name,
+            ],
+            onTypeAnnotation: onTypeNode,
           );
           members[methodName] = function;
           String memberType = "method";

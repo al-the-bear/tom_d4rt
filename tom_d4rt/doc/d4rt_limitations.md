@@ -122,6 +122,7 @@ nothing to link to. Every other row's link resolves, and a test enforces that
 | Lim-10 | [Per-step allocation rate drives stop-the-world major GC](#lim-10-per-step-allocation-rate-drives-major-gc) | Fundamental | ⚠️ Limited |
 | Lim-11 | [A native callable's `runtimeType` and typed `is` are not function types](#lim-11-native-callable-runtimetype-and-typed-is) | High | ⚠️ Limited |
 | Lim-12 | [An instantiated generic function reference is not a Dart generic instantiation for native code](#lim-12-instantiated-generic-function-references-and-native-code) | Fundamental | ⚠️ Limited |
+| Lim-13 | [An extension's type parameters follow the receiver's written or runtime type, not its inferred static type](#lim-13-extension-type-parameters-without-static-types) | Fundamental | ⚠️ Limited |
 | Bug-14 | [Records with named fields or >9 positional fields return InterpretedRecord](#bug-14-records-with-named-fields-or-9-positional-fields) — `limitations_and_bugs_test: Bug-14` (2) | High | 🚫 Won't Fix |
 
 **Status Legend:**
@@ -3061,6 +3062,41 @@ type either (Lim-11).
 Let the bridge read the type arguments (`typeArguments` in the adapter), or
 pass the type itself (`Type`) to native code instead of an instantiated
 reference.
+
+---
+
+### Lim-13: Extension Type Parameters Without Static Types
+
+**Status:** ⚠️ Limited
+**Recorded:** 2026-11-14 (ghissues49, GitHub #18)
+**Complexity:** Fundamental
+
+Dart infers an extension's own type parameters (`K`, `V` of
+`extension KeyKind<K, V> on Map<K, V>`) from the receiver expression's static
+type. Neither front end resolves the program (both parse without the
+analyzer's resolution, so the AST runtime can run in a browser and the
+interpreter in standalone binaries), so the interpreter binds them from what
+it has, in this order:
+
+1. the receiver's **written type**, when the receiver is a typed local, a
+   typed parameter, or a typed field (`m`, `this.m`, `obj.m`):
+   `final Map<dynamic, dynamic> wide = narrow; wide.keyKind()` gives
+   `dynamic`, as in Dart;
+2. the receiver's **runtime type arguments**: a native generic object
+   (`Map<String, int>` from a bridge) or an interpreted generic instance;
+3. otherwise `dynamic`.
+
+#### What differs from Dart
+
+A receiver that is neither typed nor reified falls through to `dynamic` where
+Dart infers a type: an untyped collection literal (`{'x': 7}.keyKind()` -
+Dart: `String`; the interpreter does not reify the collections a script
+creates), the result of a call, an index or a cast. Operators, index and
+setter members of an extension use the runtime source only.
+
+#### Workaround
+
+Give the receiver a written type (`final Map<String, int> m = {'x': 7};`).
 
 ## Intentionally-Unbridged SDK Classes
 

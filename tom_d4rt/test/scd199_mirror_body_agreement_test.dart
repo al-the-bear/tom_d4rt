@@ -392,7 +392,15 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES11: both trees defer an `on` type declared in a library still
     // loading; the residue grows by the loader field's name, `moduleLoader`
     // here and `moduleContext` in the twin.
-    'InterpreterVisitor.visitExtensionDeclaration': '4b256eea',
+    // GHISSUES49: 4b256eea -> 10cc3007, both trees pass the extension's type
+    // parameters and on-type to its methods alike.
+    'InterpreterVisitor.visitExtensionDeclaration': '10cc3007',
+    // GHISSUES49: the receiver-type helpers; the analyzer's non-nullable
+    // names (`name.lexeme`, `fields.variables`) against the mirror model's
+    // nullable ones (`name?.name`, `fields?.variables`).
+    'InterpreterVisitor._fieldAnnotation': '2c7700fc',
+    'InterpreterVisitor._matchExtensionTypeParameters': '92da6976',
+    'InterpreterVisitor._writtenTypeOfReceiver': '9f765977',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     'InterpreterVisitor.visitExtensionTypeDeclaration': '32961e82',
@@ -417,7 +425,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // with `_resolveTypeArgument` alike.
     // GHISSUES46: 06ec31b3 -> e42ec5fb, both trees answer a missing member
     // with InterpretedInstance.invokeNoSuchMethod alike.
-    'InterpreterVisitor.visitMethodInvocation': 'e42ec5fb',
+    // GHISSUES49: e42ec5fb -> 7d256f6b, both trees note the extension
+    // receiver alike.
+    'InterpreterVisitor.visitMethodInvocation': '7d256f6b',
     // GHISSUES36: the same resolver; the analyzer's `question` token against
     // the mirror model's `isNullable` flag.
     'InterpreterVisitor._resolveTypeArgument': '7028b122',

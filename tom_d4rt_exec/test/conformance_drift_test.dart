@@ -452,9 +452,32 @@ const _partialTwinBudget = 0;
 /// surface a port would have added is function references with type
 /// arguments and generic function declarations, which the corpus copies on
 /// every run.
-const _copierGapBudget = 44;
+/// 44 -> 45: GHISSUES49 added `ghissues49_extension_type_parameters_test.dart`,
+/// which runs source to check that an extension's own type parameters are
+/// bound from the receiver's written type (typed local, parameter, field),
+/// else its runtime type arguments, else dynamic, and that `is K` works
+/// (GitHub #18). Exec resolves tom_d4rt_ast 0.237.0 from pub.dev, which leaves
+/// K undefined until the batch release (ghissues1001), so a port would fail.
+/// Its ast twin holds the mechanism. ghissues1001 ports it after publishing.
+/// The copier surface a port would have added is generic extension
+/// declarations and typed variable declarations, which the corpus copies on
+/// every run.
+const _copierGapBudget = 45;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues49_extension_type_parameters_test.dart': _Coverage(
+    'ast:runtime/ghissues49_extension_type_parameters_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the issue\'s two typed views of one native map, the '
+        'runtime binding of K and V for an untyped receiver, and the dynamic '
+        'fallback. The reference adds typed parameters and fields, an '
+        'extension on List<T> with a getter and `is K`, which take the same '
+        'binding and a hand-built bundle would only restate.',
+  ),
   'ghissues48_instantiated_function_reference_test.dart': _Coverage(
     'ast:runtime/ghissues48_instantiated_function_reference_test.dart',
     _astTwin,

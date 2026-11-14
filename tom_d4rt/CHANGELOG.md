@@ -1,3 +1,21 @@
+## 1.261.0
+
+### Fixed — an extension's own type parameters are bound (GitHub #18)
+
+`extension KeyKind<K, V> on Map<K, V> { String keyKind() => K.toString(); }`
+threw `Undefined variable: K` for every receiver: nothing bound an extension's
+type parameters when its member ran. Dart infers them from the receiver's
+static type, which the interpreter does not have (both front ends parse
+without resolution), so they are bound from the receiver's written type when
+it is a typed local, parameter or field (`Map<dynamic, dynamic> wide` gives
+`dynamic`, as in Dart), else from its runtime type arguments (a native generic
+object, an interpreted generic instance), else `dynamic`; limitations doc,
+Lim-13. `x is K` inside the member works; more generally `is T` with `T` a
+type parameter bound to a plain class or `dynamic` is now decided by that
+type (it looked the written name up).
+
+Name resolution: yes — an extension's type parameter names resolve in its members.
+
 ## 1.260.0
 
 ### Fixed — an instantiated generic function reference keeps its type arguments (GitHub #15)

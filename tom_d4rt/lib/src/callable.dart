@@ -1223,6 +1223,11 @@ class InterpretedFunction implements Callable {
         } else {
           // It's a regular parameter. Define it in the execution environment.
           executionEnvironment.define(paramName, valueToDefine);
+          // ghissues49: the written type, for an extension call on it.
+          final writtenType = actualParam.type;
+          if (writtenType != null) {
+            executionEnvironment.declareAnnotation(paramName, writtenType);
+          }
         }
       }
 
@@ -7728,11 +7733,21 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
   // declared before its `on` type exists (GitHub #9).
   late RuntimeType onType;
 
+  /// ghissues49: the extension's own type parameters (`K`, `V` of
+  /// `extension E<K, V> on Map<K, V>`), bound on every call.
+  final List<String> extensionTypeParameters;
+
+  /// The `on` type as written, which the receiver's type is matched against
+  /// to bind [extensionTypeParameters].
+  final TypeAnnotation? onTypeAnnotation;
+
   InterpretedExtensionMethod(
     this.declaration,
     this.closure,
-    RuntimeType? onType,
-  ) {
+    RuntimeType? onType, {
+    this.extensionTypeParameters = const [],
+    this.onTypeAnnotation,
+  }) {
     if (onType != null) this.onType = onType;
   }
 
@@ -7770,6 +7785,17 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     final executionEnvironment = Environment(enclosing: closure);
     // Define 'this' in this environment
     executionEnvironment.define('this', targetInstance);
+    // ghissues49 (GitHub #18): the extension's own type parameters, from the
+    // receiver's written type or its runtime type arguments (else dynamic).
+    if (extensionTypeParameters.isNotEmpty) {
+      visitor
+          .bindExtensionTypeParameters(
+            extensionTypeParameters,
+            onTypeAnnotation,
+            targetInstance,
+          )
+          .forEach(executionEnvironment.define);
+    }
     if (Logger.isDebug) {
       Logger.debug(
         "[InterpretedExtensionMethod.call] Created execution env (${executionEnvironment.hashCode}) for '${declaration.name.lexeme}', defining 'this'=${targetInstance?.runtimeType}",
