@@ -341,10 +341,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_d4rt
-      sha256: def560ee2d4a06ed587653f6465fae8cfa7c81379e45f1ef3c2a89d97cde2501
+      sha256: "3eabef769ff0c925b418396547c7654c04d0970f7ccdc8e8bae5a046196e93c6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.263.0"
+    version: "1.264.0"
   typed_data:
     dependency: transitive
     description:

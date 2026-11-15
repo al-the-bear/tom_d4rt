@@ -43,6 +43,7 @@
 // the three commits SCC17 was filed for. If someone breaks the checker, that
 // case goes red even though the tree is clean.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:test/test.dart';
@@ -361,6 +362,30 @@ Directory _pubCacheDir() {
 bool _isPublished(String package, String version) =>
     Directory('${_pubCacheDir().path}/$package-$version').existsSync();
 
+/// When pub.dev published [version] of [package], read from the pub cache's
+/// version listing (`.cache/<package>-versions.json`, written by every
+/// resolution that consulted pub.dev); null when the listing does not say.
+///
+/// Lets F-SCC17-3 tell a commit that was described under a heading while that
+/// version was still unpublished - and shipped in it - from one that edited
+/// the section after the release (ghfeatures1000).
+DateTime? _publishedAt(String package, String version) {
+  final listing = File('${_pubCacheDir().path}/.cache/$package-versions.json');
+  if (!listing.existsSync()) return null;
+  try {
+    final versions =
+        (jsonDecode(listing.readAsStringSync()) as Map)['versions'] as List;
+    for (final entry in versions.cast<Map>()) {
+      if (entry['version'] != version) continue;
+      final published = entry['published'];
+      return published is String ? DateTime.tryParse(published) : null;
+    }
+  } on FormatException {
+    return null;
+  }
+  return null;
+}
+
 /// The version of the newest `## x.y.z` heading in [package]'s CHANGELOG.
 String? _newestChangelogVersion(String package) {
   final file = File('${_packages[package]}/CHANGELOG.md');
@@ -372,20 +397,31 @@ String? _newestChangelogVersion(String package) {
   return match?.group(1);
 }
 
-/// Commits in `anchor..head` that touched [package]'s CHANGELOG.
+/// Commits in `anchor..head` that touched [package]'s CHANGELOG, only those
+/// committed before [before] when it is given.
 Set<String> _commitsTouchingChangelog(
   String package,
   String anchor,
-  String head,
-) {
+  String head, {
+  DateTime? before,
+}) {
   final log = _git([
     'log',
-    '--format=%h',
+    '--format=%h %ct',
     '$anchor..$head',
     '--',
     '${_gitPaths[package]}/CHANGELOG.md',
   ]);
-  return log.isEmpty ? <String>{} : log.split('\n').toSet();
+  if (log.isEmpty) return <String>{};
+  return {
+    for (final line in log.split('\n'))
+      if (before == null ||
+          DateTime.fromMillisecondsSinceEpoch(
+            int.parse(line.split(' ').last) * 1000,
+            isUtc: true,
+          ).isBefore(before))
+        line.split(' ').first,
+  };
 }
 
 /// Library files of [package] changed in the WORKING TREE, staged or not.
@@ -565,15 +601,27 @@ void main() {
         //
         // The relaxation is refused on a cold pub cache, where "unpublished"
         // cannot be established: see [_pubCacheIsUsable].
+        // Published since: a commit described under the heading before the
+        // release shipped in it and stays covered; one after the release
+        // edited a published section and is not (ghfeatures1000: the
+        // relaxation used to expire the moment the version was published,
+        // turning every commit it had covered into an orphan).
         final anchor = _lastVersionBump(package, 'HEAD');
         final newest = _newestChangelogVersion(package);
+        final published = newest != null && _isPublished(package, newest);
+        final publishedAt = published ? _publishedAt(package, newest) : null;
         final relaxed =
             _pubCacheIsUsable() &&
             newest != null &&
-            !_isPublished(package, newest);
+            (!published || publishedAt != null);
 
         final described = relaxed
-            ? _commitsTouchingChangelog(package, anchor, 'HEAD')
+            ? _commitsTouchingChangelog(
+                package,
+                anchor,
+                'HEAD',
+                before: publishedAt,
+              )
             : const <String>{};
         final orphans = [
           for (final line in _libCommitsAfterLastBump(package, 'HEAD'))
