@@ -496,6 +496,7 @@ This package's own guides (in [`doc/`](doc/)):
 - [User Guide](doc/d4rt_user_guide.md) — execution modes, configuration, multi-file scripts, extension registration & facades
 - [Bridging Guide](doc/BRIDGING_GUIDE.md) — detailed coverage of every registration API
 - [Advanced Bridging Guide](doc/advanced_bridging_user_guide.md) — D4 helper class, type coercion, argument extraction, interface proxies, generic constructors
+- [Embedding: per-execution hooks](doc/execution_hooks.md) — a context per execution: refusing a run, tracking and refusing entries of script code, revocation with cleanup, drain, per-run permissions and output
 - [Limitations](doc/d4rt_limitations.md) — **canonical** interpreter limitations reference. Every AST-variant, exec, and Flutter project links back to this file for shared interpreter limits and documents only its own deltas.
 - [Issues](doc/issues.md) — tracked interpreter issues and their status
 

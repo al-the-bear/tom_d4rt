@@ -144,10 +144,10 @@ class StringCore {
           pattern,
           onMatch: onMatch == null
               ? null
-              : (Match m) => onMatch.call(visitor, [m]) as String,
+              : (Match m) => D4.enterInterpreted(visitor, onMatch, [m]) as String,
           onNonMatch: onNonMatch == null
               ? null
-              : (String s) => onNonMatch.call(visitor, [s]) as String,
+              : (String s) => D4.enterInterpreted(visitor, onNonMatch, [s]) as String,
         );
       },
       'padLeft': (visitor, target, positionalArgs, namedArgs, _) {
@@ -208,7 +208,7 @@ class StringCore {
           );
         }
         return (target as String).replaceAllMapped(pattern, (match) {
-          return replace.call(visitor, [match]) as String;
+          return D4.enterInterpreted(visitor, replace, [match]) as String;
         });
       },
       'replaceFirstMapped': (visitor, target, positionalArgs, namedArgs, _) {
@@ -224,7 +224,7 @@ class StringCore {
             ? positionalArgs[2] as int? ?? 0
             : 0;
         return (target as String).replaceFirstMapped(pattern, (match) {
-          return replace.call(visitor, [match]) as String;
+          return D4.enterInterpreted(visitor, replace, [match]) as String;
         }, startIndex);
       },
     },

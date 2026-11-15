@@ -51,7 +51,8 @@ class JsonUtf8EncoderConvert {
           indent as String?,
           toEncodable == null
               ? null
-              : (object) => (toEncodable as Callable).call(visitor, [object]),
+              : (object) =>
+                    D4.enterInterpreted(visitor, toEncodable as Callable, [object]),
           // The SDK default is 256; `null` is not accepted for this one.
           bufferSize as int? ?? 256,
         );

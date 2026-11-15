@@ -9,7 +9,7 @@ Object? _runCallback(
   List<Object?> args,
   String where,
 ) {
-  if (fn is Callable) return fn.call(visitor, args);
+  if (fn is Callable) return D4.enterInterpreted(visitor, fn, args);
   throw RuntimeD4rtException("Argument to $where must be a function.");
 }
 

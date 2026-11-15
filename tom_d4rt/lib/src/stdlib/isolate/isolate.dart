@@ -77,7 +77,7 @@ class IsolateIsolate {
         // 2. Or compile their D4rt script to native Dart first
         //
         // See: doc/d4rt_limitations.md Lim-3
-        return Future.microtask(() => computation.call(visitor, []));
+        return Future.microtask(() => D4.enterInterpreted(visitor, computation, []));
       },
       'spawn': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Isolate.spawn', atMost: 2);
@@ -311,11 +311,11 @@ class ReceivePortIsolate {
         final cancelOnError = namedArgs.get<bool?>('cancelOnError');
 
         return (target as ReceivePort).listen(
-          onData == null ? null : (message) => onData.call(visitor, [message]),
+          onData == null ? null : (message) => D4.enterInterpreted(visitor, onData, [message]),
           onError: onError == null
               ? null
-              : (error) => onError.call(visitor, [error]),
-          onDone: onDone == null ? null : () => onDone.call(visitor, []),
+              : (error) => D4.enterInterpreted(visitor, onError, [error]),
+          onDone: onDone == null ? null : () => D4.enterInterpreted(visitor, onDone, []),
           cancelOnError: cancelOnError,
         );
       },
@@ -333,7 +333,7 @@ class ReceivePortIsolate {
           );
         }
         return (target as Stream).map(
-          (event) => transform.call(visitor, [event]),
+          (event) => D4.enterInterpreted(visitor, transform, [event]),
         );
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
@@ -345,7 +345,7 @@ class ReceivePortIsolate {
           );
         }
         return (target as Stream).where(
-          (event) => test.call(visitor, [event]) as bool,
+          (event) => D4.enterInterpreted(visitor, test, [event]) as bool,
         );
       },
       'take': (visitor, target, positionalArgs, namedArgs, _) {
@@ -374,7 +374,7 @@ class RawReceivePortIsolate {
         final debugName = positionalArgs.get<String>(1) ?? '';
         if (handler != null) {
           final rawPort = RawReceivePort(null, debugName);
-          rawPort.handler = (message) => handler.call(visitor, [message]);
+          rawPort.handler = (message) => D4.enterInterpreted(visitor, handler, [message]);
           return rawPort;
         }
         return RawReceivePort(null, debugName);
@@ -392,7 +392,7 @@ class RawReceivePortIsolate {
       'handler': (visitor, target, value) {
         if (value is Callable) {
           (target as RawReceivePort).handler = (message) =>
-              value.call(visitor!, [message]);
+              D4.enterInterpreted(visitor!, value, [message]);
         } else if (value == null) {
           (target as RawReceivePort).handler = null;
         } else {

@@ -268,6 +268,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
   }
 
+  /// The run this visitor executes for, when the execution has hooks
+  /// (GitHub #19); `D4rtExecutionContext.of(visitor)` reads it.
+  D4rtExecutionContext? executionContext;
+
   InterpreterVisitor({
     required this.globalEnvironment,
     required this.moduleContext, // Accept ModuleContext in the constructor

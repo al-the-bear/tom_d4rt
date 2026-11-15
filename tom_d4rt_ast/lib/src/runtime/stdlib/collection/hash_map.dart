@@ -141,7 +141,7 @@ class HashMapCollection {
           final action = positionalArgs[0];
           if (action is Callable) {
             target.forEach((key, value) {
-              action.call(visitor, [key, value], {});
+              D4.enterInterpreted(visitor, action, [key, value], {});
             });
             return null;
           }
@@ -159,7 +159,7 @@ class HashMapCollection {
           if (ifAbsent is Callable) {
             return target.putIfAbsent(
               key,
-              () => ifAbsent.call(visitor, [], {}),
+              () => D4.enterInterpreted(visitor, ifAbsent, [], {}),
             );
           }
           throw RuntimeD4rtException(
@@ -181,7 +181,7 @@ class HashMapCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             target.removeWhere((key, value) {
-              final result = test.call(visitor, [key, value], {});
+              final result = D4.enterInterpreted(visitor, test, [key, value], {});
               return result is bool && result;
             });
             return null;
@@ -201,10 +201,10 @@ class HashMapCollection {
           if (update is Callable) {
             return target.update(
               key,
-              (value) => update.call(visitor, [value], {}),
+              (value) => D4.enterInterpreted(visitor, update, [value], {}),
               ifAbsent: ifAbsent == null
                   ? null
-                  : () => ifAbsent.call(visitor, [], {}),
+                  : () => D4.enterInterpreted(visitor, ifAbsent, [], {}),
             );
           }
           throw RuntimeD4rtException(
@@ -219,7 +219,7 @@ class HashMapCollection {
           final update = positionalArgs[0];
           if (update is Callable) {
             target.updateAll(
-              (key, value) => update.call(visitor, [key, value], {}),
+              (key, value) => D4.enterInterpreted(visitor, update, [key, value], {}),
             );
             return null;
           }

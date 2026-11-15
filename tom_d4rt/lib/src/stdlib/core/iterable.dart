@@ -17,7 +17,7 @@ class IterableCore {
         // The callback must yield a native iterator, which a script obtains
         // from any real collection — `() => [1, 2].iterator`.
         return Iterable<dynamic>.withIterator(
-          () => D4.unwrapAs<Iterator<dynamic>>(factory.call(visitor, const [])),
+          () => D4.unwrapAs<Iterator<dynamic>>(D4.enterInterpreted(visitor, factory, const [])),
         );
       },
     },
@@ -95,7 +95,7 @@ class IterableCore {
           generator == null
               ? null
               : (index) {
-                  return generator.call(visitor, [index]);
+                  return D4.enterInterpreted(visitor, generator, [index]);
                 },
         );
       },
@@ -108,21 +108,21 @@ class IterableCore {
         D4.checkArity(positionalArgs, 'Iterable.map', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Iterable).map((element) {
-          return f.call(visitor, [element]);
+          return D4.enterInterpreted(visitor, f, [element]);
         });
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Iterable.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).where((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'expand': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Iterable.expand', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Iterable).expand((element) {
-          return f.call(visitor, [element]) as Iterable;
+          return D4.enterInterpreted(visitor, f, [element]) as Iterable;
         });
       },
       'contains': (visitor, target, positionalArgs, namedArgs, _) {
@@ -133,7 +133,7 @@ class IterableCore {
         D4.checkArity(positionalArgs, 'Iterable.forEach', atMost: 1);
         final action = positionalArgs[0] as Callable;
         for (var element in (target as Iterable)) {
-          action.call(visitor, [element]);
+          D4.enterInterpreted(visitor, action, [element]);
         }
         return null;
       },
@@ -146,7 +146,7 @@ class IterableCore {
         // adapter builds was rejected with a host `_TypeError` before the
         // callback ran once. The view accepts it and yields the same values.
         return (target as Iterable).cast<Object?>().reduce((value, element) {
-          return combine.call(visitor, [value, element]);
+          return D4.enterInterpreted(visitor, combine, [value, element]);
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
@@ -157,14 +157,14 @@ class IterableCore {
           previousValue,
           element,
         ) {
-          return combine.call(visitor, [previousValue, element]);
+          return D4.enterInterpreted(visitor, combine, [previousValue, element]);
         });
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Iterable.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).every((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -178,7 +178,7 @@ class IterableCore {
         D4.checkArity(positionalArgs, 'Iterable.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).any((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'toList': (visitor, target, positionalArgs, namedArgs, _) {
@@ -196,7 +196,7 @@ class IterableCore {
         D4.checkArity(positionalArgs, 'Iterable.takeWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).takeWhile((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
@@ -207,7 +207,7 @@ class IterableCore {
         D4.checkArity(positionalArgs, 'Iterable.skipWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Iterable).skipWhile((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -215,8 +215,8 @@ class IterableCore {
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).firstWhere(
-          (element) => test.call(visitor, [element]) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -224,8 +224,8 @@ class IterableCore {
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).lastWhere(
-          (element) => test.call(visitor, [element]) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -233,8 +233,8 @@ class IterableCore {
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Iterable).singleWhere(
-          (element) => test.call(visitor, [element]) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {

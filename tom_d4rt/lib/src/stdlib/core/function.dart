@@ -59,8 +59,7 @@ class FunctionCore {
             // forwarding it and implying it could carry something.
             : const <String, Object?>{};
 
-        return functionToApply.call(
-          visitor,
+        return D4.enterInterpreted(visitor, functionToApply,
           argumentsToPass,
           namedArgumentsToPass,
         );
@@ -69,7 +68,7 @@ class FunctionCore {
     methods: {
       'call': (visitor, target, positionalArgs, namedArgs, _) {
         if (target is Callable) {
-          return target.call(visitor, positionalArgs, namedArgs);
+          return D4.enterInterpreted(visitor, target, positionalArgs, namedArgs);
         }
         throw RuntimeD4rtException('Cannot call non-Callable Function');
       },

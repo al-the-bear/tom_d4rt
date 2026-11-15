@@ -40,7 +40,7 @@ class ClosableStringSinkConvert {
         }
         return ClosableStringSink.fromStringSink(
           sink,
-          () => onClose.call(visitor, []),
+          () => D4.enterInterpreted(visitor, onClose, []),
         );
       },
     },

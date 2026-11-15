@@ -49,7 +49,7 @@ class StringConversionConvert {
         }
         final callback = positionalArgs[0] as Callable;
         return StringConversionSink.withCallback((accumulated) {
-          callback.call(visitor, [accumulated]);
+          D4.enterInterpreted(visitor, callback, [accumulated]);
         });
       },
     },

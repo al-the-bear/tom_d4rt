@@ -426,9 +426,27 @@ const _partialTwinBudget = 0;
 /// without the fix. Since the batch release exec resolves tom_d4rt_ast
 /// 0.243.0, so each is now a verbatim port and runs through exec's own front
 /// end.
-const _copierGapBudget = 41;
+///
+/// 41 -> 42: GHFEATURES1 added `ghfeatures1_execution_hooks_test.dart`
+/// (per-execution hooks, GitHub #19), which runs source. Exec resolves
+/// tom_d4rt_ast 0.243.0 from pub.dev, which has no `hooks:` parameter and no
+/// `D4rtExecutionContext`, so a port would not compile; its ast twin runs the
+/// same sixteen cases. GHFEATURES1000 ports it once exec resolves the release
+/// with the hooks. The copier surface a port would add is closures, an async
+/// `main` with `await`, a class extending a bridged abstract class and named
+/// arguments, which the corpus copies on every run.
+const _copierGapBudget = 42;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  // GHFEATURES1 (GitHub #19): exec resolves a tom_d4rt_ast without the
+  // per-execution hooks; ported by GHFEATURES1000 after the release.
+  'ghfeatures1_execution_hooks_test.dart': _Coverage(
+    'ast:runtime/ghfeatures1_execution_hooks_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 16,
+    twinCases: 16,
+  ),
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
     'ast:runtime/sce208_bind_forwarding_source_errors_test.dart',
     _astTwin,

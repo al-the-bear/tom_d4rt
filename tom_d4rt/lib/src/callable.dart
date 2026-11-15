@@ -111,6 +111,10 @@ class InterpretedFunction implements Callable {
   final FunctionBody _body;
   final Environment _closure;
   final String? _name;
+
+  /// The function's declared name; null for a closure. Names the entry when
+  /// native code calls it (GitHub #19).
+  String? get entryName => _name;
   // Add isInitializer flag for constructors
   final bool isInitializer;
   // Store constructor initializers

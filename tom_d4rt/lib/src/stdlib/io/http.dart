@@ -33,7 +33,7 @@ Future<Object?> Function(List<Object?>) _deferredCallback(
     throw RuntimeD4rtException('$member requires a function or null.');
   }
   return (args) async {
-    final result = value.call(visitor, args);
+    final result = D4.enterInterpreted(visitor, value, args);
     return result is Future ? await result : result;
   };
 }
@@ -445,7 +445,7 @@ class HttpClientIo {
                     'Visitor cannot be null for authenticate callback',
                   );
                 }
-                final result = callback.call(visitor, [url, scheme, realm]);
+                final result = D4.enterInterpreted(visitor, callback, [url, scheme, realm]);
                 return result is Future ? await result : result as bool;
               };
         } else {
@@ -462,7 +462,7 @@ class HttpClientIo {
                 'Visitor cannot be null for findProxy callback',
               );
             }
-            final result = callback.call(visitor, [url]);
+            final result = D4.enterInterpreted(visitor, callback, [url]);
             return result as String;
           };
         } else {
@@ -479,7 +479,7 @@ class HttpClientIo {
                 'Visitor cannot be null for badCertificateCallback',
               );
             }
-            final result = callback.call(visitor, [cert, host, port]);
+            final result = D4.enterInterpreted(visitor, callback, [cert, host, port]);
             return result as bool;
           };
         } else {
@@ -496,7 +496,7 @@ class HttpClientIo {
                 'Visitor cannot be null for keyLog callback',
               );
             }
-            callback.call(visitor, [line]);
+            D4.enterInterpreted(visitor, callback, [line]);
           };
         } else {
           (target as HttpClient).keyLog = null;
@@ -1297,7 +1297,7 @@ class HttpHeadersIo {
         }
         final callback = positionalArgs[0] as Callable;
         (target as HttpHeaders).forEach((name, values) {
-          callback.call(visitor, [name, values]);
+          D4.enterInterpreted(visitor, callback, [name, values]);
         });
         return null;
       },

@@ -153,7 +153,7 @@ class LinkedHashMapCollection {
           final action = positionalArgs[0];
           if (action is Callable) {
             target.forEach((key, value) {
-              action.call(visitor, [key, value]);
+              D4.enterInterpreted(visitor, action, [key, value]);
             });
             return null;
           }
@@ -171,7 +171,7 @@ class LinkedHashMapCollection {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
           if (ifAbsent is Callable) {
-            return target.putIfAbsent(key, () => ifAbsent.call(visitor, []));
+            return target.putIfAbsent(key, () => D4.enterInterpreted(visitor, ifAbsent, []));
           }
           throw RuntimeD4rtException(
             "Second argument to LinkedHashMap.putIfAbsent (ifAbsent) must be a function.",
@@ -196,7 +196,7 @@ class LinkedHashMapCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             target.removeWhere((key, value) {
-              final result = test.call(visitor, [key, value]);
+              final result = D4.enterInterpreted(visitor, test, [key, value]);
               return result is bool && result;
             });
             return null;
@@ -218,10 +218,10 @@ class LinkedHashMapCollection {
           if (update is Callable) {
             return target.update(
               key,
-              (value) => update.call(visitor, [value]),
+              (value) => D4.enterInterpreted(visitor, update, [value]),
               ifAbsent: ifAbsent == null
                   ? null
-                  : () => ifAbsent.call(visitor, []),
+                  : () => D4.enterInterpreted(visitor, ifAbsent, []),
             );
           }
           throw RuntimeD4rtException(
@@ -238,7 +238,7 @@ class LinkedHashMapCollection {
           final update = positionalArgs[0];
           if (update is Callable) {
             target.updateAll(
-              (key, value) => update.call(visitor, [key, value]),
+              (key, value) => D4.enterInterpreted(visitor, update, [key, value]),
             );
             return null;
           }

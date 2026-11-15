@@ -30,7 +30,7 @@ class SplayTreeMapCollection {
         int Function(dynamic, dynamic)? actualCompare;
         if (compareFn != null) {
           actualCompare = (k1, k2) {
-            final result = compareFn!.call(visitor, [k1, k2]);
+            final result = D4.enterInterpreted(visitor, compareFn!, [k1, k2]);
             if (result is int) {
               return result;
             }
@@ -65,7 +65,7 @@ class SplayTreeMapCollection {
         int Function(dynamic, dynamic)? actualCompare;
         if (compareFn != null) {
           actualCompare = (k1, k2) {
-            final result = compareFn!.call(visitor, [k1, k2]);
+            final result = D4.enterInterpreted(visitor, compareFn!, [k1, k2]);
             if (result is int) return result;
             throw RuntimeD4rtException("Compare function must return an int.");
           };
@@ -97,7 +97,7 @@ class SplayTreeMapCollection {
         int Function(dynamic, dynamic)? actualCompare;
         if (compareFn != null) {
           actualCompare = (k1, k2) {
-            final result = compareFn!.call(visitor, [k1, k2]);
+            final result = D4.enterInterpreted(visitor, compareFn!, [k1, k2]);
             if (result is int) return result;
             throw RuntimeD4rtException("Compare function must return an int.");
           };
@@ -178,7 +178,7 @@ class SplayTreeMapCollection {
           final action = positionalArgs[0];
           if (action is Callable) {
             for (var entry in target.entries) {
-              action.call(visitor, [entry.key, entry.value]);
+              D4.enterInterpreted(visitor, action, [entry.key, entry.value]);
             }
             return null;
           }
@@ -196,7 +196,7 @@ class SplayTreeMapCollection {
           final key = positionalArgs[0];
           final ifAbsent = positionalArgs[1];
           if (ifAbsent is Callable) {
-            return target.putIfAbsent(key, () => ifAbsent.call(visitor, []));
+            return target.putIfAbsent(key, () => D4.enterInterpreted(visitor, ifAbsent, []));
           }
           throw RuntimeD4rtException(
             "Second argument to SplayTreeMap.putIfAbsent (ifAbsent) must be a function.",

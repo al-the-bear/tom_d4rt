@@ -1,3 +1,19 @@
+## 1.66.0
+
+### Changed — proxies enter the script through `D4.enterInterpreted` (GitHub #19)
+
+A generated proxy calls its script instance with
+`D4.enterInterpreted(visitor, callable, [args], {named},
+D4rtEntryKind.proxyMethod, 'Class.member')` instead of
+`callable.call(visitor, [args], {named})`, and a function a proxy member
+returns with kind `callback`, so with per-execution hooks every such call is an
+entry of the run: it passes `onEntry`, is refused after `revoke()` and runs in
+the run's Zone. Emitted only when the project resolves an interpreter that has
+it (tom_d4rt 1.264.0 / tom_d4rt_ast 0.244.0, `entryInterpreterFloors`;
+`ProxyGenerationInfo.usesEntries`); against an older one the proxy calls as
+before, so the generated file always compiles. `interpreterAtLeast` generalises
+the version check `interpreterSupportsReceivers` uses.
+
 ## 1.65.0
 
 ### Changed — relaxer types are what the relaxer file's imports export (ghissues55)

@@ -338,6 +338,7 @@ The `tom_d4rt_ast` package is the only component that a Flutter app needs to emb
 
 - [User Guide](doc/tom_d4rt_ast_user_guide.md) — what differs in the analyzer-free runtime: `AstBundle` loading, `D4rtRunner`, the typed-execute API, and the Flutter/web deployment model.
 - [Limitations (delta)](doc/tom_d4rt_ast_limitations.md) — runtime-specific limits (no on-device parser, web `dart:io` absence, bundle-scoped imports); links back to the canon.
+- [Embedding: per-execution hooks](doc/execution_hooks.md) — a context per execution: refusing a run, tracking and refusing entries of script code, revocation with cleanup, drain, per-run permissions and output.
 - [Extension Registration](doc/extension_registration.md) — `registerExtensions` / `finalizeBridges` ordering contract.
 - [Relaxer Usage Logging](doc/usage_logging.md) — opt-in `D4` usage instrumentation.
 - [Runtime Registration Surface](doc/runtime_registration_surface.md) — the canonical `D4.register*` reference (shared with the VM twin).

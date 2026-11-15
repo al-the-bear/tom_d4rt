@@ -43,7 +43,7 @@ bool Function(dynamic) _predicate(
 ) {
   final test = _callback(argument, member);
   return (element) {
-    final result = test.call(visitor, [element]);
+    final result = D4.enterInterpreted(visitor, test, [element]);
     return result is bool && result;
   };
 }
@@ -107,7 +107,7 @@ class UnmodifiableSetViewCollection {
         D4.checkArity(positionalArgs, 'UnmodifiableSetView.forEach', atMost: 1);
         final action = _callback(positionalArgs[0], 'forEach');
         for (final element in _view(target, 'forEach')) {
-          action.call(visitor, [element]);
+          D4.enterInterpreted(visitor, action, [element]);
         }
         return null;
       },
@@ -117,7 +117,7 @@ class UnmodifiableSetViewCollection {
         return _view(
           target,
           'map',
-        ).map((element) => f.call(visitor, [element]));
+        ).map((element) => D4.enterInterpreted(visitor, f, [element]));
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'UnmodifiableSetView.where', atMost: 1);
@@ -133,7 +133,7 @@ class UnmodifiableSetViewCollection {
         D4.checkArity(positionalArgs, 'UnmodifiableSetView.expand', atMost: 1);
         final f = _callback(positionalArgs[0], 'expand');
         return _view(target, 'expand').expand((element) {
-          final result = f.call(visitor, [element]);
+          final result = D4.enterInterpreted(visitor, f, [element]);
           return result is Iterable ? result : const [];
         });
       },
@@ -182,7 +182,7 @@ class UnmodifiableSetViewCollection {
         final orElse = namedArgs['orElse'] as Callable?;
         return _view(target, 'firstWhere').firstWhere(
           _predicate(visitor, positionalArgs[0], 'firstWhere'),
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -194,7 +194,7 @@ class UnmodifiableSetViewCollection {
         final orElse = namedArgs['orElse'] as Callable?;
         return _view(target, 'lastWhere').lastWhere(
           _predicate(visitor, positionalArgs[0], 'lastWhere'),
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -206,7 +206,7 @@ class UnmodifiableSetViewCollection {
         final orElse = namedArgs['orElse'] as Callable?;
         return _view(target, 'singleWhere').singleWhere(
           _predicate(visitor, positionalArgs[0], 'singleWhere'),
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
@@ -219,7 +219,7 @@ class UnmodifiableSetViewCollection {
         return _view(target, 'fold').fold(
           positionalArgs[0],
           (previousValue, element) =>
-              combine.call(visitor, [previousValue, element]),
+              D4.enterInterpreted(visitor, combine, [previousValue, element]),
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
@@ -228,7 +228,7 @@ class UnmodifiableSetViewCollection {
         return _view(
           target,
           'reduce',
-        ).reduce((value, element) => combine.call(visitor, [value, element]));
+        ).reduce((value, element) => D4.enterInterpreted(visitor, combine, [value, element]));
       },
       'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(

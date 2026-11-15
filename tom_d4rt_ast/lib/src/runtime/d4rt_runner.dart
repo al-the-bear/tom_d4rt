@@ -14,6 +14,8 @@ import 'package:tom_d4rt_ast/src/runtime/callable.dart';
 import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/environment.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
+import 'package:tom_d4rt_ast/src/runtime/execution_hooks.dart';
+import 'package:tom_d4rt_ast/src/runtime/execution_run.dart';
 import 'package:tom_d4rt_ast/src/runtime/generator/d4.dart';
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
@@ -1091,6 +1093,16 @@ class D4rtRunner {
   /// ```
   void Function(Object error, StackTrace stackTrace)? onUncaughtError;
 
+  /// The per-execution hooks (GitHub #19) of every execution that does not
+  /// pass its own `hooks:`; null: executions without hooks, unchanged.
+  ///
+  /// Each execution with hooks gets a [D4rtExecutionContext]: `onStart` may
+  /// refuse it, `onImport` sees its libraries, every entry of interpreted code
+  /// from native code passes `onEntry`, `revoke()` refuses new entries while
+  /// accepted work finishes, `drained` says when nothing of it is pending.
+  /// See `doc/execution_hooks.md`.
+  D4rtExecutionHooks? executionHooks;
+
   /// Enables or disables debug logging.
   void setDebug(bool enabled) => Logger.setDebug(enabled);
 
@@ -1627,18 +1639,21 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) {
     // Initialize fresh environment
     final executionEnvironment = _initEnvironment();
+    final run = _createRun(hooks, 'execute:$name');
 
     // Create module context with permission checking
     final moduleContext = NoOpModuleContext(
       globalEnvironment: executionEnvironment,
-      permissionChecker: checkPermission,
+      permissionChecker: run?.checkPermission ?? checkPermission,
     );
 
     // Execute
     return _executeInEnvironment(
+      run: run,
       compilationUnit: ast,
       executionEnvironment: executionEnvironment,
       moduleContext: moduleContext,
@@ -1660,12 +1675,14 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) async {
     final Object? result = execute(
       ast: ast,
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
+      hooks: hooks,
     );
     return result is Future ? await result : result;
   }
@@ -1682,12 +1699,14 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) async {
     final Object? result = execute(
       ast: ast,
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
+      hooks: hooks,
     );
     final runVisitor = _visitor;
     final resolved = result is Future ? await result : result;
@@ -1702,6 +1721,7 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) {
     final ast = parseJson(jsonString);
     return execute(
@@ -1709,6 +1729,7 @@ class D4rtRunner {
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
+      hooks: hooks,
     );
   }
 
@@ -1721,6 +1742,7 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) async {
     final ast = await parseJsonFile(path);
     return execute(
@@ -1728,6 +1750,7 @@ class D4rtRunner {
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
+      hooks: hooks,
     );
   }
 
@@ -1753,6 +1776,7 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) {
     // Determine entry point URI
     final entryUri = entryPoint ?? bundle.entryPointUri;
@@ -1827,7 +1851,10 @@ class D4rtRunner {
 
     // Execute with full module context. ghissues14: the entry runs in the
     // loader's script scope, so the modules it loads do not see its names.
+    final run = _createRun(hooks, entryUri);
+    moduleLoader.executionContext = run;
     return _executeInEnvironment(
+      run: run,
       compilationUnit: entryAst,
       executionEnvironment: moduleLoader.scriptEnvironment,
       moduleContext: moduleLoader,
@@ -1854,6 +1881,7 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) {
     final raw = executeBundle(
       bundle,
@@ -1861,6 +1889,7 @@ class D4rtRunner {
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
+      hooks: hooks,
     );
     return D4.unwrapAs<T>(raw, visitor: _visitor);
   }
@@ -1878,6 +1907,7 @@ class D4rtRunner {
     String name = 'main',
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
+    D4rtExecutionHooks? hooks,
   }) async {
     final raw = executeBundle(
       bundle,
@@ -1885,6 +1915,7 @@ class D4rtRunner {
       name: name,
       positionalArgs: positionalArgs,
       namedArgs: namedArgs,
+      hooks: hooks,
     );
     // DASY1: the unwrap uses THIS run's visitor, captured before the await.
     // [visitor] belongs to whichever run started last, and another run on
@@ -1965,7 +1996,7 @@ class D4rtRunner {
 
   /// The specification behind [_forkScriptZone], split out because its two
   /// halves answer to different constraints.
-  ZoneSpecification _scriptZoneSpecification() {
+  ZoneSpecification _scriptZoneSpecification([ExecutionRun? run]) {
     // Unconditional: shed the wrapper as the callback throws, which needs no
     // error zone. `errorCallback` below covers the one shape these cannot
     // reach; see [unwrapScriptError], which stays the documented remedy for a
@@ -2045,8 +2076,10 @@ class D4rtRunner {
       return AsyncError(unwrapped, stackTrace ?? StackTrace.current);
     }
 
-    // Conditional: this is the error-zone half.
-    if (onUncaughtError == null) {
+    // Conditional: this is the error-zone half. A run's own `onError`
+    // (GitHub #19) takes its uncaught errors; the runner-wide
+    // [onUncaughtError] stays the fallback.
+    if (onUncaughtError == null && run?.hooks.onError == null) {
       return ZoneSpecification(
         registerCallback: registerCallback,
         registerUnaryCallback: registerUnaryCallback,
@@ -2061,6 +2094,14 @@ class D4rtRunner {
       errorCallback: errorCallback,
       handleUncaughtError: (self, parent, zone, error, stackTrace) {
         final scriptError = unwrapScriptError(error);
+        if (run != null) {
+          try {
+            if (run.reportError(scriptError, stackTrace)) return;
+          } catch (hookError, hookStack) {
+            parent.handleUncaughtError(zone, hookError, hookStack);
+            return;
+          }
+        }
         final hook = onUncaughtError;
         if (hook == null) {
           // The field was cleared after the fork. Behave as the no-hook path.
@@ -2092,7 +2133,21 @@ class D4rtRunner {
     throwAsHostFacingError(e, s);
   }
 
+  /// The run of one execution with [hooks] (GitHub #19); null without.
+  ExecutionRun? _createRun(D4rtExecutionHooks? hooks, String entryUri) {
+    final effective = hooks ?? executionHooks;
+    if (effective == null) return null;
+    return ExecutionRun(
+      hooks: effective,
+      entryUri: entryUri,
+      runnerCheck: checkPermission,
+      runnerGranted: () => _grantedPermissions,
+      owner: this,
+    );
+  }
+
   dynamic _executeInEnvironment({
+    required ExecutionRun? run,
     required SCompilationUnit compilationUnit,
     required Environment executionEnvironment,
     required ModuleContext moduleContext,
@@ -2101,7 +2156,8 @@ class D4rtRunner {
     Map<String, Object?>? namedArgs,
   }) {
     _lastErrorTrace = const [];
-    run() => _executeInEnvironmentInZone(
+    body() => _executeInEnvironmentInZone(
+      run: run,
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
       moduleContext: moduleContext,
@@ -2112,10 +2168,20 @@ class D4rtRunner {
 
     // The zone is always forked — its `register*Callback` half sheds the
     // interpreter's internal wrapper and costs no change in error routing. The
-    // error-zone half is opt-in; see [_forkScriptZone].
-    final zone = _forkScriptZone();
-    final result = zone.run(run);
-    if (onUncaughtError == null) return result;
+    // error-zone half is opt-in; see [_forkScriptZone]. An execution with
+    // hooks forks its own Zones first (the embedder's specifications, task
+    // tracking, output capture) and the script Zone below them.
+    final Zone zone;
+    if (run == null) {
+      zone = _forkScriptZone();
+    } else {
+      zone = run.forkExecutionZones().fork(
+        specification: _scriptZoneSpecification(run),
+      );
+      run.scriptZone = zone;
+    }
+    final result = zone.run(body);
+    if (onUncaughtError == null && run?.hooks.onError == null) return result;
     if (result is! Future) return result;
 
     // The script's own failures still belong to the caller, but the caller
@@ -2136,6 +2202,7 @@ class D4rtRunner {
   }
 
   dynamic _executeInEnvironmentInZone({
+    required ExecutionRun? run,
     required SCompilationUnit compilationUnit,
     required Environment executionEnvironment,
     required ModuleContext moduleContext,
@@ -2185,6 +2252,14 @@ class D4rtRunner {
         '_executeInEnvironment.visitorBuild',
         swResolve!.elapsedMicroseconds,
       );
+    }
+
+    // GitHub #19: the run starts once the bridges, pass 1 and the visitor are
+    // ready and before any import or script code runs; `onStart` refusing it
+    // throws [D4rtExecutionRejectedException] straight to the host.
+    if (run != null) {
+      _visitor!.executionContext = run;
+      run.start();
     }
 
     Object? functionResult;
@@ -2347,11 +2422,22 @@ class D4rtRunner {
           "[_executeInEnvironment] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs",
         );
 
-        functionResult = functionCallable.call(
-          _visitor!,
-          interpreterArgs,
-          interpreterNamedArgs,
-        );
+        final visitor = _visitor!;
+        functionResult = run == null
+            ? functionCallable.call(
+                visitor,
+                interpreterArgs,
+                interpreterNamedArgs,
+              )
+            : run.runEntryFunction(
+                name,
+                () => functionCallable.call(
+                  visitor,
+                  interpreterArgs,
+                  interpreterNamedArgs,
+                ),
+                _bridgeInterpreterValueToNative,
+              );
       } else {
         throw RuntimeD4rtException(
           "No callable '$name' function found in the AST.",
@@ -2365,6 +2451,7 @@ class D4rtRunner {
       // `RuntimeD4rtException('Native error during …')` wrapper the bridged call
       // site builds. So `on FormatException` worked inside a script and not at
       // the call site that ran it. The boundary now states one rule for both.
+      run?.endWithError(unwrapScriptError(e), s);
       _toHost(e, s);
     }
 

@@ -12,7 +12,7 @@ class FutureAsync {
       '': (visitor, positionalArgs, namedArgs) {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final computation = positionalArgs[0] as Callable;
-          return Future(() => computation.call(visitor, []));
+          return Future(() => D4.enterInterpreted(visitor, computation, []));
         }
         throw RuntimeD4rtException('Invalid arguments for Future constructor.');
       },
@@ -27,7 +27,7 @@ class FutureAsync {
         final computation = positionalArgs.get<Callable?>(1);
         return Future.delayed(
           duration,
-          computation == null ? null : () => computation.call(visitor, []),
+          computation == null ? null : () => D4.enterInterpreted(visitor, computation, []),
         );
       },
       'value': (visitor, positionalArgs, namedArgs) {
@@ -57,14 +57,14 @@ class FutureAsync {
         if (computation is! Callable) {
           throw RuntimeD4rtException('Future.microtask requires an Function.');
         }
-        return Future.microtask(() => computation.call(visitor, []));
+        return Future.microtask(() => D4.enterInterpreted(visitor, computation, []));
       },
       'sync': (visitor, positionalArgs, namedArgs) {
         final computation = positionalArgs[0];
         if (computation is! Callable) {
           throw RuntimeD4rtException('Future.sync requires an Function.');
         }
-        return Future.sync(() => computation.call(visitor, []));
+        return Future.sync(() => D4.enterInterpreted(visitor, computation, []));
       },
     },
     staticMethods: {
@@ -83,7 +83,7 @@ class FutureAsync {
         final computation = positionalArgs.get<Callable?>(1);
         return Future.delayed(
           duration,
-          computation == null ? null : () => computation.call(visitor, []),
+          computation == null ? null : () => D4.enterInterpreted(visitor, computation, []),
         );
       },
       'value': (visitor, positionalArgs, namedArgs, _) {
@@ -114,7 +114,7 @@ class FutureAsync {
         if (computation is! Callable) {
           throw RuntimeD4rtException('Future.microtask requires an Function.');
         }
-        return Future.microtask(() => computation.call(visitor, []));
+        return Future.microtask(() => D4.enterInterpreted(visitor, computation, []));
       },
       'sync': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.sync', atMost: 1);
@@ -122,7 +122,7 @@ class FutureAsync {
         if (computation is! Callable) {
           throw RuntimeD4rtException('Future.sync requires an Function.');
         }
-        return Future.sync(() => computation.call(visitor, []));
+        return Future.sync(() => D4.enterInterpreted(visitor, computation, []));
       },
       'wait': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.wait', atMost: 1);
@@ -137,7 +137,7 @@ class FutureAsync {
           eagerError: eagerError,
           cleanUp: cleanUp == null
               ? null
-              : (successValue) => cleanUp.call(visitor, [successValue]),
+              : (successValue) => D4.enterInterpreted(visitor, cleanUp, [successValue]),
         );
       },
       'any': (visitor, positionalArgs, namedArgs, _) {
@@ -159,7 +159,7 @@ class FutureAsync {
         }
         return Future.forEach(
           elements,
-          (element) => action.call(visitor, [element]) as FutureOr<void>,
+          (element) => D4.enterInterpreted(visitor, action, [element]) as FutureOr<void>,
         );
       },
       'doWhile': (visitor, positionalArgs, namedArgs, _) {
@@ -171,7 +171,7 @@ class FutureAsync {
           );
         }
         return Future.doWhile(() async {
-          final result = action.call(visitor, []);
+          final result = D4.enterInterpreted(visitor, action, []);
           // Handle async callbacks that return Future<bool>
           if (result is Future) {
             return await result as bool;
@@ -191,11 +191,10 @@ class FutureAsync {
           );
         }
         return (target as Future).then(
-          (value) => onValue.call(visitor, [value]),
+          (value) => D4.enterInterpreted(visitor, onValue, [value]),
           onError: onError == null
               ? null
-              : (error, stackTrace) => onError.call(
-                  visitor,
+              : (error, stackTrace) => D4.enterInterpreted(visitor, onError,
                   errorHandlerArgs(onError, error, stackTrace),
                 ),
         );
@@ -210,13 +209,12 @@ class FutureAsync {
           );
         }
         return (target as Future).catchError(
-          (error, stackTrace) => onError.call(
-            visitor,
+          (error, stackTrace) => D4.enterInterpreted(visitor, onError,
             errorHandlerArgs(onError, error, stackTrace),
           ),
           test: test == null
               ? null
-              : (error) => test.call(visitor, [error]) as bool,
+              : (error) => D4.enterInterpreted(visitor, test, [error]) as bool,
         );
       },
       'whenComplete': (visitor, target, positionalArgs, namedArgs, _) {
@@ -227,7 +225,7 @@ class FutureAsync {
             'Future.whenComplete requires an Function for action.',
           );
         }
-        return (target as Future).whenComplete(() => action.call(visitor, []));
+        return (target as Future).whenComplete(() => D4.enterInterpreted(visitor, action, []));
       },
       'timeout': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Future.timeout', atMost: 1);
@@ -237,7 +235,7 @@ class FutureAsync {
           timeLimit,
           onTimeout: onTimeout == null
               ? null
-              : () => onTimeout.call(visitor, []),
+              : () => D4.enterInterpreted(visitor, onTimeout, []),
         );
       },
       'asStream': (visitor, target, positionalArgs, namedArgs, _) {
@@ -254,13 +252,12 @@ class FutureAsync {
           );
         }
         return (target as Future).catchError(
-          (error, stackTrace) => handleError.call(
-            visitor,
+          (error, stackTrace) => D4.enterInterpreted(visitor, handleError,
             errorHandlerArgs(handleError, error, stackTrace),
           ),
           test: test == null
               ? null
-              : (error) => test.call(visitor, [error]) as bool,
+              : (error) => D4.enterInterpreted(visitor, test, [error]) as bool,
         );
       },
       'ignore': (visitor, target, positionalArgs, namedArgs, _) {
@@ -346,7 +343,7 @@ class FutureStdlib {
       final callback = arguments[0] as Callable;
       scheduleMicrotask(() {
         try {
-          callback.call(visitor, []);
+          D4.enterInterpreted(visitor, callback, []);
         } catch (error, stackTrace) {
           Error.throwWithStackTrace(unwrapScriptError(error), stackTrace);
         }

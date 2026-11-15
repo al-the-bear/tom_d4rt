@@ -53,7 +53,7 @@ class TimerAsync {
         final callback = positionalArgs[1] as Callable;
         return Timer(duration, () async {
           try {
-            callback.call(visitor, []);
+            D4.enterInterpreted(visitor, callback, []);
           } catch (error, stackTrace) {
             _rethrowUnwrapped(error, stackTrace);
           }
@@ -68,7 +68,7 @@ class TimerAsync {
         final callback = positionalArgs[1] as Callable;
         return Timer.periodic(duration, (timer) async {
           try {
-            callback.call(visitor, [timer]);
+            D4.enterInterpreted(visitor, callback, [timer]);
           } catch (error, stackTrace) {
             _rethrowUnwrapped(error, stackTrace);
           }
@@ -87,7 +87,7 @@ class TimerAsync {
         final callback = positionalArgs[0] as Callable;
         return Timer.run(() async {
           try {
-            callback.call(visitor, []);
+            D4.enterInterpreted(visitor, callback, []);
           } catch (error, stackTrace) {
             _rethrowUnwrapped(error, stackTrace);
           }

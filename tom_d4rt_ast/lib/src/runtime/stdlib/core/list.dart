@@ -47,7 +47,7 @@ class ListCore {
         }
         return List<dynamic>.generate(
           positionalArgs[0] as int,
-          (i) => generator.call(visitor, [i]),
+          (i) => D4.enterInterpreted(visitor, generator, [i]),
           growable: namedArgs['growable'] as bool? ?? true,
         );
       },
@@ -86,7 +86,7 @@ class ListCore {
         }
         return List<dynamic>.generate(
           positionalArgs[0] as int,
-          (i) => generator.call(visitor, [i]),
+          (i) => D4.enterInterpreted(visitor, generator, [i]),
           growable: namedArgs['growable'] as bool? ?? true,
         );
       },
@@ -194,7 +194,7 @@ class ListCore {
         final test = positionalArgs[0] as Callable;
         int start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as List).indexWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
           start,
         );
       },
@@ -205,7 +205,7 @@ class ListCore {
             ? positionalArgs[1] as int?
             : null;
         return (target as List).lastIndexWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
           start,
         );
       },
@@ -223,7 +223,7 @@ class ListCore {
         // Dart Function tear-offs (like `print`).
         for (final element in target as List) {
           if (callback is Callable) {
-            callback.call(visitor, [element], {});
+            D4.enterInterpreted(visitor, callback, [element], {});
           } else if (callback is Function) {
             callback(element);
           } else {
@@ -238,28 +238,28 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).any(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).every(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.map', atMost: 1);
         final toElement = positionalArgs[0] as Callable;
         return (target as List).map(
-          (element) => toElement.call(visitor, [element], {}),
+          (element) => D4.enterInterpreted(visitor, toElement, [element], {}),
         );
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).where(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
       },
       'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
@@ -270,7 +270,7 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.expand', atMost: 1);
         final toElements = positionalArgs[0] as Callable;
         return (target as List).expand(
-          (element) => toElements.call(visitor, [element], {}) as Iterable,
+          (element) => D4.enterInterpreted(visitor, toElements, [element], {}) as Iterable,
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
@@ -278,7 +278,7 @@ class ListCore {
         final combine = positionalArgs[0] as Callable;
         // SCE185: through a `cast<Object?>()` view — see `Iterable.reduce`.
         return (target as List).cast<Object?>().reduce(
-          (value, element) => combine.call(visitor, [value, element], {}),
+          (value, element) => D4.enterInterpreted(visitor, combine, [value, element], {}),
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
@@ -288,7 +288,7 @@ class ListCore {
         return (target as List).fold(
           initialValue,
           (previousValue, element) =>
-              combine.call(visitor, [previousValue, element], {}),
+              D4.enterInterpreted(visitor, combine, [previousValue, element], {}),
         );
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -306,7 +306,7 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.takeWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).takeWhile(
-          (value) => test.call(visitor, [value], {}) as bool,
+          (value) => D4.enterInterpreted(visitor, test, [value], {}) as bool,
         );
       },
       'skip': (visitor, target, positionalArgs, namedArgs, _) {
@@ -317,7 +317,7 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.skipWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).skipWhile(
-          (value) => test.call(visitor, [value], {}) as bool,
+          (value) => D4.enterInterpreted(visitor, test, [value], {}) as bool,
         );
       },
       'toList': (visitor, target, positionalArgs, namedArgs, _) {
@@ -360,8 +360,8 @@ class ListCore {
         // an invented `RuntimeD4rtException` instead of the SDK's `StateError`
         // when there was no match.
         return (target as List).cast<Object?>().firstWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, [], {}),
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, [], {}),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -370,8 +370,8 @@ class ListCore {
         final orElse = namedArgs['orElse'] as Callable?;
         // SCE109: cast for the same reason as `firstWhere` above.
         return (target as List).cast<Object?>().lastWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, [], {}),
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, [], {}),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -380,8 +380,8 @@ class ListCore {
         final orElse = namedArgs['orElse'] as Callable?;
         // SCE109: cast for the same reason as `firstWhere` above.
         return (target as List).cast<Object?>().singleWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, [], {}),
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, [], {}),
         );
       },
       'insert': (visitor, target, positionalArgs, namedArgs, _) {
@@ -446,7 +446,7 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.retainWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as List).retainWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
         return null;
       },
@@ -454,7 +454,7 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.removeWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as List).removeWhere(
-          (element) => test.call(visitor, [element], {}) as bool,
+          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
         return null;
       },
@@ -474,7 +474,7 @@ class ListCore {
                 final compareToMethod = a.klass.findInstanceMethod('compareTo');
                 if (compareToMethod != null) {
                   final boundMethod = compareToMethod.bind(a);
-                  final result = boundMethod.call(visitor, [b], {});
+                  final result = D4.enterInterpreted(visitor, boundMethod, [b], {});
                   if (result is int) {
                     return result;
                   }
@@ -502,7 +502,7 @@ class ListCore {
         } else {
           final compare = positionalArgs[0] as Callable;
           (target as List).sort(
-            (a, b) => compare.call(visitor, [a, b], {}) as int,
+            (a, b) => D4.enterInterpreted(visitor, compare, [a, b], {}) as int,
           );
         }
         return null;

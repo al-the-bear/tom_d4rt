@@ -56,6 +56,7 @@ export 'src/runtime/node_source.dart';
 
 // Main runner API
 export 'src/runtime/d4rt_runner.dart';
+export 'src/runtime/execution_hooks.dart';
 
 // Init-path profiler (compile-time gated)
 export 'src/runtime/profiler.dart';

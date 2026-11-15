@@ -16,10 +16,10 @@ class JsonCodecConvert {
         return JsonCodec(
           reviver: reviverArg == null
               ? null
-              : (key, value) => reviverArg.call(visitor, [key, value]),
+              : (key, value) => D4.enterInterpreted(visitor, reviverArg, [key, value]),
           toEncodable: toEncodableArg == null
               ? null
-              : (object) => toEncodableArg.call(visitor, [object]),
+              : (object) => D4.enterInterpreted(visitor, toEncodableArg, [object]),
         );
       },
       // `JsonCodec.withReviver(dynamic Function(Object?, Object?) reviver)`
@@ -36,7 +36,7 @@ class JsonCodecConvert {
           );
         }
         return JsonCodec.withReviver(
-          (key, value) => reviver.call(visitor, [key, value]),
+          (key, value) => D4.enterInterpreted(visitor, reviver, [key, value]),
         );
       },
     },
@@ -55,7 +55,7 @@ class JsonCodecConvert {
           source,
           reviver: reviverArg == null
               ? null
-              : (key, value) => reviverArg.call(visitor, [key, value]),
+              : (key, value) => D4.enterInterpreted(visitor, reviverArg, [key, value]),
         );
       },
       'fuse': (visitor, target, positionalArgs, namedArgs, _) {
@@ -96,7 +96,7 @@ class JsonEncoderConvert {
         return JsonEncoder(
           toEncodableArg == null
               ? null
-              : (object) => toEncodableArg.call(visitor, [object]),
+              : (object) => D4.enterInterpreted(visitor, toEncodableArg, [object]),
         );
       },
       // `JsonEncoder.withIndent(String? indent,
@@ -132,7 +132,8 @@ class JsonEncoderConvert {
           indent as String?,
           toEncodable == null
               ? null
-              : (object) => (toEncodable as Callable).call(visitor, [object]),
+              : (object) =>
+                    D4.enterInterpreted(visitor, toEncodable as Callable, [object]),
         );
       },
     },
@@ -205,7 +206,7 @@ class JsonDecoderConvert {
         return JsonDecoder(
           reviverArg == null
               ? null
-              : (key, value) => reviverArg.call(visitor, [key, value]),
+              : (key, value) => D4.enterInterpreted(visitor, reviverArg, [key, value]),
         );
       },
     },

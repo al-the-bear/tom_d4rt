@@ -37,9 +37,9 @@ class MapNamedConstructors {
     final value = namedArgs['value'] as Callable?;
     final map = create();
     for (final element in positionalArgs[0] as Iterable) {
-      map[key == null ? element : key.call(visitor, [element])] = value == null
+      map[key == null ? element : D4.enterInterpreted(visitor, key, [element])] = value == null
           ? element
-          : value.call(visitor, [element]);
+          : D4.enterInterpreted(visitor, value, [element]);
     }
     return map;
   }

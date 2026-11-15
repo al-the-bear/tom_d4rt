@@ -106,7 +106,7 @@ class UnmodifiableMapViewCollection {
         }
         final action = _callback(positionalArgs[0], 'forEach');
         _view(target, 'forEach').forEach((key, value) {
-          action.call(visitor, [key, value]);
+          D4.enterInterpreted(visitor, action, [key, value]);
         });
         return null;
       },
@@ -120,7 +120,7 @@ class UnmodifiableMapViewCollection {
         return _view(
           target,
           'map',
-        ).map((key, value) => _asMapEntry(convert.call(visitor, [key, value])));
+        ).map((key, value) => _asMapEntry(D4.enterInterpreted(visitor, convert, [key, value])));
       },
       'cast': (visitor, target, positionalArgs, namedArgs, typeArgs) {
         return castMap(visitor, _view(target, 'cast'), typeArgs);
@@ -165,7 +165,7 @@ class UnmodifiableMapViewCollection {
         return _view(
           target,
           'putIfAbsent',
-        ).putIfAbsent(positionalArgs[0], () => ifAbsent.call(visitor, []));
+        ).putIfAbsent(positionalArgs[0], () => D4.enterInterpreted(visitor, ifAbsent, []));
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
         if (positionalArgs.length != 1) {
@@ -183,7 +183,7 @@ class UnmodifiableMapViewCollection {
         }
         final test = _callback(positionalArgs[0], 'removeWhere');
         _view(target, 'removeWhere').removeWhere((key, value) {
-          final result = test.call(visitor, [key, value]);
+          final result = D4.enterInterpreted(visitor, test, [key, value]);
           return result is bool && result;
         });
         return null;
@@ -198,8 +198,8 @@ class UnmodifiableMapViewCollection {
         final ifAbsent = namedArgs['ifAbsent'] as Callable?;
         return _view(target, 'update').update(
           positionalArgs[0],
-          (value) => update.call(visitor, [value]),
-          ifAbsent: ifAbsent == null ? null : () => ifAbsent.call(visitor, []),
+          (value) => D4.enterInterpreted(visitor, update, [value]),
+          ifAbsent: ifAbsent == null ? null : () => D4.enterInterpreted(visitor, ifAbsent, []),
         );
       },
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
@@ -212,7 +212,7 @@ class UnmodifiableMapViewCollection {
         _view(
           target,
           'updateAll',
-        ).updateAll((key, value) => update.call(visitor, [key, value]));
+        ).updateAll((key, value) => D4.enterInterpreted(visitor, update, [key, value]));
         return null;
       },
     },

@@ -161,7 +161,7 @@ class QueueCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             target.removeWhere((element) {
-              final result = test.call(visitor, [element], {});
+              final result = D4.enterInterpreted(visitor, test, [element], {});
               return result is bool && result;
             });
             return null;
@@ -178,7 +178,7 @@ class QueueCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             target.retainWhere((element) {
-              final result = test.call(visitor, [element], {});
+              final result = D4.enterInterpreted(visitor, test, [element], {});
               return result is bool && result;
             });
             return null;

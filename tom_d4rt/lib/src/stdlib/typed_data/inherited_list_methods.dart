@@ -139,7 +139,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
         return null;
       }
       final compare = positionalArgs[0] as Callable;
-      coerce(target).sort((a, b) => compare.call(visitor, [a, b]) as int);
+      coerce(target).sort((a, b) => D4.enterInterpreted(visitor, compare, [a, b]) as int);
       return null;
     },
     'shuffle': (visitor, target, positionalArgs, namedArgs, _) {
@@ -168,21 +168,21 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       D4.checkArity(positionalArgs, '$className.map', atMost: 1);
       final f = positionalArgs[0] as Callable;
       return coerce(target).map((element) {
-        return f.call(visitor, [element]);
+        return D4.enterInterpreted(visitor, f, [element]);
       });
     },
     'where': (visitor, target, positionalArgs, namedArgs, _) {
       D4.checkArity(positionalArgs, '$className.where', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).where((element) {
-        return test.call(visitor, [element]) as bool;
+        return D4.enterInterpreted(visitor, test, [element]) as bool;
       });
     },
     'expand': (visitor, target, positionalArgs, namedArgs, _) {
       D4.checkArity(positionalArgs, '$className.expand', atMost: 1);
       final f = positionalArgs[0] as Callable;
       return coerce(target).expand((element) {
-        return f.call(visitor, [element]) as Iterable;
+        return D4.enterInterpreted(visitor, f, [element]) as Iterable;
       });
     },
     'followedBy': (visitor, target, positionalArgs, namedArgs, _) {
@@ -208,8 +208,8 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       final test = positionalArgs[0] as Callable;
       final orElse = namedArgs['orElse'] as Callable?;
       return coerce(target).firstWhere(
-        (element) => test.call(visitor, [element]) as bool,
-        orElse: orElse == null ? null : () => orElse.call(visitor, []) as E,
+        (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+        orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []) as E,
       );
     },
     'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -217,8 +217,8 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       final test = positionalArgs[0] as Callable;
       final orElse = namedArgs['orElse'] as Callable?;
       return coerce(target).lastWhere(
-        (element) => test.call(visitor, [element]) as bool,
-        orElse: orElse == null ? null : () => orElse.call(visitor, []) as E,
+        (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+        orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []) as E,
       );
     },
     'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -226,8 +226,8 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       final test = positionalArgs[0] as Callable;
       final orElse = namedArgs['orElse'] as Callable?;
       return coerce(target).singleWhere(
-        (element) => test.call(visitor, [element]) as bool,
-        orElse: orElse == null ? null : () => orElse.call(visitor, []) as E,
+        (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+        orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []) as E,
       );
     },
     'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
@@ -240,7 +240,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       D4.checkArity(positionalArgs, '$className.forEach', atMost: 1);
       final action = positionalArgs[0] as Callable;
       for (final element in coerce(target)) {
-        action.call(visitor, [element]);
+        D4.enterInterpreted(visitor, action, [element]);
       }
       return null;
     },
@@ -248,7 +248,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       D4.checkArity(positionalArgs, '$className.reduce', atMost: 1);
       final combine = positionalArgs[0] as Callable;
       return coerce(target).reduce((value, element) {
-        return combine.call(visitor, [value, element]) as E;
+        return D4.enterInterpreted(visitor, combine, [value, element]) as E;
       });
     },
     'fold': (visitor, target, positionalArgs, namedArgs, _) {
@@ -256,21 +256,21 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       final initialValue = positionalArgs[0];
       final combine = positionalArgs[1] as Callable;
       return coerce(target).fold(initialValue, (previousValue, element) {
-        return combine.call(visitor, [previousValue, element]);
+        return D4.enterInterpreted(visitor, combine, [previousValue, element]);
       });
     },
     'every': (visitor, target, positionalArgs, namedArgs, _) {
       D4.checkArity(positionalArgs, '$className.every', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).every((element) {
-        return test.call(visitor, [element]) as bool;
+        return D4.enterInterpreted(visitor, test, [element]) as bool;
       });
     },
     'any': (visitor, target, positionalArgs, namedArgs, _) {
       D4.checkArity(positionalArgs, '$className.any', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).any((element) {
-        return test.call(visitor, [element]) as bool;
+        return D4.enterInterpreted(visitor, test, [element]) as bool;
       });
     },
     'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -290,7 +290,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       D4.checkArity(positionalArgs, '$className.takeWhile', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).takeWhile((element) {
-        return test.call(visitor, [element]) as bool;
+        return D4.enterInterpreted(visitor, test, [element]) as bool;
       });
     },
     'skip': (visitor, target, positionalArgs, namedArgs, _) {
@@ -301,7 +301,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       D4.checkArity(positionalArgs, '$className.skipWhile', atMost: 1);
       final test = positionalArgs[0] as Callable;
       return coerce(target).skipWhile((element) {
-        return test.call(visitor, [element]) as bool;
+        return D4.enterInterpreted(visitor, test, [element]) as bool;
       });
     },
 
@@ -326,7 +326,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
       final start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
       return coerce(
         target,
-      ).indexWhere((element) => test.call(visitor, [element]) as bool, start);
+      ).indexWhere((element) => D4.enterInterpreted(visitor, test, [element]) as bool, start);
     },
     'lastIndexWhere': (visitor, target, positionalArgs, namedArgs, _) {
       D4.checkArity(positionalArgs, '$className.lastIndexWhere', atMost: 2);
@@ -335,7 +335,7 @@ Map<String, BridgedMethodAdapter> inheritedListMethods<E>(
           ? positionalArgs[1] as int?
           : null;
       return coerce(target).lastIndexWhere(
-        (element) => test.call(visitor, [element]) as bool,
+        (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
         start,
       );
     },

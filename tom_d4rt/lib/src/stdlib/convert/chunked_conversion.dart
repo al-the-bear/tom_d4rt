@@ -25,7 +25,7 @@ class ChunkedConversionConvert {
         return ChunkedConversionSink<dynamic>.withCallback((
           List<dynamic> chunks,
         ) {
-          callback.call(visitor, [chunks]);
+          D4.enterInterpreted(visitor, callback, [chunks]);
         });
       },
     },

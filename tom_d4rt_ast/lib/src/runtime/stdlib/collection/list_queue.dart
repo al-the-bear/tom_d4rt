@@ -142,7 +142,7 @@ class ListQueueCollection {
           final action = positionalArgs[0];
           if (action is Callable) {
             for (var element in target) {
-              action.call(visitor, [element]);
+              D4.enterInterpreted(visitor, action, [element]);
             }
             return null;
           }

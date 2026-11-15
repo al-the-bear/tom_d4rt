@@ -1,4 +1,5 @@
 import 'package:tom_d4rt/src/environment.dart';
+import 'package:tom_d4rt/src/generator/d4.dart';
 import 'package:tom_d4rt/src/stdlib/convert/ascii.dart';
 import 'package:tom_d4rt/src/stdlib/convert/base64.dart';
 import 'package:tom_d4rt/src/stdlib/convert/byte_conversion.dart';
@@ -87,7 +88,7 @@ class ConvertStdlib {
             arguments[0],
             toEncodable: toEncodableArg == null
                 ? null
-                : (object) => toEncodableArg.call(visitor, [object]),
+                : (object) => D4.enterInterpreted(visitor, toEncodableArg, [object]),
           );
         },
         arity: 1,
@@ -109,7 +110,7 @@ class ConvertStdlib {
             arguments[0] as String,
             reviver: reviverArg == null
                 ? null
-                : (key, value) => reviverArg.call(visitor, [key, value]),
+                : (key, value) => D4.enterInterpreted(visitor, reviverArg, [key, value]),
           );
         },
         arity: 1,

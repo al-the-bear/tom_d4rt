@@ -19,7 +19,7 @@ class NumCore {
             ? positionalArgs[1] as Callable?
             : null;
         if (onError == null) return num.parse(source);
-        return num.tryParse(source) ?? onError.call(visitor, [source]);
+        return num.tryParse(source) ?? D4.enterInterpreted(visitor, onError, [source]);
       },
       'tryParse': (visitor, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'num.tryParse', atMost: 1);

@@ -6,6 +6,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:tom_d4rt/src/stdlib/convert.dart';
 import 'package:tom_d4rt/src/declared_names.dart';
+import 'package:tom_d4rt/src/execution_run.dart';
 import 'package:tom_d4rt/src/stdlib/isolate.dart';
 import 'package:tom_d4rt/src/stdlib/math.dart';
 import 'package:tom_d4rt/src/stdlib/collection.dart';
@@ -103,6 +104,11 @@ class ModuleLoader {
   bridgedEnumDefinitions;
   final Map<String /*uri*/, Map<String /*name*/, LibraryClass>> bridgedClases;
   final D4rt? d4rt; // Reference to D4rt instance for permission checking
+
+  /// The run this loader loads for when the execution has hooks (GitHub
+  /// #19): its `onImport` sees every library once. (Its permission set is
+  /// consulted by [D4rt.checkPermission], from the run's Zone.)
+  D4rtExecutionContext? executionContext;
 
   /// DFUB1 — base directory for resolving relative filesystem imports.
   ///
@@ -998,6 +1004,7 @@ class ModuleLoader {
     Set<String>? showNames,
     Set<String>? hideNames,
   }) {
+    if (executionContext case final ExecutionRun run) run.checkImport(uri);
     final LoadedModule module;
     _loadDepth++;
     try {

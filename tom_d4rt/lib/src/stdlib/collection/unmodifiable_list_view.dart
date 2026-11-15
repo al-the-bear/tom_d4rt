@@ -186,7 +186,7 @@ class UnmodifiableListViewCollection {
         }
         final test = _callback(positionalArgs[0], 'removeWhere');
         _view(target, 'removeWhere').removeWhere((e) {
-          final result = test.call(visitor, [e]);
+          final result = D4.enterInterpreted(visitor, test, [e]);
           return result is bool && result;
         });
         return null;
@@ -212,7 +212,7 @@ class UnmodifiableListViewCollection {
         }
         final test = _callback(positionalArgs[0], 'retainWhere');
         _view(target, 'retainWhere').retainWhere((e) {
-          final result = test.call(visitor, [e]);
+          final result = D4.enterInterpreted(visitor, test, [e]);
           return result is bool && result;
         });
         return null;
@@ -287,7 +287,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] != null) {
           final comparator = _callback(positionalArgs[0], 'sort');
           compare = (a, b) {
-            final result = comparator.call(visitor, [a, b]);
+            final result = D4.enterInterpreted(visitor, comparator, [a, b]);
             if (result is int) return result;
             throw RuntimeD4rtException(
               "Comparator for 'sort' must return an int.",
@@ -335,7 +335,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final action = positionalArgs[0] as Callable;
           for (var element in t) {
-            action.call(visitor, [element]);
+            D4.enterInterpreted(visitor, action, [element]);
           }
           return null;
         }
@@ -348,7 +348,7 @@ class UnmodifiableListViewCollection {
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final toElement = positionalArgs[0] as Callable;
-          return t.map((e) => toElement.call(visitor, [e]));
+          return t.map((e) => D4.enterInterpreted(visitor, toElement, [e]));
         }
         throw RuntimeD4rtException(
           "Invalid arguments for UnmodifiableListView.map",
@@ -360,7 +360,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
           return t.where((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'where' must return a bool.",
@@ -377,7 +377,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
           return t.any((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'any' must return a bool.",
@@ -394,7 +394,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
           return t.every((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'every' must return a bool.",
@@ -534,12 +534,12 @@ class UnmodifiableListViewCollection {
           final test = positionalArgs[0] as Callable;
           final orElse = namedArgs['orElse'] as Callable?;
           return t.singleWhere((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'singleWhere' must return a bool.",
             );
-          }, orElse: orElse == null ? null : () => orElse.call(visitor, []));
+          }, orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []));
         }
         throw RuntimeD4rtException(
           "Invalid arguments for UnmodifiableListView.singleWhere",
@@ -556,12 +556,12 @@ class UnmodifiableListViewCollection {
           final test = positionalArgs[0] as Callable;
           final orElse = namedArgs['orElse'] as Callable?;
           return t.firstWhere((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'firstWhere' must return a bool.",
             );
-          }, orElse: orElse == null ? null : () => orElse.call(visitor, []));
+          }, orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []));
         }
         throw RuntimeD4rtException(
           "Invalid arguments for UnmodifiableListView.firstWhere",
@@ -578,12 +578,12 @@ class UnmodifiableListViewCollection {
           final test = positionalArgs[0] as Callable;
           final orElse = namedArgs['orElse'] as Callable?;
           return t.lastWhere((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'lastWhere' must return a bool.",
             );
-          }, orElse: orElse == null ? null : () => orElse.call(visitor, []));
+          }, orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []));
         }
         throw RuntimeD4rtException(
           "Invalid arguments for UnmodifiableListView.lastWhere",
@@ -619,7 +619,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
           return t.skipWhile((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'skipWhile' must return a bool.",
@@ -640,7 +640,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final test = positionalArgs[0] as Callable;
           return t.takeWhile((e) {
-            final result = test.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, test, [e]);
             if (result is bool) return result;
             throw RuntimeD4rtException(
               "Test function for 'takeWhile' must return a bool.",
@@ -657,7 +657,7 @@ class UnmodifiableListViewCollection {
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final toElements = positionalArgs[0] as Callable;
           return t.expand((e) {
-            final result = toElements.call(visitor, [e]);
+            final result = D4.enterInterpreted(visitor, toElements, [e]);
             if (result is Iterable) return result;
             throw RuntimeD4rtException(
               "Function for 'expand' must return an Iterable.",
@@ -676,7 +676,7 @@ class UnmodifiableListViewCollection {
           final combine = positionalArgs[1] as Callable;
           return t.fold(
             initialValue,
-            (prev, e) => combine.call(visitor, [prev, e]),
+            (prev, e) => D4.enterInterpreted(visitor, combine, [prev, e]),
           );
         }
         throw RuntimeD4rtException(
@@ -688,7 +688,7 @@ class UnmodifiableListViewCollection {
         final t = target as UnmodifiableListView;
         if (positionalArgs.length == 1 && positionalArgs[0] is Callable) {
           final combine = positionalArgs[0] as Callable;
-          return t.reduce((prev, e) => combine.call(visitor, [prev, e]));
+          return t.reduce((prev, e) => D4.enterInterpreted(visitor, combine, [prev, e]));
         }
         throw RuntimeD4rtException(
           "Invalid arguments for UnmodifiableListView.reduce",

@@ -30,4 +30,6 @@ T? runAction<T>(
   InterpreterVisitor visitor,
   Callable? function,
   List<Object?> args,
-) => function?.call(visitor, args) as T?;
+) => (function == null
+    ? null
+    : D4.enterInterpreted(visitor, function, args) as T?);

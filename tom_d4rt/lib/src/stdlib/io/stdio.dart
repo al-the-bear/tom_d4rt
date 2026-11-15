@@ -182,9 +182,12 @@ class IoStdioStdlib {
     environment.defineBridge(StdinIo.definition);
     environment.defineBridge(StdoutIo.definition);
     environment.defineBridge(StdioTypeIo.definition);
-    environment.define('stdin', stdin);
-    environment.define('stdout', stdout);
-    environment.define('stderr', stderr);
+    // Read on each access, not at registration: `stdout` / `stderr` follow
+    // the IOOverrides of the Zone the script runs in, so a run with an output
+    // capture (GitHub #19) writes to its own sinks.
+    environment.define('stdin', GlobalGetter(() => stdin));
+    environment.define('stdout', GlobalGetter(() => stdout));
+    environment.define('stderr', GlobalGetter(() => stderr));
 
     // `stdioType` is the only way to obtain a StdioType, so registering the
     // class without it left the type inert — nothing could produce a value.

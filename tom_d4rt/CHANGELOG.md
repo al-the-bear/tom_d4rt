@@ -1,3 +1,39 @@
+## 1.264.0
+
+### Added — per-execution hooks (GitHub #19)
+
+`hooks: D4rtExecutionHooks(...)` on `execute`, `continuedExecute`, `executeProgram` and their
+async variants (or `D4rt.executionHooks`
+for every execution without its own) gives the execution a
+`D4rtExecutionContext`: `onStart` may refuse the run before any import or
+script code ran (`D4rtExecutionRejectedException`), `onImport` sees each
+library it loads, `onEnd` the entry function's outcome, `onError` its uncaught
+errors (the runner-wide `onUncaughtError` stays the fallback). Every call of
+interpreted code from native code - converted callbacks
+(`D4.callInterpreterCallback`), the standard library's callbacks, generated
+proxies (kind `proxyMethod`) and the entry function - passes the new
+`D4.enterInterpreted` and with it `onEntry` (every entry, `isNested` telling
+nested ones) and `onNativeEntry` (entries from native code). `revoke(reason,
+[grace])` refuses new native entries (`D4rtExecutionRevokedException`, or a
+substitute value a hook answers) while accepted work - the running entry, its
+continuations, the tasks it scheduled - finishes; capability bridges ask
+`mayUseCapabilities` / `checkCapabilityUse()`. `D4rtTracking` decides what
+`drained` / `onDrained` wait for (entries, timers, periodic timers,
+microtasks; presets `entriesOnly`, `entriesAndTimers`, `everything`,
+`everythingCancelOnRevoke`), with `revokeAndDrain`,
+`D4rtExecutionHooks.merge` and `.trackingOnly`. A run may narrow the granted
+permissions (`permissions:`, `revokePermission`) and capture its own output
+(`D4rtOutput`: `print`, and `dart:io` `stdout` / `stderr` through
+`IOOverrides` - which is why `stdout`, `stderr` and `stdin` are now read on
+each access instead of at registration). Accepted native entries run in the
+run's Zone (`zoneSpecification`, `zoneValues`), so a callback fired from
+another Zone runs in it; `D4rtExecutionContext.of(visitor)` / `.current` and
+`D4rtEntry.current` find the run. Several runs on one `D4rt` keep their own
+contexts. Without hooks nothing changes: one null check per entry and per run,
+no extra Zone. Documented in `doc/execution_hooks.md`.
+
+Name resolution: no.
+
 ## 1.263.0
 
 ### Fixed — an extension holds a getter and a setter of one name

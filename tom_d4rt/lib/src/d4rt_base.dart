@@ -16,6 +16,8 @@ import 'package:tom_d4rt/src/static_name_report.dart';
 import 'package:tom_d4rt/src/interpreter_visitor.dart';
 import 'package:tom_d4rt/src/module_loader.dart';
 import 'package:tom_d4rt/src/exceptions.dart';
+import 'package:tom_d4rt/src/execution_hooks.dart';
+import 'package:tom_d4rt/src/execution_run.dart';
 import 'package:tom_d4rt/src/callable.dart';
 import 'package:tom_d4rt/src/declaration_visitor.dart';
 import 'package:tom_d4rt/src/generator/d4.dart';
@@ -1469,6 +1471,16 @@ class D4rt {
   /// ```
   void Function(Object error, StackTrace stackTrace)? onUncaughtError;
 
+  /// The per-execution hooks (GitHub #19) of every execution that does not
+  /// pass its own `hooks:`; null: executions without hooks, unchanged.
+  ///
+  /// Each execution with hooks gets a [D4rtExecutionContext]: `onStart` may
+  /// refuse it, `onImport` sees its libraries, every entry of interpreted code
+  /// from native code passes `onEntry`, `revoke()` refuses new entries while
+  /// accepted work finishes, `drained` says when nothing of it is pending.
+  /// See `doc/execution_hooks.md`.
+  D4rtExecutionHooks? executionHooks;
+
   /// Enables or disables debug logging for the interpreter.
   ///
   /// When enabled, the interpreter will output detailed information about
@@ -1723,7 +1735,18 @@ class D4rt {
   ///
   /// [operation] The operation to check permissions for.
   /// Returns true if any granted permission allows the operation.
+  ///
+  /// Inside an execution with hooks (GitHub #19) the run's own permission set
+  /// narrows the granted one.
   bool checkPermission(dynamic operation) {
+    final run = currentExecutionRun();
+    if (run is ExecutionRun && identical(run.owner, this)) {
+      return run.checkPermission(operation);
+    }
+    return _checkGrantedPermission(operation);
+  }
+
+  bool _checkGrantedPermission(dynamic operation) {
     for (final permission in _grantedPermissions) {
       if (permission.allows(operation)) {
         return true;
@@ -2016,6 +2039,7 @@ class D4rt {
     Map<String, String>? sources,
     String? basePath,
     bool allowFileSystemImports = false,
+    D4rtExecutionHooks? hooks,
   }) {
     // Handle deprecated args parameter
     if (args != null && positionalArgs != null) {
@@ -2041,9 +2065,12 @@ class D4rt {
       D4rtProfiler.record('execute._initModule', swInit!.elapsedMicroseconds);
     }
 
+    final run = _createRun(hooks, library ?? 'execute:$name');
+    _moduleLoader.executionContext = run;
+
     // Parse the source
     final swParse = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;
-    final compilationUnit = _parseSource(source: source, library: library);
+    final compilationUnit = _parseRoot(run, source: source, library: library);
     if (D4rtProfiler.enabled) {
       D4rtProfiler.record('execute._parseSource', swParse!.elapsedMicroseconds);
     }
@@ -2053,6 +2080,7 @@ class D4rt {
 
     // Execute and return result
     return _executeInEnvironment(
+      run: run,
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
       name: name,
@@ -2104,6 +2132,7 @@ class D4rt {
     List<Object?>? positionalArgs,
     Map<String, Object?>? namedArgs,
     String? library,
+    D4rtExecutionHooks? hooks,
   }) {
     if (!_hasExecutedOnce) {
       throw RuntimeD4rtException(
@@ -2115,14 +2144,18 @@ class D4rt {
       "[D4rt.continuedExecute] Continuing execution in existing context. library: $library",
     );
 
+    final run = _createRun(hooks, library ?? 'continuedExecute:$name');
+    _moduleLoader.executionContext = run;
+
     // Parse the source (reuses existing module loader for library resolution)
-    final compilationUnit = _parseSource(source: source, library: library);
+    final compilationUnit = _parseRoot(run, source: source, library: library);
 
     // Reuse existing environment - don't register globals again
     final executionEnvironment = _moduleLoader.scriptEnvironment;
 
     // Execute and return result
     return _executeInEnvironment(
+      run: run,
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
       name: name,
@@ -2168,6 +2201,7 @@ class D4rt {
     Map<String, Object?>? namedArgs,
     Map<String, String>? sources,
     bool allowFileSystemImports = false,
+    D4rtExecutionHooks? hooks,
   }) {
     _moduleLoader = _initModule(
       sources,
@@ -2199,6 +2233,7 @@ class D4rt {
     Map<String, String>? sources,
     String? basePath,
     bool allowFileSystemImports = false,
+    D4rtExecutionHooks? hooks,
   }) async {
     final Object? result = execute(
       source: source,
@@ -2209,6 +2244,7 @@ class D4rt {
       sources: sources,
       basePath: basePath,
       allowFileSystemImports: allowFileSystemImports,
+      hooks: hooks,
     );
     return result is Future ? await result : result;
   }
@@ -2229,6 +2265,7 @@ class D4rt {
     Map<String, String>? sources,
     String? basePath,
     bool allowFileSystemImports = false,
+    D4rtExecutionHooks? hooks,
   }) async {
     final Object? result = execute(
       source: source,
@@ -2239,6 +2276,7 @@ class D4rt {
       sources: sources,
       basePath: basePath,
       allowFileSystemImports: allowFileSystemImports,
+      hooks: hooks,
     );
     final runVisitor = _visitor;
     final resolved = result is Future ? await result : result;
@@ -2254,6 +2292,7 @@ class D4rt {
     Map<String, Object?>? namedArgs,
     Map<String, String>? sources,
     bool allowFileSystemImports = false,
+    D4rtExecutionHooks? hooks,
   }) async {
     final Object? result = executeProgram(
       program,
@@ -2262,8 +2301,39 @@ class D4rt {
       namedArgs: namedArgs,
       sources: sources,
       allowFileSystemImports: allowFileSystemImports,
+      hooks: hooks,
     );
     return result is Future ? await result : result;
+  }
+
+  /// The run of one execution with [hooks] (GitHub #19); null without.
+  ExecutionRun? _createRun(D4rtExecutionHooks? hooks, String entryUri) {
+    final effective = hooks ?? executionHooks;
+    if (effective == null) return null;
+    return ExecutionRun(
+      hooks: effective,
+      entryUri: entryUri,
+      runnerCheck: _checkGrantedPermission,
+      runnerGranted: () => _grantedPermissions,
+      owner: this,
+    );
+  }
+
+  /// [_parseSource] for an execution's root. A `library:` root is loaded by
+  /// the module loader, which processes its imports, so a [run] starts first
+  /// and the load happens in its Zones.
+  CompilationUnit _parseRoot(
+    ExecutionRun? run, {
+    String? source,
+    String? library,
+  }) {
+    if (run == null || library == null) {
+      return _parseSource(source: source, library: library);
+    }
+    return run.forkExecutionZones().run(() {
+      run.start();
+      return _parseSource(source: source, library: library);
+    });
   }
 
   CompilationUnit _parseSource({String? source, String? library}) {
@@ -2422,7 +2492,7 @@ class D4rt {
 
   /// The specification behind [_forkScriptZone], split out because its two
   /// halves answer to different constraints.
-  ZoneSpecification _scriptZoneSpecification() {
+  ZoneSpecification _scriptZoneSpecification([ExecutionRun? run]) {
     // Unconditional: shed the wrapper as the callback throws, which needs no
     // error zone. `errorCallback` below covers the one shape these cannot
     // reach; see [unwrapScriptError], which stays the documented remedy for a
@@ -2502,8 +2572,10 @@ class D4rt {
       return AsyncError(unwrapped, stackTrace ?? StackTrace.current);
     }
 
-    // Conditional: this is the error-zone half.
-    if (onUncaughtError == null) {
+    // Conditional: this is the error-zone half. A run's own `onError`
+    // (GitHub #19) takes its uncaught errors; the runner-wide
+    // [onUncaughtError] stays the fallback.
+    if (onUncaughtError == null && run?.hooks.onError == null) {
       return ZoneSpecification(
         registerCallback: registerCallback,
         registerUnaryCallback: registerUnaryCallback,
@@ -2518,6 +2590,14 @@ class D4rt {
       errorCallback: errorCallback,
       handleUncaughtError: (self, parent, zone, error, stackTrace) {
         final scriptError = unwrapScriptError(error);
+        if (run != null) {
+          try {
+            if (run.reportError(scriptError, stackTrace)) return;
+          } catch (hookError, hookStack) {
+            parent.handleUncaughtError(zone, hookError, hookStack);
+            return;
+          }
+        }
         final hook = onUncaughtError;
         if (hook == null) {
           // The field was cleared after the fork. Behave as the no-hook path.
@@ -2554,6 +2634,7 @@ class D4rt {
   }
 
   dynamic _executeInEnvironment({
+    ExecutionRun? run,
     required CompilationUnit compilationUnit,
     required Environment executionEnvironment,
     required String name,
@@ -2562,7 +2643,8 @@ class D4rt {
     String? library,
   }) {
     _lastErrorTrace = const [];
-    run() => _executeInEnvironmentInZone(
+    body() => _executeInEnvironmentInZone(
+      run: run,
       compilationUnit: compilationUnit,
       executionEnvironment: executionEnvironment,
       name: name,
@@ -2573,10 +2655,20 @@ class D4rt {
 
     // The zone is always forked — its `register*Callback` half sheds the
     // interpreter's internal wrapper and costs no change in error routing. The
-    // error-zone half is opt-in; see [_forkScriptZone].
-    final zone = _forkScriptZone();
-    final result = zone.run(run);
-    if (onUncaughtError == null) return result;
+    // error-zone half is opt-in; see [_forkScriptZone]. An execution with
+    // hooks forks its own Zones first (the embedder's specifications, task
+    // tracking, output capture) and the script Zone below them.
+    final Zone zone;
+    if (run == null) {
+      zone = _forkScriptZone();
+    } else {
+      zone = run.forkExecutionZones().fork(
+        specification: _scriptZoneSpecification(run),
+      );
+      run.scriptZone = zone;
+    }
+    final result = zone.run(body);
+    if (onUncaughtError == null && run?.hooks.onError == null) return result;
     if (result is! Future) return result;
 
     // The script's own failures still belong to the caller, but the caller
@@ -2658,6 +2750,7 @@ class D4rt {
   }
 
   dynamic _executeInEnvironmentInZone({
+    ExecutionRun? run,
     required CompilationUnit compilationUnit,
     required Environment executionEnvironment,
     required String name,
@@ -2708,6 +2801,15 @@ class D4rt {
         '_executeInEnvironment.visitorBuild',
         swResolve!.elapsedMicroseconds,
       );
+    }
+
+    // GitHub #19: the run starts once the bridges, pass 1 and the visitor are
+    // ready and before any import or script code runs (a `library:` root
+    // started it before its load); `onStart` refusing it throws
+    // [D4rtExecutionRejectedException] straight to the host.
+    if (run != null) {
+      _visitor!.executionContext = run;
+      run.start();
     }
     Object? functionResult;
     try {
@@ -2875,11 +2977,22 @@ class D4rt {
           "[_executeInEnvironment] Calling '$name' with positionalArgs: $interpreterArgs, namedArgs: $interpreterNamedArgs",
         );
 
-        functionResult = functionCallable.call(
-          _visitor!,
-          interpreterArgs,
-          interpreterNamedArgs,
-        );
+        final visitor = _visitor!;
+        functionResult = run == null
+            ? functionCallable.call(
+                visitor,
+                interpreterArgs,
+                interpreterNamedArgs,
+              )
+            : run.runEntryFunction(
+                name,
+                () => functionCallable.call(
+                  visitor,
+                  interpreterArgs,
+                  interpreterNamedArgs,
+                ),
+                _bridgeInterpreterValueToNative,
+              );
       } else {
         throw RuntimeD4rtException(
           "No callable '$name' function found in the test source code.",
@@ -2892,6 +3005,7 @@ class D4rt {
       // SDK-shaped errors, and the interpreted-`throw` carrier used to be named
       // here one by one; the boundary now states one rule, so a reader no
       // longer has to check a list to predict what crosses it.
+      run?.endWithError(unwrapScriptError(e), s);
       _toHost(e, s);
     }
     if (functionResult is InterpretedInstance) {

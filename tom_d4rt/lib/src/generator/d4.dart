@@ -14,6 +14,8 @@ import '../bridge/registration.dart'
     show BridgedMethodAdapter, BridgedStaticMethodAdapter;
 import '../callable.dart';
 import '../exceptions.dart';
+import '../execution_hooks.dart';
+import '../execution_run.dart';
 import '../interpreter_visitor.dart';
 import '../runtime_interfaces.dart';
 import '../runtime_types.dart';
@@ -2813,12 +2815,14 @@ class D4 {
     Map<String, Object?> namedArgs = const {},
   ]) {
     final Object? result;
-    if (callback is InterpretedFunction) {
-      result = callback.call(visitor, args, namedArgs);
-    } else if (callback is NativeFunction) {
+    if (callback is NativeFunction) {
       result = callback.call(visitor, args, namedArgs);
     } else if (callback is Callable) {
-      result = callback.call(visitor, args, namedArgs);
+      // InterpretedFunction and the other interpreted callables: an entry of
+      // interpreted code from native code (GitHub #19).
+      result = visitor.executionContext == null
+          ? callback.call(visitor, args, namedArgs)
+          : enterInterpreted(visitor, callback, args, namedArgs);
     } else if (callback is Function) {
       // 1401-TODO #8 (F5/F6): plain native Dart function. Happens when
       // the framework hands a typed callback (e.g. `TickerCallback =
@@ -2847,6 +2851,45 @@ class D4 {
     }
     return unwrapInterpreterValue(result);
   }
+
+  /// Calls the interpreted [callable] from native code as one entry of the
+  /// execution [visitor] runs for (GitHub #19, per-execution hooks).
+  ///
+  /// Without hooks this is `callable.call(visitor, args, namedArgs)`. With
+  /// hooks the entry passes `onEntry` (and, unless interpreted code of the run
+  /// is on the stack, `onNativeEntry`), is refused after `revoke()` unless it
+  /// runs on behalf of work accepted before, is counted while pending, and an
+  /// accepted native entry runs in a child Zone of the run carrying it
+  /// ([D4rtEntry.current]). The result is returned as the callable gave it
+  /// (not unwrapped; [callInterpreterCallback] unwraps).
+  ///
+  /// Generated proxies call this with [kind] [D4rtEntryKind.proxyMethod] and
+  /// [name] `Class.member`; [callInterpreterCallback] calls it for every
+  /// interpreted callback. Inlined, so without hooks a call site pays one
+  /// field read and a type test (§14 of the specification).
+  @pragma('vm:prefer-inline')
+  static Object? enterInterpreted(
+    InterpreterVisitor visitor,
+    Callable callable,
+    List<Object?> args, [
+    Map<String, Object?> namedArgs = const {},
+    D4rtEntryKind kind = D4rtEntryKind.callback,
+    String? name,
+  ]) {
+    final run = visitor.executionContext;
+    if (run is! ExecutionRun) return callable.call(visitor, args, namedArgs);
+    return run.enter(
+      kind,
+      name ?? _entryName(callable),
+      visitor.callStack.depth > 0,
+      () => callable.call(visitor, args, namedArgs),
+    );
+  }
+
+  static String _entryName(Callable callable) => switch (callable) {
+    InterpretedFunction(:final entryName) => entryName ?? '<closure>',
+    _ => callable.runtimeType.toString(),
+  };
 
   /// ENG-011: Safely cast a callback result to the expected type [R].
   ///

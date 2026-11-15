@@ -188,7 +188,17 @@ Set<String> _namedArguments(String source, String function) {
 /// `D4rtRunner`, so "record it" would have meant writing down that a working
 /// capability is unreachable through the facade. An entry here needs a reason
 /// that survives being read aloud.
-const _expectedClassAbsences = <String, String>{};
+///
+/// One entry, temporary: `executionHooks` (ghfeatures1, GitHub #19) exists on
+/// the working tree's `D4rtRunner`, but exec resolves tom_d4rt_ast 0.243.0
+/// from pub.dev, which has no `D4rtExecutionHooks`, so a forward would not
+/// compile. ghfeatures1000 forwards it (and `hooks:`) once 0.244.0 is
+/// published, and removes this entry.
+const _expectedClassAbsences = <String, String>{
+  'executionHooks':
+      'per-execution hooks (ghfeatures1) are in tom_d4rt_ast 0.244.0, not yet '
+      'published; ghfeatures1000 forwards them',
+};
 
 /// Members this facade adds that the reference does not have.
 ///

@@ -25,6 +25,7 @@ For information on bridging Dart classes and functions to the interpreter, see t
 - [The Standard Library](#the-standard-library)
 - [Imports and Library URIs](#imports-and-library-uris)
 - [Security and Permissions](#security-and-permissions)
+- [Per-Execution Hooks](#per-execution-hooks)
 - [Observing Errors That Escape a Callback](#observing-errors-that-escape-a-callback)
 - [Script Structure Requirements](#script-structure-requirements)
 - [Advanced Topics](#advanced-topics)
@@ -594,6 +595,19 @@ if (d4rt.hasPermission(FilesystemPermission.any)) {
 // Revoke permissions
 d4rt.revoke(NetworkPermission.any);
 ```
+
+---
+
+## Per-Execution Hooks
+
+`hooks: D4rtExecutionHooks(...)` on an execute method (or
+`D4rt.executionHooks` for all) gives the execution a `D4rtExecutionContext`:
+`onStart` may refuse the run, `onImport` sees its libraries, every call of
+script code from native code passes `onEntry`, `revoke()` refuses new calls
+while accepted work finishes, `drained` says when nothing of it is pending,
+and a run may narrow the granted permissions and capture its own output.
+Without hooks nothing changes. See
+[Embedding: per-execution hooks](execution_hooks.md).
 
 ---
 

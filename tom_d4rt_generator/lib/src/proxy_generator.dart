@@ -168,6 +168,12 @@ class ProxyGenerationInfo {
   /// `nativeProxy`), and its overridable members carry a re-entry guard.
   final bool isReceiver;
 
+  /// GitHub #19: the proxy calls the script through `D4.enterInterpreted`
+  /// (kind `proxyMethod`), so its calls are entries of the run with hooks.
+  /// False when the project's interpreter predates it
+  /// ([entryInterpreterFloors]); the proxy then calls `.call(visitor, ...)`.
+  final bool usesEntries;
+
   const ProxyGenerationInfo({
     required this.className,
     required this.proxyName,
@@ -180,6 +186,7 @@ class ProxyGenerationInfo {
     this.instantiations = const [],
     this.instantiationProxyNames = const [],
     this.isReceiver = false,
+    this.usesEntries = false,
   });
 }
 
@@ -259,6 +266,13 @@ Future<ProxyGenerationResult> generateProxies({
   );
   bool isReceiver(String className) =>
       receiversSupported && config.isReceiverProxy(className);
+  // GitHub #19: proxies enter the script through `D4.enterInterpreted` when
+  // the project's interpreter has it ([entryInterpreterFloors]).
+  final entriesSupported = interpreterAtLeast(
+    projectPath,
+    config.d4rtImport,
+    entryInterpreterFloors,
+  );
 
   // Set up the analyzer context for the project.
   final absoluteProjectPath = analysisIncludedPath(projectPath);
@@ -631,6 +645,7 @@ Future<ProxyGenerationResult> generateProxies({
         instantiations: instantiations,
         instantiationProxyNames: instantiationNames,
         isReceiver: receiver,
+        usesEntries: entriesSupported,
       ),
     );
 
@@ -696,12 +711,30 @@ const Map<String, String> receiverInterpreterFloors = {
 /// unreadable resolution, an older version or another package (e.g.
 /// `tom_d4rt_exec`, whose D4 comes from the tom_d4rt_ast it resolves) is
 /// `false`, so the generated file never calls an API its interpreter lacks.
-bool interpreterSupportsReceivers(String projectPath, String? d4rtImport) {
+bool interpreterSupportsReceivers(String projectPath, String? d4rtImport) =>
+    interpreterAtLeast(projectPath, d4rtImport, receiverInterpreterFloors);
+
+/// GitHub #19: the first interpreter versions with `D4.enterInterpreted` and
+/// `D4rtEntryKind`.
+const Map<String, String> entryInterpreterFloors = {
+  'tom_d4rt': '1.264.0',
+  'tom_d4rt_ast': '0.244.0',
+};
+
+/// Whether the interpreter [d4rtImport] names, as [projectPath] resolves it,
+/// is at least the version [floors] gives for its package (see
+/// [interpreterSupportsReceivers]); an unreadable resolution or a package
+/// without a floor is `false`.
+bool interpreterAtLeast(
+  String projectPath,
+  String? d4rtImport,
+  Map<String, String> floors,
+) {
   // A config without `d4rtImport` generates for tom_d4rt (file_generators).
   final import = d4rtImport ?? 'package:tom_d4rt/d4rt.dart';
   final match = RegExp(r'^package:([a-z0-9_]+)/').firstMatch(import);
   final package = match?.group(1);
-  final floor = receiverInterpreterFloors[package];
+  final floor = floors[package];
   if (package == null || floor == null) return false;
   final configFile = File(
     p.join(projectPath, '.dart_tool', 'package_config.json'),
@@ -1226,6 +1259,7 @@ void _generateFactoryCallbacks(
     _generateFactoryCallback(
       callbacks,
       method,
+      proxy: proxy,
       isRequired: true,
       typeParameterNames: proxy.typeParameterNames,
       typeParameterReplacements: typeParameterReplacements,
@@ -1236,6 +1270,7 @@ void _generateFactoryCallbacks(
     _generateFactoryCallback(
       callbacks,
       method,
+      proxy: proxy,
       isRequired: false,
       typeParameterNames: proxy.typeParameterNames,
       typeParameterReplacements: typeParameterReplacements,
@@ -1291,6 +1326,7 @@ Future<String?> _findTypeImportUri(
 void _generateFactoryCallback(
   StringBuffer buffer,
   _AbstractMethodInfo method, {
+  required ProxyGenerationInfo proxy,
   required bool isRequired,
   List<String> typeParameterNames = const [],
   List<String> typeParameterReplacements = const [],
@@ -1298,6 +1334,7 @@ void _generateFactoryCallback(
   final callbackName = method.callbackName;
   final methodName = method.name;
   final isVoid = method.returnType == 'void';
+  final entry = proxy.usesEntries ? '${proxy.className}.$methodName' : null;
 
   // Erase class type parameters (e.g. T → dynamic/Object) since the factory
   // closure is not inside the generic class scope. GEN-118b: erase to the
@@ -1319,7 +1356,12 @@ void _generateFactoryCallback(
     // Getter callback
     if (isRequired) {
       buffer.writeln('      $callbackName: () {');
-      _generateGetterDelegation(buffer, methodName, erasedExtractionReturnType);
+      _generateGetterDelegation(
+        buffer,
+        methodName,
+        erasedExtractionReturnType,
+        entry: entry,
+      );
       buffer.writeln('      },');
     } else {
       // Overridable getter — only wire if interpreted class has it
@@ -1327,7 +1369,12 @@ void _generateFactoryCallback(
         "      $callbackName: instance.klass.findInstanceGetter('$methodName') != null",
       );
       buffer.writeln('          ? () {');
-      _generateGetterDelegation(buffer, methodName, erasedExtractionReturnType);
+      _generateGetterDelegation(
+        buffer,
+        methodName,
+        erasedExtractionReturnType,
+        entry: entry,
+      );
       buffer.writeln('          }');
       buffer.writeln('          : null,');
     }
@@ -1350,6 +1397,7 @@ void _generateFactoryCallback(
         argList,
         namedArgMap,
         isVoid: isVoid,
+        entry: entry,
       );
       buffer.writeln('      },');
     } else {
@@ -1365,6 +1413,7 @@ void _generateFactoryCallback(
         argList,
         namedArgMap,
         isVoid: isVoid,
+        entry: entry,
       );
       buffer.writeln('          }');
       buffer.writeln('          : null,');
@@ -1491,15 +1540,16 @@ String _stripParamName(String chunk) {
 void _generateGetterDelegation(
   StringBuffer buffer,
   String getterName,
-  String returnType,
-) {
+  String returnType, {
+  String? entry,
+}) {
   final isVoid = returnType == 'void';
   buffer.writeln(
     "        final getter = instance.klass.findInstanceGetter('$getterName');",
   );
   buffer.writeln('        if (getter != null) {');
   buffer.writeln(
-    '          final result = getter.bind(instance).call(visitor, [], {});',
+    '          final result = ${_interpretedCall('getter.bind(instance)', '', '', entry)};',
   );
   if (isVoid) {
     buffer.writeln('          return;');
@@ -1510,6 +1560,7 @@ void _generateGetterDelegation(
       'result',
       getterName,
       indent: '          ',
+      entry: entry,
     );
   }
   buffer.writeln('        }');
@@ -1525,6 +1576,7 @@ void _generateGetterDelegation(
       'field',
       getterName,
       indent: '          ',
+      entry: entry,
     );
   }
   buffer.writeln('        } catch (_) {}');
@@ -1578,6 +1630,7 @@ void _emitTypedReturn(
   String resultVar,
   String memberName, {
   required String indent,
+  String? entry,
 }) {
   // VSTDM3: an interpreted `async` method returns `Future<Object?>` whatever
   // it declares, and `extractBridgedArg` cannot make that a `Future<T>`. Map
@@ -1638,12 +1691,14 @@ void _emitTypedReturn(
   final argList = wp.argNames.join(', ');
   if (fn.returnType == 'void') {
     buffer.writeln('$indent   return ${wp.params} {');
-    buffer.writeln("$indent     _callable.call(visitor, [$argList], {});");
+    buffer.writeln(
+      "$indent     ${_interpretedCall('_callable', argList, '', entry, callback: true)};",
+    );
     buffer.writeln('$indent   };');
   } else {
     buffer.writeln('$indent   return ${wp.params} {');
     buffer.writeln(
-      "$indent     final _out = _callable.call(visitor, [$argList], {});",
+      "$indent     final _out = ${_interpretedCall('_callable', argList, '', entry, callback: true)};",
     );
     // Bug-47b: Dart-script list literals return `List<dynamic>` whose
     // elements may still be `BridgedInstance<Object>` wrappers. When the
@@ -1681,6 +1736,24 @@ void _emitTypedReturn(
   );
 }
 
+/// The expression a proxy calls the script with: `callable.call(visitor,
+/// [args], {named})`, or, when the proxy enters the run ([entry] set; GitHub
+/// #19), `D4.enterInterpreted(...)` with kind `proxyMethod` and the entry
+/// name `Class.member` ([callback]: a function the member returned, kind
+/// `callback`).
+String _interpretedCall(
+  String callable,
+  String args,
+  String named,
+  String? entry, {
+  bool callback = false,
+}) {
+  if (entry == null) return '$callable.call(visitor, [$args], {$named})';
+  final kind = callback ? 'callback' : 'proxyMethod';
+  return 'D4.enterInterpreted(visitor, $callable, [$args], {$named}, '
+      "D4rtEntryKind.$kind, '$entry')";
+}
+
 /// Generates code to delegate a method call to the interpreted instance.
 void _generateMethodDelegation(
   StringBuffer buffer,
@@ -1689,13 +1762,14 @@ void _generateMethodDelegation(
   String argList,
   String namedArgMap, {
   required bool isVoid,
+  String? entry,
 }) {
   buffer.writeln(
     "        final method = instance.klass.findInstanceMethod('$methodName');",
   );
   buffer.writeln('        if (method != null) {');
   buffer.writeln(
-    '          final result = method.bind(instance).call(visitor, [$argList], {$namedArgMap});',
+    '          final result = ${_interpretedCall('method.bind(instance)', argList, namedArgMap, entry)};',
   );
   if (isVoid) {
     buffer.writeln('          return;');
@@ -1708,6 +1782,7 @@ void _generateMethodDelegation(
       'result',
       methodName,
       indent: '          ',
+      entry: entry,
     );
   }
   buffer.writeln('        }');

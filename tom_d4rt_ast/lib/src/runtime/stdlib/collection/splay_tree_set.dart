@@ -23,7 +23,7 @@ int Function(dynamic, dynamic)? _asComparator(
     );
   }
   return (a, b) {
-    final result = argument.call(visitor, [a, b]);
+    final result = D4.enterInterpreted(visitor, argument, [a, b]);
     if (result is int) return result;
     throw RuntimeD4rtException("Compare function must return an int.");
   };
@@ -163,7 +163,7 @@ class SplayTreeSetCollection {
           final action = positionalArgs[0];
           if (action is Callable) {
             for (var element in target) {
-              action.call(visitor, [element]);
+              D4.enterInterpreted(visitor, action, [element]);
             }
             return null;
           }
@@ -220,7 +220,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             target.removeWhere((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
             return null;
@@ -239,7 +239,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             target.retainWhere((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
             return null;
@@ -258,7 +258,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             return target.any((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
           }
@@ -274,7 +274,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             return target.every((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
           }
@@ -290,7 +290,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             return target.where((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
           }
@@ -305,7 +305,7 @@ class SplayTreeSetCollection {
         if (target is SplayTreeSet && positionalArgs.length == 1) {
           final f = positionalArgs[0];
           if (f is Callable) {
-            return target.map((element) => f.call(visitor, [element]));
+            return target.map((element) => D4.enterInterpreted(visitor, f, [element]));
           }
           throw RuntimeD4rtException(
             "Argument to SplayTreeSet.map must be a function.",
@@ -319,7 +319,7 @@ class SplayTreeSetCollection {
           final f = positionalArgs[0];
           if (f is Callable) {
             return target.expand((element) {
-              final result = f.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, f, [element]);
               return result is Iterable ? result : [];
             });
           }
@@ -338,7 +338,7 @@ class SplayTreeSetCollection {
             return target.fold(
               initialValue,
               (previousValue, element) =>
-                  combine.call(visitor, [previousValue, element]),
+                  D4.enterInterpreted(visitor, combine, [previousValue, element]),
             );
           }
           throw RuntimeD4rtException(
@@ -353,7 +353,7 @@ class SplayTreeSetCollection {
           final combine = positionalArgs[0];
           if (combine is Callable) {
             return target.reduce(
-              (value, element) => combine.call(visitor, [value, element]),
+              (value, element) => D4.enterInterpreted(visitor, combine, [value, element]),
             );
           }
           throw RuntimeD4rtException(
@@ -412,7 +412,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             return target.takeWhile((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
           }
@@ -430,7 +430,7 @@ class SplayTreeSetCollection {
           final test = positionalArgs[0];
           if (test is Callable) {
             return target.skipWhile((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
             });
           }
@@ -449,9 +449,9 @@ class SplayTreeSetCollection {
           final orElse = namedArgs['orElse'] as Callable?;
           if (test is Callable) {
             return target.firstWhere((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
-            }, orElse: orElse == null ? null : () => orElse.call(visitor, []));
+            }, orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []));
           }
           throw RuntimeD4rtException(
             "Argument to SplayTreeSet.firstWhere must be a function.",
@@ -468,9 +468,9 @@ class SplayTreeSetCollection {
           final orElse = namedArgs['orElse'] as Callable?;
           if (test is Callable) {
             return target.lastWhere((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
-            }, orElse: orElse == null ? null : () => orElse.call(visitor, []));
+            }, orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []));
           }
           throw RuntimeD4rtException(
             "Argument to SplayTreeSet.lastWhere must be a function.",
@@ -487,9 +487,9 @@ class SplayTreeSetCollection {
           final orElse = namedArgs['orElse'] as Callable?;
           if (test is Callable) {
             return target.singleWhere((element) {
-              final result = test.call(visitor, [element]);
+              final result = D4.enterInterpreted(visitor, test, [element]);
               return result is bool && result;
-            }, orElse: orElse == null ? null : () => orElse.call(visitor, []));
+            }, orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []));
           }
           throw RuntimeD4rtException(
             "Argument to SplayTreeSet.singleWhere must be a function.",

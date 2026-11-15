@@ -6,6 +6,8 @@ import 'package:tom_d4rt_ast/src/runtime/runtime_interfaces.dart'
 import 'package:tom_d4rt_ast/src/runtime/d4rt_runner.dart';
 import 'package:tom_d4rt_ast/src/runtime/declaration_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/exceptions.dart';
+import 'package:tom_d4rt_ast/src/runtime/execution_hooks.dart';
+import 'package:tom_d4rt_ast/src/runtime/execution_run.dart';
 import 'package:tom_d4rt_ast/src/runtime/interpreter_visitor.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 import 'package:tom_d4rt_ast/src/runtime/node_source.dart';
@@ -151,8 +153,16 @@ class AstModuleLoader implements ModuleContext {
   /// Lets the runner expose a debug build counter for the reuse unit test.
   final void Function()? onBridgedModuleEnvBuilt;
 
+  /// The run this loader loads for when the execution has hooks (GitHub
+  /// #19): its `onImport` sees every library once, and its own permission
+  /// set narrows the runner's.
+  D4rtExecutionContext? executionContext;
+
   @override
   bool checkPermission(dynamic operation) {
+    if (executionContext case final ExecutionRun run) {
+      return run.checkPermission(operation);
+    }
     return runner.checkPermission(operation);
   }
 
@@ -234,6 +244,7 @@ class AstModuleLoader implements ModuleContext {
     Set<String>? showNames,
     Set<String>? hideNames,
   }) {
+    if (executionContext case final ExecutionRun run) run.checkImport(uri);
     final LoadedModule module;
     _loadDepth++;
     try {

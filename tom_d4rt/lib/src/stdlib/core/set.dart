@@ -137,7 +137,7 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.removeWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as Set).removeWhere((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
         return null;
       },
@@ -150,7 +150,7 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.retainWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as Set).retainWhere((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
         return null;
       },
@@ -165,7 +165,7 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.forEach', atMost: 1);
         final action = positionalArgs[0] as Callable;
         for (var element in (target as Set)) {
-          action.call(visitor, [element]);
+          D4.enterInterpreted(visitor, action, [element]);
         }
         return null;
       },
@@ -173,14 +173,14 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.map', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Set).map((element) {
-          return f.call(visitor, [element]);
+          return D4.enterInterpreted(visitor, f, [element]);
         });
       },
       'where': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).where((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
@@ -191,21 +191,21 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.expand', atMost: 1);
         final f = positionalArgs[0] as Callable;
         return (target as Set).expand((element) {
-          return f.call(visitor, [element]) as Iterable;
+          return D4.enterInterpreted(visitor, f, [element]) as Iterable;
         });
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).every((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'any': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).any((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'firstWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -213,8 +213,8 @@ class SetCore {
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).firstWhere(
-          (element) => test.call(visitor, [element]) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -222,8 +222,8 @@ class SetCore {
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).lastWhere(
-          (element) => test.call(visitor, [element]) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -231,8 +231,8 @@ class SetCore {
         final test = positionalArgs[0] as Callable;
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).singleWhere(
-          (element) => test.call(visitor, [element]) as bool,
-          orElse: orElse == null ? null : () => orElse.call(visitor, []),
+          (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
+          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
@@ -251,14 +251,14 @@ class SetCore {
         D4.checkArity(positionalArgs, 'Set.takeWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).takeWhile((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'skipWhile': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.skipWhile', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as Set).skipWhile((element) {
-          return test.call(visitor, [element]) as bool;
+          return D4.enterInterpreted(visitor, test, [element]) as bool;
         });
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
@@ -266,14 +266,14 @@ class SetCore {
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as Callable;
         return (target as Set).fold(initialValue, (previousValue, element) {
-          return combine.call(visitor, [previousValue, element]);
+          return D4.enterInterpreted(visitor, combine, [previousValue, element]);
         });
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.reduce', atMost: 1);
         final combine = positionalArgs[0] as Callable;
         return (target as Set).reduce((value, element) {
-          return combine.call(visitor, [value, element]);
+          return D4.enterInterpreted(visitor, combine, [value, element]);
         });
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {

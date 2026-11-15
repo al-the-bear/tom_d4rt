@@ -38,7 +38,7 @@ class ByteConversionConvert {
         }
         final callback = positionalArgs[0] as Callable;
         return ByteConversionSink.withCallback((accumulated) {
-          callback.call(visitor, [accumulated]);
+          D4.enterInterpreted(visitor, callback, [accumulated]);
         });
       },
     },
