@@ -1,4 +1,4 @@
-// Generated: 2026-11-13T08:30:57.531123 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-15T01:09:14.963426 by tom_d4rt_generator 1.65.0
 /// D4rt RC-2 generic constructor factories for flutter_material_bridges, part 2 of 3 of `flutter_relaxers.b.dart`.
 ///
 /// The relaxer output is split into part files when it is too large for one file.
@@ -178,7 +178,7 @@ Object? _rc2DropdownMenuFormField(
   final errorBuilder = named.containsKey('errorBuilder')
       ? named['errorBuilder']
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -620,7 +620,7 @@ Object? _rc2DropdownMenuFormField(
         errorBuilder,
       );
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2DropdownMenuFormField$leaf9(
           typeName,
@@ -718,7 +718,7 @@ Object? _rc2DropdownMenuFormField(
         errorBuilder,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2DropdownMenuFormField$leaf11(
         typeName,
         visitor,
@@ -815,9 +815,9 @@ Object? _rc2DropdownMenuFormField(
       errorBuilder,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2DropdownMenuFormField$leaf13(
           typeName,
           visitor,
@@ -866,7 +866,7 @@ Object? _rc2DropdownMenuFormField(
           errorBuilder,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2DropdownMenuFormField$leaf14(
           typeName,
           visitor,
@@ -963,7 +963,7 @@ Object? _rc2DropdownMenuFormField(
         errorBuilder,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2DropdownMenuFormField$leaf16(
         typeName,
         visitor,
@@ -1012,7 +1012,7 @@ Object? _rc2DropdownMenuFormField(
         errorBuilder,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2DropdownMenuFormField$leaf17(
         typeName,
         visitor,
@@ -1109,8 +1109,8 @@ Object? _rc2DropdownMenuFormField(
       errorBuilder,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2DropdownMenuFormField$leaf19(
         typeName,
         visitor,
@@ -1159,7 +1159,7 @@ Object? _rc2DropdownMenuFormField(
         errorBuilder,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2DropdownMenuFormField$leaf20(
         typeName,
         visitor,
@@ -1256,8 +1256,8 @@ Object? _rc2DropdownMenuFormField(
       errorBuilder,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2DropdownMenuFormField$leaf22(
         typeName,
         visitor,
@@ -1354,7 +1354,7 @@ Object? _rc2DropdownMenuFormField(
       errorBuilder,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2DropdownMenuFormField$leaf24(
       typeName,
       visitor,
@@ -69536,7 +69536,7 @@ Object? _rc2DropdownMenuFormField$leaf9(
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuFormField$leaf10(
   String typeName,
   dynamic visitor,
@@ -72596,6 +72596,109 @@ Object? _rc2DropdownMenuFormField$leaf10(
       validator: validator == null
           ? null
           : (InteractiveViewer? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'IntersectionResult' => DropdownMenuFormField<IntersectionResult>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as IntersectionResult?,
+      onSelected: onSelected == null
+          ? null
+          : (IntersectionResult? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<IntersectionResult>> p0, String p1) {
+              return D4.extractBridgedArg<
+                List<DropdownMenuEntry<IntersectionResult>>
+              >(
+                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<IntersectionResult>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<IntersectionResult>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (IntersectionResult? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (IntersectionResult? p0) {
               return D4.extractBridgedArg<String>(
                 D4.callInterpreterCallback(visitor, validator, [p0]),
                 'callback',
@@ -76149,6 +76252,59 @@ Object? _rc2DropdownMenuFormField$leaf10(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'LineMetrics' => DropdownMenuFormField<LineMetrics>(
       key: key,
       enabled: enabled ?? true,
@@ -76250,59 +76406,6 @@ Object? _rc2DropdownMenuFormField$leaf10(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'LinearBorder' => DropdownMenuFormField<LinearBorder>(
       key: key,
       enabled: enabled ?? true,
@@ -82903,6 +83006,59 @@ Object? _rc2DropdownMenuFormField$leaf11(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'MediaQueryData' => DropdownMenuFormField<MediaQueryData>(
       key: key,
       enabled: enabled ?? true,
@@ -82991,160 +83147,6 @@ Object? _rc2DropdownMenuFormField$leaf11(
       validator: validator == null
           ? null
           : (MediaQueryData? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      forceErrorText: forceErrorText,
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-    ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MemoryImage' to 'Object' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
-    'Object' => DropdownMenuFormField<dynamic>(
-      key: key,
-      enabled: enabled ?? true,
-      width: (width as num?)?.toDouble(),
-      menuHeight: (menuHeight as num?)?.toDouble(),
-      leadingIcon: leadingIcon,
-      trailingIcon: trailingIcon,
-      showTrailingIcon: showTrailingIcon ?? true,
-      trailingIconFocusNode: trailingIconFocusNode,
-      label: label,
-      hintText: hintText,
-      helperText: helperText,
-      selectedTrailingIcon: selectedTrailingIcon,
-      enableFilter: enableFilter ?? false,
-      enableSearch: enableSearch ?? true,
-      keyboardType: keyboardType,
-      textStyle: textStyle,
-      textAlign: textAlign ?? TextAlign.start,
-      inputDecorationTheme: inputDecorationTheme,
-      decorationBuilder: decorationBuilder == null
-          ? null
-          : (BuildContext p0, MenuController p1) {
-              return D4.extractBridgedArg<InputDecoration>(
-                D4.callInterpreterCallback(visitor, decorationBuilder, [
-                  p0,
-                  p1,
-                ]),
-                'callback',
-                visitor,
-              );
-            },
-      menuStyle: menuStyle,
-      controller: controller,
-      initialSelection: initialSelection,
-      onSelected: onSelected == null
-          ? null
-          : (dynamic? p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      focusNode: focusNode,
-      requestFocusOnTap: requestFocusOnTap,
-      selectOnly: selectOnly ?? false,
-      expandedInsets: expandedInsets,
-      alignmentOffset: alignmentOffset,
-      filterCallback: filterCallback == null
-          ? null
-          : (List<DropdownMenuEntry<dynamic>> p0, String p1) {
-              return D4.extractBridgedArg<List<DropdownMenuEntry<dynamic>>>(
-                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      searchCallback: searchCallback == null
-          ? null
-          : (List<DropdownMenuEntry<dynamic>> p0, String p1) {
-              return D4.extractBridgedArg<int>(
-                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<dynamic>>(
-        dropdownMenuEntries,
-        'dropdownMenuEntries',
-      ),
-      inputFormatters: inputFormatters,
-      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
-      maxLines: maxLines ?? 1,
-      textInputAction: textInputAction,
-      cursorHeight: (cursorHeight as num?)?.toDouble(),
-      menuController: menuController,
-      restorationId: restorationId,
-      onSaved: onSaved == null
-          ? null
-          : (dynamic? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-      validator: validator == null
-          ? null
-          : (dynamic? p0) {
               return D4.extractBridgedArg<String>(
                 D4.callInterpreterCallback(visitor, validator, [p0]),
                 'callback',
@@ -89784,7 +89786,7 @@ Object? _rc2DropdownMenuFormField$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuFormField$leaf13(
   String typeName,
   dynamic visitor,
@@ -89833,7 +89835,7 @@ Object? _rc2DropdownMenuFormField$leaf13(
   Object? errorBuilder,
 ) {
   return switch (typeName) {
-    'Object?' => DropdownMenuFormField<dynamic>(
+    'Object' || 'Object?' => DropdownMenuFormField<dynamic>(
       key: key,
       enabled: enabled ?? true,
       width: (width as num?)?.toDouble(),
@@ -96379,6 +96381,59 @@ Object? _rc2DropdownMenuFormField$leaf13(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       DropdownMenuFormField<PerformanceModeRequestHandle>(
         key: key,
@@ -96490,59 +96545,6 @@ Object? _rc2DropdownMenuFormField$leaf13(
                 );
               },
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => DropdownMenuFormField<PerformanceOverlay>(
       key: key,
       enabled: enabled ?? true,
@@ -103164,6 +103166,59 @@ Object? _rc2DropdownMenuFormField$leaf14(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'PositionedTransition' => DropdownMenuFormField<PositionedTransition>(
       key: key,
       enabled: enabled ?? true,
@@ -103268,59 +103323,6 @@ Object? _rc2DropdownMenuFormField$leaf14(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => DropdownMenuFormField<PredictiveBackEvent>(
       key: key,
       enabled: enabled ?? true,
@@ -104793,6 +104795,107 @@ Object? _rc2DropdownMenuFormField$leaf15(
       validator: validator == null
           ? null
           : (ProxyAnimation? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'Quad' => DropdownMenuFormField<Quad>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as Quad?,
+      onSelected: onSelected == null
+          ? null
+          : (Quad? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<Quad>> p0, String p1) {
+              return D4.extractBridgedArg<List<DropdownMenuEntry<Quad>>>(
+                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<Quad>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<Quad>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (Quad? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (Quad? p0) {
               return D4.extractBridgedArg<String>(
                 D4.callInterpreterCallback(visitor, validator, [p0]),
                 'callback',
@@ -109825,6 +109928,59 @@ Object? _rc2DropdownMenuFormField$leaf15(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => DropdownMenuFormField<RenderAbsorbPointer>(
       key: key,
       enabled: enabled ?? true,
@@ -110032,59 +110188,6 @@ Object? _rc2DropdownMenuFormField$leaf15(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => DropdownMenuFormField<RenderAnimatedOpacity>(
       key: key,
       enabled: enabled ?? true,
@@ -116621,6 +116724,59 @@ Object? _rc2DropdownMenuFormField$leaf16(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       DropdownMenuFormField<RenderShrinkWrappingViewport>(
         key: key,
@@ -116836,59 +116992,6 @@ Object? _rc2DropdownMenuFormField$leaf16(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       DropdownMenuFormField<RenderSliverAnimatedOpacity>(
         key: key,
@@ -123492,6 +123595,59 @@ Object? _rc2DropdownMenuFormField$leaf17(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'RestorationBucket' => DropdownMenuFormField<RestorationBucket>(
       key: key,
       enabled: enabled ?? true,
@@ -123698,59 +123854,6 @@ Object? _rc2DropdownMenuFormField$leaf17(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'RestorationScope' => DropdownMenuFormField<RestorationScope>(
       key: key,
       enabled: enabled ?? true,
@@ -130323,6 +130426,59 @@ Object? _rc2DropdownMenuFormField$leaf18(
                 );
               },
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'Scrollable' => DropdownMenuFormField<Scrollable>(
       key: key,
       enabled: enabled ?? true,
@@ -130527,59 +130683,6 @@ Object? _rc2DropdownMenuFormField$leaf18(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'ScrollableState' => DropdownMenuFormField<ScrollableState>(
       key: key,
       enabled: enabled ?? true,
@@ -137080,6 +137183,59 @@ Object? _rc2DropdownMenuFormField$leaf19(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => DropdownMenuFormField<ShaderMaskLayer>(
       key: key,
       enabled: enabled ?? true,
@@ -137286,59 +137442,6 @@ Object? _rc2DropdownMenuFormField$leaf19(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => DropdownMenuFormField<ShapeBorderClipper>(
       key: key,
       enabled: enabled ?? true,
@@ -143845,226 +143948,11 @@ Object? _rc2DropdownMenuFormField$leaf20(
               );
             },
     ),
-    'SliverMainAxisGroup' => DropdownMenuFormField<SliverMainAxisGroup>(
-      key: key,
-      enabled: enabled ?? true,
-      width: (width as num?)?.toDouble(),
-      menuHeight: (menuHeight as num?)?.toDouble(),
-      leadingIcon: leadingIcon,
-      trailingIcon: trailingIcon,
-      showTrailingIcon: showTrailingIcon ?? true,
-      trailingIconFocusNode: trailingIconFocusNode,
-      label: label,
-      hintText: hintText,
-      helperText: helperText,
-      selectedTrailingIcon: selectedTrailingIcon,
-      enableFilter: enableFilter ?? false,
-      enableSearch: enableSearch ?? true,
-      keyboardType: keyboardType,
-      textStyle: textStyle,
-      textAlign: textAlign ?? TextAlign.start,
-      inputDecorationTheme: inputDecorationTheme,
-      decorationBuilder: decorationBuilder == null
-          ? null
-          : (BuildContext p0, MenuController p1) {
-              return D4.extractBridgedArg<InputDecoration>(
-                D4.callInterpreterCallback(visitor, decorationBuilder, [
-                  p0,
-                  p1,
-                ]),
-                'callback',
-                visitor,
-              );
-            },
-      menuStyle: menuStyle,
-      controller: controller,
-      initialSelection: initialSelection as SliverMainAxisGroup?,
-      onSelected: onSelected == null
-          ? null
-          : (SliverMainAxisGroup? p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      focusNode: focusNode,
-      requestFocusOnTap: requestFocusOnTap,
-      selectOnly: selectOnly ?? false,
-      expandedInsets: expandedInsets,
-      alignmentOffset: alignmentOffset,
-      filterCallback: filterCallback == null
-          ? null
-          : (List<DropdownMenuEntry<SliverMainAxisGroup>> p0, String p1) {
-              return D4.extractBridgedArg<
-                List<DropdownMenuEntry<SliverMainAxisGroup>>
-              >(
-                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      searchCallback: searchCallback == null
-          ? null
-          : (List<DropdownMenuEntry<SliverMainAxisGroup>> p0, String p1) {
-              return D4.extractBridgedArg<int>(
-                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      dropdownMenuEntries: D4
-          .coerceList<DropdownMenuEntry<SliverMainAxisGroup>>(
-            dropdownMenuEntries,
-            'dropdownMenuEntries',
-          ),
-      inputFormatters: inputFormatters,
-      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
-      maxLines: maxLines ?? 1,
-      textInputAction: textInputAction,
-      cursorHeight: (cursorHeight as num?)?.toDouble(),
-      menuController: menuController,
-      restorationId: restorationId,
-      onSaved: onSaved == null
-          ? null
-          : (SliverMainAxisGroup? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-      validator: validator == null
-          ? null
-          : (SliverMainAxisGroup? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      forceErrorText: forceErrorText,
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      DropdownMenuFormField<SliverMultiBoxAdaptorElement>(
-        key: key,
-        enabled: enabled ?? true,
-        width: (width as num?)?.toDouble(),
-        menuHeight: (menuHeight as num?)?.toDouble(),
-        leadingIcon: leadingIcon,
-        trailingIcon: trailingIcon,
-        showTrailingIcon: showTrailingIcon ?? true,
-        trailingIconFocusNode: trailingIconFocusNode,
-        label: label,
-        hintText: hintText,
-        helperText: helperText,
-        selectedTrailingIcon: selectedTrailingIcon,
-        enableFilter: enableFilter ?? false,
-        enableSearch: enableSearch ?? true,
-        keyboardType: keyboardType,
-        textStyle: textStyle,
-        textAlign: textAlign ?? TextAlign.start,
-        inputDecorationTheme: inputDecorationTheme,
-        decorationBuilder: decorationBuilder == null
-            ? null
-            : (BuildContext p0, MenuController p1) {
-                return D4.extractBridgedArg<InputDecoration>(
-                  D4.callInterpreterCallback(visitor, decorationBuilder, [
-                    p0,
-                    p1,
-                  ]),
-                  'callback',
-                  visitor,
-                );
-              },
-        menuStyle: menuStyle,
-        controller: controller,
-        initialSelection: initialSelection as SliverMultiBoxAdaptorElement?,
-        onSelected: onSelected == null
-            ? null
-            : (SliverMultiBoxAdaptorElement? p0) async {
-                D4.callInterpreterCallback(visitor, onSelected, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        focusNode: focusNode,
-        requestFocusOnTap: requestFocusOnTap,
-        selectOnly: selectOnly ?? false,
-        expandedInsets: expandedInsets,
-        alignmentOffset: alignmentOffset,
-        filterCallback: filterCallback == null
-            ? null
-            : (
-                List<DropdownMenuEntry<SliverMultiBoxAdaptorElement>> p0,
-                String p1,
-              ) {
-                return D4.extractBridgedArg<
-                  List<DropdownMenuEntry<SliverMultiBoxAdaptorElement>>
-                >(
-                  D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
-                  'callback',
-                  visitor,
-                );
-              },
-        searchCallback: searchCallback == null
-            ? null
-            : (
-                List<DropdownMenuEntry<SliverMultiBoxAdaptorElement>> p0,
-                String p1,
-              ) {
-                return D4.extractBridgedArg<int>(
-                  D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
-                  'callback',
-                  visitor,
-                );
-              },
-        dropdownMenuEntries: D4
-            .coerceList<DropdownMenuEntry<SliverMultiBoxAdaptorElement>>(
-              dropdownMenuEntries,
-              'dropdownMenuEntries',
-            ),
-        inputFormatters: inputFormatters,
-        closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
-        maxLines: maxLines ?? 1,
-        textInputAction: textInputAction,
-        cursorHeight: (cursorHeight as num?)?.toDouble(),
-        menuController: menuController,
-        restorationId: restorationId,
-        onSaved: onSaved == null
-            ? null
-            : (SliverMultiBoxAdaptorElement? p0) async {
-                D4.callInterpreterCallback(visitor, onSaved, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-        validator: validator == null
-            ? null
-            : (SliverMultiBoxAdaptorElement? p0) {
-                return D4.extractBridgedArg<String>(
-                  D4.callInterpreterCallback(visitor, validator, [p0]),
-                  'callback',
-                  visitor,
-                );
-              },
-        forceErrorText: forceErrorText,
-        errorBuilder: errorBuilder == null
-            ? null
-            : (BuildContext p0, String p1) {
-                return D4.extractBridgedArg<Widget>(
-                  D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                  'callback',
-                  visitor,
-                );
-              },
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuFormField$leaf21(
   String typeName,
   dynamic visitor,
@@ -144315,6 +144203,221 @@ Object? _rc2DropdownMenuFormField$leaf21(
               );
             },
     ),
+    'SliverMainAxisGroup' => DropdownMenuFormField<SliverMainAxisGroup>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as SliverMainAxisGroup?,
+      onSelected: onSelected == null
+          ? null
+          : (SliverMainAxisGroup? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<SliverMainAxisGroup>> p0, String p1) {
+              return D4.extractBridgedArg<
+                List<DropdownMenuEntry<SliverMainAxisGroup>>
+              >(
+                D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<SliverMainAxisGroup>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4
+          .coerceList<DropdownMenuEntry<SliverMainAxisGroup>>(
+            dropdownMenuEntries,
+            'dropdownMenuEntries',
+          ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (SliverMainAxisGroup? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (SliverMainAxisGroup? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      DropdownMenuFormField<SliverMultiBoxAdaptorElement>(
+        key: key,
+        enabled: enabled ?? true,
+        width: (width as num?)?.toDouble(),
+        menuHeight: (menuHeight as num?)?.toDouble(),
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        showTrailingIcon: showTrailingIcon ?? true,
+        trailingIconFocusNode: trailingIconFocusNode,
+        label: label,
+        hintText: hintText,
+        helperText: helperText,
+        selectedTrailingIcon: selectedTrailingIcon,
+        enableFilter: enableFilter ?? false,
+        enableSearch: enableSearch ?? true,
+        keyboardType: keyboardType,
+        textStyle: textStyle,
+        textAlign: textAlign ?? TextAlign.start,
+        inputDecorationTheme: inputDecorationTheme,
+        decorationBuilder: decorationBuilder == null
+            ? null
+            : (BuildContext p0, MenuController p1) {
+                return D4.extractBridgedArg<InputDecoration>(
+                  D4.callInterpreterCallback(visitor, decorationBuilder, [
+                    p0,
+                    p1,
+                  ]),
+                  'callback',
+                  visitor,
+                );
+              },
+        menuStyle: menuStyle,
+        controller: controller,
+        initialSelection: initialSelection as SliverMultiBoxAdaptorElement?,
+        onSelected: onSelected == null
+            ? null
+            : (SliverMultiBoxAdaptorElement? p0) async {
+                D4.callInterpreterCallback(visitor, onSelected, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        focusNode: focusNode,
+        requestFocusOnTap: requestFocusOnTap,
+        selectOnly: selectOnly ?? false,
+        expandedInsets: expandedInsets,
+        alignmentOffset: alignmentOffset,
+        filterCallback: filterCallback == null
+            ? null
+            : (
+                List<DropdownMenuEntry<SliverMultiBoxAdaptorElement>> p0,
+                String p1,
+              ) {
+                return D4.extractBridgedArg<
+                  List<DropdownMenuEntry<SliverMultiBoxAdaptorElement>>
+                >(
+                  D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                  'callback',
+                  visitor,
+                );
+              },
+        searchCallback: searchCallback == null
+            ? null
+            : (
+                List<DropdownMenuEntry<SliverMultiBoxAdaptorElement>> p0,
+                String p1,
+              ) {
+                return D4.extractBridgedArg<int>(
+                  D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                  'callback',
+                  visitor,
+                );
+              },
+        dropdownMenuEntries: D4
+            .coerceList<DropdownMenuEntry<SliverMultiBoxAdaptorElement>>(
+              dropdownMenuEntries,
+              'dropdownMenuEntries',
+            ),
+        inputFormatters: inputFormatters,
+        closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+        maxLines: maxLines ?? 1,
+        textInputAction: textInputAction,
+        cursorHeight: (cursorHeight as num?)?.toDouble(),
+        menuController: menuController,
+        restorationId: restorationId,
+        onSaved: onSaved == null
+            ? null
+            : (SliverMultiBoxAdaptorElement? p0) async {
+                D4.callInterpreterCallback(visitor, onSaved, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+        validator: validator == null
+            ? null
+            : (SliverMultiBoxAdaptorElement? p0) {
+                return D4.extractBridgedArg<String>(
+                  D4.callInterpreterCallback(visitor, validator, [p0]),
+                  'callback',
+                  visitor,
+                );
+              },
+        forceErrorText: forceErrorText,
+        errorBuilder: errorBuilder == null
+            ? null
+            : (BuildContext p0, String p1) {
+                return D4.extractBridgedArg<Widget>(
+                  D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                  'callback',
+                  visitor,
+                );
+              },
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       DropdownMenuFormField<SliverMultiBoxAdaptorParentData>(
         key: key,
@@ -150626,6 +150729,59 @@ Object? _rc2DropdownMenuFormField$leaf21(
                 );
               },
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'SweepGradient' => DropdownMenuFormField<SweepGradient>(
       key: key,
       enabled: enabled ?? true,
@@ -150832,59 +150988,6 @@ Object? _rc2DropdownMenuFormField$leaf21(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'SwitchListTile' => DropdownMenuFormField<SwitchListTile>(
       key: key,
       enabled: enabled ?? true,
@@ -157349,6 +157452,59 @@ Object? _rc2DropdownMenuFormField$leaf22(
               );
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'TextInputStyle' => DropdownMenuFormField<TextInputStyle>(
       key: key,
       enabled: enabled ?? true,
@@ -157559,59 +157715,6 @@ Object? _rc2DropdownMenuFormField$leaf22(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'TextMagnifier' => DropdownMenuFormField<TextMagnifier>(
       key: key,
       enabled: enabled ?? true,
@@ -164085,6 +164188,59 @@ Object? _rc2DropdownMenuFormField$leaf23(
                 );
               },
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuFormField$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  bool? enabled,
+  double? width,
+  double? menuHeight,
+  Widget? leadingIcon,
+  Widget? trailingIcon,
+  bool? showTrailingIcon,
+  FocusNode? trailingIconFocusNode,
+  Widget? label,
+  String? hintText,
+  String? helperText,
+  Widget? selectedTrailingIcon,
+  bool? enableFilter,
+  bool? enableSearch,
+  TextInputType? keyboardType,
+  TextStyle? textStyle,
+  TextAlign? textAlign,
+  Object? inputDecorationTheme,
+  Object? decorationBuilder,
+  MenuStyle? menuStyle,
+  TextEditingController? controller,
+  Object? initialSelection,
+  Object? onSelected,
+  FocusNode? focusNode,
+  bool? requestFocusOnTap,
+  bool? selectOnly,
+  EdgeInsetsGeometry? expandedInsets,
+  Offset? alignmentOffset,
+  Object? filterCallback,
+  Object? searchCallback,
+  Object? dropdownMenuEntries,
+  List<TextInputFormatter>? inputFormatters,
+  DropdownMenuCloseBehavior? closeBehavior,
+  int? maxLines,
+  TextInputAction? textInputAction,
+  double? cursorHeight,
+  MenuController? menuController,
+  String? restorationId,
+  Object? onSaved,
+  AutovalidateMode? autovalidateMode,
+  Object? validator,
+  String? forceErrorText,
+  Object? errorBuilder,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' =>
       DropdownMenuFormField<TransposeCharactersIntent>(
         key: key,
@@ -164297,59 +164453,6 @@ Object? _rc2DropdownMenuFormField$leaf23(
               );
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuFormField$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  bool? enabled,
-  double? width,
-  double? menuHeight,
-  Widget? leadingIcon,
-  Widget? trailingIcon,
-  bool? showTrailingIcon,
-  FocusNode? trailingIconFocusNode,
-  Widget? label,
-  String? hintText,
-  String? helperText,
-  Widget? selectedTrailingIcon,
-  bool? enableFilter,
-  bool? enableSearch,
-  TextInputType? keyboardType,
-  TextStyle? textStyle,
-  TextAlign? textAlign,
-  Object? inputDecorationTheme,
-  Object? decorationBuilder,
-  MenuStyle? menuStyle,
-  TextEditingController? controller,
-  Object? initialSelection,
-  Object? onSelected,
-  FocusNode? focusNode,
-  bool? requestFocusOnTap,
-  bool? selectOnly,
-  EdgeInsetsGeometry? expandedInsets,
-  Offset? alignmentOffset,
-  Object? filterCallback,
-  Object? searchCallback,
-  Object? dropdownMenuEntries,
-  List<TextInputFormatter>? inputFormatters,
-  DropdownMenuCloseBehavior? closeBehavior,
-  int? maxLines,
-  TextInputAction? textInputAction,
-  double? cursorHeight,
-  MenuController? menuController,
-  String? restorationId,
-  Object? onSaved,
-  AutovalidateMode? autovalidateMode,
-  Object? validator,
-  String? forceErrorText,
-  Object? errorBuilder,
-) {
-  return switch (typeName) {
     'TreeSliverController' => DropdownMenuFormField<TreeSliverController>(
       key: key,
       enabled: enabled ?? true,
@@ -170857,227 +170960,11 @@ Object? _rc2DropdownMenuFormField$leaf24(
               );
             },
     ),
-    'WidgetInspector' => DropdownMenuFormField<WidgetInspector>(
-      key: key,
-      enabled: enabled ?? true,
-      width: (width as num?)?.toDouble(),
-      menuHeight: (menuHeight as num?)?.toDouble(),
-      leadingIcon: leadingIcon,
-      trailingIcon: trailingIcon,
-      showTrailingIcon: showTrailingIcon ?? true,
-      trailingIconFocusNode: trailingIconFocusNode,
-      label: label,
-      hintText: hintText,
-      helperText: helperText,
-      selectedTrailingIcon: selectedTrailingIcon,
-      enableFilter: enableFilter ?? false,
-      enableSearch: enableSearch ?? true,
-      keyboardType: keyboardType,
-      textStyle: textStyle,
-      textAlign: textAlign ?? TextAlign.start,
-      inputDecorationTheme: inputDecorationTheme,
-      decorationBuilder: decorationBuilder == null
-          ? null
-          : (BuildContext p0, MenuController p1) {
-              return D4.extractBridgedArg<InputDecoration>(
-                D4.callInterpreterCallback(visitor, decorationBuilder, [
-                  p0,
-                  p1,
-                ]),
-                'callback',
-                visitor,
-              );
-            },
-      menuStyle: menuStyle,
-      controller: controller,
-      initialSelection: initialSelection as WidgetInspector?,
-      onSelected: onSelected == null
-          ? null
-          : (WidgetInspector? p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      focusNode: focusNode,
-      requestFocusOnTap: requestFocusOnTap,
-      selectOnly: selectOnly ?? false,
-      expandedInsets: expandedInsets,
-      alignmentOffset: alignmentOffset,
-      filterCallback: filterCallback == null
-          ? null
-          : (List<DropdownMenuEntry<WidgetInspector>> p0, String p1) {
-              return D4
-                  .extractBridgedArg<List<DropdownMenuEntry<WidgetInspector>>>(
-                    D4.callInterpreterCallback(visitor, filterCallback, [
-                      p0,
-                      p1,
-                    ]),
-                    'callback',
-                    visitor,
-                  );
-            },
-      searchCallback: searchCallback == null
-          ? null
-          : (List<DropdownMenuEntry<WidgetInspector>> p0, String p1) {
-              return D4.extractBridgedArg<int>(
-                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<WidgetInspector>>(
-        dropdownMenuEntries,
-        'dropdownMenuEntries',
-      ),
-      inputFormatters: inputFormatters,
-      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
-      maxLines: maxLines ?? 1,
-      textInputAction: textInputAction,
-      cursorHeight: (cursorHeight as num?)?.toDouble(),
-      menuController: menuController,
-      restorationId: restorationId,
-      onSaved: onSaved == null
-          ? null
-          : (WidgetInspector? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-      validator: validator == null
-          ? null
-          : (WidgetInspector? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      forceErrorText: forceErrorText,
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      DropdownMenuFormField<WidgetOrderTraversalPolicy>(
-        key: key,
-        enabled: enabled ?? true,
-        width: (width as num?)?.toDouble(),
-        menuHeight: (menuHeight as num?)?.toDouble(),
-        leadingIcon: leadingIcon,
-        trailingIcon: trailingIcon,
-        showTrailingIcon: showTrailingIcon ?? true,
-        trailingIconFocusNode: trailingIconFocusNode,
-        label: label,
-        hintText: hintText,
-        helperText: helperText,
-        selectedTrailingIcon: selectedTrailingIcon,
-        enableFilter: enableFilter ?? false,
-        enableSearch: enableSearch ?? true,
-        keyboardType: keyboardType,
-        textStyle: textStyle,
-        textAlign: textAlign ?? TextAlign.start,
-        inputDecorationTheme: inputDecorationTheme,
-        decorationBuilder: decorationBuilder == null
-            ? null
-            : (BuildContext p0, MenuController p1) {
-                return D4.extractBridgedArg<InputDecoration>(
-                  D4.callInterpreterCallback(visitor, decorationBuilder, [
-                    p0,
-                    p1,
-                  ]),
-                  'callback',
-                  visitor,
-                );
-              },
-        menuStyle: menuStyle,
-        controller: controller,
-        initialSelection: initialSelection as WidgetOrderTraversalPolicy?,
-        onSelected: onSelected == null
-            ? null
-            : (WidgetOrderTraversalPolicy? p0) async {
-                D4.callInterpreterCallback(visitor, onSelected, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        focusNode: focusNode,
-        requestFocusOnTap: requestFocusOnTap,
-        selectOnly: selectOnly ?? false,
-        expandedInsets: expandedInsets,
-        alignmentOffset: alignmentOffset,
-        filterCallback: filterCallback == null
-            ? null
-            : (
-                List<DropdownMenuEntry<WidgetOrderTraversalPolicy>> p0,
-                String p1,
-              ) {
-                return D4.extractBridgedArg<
-                  List<DropdownMenuEntry<WidgetOrderTraversalPolicy>>
-                >(
-                  D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
-                  'callback',
-                  visitor,
-                );
-              },
-        searchCallback: searchCallback == null
-            ? null
-            : (
-                List<DropdownMenuEntry<WidgetOrderTraversalPolicy>> p0,
-                String p1,
-              ) {
-                return D4.extractBridgedArg<int>(
-                  D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
-                  'callback',
-                  visitor,
-                );
-              },
-        dropdownMenuEntries: D4
-            .coerceList<DropdownMenuEntry<WidgetOrderTraversalPolicy>>(
-              dropdownMenuEntries,
-              'dropdownMenuEntries',
-            ),
-        inputFormatters: inputFormatters,
-        closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
-        maxLines: maxLines ?? 1,
-        textInputAction: textInputAction,
-        cursorHeight: (cursorHeight as num?)?.toDouble(),
-        menuController: menuController,
-        restorationId: restorationId,
-        onSaved: onSaved == null
-            ? null
-            : (WidgetOrderTraversalPolicy? p0) async {
-                D4.callInterpreterCallback(visitor, onSaved, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-        validator: validator == null
-            ? null
-            : (WidgetOrderTraversalPolicy? p0) {
-                return D4.extractBridgedArg<String>(
-                  D4.callInterpreterCallback(visitor, validator, [p0]),
-                  'callback',
-                  visitor,
-                );
-              },
-        forceErrorText: forceErrorText,
-        errorBuilder: errorBuilder == null
-            ? null
-            : (BuildContext p0, String p1) {
-                return D4.extractBridgedArg<Widget>(
-                  D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                  'callback',
-                  visitor,
-                );
-              },
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2DropdownMenuFormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuFormField$leaf25(
   String typeName,
   dynamic visitor,
@@ -172035,6 +171922,222 @@ Object? _rc2DropdownMenuFormField$leaf25(
               );
             },
     ),
+    'WidgetInspector' => DropdownMenuFormField<WidgetInspector>(
+      key: key,
+      enabled: enabled ?? true,
+      width: (width as num?)?.toDouble(),
+      menuHeight: (menuHeight as num?)?.toDouble(),
+      leadingIcon: leadingIcon,
+      trailingIcon: trailingIcon,
+      showTrailingIcon: showTrailingIcon ?? true,
+      trailingIconFocusNode: trailingIconFocusNode,
+      label: label,
+      hintText: hintText,
+      helperText: helperText,
+      selectedTrailingIcon: selectedTrailingIcon,
+      enableFilter: enableFilter ?? false,
+      enableSearch: enableSearch ?? true,
+      keyboardType: keyboardType,
+      textStyle: textStyle,
+      textAlign: textAlign ?? TextAlign.start,
+      inputDecorationTheme: inputDecorationTheme,
+      decorationBuilder: decorationBuilder == null
+          ? null
+          : (BuildContext p0, MenuController p1) {
+              return D4.extractBridgedArg<InputDecoration>(
+                D4.callInterpreterCallback(visitor, decorationBuilder, [
+                  p0,
+                  p1,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+      menuStyle: menuStyle,
+      controller: controller,
+      initialSelection: initialSelection as WidgetInspector?,
+      onSelected: onSelected == null
+          ? null
+          : (WidgetInspector? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      focusNode: focusNode,
+      requestFocusOnTap: requestFocusOnTap,
+      selectOnly: selectOnly ?? false,
+      expandedInsets: expandedInsets,
+      alignmentOffset: alignmentOffset,
+      filterCallback: filterCallback == null
+          ? null
+          : (List<DropdownMenuEntry<WidgetInspector>> p0, String p1) {
+              return D4
+                  .extractBridgedArg<List<DropdownMenuEntry<WidgetInspector>>>(
+                    D4.callInterpreterCallback(visitor, filterCallback, [
+                      p0,
+                      p1,
+                    ]),
+                    'callback',
+                    visitor,
+                  );
+            },
+      searchCallback: searchCallback == null
+          ? null
+          : (List<DropdownMenuEntry<WidgetInspector>> p0, String p1) {
+              return D4.extractBridgedArg<int>(
+                D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      dropdownMenuEntries: D4.coerceList<DropdownMenuEntry<WidgetInspector>>(
+        dropdownMenuEntries,
+        'dropdownMenuEntries',
+      ),
+      inputFormatters: inputFormatters,
+      closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+      maxLines: maxLines ?? 1,
+      textInputAction: textInputAction,
+      cursorHeight: (cursorHeight as num?)?.toDouble(),
+      menuController: menuController,
+      restorationId: restorationId,
+      onSaved: onSaved == null
+          ? null
+          : (WidgetInspector? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+      validator: validator == null
+          ? null
+          : (WidgetInspector? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      forceErrorText: forceErrorText,
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      DropdownMenuFormField<WidgetOrderTraversalPolicy>(
+        key: key,
+        enabled: enabled ?? true,
+        width: (width as num?)?.toDouble(),
+        menuHeight: (menuHeight as num?)?.toDouble(),
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        showTrailingIcon: showTrailingIcon ?? true,
+        trailingIconFocusNode: trailingIconFocusNode,
+        label: label,
+        hintText: hintText,
+        helperText: helperText,
+        selectedTrailingIcon: selectedTrailingIcon,
+        enableFilter: enableFilter ?? false,
+        enableSearch: enableSearch ?? true,
+        keyboardType: keyboardType,
+        textStyle: textStyle,
+        textAlign: textAlign ?? TextAlign.start,
+        inputDecorationTheme: inputDecorationTheme,
+        decorationBuilder: decorationBuilder == null
+            ? null
+            : (BuildContext p0, MenuController p1) {
+                return D4.extractBridgedArg<InputDecoration>(
+                  D4.callInterpreterCallback(visitor, decorationBuilder, [
+                    p0,
+                    p1,
+                  ]),
+                  'callback',
+                  visitor,
+                );
+              },
+        menuStyle: menuStyle,
+        controller: controller,
+        initialSelection: initialSelection as WidgetOrderTraversalPolicy?,
+        onSelected: onSelected == null
+            ? null
+            : (WidgetOrderTraversalPolicy? p0) async {
+                D4.callInterpreterCallback(visitor, onSelected, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        focusNode: focusNode,
+        requestFocusOnTap: requestFocusOnTap,
+        selectOnly: selectOnly ?? false,
+        expandedInsets: expandedInsets,
+        alignmentOffset: alignmentOffset,
+        filterCallback: filterCallback == null
+            ? null
+            : (
+                List<DropdownMenuEntry<WidgetOrderTraversalPolicy>> p0,
+                String p1,
+              ) {
+                return D4.extractBridgedArg<
+                  List<DropdownMenuEntry<WidgetOrderTraversalPolicy>>
+                >(
+                  D4.callInterpreterCallback(visitor, filterCallback, [p0, p1]),
+                  'callback',
+                  visitor,
+                );
+              },
+        searchCallback: searchCallback == null
+            ? null
+            : (
+                List<DropdownMenuEntry<WidgetOrderTraversalPolicy>> p0,
+                String p1,
+              ) {
+                return D4.extractBridgedArg<int>(
+                  D4.callInterpreterCallback(visitor, searchCallback, [p0, p1]),
+                  'callback',
+                  visitor,
+                );
+              },
+        dropdownMenuEntries: D4
+            .coerceList<DropdownMenuEntry<WidgetOrderTraversalPolicy>>(
+              dropdownMenuEntries,
+              'dropdownMenuEntries',
+            ),
+        inputFormatters: inputFormatters,
+        closeBehavior: closeBehavior ?? DropdownMenuCloseBehavior.all,
+        maxLines: maxLines ?? 1,
+        textInputAction: textInputAction,
+        cursorHeight: (cursorHeight as num?)?.toDouble(),
+        menuController: menuController,
+        restorationId: restorationId,
+        onSaved: onSaved == null
+            ? null
+            : (WidgetOrderTraversalPolicy? p0) async {
+                D4.callInterpreterCallback(visitor, onSaved, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+        validator: validator == null
+            ? null
+            : (WidgetOrderTraversalPolicy? p0) {
+                return D4.extractBridgedArg<String>(
+                  D4.callInterpreterCallback(visitor, validator, [p0]),
+                  'callback',
+                  visitor,
+                );
+              },
+        forceErrorText: forceErrorText,
+        errorBuilder: errorBuilder == null
+            ? null
+            : (BuildContext p0, String p1) {
+                return D4.extractBridgedArg<Widget>(
+                  D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                  'callback',
+                  visitor,
+                );
+              },
+      ),
     'WidgetSpan' => DropdownMenuFormField<WidgetSpan>(
       key: key,
       enabled: enabled ?? true,
@@ -173420,7 +173523,7 @@ Object? _rc2DropdownMenuItem(
   final child = named.containsKey('child')
       ? D4.extractBridgedArg<Widget?>(named['child'], 'child')
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -173529,7 +173632,7 @@ Object? _rc2DropdownMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2DropdownMenuItem$leaf9(
           typeName,
@@ -173553,7 +173656,7 @@ Object? _rc2DropdownMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2DropdownMenuItem$leaf11(
         typeName,
         visitor,
@@ -173576,9 +173679,9 @@ Object? _rc2DropdownMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2DropdownMenuItem$leaf13(
           typeName,
           visitor,
@@ -173590,7 +173693,7 @@ Object? _rc2DropdownMenuItem(
           child,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2DropdownMenuItem$leaf14(
           typeName,
           visitor,
@@ -173613,7 +173716,7 @@ Object? _rc2DropdownMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2DropdownMenuItem$leaf16(
         typeName,
         visitor,
@@ -173625,7 +173728,7 @@ Object? _rc2DropdownMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2DropdownMenuItem$leaf17(
         typeName,
         visitor,
@@ -173648,8 +173751,8 @@ Object? _rc2DropdownMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2DropdownMenuItem$leaf19(
         typeName,
         visitor,
@@ -173661,7 +173764,7 @@ Object? _rc2DropdownMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2DropdownMenuItem$leaf20(
         typeName,
         visitor,
@@ -173684,8 +173787,8 @@ Object? _rc2DropdownMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2DropdownMenuItem$leaf22(
         typeName,
         visitor,
@@ -173708,7 +173811,7 @@ Object? _rc2DropdownMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2DropdownMenuItem$leaf24(
       typeName,
       visitor,
@@ -182332,7 +182435,7 @@ Object? _rc2DropdownMenuItem$leaf9(
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuItem$leaf10(
   String typeName,
   dynamic visitor,
@@ -182720,6 +182823,19 @@ Object? _rc2DropdownMenuItem$leaf10(
               await Future.delayed(const Duration(milliseconds: 1));
             },
       value: value as InteractiveViewer?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
+    'IntersectionResult' => DropdownMenuItem<IntersectionResult>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as IntersectionResult?,
       enabled: enabled ?? true,
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
@@ -183168,6 +183284,22 @@ Object? _rc2DropdownMenuItem$leaf10(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'LineMetrics' => DropdownMenuItem<LineMetrics>(
       key: key,
       onTap: onTap == null
@@ -183181,22 +183313,6 @@ Object? _rc2DropdownMenuItem$leaf10(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'LinearBorder' => DropdownMenuItem<LinearBorder>(
       key: key,
       onTap: onTap == null
@@ -184026,24 +184142,11 @@ Object? _rc2DropdownMenuItem$leaf11(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    'MediaQueryData' => DropdownMenuItem<MediaQueryData>(
-      key: key,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      value: value as MediaQueryData?,
-      enabled: enabled ?? true,
-      alignment: alignment ?? AlignmentDirectional.centerStart,
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuItem$leaf12(
   String typeName,
   dynamic visitor,
@@ -184055,7 +184158,7 @@ Object? _rc2DropdownMenuItem$leaf12(
   Widget? child,
 ) {
   return switch (typeName) {
-    'Object' => DropdownMenuItem<dynamic>(
+    'MediaQueryData' => DropdownMenuItem<MediaQueryData>(
       key: key,
       onTap: onTap == null
           ? null
@@ -184063,7 +184166,7 @@ Object? _rc2DropdownMenuItem$leaf12(
               D4.callInterpreterCallback(visitor, onTap, []);
               await Future.delayed(const Duration(milliseconds: 1));
             },
-      value: value,
+      value: value as MediaQueryData?,
       enabled: enabled ?? true,
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
@@ -184898,7 +185001,7 @@ Object? _rc2DropdownMenuItem$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuItem$leaf13(
   String typeName,
   dynamic visitor,
@@ -184910,7 +185013,7 @@ Object? _rc2DropdownMenuItem$leaf13(
   Widget? child,
 ) {
   return switch (typeName) {
-    'Object?' => DropdownMenuItem<dynamic>(
+    'Object' || 'Object?' => DropdownMenuItem<dynamic>(
       key: key,
       onTap: onTap == null
           ? null
@@ -185735,6 +185838,22 @@ Object? _rc2DropdownMenuItem$leaf13(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       DropdownMenuItem<PerformanceModeRequestHandle>(
         key: key,
@@ -185749,22 +185868,6 @@ Object? _rc2DropdownMenuItem$leaf13(
         alignment: alignment ?? AlignmentDirectional.centerStart,
         child: child!,
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => DropdownMenuItem<PerformanceOverlay>(
       key: key,
       onTap: onTap == null
@@ -186591,6 +186694,22 @@ Object? _rc2DropdownMenuItem$leaf14(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'PositionedTransition' => DropdownMenuItem<PositionedTransition>(
       key: key,
       onTap: onTap == null
@@ -186604,22 +186723,6 @@ Object? _rc2DropdownMenuItem$leaf14(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => DropdownMenuItem<PredictiveBackEvent>(
       key: key,
       onTap: onTap == null
@@ -186801,6 +186904,19 @@ Object? _rc2DropdownMenuItem$leaf15(
               await Future.delayed(const Duration(milliseconds: 1));
             },
       value: value as ProxyAnimation?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
+    'Quad' => DropdownMenuItem<Quad>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as Quad?,
       enabled: enabled ?? true,
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
@@ -187436,6 +187552,22 @@ Object? _rc2DropdownMenuItem$leaf15(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => DropdownMenuItem<RenderAbsorbPointer>(
       key: key,
       onTap: onTap == null
@@ -187462,22 +187594,6 @@ Object? _rc2DropdownMenuItem$leaf15(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => DropdownMenuItem<RenderAnimatedOpacity>(
       key: key,
       onTap: onTap == null
@@ -188295,6 +188411,22 @@ Object? _rc2DropdownMenuItem$leaf16(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       DropdownMenuItem<RenderShrinkWrappingViewport>(
         key: key,
@@ -188322,22 +188454,6 @@ Object? _rc2DropdownMenuItem$leaf16(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       DropdownMenuItem<RenderSliverAnimatedOpacity>(
         key: key,
@@ -189159,6 +189275,22 @@ Object? _rc2DropdownMenuItem$leaf17(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RestorationBucket' => DropdownMenuItem<RestorationBucket>(
       key: key,
       onTap: onTap == null
@@ -189185,22 +189317,6 @@ Object? _rc2DropdownMenuItem$leaf17(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RestorationScope' => DropdownMenuItem<RestorationScope>(
       key: key,
       onTap: onTap == null
@@ -190017,6 +190133,22 @@ Object? _rc2DropdownMenuItem$leaf18(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'Scrollable' => DropdownMenuItem<Scrollable>(
       key: key,
       onTap: onTap == null
@@ -190043,22 +190175,6 @@ Object? _rc2DropdownMenuItem$leaf18(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ScrollableState' => DropdownMenuItem<ScrollableState>(
       key: key,
       onTap: onTap == null
@@ -190868,6 +190984,22 @@ Object? _rc2DropdownMenuItem$leaf19(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => DropdownMenuItem<ShaderMaskLayer>(
       key: key,
       onTap: onTap == null
@@ -190894,22 +191026,6 @@ Object? _rc2DropdownMenuItem$leaf19(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => DropdownMenuItem<ShapeBorderClipper>(
       key: key,
       onTap: onTap == null
@@ -191724,38 +191840,11 @@ Object? _rc2DropdownMenuItem$leaf20(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    'SliverMainAxisGroup' => DropdownMenuItem<SliverMainAxisGroup>(
-      key: key,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      value: value as SliverMainAxisGroup?,
-      enabled: enabled ?? true,
-      alignment: alignment ?? AlignmentDirectional.centerStart,
-      child: child!,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      DropdownMenuItem<SliverMultiBoxAdaptorElement>(
-        key: key,
-        onTap: onTap == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onTap, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        value: value as SliverMultiBoxAdaptorElement?,
-        enabled: enabled ?? true,
-        alignment: alignment ?? AlignmentDirectional.centerStart,
-        child: child!,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuItem$leaf21(
   String typeName,
   dynamic visitor,
@@ -191793,6 +191882,33 @@ Object? _rc2DropdownMenuItem$leaf21(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    'SliverMainAxisGroup' => DropdownMenuItem<SliverMainAxisGroup>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as SliverMainAxisGroup?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      DropdownMenuItem<SliverMultiBoxAdaptorElement>(
+        key: key,
+        onTap: onTap == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onTap, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        value: value as SliverMultiBoxAdaptorElement?,
+        enabled: enabled ?? true,
+        alignment: alignment ?? AlignmentDirectional.centerStart,
+        child: child!,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       DropdownMenuItem<SliverMultiBoxAdaptorParentData>(
         key: key,
@@ -192583,6 +192699,22 @@ Object? _rc2DropdownMenuItem$leaf21(
         alignment: alignment ?? AlignmentDirectional.centerStart,
         child: child!,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'SweepGradient' => DropdownMenuItem<SweepGradient>(
       key: key,
       onTap: onTap == null
@@ -192609,22 +192741,6 @@ Object? _rc2DropdownMenuItem$leaf21(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'SwitchListTile' => DropdownMenuItem<SwitchListTile>(
       key: key,
       onTap: onTap == null
@@ -193436,6 +193552,22 @@ Object? _rc2DropdownMenuItem$leaf22(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TextInputStyle' => DropdownMenuItem<TextInputStyle>(
       key: key,
       onTap: onTap == null
@@ -193462,22 +193594,6 @@ Object? _rc2DropdownMenuItem$leaf22(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TextMagnifier' => DropdownMenuItem<TextMagnifier>(
       key: key,
       onTap: onTap == null
@@ -194291,6 +194407,22 @@ Object? _rc2DropdownMenuItem$leaf23(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2DropdownMenuItem$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onTap,
+  Object? value,
+  bool? enabled,
+  AlignmentGeometry? alignment,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => DropdownMenuItem<TransposeCharactersIntent>(
       key: key,
       onTap: onTap == null
@@ -194317,22 +194449,6 @@ Object? _rc2DropdownMenuItem$leaf23(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2DropdownMenuItem$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onTap,
-  Object? value,
-  bool? enabled,
-  AlignmentGeometry? alignment,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TreeSliverController' => DropdownMenuItem<TreeSliverController>(
       key: key,
       onTap: onTap == null
@@ -195145,38 +195261,11 @@ Object? _rc2DropdownMenuItem$leaf24(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
-    'WidgetInspector' => DropdownMenuItem<WidgetInspector>(
-      key: key,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      value: value as WidgetInspector?,
-      enabled: enabled ?? true,
-      alignment: alignment ?? AlignmentDirectional.centerStart,
-      child: child!,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      DropdownMenuItem<WidgetOrderTraversalPolicy>(
-        key: key,
-        onTap: onTap == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onTap, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        value: value as WidgetOrderTraversalPolicy?,
-        enabled: enabled ?? true,
-        alignment: alignment ?? AlignmentDirectional.centerStart,
-        child: child!,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2DropdownMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2DropdownMenuItem$leaf25(
   String typeName,
   dynamic visitor,
@@ -195305,6 +195394,33 @@ Object? _rc2DropdownMenuItem$leaf25(
       alignment: alignment ?? AlignmentDirectional.centerStart,
       child: child!,
     ),
+    'WidgetInspector' => DropdownMenuItem<WidgetInspector>(
+      key: key,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      value: value as WidgetInspector?,
+      enabled: enabled ?? true,
+      alignment: alignment ?? AlignmentDirectional.centerStart,
+      child: child!,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      DropdownMenuItem<WidgetOrderTraversalPolicy>(
+        key: key,
+        onTap: onTap == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onTap, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        value: value as WidgetOrderTraversalPolicy?,
+        enabled: enabled ?? true,
+        alignment: alignment ?? AlignmentDirectional.centerStart,
+        child: child!,
+      ),
     'WidgetSpan' => DropdownMenuItem<WidgetSpan>(
       key: key,
       onTap: onTap == null
@@ -195517,7 +195633,7 @@ Object? _rc2Factory(
   if (rawTypeName == null) return null;
   final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
   final constructor = positional.length > 0 ? positional[0] : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -195545,51 +195661,51 @@ Object? _rc2Factory(
       }
       return _rc2Factory$leaf8(typeName, visitor, constructor);
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2Factory$leaf9(typeName, visitor, constructor);
       }
       return _rc2Factory$leaf10(typeName, visitor, constructor);
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2Factory$leaf11(typeName, visitor, constructor);
     }
     return _rc2Factory$leaf12(typeName, visitor, constructor);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2Factory$leaf13(typeName, visitor, constructor);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2Factory$leaf14(typeName, visitor, constructor);
       }
       return _rc2Factory$leaf15(typeName, visitor, constructor);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2Factory$leaf16(typeName, visitor, constructor);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2Factory$leaf17(typeName, visitor, constructor);
     }
     return _rc2Factory$leaf18(typeName, visitor, constructor);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2Factory$leaf19(typeName, visitor, constructor);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2Factory$leaf20(typeName, visitor, constructor);
     }
     return _rc2Factory$leaf21(typeName, visitor, constructor);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2Factory$leaf22(typeName, visitor, constructor);
     }
     return _rc2Factory$leaf23(typeName, visitor, constructor);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2Factory$leaf24(typeName, visitor, constructor);
   }
   return _rc2Factory$leaf25(typeName, visitor, constructor);
@@ -200293,7 +200409,7 @@ Object? _rc2Factory$leaf9(
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Factory$leaf10(
   String typeName,
   dynamic visitor,
@@ -200503,6 +200619,13 @@ Object? _rc2Factory$leaf10(
     }),
     'InteractiveViewer' => Factory<InteractiveViewer>(() {
       return D4.extractBridgedArg<InteractiveViewer>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'IntersectionResult' => Factory<IntersectionResult>(() {
+      return D4.extractBridgedArg<IntersectionResult>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
         visitor,
@@ -200747,6 +200870,17 @@ Object? _rc2Factory$leaf10(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf11(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'LineMetrics' => Factory<LineMetrics>(() {
       return D4.extractBridgedArg<LineMetrics>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -200754,17 +200888,6 @@ Object? _rc2Factory$leaf10(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf11(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'LinearBorder' => Factory<LinearBorder>(() {
       return D4.extractBridgedArg<LinearBorder>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -201213,26 +201336,19 @@ Object? _rc2Factory$leaf11(
         visitor,
       );
     }),
-    'MediaQueryData' => Factory<MediaQueryData>(() {
-      return D4.extractBridgedArg<MediaQueryData>(
-        D4.callInterpreterCallback(visitor, constructor, []),
-        'callback',
-        visitor,
-      );
-    }),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Factory$leaf12(
   String typeName,
   dynamic visitor,
   Object? constructor,
 ) {
   return switch (typeName) {
-    'Object' => Factory<dynamic>(() {
-      return D4.extractBridgedArg<dynamic>(
+    'MediaQueryData' => Factory<MediaQueryData>(() {
+      return D4.extractBridgedArg<MediaQueryData>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
         visitor,
@@ -201689,14 +201805,14 @@ Object? _rc2Factory$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Factory$leaf13(
   String typeName,
   dynamic visitor,
   Object? constructor,
 ) {
   return switch (typeName) {
-    'Object?' => Factory<dynamic>(() {
+    'Object' || 'Object?' => Factory<dynamic>(() {
       return D4.extractBridgedArg<dynamic>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
@@ -202142,6 +202258,17 @@ Object? _rc2Factory$leaf13(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf14(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' => Factory<PerformanceModeRequestHandle>(() {
       return D4.extractBridgedArg<PerformanceModeRequestHandle>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -202149,17 +202276,6 @@ Object? _rc2Factory$leaf13(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf14(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => Factory<PerformanceOverlay>(() {
       return D4.extractBridgedArg<PerformanceOverlay>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -202608,6 +202724,17 @@ Object? _rc2Factory$leaf14(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf15(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'PositionedTransition' => Factory<PositionedTransition>(() {
       return D4.extractBridgedArg<PositionedTransition>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -202615,17 +202742,6 @@ Object? _rc2Factory$leaf14(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf15(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => Factory<PredictiveBackEvent>(() {
       return D4.extractBridgedArg<PredictiveBackEvent>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -202722,6 +202838,13 @@ Object? _rc2Factory$leaf15(
     }),
     'ProxyAnimation' => Factory<ProxyAnimation>(() {
       return D4.extractBridgedArg<ProxyAnimation>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'Quad' => Factory<Quad>(() {
+      return D4.extractBridgedArg<Quad>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
         visitor,
@@ -203068,6 +203191,17 @@ Object? _rc2Factory$leaf15(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf16(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => Factory<RenderAbsorbPointer>(() {
       return D4.extractBridgedArg<RenderAbsorbPointer>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -203082,17 +203216,6 @@ Object? _rc2Factory$leaf15(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf16(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => Factory<RenderAnimatedOpacity>(() {
       return D4.extractBridgedArg<RenderAnimatedOpacity>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -203536,6 +203659,17 @@ Object? _rc2Factory$leaf16(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf17(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' => Factory<RenderShrinkWrappingViewport>(() {
       return D4.extractBridgedArg<RenderShrinkWrappingViewport>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -203550,17 +203684,6 @@ Object? _rc2Factory$leaf16(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf17(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => Factory<RenderSliverAnimatedOpacity>(() {
       return D4.extractBridgedArg<RenderSliverAnimatedOpacity>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -204002,6 +204125,17 @@ Object? _rc2Factory$leaf17(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf18(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'RestorationBucket' => Factory<RestorationBucket>(() {
       return D4.extractBridgedArg<RestorationBucket>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -204016,17 +204150,6 @@ Object? _rc2Factory$leaf17(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf18(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'RestorationScope' => Factory<RestorationScope>(() {
       return D4.extractBridgedArg<RestorationScope>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -204470,6 +204593,17 @@ Object? _rc2Factory$leaf18(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf19(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'Scrollable' => Factory<Scrollable>(() {
       return D4.extractBridgedArg<Scrollable>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -204484,17 +204618,6 @@ Object? _rc2Factory$leaf18(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf19(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'ScrollableState' => Factory<ScrollableState>(() {
       return D4.extractBridgedArg<ScrollableState>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -204932,6 +205055,17 @@ Object? _rc2Factory$leaf19(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf20(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => Factory<ShaderMaskLayer>(() {
       return D4.extractBridgedArg<ShaderMaskLayer>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -204946,17 +205080,6 @@ Object? _rc2Factory$leaf19(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf20(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => Factory<ShapeBorderClipper>(() {
       return D4.extractBridgedArg<ShapeBorderClipper>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -205398,25 +205521,11 @@ Object? _rc2Factory$leaf20(
         visitor,
       );
     }),
-    'SliverMainAxisGroup' => Factory<SliverMainAxisGroup>(() {
-      return D4.extractBridgedArg<SliverMainAxisGroup>(
-        D4.callInterpreterCallback(visitor, constructor, []),
-        'callback',
-        visitor,
-      );
-    }),
-    'SliverMultiBoxAdaptorElement' => Factory<SliverMultiBoxAdaptorElement>(() {
-      return D4.extractBridgedArg<SliverMultiBoxAdaptorElement>(
-        D4.callInterpreterCallback(visitor, constructor, []),
-        'callback',
-        visitor,
-      );
-    }),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Factory$leaf21(
   String typeName,
   dynamic visitor,
@@ -205432,6 +205541,20 @@ Object? _rc2Factory$leaf21(
     }),
     'String?' => Factory<String?>(() {
       return D4.extractBridgedArg<String?>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'SliverMainAxisGroup' => Factory<SliverMainAxisGroup>(() {
+      return D4.extractBridgedArg<SliverMainAxisGroup>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'SliverMultiBoxAdaptorElement' => Factory<SliverMultiBoxAdaptorElement>(() {
+      return D4.extractBridgedArg<SliverMultiBoxAdaptorElement>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
         visitor,
@@ -205863,6 +205986,17 @@ Object? _rc2Factory$leaf21(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf22(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'SweepGradient' => Factory<SweepGradient>(() {
       return D4.extractBridgedArg<SweepGradient>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -205877,17 +206011,6 @@ Object? _rc2Factory$leaf21(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf22(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'SwitchListTile' => Factory<SwitchListTile>(() {
       return D4.extractBridgedArg<SwitchListTile>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -206325,6 +206448,17 @@ Object? _rc2Factory$leaf22(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf23(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'TextInputStyle' => Factory<TextInputStyle>(() {
       return D4.extractBridgedArg<TextInputStyle>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -206339,17 +206473,6 @@ Object? _rc2Factory$leaf22(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf23(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'TextMagnifier' => Factory<TextMagnifier>(() {
       return D4.extractBridgedArg<TextMagnifier>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -206788,6 +206911,17 @@ Object? _rc2Factory$leaf23(
         visitor,
       );
     }),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Factory$leaf24(
+  String typeName,
+  dynamic visitor,
+  Object? constructor,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => Factory<TransposeCharactersIntent>(() {
       return D4.extractBridgedArg<TransposeCharactersIntent>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -206802,17 +206936,6 @@ Object? _rc2Factory$leaf23(
         visitor,
       );
     }),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Factory$leaf24(
-  String typeName,
-  dynamic visitor,
-  Object? constructor,
-) {
-  return switch (typeName) {
     'TreeSliverController' => Factory<TreeSliverController>(() {
       return D4.extractBridgedArg<TreeSliverController>(
         D4.callInterpreterCallback(visitor, constructor, []),
@@ -207255,25 +207378,11 @@ Object? _rc2Factory$leaf24(
         visitor,
       );
     }),
-    'WidgetInspector' => Factory<WidgetInspector>(() {
-      return D4.extractBridgedArg<WidgetInspector>(
-        D4.callInterpreterCallback(visitor, constructor, []),
-        'callback',
-        visitor,
-      );
-    }),
-    'WidgetOrderTraversalPolicy' => Factory<WidgetOrderTraversalPolicy>(() {
-      return D4.extractBridgedArg<WidgetOrderTraversalPolicy>(
-        D4.callInterpreterCallback(visitor, constructor, []),
-        'callback',
-        visitor,
-      );
-    }),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2Factory` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Factory$leaf25(
   String typeName,
   dynamic visitor,
@@ -207338,6 +207447,20 @@ Object? _rc2Factory$leaf25(
     }),
     'num?' => Factory<num?>(() {
       return D4.extractBridgedArg<num?>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'WidgetInspector' => Factory<WidgetInspector>(() {
+      return D4.extractBridgedArg<WidgetInspector>(
+        D4.callInterpreterCallback(visitor, constructor, []),
+        'callback',
+        visitor,
+      );
+    }),
+    'WidgetOrderTraversalPolicy' => Factory<WidgetOrderTraversalPolicy>(() {
+      return D4.extractBridgedArg<WidgetOrderTraversalPolicy>(
         D4.callInterpreterCallback(visitor, constructor, []),
         'callback',
         visitor,
@@ -207464,7 +207587,7 @@ Object? _rc2FlagsSummary(
   final level = named.containsKey('level')
       ? D4.extractBridgedArg<DiagnosticLevel?>(named['level'], 'level')
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -207573,7 +207696,7 @@ Object? _rc2FlagsSummary(
         level,
       );
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2FlagsSummary$leaf9(
           typeName,
@@ -207597,7 +207720,7 @@ Object? _rc2FlagsSummary(
         level,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2FlagsSummary$leaf11(
         typeName,
         visitor,
@@ -207620,9 +207743,9 @@ Object? _rc2FlagsSummary(
       level,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2FlagsSummary$leaf13(
           typeName,
           visitor,
@@ -207634,7 +207757,7 @@ Object? _rc2FlagsSummary(
           level,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2FlagsSummary$leaf14(
           typeName,
           visitor,
@@ -207657,7 +207780,7 @@ Object? _rc2FlagsSummary(
         level,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2FlagsSummary$leaf16(
         typeName,
         visitor,
@@ -207669,7 +207792,7 @@ Object? _rc2FlagsSummary(
         level,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2FlagsSummary$leaf17(
         typeName,
         visitor,
@@ -207692,8 +207815,8 @@ Object? _rc2FlagsSummary(
       level,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2FlagsSummary$leaf19(
         typeName,
         visitor,
@@ -207705,7 +207828,7 @@ Object? _rc2FlagsSummary(
         level,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2FlagsSummary$leaf20(
         typeName,
         visitor,
@@ -207728,8 +207851,8 @@ Object? _rc2FlagsSummary(
       level,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2FlagsSummary$leaf22(
         typeName,
         visitor,
@@ -207752,7 +207875,7 @@ Object? _rc2FlagsSummary(
       level,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2FlagsSummary$leaf24(
       typeName,
       visitor,
@@ -213272,7 +213395,7 @@ Object? _rc2FlagsSummary$leaf9(
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf10(
   String typeName,
   dynamic visitor,
@@ -213517,6 +213640,14 @@ Object? _rc2FlagsSummary$leaf10(
     'InteractiveViewer' => FlagsSummary<InteractiveViewer>(
       name!,
       D4.coerceMap<String, InteractiveViewer?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'IntersectionResult' => FlagsSummary<IntersectionResult>(
+      name!,
+      D4.coerceMap<String, IntersectionResult?>(value, 'value'),
       ifEmpty: ifEmpty,
       showName: showName ?? true,
       showSeparator: showSeparator ?? true,
@@ -213795,19 +213926,11 @@ Object? _rc2FlagsSummary$leaf10(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'LineMetrics' => FlagsSummary<LineMetrics>(
-      name!,
-      D4.coerceMap<String, LineMetrics?>(value, 'value'),
-      ifEmpty: ifEmpty,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf11(
   String typeName,
   dynamic visitor,
@@ -213819,6 +213942,14 @@ Object? _rc2FlagsSummary$leaf11(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'LineMetrics' => FlagsSummary<LineMetrics>(
+      name!,
+      D4.coerceMap<String, LineMetrics?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'LinearBorder' => FlagsSummary<LinearBorder>(
       name!,
       D4.coerceMap<String, LinearBorder?>(value, 'value'),
@@ -214334,19 +214465,11 @@ Object? _rc2FlagsSummary$leaf11(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'MediaQueryData' => FlagsSummary<MediaQueryData>(
-      name!,
-      D4.coerceMap<String, MediaQueryData?>(value, 'value'),
-      ifEmpty: ifEmpty,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf12(
   String typeName,
   dynamic visitor,
@@ -214358,9 +214481,9 @@ Object? _rc2FlagsSummary$leaf12(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
-    'Object' => FlagsSummary<dynamic>(
+    'MediaQueryData' => FlagsSummary<MediaQueryData>(
       name!,
-      D4.coerceMap<String, dynamic?>(value, 'value'),
+      D4.coerceMap<String, MediaQueryData?>(value, 'value'),
       ifEmpty: ifEmpty,
       showName: showName ?? true,
       showSeparator: showSeparator ?? true,
@@ -214878,7 +215001,7 @@ Object? _rc2FlagsSummary$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf13(
   String typeName,
   dynamic visitor,
@@ -214890,7 +215013,7 @@ Object? _rc2FlagsSummary$leaf13(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
-    'Object?' => FlagsSummary<dynamic>(
+    'Object' || 'Object?' => FlagsSummary<dynamic>(
       name!,
       D4.coerceMap<String, dynamic?>(value, 'value'),
       ifEmpty: ifEmpty,
@@ -215409,20 +215532,11 @@ Object? _rc2FlagsSummary$leaf13(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PerformanceModeRequestHandle' =>
-      FlagsSummary<PerformanceModeRequestHandle>(
-        name!,
-        D4.coerceMap<String, PerformanceModeRequestHandle?>(value, 'value'),
-        ifEmpty: ifEmpty,
-        showName: showName ?? true,
-        showSeparator: showSeparator ?? true,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf14(
   String typeName,
   dynamic visitor,
@@ -215434,6 +215548,15 @@ Object? _rc2FlagsSummary$leaf14(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      FlagsSummary<PerformanceModeRequestHandle>(
+        name!,
+        D4.coerceMap<String, PerformanceModeRequestHandle?>(value, 'value'),
+        ifEmpty: ifEmpty,
+        showName: showName ?? true,
+        showSeparator: showSeparator ?? true,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'PerformanceOverlay' => FlagsSummary<PerformanceOverlay>(
       name!,
       D4.coerceMap<String, PerformanceOverlay?>(value, 'value'),
@@ -215947,19 +216070,11 @@ Object? _rc2FlagsSummary$leaf14(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PositionedTransition' => FlagsSummary<PositionedTransition>(
-      name!,
-      D4.coerceMap<String, PositionedTransition?>(value, 'value'),
-      ifEmpty: ifEmpty,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf15(
   String typeName,
   dynamic visitor,
@@ -215971,6 +216086,14 @@ Object? _rc2FlagsSummary$leaf15(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => FlagsSummary<PositionedTransition>(
+      name!,
+      D4.coerceMap<String, PositionedTransition?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'PredictiveBackEvent' => FlagsSummary<PredictiveBackEvent>(
       name!,
       D4.coerceMap<String, PredictiveBackEvent?>(value, 'value'),
@@ -216086,6 +216209,14 @@ Object? _rc2FlagsSummary$leaf15(
     'ProxyAnimation' => FlagsSummary<ProxyAnimation>(
       name!,
       D4.coerceMap<String, ProxyAnimation?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'Quad' => FlagsSummary<Quad>(
+      name!,
+      D4.coerceMap<String, Quad?>(value, 'value'),
       ifEmpty: ifEmpty,
       showName: showName ?? true,
       showSeparator: showSeparator ?? true,
@@ -216486,6 +216617,22 @@ Object? _rc2FlagsSummary$leaf15(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf16(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => FlagsSummary<RenderAbsorbPointer>(
       name!,
       D4.coerceMap<String, RenderAbsorbPointer?>(value, 'value'),
@@ -216502,22 +216649,6 @@ Object? _rc2FlagsSummary$leaf15(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf16(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => FlagsSummary<RenderAnimatedOpacity>(
       name!,
       D4.coerceMap<String, RenderAnimatedOpacity?>(value, 'value'),
@@ -217024,6 +217155,22 @@ Object? _rc2FlagsSummary$leaf16(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf17(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       FlagsSummary<RenderShrinkWrappingViewport>(
         name!,
@@ -217041,22 +217188,6 @@ Object? _rc2FlagsSummary$leaf16(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf17(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => FlagsSummary<RenderSliverAnimatedOpacity>(
       name!,
       D4.coerceMap<String, RenderSliverAnimatedOpacity?>(value, 'value'),
@@ -217571,6 +217702,22 @@ Object? _rc2FlagsSummary$leaf17(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf18(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RestorationBucket' => FlagsSummary<RestorationBucket>(
       name!,
       D4.coerceMap<String, RestorationBucket?>(value, 'value'),
@@ -217587,22 +217734,6 @@ Object? _rc2FlagsSummary$leaf17(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf18(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RestorationScope' => FlagsSummary<RestorationScope>(
       name!,
       D4.coerceMap<String, RestorationScope?>(value, 'value'),
@@ -218112,6 +218243,22 @@ Object? _rc2FlagsSummary$leaf18(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf19(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'Scrollable' => FlagsSummary<Scrollable>(
       name!,
       D4.coerceMap<String, Scrollable?>(value, 'value'),
@@ -218128,22 +218275,6 @@ Object? _rc2FlagsSummary$leaf18(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf19(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ScrollableState' => FlagsSummary<ScrollableState>(
       name!,
       D4.coerceMap<String, ScrollableState?>(value, 'value'),
@@ -218645,6 +218776,22 @@ Object? _rc2FlagsSummary$leaf19(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf20(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => FlagsSummary<ShaderMaskLayer>(
       name!,
       D4.coerceMap<String, ShaderMaskLayer?>(value, 'value'),
@@ -218661,22 +218808,6 @@ Object? _rc2FlagsSummary$leaf19(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf20(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => FlagsSummary<ShapeBorderClipper>(
       name!,
       D4.coerceMap<String, ShapeBorderClipper?>(value, 'value'),
@@ -219184,28 +219315,11 @@ Object? _rc2FlagsSummary$leaf20(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'SliverMainAxisGroup' => FlagsSummary<SliverMainAxisGroup>(
-      name!,
-      D4.coerceMap<String, SliverMainAxisGroup?>(value, 'value'),
-      ifEmpty: ifEmpty,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      FlagsSummary<SliverMultiBoxAdaptorElement>(
-        name!,
-        D4.coerceMap<String, SliverMultiBoxAdaptorElement?>(value, 'value'),
-        ifEmpty: ifEmpty,
-        showName: showName ?? true,
-        showSeparator: showSeparator ?? true,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf21(
   String typeName,
   dynamic visitor,
@@ -219233,6 +219347,23 @@ Object? _rc2FlagsSummary$leaf21(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    'SliverMainAxisGroup' => FlagsSummary<SliverMainAxisGroup>(
+      name!,
+      D4.coerceMap<String, SliverMainAxisGroup?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      FlagsSummary<SliverMultiBoxAdaptorElement>(
+        name!,
+        D4.coerceMap<String, SliverMultiBoxAdaptorElement?>(value, 'value'),
+        ifEmpty: ifEmpty,
+        showName: showName ?? true,
+        showSeparator: showSeparator ?? true,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       FlagsSummary<SliverMultiBoxAdaptorParentData>(
         name!,
@@ -219726,6 +219857,22 @@ Object? _rc2FlagsSummary$leaf21(
         showSeparator: showSeparator ?? true,
         level: level ?? DiagnosticLevel.info,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf22(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'SweepGradient' => FlagsSummary<SweepGradient>(
       name!,
       D4.coerceMap<String, SweepGradient?>(value, 'value'),
@@ -219742,22 +219889,6 @@ Object? _rc2FlagsSummary$leaf21(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf22(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'SwitchListTile' => FlagsSummary<SwitchListTile>(
       name!,
       D4.coerceMap<String, SwitchListTile?>(value, 'value'),
@@ -220259,6 +220390,22 @@ Object? _rc2FlagsSummary$leaf22(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf23(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TextInputStyle' => FlagsSummary<TextInputStyle>(
       name!,
       D4.coerceMap<String, TextInputStyle?>(value, 'value'),
@@ -220275,22 +220422,6 @@ Object? _rc2FlagsSummary$leaf22(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf23(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TextMagnifier' => FlagsSummary<TextMagnifier>(
       name!,
       D4.coerceMap<String, TextMagnifier?>(value, 'value'),
@@ -220798,6 +220929,22 @@ Object? _rc2FlagsSummary$leaf23(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FlagsSummary$leaf24(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifEmpty,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => FlagsSummary<TransposeCharactersIntent>(
       name!,
       D4.coerceMap<String, TransposeCharactersIntent?>(value, 'value'),
@@ -220814,22 +220961,6 @@ Object? _rc2FlagsSummary$leaf23(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FlagsSummary$leaf24(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifEmpty,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TreeSliverController' => FlagsSummary<TreeSliverController>(
       name!,
       D4.coerceMap<String, TreeSliverController?>(value, 'value'),
@@ -221338,27 +221469,11 @@ Object? _rc2FlagsSummary$leaf24(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'WidgetInspector' => FlagsSummary<WidgetInspector>(
-      name!,
-      D4.coerceMap<String, WidgetInspector?>(value, 'value'),
-      ifEmpty: ifEmpty,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'WidgetOrderTraversalPolicy' => FlagsSummary<WidgetOrderTraversalPolicy>(
-      name!,
-      D4.coerceMap<String, WidgetOrderTraversalPolicy?>(value, 'value'),
-      ifEmpty: ifEmpty,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2FlagsSummary` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FlagsSummary$leaf25(
   String typeName,
   dynamic visitor,
@@ -221437,6 +221552,22 @@ Object? _rc2FlagsSummary$leaf25(
     'num?' => FlagsSummary<num?>(
       name!,
       D4.coerceMap<String, num?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'WidgetInspector' => FlagsSummary<WidgetInspector>(
+      name!,
+      D4.coerceMap<String, WidgetInspector?>(value, 'value'),
+      ifEmpty: ifEmpty,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'WidgetOrderTraversalPolicy' => FlagsSummary<WidgetOrderTraversalPolicy>(
+      name!,
+      D4.coerceMap<String, WidgetOrderTraversalPolicy?>(value, 'value'),
       ifEmpty: ifEmpty,
       showName: showName ?? true,
       showSeparator: showSeparator ?? true,
@@ -221590,7 +221721,7 @@ Object? _rc2FormField(
   final restorationId = named.containsKey('restorationId')
       ? named['restorationId'] as String?
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -221744,7 +221875,7 @@ Object? _rc2FormField(
         restorationId,
       );
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2FormField$leaf9(
           typeName,
@@ -221778,7 +221909,7 @@ Object? _rc2FormField(
         restorationId,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2FormField$leaf11(
         typeName,
         visitor,
@@ -221811,9 +221942,9 @@ Object? _rc2FormField(
       restorationId,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2FormField$leaf13(
           typeName,
           visitor,
@@ -221830,7 +221961,7 @@ Object? _rc2FormField(
           restorationId,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2FormField$leaf14(
           typeName,
           visitor,
@@ -221863,7 +221994,7 @@ Object? _rc2FormField(
         restorationId,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2FormField$leaf16(
         typeName,
         visitor,
@@ -221880,7 +222011,7 @@ Object? _rc2FormField(
         restorationId,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2FormField$leaf17(
         typeName,
         visitor,
@@ -221913,8 +222044,8 @@ Object? _rc2FormField(
       restorationId,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2FormField$leaf19(
         typeName,
         visitor,
@@ -221931,7 +222062,7 @@ Object? _rc2FormField(
         restorationId,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2FormField$leaf20(
         typeName,
         visitor,
@@ -221964,8 +222095,8 @@ Object? _rc2FormField(
       restorationId,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2FormField$leaf22(
         typeName,
         visitor,
@@ -221998,7 +222129,7 @@ Object? _rc2FormField(
       restorationId,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2FormField$leaf24(
       typeName,
       visitor,
@@ -251144,7 +251275,7 @@ Object? _rc2FormField$leaf9(
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormField$leaf10(
   String typeName,
   dynamic visitor,
@@ -252465,6 +252596,51 @@ Object? _rc2FormField$leaf10(
               );
             },
       initialValue: initialValue as InteractiveViewer?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'IntersectionResult' => FormField<IntersectionResult>(
+      key: key,
+      builder: (FormFieldState<IntersectionResult> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (IntersectionResult? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (IntersectionResult? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as IntersectionResult?,
       enabled: enabled ?? true,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
@@ -254000,6 +254176,27 @@ Object? _rc2FormField$leaf10(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'LineMetrics' => FormField<LineMetrics>(
       key: key,
       builder: (FormFieldState<LineMetrics> p0) {
@@ -254045,27 +254242,6 @@ Object? _rc2FormField$leaf10(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'LinearBorder' => FormField<LinearBorder>(
       key: key,
       builder: (FormFieldState<LinearBorder> p0) {
@@ -256904,6 +257080,27 @@ Object? _rc2FormField$leaf11(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'MediaQueryData' => FormField<MediaQueryData>(
       key: key,
       builder: (FormFieldState<MediaQueryData> p0) {
@@ -256945,72 +257142,6 @@ Object? _rc2FormField$leaf11(
               );
             },
       initialValue: initialValue as MediaQueryData?,
-      enabled: enabled ?? true,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-    ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MemoryImage' to 'Object' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
-    'Object' => FormField<dynamic>(
-      key: key,
-      builder: (FormFieldState<dynamic> p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      onSaved: onSaved == null
-          ? null
-          : (dynamic? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onReset: onReset == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onReset, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      forceErrorText: forceErrorText,
-      validator: validator == null
-          ? null
-          : (dynamic? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      initialValue: initialValue,
       enabled: enabled ?? true,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
@@ -259856,7 +259987,7 @@ Object? _rc2FormField$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormField$leaf13(
   String typeName,
   dynamic visitor,
@@ -259873,7 +260004,7 @@ Object? _rc2FormField$leaf13(
   String? restorationId,
 ) {
   return switch (typeName) {
-    'Object?' => FormField<dynamic>(
+    'Object' || 'Object?' => FormField<dynamic>(
       key: key,
       builder: (FormFieldState<dynamic> p0) {
         return D4.extractBridgedArg<Widget>(
@@ -262713,6 +262844,27 @@ Object? _rc2FormField$leaf13(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' => FormField<PerformanceModeRequestHandle>(
       key: key,
       builder: (FormFieldState<PerformanceModeRequestHandle> p0) {
@@ -262758,27 +262910,6 @@ Object? _rc2FormField$leaf13(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => FormField<PerformanceOverlay>(
       key: key,
       builder: (FormFieldState<PerformanceOverlay> p0) {
@@ -265621,6 +265752,27 @@ Object? _rc2FormField$leaf14(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'PositionedTransition' => FormField<PositionedTransition>(
       key: key,
       builder: (FormFieldState<PositionedTransition> p0) {
@@ -265666,27 +265818,6 @@ Object? _rc2FormField$leaf14(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => FormField<PredictiveBackEvent>(
       key: key,
       builder: (FormFieldState<PredictiveBackEvent> p0) {
@@ -266319,6 +266450,51 @@ Object? _rc2FormField$leaf15(
               );
             },
       initialValue: initialValue as ProxyAnimation?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'Quad' => FormField<Quad>(
+      key: key,
+      builder: (FormFieldState<Quad> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (Quad? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (Quad? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as Quad?,
       enabled: enabled ?? true,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
@@ -268488,6 +268664,27 @@ Object? _rc2FormField$leaf15(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => FormField<RenderAbsorbPointer>(
       key: key,
       builder: (FormFieldState<RenderAbsorbPointer> p0) {
@@ -268578,27 +268775,6 @@ Object? _rc2FormField$leaf15(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => FormField<RenderAnimatedOpacity>(
       key: key,
       builder: (FormFieldState<RenderAnimatedOpacity> p0) {
@@ -271393,6 +271569,27 @@ Object? _rc2FormField$leaf16(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' => FormField<RenderShrinkWrappingViewport>(
       key: key,
       builder: (FormFieldState<RenderShrinkWrappingViewport> p0) {
@@ -271483,27 +271680,6 @@ Object? _rc2FormField$leaf16(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => FormField<RenderSliverAnimatedOpacity>(
       key: key,
       builder: (FormFieldState<RenderSliverAnimatedOpacity> p0) {
@@ -274301,6 +274477,27 @@ Object? _rc2FormField$leaf17(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'RestorationBucket' => FormField<RestorationBucket>(
       key: key,
       builder: (FormFieldState<RestorationBucket> p0) {
@@ -274391,27 +274588,6 @@ Object? _rc2FormField$leaf17(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'RestorationScope' => FormField<RestorationScope>(
       key: key,
       builder: (FormFieldState<RestorationScope> p0) {
@@ -277210,6 +277386,27 @@ Object? _rc2FormField$leaf18(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'Scrollable' => FormField<Scrollable>(
       key: key,
       builder: (FormFieldState<Scrollable> p0) {
@@ -277300,27 +277497,6 @@ Object? _rc2FormField$leaf18(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'ScrollableState' => FormField<ScrollableState>(
       key: key,
       builder: (FormFieldState<ScrollableState> p0) {
@@ -280112,6 +280288,27 @@ Object? _rc2FormField$leaf19(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => FormField<ShaderMaskLayer>(
       key: key,
       builder: (FormFieldState<ShaderMaskLayer> p0) {
@@ -280202,27 +280399,6 @@ Object? _rc2FormField$leaf19(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => FormField<ShapeBorderClipper>(
       key: key,
       builder: (FormFieldState<ShapeBorderClipper> p0) {
@@ -283019,101 +283195,11 @@ Object? _rc2FormField$leaf20(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    'SliverMainAxisGroup' => FormField<SliverMainAxisGroup>(
-      key: key,
-      builder: (FormFieldState<SliverMainAxisGroup> p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      onSaved: onSaved == null
-          ? null
-          : (SliverMainAxisGroup? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onReset: onReset == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onReset, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      forceErrorText: forceErrorText,
-      validator: validator == null
-          ? null
-          : (SliverMainAxisGroup? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      initialValue: initialValue as SliverMainAxisGroup?,
-      enabled: enabled ?? true,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-    ),
-    'SliverMultiBoxAdaptorElement' => FormField<SliverMultiBoxAdaptorElement>(
-      key: key,
-      builder: (FormFieldState<SliverMultiBoxAdaptorElement> p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      onSaved: onSaved == null
-          ? null
-          : (SliverMultiBoxAdaptorElement? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onReset: onReset == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onReset, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      forceErrorText: forceErrorText,
-      validator: validator == null
-          ? null
-          : (SliverMultiBoxAdaptorElement? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      initialValue: initialValue as SliverMultiBoxAdaptorElement?,
-      enabled: enabled ?? true,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormField$leaf21(
   String typeName,
   dynamic visitor,
@@ -283216,6 +283302,96 @@ Object? _rc2FormField$leaf21(
               );
             },
       initialValue: initialValue as String?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'SliverMainAxisGroup' => FormField<SliverMainAxisGroup>(
+      key: key,
+      builder: (FormFieldState<SliverMainAxisGroup> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (SliverMainAxisGroup? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (SliverMainAxisGroup? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as SliverMainAxisGroup?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'SliverMultiBoxAdaptorElement' => FormField<SliverMultiBoxAdaptorElement>(
+      key: key,
+      builder: (FormFieldState<SliverMultiBoxAdaptorElement> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (SliverMultiBoxAdaptorElement? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (SliverMultiBoxAdaptorElement? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as SliverMultiBoxAdaptorElement?,
       enabled: enabled ?? true,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
@@ -285926,6 +286102,27 @@ Object? _rc2FormField$leaf21(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'SweepGradient' => FormField<SweepGradient>(
       key: key,
       builder: (FormFieldState<SweepGradient> p0) {
@@ -286016,27 +286213,6 @@ Object? _rc2FormField$leaf21(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'SwitchListTile' => FormField<SwitchListTile>(
       key: key,
       builder: (FormFieldState<SwitchListTile> p0) {
@@ -288828,6 +289004,27 @@ Object? _rc2FormField$leaf22(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'TextInputStyle' => FormField<TextInputStyle>(
       key: key,
       builder: (FormFieldState<TextInputStyle> p0) {
@@ -288918,27 +289115,6 @@ Object? _rc2FormField$leaf22(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'TextMagnifier' => FormField<TextMagnifier>(
       key: key,
       builder: (FormFieldState<TextMagnifier> p0) {
@@ -291732,6 +291908,27 @@ Object? _rc2FormField$leaf23(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FormField$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? builder,
+  Object? onSaved,
+  Object? onReset,
+  String? forceErrorText,
+  Object? validator,
+  Object? errorBuilder,
+  Object? initialValue,
+  bool? enabled,
+  AutovalidateMode? autovalidateMode,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => FormField<TransposeCharactersIntent>(
       key: key,
       builder: (FormFieldState<TransposeCharactersIntent> p0) {
@@ -291822,27 +292019,6 @@ Object? _rc2FormField$leaf23(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FormField$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? builder,
-  Object? onSaved,
-  Object? onReset,
-  String? forceErrorText,
-  Object? validator,
-  Object? errorBuilder,
-  Object? initialValue,
-  bool? enabled,
-  AutovalidateMode? autovalidateMode,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'TreeSliverController' => FormField<TreeSliverController>(
       key: key,
       builder: (FormFieldState<TreeSliverController> p0) {
@@ -294637,101 +294813,11 @@ Object? _rc2FormField$leaf24(
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
     ),
-    'WidgetInspector' => FormField<WidgetInspector>(
-      key: key,
-      builder: (FormFieldState<WidgetInspector> p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      onSaved: onSaved == null
-          ? null
-          : (WidgetInspector? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onReset: onReset == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onReset, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      forceErrorText: forceErrorText,
-      validator: validator == null
-          ? null
-          : (WidgetInspector? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      initialValue: initialValue as WidgetInspector?,
-      enabled: enabled ?? true,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-    ),
-    'WidgetOrderTraversalPolicy' => FormField<WidgetOrderTraversalPolicy>(
-      key: key,
-      builder: (FormFieldState<WidgetOrderTraversalPolicy> p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      onSaved: onSaved == null
-          ? null
-          : (WidgetOrderTraversalPolicy? p0) async {
-              D4.callInterpreterCallback(visitor, onSaved, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onReset: onReset == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onReset, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      forceErrorText: forceErrorText,
-      validator: validator == null
-          ? null
-          : (WidgetOrderTraversalPolicy? p0) {
-              return D4.extractBridgedArg<String>(
-                D4.callInterpreterCallback(visitor, validator, [p0]),
-                'callback',
-                visitor,
-              );
-            },
-      errorBuilder: errorBuilder == null
-          ? null
-          : (BuildContext p0, String p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      initialValue: initialValue as WidgetOrderTraversalPolicy?,
-      enabled: enabled ?? true,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2FormField` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormField$leaf25(
   String typeName,
   dynamic visitor,
@@ -295149,6 +295235,96 @@ Object? _rc2FormField$leaf25(
               );
             },
       initialValue: initialValue as num?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'WidgetInspector' => FormField<WidgetInspector>(
+      key: key,
+      builder: (FormFieldState<WidgetInspector> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (WidgetInspector? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (WidgetInspector? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as WidgetInspector?,
+      enabled: enabled ?? true,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
+    ),
+    'WidgetOrderTraversalPolicy' => FormField<WidgetOrderTraversalPolicy>(
+      key: key,
+      builder: (FormFieldState<WidgetOrderTraversalPolicy> p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      onSaved: onSaved == null
+          ? null
+          : (WidgetOrderTraversalPolicy? p0) async {
+              D4.callInterpreterCallback(visitor, onSaved, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onReset: onReset == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onReset, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      forceErrorText: forceErrorText,
+      validator: validator == null
+          ? null
+          : (WidgetOrderTraversalPolicy? p0) {
+              return D4.extractBridgedArg<String>(
+                D4.callInterpreterCallback(visitor, validator, [p0]),
+                'callback',
+                visitor,
+              );
+            },
+      errorBuilder: errorBuilder == null
+          ? null
+          : (BuildContext p0, String p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, errorBuilder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      initialValue: initialValue as WidgetOrderTraversalPolicy?,
       enabled: enabled ?? true,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
@@ -295754,7 +295930,7 @@ Object? _rc2FormFieldState(
       : null;
   if (rawTypeName == null) return null;
   final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -295782,51 +295958,51 @@ Object? _rc2FormFieldState(
       }
       return _rc2FormFieldState$leaf8(typeName, visitor);
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2FormFieldState$leaf9(typeName, visitor);
       }
       return _rc2FormFieldState$leaf10(typeName, visitor);
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2FormFieldState$leaf11(typeName, visitor);
     }
     return _rc2FormFieldState$leaf12(typeName, visitor);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2FormFieldState$leaf13(typeName, visitor);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2FormFieldState$leaf14(typeName, visitor);
       }
       return _rc2FormFieldState$leaf15(typeName, visitor);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2FormFieldState$leaf16(typeName, visitor);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2FormFieldState$leaf17(typeName, visitor);
     }
     return _rc2FormFieldState$leaf18(typeName, visitor);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2FormFieldState$leaf19(typeName, visitor);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2FormFieldState$leaf20(typeName, visitor);
     }
     return _rc2FormFieldState$leaf21(typeName, visitor);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2FormFieldState$leaf22(typeName, visitor);
     }
     return _rc2FormFieldState$leaf23(typeName, visitor);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2FormFieldState$leaf24(typeName, visitor);
   }
   return _rc2FormFieldState$leaf25(typeName, visitor);
@@ -296660,7 +296836,7 @@ Object? _rc2FormFieldState$leaf9(String typeName, dynamic visitor) {
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf10(String typeName, dynamic visitor) {
   return switch (typeName) {
     'ImmediateMultiDragGestureRecognizer' =>
@@ -296695,6 +296871,7 @@ Object? _rc2FormFieldState$leaf10(String typeName, dynamic visitor) {
     'IntProperty' => FormFieldState<IntProperty>(),
     'IntTween' => FormFieldState<IntTween>(),
     'InteractiveViewer' => FormFieldState<InteractiveViewer>(),
+    'IntersectionResult' => FormFieldState<IntersectionResult>(),
     'Interval' => FormFieldState<Interval>(),
     'IntrinsicColumnWidth' => FormFieldState<IntrinsicColumnWidth>(),
     'IntrinsicHeight' => FormFieldState<IntrinsicHeight>(),
@@ -296731,14 +296908,14 @@ Object? _rc2FormFieldState$leaf10(String typeName, dynamic visitor) {
     'LicenseParagraph' => FormFieldState<LicenseParagraph>(),
     'LimitedBox' => FormFieldState<LimitedBox>(),
     'LineBoundary' => FormFieldState<LineBoundary>(),
-    'LineMetrics' => FormFieldState<LineMetrics>(),
     _ => null,
   };
 }
 
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf11(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'LineMetrics' => FormFieldState<LineMetrics>(),
     'LinearBorder' => FormFieldState<LinearBorder>(),
     'LinearBorderEdge' => FormFieldState<LinearBorderEdge>(),
     'LinearGradient' => FormFieldState<LinearGradient>(),
@@ -296812,15 +296989,14 @@ Object? _rc2FormFieldState$leaf11(String typeName, dynamic visitor) {
     'MatrixTransition' => FormFieldState<MatrixTransition>(),
     'MaxColumnWidth' => FormFieldState<MaxColumnWidth>(),
     'MediaQuery' => FormFieldState<MediaQuery>(),
-    'MediaQueryData' => FormFieldState<MediaQueryData>(),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf12(String typeName, dynamic visitor) {
   return switch (typeName) {
-    'Object' => FormFieldState<dynamic>(),
+    'MediaQueryData' => FormFieldState<MediaQueryData>(),
     'MemoryImage' => FormFieldState<MemoryImage>(),
     'MenuAcceleratorCallbackBinding' =>
       FormFieldState<MenuAcceleratorCallbackBinding>(),
@@ -296895,10 +297071,10 @@ Object? _rc2FormFieldState$leaf12(String typeName, dynamic visitor) {
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf13(String typeName, dynamic visitor) {
   return switch (typeName) {
-    'Object?' => FormFieldState<dynamic>(),
+    'Object' || 'Object?' => FormFieldState<dynamic>(),
     'ObjectCreated' => FormFieldState<ObjectCreated>(),
     'ObjectDisposed' => FormFieldState<ObjectDisposed>(),
     'ObjectFlagProperty' => FormFieldState<ObjectFlagProperty>(),
@@ -296967,15 +297143,15 @@ Object? _rc2FormFieldState$leaf13(String typeName, dynamic visitor) {
     'PathMetricIterator' => FormFieldState<PathMetricIterator>(),
     'PathMetrics' => FormFieldState<PathMetrics>(),
     'PercentProperty' => FormFieldState<PercentProperty>(),
-    'PerformanceModeRequestHandle' =>
-      FormFieldState<PerformanceModeRequestHandle>(),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf14(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      FormFieldState<PerformanceModeRequestHandle>(),
     'PerformanceOverlay' => FormFieldState<PerformanceOverlay>(),
     'PerformanceOverlayLayer' => FormFieldState<PerformanceOverlayLayer>(),
     'PersistentBottomSheetController' =>
@@ -297046,14 +297222,14 @@ Object? _rc2FormFieldState$leaf14(String typeName, dynamic visitor) {
     'PopupMenuThemeData' => FormFieldState<PopupMenuThemeData>(),
     'Positioned' => FormFieldState<Positioned>(),
     'PositionedDirectional' => FormFieldState<PositionedDirectional>(),
-    'PositionedTransition' => FormFieldState<PositionedTransition>(),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf15(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PositionedTransition' => FormFieldState<PositionedTransition>(),
     'PredictiveBackEvent' => FormFieldState<PredictiveBackEvent>(),
     'PredictiveBackFullscreenPageTransitionsBuilder' =>
       FormFieldState<PredictiveBackFullscreenPageTransitionsBuilder>(),
@@ -297071,6 +297247,7 @@ Object? _rc2FormFieldState$leaf15(String typeName, dynamic visitor) {
     'ProgressIndicatorThemeData' =>
       FormFieldState<ProgressIndicatorThemeData>(),
     'ProxyAnimation' => FormFieldState<ProxyAnimation>(),
+    'Quad' => FormFieldState<Quad>(),
     'RRect' => FormFieldState<RRect>(),
     'RSTransform' => FormFieldState<RSTransform>(),
     'RSuperellipse' => FormFieldState<RSuperellipse>(),
@@ -297126,15 +297303,15 @@ Object? _rc2FormFieldState$leaf15(String typeName, dynamic visitor) {
       FormFieldState<RelativePositionedTransition>(),
     'RelativeRect' => FormFieldState<RelativeRect>(),
     'RelativeRectTween' => FormFieldState<RelativeRectTween>(),
-    'RenderAbsorbPointer' => FormFieldState<RenderAbsorbPointer>(),
-    'RenderAndroidView' => FormFieldState<RenderAndroidView>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf16(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderAbsorbPointer' => FormFieldState<RenderAbsorbPointer>(),
+    'RenderAndroidView' => FormFieldState<RenderAndroidView>(),
     'RenderAnimatedOpacity' => FormFieldState<RenderAnimatedOpacity>(),
     'RenderAnimatedSize' => FormFieldState<RenderAnimatedSize>(),
     'RenderAnnotatedRegion' => FormFieldState<RenderAnnotatedRegion>(),
@@ -297208,16 +297385,16 @@ Object? _rc2FormFieldState$leaf16(String typeName, dynamic visitor) {
     'RenderSemanticsGestureHandler' =>
       FormFieldState<RenderSemanticsGestureHandler>(),
     'RenderShaderMask' => FormFieldState<RenderShaderMask>(),
-    'RenderShrinkWrappingViewport' =>
-      FormFieldState<RenderShrinkWrappingViewport>(),
-    'RenderSizedOverflowBox' => FormFieldState<RenderSizedOverflowBox>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf17(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderShrinkWrappingViewport' =>
+      FormFieldState<RenderShrinkWrappingViewport>(),
+    'RenderSizedOverflowBox' => FormFieldState<RenderSizedOverflowBox>(),
     'RenderSliverAnimatedOpacity' =>
       FormFieldState<RenderSliverAnimatedOpacity>(),
     'RenderSliverConstrainedCrossAxis' =>
@@ -297295,15 +297472,15 @@ Object? _rc2FormFieldState$leaf17(String typeName, dynamic visitor) {
     'RestorableTextEditingController' =>
       FormFieldState<RestorableTextEditingController>(),
     'RestorableTimeOfDay' => FormFieldState<RestorableTimeOfDay>(),
-    'RestorationBucket' => FormFieldState<RestorationBucket>(),
-    'RestorationManager' => FormFieldState<RestorationManager>(),
     _ => null,
   };
 }
 
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf18(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RestorationBucket' => FormFieldState<RestorationBucket>(),
+    'RestorationManager' => FormFieldState<RestorationManager>(),
     'RestorationScope' => FormFieldState<RestorationScope>(),
     'RevealedOffset' => FormFieldState<RevealedOffset>(),
     'ReverseAnimation' => FormFieldState<ReverseAnimation>(),
@@ -297376,15 +297553,15 @@ Object? _rc2FormFieldState$leaf18(String typeName, dynamic visitor) {
     'ScrollToDocumentBoundaryIntent' =>
       FormFieldState<ScrollToDocumentBoundaryIntent>(),
     'ScrollUpdateNotification' => FormFieldState<ScrollUpdateNotification>(),
-    'Scrollable' => FormFieldState<Scrollable>(),
-    'ScrollableDetails' => FormFieldState<ScrollableDetails>(),
     _ => null,
   };
 }
 
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf19(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'Scrollable' => FormFieldState<Scrollable>(),
+    'ScrollableDetails' => FormFieldState<ScrollableDetails>(),
     'ScrollableState' => FormFieldState<ScrollableState>(),
     'Scrollbar' => FormFieldState<Scrollbar>(),
     'ScrollbarPainter' => FormFieldState<ScrollbarPainter>(),
@@ -297450,15 +297627,15 @@ Object? _rc2FormFieldState$leaf19(String typeName, dynamic visitor) {
     'Shader' => FormFieldState<Shader>(),
     'ShaderMask' => FormFieldState<ShaderMask>(),
     'ShaderMaskEngineLayer' => FormFieldState<ShaderMaskEngineLayer>(),
-    'ShaderMaskLayer' => FormFieldState<ShaderMaskLayer>(),
-    'Shadow' => FormFieldState<Shadow>(),
     _ => null,
   };
 }
 
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf20(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'ShaderMaskLayer' => FormFieldState<ShaderMaskLayer>(),
+    'Shadow' => FormFieldState<Shadow>(),
     'ShapeBorderClipper' => FormFieldState<ShapeBorderClipper>(),
     'ShapeBorderTween' => FormFieldState<ShapeBorderTween>(),
     'ShapeDecoration' => FormFieldState<ShapeDecoration>(),
@@ -297529,18 +297706,18 @@ Object? _rc2FormFieldState$leaf20(String typeName, dynamic visitor) {
     'SliverLogicalContainerParentData' =>
       FormFieldState<SliverLogicalContainerParentData>(),
     'SliverLogicalParentData' => FormFieldState<SliverLogicalParentData>(),
-    'SliverMainAxisGroup' => FormFieldState<SliverMainAxisGroup>(),
-    'SliverMultiBoxAdaptorElement' =>
-      FormFieldState<SliverMultiBoxAdaptorElement>(),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf21(String typeName, dynamic visitor) {
   return switch (typeName) {
     'String' => FormFieldState<String>(),
     'String?' => FormFieldState<String?>(),
+    'SliverMainAxisGroup' => FormFieldState<SliverMainAxisGroup>(),
+    'SliverMultiBoxAdaptorElement' =>
+      FormFieldState<SliverMultiBoxAdaptorElement>(),
     'SliverMultiBoxAdaptorParentData' =>
       FormFieldState<SliverMultiBoxAdaptorParentData>(),
     'SliverOffstage' => FormFieldState<SliverOffstage>(),
@@ -297611,15 +297788,15 @@ Object? _rc2FormFieldState$leaf21(String typeName, dynamic visitor) {
     'Summary' => FormFieldState<Summary>(),
     'SurfaceAndroidViewController' =>
       FormFieldState<SurfaceAndroidViewController>(),
-    'SweepGradient' => FormFieldState<SweepGradient>(),
-    'Switch' => FormFieldState<Switch>(),
     _ => null,
   };
 }
 
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf22(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'SweepGradient' => FormFieldState<SweepGradient>(),
+    'Switch' => FormFieldState<Switch>(),
     'SwitchListTile' => FormFieldState<SwitchListTile>(),
     'SwitchTheme' => FormFieldState<SwitchTheme>(),
     'SwitchThemeData' => FormFieldState<SwitchThemeData>(),
@@ -297687,15 +297864,15 @@ Object? _rc2FormFieldState$leaf22(String typeName, dynamic visitor) {
     'TextInput' => FormFieldState<TextInput>(),
     'TextInputConfiguration' => FormFieldState<TextInputConfiguration>(),
     'TextInputConnection' => FormFieldState<TextInputConnection>(),
-    'TextInputStyle' => FormFieldState<TextInputStyle>(),
-    'TextInputType' => FormFieldState<TextInputType>(),
     _ => null,
   };
 }
 
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf23(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TextInputStyle' => FormFieldState<TextInputStyle>(),
+    'TextInputType' => FormFieldState<TextInputType>(),
     'TextMagnifier' => FormFieldState<TextMagnifier>(),
     'TextMagnifierConfiguration' =>
       FormFieldState<TextMagnifierConfiguration>(),
@@ -297765,15 +297942,15 @@ Object? _rc2FormFieldState$leaf23(String typeName, dynamic visitor) {
     'TransformLayer' => FormFieldState<TransformLayer>(),
     'TransformProperty' => FormFieldState<TransformProperty>(),
     'TransformationController' => FormFieldState<TransformationController>(),
-    'TransposeCharactersIntent' => FormFieldState<TransposeCharactersIntent>(),
-    'TreeSliver' => FormFieldState<TreeSliver>(),
     _ => null,
   };
 }
 
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf24(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TransposeCharactersIntent' => FormFieldState<TransposeCharactersIntent>(),
+    'TreeSliver' => FormFieldState<TreeSliver>(),
     'TreeSliverController' => FormFieldState<TreeSliverController>(),
     'TreeSliverIndentationType' => FormFieldState<TreeSliverIndentationType>(),
     'TreeSliverNode' => FormFieldState<TreeSliverNode>(),
@@ -297842,14 +298019,11 @@ Object? _rc2FormFieldState$leaf24(String typeName, dynamic visitor) {
     'VoidCallbackAction' => FormFieldState<VoidCallbackAction>(),
     'VoidCallbackIntent' => FormFieldState<VoidCallbackIntent>(),
     'WeakMap' => FormFieldState<WeakMap>(),
-    'WidgetInspector' => FormFieldState<WidgetInspector>(),
-    'WidgetOrderTraversalPolicy' =>
-      FormFieldState<WidgetOrderTraversalPolicy>(),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2FormFieldState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FormFieldState$leaf25(String typeName, dynamic visitor) {
   return switch (typeName) {
     'dynamic' => FormFieldState<dynamic>(),
@@ -297861,6 +298035,9 @@ Object? _rc2FormFieldState$leaf25(String typeName, dynamic visitor) {
     'double?' => FormFieldState<double?>(),
     'bool?' => FormFieldState<bool?>(),
     'num?' => FormFieldState<num?>(),
+    'WidgetInspector' => FormFieldState<WidgetInspector>(),
+    'WidgetOrderTraversalPolicy' =>
+      FormFieldState<WidgetOrderTraversalPolicy>(),
     'WidgetSpan' => FormFieldState<WidgetSpan>(),
     'WidgetStateMapper' => FormFieldState<WidgetStateMapper>(),
     'WidgetStatePropertyAll' => FormFieldState<WidgetStatePropertyAll>(),
@@ -297899,7 +298076,7 @@ Object? _rc2FutureBuilder(
       ? named['initialData']
       : null;
   final builder = named.containsKey('builder') ? named['builder'] : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -297990,7 +298167,7 @@ Object? _rc2FutureBuilder(
         builder,
       );
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2FutureBuilder$leaf9(
           typeName,
@@ -298010,7 +298187,7 @@ Object? _rc2FutureBuilder(
         builder,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2FutureBuilder$leaf11(
         typeName,
         visitor,
@@ -298029,9 +298206,9 @@ Object? _rc2FutureBuilder(
       builder,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2FutureBuilder$leaf13(
           typeName,
           visitor,
@@ -298041,7 +298218,7 @@ Object? _rc2FutureBuilder(
           builder,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2FutureBuilder$leaf14(
           typeName,
           visitor,
@@ -298060,7 +298237,7 @@ Object? _rc2FutureBuilder(
         builder,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2FutureBuilder$leaf16(
         typeName,
         visitor,
@@ -298070,7 +298247,7 @@ Object? _rc2FutureBuilder(
         builder,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2FutureBuilder$leaf17(
         typeName,
         visitor,
@@ -298089,8 +298266,8 @@ Object? _rc2FutureBuilder(
       builder,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2FutureBuilder$leaf19(
         typeName,
         visitor,
@@ -298100,7 +298277,7 @@ Object? _rc2FutureBuilder(
         builder,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2FutureBuilder$leaf20(
         typeName,
         visitor,
@@ -298119,8 +298296,8 @@ Object? _rc2FutureBuilder(
       builder,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2FutureBuilder$leaf22(
         typeName,
         visitor,
@@ -298139,7 +298316,7 @@ Object? _rc2FutureBuilder(
       builder,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2FutureBuilder$leaf24(
       typeName,
       visitor,
@@ -307393,7 +307570,7 @@ Object? _rc2FutureBuilder$leaf9(
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FutureBuilder$leaf10(
   String typeName,
   dynamic visitor,
@@ -307793,6 +307970,20 @@ Object? _rc2FutureBuilder$leaf10(
       ),
       initialData: initialData as InteractiveViewer?,
       builder: (BuildContext p0, AsyncSnapshot<InteractiveViewer> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'IntersectionResult' => FutureBuilder<IntersectionResult>(
+      key: key,
+      future: (future as Future?)?.then<IntersectionResult>(
+        (v) => v as IntersectionResult,
+      ),
+      initialData: initialData as IntersectionResult?,
+      builder: (BuildContext p0, AsyncSnapshot<IntersectionResult> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -308253,6 +308444,20 @@ Object? _rc2FutureBuilder$leaf10(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'LineMetrics' => FutureBuilder<LineMetrics>(
       key: key,
       future: (future as Future?)?.then<LineMetrics>((v) => v as LineMetrics),
@@ -308265,20 +308470,6 @@ Object? _rc2FutureBuilder$leaf10(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'LinearBorder' => FutureBuilder<LinearBorder>(
       key: key,
       future: (future as Future?)?.then<LinearBorder>((v) => v as LinearBorder),
@@ -309153,25 +309344,11 @@ Object? _rc2FutureBuilder$leaf11(
         );
       },
     ),
-    'MediaQueryData' => FutureBuilder<MediaQueryData>(
-      key: key,
-      future: (future as Future?)?.then<MediaQueryData>(
-        (v) => v as MediaQueryData,
-      ),
-      initialData: initialData as MediaQueryData?,
-      builder: (BuildContext p0, AsyncSnapshot<MediaQueryData> p1) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
-          'callback',
-          visitor,
-        );
-      },
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FutureBuilder$leaf12(
   String typeName,
   dynamic visitor,
@@ -309181,11 +309358,13 @@ Object? _rc2FutureBuilder$leaf12(
   Object? builder,
 ) {
   return switch (typeName) {
-    'Object' => FutureBuilder<dynamic>(
+    'MediaQueryData' => FutureBuilder<MediaQueryData>(
       key: key,
-      future: (future as Future?)?.then<dynamic>((v) => v as dynamic),
-      initialData: initialData,
-      builder: (BuildContext p0, AsyncSnapshot<dynamic> p1) {
+      future: (future as Future?)?.then<MediaQueryData>(
+        (v) => v as MediaQueryData,
+      ),
+      initialData: initialData as MediaQueryData?,
+      builder: (BuildContext p0, AsyncSnapshot<MediaQueryData> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -310069,7 +310248,7 @@ Object? _rc2FutureBuilder$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FutureBuilder$leaf13(
   String typeName,
   dynamic visitor,
@@ -310079,7 +310258,7 @@ Object? _rc2FutureBuilder$leaf13(
   Object? builder,
 ) {
   return switch (typeName) {
-    'Object?' => FutureBuilder<dynamic>(
+    'Object' || 'Object?' => FutureBuilder<dynamic>(
       key: key,
       future: (future as Future?)?.then<dynamic>((v) => v as dynamic),
       initialData: initialData,
@@ -310942,6 +311121,20 @@ Object? _rc2FutureBuilder$leaf13(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       FutureBuilder<PerformanceModeRequestHandle>(
         key: key,
@@ -310958,20 +311151,6 @@ Object? _rc2FutureBuilder$leaf13(
               );
             },
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => FutureBuilder<PerformanceOverlay>(
       key: key,
       future: (future as Future?)?.then<PerformanceOverlay>(
@@ -311870,6 +312049,20 @@ Object? _rc2FutureBuilder$leaf14(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'PositionedTransition' => FutureBuilder<PositionedTransition>(
       key: key,
       future: (future as Future?)?.then<PositionedTransition>(
@@ -311884,20 +312077,6 @@ Object? _rc2FutureBuilder$leaf14(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => FutureBuilder<PredictiveBackEvent>(
       key: key,
       future: (future as Future?)?.then<PredictiveBackEvent>(
@@ -312097,6 +312276,18 @@ Object? _rc2FutureBuilder$leaf15(
       ),
       initialData: initialData as ProxyAnimation?,
       builder: (BuildContext p0, AsyncSnapshot<ProxyAnimation> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'Quad' => FutureBuilder<Quad>(
+      key: key,
+      future: (future as Future?)?.then<Quad>((v) => v as Quad),
+      initialData: initialData as Quad?,
+      builder: (BuildContext p0, AsyncSnapshot<Quad> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -312758,6 +312949,20 @@ Object? _rc2FutureBuilder$leaf15(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => FutureBuilder<RenderAbsorbPointer>(
       key: key,
       future: (future as Future?)?.then<RenderAbsorbPointer>(
@@ -312786,20 +312991,6 @@ Object? _rc2FutureBuilder$leaf15(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => FutureBuilder<RenderAnimatedOpacity>(
       key: key,
       future: (future as Future?)?.then<RenderAnimatedOpacity>(
@@ -313691,6 +313882,20 @@ Object? _rc2FutureBuilder$leaf16(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       FutureBuilder<RenderShrinkWrappingViewport>(
         key: key,
@@ -313721,20 +313926,6 @@ Object? _rc2FutureBuilder$leaf16(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => FutureBuilder<RenderSliverAnimatedOpacity>(
       key: key,
       future: (future as Future?)?.then<RenderSliverAnimatedOpacity>(
@@ -314638,6 +314829,20 @@ Object? _rc2FutureBuilder$leaf17(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'RestorationBucket' => FutureBuilder<RestorationBucket>(
       key: key,
       future: (future as Future?)?.then<RestorationBucket>(
@@ -314666,20 +314871,6 @@ Object? _rc2FutureBuilder$leaf17(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'RestorationScope' => FutureBuilder<RestorationScope>(
       key: key,
       future: (future as Future?)?.then<RestorationScope>(
@@ -315556,6 +315747,20 @@ Object? _rc2FutureBuilder$leaf18(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'Scrollable' => FutureBuilder<Scrollable>(
       key: key,
       future: (future as Future?)?.then<Scrollable>((v) => v as Scrollable),
@@ -315582,20 +315787,6 @@ Object? _rc2FutureBuilder$leaf18(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'ScrollableState' => FutureBuilder<ScrollableState>(
       key: key,
       future: (future as Future?)?.then<ScrollableState>(
@@ -316455,6 +316646,20 @@ Object? _rc2FutureBuilder$leaf19(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => FutureBuilder<ShaderMaskLayer>(
       key: key,
       future: (future as Future?)?.then<ShaderMaskLayer>(
@@ -316481,20 +316686,6 @@ Object? _rc2FutureBuilder$leaf19(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => FutureBuilder<ShapeBorderClipper>(
       key: key,
       future: (future as Future?)?.then<ShapeBorderClipper>(
@@ -317368,41 +317559,11 @@ Object? _rc2FutureBuilder$leaf20(
         );
       },
     ),
-    'SliverMainAxisGroup' => FutureBuilder<SliverMainAxisGroup>(
-      key: key,
-      future: (future as Future?)?.then<SliverMainAxisGroup>(
-        (v) => v as SliverMainAxisGroup,
-      ),
-      initialData: initialData as SliverMainAxisGroup?,
-      builder: (BuildContext p0, AsyncSnapshot<SliverMainAxisGroup> p1) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
-          'callback',
-          visitor,
-        );
-      },
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      FutureBuilder<SliverMultiBoxAdaptorElement>(
-        key: key,
-        future: (future as Future?)?.then<SliverMultiBoxAdaptorElement>(
-          (v) => v as SliverMultiBoxAdaptorElement,
-        ),
-        initialData: initialData as SliverMultiBoxAdaptorElement?,
-        builder:
-            (BuildContext p0, AsyncSnapshot<SliverMultiBoxAdaptorElement> p1) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, builder, [p0, p1]),
-                'callback',
-                visitor,
-              );
-            },
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FutureBuilder$leaf21(
   String typeName,
   dynamic visitor,
@@ -317436,6 +317597,36 @@ Object? _rc2FutureBuilder$leaf21(
         );
       },
     ),
+    'SliverMainAxisGroup' => FutureBuilder<SliverMainAxisGroup>(
+      key: key,
+      future: (future as Future?)?.then<SliverMainAxisGroup>(
+        (v) => v as SliverMainAxisGroup,
+      ),
+      initialData: initialData as SliverMainAxisGroup?,
+      builder: (BuildContext p0, AsyncSnapshot<SliverMainAxisGroup> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      FutureBuilder<SliverMultiBoxAdaptorElement>(
+        key: key,
+        future: (future as Future?)?.then<SliverMultiBoxAdaptorElement>(
+          (v) => v as SliverMultiBoxAdaptorElement,
+        ),
+        initialData: initialData as SliverMultiBoxAdaptorElement?,
+        builder:
+            (BuildContext p0, AsyncSnapshot<SliverMultiBoxAdaptorElement> p1) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+                'callback',
+                visitor,
+              );
+            },
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       FutureBuilder<SliverMultiBoxAdaptorParentData>(
         key: key,
@@ -318278,6 +318469,20 @@ Object? _rc2FutureBuilder$leaf21(
               );
             },
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'SweepGradient' => FutureBuilder<SweepGradient>(
       key: key,
       future: (future as Future?)?.then<SweepGradient>(
@@ -318304,20 +318509,6 @@ Object? _rc2FutureBuilder$leaf21(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'SwitchListTile' => FutureBuilder<SwitchListTile>(
       key: key,
       future: (future as Future?)?.then<SwitchListTile>(
@@ -319160,6 +319351,20 @@ Object? _rc2FutureBuilder$leaf22(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'TextInputStyle' => FutureBuilder<TextInputStyle>(
       key: key,
       future: (future as Future?)?.then<TextInputStyle>(
@@ -319188,20 +319393,6 @@ Object? _rc2FutureBuilder$leaf22(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'TextMagnifier' => FutureBuilder<TextMagnifier>(
       key: key,
       future: (future as Future?)?.then<TextMagnifier>(
@@ -320044,6 +320235,20 @@ Object? _rc2FutureBuilder$leaf23(
         );
       },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2FutureBuilder$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? future,
+  Object? initialData,
+  Object? builder,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => FutureBuilder<TransposeCharactersIntent>(
       key: key,
       future: (future as Future?)?.then<TransposeCharactersIntent>(
@@ -320070,20 +320275,6 @@ Object? _rc2FutureBuilder$leaf23(
         );
       },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2FutureBuilder$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? future,
-  Object? initialData,
-  Object? builder,
-) {
-  return switch (typeName) {
     'TreeSliverController' => FutureBuilder<TreeSliverController>(
       key: key,
       future: (future as Future?)?.then<TreeSliverController>(
@@ -320944,39 +321135,11 @@ Object? _rc2FutureBuilder$leaf24(
         );
       },
     ),
-    'WidgetInspector' => FutureBuilder<WidgetInspector>(
-      key: key,
-      future: (future as Future?)?.then<WidgetInspector>(
-        (v) => v as WidgetInspector,
-      ),
-      initialData: initialData as WidgetInspector?,
-      builder: (BuildContext p0, AsyncSnapshot<WidgetInspector> p1) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
-          'callback',
-          visitor,
-        );
-      },
-    ),
-    'WidgetOrderTraversalPolicy' => FutureBuilder<WidgetOrderTraversalPolicy>(
-      key: key,
-      future: (future as Future?)?.then<WidgetOrderTraversalPolicy>(
-        (v) => v as WidgetOrderTraversalPolicy,
-      ),
-      initialData: initialData as WidgetOrderTraversalPolicy?,
-      builder: (BuildContext p0, AsyncSnapshot<WidgetOrderTraversalPolicy> p1) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
-          'callback',
-          visitor,
-        );
-      },
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2FutureBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2FutureBuilder$leaf25(
   String typeName,
   dynamic visitor,
@@ -321087,6 +321250,34 @@ Object? _rc2FutureBuilder$leaf25(
       future: (future as Future?)?.then<num?>((v) => v as num?),
       initialData: initialData as num?,
       builder: (BuildContext p0, AsyncSnapshot<num?> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'WidgetInspector' => FutureBuilder<WidgetInspector>(
+      key: key,
+      future: (future as Future?)?.then<WidgetInspector>(
+        (v) => v as WidgetInspector,
+      ),
+      initialData: initialData as WidgetInspector?,
+      builder: (BuildContext p0, AsyncSnapshot<WidgetInspector> p1) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0, p1]),
+          'callback',
+          visitor,
+        );
+      },
+    ),
+    'WidgetOrderTraversalPolicy' => FutureBuilder<WidgetOrderTraversalPolicy>(
+      key: key,
+      future: (future as Future?)?.then<WidgetOrderTraversalPolicy>(
+        (v) => v as WidgetOrderTraversalPolicy,
+      ),
+      initialData: initialData as WidgetOrderTraversalPolicy?,
+      builder: (BuildContext p0, AsyncSnapshot<WidgetOrderTraversalPolicy> p1) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0, p1]),
           'callback',
@@ -321559,7 +321750,7 @@ Object? _rc2HashedObserverList(
       : null;
   if (rawTypeName == null) return null;
   final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -321587,51 +321778,51 @@ Object? _rc2HashedObserverList(
       }
       return _rc2HashedObserverList$leaf8(typeName, visitor);
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImmediateMultiDragGestureRecognizer') < 0) {
         return _rc2HashedObserverList$leaf9(typeName, visitor);
       }
       return _rc2HashedObserverList$leaf10(typeName, visitor);
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2HashedObserverList$leaf11(typeName, visitor);
     }
     return _rc2HashedObserverList$leaf12(typeName, visitor);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2HashedObserverList$leaf13(typeName, visitor);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2HashedObserverList$leaf14(typeName, visitor);
       }
       return _rc2HashedObserverList$leaf15(typeName, visitor);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2HashedObserverList$leaf16(typeName, visitor);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2HashedObserverList$leaf17(typeName, visitor);
     }
     return _rc2HashedObserverList$leaf18(typeName, visitor);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2HashedObserverList$leaf19(typeName, visitor);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2HashedObserverList$leaf20(typeName, visitor);
     }
     return _rc2HashedObserverList$leaf21(typeName, visitor);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2HashedObserverList$leaf22(typeName, visitor);
     }
     return _rc2HashedObserverList$leaf23(typeName, visitor);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2HashedObserverList$leaf24(typeName, visitor);
   }
   return _rc2HashedObserverList$leaf25(typeName, visitor);
@@ -322499,7 +322690,7 @@ Object? _rc2HashedObserverList$leaf9(String typeName, dynamic visitor) {
   };
 }
 
-/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineMetrics' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImmediateMultiDragGestureRecognizer' to 'LineBoundary' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf10(String typeName, dynamic visitor) {
   return switch (typeName) {
     'ImmediateMultiDragGestureRecognizer' =>
@@ -322536,6 +322727,7 @@ Object? _rc2HashedObserverList$leaf10(String typeName, dynamic visitor) {
     'IntProperty' => HashedObserverList<IntProperty>(),
     'IntTween' => HashedObserverList<IntTween>(),
     'InteractiveViewer' => HashedObserverList<InteractiveViewer>(),
+    'IntersectionResult' => HashedObserverList<IntersectionResult>(),
     'Interval' => HashedObserverList<Interval>(),
     'IntrinsicColumnWidth' => HashedObserverList<IntrinsicColumnWidth>(),
     'IntrinsicHeight' => HashedObserverList<IntrinsicHeight>(),
@@ -322573,14 +322765,14 @@ Object? _rc2HashedObserverList$leaf10(String typeName, dynamic visitor) {
     'LicenseParagraph' => HashedObserverList<LicenseParagraph>(),
     'LimitedBox' => HashedObserverList<LimitedBox>(),
     'LineBoundary' => HashedObserverList<LineBoundary>(),
-    'LineMetrics' => HashedObserverList<LineMetrics>(),
     _ => null,
   };
 }
 
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf11(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'LineMetrics' => HashedObserverList<LineMetrics>(),
     'LinearBorder' => HashedObserverList<LinearBorder>(),
     'LinearBorderEdge' => HashedObserverList<LinearBorderEdge>(),
     'LinearGradient' => HashedObserverList<LinearGradient>(),
@@ -322654,15 +322846,14 @@ Object? _rc2HashedObserverList$leaf11(String typeName, dynamic visitor) {
     'MatrixTransition' => HashedObserverList<MatrixTransition>(),
     'MaxColumnWidth' => HashedObserverList<MaxColumnWidth>(),
     'MediaQuery' => HashedObserverList<MediaQuery>(),
-    'MediaQueryData' => HashedObserverList<MediaQueryData>(),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf12(String typeName, dynamic visitor) {
   return switch (typeName) {
-    'Object' => HashedObserverList<dynamic>(),
+    'MediaQueryData' => HashedObserverList<MediaQueryData>(),
     'MemoryImage' => HashedObserverList<MemoryImage>(),
     'MenuAcceleratorCallbackBinding' =>
       HashedObserverList<MenuAcceleratorCallbackBinding>(),
@@ -322742,10 +322933,10 @@ Object? _rc2HashedObserverList$leaf12(String typeName, dynamic visitor) {
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf13(String typeName, dynamic visitor) {
   return switch (typeName) {
-    'Object?' => HashedObserverList<dynamic>(),
+    'Object' || 'Object?' => HashedObserverList<dynamic>(),
     'ObjectCreated' => HashedObserverList<ObjectCreated>(),
     'ObjectDisposed' => HashedObserverList<ObjectDisposed>(),
     'ObjectFlagProperty' => HashedObserverList<ObjectFlagProperty>(),
@@ -322814,15 +323005,15 @@ Object? _rc2HashedObserverList$leaf13(String typeName, dynamic visitor) {
     'PathMetricIterator' => HashedObserverList<PathMetricIterator>(),
     'PathMetrics' => HashedObserverList<PathMetrics>(),
     'PercentProperty' => HashedObserverList<PercentProperty>(),
-    'PerformanceModeRequestHandle' =>
-      HashedObserverList<PerformanceModeRequestHandle>(),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf14(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      HashedObserverList<PerformanceModeRequestHandle>(),
     'PerformanceOverlay' => HashedObserverList<PerformanceOverlay>(),
     'PerformanceOverlayLayer' => HashedObserverList<PerformanceOverlayLayer>(),
     'PersistentBottomSheetController' =>
@@ -322896,14 +323087,14 @@ Object? _rc2HashedObserverList$leaf14(String typeName, dynamic visitor) {
     'PopupMenuThemeData' => HashedObserverList<PopupMenuThemeData>(),
     'Positioned' => HashedObserverList<Positioned>(),
     'PositionedDirectional' => HashedObserverList<PositionedDirectional>(),
-    'PositionedTransition' => HashedObserverList<PositionedTransition>(),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf15(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PositionedTransition' => HashedObserverList<PositionedTransition>(),
     'PredictiveBackEvent' => HashedObserverList<PredictiveBackEvent>(),
     'PredictiveBackFullscreenPageTransitionsBuilder' =>
       HashedObserverList<PredictiveBackFullscreenPageTransitionsBuilder>(),
@@ -322921,6 +323112,7 @@ Object? _rc2HashedObserverList$leaf15(String typeName, dynamic visitor) {
     'ProgressIndicatorThemeData' =>
       HashedObserverList<ProgressIndicatorThemeData>(),
     'ProxyAnimation' => HashedObserverList<ProxyAnimation>(),
+    'Quad' => HashedObserverList<Quad>(),
     'RRect' => HashedObserverList<RRect>(),
     'RSTransform' => HashedObserverList<RSTransform>(),
     'RSuperellipse' => HashedObserverList<RSuperellipse>(),
@@ -322977,15 +323169,15 @@ Object? _rc2HashedObserverList$leaf15(String typeName, dynamic visitor) {
       HashedObserverList<RelativePositionedTransition>(),
     'RelativeRect' => HashedObserverList<RelativeRect>(),
     'RelativeRectTween' => HashedObserverList<RelativeRectTween>(),
-    'RenderAbsorbPointer' => HashedObserverList<RenderAbsorbPointer>(),
-    'RenderAndroidView' => HashedObserverList<RenderAndroidView>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf16(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderAbsorbPointer' => HashedObserverList<RenderAbsorbPointer>(),
+    'RenderAndroidView' => HashedObserverList<RenderAndroidView>(),
     'RenderAnimatedOpacity' => HashedObserverList<RenderAnimatedOpacity>(),
     'RenderAnimatedSize' => HashedObserverList<RenderAnimatedSize>(),
     'RenderAnnotatedRegion' => HashedObserverList<RenderAnnotatedRegion>(),
@@ -323060,16 +323252,16 @@ Object? _rc2HashedObserverList$leaf16(String typeName, dynamic visitor) {
     'RenderSemanticsGestureHandler' =>
       HashedObserverList<RenderSemanticsGestureHandler>(),
     'RenderShaderMask' => HashedObserverList<RenderShaderMask>(),
-    'RenderShrinkWrappingViewport' =>
-      HashedObserverList<RenderShrinkWrappingViewport>(),
-    'RenderSizedOverflowBox' => HashedObserverList<RenderSizedOverflowBox>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf17(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderShrinkWrappingViewport' =>
+      HashedObserverList<RenderShrinkWrappingViewport>(),
+    'RenderSizedOverflowBox' => HashedObserverList<RenderSizedOverflowBox>(),
     'RenderSliverAnimatedOpacity' =>
       HashedObserverList<RenderSliverAnimatedOpacity>(),
     'RenderSliverConstrainedCrossAxis' =>
@@ -323153,15 +323345,15 @@ Object? _rc2HashedObserverList$leaf17(String typeName, dynamic visitor) {
     'RestorableTextEditingController' =>
       HashedObserverList<RestorableTextEditingController>(),
     'RestorableTimeOfDay' => HashedObserverList<RestorableTimeOfDay>(),
-    'RestorationBucket' => HashedObserverList<RestorationBucket>(),
-    'RestorationManager' => HashedObserverList<RestorationManager>(),
     _ => null,
   };
 }
 
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf18(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RestorationBucket' => HashedObserverList<RestorationBucket>(),
+    'RestorationManager' => HashedObserverList<RestorationManager>(),
     'RestorationScope' => HashedObserverList<RestorationScope>(),
     'RevealedOffset' => HashedObserverList<RevealedOffset>(),
     'ReverseAnimation' => HashedObserverList<ReverseAnimation>(),
@@ -323242,15 +323434,15 @@ Object? _rc2HashedObserverList$leaf18(String typeName, dynamic visitor) {
       HashedObserverList<ScrollToDocumentBoundaryIntent>(),
     'ScrollUpdateNotification' =>
       HashedObserverList<ScrollUpdateNotification>(),
-    'Scrollable' => HashedObserverList<Scrollable>(),
-    'ScrollableDetails' => HashedObserverList<ScrollableDetails>(),
     _ => null,
   };
 }
 
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf19(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'Scrollable' => HashedObserverList<Scrollable>(),
+    'ScrollableDetails' => HashedObserverList<ScrollableDetails>(),
     'ScrollableState' => HashedObserverList<ScrollableState>(),
     'Scrollbar' => HashedObserverList<Scrollbar>(),
     'ScrollbarPainter' => HashedObserverList<ScrollbarPainter>(),
@@ -323320,15 +323512,15 @@ Object? _rc2HashedObserverList$leaf19(String typeName, dynamic visitor) {
     'Shader' => HashedObserverList<Shader>(),
     'ShaderMask' => HashedObserverList<ShaderMask>(),
     'ShaderMaskEngineLayer' => HashedObserverList<ShaderMaskEngineLayer>(),
-    'ShaderMaskLayer' => HashedObserverList<ShaderMaskLayer>(),
-    'Shadow' => HashedObserverList<Shadow>(),
     _ => null,
   };
 }
 
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf20(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'ShaderMaskLayer' => HashedObserverList<ShaderMaskLayer>(),
+    'Shadow' => HashedObserverList<Shadow>(),
     'ShapeBorderClipper' => HashedObserverList<ShapeBorderClipper>(),
     'ShapeBorderTween' => HashedObserverList<ShapeBorderTween>(),
     'ShapeDecoration' => HashedObserverList<ShapeDecoration>(),
@@ -323400,18 +323592,18 @@ Object? _rc2HashedObserverList$leaf20(String typeName, dynamic visitor) {
     'SliverLogicalContainerParentData' =>
       HashedObserverList<SliverLogicalContainerParentData>(),
     'SliverLogicalParentData' => HashedObserverList<SliverLogicalParentData>(),
-    'SliverMainAxisGroup' => HashedObserverList<SliverMainAxisGroup>(),
-    'SliverMultiBoxAdaptorElement' =>
-      HashedObserverList<SliverMultiBoxAdaptorElement>(),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf21(String typeName, dynamic visitor) {
   return switch (typeName) {
     'String' => HashedObserverList<String>(),
     'String?' => HashedObserverList<String?>(),
+    'SliverMainAxisGroup' => HashedObserverList<SliverMainAxisGroup>(),
+    'SliverMultiBoxAdaptorElement' =>
+      HashedObserverList<SliverMultiBoxAdaptorElement>(),
     'SliverMultiBoxAdaptorParentData' =>
       HashedObserverList<SliverMultiBoxAdaptorParentData>(),
     'SliverOffstage' => HashedObserverList<SliverOffstage>(),
@@ -323484,15 +323676,15 @@ Object? _rc2HashedObserverList$leaf21(String typeName, dynamic visitor) {
     'Summary' => HashedObserverList<Summary>(),
     'SurfaceAndroidViewController' =>
       HashedObserverList<SurfaceAndroidViewController>(),
-    'SweepGradient' => HashedObserverList<SweepGradient>(),
-    'Switch' => HashedObserverList<Switch>(),
     _ => null,
   };
 }
 
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf22(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'SweepGradient' => HashedObserverList<SweepGradient>(),
+    'Switch' => HashedObserverList<Switch>(),
     'SwitchListTile' => HashedObserverList<SwitchListTile>(),
     'SwitchTheme' => HashedObserverList<SwitchTheme>(),
     'SwitchThemeData' => HashedObserverList<SwitchThemeData>(),
@@ -323563,15 +323755,15 @@ Object? _rc2HashedObserverList$leaf22(String typeName, dynamic visitor) {
     'TextInput' => HashedObserverList<TextInput>(),
     'TextInputConfiguration' => HashedObserverList<TextInputConfiguration>(),
     'TextInputConnection' => HashedObserverList<TextInputConnection>(),
-    'TextInputStyle' => HashedObserverList<TextInputStyle>(),
-    'TextInputType' => HashedObserverList<TextInputType>(),
     _ => null,
   };
 }
 
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf23(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TextInputStyle' => HashedObserverList<TextInputStyle>(),
+    'TextInputType' => HashedObserverList<TextInputType>(),
     'TextMagnifier' => HashedObserverList<TextMagnifier>(),
     'TextMagnifierConfiguration' =>
       HashedObserverList<TextMagnifierConfiguration>(),
@@ -323643,16 +323835,16 @@ Object? _rc2HashedObserverList$leaf23(String typeName, dynamic visitor) {
     'TransformProperty' => HashedObserverList<TransformProperty>(),
     'TransformationController' =>
       HashedObserverList<TransformationController>(),
-    'TransposeCharactersIntent' =>
-      HashedObserverList<TransposeCharactersIntent>(),
-    'TreeSliver' => HashedObserverList<TreeSliver>(),
     _ => null,
   };
 }
 
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf24(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TransposeCharactersIntent' =>
+      HashedObserverList<TransposeCharactersIntent>(),
+    'TreeSliver' => HashedObserverList<TreeSliver>(),
     'TreeSliverController' => HashedObserverList<TreeSliverController>(),
     'TreeSliverIndentationType' =>
       HashedObserverList<TreeSliverIndentationType>(),
@@ -323727,14 +323919,11 @@ Object? _rc2HashedObserverList$leaf24(String typeName, dynamic visitor) {
     'VoidCallbackAction' => HashedObserverList<VoidCallbackAction>(),
     'VoidCallbackIntent' => HashedObserverList<VoidCallbackIntent>(),
     'WeakMap' => HashedObserverList<WeakMap>(),
-    'WidgetInspector' => HashedObserverList<WidgetInspector>(),
-    'WidgetOrderTraversalPolicy' =>
-      HashedObserverList<WidgetOrderTraversalPolicy>(),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2HashedObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2HashedObserverList$leaf25(String typeName, dynamic visitor) {
   return switch (typeName) {
     'dynamic' => HashedObserverList<dynamic>(),
@@ -323746,6 +323935,9 @@ Object? _rc2HashedObserverList$leaf25(String typeName, dynamic visitor) {
     'double?' => HashedObserverList<double?>(),
     'bool?' => HashedObserverList<bool?>(),
     'num?' => HashedObserverList<num?>(),
+    'WidgetInspector' => HashedObserverList<WidgetInspector>(),
+    'WidgetOrderTraversalPolicy' =>
+      HashedObserverList<WidgetOrderTraversalPolicy>(),
     'WidgetSpan' => HashedObserverList<WidgetSpan>(),
     'WidgetStateMapper' => HashedObserverList<WidgetStateMapper>(),
     'WidgetStatePropertyAll' => HashedObserverList<WidgetStatePropertyAll>(),
@@ -323821,7 +324013,7 @@ Object? _rc2InheritedModelElement(
   if (rawTypeName == null) return null;
   final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
   final widget = positional.length > 0 ? positional[0] : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -323849,51 +324041,51 @@ Object? _rc2InheritedModelElement(
       }
       return _rc2InheritedModelElement$leaf8(typeName, visitor, widget);
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2InheritedModelElement$leaf9(typeName, visitor, widget);
       }
       return _rc2InheritedModelElement$leaf10(typeName, visitor, widget);
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2InheritedModelElement$leaf11(typeName, visitor, widget);
     }
     return _rc2InheritedModelElement$leaf12(typeName, visitor, widget);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2InheritedModelElement$leaf13(typeName, visitor, widget);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2InheritedModelElement$leaf14(typeName, visitor, widget);
       }
       return _rc2InheritedModelElement$leaf15(typeName, visitor, widget);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2InheritedModelElement$leaf16(typeName, visitor, widget);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2InheritedModelElement$leaf17(typeName, visitor, widget);
     }
     return _rc2InheritedModelElement$leaf18(typeName, visitor, widget);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2InheritedModelElement$leaf19(typeName, visitor, widget);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2InheritedModelElement$leaf20(typeName, visitor, widget);
     }
     return _rc2InheritedModelElement$leaf21(typeName, visitor, widget);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2InheritedModelElement$leaf22(typeName, visitor, widget);
     }
     return _rc2InheritedModelElement$leaf23(typeName, visitor, widget);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2InheritedModelElement$leaf24(typeName, visitor, widget);
   }
   return _rc2InheritedModelElement$leaf25(typeName, visitor, widget);
@@ -326972,7 +327164,7 @@ Object? _rc2InheritedModelElement$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineMetrics' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf10(
   String typeName,
   dynamic visitor,
@@ -327099,6 +327291,12 @@ Object? _rc2InheritedModelElement$leaf10(
     ),
     'InteractiveViewer' => InheritedModelElement<InteractiveViewer>(
       D4.extractBridgedArg<InheritedModel<InteractiveViewer>>(widget, 'widget'),
+    ),
+    'IntersectionResult' => InheritedModelElement<IntersectionResult>(
+      D4.extractBridgedArg<InheritedModel<IntersectionResult>>(
+        widget,
+        'widget',
+      ),
     ),
     'Interval' => InheritedModelElement<Interval>(
       D4.extractBridgedArg<InheritedModel<Interval>>(widget, 'widget'),
@@ -327229,20 +327427,20 @@ Object? _rc2InheritedModelElement$leaf10(
     'LineBoundary' => InheritedModelElement<LineBoundary>(
       D4.extractBridgedArg<InheritedModel<LineBoundary>>(widget, 'widget'),
     ),
-    'LineMetrics' => InheritedModelElement<LineMetrics>(
-      D4.extractBridgedArg<InheritedModel<LineMetrics>>(widget, 'widget'),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf11(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
+    'LineMetrics' => InheritedModelElement<LineMetrics>(
+      D4.extractBridgedArg<InheritedModel<LineMetrics>>(widget, 'widget'),
+    ),
     'LinearBorder' => InheritedModelElement<LinearBorder>(
       D4.extractBridgedArg<InheritedModel<LinearBorder>>(widget, 'widget'),
     ),
@@ -327531,22 +327729,19 @@ Object? _rc2InheritedModelElement$leaf11(
     'MediaQuery' => InheritedModelElement<MediaQuery>(
       D4.extractBridgedArg<InheritedModel<MediaQuery>>(widget, 'widget'),
     ),
-    'MediaQueryData' => InheritedModelElement<MediaQueryData>(
-      D4.extractBridgedArg<InheritedModel<MediaQueryData>>(widget, 'widget'),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf12(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
-    'Object' => InheritedModelElement<dynamic>(
-      D4.extractBridgedArg<InheritedModel<dynamic>>(widget, 'widget'),
+    'MediaQueryData' => InheritedModelElement<MediaQueryData>(
+      D4.extractBridgedArg<InheritedModel<MediaQueryData>>(widget, 'widget'),
     ),
     'MemoryImage' => InheritedModelElement<MemoryImage>(
       D4.extractBridgedArg<InheritedModel<MemoryImage>>(widget, 'widget'),
@@ -327843,14 +328038,14 @@ Object? _rc2InheritedModelElement$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf13(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
-    'Object?' => InheritedModelElement<dynamic>(
+    'Object' || 'Object?' => InheritedModelElement<dynamic>(
       D4.extractBridgedArg<InheritedModel<dynamic>>(widget, 'widget'),
     ),
     'ObjectCreated' => InheritedModelElement<ObjectCreated>(
@@ -328109,6 +328304,17 @@ Object? _rc2InheritedModelElement$leaf13(
     'PercentProperty' => InheritedModelElement<PercentProperty>(
       D4.extractBridgedArg<InheritedModel<PercentProperty>>(widget, 'widget'),
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2InheritedModelElement$leaf14(
+  String typeName,
+  dynamic visitor,
+  Object? widget,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       InheritedModelElement<PerformanceModeRequestHandle>(
         D4.extractBridgedArg<InheritedModel<PerformanceModeRequestHandle>>(
@@ -328116,17 +328322,6 @@ Object? _rc2InheritedModelElement$leaf13(
           'widget',
         ),
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2InheritedModelElement$leaf14(
-  String typeName,
-  dynamic visitor,
-  Object? widget,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => InheritedModelElement<PerformanceOverlay>(
       D4.extractBridgedArg<InheritedModel<PerformanceOverlay>>(
         widget,
@@ -328424,23 +328619,23 @@ Object? _rc2InheritedModelElement$leaf14(
         'widget',
       ),
     ),
-    'PositionedTransition' => InheritedModelElement<PositionedTransition>(
-      D4.extractBridgedArg<InheritedModel<PositionedTransition>>(
-        widget,
-        'widget',
-      ),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf15(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => InheritedModelElement<PositionedTransition>(
+      D4.extractBridgedArg<InheritedModel<PositionedTransition>>(
+        widget,
+        'widget',
+      ),
+    ),
     'PredictiveBackEvent' => InheritedModelElement<PredictiveBackEvent>(
       D4.extractBridgedArg<InheritedModel<PredictiveBackEvent>>(
         widget,
@@ -328510,6 +328705,9 @@ Object? _rc2InheritedModelElement$leaf15(
       ),
     'ProxyAnimation' => InheritedModelElement<ProxyAnimation>(
       D4.extractBridgedArg<InheritedModel<ProxyAnimation>>(widget, 'widget'),
+    ),
+    'Quad' => InheritedModelElement<Quad>(
+      D4.extractBridgedArg<InheritedModel<Quad>>(widget, 'widget'),
     ),
     'RRect' => InheritedModelElement<RRect>(
       D4.extractBridgedArg<InheritedModel<RRect>>(widget, 'widget'),
@@ -328703,6 +328901,17 @@ Object? _rc2InheritedModelElement$leaf15(
     'RelativeRectTween' => InheritedModelElement<RelativeRectTween>(
       D4.extractBridgedArg<InheritedModel<RelativeRectTween>>(widget, 'widget'),
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2InheritedModelElement$leaf16(
+  String typeName,
+  dynamic visitor,
+  Object? widget,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => InheritedModelElement<RenderAbsorbPointer>(
       D4.extractBridgedArg<InheritedModel<RenderAbsorbPointer>>(
         widget,
@@ -328712,17 +328921,6 @@ Object? _rc2InheritedModelElement$leaf15(
     'RenderAndroidView' => InheritedModelElement<RenderAndroidView>(
       D4.extractBridgedArg<InheritedModel<RenderAndroidView>>(widget, 'widget'),
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2InheritedModelElement$leaf16(
-  String typeName,
-  dynamic visitor,
-  Object? widget,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => InheritedModelElement<RenderAnimatedOpacity>(
       D4.extractBridgedArg<InheritedModel<RenderAnimatedOpacity>>(
         widget,
@@ -329028,6 +329226,17 @@ Object? _rc2InheritedModelElement$leaf16(
     'RenderShaderMask' => InheritedModelElement<RenderShaderMask>(
       D4.extractBridgedArg<InheritedModel<RenderShaderMask>>(widget, 'widget'),
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2InheritedModelElement$leaf17(
+  String typeName,
+  dynamic visitor,
+  Object? widget,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       InheritedModelElement<RenderShrinkWrappingViewport>(
         D4.extractBridgedArg<InheritedModel<RenderShrinkWrappingViewport>>(
@@ -329041,17 +329250,6 @@ Object? _rc2InheritedModelElement$leaf16(
         'widget',
       ),
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2InheritedModelElement$leaf17(
-  String typeName,
-  dynamic visitor,
-  Object? widget,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       InheritedModelElement<RenderSliverAnimatedOpacity>(
         D4.extractBridgedArg<InheritedModel<RenderSliverAnimatedOpacity>>(
@@ -329358,6 +329556,17 @@ Object? _rc2InheritedModelElement$leaf17(
         'widget',
       ),
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2InheritedModelElement$leaf18(
+  String typeName,
+  dynamic visitor,
+  Object? widget,
+) {
+  return switch (typeName) {
     'RestorationBucket' => InheritedModelElement<RestorationBucket>(
       D4.extractBridgedArg<InheritedModel<RestorationBucket>>(widget, 'widget'),
     ),
@@ -329367,17 +329576,6 @@ Object? _rc2InheritedModelElement$leaf17(
         'widget',
       ),
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2InheritedModelElement$leaf18(
-  String typeName,
-  dynamic visitor,
-  Object? widget,
-) {
-  return switch (typeName) {
     'RestorationScope' => InheritedModelElement<RestorationScope>(
       D4.extractBridgedArg<InheritedModel<RestorationScope>>(widget, 'widget'),
     ),
@@ -329676,23 +329874,23 @@ Object? _rc2InheritedModelElement$leaf18(
           'widget',
         ),
       ),
-    'Scrollable' => InheritedModelElement<Scrollable>(
-      D4.extractBridgedArg<InheritedModel<Scrollable>>(widget, 'widget'),
-    ),
-    'ScrollableDetails' => InheritedModelElement<ScrollableDetails>(
-      D4.extractBridgedArg<InheritedModel<ScrollableDetails>>(widget, 'widget'),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf19(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
+    'Scrollable' => InheritedModelElement<Scrollable>(
+      D4.extractBridgedArg<InheritedModel<Scrollable>>(widget, 'widget'),
+    ),
+    'ScrollableDetails' => InheritedModelElement<ScrollableDetails>(
+      D4.extractBridgedArg<InheritedModel<ScrollableDetails>>(widget, 'widget'),
+    ),
     'ScrollableState' => InheritedModelElement<ScrollableState>(
       D4.extractBridgedArg<InheritedModel<ScrollableState>>(widget, 'widget'),
     ),
@@ -329975,23 +330173,23 @@ Object? _rc2InheritedModelElement$leaf19(
         'widget',
       ),
     ),
-    'ShaderMaskLayer' => InheritedModelElement<ShaderMaskLayer>(
-      D4.extractBridgedArg<InheritedModel<ShaderMaskLayer>>(widget, 'widget'),
-    ),
-    'Shadow' => InheritedModelElement<Shadow>(
-      D4.extractBridgedArg<InheritedModel<Shadow>>(widget, 'widget'),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf20(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
+    'ShaderMaskLayer' => InheritedModelElement<ShaderMaskLayer>(
+      D4.extractBridgedArg<InheritedModel<ShaderMaskLayer>>(widget, 'widget'),
+    ),
+    'Shadow' => InheritedModelElement<Shadow>(
+      D4.extractBridgedArg<InheritedModel<Shadow>>(widget, 'widget'),
+    ),
     'ShapeBorderClipper' => InheritedModelElement<ShapeBorderClipper>(
       D4.extractBridgedArg<InheritedModel<ShapeBorderClipper>>(
         widget,
@@ -330299,6 +330497,23 @@ Object? _rc2InheritedModelElement$leaf20(
         'widget',
       ),
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2InheritedModelElement$leaf21(
+  String typeName,
+  dynamic visitor,
+  Object? widget,
+) {
+  return switch (typeName) {
+    'String' => InheritedModelElement<String>(
+      D4.extractBridgedArg<InheritedModel<String>>(widget, 'widget'),
+    ),
+    'String?' => InheritedModelElement<String?>(
+      D4.extractBridgedArg<InheritedModel<String?>>(widget, 'widget'),
+    ),
     'SliverMainAxisGroup' => InheritedModelElement<SliverMainAxisGroup>(
       D4.extractBridgedArg<InheritedModel<SliverMainAxisGroup>>(
         widget,
@@ -330312,23 +330527,6 @@ Object? _rc2InheritedModelElement$leaf20(
           'widget',
         ),
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2InheritedModelElement$leaf21(
-  String typeName,
-  dynamic visitor,
-  Object? widget,
-) {
-  return switch (typeName) {
-    'String' => InheritedModelElement<String>(
-      D4.extractBridgedArg<InheritedModel<String>>(widget, 'widget'),
-    ),
-    'String?' => InheritedModelElement<String?>(
-      D4.extractBridgedArg<InheritedModel<String?>>(widget, 'widget'),
-    ),
     'SliverMultiBoxAdaptorParentData' =>
       InheritedModelElement<SliverMultiBoxAdaptorParentData>(
         D4.extractBridgedArg<InheritedModel<SliverMultiBoxAdaptorParentData>>(
@@ -330592,23 +330790,23 @@ Object? _rc2InheritedModelElement$leaf21(
           'widget',
         ),
       ),
-    'SweepGradient' => InheritedModelElement<SweepGradient>(
-      D4.extractBridgedArg<InheritedModel<SweepGradient>>(widget, 'widget'),
-    ),
-    'Switch' => InheritedModelElement<Switch>(
-      D4.extractBridgedArg<InheritedModel<Switch>>(widget, 'widget'),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf22(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
+    'SweepGradient' => InheritedModelElement<SweepGradient>(
+      D4.extractBridgedArg<InheritedModel<SweepGradient>>(widget, 'widget'),
+    ),
+    'Switch' => InheritedModelElement<Switch>(
+      D4.extractBridgedArg<InheritedModel<Switch>>(widget, 'widget'),
+    ),
     'SwitchListTile' => InheritedModelElement<SwitchListTile>(
       D4.extractBridgedArg<InheritedModel<SwitchListTile>>(widget, 'widget'),
     ),
@@ -330868,23 +331066,23 @@ Object? _rc2InheritedModelElement$leaf22(
         'widget',
       ),
     ),
-    'TextInputStyle' => InheritedModelElement<TextInputStyle>(
-      D4.extractBridgedArg<InheritedModel<TextInputStyle>>(widget, 'widget'),
-    ),
-    'TextInputType' => InheritedModelElement<TextInputType>(
-      D4.extractBridgedArg<InheritedModel<TextInputType>>(widget, 'widget'),
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf23(
   String typeName,
   dynamic visitor,
   Object? widget,
 ) {
   return switch (typeName) {
+    'TextInputStyle' => InheritedModelElement<TextInputStyle>(
+      D4.extractBridgedArg<InheritedModel<TextInputStyle>>(widget, 'widget'),
+    ),
+    'TextInputType' => InheritedModelElement<TextInputType>(
+      D4.extractBridgedArg<InheritedModel<TextInputType>>(widget, 'widget'),
+    ),
     'TextMagnifier' => InheritedModelElement<TextMagnifier>(
       D4.extractBridgedArg<InheritedModel<TextMagnifier>>(widget, 'widget'),
     ),
@@ -331147,6 +331345,17 @@ Object? _rc2InheritedModelElement$leaf23(
           'widget',
         ),
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2InheritedModelElement$leaf24(
+  String typeName,
+  dynamic visitor,
+  Object? widget,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' =>
       InheritedModelElement<TransposeCharactersIntent>(
         D4.extractBridgedArg<InheritedModel<TransposeCharactersIntent>>(
@@ -331157,17 +331366,6 @@ Object? _rc2InheritedModelElement$leaf23(
     'TreeSliver' => InheritedModelElement<TreeSliver>(
       D4.extractBridgedArg<InheritedModel<TreeSliver>>(widget, 'widget'),
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2InheritedModelElement$leaf24(
-  String typeName,
-  dynamic visitor,
-  Object? widget,
-) {
-  return switch (typeName) {
     'TreeSliverController' => InheritedModelElement<TreeSliverController>(
       D4.extractBridgedArg<InheritedModel<TreeSliverController>>(
         widget,
@@ -331433,21 +331631,11 @@ Object? _rc2InheritedModelElement$leaf24(
     'WeakMap' => InheritedModelElement<WeakMap>(
       D4.extractBridgedArg<InheritedModel<WeakMap>>(widget, 'widget'),
     ),
-    'WidgetInspector' => InheritedModelElement<WidgetInspector>(
-      D4.extractBridgedArg<InheritedModel<WidgetInspector>>(widget, 'widget'),
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      InheritedModelElement<WidgetOrderTraversalPolicy>(
-        D4.extractBridgedArg<InheritedModel<WidgetOrderTraversalPolicy>>(
-          widget,
-          'widget',
-        ),
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2InheritedModelElement` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2InheritedModelElement$leaf25(
   String typeName,
   dynamic visitor,
@@ -331481,6 +331669,16 @@ Object? _rc2InheritedModelElement$leaf25(
     'num?' => InheritedModelElement<num?>(
       D4.extractBridgedArg<InheritedModel<num?>>(widget, 'widget'),
     ),
+    'WidgetInspector' => InheritedModelElement<WidgetInspector>(
+      D4.extractBridgedArg<InheritedModel<WidgetInspector>>(widget, 'widget'),
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      InheritedModelElement<WidgetOrderTraversalPolicy>(
+        D4.extractBridgedArg<InheritedModel<WidgetOrderTraversalPolicy>>(
+          widget,
+          'widget',
+        ),
+      ),
     'WidgetSpan' => InheritedModelElement<WidgetSpan>(
       D4.extractBridgedArg<InheritedModel<WidgetSpan>>(widget, 'widget'),
     ),
@@ -331576,7 +331774,7 @@ Object? _rc2IterableProperty(
   final level = named.containsKey('level')
       ? D4.extractBridgedArg<DiagnosticLevel?>(named['level'], 'level')
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -331712,7 +331910,7 @@ Object? _rc2IterableProperty(
         level,
       );
     }
-    if (typeName.compareTo('LinearBorder') < 0) {
+    if (typeName.compareTo('LineMetrics') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2IterableProperty$leaf9(
           typeName,
@@ -331742,7 +331940,7 @@ Object? _rc2IterableProperty(
         level,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2IterableProperty$leaf11(
         typeName,
         visitor,
@@ -331771,9 +331969,9 @@ Object? _rc2IterableProperty(
       level,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2IterableProperty$leaf13(
           typeName,
           visitor,
@@ -331788,7 +331986,7 @@ Object? _rc2IterableProperty(
           level,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2IterableProperty$leaf14(
           typeName,
           visitor,
@@ -331817,7 +332015,7 @@ Object? _rc2IterableProperty(
         level,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2IterableProperty$leaf16(
         typeName,
         visitor,
@@ -331832,7 +332030,7 @@ Object? _rc2IterableProperty(
         level,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2IterableProperty$leaf17(
         typeName,
         visitor,
@@ -331861,8 +332059,8 @@ Object? _rc2IterableProperty(
       level,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2IterableProperty$leaf19(
         typeName,
         visitor,
@@ -331877,7 +332075,7 @@ Object? _rc2IterableProperty(
         level,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2IterableProperty$leaf20(
         typeName,
         visitor,
@@ -331906,8 +332104,8 @@ Object? _rc2IterableProperty(
       level,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2IterableProperty$leaf22(
         typeName,
         visitor,
@@ -331936,7 +332134,7 @@ Object? _rc2IterableProperty(
       level,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2IterableProperty$leaf24(
       typeName,
       visitor,
@@ -339393,7 +339591,7 @@ Object? _rc2IterableProperty$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineMetrics' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf10(
   String typeName,
   dynamic visitor,
@@ -339736,6 +339934,17 @@ Object? _rc2IterableProperty$leaf10(
     'InteractiveViewer' => IterableProperty<InteractiveViewer>(
       name!,
       D4.coerceListOrNull<InteractiveViewer>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'IntersectionResult' => IterableProperty<IntersectionResult>(
+      name!,
+      D4.coerceListOrNull<IntersectionResult>(value, 'value'),
       defaultValue: defaultValue,
       ifNull: ifNull,
       ifEmpty: ifEmpty,
@@ -340109,22 +340318,11 @@ Object? _rc2IterableProperty$leaf10(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'LineMetrics' => IterableProperty<LineMetrics>(
-      name!,
-      D4.coerceListOrNull<LineMetrics>(value, 'value'),
-      defaultValue: defaultValue,
-      ifNull: ifNull,
-      ifEmpty: ifEmpty,
-      style: style ?? DiagnosticsTreeStyle.singleLine,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LinearBorder' to 'MediaQueryData' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf11(
   String typeName,
   dynamic visitor,
@@ -340139,6 +340337,17 @@ Object? _rc2IterableProperty$leaf11(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'LineMetrics' => IterableProperty<LineMetrics>(
+      name!,
+      D4.coerceListOrNull<LineMetrics>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'LinearBorder' => IterableProperty<LinearBorder>(
       name!,
       D4.coerceListOrNull<LinearBorder>(value, 'value'),
@@ -340845,22 +341054,11 @@ Object? _rc2IterableProperty$leaf11(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'MediaQueryData' => IterableProperty<MediaQueryData>(
-      name!,
-      D4.coerceListOrNull<MediaQueryData>(value, 'value'),
-      defaultValue: defaultValue,
-      ifNull: ifNull,
-      ifEmpty: ifEmpty,
-      style: style ?? DiagnosticsTreeStyle.singleLine,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf12(
   String typeName,
   dynamic visitor,
@@ -340875,9 +341073,9 @@ Object? _rc2IterableProperty$leaf12(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
-    'Object' => IterableProperty<dynamic>(
+    'MediaQueryData' => IterableProperty<MediaQueryData>(
       name!,
-      D4.coerceListOrNull<dynamic>(value, 'value'),
+      D4.coerceListOrNull<MediaQueryData>(value, 'value'),
       defaultValue: defaultValue,
       ifNull: ifNull,
       ifEmpty: ifEmpty,
@@ -341590,7 +341788,7 @@ Object? _rc2IterableProperty$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf13(
   String typeName,
   dynamic visitor,
@@ -341605,7 +341803,7 @@ Object? _rc2IterableProperty$leaf13(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
-    'Object?' => IterableProperty<dynamic>(
+    'Object' || 'Object?' => IterableProperty<dynamic>(
       name!,
       D4.coerceListOrNull<dynamic>(value, 'value'),
       defaultValue: defaultValue,
@@ -342310,23 +342508,11 @@ Object? _rc2IterableProperty$leaf13(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PerformanceModeRequestHandle' =>
-      IterableProperty<PerformanceModeRequestHandle>(
-        name!,
-        D4.coerceListOrNull<PerformanceModeRequestHandle>(value, 'value'),
-        defaultValue: defaultValue,
-        ifNull: ifNull,
-        ifEmpty: ifEmpty,
-        style: style ?? DiagnosticsTreeStyle.singleLine,
-        showName: showName ?? true,
-        showSeparator: showSeparator ?? true,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf14(
   String typeName,
   dynamic visitor,
@@ -342341,6 +342527,18 @@ Object? _rc2IterableProperty$leaf14(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      IterableProperty<PerformanceModeRequestHandle>(
+        name!,
+        D4.coerceListOrNull<PerformanceModeRequestHandle>(value, 'value'),
+        defaultValue: defaultValue,
+        ifNull: ifNull,
+        ifEmpty: ifEmpty,
+        style: style ?? DiagnosticsTreeStyle.singleLine,
+        showName: showName ?? true,
+        showSeparator: showSeparator ?? true,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'PerformanceOverlay' => IterableProperty<PerformanceOverlay>(
       name!,
       D4.coerceListOrNull<PerformanceOverlay>(value, 'value'),
@@ -343044,22 +343242,11 @@ Object? _rc2IterableProperty$leaf14(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PositionedTransition' => IterableProperty<PositionedTransition>(
-      name!,
-      D4.coerceListOrNull<PositionedTransition>(value, 'value'),
-      defaultValue: defaultValue,
-      ifNull: ifNull,
-      ifEmpty: ifEmpty,
-      style: style ?? DiagnosticsTreeStyle.singleLine,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf15(
   String typeName,
   dynamic visitor,
@@ -343074,6 +343261,17 @@ Object? _rc2IterableProperty$leaf15(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => IterableProperty<PositionedTransition>(
+      name!,
+      D4.coerceListOrNull<PositionedTransition>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'PredictiveBackEvent' => IterableProperty<PredictiveBackEvent>(
       name!,
       D4.coerceListOrNull<PredictiveBackEvent>(value, 'value'),
@@ -343229,6 +343427,17 @@ Object? _rc2IterableProperty$leaf15(
     'ProxyAnimation' => IterableProperty<ProxyAnimation>(
       name!,
       D4.coerceListOrNull<ProxyAnimation>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'Quad' => IterableProperty<Quad>(
+      name!,
+      D4.coerceListOrNull<Quad>(value, 'value'),
       defaultValue: defaultValue,
       ifNull: ifNull,
       ifEmpty: ifEmpty,
@@ -343778,6 +343987,25 @@ Object? _rc2IterableProperty$leaf15(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf16(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => IterableProperty<RenderAbsorbPointer>(
       name!,
       D4.coerceListOrNull<RenderAbsorbPointer>(value, 'value'),
@@ -343800,25 +344028,6 @@ Object? _rc2IterableProperty$leaf15(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf16(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => IterableProperty<RenderAnimatedOpacity>(
       name!,
       D4.coerceListOrNull<RenderAnimatedOpacity>(value, 'value'),
@@ -344512,6 +344721,25 @@ Object? _rc2IterableProperty$leaf16(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf17(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       IterableProperty<RenderShrinkWrappingViewport>(
         name!,
@@ -344535,25 +344763,6 @@ Object? _rc2IterableProperty$leaf16(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf17(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       IterableProperty<RenderSliverAnimatedOpacity>(
         name!,
@@ -345260,6 +345469,25 @@ Object? _rc2IterableProperty$leaf17(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf18(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RestorationBucket' => IterableProperty<RestorationBucket>(
       name!,
       D4.coerceListOrNull<RestorationBucket>(value, 'value'),
@@ -345282,25 +345510,6 @@ Object? _rc2IterableProperty$leaf17(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf18(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RestorationScope' => IterableProperty<RestorationScope>(
       name!,
       D4.coerceListOrNull<RestorationScope>(value, 'value'),
@@ -345999,6 +346208,25 @@ Object? _rc2IterableProperty$leaf18(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf19(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'Scrollable' => IterableProperty<Scrollable>(
       name!,
       D4.coerceListOrNull<Scrollable>(value, 'value'),
@@ -346021,25 +346249,6 @@ Object? _rc2IterableProperty$leaf18(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf19(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ScrollableState' => IterableProperty<ScrollableState>(
       name!,
       D4.coerceListOrNull<ScrollableState>(value, 'value'),
@@ -346728,6 +346937,25 @@ Object? _rc2IterableProperty$leaf19(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf20(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => IterableProperty<ShaderMaskLayer>(
       name!,
       D4.coerceListOrNull<ShaderMaskLayer>(value, 'value'),
@@ -346750,25 +346978,6 @@ Object? _rc2IterableProperty$leaf19(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf20(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => IterableProperty<ShapeBorderClipper>(
       name!,
       D4.coerceListOrNull<ShapeBorderClipper>(value, 'value'),
@@ -347465,34 +347674,11 @@ Object? _rc2IterableProperty$leaf20(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'SliverMainAxisGroup' => IterableProperty<SliverMainAxisGroup>(
-      name!,
-      D4.coerceListOrNull<SliverMainAxisGroup>(value, 'value'),
-      defaultValue: defaultValue,
-      ifNull: ifNull,
-      ifEmpty: ifEmpty,
-      style: style ?? DiagnosticsTreeStyle.singleLine,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      IterableProperty<SliverMultiBoxAdaptorElement>(
-        name!,
-        D4.coerceListOrNull<SliverMultiBoxAdaptorElement>(value, 'value'),
-        defaultValue: defaultValue,
-        ifNull: ifNull,
-        ifEmpty: ifEmpty,
-        style: style ?? DiagnosticsTreeStyle.singleLine,
-        showName: showName ?? true,
-        showSeparator: showSeparator ?? true,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf21(
   String typeName,
   dynamic visitor,
@@ -347529,6 +347715,29 @@ Object? _rc2IterableProperty$leaf21(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    'SliverMainAxisGroup' => IterableProperty<SliverMainAxisGroup>(
+      name!,
+      D4.coerceListOrNull<SliverMainAxisGroup>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      IterableProperty<SliverMultiBoxAdaptorElement>(
+        name!,
+        D4.coerceListOrNull<SliverMultiBoxAdaptorElement>(value, 'value'),
+        defaultValue: defaultValue,
+        ifNull: ifNull,
+        ifEmpty: ifEmpty,
+        style: style ?? DiagnosticsTreeStyle.singleLine,
+        showName: showName ?? true,
+        showSeparator: showSeparator ?? true,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       IterableProperty<SliverMultiBoxAdaptorParentData>(
         name!,
@@ -348202,6 +348411,25 @@ Object? _rc2IterableProperty$leaf21(
         showSeparator: showSeparator ?? true,
         level: level ?? DiagnosticLevel.info,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf22(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'SweepGradient' => IterableProperty<SweepGradient>(
       name!,
       D4.coerceListOrNull<SweepGradient>(value, 'value'),
@@ -348224,25 +348452,6 @@ Object? _rc2IterableProperty$leaf21(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf22(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'SwitchListTile' => IterableProperty<SwitchListTile>(
       name!,
       D4.coerceListOrNull<SwitchListTile>(value, 'value'),
@@ -348933,6 +349142,25 @@ Object? _rc2IterableProperty$leaf22(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf23(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TextInputStyle' => IterableProperty<TextInputStyle>(
       name!,
       D4.coerceListOrNull<TextInputStyle>(value, 'value'),
@@ -348955,25 +349183,6 @@ Object? _rc2IterableProperty$leaf22(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf23(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TextMagnifier' => IterableProperty<TextMagnifier>(
       name!,
       D4.coerceListOrNull<TextMagnifier>(value, 'value'),
@@ -349666,6 +349875,25 @@ Object? _rc2IterableProperty$leaf23(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2IterableProperty$leaf24(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  Object? defaultValue,
+  String? ifNull,
+  String? ifEmpty,
+  DiagnosticsTreeStyle? style,
+  bool? showName,
+  bool? showSeparator,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => IterableProperty<TransposeCharactersIntent>(
       name!,
       D4.coerceListOrNull<TransposeCharactersIntent>(value, 'value'),
@@ -349688,25 +349916,6 @@ Object? _rc2IterableProperty$leaf23(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2IterableProperty$leaf24(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  Object? defaultValue,
-  String? ifNull,
-  String? ifEmpty,
-  DiagnosticsTreeStyle? style,
-  bool? showName,
-  bool? showSeparator,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TreeSliverController' => IterableProperty<TreeSliverController>(
       name!,
       D4.coerceListOrNull<TreeSliverController>(value, 'value'),
@@ -350395,34 +350604,11 @@ Object? _rc2IterableProperty$leaf24(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
-    'WidgetInspector' => IterableProperty<WidgetInspector>(
-      name!,
-      D4.coerceListOrNull<WidgetInspector>(value, 'value'),
-      defaultValue: defaultValue,
-      ifNull: ifNull,
-      ifEmpty: ifEmpty,
-      style: style ?? DiagnosticsTreeStyle.singleLine,
-      showName: showName ?? true,
-      showSeparator: showSeparator ?? true,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      IterableProperty<WidgetOrderTraversalPolicy>(
-        name!,
-        D4.coerceListOrNull<WidgetOrderTraversalPolicy>(value, 'value'),
-        defaultValue: defaultValue,
-        ifNull: ifNull,
-        ifEmpty: ifEmpty,
-        style: style ?? DiagnosticsTreeStyle.singleLine,
-        showName: showName ?? true,
-        showSeparator: showSeparator ?? true,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2IterableProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2IterableProperty$leaf25(
   String typeName,
   dynamic visitor,
@@ -350536,6 +350722,29 @@ Object? _rc2IterableProperty$leaf25(
       showSeparator: showSeparator ?? true,
       level: level ?? DiagnosticLevel.info,
     ),
+    'WidgetInspector' => IterableProperty<WidgetInspector>(
+      name!,
+      D4.coerceListOrNull<WidgetInspector>(value, 'value'),
+      defaultValue: defaultValue,
+      ifNull: ifNull,
+      ifEmpty: ifEmpty,
+      style: style ?? DiagnosticsTreeStyle.singleLine,
+      showName: showName ?? true,
+      showSeparator: showSeparator ?? true,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      IterableProperty<WidgetOrderTraversalPolicy>(
+        name!,
+        D4.coerceListOrNull<WidgetOrderTraversalPolicy>(value, 'value'),
+        defaultValue: defaultValue,
+        ifNull: ifNull,
+        ifEmpty: ifEmpty,
+        style: style ?? DiagnosticsTreeStyle.singleLine,
+        showName: showName ?? true,
+        showSeparator: showSeparator ?? true,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'WidgetSpan' => IterableProperty<WidgetSpan>(
       name!,
       D4.coerceListOrNull<WidgetSpan>(value, 'value'),
@@ -350936,7 +351145,7 @@ Object? _rc2MaterialPage(
   final restorationId = named.containsKey('restorationId')
       ? named['restorationId'] as String?
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -351081,7 +351290,7 @@ Object? _rc2MaterialPage(
         restorationId,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2MaterialPage$leaf9(
           typeName,
@@ -351113,7 +351322,7 @@ Object? _rc2MaterialPage(
         restorationId,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2MaterialPage$leaf11(
         typeName,
         visitor,
@@ -351144,9 +351353,9 @@ Object? _rc2MaterialPage(
       restorationId,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2MaterialPage$leaf13(
           typeName,
           visitor,
@@ -351162,7 +351371,7 @@ Object? _rc2MaterialPage(
           restorationId,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2MaterialPage$leaf14(
           typeName,
           visitor,
@@ -351193,7 +351402,7 @@ Object? _rc2MaterialPage(
         restorationId,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2MaterialPage$leaf16(
         typeName,
         visitor,
@@ -351209,7 +351418,7 @@ Object? _rc2MaterialPage(
         restorationId,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2MaterialPage$leaf17(
         typeName,
         visitor,
@@ -351240,8 +351449,8 @@ Object? _rc2MaterialPage(
       restorationId,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2MaterialPage$leaf19(
         typeName,
         visitor,
@@ -351257,7 +351466,7 @@ Object? _rc2MaterialPage(
         restorationId,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2MaterialPage$leaf20(
         typeName,
         visitor,
@@ -351288,8 +351497,8 @@ Object? _rc2MaterialPage(
       restorationId,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2MaterialPage$leaf22(
         typeName,
         visitor,
@@ -351320,7 +351529,7 @@ Object? _rc2MaterialPage(
       restorationId,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2MaterialPage$leaf24(
       typeName,
       visitor,
@@ -361273,7 +361482,7 @@ Object? _rc2MaterialPage$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf10(
   String typeName,
   dynamic visitor,
@@ -361735,6 +361944,21 @@ Object? _rc2MaterialPage$leaf10(
       key: key,
       canPop: canPop ?? true,
       onPopInvoked: (bool p0, InteractiveViewer? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'IntersectionResult' => MaterialPage<IntersectionResult>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, IntersectionResult? p1) async {
         D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -362238,26 +362462,11 @@ Object? _rc2MaterialPage$leaf10(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    'LineBoundary' => MaterialPage<LineBoundary>(
-      child: child!,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      key: key,
-      canPop: canPop ?? true,
-      onPopInvoked: (bool p0, LineBoundary? p1) async {
-        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      name: name,
-      arguments: arguments,
-      restorationId: restorationId,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQueryData' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MediaQuery' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf11(
   String typeName,
   dynamic visitor,
@@ -362273,6 +362482,21 @@ Object? _rc2MaterialPage$leaf11(
   String? restorationId,
 ) {
   return switch (typeName) {
+    'LineBoundary' => MaterialPage<LineBoundary>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, LineBoundary? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
     'LineMetrics' => MaterialPage<LineMetrics>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -363223,26 +363447,11 @@ Object? _rc2MaterialPage$leaf11(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    'MediaQueryData' => MaterialPage<MediaQueryData>(
-      child: child!,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      key: key,
-      canPop: canPop ?? true,
-      onPopInvoked: (bool p0, MediaQueryData? p1) async {
-        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      name: name,
-      arguments: arguments,
-      restorationId: restorationId,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf12(
   String typeName,
   dynamic visitor,
@@ -363258,14 +363467,14 @@ Object? _rc2MaterialPage$leaf12(
   String? restorationId,
 ) {
   return switch (typeName) {
-    'Object' => MaterialPage<dynamic>(
+    'MediaQueryData' => MaterialPage<MediaQueryData>(
       child: child!,
       maintainState: maintainState ?? true,
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
       key: key,
       canPop: canPop ?? true,
-      onPopInvoked: (bool p0, dynamic? p1) async {
+      onPopInvoked: (bool p0, MediaQueryData? p1) async {
         D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -364226,7 +364435,7 @@ Object? _rc2MaterialPage$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf13(
   String typeName,
   dynamic visitor,
@@ -364242,7 +364451,7 @@ Object? _rc2MaterialPage$leaf13(
   String? restorationId,
 ) {
   return switch (typeName) {
-    'Object?' => MaterialPage<dynamic>(
+    'Object' || 'Object?' => MaterialPage<dynamic>(
       child: child!,
       maintainState: maintainState ?? true,
       fullscreenDialog: fullscreenDialog ?? false,
@@ -365195,6 +365404,26 @@ Object? _rc2MaterialPage$leaf13(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf14(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       MaterialPage<PerformanceModeRequestHandle>(
         child: child!,
@@ -365211,26 +365440,6 @@ Object? _rc2MaterialPage$leaf13(
         arguments: arguments,
         restorationId: restorationId,
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf14(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => MaterialPage<PerformanceOverlay>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -366183,26 +366392,11 @@ Object? _rc2MaterialPage$leaf14(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    'PositionedTransition' => MaterialPage<PositionedTransition>(
-      child: child!,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      key: key,
-      canPop: canPop ?? true,
-      onPopInvoked: (bool p0, PositionedTransition? p1) async {
-        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      name: name,
-      arguments: arguments,
-      restorationId: restorationId,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf15(
   String typeName,
   dynamic visitor,
@@ -366218,6 +366412,21 @@ Object? _rc2MaterialPage$leaf15(
   String? restorationId,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => MaterialPage<PositionedTransition>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, PositionedTransition? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
     'PredictiveBackEvent' => MaterialPage<PredictiveBackEvent>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -366428,6 +366637,21 @@ Object? _rc2MaterialPage$leaf15(
       key: key,
       canPop: canPop ?? true,
       onPopInvoked: (bool p0, ProxyAnimation? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'Quad' => MaterialPage<Quad>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, Quad? p1) async {
         D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -367162,6 +367386,26 @@ Object? _rc2MaterialPage$leaf15(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf16(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => MaterialPage<RenderAbsorbPointer>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -367192,26 +367436,6 @@ Object? _rc2MaterialPage$leaf15(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf16(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => MaterialPage<RenderAnimatedOpacity>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -368149,6 +368373,26 @@ Object? _rc2MaterialPage$leaf16(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf17(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       MaterialPage<RenderShrinkWrappingViewport>(
         child: child!,
@@ -368180,26 +368424,6 @@ Object? _rc2MaterialPage$leaf16(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf17(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => MaterialPage<RenderSliverAnimatedOpacity>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -369141,6 +369365,26 @@ Object? _rc2MaterialPage$leaf17(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf18(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'RestorationBucket' => MaterialPage<RestorationBucket>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -369171,26 +369415,6 @@ Object? _rc2MaterialPage$leaf17(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf18(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'RestorationScope' => MaterialPage<RestorationScope>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -370130,6 +370354,26 @@ Object? _rc2MaterialPage$leaf18(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf19(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'Scrollable' => MaterialPage<Scrollable>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -370160,26 +370404,6 @@ Object? _rc2MaterialPage$leaf18(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf19(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'ScrollableState' => MaterialPage<ScrollableState>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -371113,6 +371337,26 @@ Object? _rc2MaterialPage$leaf19(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf20(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => MaterialPage<ShaderMaskLayer>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -371143,26 +371387,6 @@ Object? _rc2MaterialPage$leaf19(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf20(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => MaterialPage<ShapeBorderClipper>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -372100,42 +372324,11 @@ Object? _rc2MaterialPage$leaf20(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    'SliverMainAxisGroup' => MaterialPage<SliverMainAxisGroup>(
-      child: child!,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      key: key,
-      canPop: canPop ?? true,
-      onPopInvoked: (bool p0, SliverMainAxisGroup? p1) async {
-        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      name: name,
-      arguments: arguments,
-      restorationId: restorationId,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      MaterialPage<SliverMultiBoxAdaptorElement>(
-        child: child!,
-        maintainState: maintainState ?? true,
-        fullscreenDialog: fullscreenDialog ?? false,
-        allowSnapshotting: allowSnapshotting ?? true,
-        key: key,
-        canPop: canPop ?? true,
-        onPopInvoked: (bool p0, SliverMultiBoxAdaptorElement? p1) async {
-          D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-          await Future.delayed(const Duration(milliseconds: 1));
-        },
-        name: name,
-        arguments: arguments,
-        restorationId: restorationId,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf21(
   String typeName,
   dynamic visitor,
@@ -372181,6 +372374,37 @@ Object? _rc2MaterialPage$leaf21(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    'SliverMainAxisGroup' => MaterialPage<SliverMainAxisGroup>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, SliverMainAxisGroup? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      MaterialPage<SliverMultiBoxAdaptorElement>(
+        child: child!,
+        maintainState: maintainState ?? true,
+        fullscreenDialog: fullscreenDialog ?? false,
+        allowSnapshotting: allowSnapshotting ?? true,
+        key: key,
+        canPop: canPop ?? true,
+        onPopInvoked: (bool p0, SliverMultiBoxAdaptorElement? p1) async {
+          D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+          await Future.delayed(const Duration(milliseconds: 1));
+        },
+        name: name,
+        arguments: arguments,
+        restorationId: restorationId,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       MaterialPage<SliverMultiBoxAdaptorParentData>(
         child: child!,
@@ -373089,6 +373313,26 @@ Object? _rc2MaterialPage$leaf21(
         arguments: arguments,
         restorationId: restorationId,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf22(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'SweepGradient' => MaterialPage<SweepGradient>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -373119,26 +373363,6 @@ Object? _rc2MaterialPage$leaf21(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf22(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'SwitchListTile' => MaterialPage<SwitchListTile>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -374072,6 +374296,26 @@ Object? _rc2MaterialPage$leaf22(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf23(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'TextInputStyle' => MaterialPage<TextInputStyle>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -374102,26 +374346,6 @@ Object? _rc2MaterialPage$leaf22(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf23(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'TextMagnifier' => MaterialPage<TextMagnifier>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -375057,6 +375281,26 @@ Object? _rc2MaterialPage$leaf23(
       arguments: arguments,
       restorationId: restorationId,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPage$leaf24(
+  String typeName,
+  dynamic visitor,
+  Widget? child,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  LocalKey? key,
+  bool? canPop,
+  Object? onPopInvoked,
+  String? name,
+  Object? arguments,
+  String? restorationId,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => MaterialPage<TransposeCharactersIntent>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -375087,26 +375331,6 @@ Object? _rc2MaterialPage$leaf23(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPage$leaf24(
-  String typeName,
-  dynamic visitor,
-  Widget? child,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  LocalKey? key,
-  bool? canPop,
-  Object? onPopInvoked,
-  String? name,
-  Object? arguments,
-  String? restorationId,
-) {
-  return switch (typeName) {
     'TreeSliverController' => MaterialPage<TreeSliverController>(
       child: child!,
       maintainState: maintainState ?? true,
@@ -376043,41 +376267,11 @@ Object? _rc2MaterialPage$leaf24(
       arguments: arguments,
       restorationId: restorationId,
     ),
-    'WidgetInspector' => MaterialPage<WidgetInspector>(
-      child: child!,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      key: key,
-      canPop: canPop ?? true,
-      onPopInvoked: (bool p0, WidgetInspector? p1) async {
-        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      name: name,
-      arguments: arguments,
-      restorationId: restorationId,
-    ),
-    'WidgetOrderTraversalPolicy' => MaterialPage<WidgetOrderTraversalPolicy>(
-      child: child!,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      key: key,
-      canPop: canPop ?? true,
-      onPopInvoked: (bool p0, WidgetOrderTraversalPolicy? p1) async {
-        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      name: name,
-      arguments: arguments,
-      restorationId: restorationId,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2MaterialPage` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPage$leaf25(
   String typeName,
   dynamic visitor,
@@ -376221,6 +376415,36 @@ Object? _rc2MaterialPage$leaf25(
       key: key,
       canPop: canPop ?? true,
       onPopInvoked: (bool p0, num? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'WidgetInspector' => MaterialPage<WidgetInspector>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, WidgetInspector? p1) async {
+        D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      name: name,
+      arguments: arguments,
+      restorationId: restorationId,
+    ),
+    'WidgetOrderTraversalPolicy' => MaterialPage<WidgetOrderTraversalPolicy>(
+      child: child!,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      key: key,
+      canPop: canPop ?? true,
+      onPopInvoked: (bool p0, WidgetOrderTraversalPolicy? p1) async {
         D4.callInterpreterCallback(visitor, onPopInvoked, [p0, p1]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -376471,7 +376695,7 @@ Object? _rc2MaterialPageRoute(
           'directionalTraversalEdgeBehavior',
         )
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -376607,7 +376831,7 @@ Object? _rc2MaterialPageRoute(
         directionalTraversalEdgeBehavior,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2MaterialPageRoute$leaf9(
           typeName,
@@ -376637,7 +376861,7 @@ Object? _rc2MaterialPageRoute(
         directionalTraversalEdgeBehavior,
       );
     }
-    if (typeName.compareTo('MemoryImage') < 0) {
+    if (typeName.compareTo('MediaQueryData') < 0) {
       return _rc2MaterialPageRoute$leaf11(
         typeName,
         visitor,
@@ -376666,9 +376890,9 @@ Object? _rc2MaterialPageRoute(
       directionalTraversalEdgeBehavior,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2MaterialPageRoute$leaf13(
           typeName,
           visitor,
@@ -376683,7 +376907,7 @@ Object? _rc2MaterialPageRoute(
           directionalTraversalEdgeBehavior,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2MaterialPageRoute$leaf14(
           typeName,
           visitor,
@@ -376712,7 +376936,7 @@ Object? _rc2MaterialPageRoute(
         directionalTraversalEdgeBehavior,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2MaterialPageRoute$leaf16(
         typeName,
         visitor,
@@ -376727,7 +376951,7 @@ Object? _rc2MaterialPageRoute(
         directionalTraversalEdgeBehavior,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2MaterialPageRoute$leaf17(
         typeName,
         visitor,
@@ -376756,8 +376980,8 @@ Object? _rc2MaterialPageRoute(
       directionalTraversalEdgeBehavior,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2MaterialPageRoute$leaf19(
         typeName,
         visitor,
@@ -376772,7 +376996,7 @@ Object? _rc2MaterialPageRoute(
         directionalTraversalEdgeBehavior,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2MaterialPageRoute$leaf20(
         typeName,
         visitor,
@@ -376801,8 +377025,8 @@ Object? _rc2MaterialPageRoute(
       directionalTraversalEdgeBehavior,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2MaterialPageRoute$leaf22(
         typeName,
         visitor,
@@ -376831,7 +377055,7 @@ Object? _rc2MaterialPageRoute(
       directionalTraversalEdgeBehavior,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2MaterialPageRoute$leaf24(
       typeName,
       visitor,
@@ -388049,7 +388273,7 @@ Object? _rc2MaterialPageRoute$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPageRoute$leaf10(
   String typeName,
   dynamic visitor,
@@ -388561,6 +388785,23 @@ Object? _rc2MaterialPageRoute$leaf10(
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
     'InteractiveViewer' => MaterialPageRoute<InteractiveViewer>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
+    'IntersectionResult' => MaterialPageRoute<IntersectionResult>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -389140,6 +389381,25 @@ Object? _rc2MaterialPageRoute$leaf10(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MediaQuery' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf11(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'LineBoundary' => MaterialPageRoute<LineBoundary>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -389157,25 +389417,6 @@ Object? _rc2MaterialPageRoute$leaf10(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQueryData' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf11(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'LineMetrics' => MaterialPageRoute<LineMetrics>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -390257,28 +390498,11 @@ Object? _rc2MaterialPageRoute$leaf11(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    'MediaQueryData' => MaterialPageRoute<MediaQueryData>(
-      builder: (BuildContext p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      settings: settings,
-      requestFocus: requestFocus,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      barrierDismissible: barrierDismissible ?? false,
-      traversalEdgeBehavior: traversalEdgeBehavior,
-      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MemoryImage' to 'Object' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPageRoute$leaf12(
   String typeName,
   dynamic visitor,
@@ -390293,7 +390517,7 @@ Object? _rc2MaterialPageRoute$leaf12(
   TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
 ) {
   return switch (typeName) {
-    'Object' => MaterialPageRoute<dynamic>(
+    'MediaQueryData' => MaterialPageRoute<MediaQueryData>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -391392,7 +391616,7 @@ Object? _rc2MaterialPageRoute$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPageRoute$leaf13(
   String typeName,
   dynamic visitor,
@@ -391407,7 +391631,7 @@ Object? _rc2MaterialPageRoute$leaf13(
   TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
 ) {
   return switch (typeName) {
-    'Object?' => MaterialPageRoute<dynamic>(
+    'Object' || 'Object?' => MaterialPageRoute<dynamic>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -392484,6 +392708,25 @@ Object? _rc2MaterialPageRoute$leaf13(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf14(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       MaterialPageRoute<PerformanceModeRequestHandle>(
         builder: (BuildContext p0) {
@@ -392502,25 +392745,6 @@ Object? _rc2MaterialPageRoute$leaf13(
         traversalEdgeBehavior: traversalEdgeBehavior,
         directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf14(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => MaterialPageRoute<PerformanceOverlay>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -393599,6 +393823,25 @@ Object? _rc2MaterialPageRoute$leaf14(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf15(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'PositionedTransition' => MaterialPageRoute<PositionedTransition>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -393616,25 +393859,6 @@ Object? _rc2MaterialPageRoute$leaf14(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf15(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => MaterialPageRoute<PredictiveBackEvent>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -393860,6 +394084,23 @@ Object? _rc2MaterialPageRoute$leaf15(
         directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
       ),
     'ProxyAnimation' => MaterialPageRoute<ProxyAnimation>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
+    'Quad' => MaterialPageRoute<Quad>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -394699,6 +394940,25 @@ Object? _rc2MaterialPageRoute$leaf15(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf16(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => MaterialPageRoute<RenderAbsorbPointer>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -394733,25 +394993,6 @@ Object? _rc2MaterialPageRoute$leaf15(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf16(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => MaterialPageRoute<RenderAnimatedOpacity>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -395817,6 +396058,25 @@ Object? _rc2MaterialPageRoute$leaf16(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf17(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       MaterialPageRoute<RenderShrinkWrappingViewport>(
         builder: (BuildContext p0) {
@@ -395852,25 +396112,6 @@ Object? _rc2MaterialPageRoute$leaf16(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf17(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       MaterialPageRoute<RenderSliverAnimatedOpacity>(
         builder: (BuildContext p0) {
@@ -396940,6 +397181,25 @@ Object? _rc2MaterialPageRoute$leaf17(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf18(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'RestorationBucket' => MaterialPageRoute<RestorationBucket>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -396974,25 +397234,6 @@ Object? _rc2MaterialPageRoute$leaf17(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf18(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'RestorationScope' => MaterialPageRoute<RestorationScope>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -398057,6 +398298,25 @@ Object? _rc2MaterialPageRoute$leaf18(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf19(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'Scrollable' => MaterialPageRoute<Scrollable>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -398091,25 +398351,6 @@ Object? _rc2MaterialPageRoute$leaf18(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf19(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'ScrollableState' => MaterialPageRoute<ScrollableState>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -399167,6 +399408,25 @@ Object? _rc2MaterialPageRoute$leaf19(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf20(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => MaterialPageRoute<ShaderMaskLayer>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -399201,25 +399461,6 @@ Object? _rc2MaterialPageRoute$leaf19(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf20(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => MaterialPageRoute<ShapeBorderClipper>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -400282,46 +400523,11 @@ Object? _rc2MaterialPageRoute$leaf20(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    'SliverMainAxisGroup' => MaterialPageRoute<SliverMainAxisGroup>(
-      builder: (BuildContext p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      settings: settings,
-      requestFocus: requestFocus,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      barrierDismissible: barrierDismissible ?? false,
-      traversalEdgeBehavior: traversalEdgeBehavior,
-      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      MaterialPageRoute<SliverMultiBoxAdaptorElement>(
-        builder: (BuildContext p0) {
-          return D4.extractBridgedArg<Widget>(
-            D4.callInterpreterCallback(visitor, builder, [p0]),
-            'callback',
-            visitor,
-          );
-        },
-        settings: settings,
-        requestFocus: requestFocus,
-        maintainState: maintainState ?? true,
-        fullscreenDialog: fullscreenDialog ?? false,
-        allowSnapshotting: allowSnapshotting ?? true,
-        barrierDismissible: barrierDismissible ?? false,
-        traversalEdgeBehavior: traversalEdgeBehavior,
-        directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPageRoute$leaf21(
   String typeName,
   dynamic visitor,
@@ -400370,6 +400576,41 @@ Object? _rc2MaterialPageRoute$leaf21(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    'SliverMainAxisGroup' => MaterialPageRoute<SliverMainAxisGroup>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      MaterialPageRoute<SliverMultiBoxAdaptorElement>(
+        builder: (BuildContext p0) {
+          return D4.extractBridgedArg<Widget>(
+            D4.callInterpreterCallback(visitor, builder, [p0]),
+            'callback',
+            visitor,
+          );
+        },
+        settings: settings,
+        requestFocus: requestFocus,
+        maintainState: maintainState ?? true,
+        fullscreenDialog: fullscreenDialog ?? false,
+        allowSnapshotting: allowSnapshotting ?? true,
+        barrierDismissible: barrierDismissible ?? false,
+        traversalEdgeBehavior: traversalEdgeBehavior,
+        directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       MaterialPageRoute<SliverMultiBoxAdaptorParentData>(
         builder: (BuildContext p0) {
@@ -401400,6 +401641,25 @@ Object? _rc2MaterialPageRoute$leaf21(
         traversalEdgeBehavior: traversalEdgeBehavior,
         directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf22(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'SweepGradient' => MaterialPageRoute<SweepGradient>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -401434,25 +401694,6 @@ Object? _rc2MaterialPageRoute$leaf21(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf22(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'SwitchListTile' => MaterialPageRoute<SwitchListTile>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -402512,6 +402753,25 @@ Object? _rc2MaterialPageRoute$leaf22(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf23(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'TextInputStyle' => MaterialPageRoute<TextInputStyle>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -402546,25 +402806,6 @@ Object? _rc2MaterialPageRoute$leaf22(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf23(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'TextMagnifier' => MaterialPageRoute<TextMagnifier>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -403626,6 +403867,25 @@ Object? _rc2MaterialPageRoute$leaf23(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2MaterialPageRoute$leaf24(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  RouteSettings? settings,
+  bool? requestFocus,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+  bool? barrierDismissible,
+  TraversalEdgeBehavior? traversalEdgeBehavior,
+  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => MaterialPageRoute<TransposeCharactersIntent>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -403660,25 +403920,6 @@ Object? _rc2MaterialPageRoute$leaf23(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2MaterialPageRoute$leaf24(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  RouteSettings? settings,
-  bool? requestFocus,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-  bool? barrierDismissible,
-  TraversalEdgeBehavior? traversalEdgeBehavior,
-  TraversalEdgeBehavior? directionalTraversalEdgeBehavior,
-) {
-  return switch (typeName) {
     'TreeSliverController' => MaterialPageRoute<TreeSliverController>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -404739,46 +404980,11 @@ Object? _rc2MaterialPageRoute$leaf24(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
-    'WidgetInspector' => MaterialPageRoute<WidgetInspector>(
-      builder: (BuildContext p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      settings: settings,
-      requestFocus: requestFocus,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-      barrierDismissible: barrierDismissible ?? false,
-      traversalEdgeBehavior: traversalEdgeBehavior,
-      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      MaterialPageRoute<WidgetOrderTraversalPolicy>(
-        builder: (BuildContext p0) {
-          return D4.extractBridgedArg<Widget>(
-            D4.callInterpreterCallback(visitor, builder, [p0]),
-            'callback',
-            visitor,
-          );
-        },
-        settings: settings,
-        requestFocus: requestFocus,
-        maintainState: maintainState ?? true,
-        fullscreenDialog: fullscreenDialog ?? false,
-        allowSnapshotting: allowSnapshotting ?? true,
-        barrierDismissible: barrierDismissible ?? false,
-        traversalEdgeBehavior: traversalEdgeBehavior,
-        directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2MaterialPageRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2MaterialPageRoute$leaf25(
   String typeName,
   dynamic visitor,
@@ -404946,6 +405152,41 @@ Object? _rc2MaterialPageRoute$leaf25(
       traversalEdgeBehavior: traversalEdgeBehavior,
       directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
     ),
+    'WidgetInspector' => MaterialPageRoute<WidgetInspector>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      settings: settings,
+      requestFocus: requestFocus,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      traversalEdgeBehavior: traversalEdgeBehavior,
+      directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      MaterialPageRoute<WidgetOrderTraversalPolicy>(
+        builder: (BuildContext p0) {
+          return D4.extractBridgedArg<Widget>(
+            D4.callInterpreterCallback(visitor, builder, [p0]),
+            'callback',
+            visitor,
+          );
+        },
+        settings: settings,
+        requestFocus: requestFocus,
+        maintainState: maintainState ?? true,
+        fullscreenDialog: fullscreenDialog ?? false,
+        allowSnapshotting: allowSnapshotting ?? true,
+        barrierDismissible: barrierDismissible ?? false,
+        traversalEdgeBehavior: traversalEdgeBehavior,
+        directionalTraversalEdgeBehavior: directionalTraversalEdgeBehavior,
+      ),
     'WidgetSpan' => MaterialPageRoute<WidgetSpan>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -405265,7 +405506,7 @@ Object? _rc2ModalBottomSheetRoute(
           'sheetAnimationStyle',
         )
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -405509,7 +405750,7 @@ Object? _rc2ModalBottomSheetRoute(
         sheetAnimationStyle,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2ModalBottomSheetRoute$leaf9(
           typeName,
@@ -405563,7 +405804,7 @@ Object? _rc2ModalBottomSheetRoute(
         sheetAnimationStyle,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2ModalBottomSheetRoute$leaf11(
         typeName,
         visitor,
@@ -405616,9 +405857,9 @@ Object? _rc2ModalBottomSheetRoute(
       sheetAnimationStyle,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2ModalBottomSheetRoute$leaf13(
           typeName,
           visitor,
@@ -405645,7 +405886,7 @@ Object? _rc2ModalBottomSheetRoute(
           sheetAnimationStyle,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2ModalBottomSheetRoute$leaf14(
           typeName,
           visitor,
@@ -405698,7 +405939,7 @@ Object? _rc2ModalBottomSheetRoute(
         sheetAnimationStyle,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2ModalBottomSheetRoute$leaf16(
         typeName,
         visitor,
@@ -405725,7 +405966,7 @@ Object? _rc2ModalBottomSheetRoute(
         sheetAnimationStyle,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2ModalBottomSheetRoute$leaf17(
         typeName,
         visitor,
@@ -405778,8 +406019,8 @@ Object? _rc2ModalBottomSheetRoute(
       sheetAnimationStyle,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2ModalBottomSheetRoute$leaf19(
         typeName,
         visitor,
@@ -405806,7 +406047,7 @@ Object? _rc2ModalBottomSheetRoute(
         sheetAnimationStyle,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2ModalBottomSheetRoute$leaf20(
         typeName,
         visitor,
@@ -405859,8 +406100,8 @@ Object? _rc2ModalBottomSheetRoute(
       sheetAnimationStyle,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2ModalBottomSheetRoute$leaf22(
         typeName,
         visitor,
@@ -405913,7 +406154,7 @@ Object? _rc2ModalBottomSheetRoute(
       sheetAnimationStyle,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2ModalBottomSheetRoute$leaf24(
       typeName,
       visitor,
@@ -425629,7 +425870,7 @@ Object? _rc2ModalBottomSheetRoute$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ModalBottomSheetRoute$leaf10(
   String typeName,
   dynamic visitor,
@@ -426532,6 +426773,36 @@ Object? _rc2ModalBottomSheetRoute$leaf10(
       sheetAnimationStyle: sheetAnimationStyle,
     ),
     'InteractiveViewer' => ModalBottomSheetRoute<InteractiveViewer>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
+    'IntersectionResult' => ModalBottomSheetRoute<IntersectionResult>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -427554,6 +427825,37 @@ Object? _rc2ModalBottomSheetRoute$leaf10(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf11(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'LineBoundary' => ModalBottomSheetRoute<LineBoundary>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -427584,37 +427886,6 @@ Object? _rc2ModalBottomSheetRoute$leaf10(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf11(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'LineMetrics' => ModalBottomSheetRoute<LineMetrics>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -429515,41 +429786,11 @@ Object? _rc2ModalBottomSheetRoute$leaf11(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    'MediaQuery' => ModalBottomSheetRoute<MediaQuery>(
-      builder: (BuildContext p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      capturedThemes: capturedThemes,
-      barrierLabel: barrierLabel,
-      barrierOnTapHint: barrierOnTapHint,
-      backgroundColor: backgroundColor,
-      elevation: (elevation as num?)?.toDouble(),
-      shape: shape,
-      clipBehavior: clipBehavior,
-      constraints: constraints,
-      modalBarrierColor: modalBarrierColor,
-      isDismissible: isDismissible ?? true,
-      enableDrag: enableDrag ?? true,
-      showDragHandle: showDragHandle,
-      isScrollControlled: isScrollControlled!,
-      scrollControlDisabledMaxHeightRatio:
-          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
-      settings: settings,
-      requestFocus: requestFocus,
-      transitionAnimationController: transitionAnimationController,
-      anchorPoint: anchorPoint,
-      useSafeArea: useSafeArea ?? false,
-      sheetAnimationStyle: sheetAnimationStyle,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'Object' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NumericFocusOrder' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ModalBottomSheetRoute$leaf12(
   String typeName,
   dynamic visitor,
@@ -429576,7 +429817,7 @@ Object? _rc2ModalBottomSheetRoute$leaf12(
   AnimationStyle? sheetAnimationStyle,
 ) {
   return switch (typeName) {
-    'Object' => ModalBottomSheetRoute<dynamic>(
+    'MediaQuery' => ModalBottomSheetRoute<MediaQuery>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -431512,7 +431753,7 @@ Object? _rc2ModalBottomSheetRoute$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ModalBottomSheetRoute$leaf13(
   String typeName,
   dynamic visitor,
@@ -431539,7 +431780,7 @@ Object? _rc2ModalBottomSheetRoute$leaf13(
   AnimationStyle? sheetAnimationStyle,
 ) {
   return switch (typeName) {
-    'Object?' => ModalBottomSheetRoute<dynamic>(
+    'Object' || 'Object?' => ModalBottomSheetRoute<dynamic>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -433435,6 +433676,37 @@ Object? _rc2ModalBottomSheetRoute$leaf13(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf14(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       ModalBottomSheetRoute<PerformanceModeRequestHandle>(
         builder: (BuildContext p0) {
@@ -433466,37 +433738,6 @@ Object? _rc2ModalBottomSheetRoute$leaf13(
         useSafeArea: useSafeArea ?? false,
         sheetAnimationStyle: sheetAnimationStyle,
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf14(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => ModalBottomSheetRoute<PerformanceOverlay>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -435397,6 +435638,37 @@ Object? _rc2ModalBottomSheetRoute$leaf14(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf15(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'PositionedTransition' => ModalBottomSheetRoute<PositionedTransition>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -435427,37 +435699,6 @@ Object? _rc2ModalBottomSheetRoute$leaf14(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf15(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => ModalBottomSheetRoute<PredictiveBackEvent>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -435852,6 +436093,36 @@ Object? _rc2ModalBottomSheetRoute$leaf15(
         sheetAnimationStyle: sheetAnimationStyle,
       ),
     'ProxyAnimation' => ModalBottomSheetRoute<ProxyAnimation>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
+    'Quad' => ModalBottomSheetRoute<Quad>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
           D4.callInterpreterCallback(visitor, builder, [p0]),
@@ -437329,6 +437600,37 @@ Object? _rc2ModalBottomSheetRoute$leaf15(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf16(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => ModalBottomSheetRoute<RenderAbsorbPointer>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -437389,37 +437691,6 @@ Object? _rc2ModalBottomSheetRoute$leaf15(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf16(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => ModalBottomSheetRoute<RenderAnimatedOpacity>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -439292,6 +439563,37 @@ Object? _rc2ModalBottomSheetRoute$leaf16(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf17(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       ModalBottomSheetRoute<RenderShrinkWrappingViewport>(
         builder: (BuildContext p0) {
@@ -439353,37 +439655,6 @@ Object? _rc2ModalBottomSheetRoute$leaf16(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf17(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       ModalBottomSheetRoute<RenderSliverAnimatedOpacity>(
         builder: (BuildContext p0) {
@@ -441265,6 +441536,37 @@ Object? _rc2ModalBottomSheetRoute$leaf17(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf18(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'RestorationBucket' => ModalBottomSheetRoute<RestorationBucket>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -441325,37 +441627,6 @@ Object? _rc2ModalBottomSheetRoute$leaf17(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf18(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'RestorationScope' => ModalBottomSheetRoute<RestorationScope>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -443234,6 +443505,37 @@ Object? _rc2ModalBottomSheetRoute$leaf18(
         useSafeArea: useSafeArea ?? false,
         sheetAnimationStyle: sheetAnimationStyle,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf19(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'Scrollable' => ModalBottomSheetRoute<Scrollable>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -443294,37 +443596,6 @@ Object? _rc2ModalBottomSheetRoute$leaf18(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf19(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'ScrollableState' => ModalBottomSheetRoute<ScrollableState>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -445192,6 +445463,37 @@ Object? _rc2ModalBottomSheetRoute$leaf19(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf20(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => ModalBottomSheetRoute<ShaderMaskLayer>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -445252,37 +445554,6 @@ Object? _rc2ModalBottomSheetRoute$leaf19(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf20(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => ModalBottomSheetRoute<ShapeBorderClipper>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -447152,72 +447423,11 @@ Object? _rc2ModalBottomSheetRoute$leaf20(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    'SliverMainAxisGroup' => ModalBottomSheetRoute<SliverMainAxisGroup>(
-      builder: (BuildContext p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      capturedThemes: capturedThemes,
-      barrierLabel: barrierLabel,
-      barrierOnTapHint: barrierOnTapHint,
-      backgroundColor: backgroundColor,
-      elevation: (elevation as num?)?.toDouble(),
-      shape: shape,
-      clipBehavior: clipBehavior,
-      constraints: constraints,
-      modalBarrierColor: modalBarrierColor,
-      isDismissible: isDismissible ?? true,
-      enableDrag: enableDrag ?? true,
-      showDragHandle: showDragHandle,
-      isScrollControlled: isScrollControlled!,
-      scrollControlDisabledMaxHeightRatio:
-          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
-      settings: settings,
-      requestFocus: requestFocus,
-      transitionAnimationController: transitionAnimationController,
-      anchorPoint: anchorPoint,
-      useSafeArea: useSafeArea ?? false,
-      sheetAnimationStyle: sheetAnimationStyle,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      ModalBottomSheetRoute<SliverMultiBoxAdaptorElement>(
-        builder: (BuildContext p0) {
-          return D4.extractBridgedArg<Widget>(
-            D4.callInterpreterCallback(visitor, builder, [p0]),
-            'callback',
-            visitor,
-          );
-        },
-        capturedThemes: capturedThemes,
-        barrierLabel: barrierLabel,
-        barrierOnTapHint: barrierOnTapHint,
-        backgroundColor: backgroundColor,
-        elevation: (elevation as num?)?.toDouble(),
-        shape: shape,
-        clipBehavior: clipBehavior,
-        constraints: constraints,
-        modalBarrierColor: modalBarrierColor,
-        isDismissible: isDismissible ?? true,
-        enableDrag: enableDrag ?? true,
-        showDragHandle: showDragHandle,
-        isScrollControlled: isScrollControlled!,
-        scrollControlDisabledMaxHeightRatio:
-            (scrollControlDisabledMaxHeightRatio as num).toDouble(),
-        settings: settings,
-        requestFocus: requestFocus,
-        transitionAnimationController: transitionAnimationController,
-        anchorPoint: anchorPoint,
-        useSafeArea: useSafeArea ?? false,
-        sheetAnimationStyle: sheetAnimationStyle,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ModalBottomSheetRoute$leaf21(
   String typeName,
   dynamic visitor,
@@ -447304,6 +447514,67 @@ Object? _rc2ModalBottomSheetRoute$leaf21(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    'SliverMainAxisGroup' => ModalBottomSheetRoute<SliverMainAxisGroup>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      ModalBottomSheetRoute<SliverMultiBoxAdaptorElement>(
+        builder: (BuildContext p0) {
+          return D4.extractBridgedArg<Widget>(
+            D4.callInterpreterCallback(visitor, builder, [p0]),
+            'callback',
+            visitor,
+          );
+        },
+        capturedThemes: capturedThemes,
+        barrierLabel: barrierLabel,
+        barrierOnTapHint: barrierOnTapHint,
+        backgroundColor: backgroundColor,
+        elevation: (elevation as num?)?.toDouble(),
+        shape: shape,
+        clipBehavior: clipBehavior,
+        constraints: constraints,
+        modalBarrierColor: modalBarrierColor,
+        isDismissible: isDismissible ?? true,
+        enableDrag: enableDrag ?? true,
+        showDragHandle: showDragHandle,
+        isScrollControlled: isScrollControlled!,
+        scrollControlDisabledMaxHeightRatio:
+            (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+        settings: settings,
+        requestFocus: requestFocus,
+        transitionAnimationController: transitionAnimationController,
+        anchorPoint: anchorPoint,
+        useSafeArea: useSafeArea ?? false,
+        sheetAnimationStyle: sheetAnimationStyle,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       ModalBottomSheetRoute<SliverMultiBoxAdaptorParentData>(
         builder: (BuildContext p0) {
@@ -449116,6 +449387,37 @@ Object? _rc2ModalBottomSheetRoute$leaf21(
         useSafeArea: useSafeArea ?? false,
         sheetAnimationStyle: sheetAnimationStyle,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf22(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'SweepGradient' => ModalBottomSheetRoute<SweepGradient>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -449176,37 +449478,6 @@ Object? _rc2ModalBottomSheetRoute$leaf21(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf22(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'SwitchListTile' => ModalBottomSheetRoute<SwitchListTile>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -451075,6 +451346,37 @@ Object? _rc2ModalBottomSheetRoute$leaf22(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf23(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'TextInputStyle' => ModalBottomSheetRoute<TextInputStyle>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -451135,37 +451437,6 @@ Object? _rc2ModalBottomSheetRoute$leaf22(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf23(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'TextMagnifier' => ModalBottomSheetRoute<TextMagnifier>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -453035,6 +453306,37 @@ Object? _rc2ModalBottomSheetRoute$leaf23(
         useSafeArea: useSafeArea ?? false,
         sheetAnimationStyle: sheetAnimationStyle,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ModalBottomSheetRoute$leaf24(
+  String typeName,
+  dynamic visitor,
+  Object? builder,
+  CapturedThemes? capturedThemes,
+  String? barrierLabel,
+  String? barrierOnTapHint,
+  Color? backgroundColor,
+  double? elevation,
+  ShapeBorder? shape,
+  Clip? clipBehavior,
+  BoxConstraints? constraints,
+  Color? modalBarrierColor,
+  bool? isDismissible,
+  bool? enableDrag,
+  bool? showDragHandle,
+  bool? isScrollControlled,
+  double? scrollControlDisabledMaxHeightRatio,
+  RouteSettings? settings,
+  bool? requestFocus,
+  AnimationController? transitionAnimationController,
+  Offset? anchorPoint,
+  bool? useSafeArea,
+  AnimationStyle? sheetAnimationStyle,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' =>
       ModalBottomSheetRoute<TransposeCharactersIntent>(
         builder: (BuildContext p0) {
@@ -453096,37 +453398,6 @@ Object? _rc2ModalBottomSheetRoute$leaf23(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ModalBottomSheetRoute$leaf24(
-  String typeName,
-  dynamic visitor,
-  Object? builder,
-  CapturedThemes? capturedThemes,
-  String? barrierLabel,
-  String? barrierOnTapHint,
-  Color? backgroundColor,
-  double? elevation,
-  ShapeBorder? shape,
-  Clip? clipBehavior,
-  BoxConstraints? constraints,
-  Color? modalBarrierColor,
-  bool? isDismissible,
-  bool? enableDrag,
-  bool? showDragHandle,
-  bool? isScrollControlled,
-  double? scrollControlDisabledMaxHeightRatio,
-  RouteSettings? settings,
-  bool? requestFocus,
-  AnimationController? transitionAnimationController,
-  Offset? anchorPoint,
-  bool? useSafeArea,
-  AnimationStyle? sheetAnimationStyle,
-) {
-  return switch (typeName) {
     'TreeSliverController' => ModalBottomSheetRoute<TreeSliverController>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -454999,72 +455270,11 @@ Object? _rc2ModalBottomSheetRoute$leaf24(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
-    'WidgetInspector' => ModalBottomSheetRoute<WidgetInspector>(
-      builder: (BuildContext p0) {
-        return D4.extractBridgedArg<Widget>(
-          D4.callInterpreterCallback(visitor, builder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      capturedThemes: capturedThemes,
-      barrierLabel: barrierLabel,
-      barrierOnTapHint: barrierOnTapHint,
-      backgroundColor: backgroundColor,
-      elevation: (elevation as num?)?.toDouble(),
-      shape: shape,
-      clipBehavior: clipBehavior,
-      constraints: constraints,
-      modalBarrierColor: modalBarrierColor,
-      isDismissible: isDismissible ?? true,
-      enableDrag: enableDrag ?? true,
-      showDragHandle: showDragHandle,
-      isScrollControlled: isScrollControlled!,
-      scrollControlDisabledMaxHeightRatio:
-          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
-      settings: settings,
-      requestFocus: requestFocus,
-      transitionAnimationController: transitionAnimationController,
-      anchorPoint: anchorPoint,
-      useSafeArea: useSafeArea ?? false,
-      sheetAnimationStyle: sheetAnimationStyle,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      ModalBottomSheetRoute<WidgetOrderTraversalPolicy>(
-        builder: (BuildContext p0) {
-          return D4.extractBridgedArg<Widget>(
-            D4.callInterpreterCallback(visitor, builder, [p0]),
-            'callback',
-            visitor,
-          );
-        },
-        capturedThemes: capturedThemes,
-        barrierLabel: barrierLabel,
-        barrierOnTapHint: barrierOnTapHint,
-        backgroundColor: backgroundColor,
-        elevation: (elevation as num?)?.toDouble(),
-        shape: shape,
-        clipBehavior: clipBehavior,
-        constraints: constraints,
-        modalBarrierColor: modalBarrierColor,
-        isDismissible: isDismissible ?? true,
-        enableDrag: enableDrag ?? true,
-        showDragHandle: showDragHandle,
-        isScrollControlled: isScrollControlled!,
-        scrollControlDisabledMaxHeightRatio:
-            (scrollControlDisabledMaxHeightRatio as num).toDouble(),
-        settings: settings,
-        requestFocus: requestFocus,
-        transitionAnimationController: transitionAnimationController,
-        anchorPoint: anchorPoint,
-        useSafeArea: useSafeArea ?? false,
-        sheetAnimationStyle: sheetAnimationStyle,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2ModalBottomSheetRoute` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ModalBottomSheetRoute$leaf25(
   String typeName,
   dynamic visitor,
@@ -455361,6 +455571,67 @@ Object? _rc2ModalBottomSheetRoute$leaf25(
       useSafeArea: useSafeArea ?? false,
       sheetAnimationStyle: sheetAnimationStyle,
     ),
+    'WidgetInspector' => ModalBottomSheetRoute<WidgetInspector>(
+      builder: (BuildContext p0) {
+        return D4.extractBridgedArg<Widget>(
+          D4.callInterpreterCallback(visitor, builder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      capturedThemes: capturedThemes,
+      barrierLabel: barrierLabel,
+      barrierOnTapHint: barrierOnTapHint,
+      backgroundColor: backgroundColor,
+      elevation: (elevation as num?)?.toDouble(),
+      shape: shape,
+      clipBehavior: clipBehavior,
+      constraints: constraints,
+      modalBarrierColor: modalBarrierColor,
+      isDismissible: isDismissible ?? true,
+      enableDrag: enableDrag ?? true,
+      showDragHandle: showDragHandle,
+      isScrollControlled: isScrollControlled!,
+      scrollControlDisabledMaxHeightRatio:
+          (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+      settings: settings,
+      requestFocus: requestFocus,
+      transitionAnimationController: transitionAnimationController,
+      anchorPoint: anchorPoint,
+      useSafeArea: useSafeArea ?? false,
+      sheetAnimationStyle: sheetAnimationStyle,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      ModalBottomSheetRoute<WidgetOrderTraversalPolicy>(
+        builder: (BuildContext p0) {
+          return D4.extractBridgedArg<Widget>(
+            D4.callInterpreterCallback(visitor, builder, [p0]),
+            'callback',
+            visitor,
+          );
+        },
+        capturedThemes: capturedThemes,
+        barrierLabel: barrierLabel,
+        barrierOnTapHint: barrierOnTapHint,
+        backgroundColor: backgroundColor,
+        elevation: (elevation as num?)?.toDouble(),
+        shape: shape,
+        clipBehavior: clipBehavior,
+        constraints: constraints,
+        modalBarrierColor: modalBarrierColor,
+        isDismissible: isDismissible ?? true,
+        enableDrag: enableDrag ?? true,
+        showDragHandle: showDragHandle,
+        isScrollControlled: isScrollControlled!,
+        scrollControlDisabledMaxHeightRatio:
+            (scrollControlDisabledMaxHeightRatio as num).toDouble(),
+        settings: settings,
+        requestFocus: requestFocus,
+        transitionAnimationController: transitionAnimationController,
+        anchorPoint: anchorPoint,
+        useSafeArea: useSafeArea ?? false,
+        sheetAnimationStyle: sheetAnimationStyle,
+      ),
     'WidgetSpan' => ModalBottomSheetRoute<WidgetSpan>(
       builder: (BuildContext p0) {
         return D4.extractBridgedArg<Widget>(
@@ -455782,7 +456053,7 @@ Object? _rc2NavigatorPopHandler(
   final child = named.containsKey('child')
       ? D4.extractBridgedArg<Widget?>(named['child'], 'child')
       : null;
-  if (typeName.compareTo('Object?') < 0) {
+  if (typeName.compareTo('Object') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -455882,7 +456153,7 @@ Object? _rc2NavigatorPopHandler(
         child,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2NavigatorPopHandler$leaf9(
           typeName,
@@ -455904,7 +456175,7 @@ Object? _rc2NavigatorPopHandler(
         child,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2NavigatorPopHandler$leaf11(
         typeName,
         visitor,
@@ -455925,9 +456196,9 @@ Object? _rc2NavigatorPopHandler(
       child,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2NavigatorPopHandler$leaf13(
           typeName,
           visitor,
@@ -455938,7 +456209,7 @@ Object? _rc2NavigatorPopHandler(
           child,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2NavigatorPopHandler$leaf14(
           typeName,
           visitor,
@@ -455959,7 +456230,7 @@ Object? _rc2NavigatorPopHandler(
         child,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2NavigatorPopHandler$leaf16(
         typeName,
         visitor,
@@ -455970,7 +456241,7 @@ Object? _rc2NavigatorPopHandler(
         child,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2NavigatorPopHandler$leaf17(
         typeName,
         visitor,
@@ -455991,8 +456262,8 @@ Object? _rc2NavigatorPopHandler(
       child,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2NavigatorPopHandler$leaf19(
         typeName,
         visitor,
@@ -456003,7 +456274,7 @@ Object? _rc2NavigatorPopHandler(
         child,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2NavigatorPopHandler$leaf20(
         typeName,
         visitor,
@@ -456024,8 +456295,8 @@ Object? _rc2NavigatorPopHandler(
       child,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2NavigatorPopHandler$leaf22(
         typeName,
         visitor,
@@ -456046,7 +456317,7 @@ Object? _rc2NavigatorPopHandler(
       child,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2NavigatorPopHandler$leaf24(
       typeName,
       visitor,
@@ -467235,7 +467506,7 @@ Object? _rc2NavigatorPopHandler$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2NavigatorPopHandler$leaf10(
   String typeName,
   dynamic visitor,
@@ -467753,6 +468024,23 @@ Object? _rc2NavigatorPopHandler$leaf10(
       onPopWithResult: onPopWithResult == null
           ? null
           : (InteractiveViewer? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
+    'IntersectionResult' => NavigatorPopHandler<IntersectionResult>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (IntersectionResult? p0) async {
               D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -468323,6 +468611,21 @@ Object? _rc2NavigatorPopHandler$leaf10(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'LineBoundary' => NavigatorPopHandler<LineBoundary>(
       key: key,
       onPop: onPop == null
@@ -468340,21 +468643,6 @@ Object? _rc2NavigatorPopHandler$leaf10(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'LineMetrics' => NavigatorPopHandler<LineMetrics>(
       key: key,
       onPop: onPop == null
@@ -469436,6 +469724,21 @@ Object? _rc2NavigatorPopHandler$leaf11(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NumericFocusOrder' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'MediaQuery' => NavigatorPopHandler<MediaQuery>(
       key: key,
       onPop: onPop == null
@@ -469447,38 +469750,6 @@ Object? _rc2NavigatorPopHandler$leaf11(
       onPopWithResult: onPopWithResult == null
           ? null
           : (MediaQuery? p0) async {
-              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      child: child!,
-    ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'Object' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
-    'Object' => NavigatorPopHandler<dynamic>(
-      key: key,
-      onPop: onPop == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onPop, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopWithResult: onPopWithResult == null
-          ? null
-          : (dynamic? p0) async {
               D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -470571,7 +470842,7 @@ Object? _rc2NavigatorPopHandler$leaf12(
   };
 }
 
-/// Selectors 'Object?' to 'PerformanceModeRequestHandle' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Object' to 'PercentProperty' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2NavigatorPopHandler$leaf13(
   String typeName,
   dynamic visitor,
@@ -470582,7 +470853,7 @@ Object? _rc2NavigatorPopHandler$leaf13(
   Widget? child,
 ) {
   return switch (typeName) {
-    'Object?' => NavigatorPopHandler<dynamic>(
+    'Object' || 'Object?' => NavigatorPopHandler<dynamic>(
       key: key,
       onPop: onPop == null
           ? null
@@ -471659,6 +471930,21 @@ Object? _rc2NavigatorPopHandler$leaf13(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       NavigatorPopHandler<PerformanceModeRequestHandle>(
         key: key,
@@ -471677,21 +471963,6 @@ Object? _rc2NavigatorPopHandler$leaf13(
         enabled: enabled ?? true,
         child: child!,
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => NavigatorPopHandler<PerformanceOverlay>(
       key: key,
       onPop: onPop == null
@@ -472771,6 +473042,21 @@ Object? _rc2NavigatorPopHandler$leaf14(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'PositionedTransition' => NavigatorPopHandler<PositionedTransition>(
       key: key,
       onPop: onPop == null
@@ -472788,21 +473074,6 @@ Object? _rc2NavigatorPopHandler$leaf14(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => NavigatorPopHandler<PredictiveBackEvent>(
       key: key,
       onPop: onPop == null
@@ -473038,6 +473309,23 @@ Object? _rc2NavigatorPopHandler$leaf15(
       onPopWithResult: onPopWithResult == null
           ? null
           : (ProxyAnimation? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
+    'Quad' => NavigatorPopHandler<Quad>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (Quad? p0) async {
               D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -473867,6 +474155,21 @@ Object? _rc2NavigatorPopHandler$leaf15(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => NavigatorPopHandler<RenderAbsorbPointer>(
       key: key,
       onPop: onPop == null
@@ -473901,21 +474204,6 @@ Object? _rc2NavigatorPopHandler$leaf15(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => NavigatorPopHandler<RenderAnimatedOpacity>(
       key: key,
       onPop: onPop == null
@@ -474981,6 +475269,21 @@ Object? _rc2NavigatorPopHandler$leaf16(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       NavigatorPopHandler<RenderShrinkWrappingViewport>(
         key: key,
@@ -475016,21 +475319,6 @@ Object? _rc2NavigatorPopHandler$leaf16(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       NavigatorPopHandler<RenderSliverAnimatedOpacity>(
         key: key,
@@ -476104,6 +476392,21 @@ Object? _rc2NavigatorPopHandler$leaf17(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RestorationBucket' => NavigatorPopHandler<RestorationBucket>(
       key: key,
       onPop: onPop == null
@@ -476138,21 +476441,6 @@ Object? _rc2NavigatorPopHandler$leaf17(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RestorationScope' => NavigatorPopHandler<RestorationScope>(
       key: key,
       onPop: onPop == null
@@ -477221,6 +477509,21 @@ Object? _rc2NavigatorPopHandler$leaf18(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'Scrollable' => NavigatorPopHandler<Scrollable>(
       key: key,
       onPop: onPop == null
@@ -477255,21 +477558,6 @@ Object? _rc2NavigatorPopHandler$leaf18(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ScrollableState' => NavigatorPopHandler<ScrollableState>(
       key: key,
       onPop: onPop == null
@@ -478328,6 +478616,21 @@ Object? _rc2NavigatorPopHandler$leaf19(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => NavigatorPopHandler<ShaderMaskLayer>(
       key: key,
       onPop: onPop == null
@@ -478362,21 +478665,6 @@ Object? _rc2NavigatorPopHandler$leaf19(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => NavigatorPopHandler<ShapeBorderClipper>(
       key: key,
       onPop: onPop == null
@@ -479440,46 +479728,11 @@ Object? _rc2NavigatorPopHandler$leaf20(
       enabled: enabled ?? true,
       child: child!,
     ),
-    'SliverMainAxisGroup' => NavigatorPopHandler<SliverMainAxisGroup>(
-      key: key,
-      onPop: onPop == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onPop, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopWithResult: onPopWithResult == null
-          ? null
-          : (SliverMainAxisGroup? p0) async {
-              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      child: child!,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      NavigatorPopHandler<SliverMultiBoxAdaptorElement>(
-        key: key,
-        onPop: onPop == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onPop, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        onPopWithResult: onPopWithResult == null
-            ? null
-            : (SliverMultiBoxAdaptorElement? p0) async {
-                D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        enabled: enabled ?? true,
-        child: child!,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2NavigatorPopHandler$leaf21(
   String typeName,
   dynamic visitor,
@@ -479524,6 +479777,41 @@ Object? _rc2NavigatorPopHandler$leaf21(
       enabled: enabled ?? true,
       child: child!,
     ),
+    'SliverMainAxisGroup' => NavigatorPopHandler<SliverMainAxisGroup>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (SliverMainAxisGroup? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      NavigatorPopHandler<SliverMultiBoxAdaptorElement>(
+        key: key,
+        onPop: onPop == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onPop, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        onPopWithResult: onPopWithResult == null
+            ? null
+            : (SliverMultiBoxAdaptorElement? p0) async {
+                D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        enabled: enabled ?? true,
+        child: child!,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       NavigatorPopHandler<SliverMultiBoxAdaptorParentData>(
         key: key,
@@ -480555,6 +480843,21 @@ Object? _rc2NavigatorPopHandler$leaf21(
         enabled: enabled ?? true,
         child: child!,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'SweepGradient' => NavigatorPopHandler<SweepGradient>(
       key: key,
       onPop: onPop == null
@@ -480589,21 +480892,6 @@ Object? _rc2NavigatorPopHandler$leaf21(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'SwitchListTile' => NavigatorPopHandler<SwitchListTile>(
       key: key,
       onPop: onPop == null
@@ -481664,6 +481952,21 @@ Object? _rc2NavigatorPopHandler$leaf22(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TextInputStyle' => NavigatorPopHandler<TextInputStyle>(
       key: key,
       onPop: onPop == null
@@ -481698,21 +482001,6 @@ Object? _rc2NavigatorPopHandler$leaf22(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TextMagnifier' => NavigatorPopHandler<TextMagnifier>(
       key: key,
       onPop: onPop == null
@@ -482774,6 +483062,21 @@ Object? _rc2NavigatorPopHandler$leaf23(
       enabled: enabled ?? true,
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2NavigatorPopHandler$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? onPop,
+  Object? onPopWithResult,
+  bool? enabled,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' =>
       NavigatorPopHandler<TransposeCharactersIntent>(
         key: key,
@@ -482809,21 +483112,6 @@ Object? _rc2NavigatorPopHandler$leaf23(
       enabled: enabled ?? true,
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2NavigatorPopHandler$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? onPop,
-  Object? onPopWithResult,
-  bool? enabled,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TreeSliverController' => NavigatorPopHandler<TreeSliverController>(
       key: key,
       onPop: onPop == null
@@ -483886,46 +484174,11 @@ Object? _rc2NavigatorPopHandler$leaf24(
       enabled: enabled ?? true,
       child: child!,
     ),
-    'WidgetInspector' => NavigatorPopHandler<WidgetInspector>(
-      key: key,
-      onPop: onPop == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onPop, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopWithResult: onPopWithResult == null
-          ? null
-          : (WidgetInspector? p0) async {
-              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      child: child!,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      NavigatorPopHandler<WidgetOrderTraversalPolicy>(
-        key: key,
-        onPop: onPop == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onPop, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        onPopWithResult: onPopWithResult == null
-            ? null
-            : (WidgetOrderTraversalPolicy? p0) async {
-                D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        enabled: enabled ?? true,
-        child: child!,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2NavigatorPopHandler` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2NavigatorPopHandler$leaf25(
   String typeName,
   dynamic visitor,
@@ -484089,6 +484342,41 @@ Object? _rc2NavigatorPopHandler$leaf25(
       enabled: enabled ?? true,
       child: child!,
     ),
+    'WidgetInspector' => NavigatorPopHandler<WidgetInspector>(
+      key: key,
+      onPop: onPop == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onPop, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopWithResult: onPopWithResult == null
+          ? null
+          : (WidgetInspector? p0) async {
+              D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      child: child!,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      NavigatorPopHandler<WidgetOrderTraversalPolicy>(
+        key: key,
+        onPop: onPop == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onPop, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        onPopWithResult: onPopWithResult == null
+            ? null
+            : (WidgetOrderTraversalPolicy? p0) async {
+                D4.callInterpreterCallback(visitor, onPopWithResult, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        enabled: enabled ?? true,
+        child: child!,
+      ),
     'WidgetSpan' => NavigatorPopHandler<WidgetSpan>(
       key: key,
       onPop: onPop == null
@@ -484529,7 +484817,7 @@ Object? _rc2ObjectFlagProperty(
   final level = named.containsKey('level')
       ? D4.extractBridgedArg<DiagnosticLevel?>(named['level'], 'level')
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -484638,7 +484926,7 @@ Object? _rc2ObjectFlagProperty(
         level,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2ObjectFlagProperty$leaf9(
           typeName,
@@ -484662,7 +484950,7 @@ Object? _rc2ObjectFlagProperty(
         level,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2ObjectFlagProperty$leaf11(
         typeName,
         visitor,
@@ -484685,9 +484973,9 @@ Object? _rc2ObjectFlagProperty(
       level,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2ObjectFlagProperty$leaf13(
           typeName,
           visitor,
@@ -484699,7 +484987,7 @@ Object? _rc2ObjectFlagProperty(
           level,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2ObjectFlagProperty$leaf14(
           typeName,
           visitor,
@@ -484722,7 +485010,7 @@ Object? _rc2ObjectFlagProperty(
         level,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2ObjectFlagProperty$leaf16(
         typeName,
         visitor,
@@ -484734,7 +485022,7 @@ Object? _rc2ObjectFlagProperty(
         level,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2ObjectFlagProperty$leaf17(
         typeName,
         visitor,
@@ -484757,8 +485045,8 @@ Object? _rc2ObjectFlagProperty(
       level,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2ObjectFlagProperty$leaf19(
         typeName,
         visitor,
@@ -484770,7 +485058,7 @@ Object? _rc2ObjectFlagProperty(
         level,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2ObjectFlagProperty$leaf20(
         typeName,
         visitor,
@@ -484793,8 +485081,8 @@ Object? _rc2ObjectFlagProperty(
       level,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2ObjectFlagProperty$leaf22(
         typeName,
         visitor,
@@ -484817,7 +485105,7 @@ Object? _rc2ObjectFlagProperty(
       level,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2ObjectFlagProperty$leaf24(
       typeName,
       visitor,
@@ -490254,7 +490542,7 @@ Object? _rc2ObjectFlagProperty$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf10(
   String typeName,
   dynamic visitor,
@@ -490504,6 +490792,14 @@ Object? _rc2ObjectFlagProperty$leaf10(
     'InteractiveViewer' => ObjectFlagProperty<InteractiveViewer>(
       name!,
       value as InteractiveViewer?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'IntersectionResult' => ObjectFlagProperty<IntersectionResult>(
+      name!,
+      value as IntersectionResult?,
       ifPresent: ifPresent,
       ifNull: ifNull,
       showName: showName ?? false,
@@ -490776,19 +491072,11 @@ Object? _rc2ObjectFlagProperty$leaf10(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'LineBoundary' => ObjectFlagProperty<LineBoundary>(
-      name!,
-      value as LineBoundary?,
-      ifPresent: ifPresent,
-      ifNull: ifNull,
-      showName: showName ?? false,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf11(
   String typeName,
   dynamic visitor,
@@ -490800,6 +491088,14 @@ Object? _rc2ObjectFlagProperty$leaf11(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'LineBoundary' => ObjectFlagProperty<LineBoundary>(
+      name!,
+      value as LineBoundary?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'LineMetrics' => ObjectFlagProperty<LineMetrics>(
       name!,
       value as LineMetrics?,
@@ -491314,19 +491610,11 @@ Object? _rc2ObjectFlagProperty$leaf11(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'MediaQuery' => ObjectFlagProperty<MediaQuery>(
-      name!,
-      value as MediaQuery?,
-      ifPresent: ifPresent,
-      ifNull: ifNull,
-      showName: showName ?? false,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf12(
   String typeName,
   dynamic visitor,
@@ -491338,6 +491626,14 @@ Object? _rc2ObjectFlagProperty$leaf12(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'MediaQuery' => ObjectFlagProperty<MediaQuery>(
+      name!,
+      value as MediaQuery?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'MediaQueryData' => ObjectFlagProperty<MediaQueryData>(
       name!,
       value as MediaQueryData?,
@@ -491853,19 +492149,11 @@ Object? _rc2ObjectFlagProperty$leaf12(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'NumericFocusOrder' => ObjectFlagProperty<NumericFocusOrder>(
-      name!,
-      value as NumericFocusOrder?,
-      ifPresent: ifPresent,
-      ifNull: ifNull,
-      showName: showName ?? false,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PerformanceModeRequestHandle' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PercentProperty' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf13(
   String typeName,
   dynamic visitor,
@@ -491880,6 +492168,14 @@ Object? _rc2ObjectFlagProperty$leaf13(
     'Object' || 'Object?' => ObjectFlagProperty<dynamic>(
       name!,
       value,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'NumericFocusOrder' => ObjectFlagProperty<NumericFocusOrder>(
+      name!,
+      value as NumericFocusOrder?,
       ifPresent: ifPresent,
       ifNull: ifNull,
       showName: showName ?? false,
@@ -492379,20 +492675,11 @@ Object? _rc2ObjectFlagProperty$leaf13(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PerformanceModeRequestHandle' =>
-      ObjectFlagProperty<PerformanceModeRequestHandle>(
-        name!,
-        value as PerformanceModeRequestHandle?,
-        ifPresent: ifPresent,
-        ifNull: ifNull,
-        showName: showName ?? false,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf14(
   String typeName,
   dynamic visitor,
@@ -492404,6 +492691,15 @@ Object? _rc2ObjectFlagProperty$leaf14(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      ObjectFlagProperty<PerformanceModeRequestHandle>(
+        name!,
+        value as PerformanceModeRequestHandle?,
+        ifPresent: ifPresent,
+        ifNull: ifNull,
+        showName: showName ?? false,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'PerformanceOverlay' => ObjectFlagProperty<PerformanceOverlay>(
       name!,
       value as PerformanceOverlay?,
@@ -492916,19 +493212,11 @@ Object? _rc2ObjectFlagProperty$leaf14(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PositionedTransition' => ObjectFlagProperty<PositionedTransition>(
-      name!,
-      value as PositionedTransition?,
-      ifPresent: ifPresent,
-      ifNull: ifNull,
-      showName: showName ?? false,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf15(
   String typeName,
   dynamic visitor,
@@ -492940,6 +493228,14 @@ Object? _rc2ObjectFlagProperty$leaf15(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => ObjectFlagProperty<PositionedTransition>(
+      name!,
+      value as PositionedTransition?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'PredictiveBackEvent' => ObjectFlagProperty<PredictiveBackEvent>(
       name!,
       value as PredictiveBackEvent?,
@@ -493050,6 +493346,14 @@ Object? _rc2ObjectFlagProperty$leaf15(
     'ProxyAnimation' => ObjectFlagProperty<ProxyAnimation>(
       name!,
       value as ProxyAnimation?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'Quad' => ObjectFlagProperty<Quad>(
+      name!,
+      value as Quad?,
       ifPresent: ifPresent,
       ifNull: ifNull,
       showName: showName ?? false,
@@ -493446,6 +493750,22 @@ Object? _rc2ObjectFlagProperty$leaf15(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf16(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => ObjectFlagProperty<RenderAbsorbPointer>(
       name!,
       value as RenderAbsorbPointer?,
@@ -493462,22 +493782,6 @@ Object? _rc2ObjectFlagProperty$leaf15(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf16(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => ObjectFlagProperty<RenderAnimatedOpacity>(
       name!,
       value as RenderAnimatedOpacity?,
@@ -493985,6 +494289,22 @@ Object? _rc2ObjectFlagProperty$leaf16(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf17(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       ObjectFlagProperty<RenderShrinkWrappingViewport>(
         name!,
@@ -494002,22 +494322,6 @@ Object? _rc2ObjectFlagProperty$leaf16(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf17(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       ObjectFlagProperty<RenderSliverAnimatedOpacity>(
         name!,
@@ -494533,6 +494837,22 @@ Object? _rc2ObjectFlagProperty$leaf17(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf18(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RestorationBucket' => ObjectFlagProperty<RestorationBucket>(
       name!,
       value as RestorationBucket?,
@@ -494549,22 +494869,6 @@ Object? _rc2ObjectFlagProperty$leaf17(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf18(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RestorationScope' => ObjectFlagProperty<RestorationScope>(
       name!,
       value as RestorationScope?,
@@ -495075,6 +495379,22 @@ Object? _rc2ObjectFlagProperty$leaf18(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf19(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'Scrollable' => ObjectFlagProperty<Scrollable>(
       name!,
       value as Scrollable?,
@@ -495091,22 +495411,6 @@ Object? _rc2ObjectFlagProperty$leaf18(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf19(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ScrollableState' => ObjectFlagProperty<ScrollableState>(
       name!,
       value as ScrollableState?,
@@ -495607,6 +495911,22 @@ Object? _rc2ObjectFlagProperty$leaf19(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf20(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => ObjectFlagProperty<ShaderMaskLayer>(
       name!,
       value as ShaderMaskLayer?,
@@ -495623,22 +495943,6 @@ Object? _rc2ObjectFlagProperty$leaf19(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf20(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => ObjectFlagProperty<ShapeBorderClipper>(
       name!,
       value as ShapeBorderClipper?,
@@ -496144,28 +496448,11 @@ Object? _rc2ObjectFlagProperty$leaf20(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'SliverMainAxisGroup' => ObjectFlagProperty<SliverMainAxisGroup>(
-      name!,
-      value as SliverMainAxisGroup?,
-      ifPresent: ifPresent,
-      ifNull: ifNull,
-      showName: showName ?? false,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      ObjectFlagProperty<SliverMultiBoxAdaptorElement>(
-        name!,
-        value as SliverMultiBoxAdaptorElement?,
-        ifPresent: ifPresent,
-        ifNull: ifNull,
-        showName: showName ?? false,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf21(
   String typeName,
   dynamic visitor,
@@ -496193,6 +496480,23 @@ Object? _rc2ObjectFlagProperty$leaf21(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    'SliverMainAxisGroup' => ObjectFlagProperty<SliverMainAxisGroup>(
+      name!,
+      value as SliverMainAxisGroup?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      ObjectFlagProperty<SliverMultiBoxAdaptorElement>(
+        name!,
+        value as SliverMultiBoxAdaptorElement?,
+        ifPresent: ifPresent,
+        ifNull: ifNull,
+        showName: showName ?? false,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       ObjectFlagProperty<SliverMultiBoxAdaptorParentData>(
         name!,
@@ -496684,6 +496988,22 @@ Object? _rc2ObjectFlagProperty$leaf21(
         showName: showName ?? false,
         level: level ?? DiagnosticLevel.info,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf22(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'SweepGradient' => ObjectFlagProperty<SweepGradient>(
       name!,
       value as SweepGradient?,
@@ -496700,22 +497020,6 @@ Object? _rc2ObjectFlagProperty$leaf21(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf22(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'SwitchListTile' => ObjectFlagProperty<SwitchListTile>(
       name!,
       value as SwitchListTile?,
@@ -497218,6 +497522,22 @@ Object? _rc2ObjectFlagProperty$leaf22(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf23(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TextInputStyle' => ObjectFlagProperty<TextInputStyle>(
       name!,
       value as TextInputStyle?,
@@ -497234,22 +497554,6 @@ Object? _rc2ObjectFlagProperty$leaf22(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf23(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TextMagnifier' => ObjectFlagProperty<TextMagnifier>(
       name!,
       value as TextMagnifier?,
@@ -497753,6 +498057,22 @@ Object? _rc2ObjectFlagProperty$leaf23(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty$leaf24(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  String? ifPresent,
+  String? ifNull,
+  bool? showName,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' =>
       ObjectFlagProperty<TransposeCharactersIntent>(
         name!,
@@ -497770,22 +498090,6 @@ Object? _rc2ObjectFlagProperty$leaf23(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty$leaf24(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  String? ifPresent,
-  String? ifNull,
-  bool? showName,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TreeSliverController' => ObjectFlagProperty<TreeSliverController>(
       name!,
       value as TreeSliverController?,
@@ -498290,28 +498594,11 @@ Object? _rc2ObjectFlagProperty$leaf24(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
-    'WidgetInspector' => ObjectFlagProperty<WidgetInspector>(
-      name!,
-      value as WidgetInspector?,
-      ifPresent: ifPresent,
-      ifNull: ifNull,
-      showName: showName ?? false,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      ObjectFlagProperty<WidgetOrderTraversalPolicy>(
-        name!,
-        value as WidgetOrderTraversalPolicy?,
-        ifPresent: ifPresent,
-        ifNull: ifNull,
-        showName: showName ?? false,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2ObjectFlagProperty` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty$leaf25(
   String typeName,
   dynamic visitor,
@@ -498395,6 +498682,23 @@ Object? _rc2ObjectFlagProperty$leaf25(
       showName: showName ?? false,
       level: level ?? DiagnosticLevel.info,
     ),
+    'WidgetInspector' => ObjectFlagProperty<WidgetInspector>(
+      name!,
+      value as WidgetInspector?,
+      ifPresent: ifPresent,
+      ifNull: ifNull,
+      showName: showName ?? false,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      ObjectFlagProperty<WidgetOrderTraversalPolicy>(
+        name!,
+        value as WidgetOrderTraversalPolicy?,
+        ifPresent: ifPresent,
+        ifNull: ifNull,
+        showName: showName ?? false,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'WidgetSpan' => ObjectFlagProperty<WidgetSpan>(
       name!,
       value as WidgetSpan?,
@@ -498521,7 +498825,7 @@ Object? _rc2ObjectFlagProperty_has(
   final level = named.containsKey('level')
       ? D4.extractBridgedArg<DiagnosticLevel?>(named['level'], 'level')
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -498603,7 +498907,7 @@ Object? _rc2ObjectFlagProperty_has(
         level,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2ObjectFlagProperty_has$leaf9(
           typeName,
@@ -498621,7 +498925,7 @@ Object? _rc2ObjectFlagProperty_has(
         level,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2ObjectFlagProperty_has$leaf11(
         typeName,
         visitor,
@@ -498638,9 +498942,9 @@ Object? _rc2ObjectFlagProperty_has(
       level,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2ObjectFlagProperty_has$leaf13(
           typeName,
           visitor,
@@ -498649,7 +498953,7 @@ Object? _rc2ObjectFlagProperty_has(
           level,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2ObjectFlagProperty_has$leaf14(
           typeName,
           visitor,
@@ -498666,7 +498970,7 @@ Object? _rc2ObjectFlagProperty_has(
         level,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2ObjectFlagProperty_has$leaf16(
         typeName,
         visitor,
@@ -498675,7 +498979,7 @@ Object? _rc2ObjectFlagProperty_has(
         level,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2ObjectFlagProperty_has$leaf17(
         typeName,
         visitor,
@@ -498692,8 +498996,8 @@ Object? _rc2ObjectFlagProperty_has(
       level,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2ObjectFlagProperty_has$leaf19(
         typeName,
         visitor,
@@ -498702,7 +499006,7 @@ Object? _rc2ObjectFlagProperty_has(
         level,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2ObjectFlagProperty_has$leaf20(
         typeName,
         visitor,
@@ -498719,8 +499023,8 @@ Object? _rc2ObjectFlagProperty_has(
       level,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2ObjectFlagProperty_has$leaf22(
         typeName,
         visitor,
@@ -498737,7 +499041,7 @@ Object? _rc2ObjectFlagProperty_has(
       level,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2ObjectFlagProperty_has$leaf24(
       typeName,
       visitor,
@@ -502253,7 +502557,7 @@ Object? _rc2ObjectFlagProperty_has$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf10(
   String typeName,
   dynamic visitor,
@@ -502416,6 +502720,11 @@ Object? _rc2ObjectFlagProperty_has$leaf10(
     'InteractiveViewer' => ObjectFlagProperty<InteractiveViewer>.has(
       name!,
       value as InteractiveViewer?,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'IntersectionResult' => ObjectFlagProperty<IntersectionResult>.has(
+      name!,
+      value as IntersectionResult?,
       level: level ?? DiagnosticLevel.info,
     ),
     'Interval' => ObjectFlagProperty<Interval>.has(
@@ -502588,16 +502897,11 @@ Object? _rc2ObjectFlagProperty_has$leaf10(
       value as LimitedBox?,
       level: level ?? DiagnosticLevel.info,
     ),
-    'LineBoundary' => ObjectFlagProperty<LineBoundary>.has(
-      name!,
-      value as LineBoundary?,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf11(
   String typeName,
   dynamic visitor,
@@ -502606,6 +502910,11 @@ Object? _rc2ObjectFlagProperty_has$leaf11(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'LineBoundary' => ObjectFlagProperty<LineBoundary>.has(
+      name!,
+      value as LineBoundary?,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'LineMetrics' => ObjectFlagProperty<LineMetrics>.has(
       name!,
       value as LineMetrics?,
@@ -502934,16 +503243,11 @@ Object? _rc2ObjectFlagProperty_has$leaf11(
       value as MaxColumnWidth?,
       level: level ?? DiagnosticLevel.info,
     ),
-    'MediaQuery' => ObjectFlagProperty<MediaQuery>.has(
-      name!,
-      value as MediaQuery?,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf12(
   String typeName,
   dynamic visitor,
@@ -502952,6 +503256,11 @@ Object? _rc2ObjectFlagProperty_has$leaf12(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'MediaQuery' => ObjectFlagProperty<MediaQuery>.has(
+      name!,
+      value as MediaQuery?,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'MediaQueryData' => ObjectFlagProperty<MediaQueryData>.has(
       name!,
       value as MediaQueryData?,
@@ -503280,16 +503589,11 @@ Object? _rc2ObjectFlagProperty_has$leaf12(
       value as NotificationListener?,
       level: level ?? DiagnosticLevel.info,
     ),
-    'NumericFocusOrder' => ObjectFlagProperty<NumericFocusOrder>.has(
-      name!,
-      value as NumericFocusOrder?,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PerformanceModeRequestHandle' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PercentProperty' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf13(
   String typeName,
   dynamic visitor,
@@ -503301,6 +503605,11 @@ Object? _rc2ObjectFlagProperty_has$leaf13(
     'Object' || 'Object?' => ObjectFlagProperty<dynamic>.has(
       name!,
       value,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'NumericFocusOrder' => ObjectFlagProperty<NumericFocusOrder>.has(
+      name!,
+      value as NumericFocusOrder?,
       level: level ?? DiagnosticLevel.info,
     ),
     'ObjectCreated' => ObjectFlagProperty<ObjectCreated>.has(
@@ -503617,17 +503926,11 @@ Object? _rc2ObjectFlagProperty_has$leaf13(
       value as PercentProperty?,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PerformanceModeRequestHandle' =>
-      ObjectFlagProperty<PerformanceModeRequestHandle>.has(
-        name!,
-        value as PerformanceModeRequestHandle?,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf14(
   String typeName,
   dynamic visitor,
@@ -503636,6 +503939,12 @@ Object? _rc2ObjectFlagProperty_has$leaf14(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      ObjectFlagProperty<PerformanceModeRequestHandle>.has(
+        name!,
+        value as PerformanceModeRequestHandle?,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'PerformanceOverlay' => ObjectFlagProperty<PerformanceOverlay>.has(
       name!,
       value as PerformanceOverlay?,
@@ -503962,16 +504271,11 @@ Object? _rc2ObjectFlagProperty_has$leaf14(
       value as PositionedDirectional?,
       level: level ?? DiagnosticLevel.info,
     ),
-    'PositionedTransition' => ObjectFlagProperty<PositionedTransition>.has(
-      name!,
-      value as PositionedTransition?,
-      level: level ?? DiagnosticLevel.info,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf15(
   String typeName,
   dynamic visitor,
@@ -503980,6 +504284,11 @@ Object? _rc2ObjectFlagProperty_has$leaf15(
   DiagnosticLevel? level,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => ObjectFlagProperty<PositionedTransition>.has(
+      name!,
+      value as PositionedTransition?,
+      level: level ?? DiagnosticLevel.info,
+    ),
     'PredictiveBackEvent' => ObjectFlagProperty<PredictiveBackEvent>.has(
       name!,
       value as PredictiveBackEvent?,
@@ -504052,6 +504361,11 @@ Object? _rc2ObjectFlagProperty_has$leaf15(
     'ProxyAnimation' => ObjectFlagProperty<ProxyAnimation>.has(
       name!,
       value as ProxyAnimation?,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'Quad' => ObjectFlagProperty<Quad>.has(
+      name!,
+      value as Quad?,
       level: level ?? DiagnosticLevel.info,
     ),
     'RRect' => ObjectFlagProperty<RRect>.has(
@@ -504303,6 +504617,19 @@ Object? _rc2ObjectFlagProperty_has$leaf15(
       value as RelativeRectTween?,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf16(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => ObjectFlagProperty<RenderAbsorbPointer>.has(
       name!,
       value as RenderAbsorbPointer?,
@@ -504313,19 +504640,6 @@ Object? _rc2ObjectFlagProperty_has$leaf15(
       value as RenderAndroidView?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf16(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => ObjectFlagProperty<RenderAnimatedOpacity>.has(
       name!,
       value as RenderAnimatedOpacity?,
@@ -504650,6 +504964,19 @@ Object? _rc2ObjectFlagProperty_has$leaf16(
       value as RenderShaderMask?,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf17(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       ObjectFlagProperty<RenderShrinkWrappingViewport>.has(
         name!,
@@ -504661,19 +504988,6 @@ Object? _rc2ObjectFlagProperty_has$leaf16(
       value as RenderSizedOverflowBox?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf17(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       ObjectFlagProperty<RenderSliverAnimatedOpacity>.has(
         name!,
@@ -505006,6 +505320,19 @@ Object? _rc2ObjectFlagProperty_has$leaf17(
       value as RestorableTimeOfDay?,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf18(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'RestorationBucket' => ObjectFlagProperty<RestorationBucket>.has(
       name!,
       value as RestorationBucket?,
@@ -505016,19 +505343,6 @@ Object? _rc2ObjectFlagProperty_has$leaf17(
       value as RestorationManager?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf18(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'RestorationScope' => ObjectFlagProperty<RestorationScope>.has(
       name!,
       value as RestorationScope?,
@@ -505359,6 +505673,19 @@ Object? _rc2ObjectFlagProperty_has$leaf18(
         value as ScrollUpdateNotification?,
         level: level ?? DiagnosticLevel.info,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf19(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'Scrollable' => ObjectFlagProperty<Scrollable>.has(
       name!,
       value as Scrollable?,
@@ -505369,19 +505696,6 @@ Object? _rc2ObjectFlagProperty_has$leaf18(
       value as ScrollableDetails?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf19(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ScrollableState' => ObjectFlagProperty<ScrollableState>.has(
       name!,
       value as ScrollableState?,
@@ -505702,6 +506016,19 @@ Object? _rc2ObjectFlagProperty_has$leaf19(
       value as ShaderMaskEngineLayer?,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf20(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => ObjectFlagProperty<ShaderMaskLayer>.has(
       name!,
       value as ShaderMaskLayer?,
@@ -505712,19 +506039,6 @@ Object? _rc2ObjectFlagProperty_has$leaf19(
       value as Shadow?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf20(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => ObjectFlagProperty<ShapeBorderClipper>.has(
       name!,
       value as ShapeBorderClipper?,
@@ -506049,22 +506363,11 @@ Object? _rc2ObjectFlagProperty_has$leaf20(
         value as SliverLogicalParentData?,
         level: level ?? DiagnosticLevel.info,
       ),
-    'SliverMainAxisGroup' => ObjectFlagProperty<SliverMainAxisGroup>.has(
-      name!,
-      value as SliverMainAxisGroup?,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      ObjectFlagProperty<SliverMultiBoxAdaptorElement>.has(
-        name!,
-        value as SliverMultiBoxAdaptorElement?,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf21(
   String typeName,
   dynamic visitor,
@@ -506083,6 +506386,17 @@ Object? _rc2ObjectFlagProperty_has$leaf21(
       value as String?,
       level: level ?? DiagnosticLevel.info,
     ),
+    'SliverMainAxisGroup' => ObjectFlagProperty<SliverMainAxisGroup>.has(
+      name!,
+      value as SliverMainAxisGroup?,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      ObjectFlagProperty<SliverMultiBoxAdaptorElement>.has(
+        name!,
+        value as SliverMultiBoxAdaptorElement?,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       ObjectFlagProperty<SliverMultiBoxAdaptorParentData>.has(
         name!,
@@ -506397,6 +506711,19 @@ Object? _rc2ObjectFlagProperty_has$leaf21(
         value as SurfaceAndroidViewController?,
         level: level ?? DiagnosticLevel.info,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf22(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'SweepGradient' => ObjectFlagProperty<SweepGradient>.has(
       name!,
       value as SweepGradient?,
@@ -506407,19 +506734,6 @@ Object? _rc2ObjectFlagProperty_has$leaf21(
       value as Switch?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf22(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'SwitchListTile' => ObjectFlagProperty<SwitchListTile>.has(
       name!,
       value as SwitchListTile?,
@@ -506738,6 +507052,19 @@ Object? _rc2ObjectFlagProperty_has$leaf22(
       value as TextInputConnection?,
       level: level ?? DiagnosticLevel.info,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf23(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TextInputStyle' => ObjectFlagProperty<TextInputStyle>.has(
       name!,
       value as TextInputStyle?,
@@ -506748,19 +507075,6 @@ Object? _rc2ObjectFlagProperty_has$leaf22(
       value as TextInputType?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf23(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TextMagnifier' => ObjectFlagProperty<TextMagnifier>.has(
       name!,
       value as TextMagnifier?,
@@ -507080,6 +507394,19 @@ Object? _rc2ObjectFlagProperty_has$leaf23(
         value as TransformationController?,
         level: level ?? DiagnosticLevel.info,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2ObjectFlagProperty_has$leaf24(
+  String typeName,
+  dynamic visitor,
+  String? name,
+  Object? value,
+  DiagnosticLevel? level,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' =>
       ObjectFlagProperty<TransposeCharactersIntent>.has(
         name!,
@@ -507091,19 +507418,6 @@ Object? _rc2ObjectFlagProperty_has$leaf23(
       value as TreeSliver?,
       level: level ?? DiagnosticLevel.info,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2ObjectFlagProperty_has$leaf24(
-  String typeName,
-  dynamic visitor,
-  String? name,
-  Object? value,
-  DiagnosticLevel? level,
-) {
-  return switch (typeName) {
     'TreeSliverController' => ObjectFlagProperty<TreeSliverController>.has(
       name!,
       value as TreeSliverController?,
@@ -507426,22 +507740,11 @@ Object? _rc2ObjectFlagProperty_has$leaf24(
       value as WeakMap?,
       level: level ?? DiagnosticLevel.info,
     ),
-    'WidgetInspector' => ObjectFlagProperty<WidgetInspector>.has(
-      name!,
-      value as WidgetInspector?,
-      level: level ?? DiagnosticLevel.info,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      ObjectFlagProperty<WidgetOrderTraversalPolicy>.has(
-        name!,
-        value as WidgetOrderTraversalPolicy?,
-        level: level ?? DiagnosticLevel.info,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2ObjectFlagProperty_has` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObjectFlagProperty_has$leaf25(
   String typeName,
   dynamic visitor,
@@ -507495,6 +507798,17 @@ Object? _rc2ObjectFlagProperty_has$leaf25(
       value as num?,
       level: level ?? DiagnosticLevel.info,
     ),
+    'WidgetInspector' => ObjectFlagProperty<WidgetInspector>.has(
+      name!,
+      value as WidgetInspector?,
+      level: level ?? DiagnosticLevel.info,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      ObjectFlagProperty<WidgetOrderTraversalPolicy>.has(
+        name!,
+        value as WidgetOrderTraversalPolicy?,
+        level: level ?? DiagnosticLevel.info,
+      ),
     'WidgetSpan' => ObjectFlagProperty<WidgetSpan>.has(
       name!,
       value as WidgetSpan?,
@@ -507578,7 +507892,7 @@ Object? _rc2ObserverList(
       : null;
   if (rawTypeName == null) return null;
   final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -507606,51 +507920,51 @@ Object? _rc2ObserverList(
       }
       return _rc2ObserverList$leaf8(typeName, visitor);
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2ObserverList$leaf9(typeName, visitor);
       }
       return _rc2ObserverList$leaf10(typeName, visitor);
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2ObserverList$leaf11(typeName, visitor);
     }
     return _rc2ObserverList$leaf12(typeName, visitor);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2ObserverList$leaf13(typeName, visitor);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2ObserverList$leaf14(typeName, visitor);
       }
       return _rc2ObserverList$leaf15(typeName, visitor);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2ObserverList$leaf16(typeName, visitor);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2ObserverList$leaf17(typeName, visitor);
     }
     return _rc2ObserverList$leaf18(typeName, visitor);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2ObserverList$leaf19(typeName, visitor);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2ObserverList$leaf20(typeName, visitor);
     }
     return _rc2ObserverList$leaf21(typeName, visitor);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2ObserverList$leaf22(typeName, visitor);
     }
     return _rc2ObserverList$leaf23(typeName, visitor);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2ObserverList$leaf24(typeName, visitor);
   }
   return _rc2ObserverList$leaf25(typeName, visitor);
@@ -508475,7 +508789,7 @@ Object? _rc2ObserverList$leaf9(String typeName, dynamic visitor) {
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf10(String typeName, dynamic visitor) {
   return switch (typeName) {
     'ImageStreamListener' => ObserverList<ImageStreamListener>(),
@@ -508511,6 +508825,7 @@ Object? _rc2ObserverList$leaf10(String typeName, dynamic visitor) {
     'IntProperty' => ObserverList<IntProperty>(),
     'IntTween' => ObserverList<IntTween>(),
     'InteractiveViewer' => ObserverList<InteractiveViewer>(),
+    'IntersectionResult' => ObserverList<IntersectionResult>(),
     'Interval' => ObserverList<Interval>(),
     'IntrinsicColumnWidth' => ObserverList<IntrinsicColumnWidth>(),
     'IntrinsicHeight' => ObserverList<IntrinsicHeight>(),
@@ -508545,14 +508860,14 @@ Object? _rc2ObserverList$leaf10(String typeName, dynamic visitor) {
     'LicensePage' => ObserverList<LicensePage>(),
     'LicenseParagraph' => ObserverList<LicenseParagraph>(),
     'LimitedBox' => ObserverList<LimitedBox>(),
-    'LineBoundary' => ObserverList<LineBoundary>(),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf11(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'LineBoundary' => ObserverList<LineBoundary>(),
     'LineMetrics' => ObserverList<LineMetrics>(),
     'LinearBorder' => ObserverList<LinearBorder>(),
     'LinearBorderEdge' => ObserverList<LinearBorderEdge>(),
@@ -508622,14 +508937,14 @@ Object? _rc2ObserverList$leaf11(String typeName, dynamic visitor) {
     'Matrix4Tween' => ObserverList<Matrix4Tween>(),
     'MatrixTransition' => ObserverList<MatrixTransition>(),
     'MaxColumnWidth' => ObserverList<MaxColumnWidth>(),
-    'MediaQuery' => ObserverList<MediaQuery>(),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf12(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'MediaQuery' => ObserverList<MediaQuery>(),
     'MediaQueryData' => ObserverList<MediaQueryData>(),
     'MemoryImage' => ObserverList<MemoryImage>(),
     'MenuAcceleratorCallbackBinding' =>
@@ -508699,15 +509014,15 @@ Object? _rc2ObserverList$leaf12(String typeName, dynamic visitor) {
       ObserverList<NoDefaultCupertinoThemeData>(),
     'NoSplash' => ObserverList<NoSplash>(),
     'NotificationListener' => ObserverList<NotificationListener>(),
-    'NumericFocusOrder' => ObserverList<NumericFocusOrder>(),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PerformanceModeRequestHandle' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PercentProperty' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf13(String typeName, dynamic visitor) {
   return switch (typeName) {
     'Object' || 'Object?' => ObserverList<dynamic>(),
+    'NumericFocusOrder' => ObserverList<NumericFocusOrder>(),
     'ObjectCreated' => ObserverList<ObjectCreated>(),
     'ObjectDisposed' => ObserverList<ObjectDisposed>(),
     'ObjectFlagProperty' => ObserverList<ObjectFlagProperty>(),
@@ -508775,15 +509090,15 @@ Object? _rc2ObserverList$leaf13(String typeName, dynamic visitor) {
     'PathMetricIterator' => ObserverList<PathMetricIterator>(),
     'PathMetrics' => ObserverList<PathMetrics>(),
     'PercentProperty' => ObserverList<PercentProperty>(),
-    'PerformanceModeRequestHandle' =>
-      ObserverList<PerformanceModeRequestHandle>(),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf14(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      ObserverList<PerformanceModeRequestHandle>(),
     'PerformanceOverlay' => ObserverList<PerformanceOverlay>(),
     'PerformanceOverlayLayer' => ObserverList<PerformanceOverlayLayer>(),
     'PersistentBottomSheetController' =>
@@ -508853,14 +509168,14 @@ Object? _rc2ObserverList$leaf14(String typeName, dynamic visitor) {
     'PopupMenuThemeData' => ObserverList<PopupMenuThemeData>(),
     'Positioned' => ObserverList<Positioned>(),
     'PositionedDirectional' => ObserverList<PositionedDirectional>(),
-    'PositionedTransition' => ObserverList<PositionedTransition>(),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf15(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PositionedTransition' => ObserverList<PositionedTransition>(),
     'PredictiveBackEvent' => ObserverList<PredictiveBackEvent>(),
     'PredictiveBackFullscreenPageTransitionsBuilder' =>
       ObserverList<PredictiveBackFullscreenPageTransitionsBuilder>(),
@@ -508877,6 +509192,7 @@ Object? _rc2ObserverList$leaf15(String typeName, dynamic visitor) {
     'ProgressIndicatorTheme' => ObserverList<ProgressIndicatorTheme>(),
     'ProgressIndicatorThemeData' => ObserverList<ProgressIndicatorThemeData>(),
     'ProxyAnimation' => ObserverList<ProxyAnimation>(),
+    'Quad' => ObserverList<Quad>(),
     'RRect' => ObserverList<RRect>(),
     'RSTransform' => ObserverList<RSTransform>(),
     'RSuperellipse' => ObserverList<RSuperellipse>(),
@@ -508932,15 +509248,15 @@ Object? _rc2ObserverList$leaf15(String typeName, dynamic visitor) {
       ObserverList<RelativePositionedTransition>(),
     'RelativeRect' => ObserverList<RelativeRect>(),
     'RelativeRectTween' => ObserverList<RelativeRectTween>(),
-    'RenderAbsorbPointer' => ObserverList<RenderAbsorbPointer>(),
-    'RenderAndroidView' => ObserverList<RenderAndroidView>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf16(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderAbsorbPointer' => ObserverList<RenderAbsorbPointer>(),
+    'RenderAndroidView' => ObserverList<RenderAndroidView>(),
     'RenderAnimatedOpacity' => ObserverList<RenderAnimatedOpacity>(),
     'RenderAnimatedSize' => ObserverList<RenderAnimatedSize>(),
     'RenderAnnotatedRegion' => ObserverList<RenderAnnotatedRegion>(),
@@ -509013,16 +509329,16 @@ Object? _rc2ObserverList$leaf16(String typeName, dynamic visitor) {
     'RenderSemanticsGestureHandler' =>
       ObserverList<RenderSemanticsGestureHandler>(),
     'RenderShaderMask' => ObserverList<RenderShaderMask>(),
-    'RenderShrinkWrappingViewport' =>
-      ObserverList<RenderShrinkWrappingViewport>(),
-    'RenderSizedOverflowBox' => ObserverList<RenderSizedOverflowBox>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf17(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderShrinkWrappingViewport' =>
+      ObserverList<RenderShrinkWrappingViewport>(),
+    'RenderSizedOverflowBox' => ObserverList<RenderSizedOverflowBox>(),
     'RenderSliverAnimatedOpacity' =>
       ObserverList<RenderSliverAnimatedOpacity>(),
     'RenderSliverConstrainedCrossAxis' =>
@@ -509098,15 +509414,15 @@ Object? _rc2ObserverList$leaf17(String typeName, dynamic visitor) {
     'RestorableTextEditingController' =>
       ObserverList<RestorableTextEditingController>(),
     'RestorableTimeOfDay' => ObserverList<RestorableTimeOfDay>(),
-    'RestorationBucket' => ObserverList<RestorationBucket>(),
-    'RestorationManager' => ObserverList<RestorationManager>(),
     _ => null,
   };
 }
 
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf18(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RestorationBucket' => ObserverList<RestorationBucket>(),
+    'RestorationManager' => ObserverList<RestorationManager>(),
     'RestorationScope' => ObserverList<RestorationScope>(),
     'RevealedOffset' => ObserverList<RevealedOffset>(),
     'ReverseAnimation' => ObserverList<ReverseAnimation>(),
@@ -509177,15 +509493,15 @@ Object? _rc2ObserverList$leaf18(String typeName, dynamic visitor) {
     'ScrollToDocumentBoundaryIntent' =>
       ObserverList<ScrollToDocumentBoundaryIntent>(),
     'ScrollUpdateNotification' => ObserverList<ScrollUpdateNotification>(),
-    'Scrollable' => ObserverList<Scrollable>(),
-    'ScrollableDetails' => ObserverList<ScrollableDetails>(),
     _ => null,
   };
 }
 
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf19(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'Scrollable' => ObserverList<Scrollable>(),
+    'ScrollableDetails' => ObserverList<ScrollableDetails>(),
     'ScrollableState' => ObserverList<ScrollableState>(),
     'Scrollbar' => ObserverList<Scrollbar>(),
     'ScrollbarPainter' => ObserverList<ScrollbarPainter>(),
@@ -509250,15 +509566,15 @@ Object? _rc2ObserverList$leaf19(String typeName, dynamic visitor) {
     'Shader' => ObserverList<Shader>(),
     'ShaderMask' => ObserverList<ShaderMask>(),
     'ShaderMaskEngineLayer' => ObserverList<ShaderMaskEngineLayer>(),
-    'ShaderMaskLayer' => ObserverList<ShaderMaskLayer>(),
-    'Shadow' => ObserverList<Shadow>(),
     _ => null,
   };
 }
 
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf20(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'ShaderMaskLayer' => ObserverList<ShaderMaskLayer>(),
+    'Shadow' => ObserverList<Shadow>(),
     'ShapeBorderClipper' => ObserverList<ShapeBorderClipper>(),
     'ShapeBorderTween' => ObserverList<ShapeBorderTween>(),
     'ShapeDecoration' => ObserverList<ShapeDecoration>(),
@@ -509327,18 +509643,18 @@ Object? _rc2ObserverList$leaf20(String typeName, dynamic visitor) {
     'SliverLogicalContainerParentData' =>
       ObserverList<SliverLogicalContainerParentData>(),
     'SliverLogicalParentData' => ObserverList<SliverLogicalParentData>(),
-    'SliverMainAxisGroup' => ObserverList<SliverMainAxisGroup>(),
-    'SliverMultiBoxAdaptorElement' =>
-      ObserverList<SliverMultiBoxAdaptorElement>(),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf21(String typeName, dynamic visitor) {
   return switch (typeName) {
     'String' => ObserverList<String>(),
     'String?' => ObserverList<String?>(),
+    'SliverMainAxisGroup' => ObserverList<SliverMainAxisGroup>(),
+    'SliverMultiBoxAdaptorElement' =>
+      ObserverList<SliverMultiBoxAdaptorElement>(),
     'SliverMultiBoxAdaptorParentData' =>
       ObserverList<SliverMultiBoxAdaptorParentData>(),
     'SliverOffstage' => ObserverList<SliverOffstage>(),
@@ -509407,15 +509723,15 @@ Object? _rc2ObserverList$leaf21(String typeName, dynamic visitor) {
     'Summary' => ObserverList<Summary>(),
     'SurfaceAndroidViewController' =>
       ObserverList<SurfaceAndroidViewController>(),
-    'SweepGradient' => ObserverList<SweepGradient>(),
-    'Switch' => ObserverList<Switch>(),
     _ => null,
   };
 }
 
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf22(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'SweepGradient' => ObserverList<SweepGradient>(),
+    'Switch' => ObserverList<Switch>(),
     'SwitchListTile' => ObserverList<SwitchListTile>(),
     'SwitchTheme' => ObserverList<SwitchTheme>(),
     'SwitchThemeData' => ObserverList<SwitchThemeData>(),
@@ -509482,15 +509798,15 @@ Object? _rc2ObserverList$leaf22(String typeName, dynamic visitor) {
     'TextInput' => ObserverList<TextInput>(),
     'TextInputConfiguration' => ObserverList<TextInputConfiguration>(),
     'TextInputConnection' => ObserverList<TextInputConnection>(),
-    'TextInputStyle' => ObserverList<TextInputStyle>(),
-    'TextInputType' => ObserverList<TextInputType>(),
     _ => null,
   };
 }
 
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf23(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TextInputStyle' => ObserverList<TextInputStyle>(),
+    'TextInputType' => ObserverList<TextInputType>(),
     'TextMagnifier' => ObserverList<TextMagnifier>(),
     'TextMagnifierConfiguration' => ObserverList<TextMagnifierConfiguration>(),
     'TextPainter' => ObserverList<TextPainter>(),
@@ -509559,15 +509875,15 @@ Object? _rc2ObserverList$leaf23(String typeName, dynamic visitor) {
     'TransformLayer' => ObserverList<TransformLayer>(),
     'TransformProperty' => ObserverList<TransformProperty>(),
     'TransformationController' => ObserverList<TransformationController>(),
-    'TransposeCharactersIntent' => ObserverList<TransposeCharactersIntent>(),
-    'TreeSliver' => ObserverList<TreeSliver>(),
     _ => null,
   };
 }
 
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf24(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TransposeCharactersIntent' => ObserverList<TransposeCharactersIntent>(),
+    'TreeSliver' => ObserverList<TreeSliver>(),
     'TreeSliverController' => ObserverList<TreeSliverController>(),
     'TreeSliverIndentationType' => ObserverList<TreeSliverIndentationType>(),
     'TreeSliverNode' => ObserverList<TreeSliverNode>(),
@@ -509636,13 +509952,11 @@ Object? _rc2ObserverList$leaf24(String typeName, dynamic visitor) {
     'VoidCallbackAction' => ObserverList<VoidCallbackAction>(),
     'VoidCallbackIntent' => ObserverList<VoidCallbackIntent>(),
     'WeakMap' => ObserverList<WeakMap>(),
-    'WidgetInspector' => ObserverList<WidgetInspector>(),
-    'WidgetOrderTraversalPolicy' => ObserverList<WidgetOrderTraversalPolicy>(),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2ObserverList` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2ObserverList$leaf25(String typeName, dynamic visitor) {
   return switch (typeName) {
     'dynamic' => ObserverList<dynamic>(),
@@ -509654,6 +509968,8 @@ Object? _rc2ObserverList$leaf25(String typeName, dynamic visitor) {
     'double?' => ObserverList<double?>(),
     'bool?' => ObserverList<bool?>(),
     'num?' => ObserverList<num?>(),
+    'WidgetInspector' => ObserverList<WidgetInspector>(),
+    'WidgetOrderTraversalPolicy' => ObserverList<WidgetOrderTraversalPolicy>(),
     'WidgetSpan' => ObserverList<WidgetSpan>(),
     'WidgetStateMapper' => ObserverList<WidgetStateMapper>(),
     'WidgetStatePropertyAll' => ObserverList<WidgetStatePropertyAll>(),
@@ -509727,7 +510043,7 @@ Object? _rc2PageRouteBuilder(
   final allowSnapshotting = named.containsKey('allowSnapshotting')
       ? named['allowSnapshotting'] as bool?
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -509899,7 +510215,7 @@ Object? _rc2PageRouteBuilder(
         allowSnapshotting,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2PageRouteBuilder$leaf9(
           typeName,
@@ -509937,7 +510253,7 @@ Object? _rc2PageRouteBuilder(
         allowSnapshotting,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2PageRouteBuilder$leaf11(
         typeName,
         visitor,
@@ -509974,9 +510290,9 @@ Object? _rc2PageRouteBuilder(
       allowSnapshotting,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2PageRouteBuilder$leaf13(
           typeName,
           visitor,
@@ -509995,7 +510311,7 @@ Object? _rc2PageRouteBuilder(
           allowSnapshotting,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2PageRouteBuilder$leaf14(
           typeName,
           visitor,
@@ -510032,7 +510348,7 @@ Object? _rc2PageRouteBuilder(
         allowSnapshotting,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2PageRouteBuilder$leaf16(
         typeName,
         visitor,
@@ -510051,7 +510367,7 @@ Object? _rc2PageRouteBuilder(
         allowSnapshotting,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2PageRouteBuilder$leaf17(
         typeName,
         visitor,
@@ -510088,8 +510404,8 @@ Object? _rc2PageRouteBuilder(
       allowSnapshotting,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2PageRouteBuilder$leaf19(
         typeName,
         visitor,
@@ -510108,7 +510424,7 @@ Object? _rc2PageRouteBuilder(
         allowSnapshotting,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2PageRouteBuilder$leaf20(
         typeName,
         visitor,
@@ -510145,8 +510461,8 @@ Object? _rc2PageRouteBuilder(
       allowSnapshotting,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2PageRouteBuilder$leaf22(
         typeName,
         visitor,
@@ -510183,7 +510499,7 @@ Object? _rc2PageRouteBuilder(
       allowSnapshotting,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2PageRouteBuilder$leaf24(
       typeName,
       visitor,
@@ -536809,7 +537125,7 @@ Object? _rc2PageRouteBuilder$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageRouteBuilder$leaf10(
   String typeName,
   dynamic visitor,
@@ -538021,6 +538337,47 @@ Object? _rc2PageRouteBuilder$leaf10(
       allowSnapshotting: allowSnapshotting ?? true,
     ),
     'InteractiveViewer' => PageRouteBuilder<InteractiveViewer>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'IntersectionResult' => PageRouteBuilder<IntersectionResult>(
       settings: settings,
       requestFocus: requestFocus,
       pageBuilder:
@@ -539416,6 +539773,29 @@ Object? _rc2PageRouteBuilder$leaf10(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf11(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'LineBoundary' => PageRouteBuilder<LineBoundary>(
       settings: settings,
       requestFocus: requestFocus,
@@ -539457,29 +539837,6 @@ Object? _rc2PageRouteBuilder$leaf10(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf11(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'LineMetrics' => PageRouteBuilder<LineMetrics>(
       settings: settings,
       requestFocus: requestFocus,
@@ -542073,6 +542430,29 @@ Object? _rc2PageRouteBuilder$leaf11(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf12(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'MediaQuery' => PageRouteBuilder<MediaQuery>(
       settings: settings,
       requestFocus: requestFocus,
@@ -542114,29 +542494,6 @@ Object? _rc2PageRouteBuilder$leaf11(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf12(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'MediaQueryData' => PageRouteBuilder<MediaQueryData>(
       settings: settings,
       requestFocus: requestFocus,
@@ -544727,7 +545084,30 @@ Object? _rc2PageRouteBuilder$leaf12(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    'NumericFocusOrder' => PageRouteBuilder<NumericFocusOrder>(
+    _ => null,
+  };
+}
+
+/// Selectors 'NumericFocusOrder' to 'PercentProperty' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf13(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
+    'Object' || 'Object?' => PageRouteBuilder<dynamic>(
       settings: settings,
       requestFocus: requestFocus,
       pageBuilder:
@@ -544768,30 +545148,7 @@ Object? _rc2PageRouteBuilder$leaf12(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'Object' to 'PerformanceModeRequestHandle' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf13(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
-    'Object' || 'Object?' => PageRouteBuilder<dynamic>(
+    'NumericFocusOrder' => PageRouteBuilder<NumericFocusOrder>(
       settings: settings,
       requestFocus: requestFocus,
       pageBuilder:
@@ -547339,6 +547696,29 @@ Object? _rc2PageRouteBuilder$leaf13(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf14(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       PageRouteBuilder<PerformanceModeRequestHandle>(
         settings: settings,
@@ -547381,29 +547761,6 @@ Object? _rc2PageRouteBuilder$leaf13(
         fullscreenDialog: fullscreenDialog ?? false,
         allowSnapshotting: allowSnapshotting ?? true,
       ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf14(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'PerformanceOverlay' => PageRouteBuilder<PerformanceOverlay>(
       settings: settings,
       requestFocus: requestFocus,
@@ -549994,6 +550351,29 @@ Object? _rc2PageRouteBuilder$leaf14(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf15(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'PositionedTransition' => PageRouteBuilder<PositionedTransition>(
       settings: settings,
       requestFocus: requestFocus,
@@ -550035,29 +550415,6 @@ Object? _rc2PageRouteBuilder$leaf14(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf15(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => PageRouteBuilder<PredictiveBackEvent>(
       settings: settings,
       requestFocus: requestFocus,
@@ -550595,6 +550952,47 @@ Object? _rc2PageRouteBuilder$leaf15(
         allowSnapshotting: allowSnapshotting ?? true,
       ),
     'ProxyAnimation' => PageRouteBuilder<ProxyAnimation>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'Quad' => PageRouteBuilder<Quad>(
       settings: settings,
       requestFocus: requestFocus,
       pageBuilder:
@@ -552610,6 +553008,29 @@ Object? _rc2PageRouteBuilder$leaf15(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf16(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => PageRouteBuilder<RenderAbsorbPointer>(
       settings: settings,
       requestFocus: requestFocus,
@@ -552692,29 +553113,6 @@ Object? _rc2PageRouteBuilder$leaf15(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf16(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => PageRouteBuilder<RenderAnimatedOpacity>(
       settings: settings,
       requestFocus: requestFocus,
@@ -555268,6 +555666,29 @@ Object? _rc2PageRouteBuilder$leaf16(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf17(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       PageRouteBuilder<RenderShrinkWrappingViewport>(
         settings: settings,
@@ -555351,29 +555772,6 @@ Object? _rc2PageRouteBuilder$leaf16(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf17(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       PageRouteBuilder<RenderSliverAnimatedOpacity>(
         settings: settings,
@@ -557931,6 +558329,29 @@ Object? _rc2PageRouteBuilder$leaf17(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf18(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'RestorationBucket' => PageRouteBuilder<RestorationBucket>(
       settings: settings,
       requestFocus: requestFocus,
@@ -558013,29 +558434,6 @@ Object? _rc2PageRouteBuilder$leaf17(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf18(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'RestorationScope' => PageRouteBuilder<RestorationScope>(
       settings: settings,
       requestFocus: requestFocus,
@@ -560588,6 +560986,29 @@ Object? _rc2PageRouteBuilder$leaf18(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf19(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'Scrollable' => PageRouteBuilder<Scrollable>(
       settings: settings,
       requestFocus: requestFocus,
@@ -560670,29 +561091,6 @@ Object? _rc2PageRouteBuilder$leaf18(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf19(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'ScrollableState' => PageRouteBuilder<ScrollableState>(
       settings: settings,
       requestFocus: requestFocus,
@@ -563238,6 +563636,29 @@ Object? _rc2PageRouteBuilder$leaf19(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf20(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => PageRouteBuilder<ShaderMaskLayer>(
       settings: settings,
       requestFocus: requestFocus,
@@ -563320,29 +563741,6 @@ Object? _rc2PageRouteBuilder$leaf19(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf20(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => PageRouteBuilder<ShapeBorderClipper>(
       settings: settings,
       requestFocus: requestFocus,
@@ -565893,94 +566291,11 @@ Object? _rc2PageRouteBuilder$leaf20(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    'SliverMainAxisGroup' => PageRouteBuilder<SliverMainAxisGroup>(
-      settings: settings,
-      requestFocus: requestFocus,
-      pageBuilder:
-          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
-            return D4.extractBridgedArg<Widget>(
-              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
-              'callback',
-              visitor,
-            );
-          },
-      transitionsBuilder:
-          (
-            BuildContext p0,
-            Animation<double> p1,
-            Animation<double> p2,
-            Widget p3,
-          ) {
-            return D4.extractBridgedArg<Widget>(
-              D4.callInterpreterCallback(visitor, transitionsBuilder, [
-                p0,
-                p1,
-                p2,
-                p3,
-              ]),
-              'callback',
-              visitor,
-            );
-          },
-      transitionDuration:
-          transitionDuration ?? const Duration(milliseconds: 300),
-      reverseTransitionDuration:
-          reverseTransitionDuration ?? const Duration(milliseconds: 300),
-      opaque: opaque ?? true,
-      barrierDismissible: barrierDismissible ?? false,
-      barrierColor: barrierColor,
-      barrierLabel: barrierLabel,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      PageRouteBuilder<SliverMultiBoxAdaptorElement>(
-        settings: settings,
-        requestFocus: requestFocus,
-        pageBuilder:
-            (BuildContext p0, Animation<double> p1, Animation<double> p2) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
-                'callback',
-                visitor,
-              );
-            },
-        transitionsBuilder:
-            (
-              BuildContext p0,
-              Animation<double> p1,
-              Animation<double> p2,
-              Widget p3,
-            ) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, transitionsBuilder, [
-                  p0,
-                  p1,
-                  p2,
-                  p3,
-                ]),
-                'callback',
-                visitor,
-              );
-            },
-        transitionDuration:
-            transitionDuration ?? const Duration(milliseconds: 300),
-        reverseTransitionDuration:
-            reverseTransitionDuration ?? const Duration(milliseconds: 300),
-        opaque: opaque ?? true,
-        barrierDismissible: barrierDismissible ?? false,
-        barrierColor: barrierColor,
-        barrierLabel: barrierLabel,
-        maintainState: maintainState ?? true,
-        fullscreenDialog: fullscreenDialog ?? false,
-        allowSnapshotting: allowSnapshotting ?? true,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageRouteBuilder$leaf21(
   String typeName,
   dynamic visitor,
@@ -566081,6 +566396,89 @@ Object? _rc2PageRouteBuilder$leaf21(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    'SliverMainAxisGroup' => PageRouteBuilder<SliverMainAxisGroup>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      PageRouteBuilder<SliverMultiBoxAdaptorElement>(
+        settings: settings,
+        requestFocus: requestFocus,
+        pageBuilder:
+            (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+                'callback',
+                visitor,
+              );
+            },
+        transitionsBuilder:
+            (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+        transitionDuration:
+            transitionDuration ?? const Duration(milliseconds: 300),
+        reverseTransitionDuration:
+            reverseTransitionDuration ?? const Duration(milliseconds: 300),
+        opaque: opaque ?? true,
+        barrierDismissible: barrierDismissible ?? false,
+        barrierColor: barrierColor,
+        barrierLabel: barrierLabel,
+        maintainState: maintainState ?? true,
+        fullscreenDialog: fullscreenDialog ?? false,
+        allowSnapshotting: allowSnapshotting ?? true,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       PageRouteBuilder<SliverMultiBoxAdaptorParentData>(
         settings: settings,
@@ -568551,6 +568949,29 @@ Object? _rc2PageRouteBuilder$leaf21(
         fullscreenDialog: fullscreenDialog ?? false,
         allowSnapshotting: allowSnapshotting ?? true,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf22(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'SweepGradient' => PageRouteBuilder<SweepGradient>(
       settings: settings,
       requestFocus: requestFocus,
@@ -568633,29 +569054,6 @@ Object? _rc2PageRouteBuilder$leaf21(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf22(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'SwitchListTile' => PageRouteBuilder<SwitchListTile>(
       settings: settings,
       requestFocus: requestFocus,
@@ -571203,6 +571601,29 @@ Object? _rc2PageRouteBuilder$leaf22(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf23(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'TextInputStyle' => PageRouteBuilder<TextInputStyle>(
       settings: settings,
       requestFocus: requestFocus,
@@ -571285,29 +571706,6 @@ Object? _rc2PageRouteBuilder$leaf22(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf23(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'TextMagnifier' => PageRouteBuilder<TextMagnifier>(
       settings: settings,
       requestFocus: requestFocus,
@@ -573857,6 +574255,29 @@ Object? _rc2PageRouteBuilder$leaf23(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageRouteBuilder$leaf24(
+  String typeName,
+  dynamic visitor,
+  RouteSettings? settings,
+  bool? requestFocus,
+  Object? pageBuilder,
+  Object? transitionsBuilder,
+  Duration? transitionDuration,
+  Duration? reverseTransitionDuration,
+  bool? opaque,
+  bool? barrierDismissible,
+  Color? barrierColor,
+  String? barrierLabel,
+  bool? maintainState,
+  bool? fullscreenDialog,
+  bool? allowSnapshotting,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => PageRouteBuilder<TransposeCharactersIntent>(
       settings: settings,
       requestFocus: requestFocus,
@@ -573939,29 +574360,6 @@ Object? _rc2PageRouteBuilder$leaf23(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageRouteBuilder$leaf24(
-  String typeName,
-  dynamic visitor,
-  RouteSettings? settings,
-  bool? requestFocus,
-  Object? pageBuilder,
-  Object? transitionsBuilder,
-  Duration? transitionDuration,
-  Duration? reverseTransitionDuration,
-  bool? opaque,
-  bool? barrierDismissible,
-  Color? barrierColor,
-  String? barrierLabel,
-  bool? maintainState,
-  bool? fullscreenDialog,
-  bool? allowSnapshotting,
-) {
-  return switch (typeName) {
     'TreeSliverController' => PageRouteBuilder<TreeSliverController>(
       settings: settings,
       requestFocus: requestFocus,
@@ -576510,94 +576908,11 @@ Object? _rc2PageRouteBuilder$leaf24(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
-    'WidgetInspector' => PageRouteBuilder<WidgetInspector>(
-      settings: settings,
-      requestFocus: requestFocus,
-      pageBuilder:
-          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
-            return D4.extractBridgedArg<Widget>(
-              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
-              'callback',
-              visitor,
-            );
-          },
-      transitionsBuilder:
-          (
-            BuildContext p0,
-            Animation<double> p1,
-            Animation<double> p2,
-            Widget p3,
-          ) {
-            return D4.extractBridgedArg<Widget>(
-              D4.callInterpreterCallback(visitor, transitionsBuilder, [
-                p0,
-                p1,
-                p2,
-                p3,
-              ]),
-              'callback',
-              visitor,
-            );
-          },
-      transitionDuration:
-          transitionDuration ?? const Duration(milliseconds: 300),
-      reverseTransitionDuration:
-          reverseTransitionDuration ?? const Duration(milliseconds: 300),
-      opaque: opaque ?? true,
-      barrierDismissible: barrierDismissible ?? false,
-      barrierColor: barrierColor,
-      barrierLabel: barrierLabel,
-      maintainState: maintainState ?? true,
-      fullscreenDialog: fullscreenDialog ?? false,
-      allowSnapshotting: allowSnapshotting ?? true,
-    ),
-    'WidgetOrderTraversalPolicy' =>
-      PageRouteBuilder<WidgetOrderTraversalPolicy>(
-        settings: settings,
-        requestFocus: requestFocus,
-        pageBuilder:
-            (BuildContext p0, Animation<double> p1, Animation<double> p2) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
-                'callback',
-                visitor,
-              );
-            },
-        transitionsBuilder:
-            (
-              BuildContext p0,
-              Animation<double> p1,
-              Animation<double> p2,
-              Widget p3,
-            ) {
-              return D4.extractBridgedArg<Widget>(
-                D4.callInterpreterCallback(visitor, transitionsBuilder, [
-                  p0,
-                  p1,
-                  p2,
-                  p3,
-                ]),
-                'callback',
-                visitor,
-              );
-            },
-        transitionDuration:
-            transitionDuration ?? const Duration(milliseconds: 300),
-        reverseTransitionDuration:
-            reverseTransitionDuration ?? const Duration(milliseconds: 300),
-        opaque: opaque ?? true,
-        barrierDismissible: barrierDismissible ?? false,
-        barrierColor: barrierColor,
-        barrierLabel: barrierLabel,
-        maintainState: maintainState ?? true,
-        fullscreenDialog: fullscreenDialog ?? false,
-        allowSnapshotting: allowSnapshotting ?? true,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2PageRouteBuilder` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageRouteBuilder$leaf25(
   String typeName,
   dynamic visitor,
@@ -576985,6 +577300,89 @@ Object? _rc2PageRouteBuilder$leaf25(
       fullscreenDialog: fullscreenDialog ?? false,
       allowSnapshotting: allowSnapshotting ?? true,
     ),
+    'WidgetInspector' => PageRouteBuilder<WidgetInspector>(
+      settings: settings,
+      requestFocus: requestFocus,
+      pageBuilder:
+          (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionsBuilder:
+          (
+            BuildContext p0,
+            Animation<double> p1,
+            Animation<double> p2,
+            Widget p3,
+          ) {
+            return D4.extractBridgedArg<Widget>(
+              D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                p0,
+                p1,
+                p2,
+                p3,
+              ]),
+              'callback',
+              visitor,
+            );
+          },
+      transitionDuration:
+          transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration:
+          reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      allowSnapshotting: allowSnapshotting ?? true,
+    ),
+    'WidgetOrderTraversalPolicy' =>
+      PageRouteBuilder<WidgetOrderTraversalPolicy>(
+        settings: settings,
+        requestFocus: requestFocus,
+        pageBuilder:
+            (BuildContext p0, Animation<double> p1, Animation<double> p2) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, pageBuilder, [p0, p1, p2]),
+                'callback',
+                visitor,
+              );
+            },
+        transitionsBuilder:
+            (
+              BuildContext p0,
+              Animation<double> p1,
+              Animation<double> p2,
+              Widget p3,
+            ) {
+              return D4.extractBridgedArg<Widget>(
+                D4.callInterpreterCallback(visitor, transitionsBuilder, [
+                  p0,
+                  p1,
+                  p2,
+                  p3,
+                ]),
+                'callback',
+                visitor,
+              );
+            },
+        transitionDuration:
+            transitionDuration ?? const Duration(milliseconds: 300),
+        reverseTransitionDuration:
+            reverseTransitionDuration ?? const Duration(milliseconds: 300),
+        opaque: opaque ?? true,
+        barrierDismissible: barrierDismissible ?? false,
+        barrierColor: barrierColor,
+        barrierLabel: barrierLabel,
+        maintainState: maintainState ?? true,
+        fullscreenDialog: fullscreenDialog ?? false,
+        allowSnapshotting: allowSnapshotting ?? true,
+      ),
     'WidgetSpan' => PageRouteBuilder<WidgetSpan>(
       settings: settings,
       requestFocus: requestFocus,
@@ -577539,7 +577937,7 @@ Object? _rc2PageStorageKey(
   // GEN-102: Fall through to default bridge constructor when a required
   // T-typed value is null and the type argument is not nullable.
   if (!typeName.endsWith('?') && (value == null)) return null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -577567,51 +577965,51 @@ Object? _rc2PageStorageKey(
       }
       return _rc2PageStorageKey$leaf8(typeName, visitor, value);
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2PageStorageKey$leaf9(typeName, visitor, value);
       }
       return _rc2PageStorageKey$leaf10(typeName, visitor, value);
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2PageStorageKey$leaf11(typeName, visitor, value);
     }
     return _rc2PageStorageKey$leaf12(typeName, visitor, value);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceOverlay') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
         return _rc2PageStorageKey$leaf13(typeName, visitor, value);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2PageStorageKey$leaf14(typeName, visitor, value);
       }
       return _rc2PageStorageKey$leaf15(typeName, visitor, value);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2PageStorageKey$leaf16(typeName, visitor, value);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2PageStorageKey$leaf17(typeName, visitor, value);
     }
     return _rc2PageStorageKey$leaf18(typeName, visitor, value);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2PageStorageKey$leaf19(typeName, visitor, value);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2PageStorageKey$leaf20(typeName, visitor, value);
     }
     return _rc2PageStorageKey$leaf21(typeName, visitor, value);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2PageStorageKey$leaf22(typeName, visitor, value);
     }
     return _rc2PageStorageKey$leaf23(typeName, visitor, value);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2PageStorageKey$leaf24(typeName, visitor, value);
   }
   return _rc2PageStorageKey$leaf25(typeName, visitor, value);
@@ -579304,7 +579702,7 @@ Object? _rc2PageStorageKey$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf10(
   String typeName,
   dynamic visitor,
@@ -579376,6 +579774,9 @@ Object? _rc2PageStorageKey$leaf10(
     'InteractiveViewer' => PageStorageKey<InteractiveViewer>(
       value as InteractiveViewer,
     ),
+    'IntersectionResult' => PageStorageKey<IntersectionResult>(
+      value as IntersectionResult,
+    ),
     'Interval' => PageStorageKey<Interval>(value as Interval),
     'IntrinsicColumnWidth' => PageStorageKey<IntrinsicColumnWidth>(
       value as IntrinsicColumnWidth,
@@ -579444,18 +579845,18 @@ Object? _rc2PageStorageKey$leaf10(
       value as LicenseParagraph,
     ),
     'LimitedBox' => PageStorageKey<LimitedBox>(value as LimitedBox),
-    'LineBoundary' => PageStorageKey<LineBoundary>(value as LineBoundary),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf11(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'LineBoundary' => PageStorageKey<LineBoundary>(value as LineBoundary),
     'LineMetrics' => PageStorageKey<LineMetrics>(value as LineMetrics),
     'LinearBorder' => PageStorageKey<LinearBorder>(value as LinearBorder),
     'LinearBorderEdge' => PageStorageKey<LinearBorderEdge>(
@@ -579601,18 +580002,18 @@ Object? _rc2PageStorageKey$leaf11(
       value as MatrixTransition,
     ),
     'MaxColumnWidth' => PageStorageKey<MaxColumnWidth>(value as MaxColumnWidth),
-    'MediaQuery' => PageStorageKey<MediaQuery>(value as MediaQuery),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf12(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'MediaQuery' => PageStorageKey<MediaQuery>(value as MediaQuery),
     'MediaQueryData' => PageStorageKey<MediaQueryData>(value as MediaQueryData),
     'MemoryImage' => PageStorageKey<MemoryImage>(value as MemoryImage),
     'MenuAcceleratorCallbackBinding' =>
@@ -579762,14 +580163,11 @@ Object? _rc2PageStorageKey$leaf12(
     'NotificationListener' => PageStorageKey<NotificationListener>(
       value as NotificationListener,
     ),
-    'NumericFocusOrder' => PageStorageKey<NumericFocusOrder>(
-      value as NumericFocusOrder,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PerformanceModeRequestHandle' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PercentProperty' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf13(
   String typeName,
   dynamic visitor,
@@ -579777,6 +580175,9 @@ Object? _rc2PageStorageKey$leaf13(
 ) {
   return switch (typeName) {
     'Object' || 'Object?' => PageStorageKey<dynamic>(value),
+    'NumericFocusOrder' => PageStorageKey<NumericFocusOrder>(
+      value as NumericFocusOrder,
+    ),
     'ObjectCreated' => PageStorageKey<ObjectCreated>(value as ObjectCreated),
     'ObjectDisposed' => PageStorageKey<ObjectDisposed>(value as ObjectDisposed),
     'ObjectFlagProperty' => PageStorageKey<ObjectFlagProperty>(
@@ -579908,21 +580309,21 @@ Object? _rc2PageStorageKey$leaf13(
     'PercentProperty' => PageStorageKey<PercentProperty>(
       value as PercentProperty,
     ),
-    'PerformanceModeRequestHandle' =>
-      PageStorageKey<PerformanceModeRequestHandle>(
-        value as PerformanceModeRequestHandle,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceOverlay' to 'PositionedTransition' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf14(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'PerformanceModeRequestHandle' =>
+      PageStorageKey<PerformanceModeRequestHandle>(
+        value as PerformanceModeRequestHandle,
+      ),
     'PerformanceOverlay' => PageStorageKey<PerformanceOverlay>(
       value as PerformanceOverlay,
     ),
@@ -580090,20 +580491,20 @@ Object? _rc2PageStorageKey$leaf14(
     'PositionedDirectional' => PageStorageKey<PositionedDirectional>(
       value as PositionedDirectional,
     ),
-    'PositionedTransition' => PageStorageKey<PositionedTransition>(
-      value as PositionedTransition,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf15(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'PositionedTransition' => PageStorageKey<PositionedTransition>(
+      value as PositionedTransition,
+    ),
     'PredictiveBackEvent' => PageStorageKey<PredictiveBackEvent>(
       value as PredictiveBackEvent,
     ),
@@ -580142,6 +580543,7 @@ Object? _rc2PageStorageKey$leaf15(
       value as ProgressIndicatorThemeData,
     ),
     'ProxyAnimation' => PageStorageKey<ProxyAnimation>(value as ProxyAnimation),
+    'Quad' => PageStorageKey<Quad>(value as Quad),
     'RRect' => PageStorageKey<RRect>(value as RRect),
     'RSTransform' => PageStorageKey<RSTransform>(value as RSTransform),
     'RSuperellipse' => PageStorageKey<RSuperellipse>(value as RSuperellipse),
@@ -580239,23 +580641,23 @@ Object? _rc2PageStorageKey$leaf15(
     'RelativeRectTween' => PageStorageKey<RelativeRectTween>(
       value as RelativeRectTween,
     ),
-    'RenderAbsorbPointer' => PageStorageKey<RenderAbsorbPointer>(
-      value as RenderAbsorbPointer,
-    ),
-    'RenderAndroidView' => PageStorageKey<RenderAndroidView>(
-      value as RenderAndroidView,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf16(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'RenderAbsorbPointer' => PageStorageKey<RenderAbsorbPointer>(
+      value as RenderAbsorbPointer,
+    ),
+    'RenderAndroidView' => PageStorageKey<RenderAndroidView>(
+      value as RenderAndroidView,
+    ),
     'RenderAnimatedOpacity' => PageStorageKey<RenderAnimatedOpacity>(
       value as RenderAnimatedOpacity,
     ),
@@ -580422,6 +580824,17 @@ Object? _rc2PageStorageKey$leaf16(
     'RenderShaderMask' => PageStorageKey<RenderShaderMask>(
       value as RenderShaderMask,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PageStorageKey$leaf17(
+  String typeName,
+  dynamic visitor,
+  Object? value,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       PageStorageKey<RenderShrinkWrappingViewport>(
         value as RenderShrinkWrappingViewport,
@@ -580429,17 +580842,6 @@ Object? _rc2PageStorageKey$leaf16(
     'RenderSizedOverflowBox' => PageStorageKey<RenderSizedOverflowBox>(
       value as RenderSizedOverflowBox,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PageStorageKey$leaf17(
-  String typeName,
-  dynamic visitor,
-  Object? value,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       PageStorageKey<RenderSliverAnimatedOpacity>(
         value as RenderSliverAnimatedOpacity,
@@ -580613,23 +581015,23 @@ Object? _rc2PageStorageKey$leaf17(
     'RestorableTimeOfDay' => PageStorageKey<RestorableTimeOfDay>(
       value as RestorableTimeOfDay,
     ),
-    'RestorationBucket' => PageStorageKey<RestorationBucket>(
-      value as RestorationBucket,
-    ),
-    'RestorationManager' => PageStorageKey<RestorationManager>(
-      value as RestorationManager,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf18(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'RestorationBucket' => PageStorageKey<RestorationBucket>(
+      value as RestorationBucket,
+    ),
+    'RestorationManager' => PageStorageKey<RestorationManager>(
+      value as RestorationManager,
+    ),
     'RestorationScope' => PageStorageKey<RestorationScope>(
       value as RestorationScope,
     ),
@@ -580784,21 +581186,21 @@ Object? _rc2PageStorageKey$leaf18(
     'ScrollUpdateNotification' => PageStorageKey<ScrollUpdateNotification>(
       value as ScrollUpdateNotification,
     ),
-    'Scrollable' => PageStorageKey<Scrollable>(value as Scrollable),
-    'ScrollableDetails' => PageStorageKey<ScrollableDetails>(
-      value as ScrollableDetails,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf19(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'Scrollable' => PageStorageKey<Scrollable>(value as Scrollable),
+    'ScrollableDetails' => PageStorageKey<ScrollableDetails>(
+      value as ScrollableDetails,
+    ),
     'ScrollableState' => PageStorageKey<ScrollableState>(
       value as ScrollableState,
     ),
@@ -580951,21 +581353,21 @@ Object? _rc2PageStorageKey$leaf19(
     'ShaderMaskEngineLayer' => PageStorageKey<ShaderMaskEngineLayer>(
       value as ShaderMaskEngineLayer,
     ),
-    'ShaderMaskLayer' => PageStorageKey<ShaderMaskLayer>(
-      value as ShaderMaskLayer,
-    ),
-    'Shadow' => PageStorageKey<Shadow>(value as Shadow),
     _ => null,
   };
 }
 
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf20(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'ShaderMaskLayer' => PageStorageKey<ShaderMaskLayer>(
+      value as ShaderMaskLayer,
+    ),
+    'Shadow' => PageStorageKey<Shadow>(value as Shadow),
     'ShapeBorderClipper' => PageStorageKey<ShapeBorderClipper>(
       value as ShapeBorderClipper,
     ),
@@ -581132,18 +581534,11 @@ Object? _rc2PageStorageKey$leaf20(
     'SliverLogicalParentData' => PageStorageKey<SliverLogicalParentData>(
       value as SliverLogicalParentData,
     ),
-    'SliverMainAxisGroup' => PageStorageKey<SliverMainAxisGroup>(
-      value as SliverMainAxisGroup,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      PageStorageKey<SliverMultiBoxAdaptorElement>(
-        value as SliverMultiBoxAdaptorElement,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf21(
   String typeName,
   dynamic visitor,
@@ -581152,6 +581547,13 @@ Object? _rc2PageStorageKey$leaf21(
   return switch (typeName) {
     'String' => PageStorageKey<String>(value as String),
     'String?' => PageStorageKey<String?>(value as String?),
+    'SliverMainAxisGroup' => PageStorageKey<SliverMainAxisGroup>(
+      value as SliverMainAxisGroup,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      PageStorageKey<SliverMultiBoxAdaptorElement>(
+        value as SliverMultiBoxAdaptorElement,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       PageStorageKey<SliverMultiBoxAdaptorParentData>(
         value as SliverMultiBoxAdaptorParentData,
@@ -581288,19 +581690,19 @@ Object? _rc2PageStorageKey$leaf21(
       PageStorageKey<SurfaceAndroidViewController>(
         value as SurfaceAndroidViewController,
       ),
-    'SweepGradient' => PageStorageKey<SweepGradient>(value as SweepGradient),
-    'Switch' => PageStorageKey<Switch>(value as Switch),
     _ => null,
   };
 }
 
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf22(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'SweepGradient' => PageStorageKey<SweepGradient>(value as SweepGradient),
+    'Switch' => PageStorageKey<Switch>(value as Switch),
     'SwitchListTile' => PageStorageKey<SwitchListTile>(value as SwitchListTile),
     'SwitchTheme' => PageStorageKey<SwitchTheme>(value as SwitchTheme),
     'SwitchThemeData' => PageStorageKey<SwitchThemeData>(
@@ -581443,19 +581845,19 @@ Object? _rc2PageStorageKey$leaf22(
     'TextInputConnection' => PageStorageKey<TextInputConnection>(
       value as TextInputConnection,
     ),
-    'TextInputStyle' => PageStorageKey<TextInputStyle>(value as TextInputStyle),
-    'TextInputType' => PageStorageKey<TextInputType>(value as TextInputType),
     _ => null,
   };
 }
 
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf23(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'TextInputStyle' => PageStorageKey<TextInputStyle>(value as TextInputStyle),
+    'TextInputType' => PageStorageKey<TextInputType>(value as TextInputType),
     'TextMagnifier' => PageStorageKey<TextMagnifier>(value as TextMagnifier),
     'TextMagnifierConfiguration' => PageStorageKey<TextMagnifierConfiguration>(
       value as TextMagnifierConfiguration,
@@ -581584,21 +581986,21 @@ Object? _rc2PageStorageKey$leaf23(
     'TransformationController' => PageStorageKey<TransformationController>(
       value as TransformationController,
     ),
-    'TransposeCharactersIntent' => PageStorageKey<TransposeCharactersIntent>(
-      value as TransposeCharactersIntent,
-    ),
-    'TreeSliver' => PageStorageKey<TreeSliver>(value as TreeSliver),
     _ => null,
   };
 }
 
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf24(
   String typeName,
   dynamic visitor,
   Object? value,
 ) {
   return switch (typeName) {
+    'TransposeCharactersIntent' => PageStorageKey<TransposeCharactersIntent>(
+      value as TransposeCharactersIntent,
+    ),
+    'TreeSliver' => PageStorageKey<TreeSliver>(value as TreeSliver),
     'TreeSliverController' => PageStorageKey<TreeSliverController>(
       value as TreeSliverController,
     ),
@@ -581745,17 +582147,11 @@ Object? _rc2PageStorageKey$leaf24(
       value as VoidCallbackIntent,
     ),
     'WeakMap' => PageStorageKey<WeakMap>(value as WeakMap),
-    'WidgetInspector' => PageStorageKey<WidgetInspector>(
-      value as WidgetInspector,
-    ),
-    'WidgetOrderTraversalPolicy' => PageStorageKey<WidgetOrderTraversalPolicy>(
-      value as WidgetOrderTraversalPolicy,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2PageStorageKey` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PageStorageKey$leaf25(
   String typeName,
   dynamic visitor,
@@ -581771,6 +582167,12 @@ Object? _rc2PageStorageKey$leaf25(
     'double?' => PageStorageKey<double?>((value as num?)?.toDouble()),
     'bool?' => PageStorageKey<bool?>(value as bool?),
     'num?' => PageStorageKey<num?>(value as num?),
+    'WidgetInspector' => PageStorageKey<WidgetInspector>(
+      value as WidgetInspector,
+    ),
+    'WidgetOrderTraversalPolicy' => PageStorageKey<WidgetOrderTraversalPolicy>(
+      value as WidgetOrderTraversalPolicy,
+    ),
     'WidgetSpan' => PageStorageKey<WidgetSpan>(value as WidgetSpan),
     'WidgetStateMapper' => PageStorageKey<WidgetStateMapper>(
       value as WidgetStateMapper,
@@ -581944,7 +582346,7 @@ Object? _rc2PopScope(
   final onPopInvoked = named.containsKey('onPopInvoked')
       ? named['onPopInvoked']
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -582044,7 +582446,7 @@ Object? _rc2PopScope(
         onPopInvoked,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2PopScope$leaf9(
           typeName,
@@ -582066,7 +582468,7 @@ Object? _rc2PopScope(
         onPopInvoked,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2PopScope$leaf11(
         typeName,
         visitor,
@@ -582087,9 +582489,9 @@ Object? _rc2PopScope(
       onPopInvoked,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2PopScope$leaf13(
           typeName,
           visitor,
@@ -582100,7 +582502,7 @@ Object? _rc2PopScope(
           onPopInvoked,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2PopScope$leaf14(
           typeName,
           visitor,
@@ -582121,7 +582523,7 @@ Object? _rc2PopScope(
         onPopInvoked,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2PopScope$leaf16(
         typeName,
         visitor,
@@ -582132,7 +582534,7 @@ Object? _rc2PopScope(
         onPopInvoked,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2PopScope$leaf17(
         typeName,
         visitor,
@@ -582153,8 +582555,8 @@ Object? _rc2PopScope(
       onPopInvoked,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2PopScope$leaf19(
         typeName,
         visitor,
@@ -582165,7 +582567,7 @@ Object? _rc2PopScope(
         onPopInvoked,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2PopScope$leaf20(
         typeName,
         visitor,
@@ -582186,8 +582588,8 @@ Object? _rc2PopScope(
       onPopInvoked,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2PopScope$leaf22(
         typeName,
         visitor,
@@ -582208,7 +582610,7 @@ Object? _rc2PopScope(
       onPopInvoked,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2PopScope$leaf24(
       typeName,
       visitor,
@@ -595264,7 +595666,7 @@ Object? _rc2PopScope$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopScope$leaf10(
   String typeName,
   dynamic visitor,
@@ -595865,6 +596267,26 @@ Object? _rc2PopScope$leaf10(
       onPopInvokedWithResult: onPopInvokedWithResult == null
           ? null
           : (bool p0, InteractiveViewer? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'IntersectionResult' => PopScope<IntersectionResult>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, IntersectionResult? p1) async {
               D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
                 p0,
                 p1,
@@ -596539,6 +596961,21 @@ Object? _rc2PopScope$leaf10(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'LineBoundary' => PopScope<LineBoundary>(
       key: key,
       child: child!,
@@ -596559,21 +596996,6 @@ Object? _rc2PopScope$leaf10(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'LineMetrics' => PopScope<LineMetrics>(
       key: key,
       child: child!,
@@ -597837,6 +598259,21 @@ Object? _rc2PopScope$leaf11(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'MediaQuery' => PopScope<MediaQuery>(
       key: key,
       child: child!,
@@ -597857,21 +598294,6 @@ Object? _rc2PopScope$leaf11(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'MediaQueryData' => PopScope<MediaQueryData>(
       key: key,
       child: child!,
@@ -599134,31 +599556,11 @@ Object? _rc2PopScope$leaf12(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    'NumericFocusOrder' => PopScope<NumericFocusOrder>(
-      key: key,
-      child: child!,
-      canPop: canPop ?? true,
-      onPopInvokedWithResult: onPopInvokedWithResult == null
-          ? null
-          : (bool p0, NumericFocusOrder? p1) async {
-              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
-                p0,
-                p1,
-              ]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopInvoked: onPopInvoked == null
-          ? null
-          : (bool p0) async {
-              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopScope$leaf13(
   String typeName,
   dynamic visitor,
@@ -599176,6 +599578,26 @@ Object? _rc2PopScope$leaf13(
       onPopInvokedWithResult: onPopInvokedWithResult == null
           ? null
           : (bool p0, dynamic? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'NumericFocusOrder' => PopScope<NumericFocusOrder>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, NumericFocusOrder? p1) async {
               D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
                 p0,
                 p1,
@@ -600414,6 +600836,21 @@ Object? _rc2PopScope$leaf13(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PercentProperty' to 'PositionedDirectional' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'PercentProperty' => PopScope<PercentProperty>(
       key: key,
       child: child!,
@@ -600434,21 +600871,6 @@ Object? _rc2PopScope$leaf13(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedTransition' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'PerformanceModeRequestHandle' => PopScope<PerformanceModeRequestHandle>(
       key: key,
       child: child!,
@@ -601714,6 +602136,21 @@ Object? _rc2PopScope$leaf14(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'PositionedTransition' => PopScope<PositionedTransition>(
       key: key,
       child: child!,
@@ -601734,21 +602171,6 @@ Object? _rc2PopScope$leaf14(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => PopScope<PredictiveBackEvent>(
       key: key,
       child: child!,
@@ -602021,6 +602443,26 @@ Object? _rc2PopScope$leaf15(
       onPopInvokedWithResult: onPopInvokedWithResult == null
           ? null
           : (bool p0, ProxyAnimation? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'Quad' => PopScope<Quad>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, Quad? p1) async {
               D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
                 p0,
                 p1,
@@ -602997,6 +603439,21 @@ Object? _rc2PopScope$leaf15(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => PopScope<RenderAbsorbPointer>(
       key: key,
       child: child!,
@@ -603037,21 +603494,6 @@ Object? _rc2PopScope$leaf15(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => PopScope<RenderAnimatedOpacity>(
       key: key,
       child: child!,
@@ -604296,6 +604738,21 @@ Object? _rc2PopScope$leaf16(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' => PopScope<RenderShrinkWrappingViewport>(
       key: key,
       child: child!,
@@ -604336,21 +604793,6 @@ Object? _rc2PopScope$leaf16(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => PopScope<RenderSliverAnimatedOpacity>(
       key: key,
       child: child!,
@@ -605598,6 +606040,21 @@ Object? _rc2PopScope$leaf17(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'RestorationBucket' => PopScope<RestorationBucket>(
       key: key,
       child: child!,
@@ -605638,21 +606095,6 @@ Object? _rc2PopScope$leaf17(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'RestorationScope' => PopScope<RestorationScope>(
       key: key,
       child: child!,
@@ -606899,6 +607341,21 @@ Object? _rc2PopScope$leaf18(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'Scrollable' => PopScope<Scrollable>(
       key: key,
       child: child!,
@@ -606939,21 +607396,6 @@ Object? _rc2PopScope$leaf18(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'ScrollableState' => PopScope<ScrollableState>(
       key: key,
       child: child!,
@@ -608195,6 +608637,21 @@ Object? _rc2PopScope$leaf19(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => PopScope<ShaderMaskLayer>(
       key: key,
       child: child!,
@@ -608235,21 +608692,6 @@ Object? _rc2PopScope$leaf19(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => PopScope<ShapeBorderClipper>(
       key: key,
       child: child!,
@@ -609494,51 +609936,11 @@ Object? _rc2PopScope$leaf20(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    'SliverMainAxisGroup' => PopScope<SliverMainAxisGroup>(
-      key: key,
-      child: child!,
-      canPop: canPop ?? true,
-      onPopInvokedWithResult: onPopInvokedWithResult == null
-          ? null
-          : (bool p0, SliverMainAxisGroup? p1) async {
-              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
-                p0,
-                p1,
-              ]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopInvoked: onPopInvoked == null
-          ? null
-          : (bool p0) async {
-              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-    ),
-    'SliverMultiBoxAdaptorElement' => PopScope<SliverMultiBoxAdaptorElement>(
-      key: key,
-      child: child!,
-      canPop: canPop ?? true,
-      onPopInvokedWithResult: onPopInvokedWithResult == null
-          ? null
-          : (bool p0, SliverMultiBoxAdaptorElement? p1) async {
-              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
-                p0,
-                p1,
-              ]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopInvoked: onPopInvoked == null
-          ? null
-          : (bool p0) async {
-              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopScope$leaf21(
   String typeName,
   dynamic visitor,
@@ -609576,6 +609978,46 @@ Object? _rc2PopScope$leaf21(
       onPopInvokedWithResult: onPopInvokedWithResult == null
           ? null
           : (bool p0, String? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'SliverMainAxisGroup' => PopScope<SliverMainAxisGroup>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, SliverMainAxisGroup? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'SliverMultiBoxAdaptorElement' => PopScope<SliverMultiBoxAdaptorElement>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, SliverMultiBoxAdaptorElement? p1) async {
               D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
                 p0,
                 p1,
@@ -610793,6 +611235,21 @@ Object? _rc2PopScope$leaf21(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'SweepGradient' => PopScope<SweepGradient>(
       key: key,
       child: child!,
@@ -610833,21 +611290,6 @@ Object? _rc2PopScope$leaf21(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'SwitchListTile' => PopScope<SwitchListTile>(
       key: key,
       child: child!,
@@ -612089,6 +612531,21 @@ Object? _rc2PopScope$leaf22(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'TextInputStyle' => PopScope<TextInputStyle>(
       key: key,
       child: child!,
@@ -612129,21 +612586,6 @@ Object? _rc2PopScope$leaf22(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'TextMagnifier' => PopScope<TextMagnifier>(
       key: key,
       child: child!,
@@ -613387,6 +613829,21 @@ Object? _rc2PopScope$leaf23(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopScope$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Widget? child,
+  bool? canPop,
+  Object? onPopInvokedWithResult,
+  Object? onPopInvoked,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => PopScope<TransposeCharactersIntent>(
       key: key,
       child: child!,
@@ -613427,21 +613884,6 @@ Object? _rc2PopScope$leaf23(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopScope$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Widget? child,
-  bool? canPop,
-  Object? onPopInvokedWithResult,
-  Object? onPopInvoked,
-) {
-  return switch (typeName) {
     'TreeSliverController' => PopScope<TreeSliverController>(
       key: key,
       child: child!,
@@ -614686,51 +615128,11 @@ Object? _rc2PopScope$leaf24(
               await Future.delayed(const Duration(milliseconds: 1));
             },
     ),
-    'WidgetInspector' => PopScope<WidgetInspector>(
-      key: key,
-      child: child!,
-      canPop: canPop ?? true,
-      onPopInvokedWithResult: onPopInvokedWithResult == null
-          ? null
-          : (bool p0, WidgetInspector? p1) async {
-              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
-                p0,
-                p1,
-              ]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopInvoked: onPopInvoked == null
-          ? null
-          : (bool p0) async {
-              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-    ),
-    'WidgetOrderTraversalPolicy' => PopScope<WidgetOrderTraversalPolicy>(
-      key: key,
-      child: child!,
-      canPop: canPop ?? true,
-      onPopInvokedWithResult: onPopInvokedWithResult == null
-          ? null
-          : (bool p0, WidgetOrderTraversalPolicy? p1) async {
-              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
-                p0,
-                p1,
-              ]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onPopInvoked: onPopInvoked == null
-          ? null
-          : (bool p0) async {
-              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2PopScope` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopScope$leaf25(
   String typeName,
   dynamic visitor,
@@ -614908,6 +615310,46 @@ Object? _rc2PopScope$leaf25(
       onPopInvokedWithResult: onPopInvokedWithResult == null
           ? null
           : (bool p0, num? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'WidgetInspector' => PopScope<WidgetInspector>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, WidgetInspector? p1) async {
+              D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
+                p0,
+                p1,
+              ]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onPopInvoked: onPopInvoked == null
+          ? null
+          : (bool p0) async {
+              D4.callInterpreterCallback(visitor, onPopInvoked, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+    ),
+    'WidgetOrderTraversalPolicy' => PopScope<WidgetOrderTraversalPolicy>(
+      key: key,
+      child: child!,
+      canPop: canPop ?? true,
+      onPopInvokedWithResult: onPopInvokedWithResult == null
+          ? null
+          : (bool p0, WidgetOrderTraversalPolicy? p1) async {
               D4.callInterpreterCallback(visitor, onPopInvokedWithResult, [
                 p0,
                 p1,
@@ -615306,7 +615748,7 @@ Object? _rc2PopupMenuButton(
   final requestFocus = named.containsKey('requestFocus')
       ? named['requestFocus'] as bool?
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -615640,7 +616082,7 @@ Object? _rc2PopupMenuButton(
         requestFocus,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2PopupMenuButton$leaf9(
           typeName,
@@ -615714,7 +616156,7 @@ Object? _rc2PopupMenuButton(
         requestFocus,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2PopupMenuButton$leaf11(
         typeName,
         visitor,
@@ -615787,9 +616229,9 @@ Object? _rc2PopupMenuButton(
       requestFocus,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2PopupMenuButton$leaf13(
           typeName,
           visitor,
@@ -615826,7 +616268,7 @@ Object? _rc2PopupMenuButton(
           requestFocus,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2PopupMenuButton$leaf14(
           typeName,
           visitor,
@@ -615899,7 +616341,7 @@ Object? _rc2PopupMenuButton(
         requestFocus,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2PopupMenuButton$leaf16(
         typeName,
         visitor,
@@ -615936,7 +616378,7 @@ Object? _rc2PopupMenuButton(
         requestFocus,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2PopupMenuButton$leaf17(
         typeName,
         visitor,
@@ -616009,8 +616451,8 @@ Object? _rc2PopupMenuButton(
       requestFocus,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2PopupMenuButton$leaf19(
         typeName,
         visitor,
@@ -616047,7 +616489,7 @@ Object? _rc2PopupMenuButton(
         requestFocus,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2PopupMenuButton$leaf20(
         typeName,
         visitor,
@@ -616120,8 +616562,8 @@ Object? _rc2PopupMenuButton(
       requestFocus,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2PopupMenuButton$leaf22(
         typeName,
         visitor,
@@ -616194,7 +616636,7 @@ Object? _rc2PopupMenuButton(
       requestFocus,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2PopupMenuButton$leaf24(
       typeName,
       visitor,
@@ -651707,7 +652149,7 @@ Object? _rc2PopupMenuButton$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButton$leaf10(
   String typeName,
   dynamic visitor,
@@ -653343,6 +653785,60 @@ Object? _rc2PopupMenuButton$leaf10(
       onSelected: onSelected == null
           ? null
           : (InteractiveViewer p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'IntersectionResult' => PopupMenuButton<IntersectionResult>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<IntersectionResult>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as IntersectionResult?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (IntersectionResult p0) async {
               D4.callInterpreterCallback(visitor, onSelected, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -655169,6 +655665,47 @@ Object? _rc2PopupMenuButton$leaf10(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'LineBoundary' => PopupMenuButton<LineBoundary>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -655223,47 +655760,6 @@ Object? _rc2PopupMenuButton$leaf10(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'LineMetrics' => PopupMenuButton<LineMetrics>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -658700,6 +659196,47 @@ Object? _rc2PopupMenuButton$leaf11(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'MediaQuery' => PopupMenuButton<MediaQuery>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -658754,47 +659291,6 @@ Object? _rc2PopupMenuButton$leaf11(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'MediaQueryData' => PopupMenuButton<MediaQueryData>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -662231,65 +662727,11 @@ Object? _rc2PopupMenuButton$leaf12(
       style: style,
       requestFocus: requestFocus,
     ),
-    'NumericFocusOrder' => PopupMenuButton<NumericFocusOrder>(
-      key: key,
-      itemBuilder: (BuildContext p0) {
-        return D4.extractBridgedArg<List<PopupMenuEntry<NumericFocusOrder>>>(
-          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      initialValue: initialValue as NumericFocusOrder?,
-      onOpened: onOpened == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onOpened, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onSelected: onSelected == null
-          ? null
-          : (NumericFocusOrder p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onCanceled: onCanceled == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onCanceled, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      tooltip: tooltip,
-      elevation: (elevation as num?)?.toDouble(),
-      shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor,
-      padding: padding ?? const EdgeInsets.all(8.0),
-      menuPadding: menuPadding,
-      child: child,
-      borderRadius: borderRadius,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      icon: icon,
-      iconSize: (iconSize as num?)?.toDouble(),
-      offset: offset ?? Offset.zero,
-      enabled: enabled ?? true,
-      shape: shape,
-      color: color,
-      iconColor: iconColor,
-      enableFeedback: enableFeedback,
-      constraints: constraints,
-      position: position,
-      clipBehavior: clipBehavior ?? Clip.none,
-      useRootNavigator: useRootNavigator ?? false,
-      popUpAnimationStyle: popUpAnimationStyle,
-      routeSettings: routeSettings,
-      style: style,
-      requestFocus: requestFocus,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButton$leaf13(
   String typeName,
   dynamic visitor,
@@ -662345,6 +662787,60 @@ Object? _rc2PopupMenuButton$leaf13(
       onSelected: onSelected == null
           ? null
           : (dynamic p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'NumericFocusOrder' => PopupMenuButton<NumericFocusOrder>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<NumericFocusOrder>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as NumericFocusOrder?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (NumericFocusOrder p0) async {
               D4.callInterpreterCallback(visitor, onSelected, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -665698,6 +666194,47 @@ Object? _rc2PopupMenuButton$leaf13(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PercentProperty' to 'PositionedDirectional' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'PercentProperty' => PopupMenuButton<PercentProperty>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -665752,47 +666289,6 @@ Object? _rc2PopupMenuButton$leaf13(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedTransition' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       PopupMenuButton<PerformanceModeRequestHandle>(
         key: key,
@@ -669232,6 +669728,47 @@ Object? _rc2PopupMenuButton$leaf14(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'PositionedTransition' => PopupMenuButton<PositionedTransition>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -669286,47 +669823,6 @@ Object? _rc2PopupMenuButton$leaf14(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => PopupMenuButton<PredictiveBackEvent>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -670059,6 +670555,60 @@ Object? _rc2PopupMenuButton$leaf15(
       onSelected: onSelected == null
           ? null
           : (ProxyAnimation p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'Quad' => PopupMenuButton<Quad>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<Quad>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as Quad?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (Quad p0) async {
               D4.callInterpreterCallback(visitor, onSelected, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -672712,6 +673262,47 @@ Object? _rc2PopupMenuButton$leaf15(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => PopupMenuButton<RenderAbsorbPointer>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -672820,47 +673411,6 @@ Object? _rc2PopupMenuButton$leaf15(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => PopupMenuButton<RenderAnimatedOpacity>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -676252,6 +676802,47 @@ Object? _rc2PopupMenuButton$leaf16(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       PopupMenuButton<RenderShrinkWrappingViewport>(
         key: key,
@@ -676364,47 +676955,6 @@ Object? _rc2PopupMenuButton$leaf16(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       PopupMenuButton<RenderSliverAnimatedOpacity>(
         key: key,
@@ -679805,6 +680355,47 @@ Object? _rc2PopupMenuButton$leaf17(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'RestorationBucket' => PopupMenuButton<RestorationBucket>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -679913,47 +680504,6 @@ Object? _rc2PopupMenuButton$leaf17(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'RestorationScope' => PopupMenuButton<RestorationScope>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -683348,6 +683898,47 @@ Object? _rc2PopupMenuButton$leaf18(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'Scrollable' => PopupMenuButton<Scrollable>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -683456,47 +684047,6 @@ Object? _rc2PopupMenuButton$leaf18(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'ScrollableState' => PopupMenuButton<ScrollableState>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -686866,6 +687416,47 @@ Object? _rc2PopupMenuButton$leaf19(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => PopupMenuButton<ShaderMaskLayer>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -686974,47 +687565,6 @@ Object? _rc2PopupMenuButton$leaf19(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => PopupMenuButton<ShapeBorderClipper>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -690400,122 +690950,11 @@ Object? _rc2PopupMenuButton$leaf20(
       style: style,
       requestFocus: requestFocus,
     ),
-    'SliverMainAxisGroup' => PopupMenuButton<SliverMainAxisGroup>(
-      key: key,
-      itemBuilder: (BuildContext p0) {
-        return D4.extractBridgedArg<List<PopupMenuEntry<SliverMainAxisGroup>>>(
-          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      initialValue: initialValue as SliverMainAxisGroup?,
-      onOpened: onOpened == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onOpened, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onSelected: onSelected == null
-          ? null
-          : (SliverMainAxisGroup p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onCanceled: onCanceled == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onCanceled, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      tooltip: tooltip,
-      elevation: (elevation as num?)?.toDouble(),
-      shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor,
-      padding: padding ?? const EdgeInsets.all(8.0),
-      menuPadding: menuPadding,
-      child: child,
-      borderRadius: borderRadius,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      icon: icon,
-      iconSize: (iconSize as num?)?.toDouble(),
-      offset: offset ?? Offset.zero,
-      enabled: enabled ?? true,
-      shape: shape,
-      color: color,
-      iconColor: iconColor,
-      enableFeedback: enableFeedback,
-      constraints: constraints,
-      position: position,
-      clipBehavior: clipBehavior ?? Clip.none,
-      useRootNavigator: useRootNavigator ?? false,
-      popUpAnimationStyle: popUpAnimationStyle,
-      routeSettings: routeSettings,
-      style: style,
-      requestFocus: requestFocus,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      PopupMenuButton<SliverMultiBoxAdaptorElement>(
-        key: key,
-        itemBuilder: (BuildContext p0) {
-          return D4.extractBridgedArg<
-            List<PopupMenuEntry<SliverMultiBoxAdaptorElement>>
-          >(
-            D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
-            'callback',
-            visitor,
-          );
-        },
-        initialValue: initialValue as SliverMultiBoxAdaptorElement?,
-        onOpened: onOpened == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onOpened, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        onSelected: onSelected == null
-            ? null
-            : (SliverMultiBoxAdaptorElement p0) async {
-                D4.callInterpreterCallback(visitor, onSelected, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        onCanceled: onCanceled == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onCanceled, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        tooltip: tooltip,
-        elevation: (elevation as num?)?.toDouble(),
-        shadowColor: shadowColor,
-        surfaceTintColor: surfaceTintColor,
-        padding: padding ?? const EdgeInsets.all(8.0),
-        menuPadding: menuPadding,
-        child: child,
-        borderRadius: borderRadius,
-        splashRadius: (splashRadius as num?)?.toDouble(),
-        icon: icon,
-        iconSize: (iconSize as num?)?.toDouble(),
-        offset: offset ?? Offset.zero,
-        enabled: enabled ?? true,
-        shape: shape,
-        color: color,
-        iconColor: iconColor,
-        enableFeedback: enableFeedback,
-        constraints: constraints,
-        position: position,
-        clipBehavior: clipBehavior ?? Clip.none,
-        useRootNavigator: useRootNavigator ?? false,
-        popUpAnimationStyle: popUpAnimationStyle,
-        routeSettings: routeSettings,
-        style: style,
-        requestFocus: requestFocus,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButton$leaf21(
   String typeName,
   dynamic visitor,
@@ -690660,6 +691099,117 @@ Object? _rc2PopupMenuButton$leaf21(
       style: style,
       requestFocus: requestFocus,
     ),
+    'SliverMainAxisGroup' => PopupMenuButton<SliverMainAxisGroup>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<SliverMainAxisGroup>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as SliverMainAxisGroup?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (SliverMainAxisGroup p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      PopupMenuButton<SliverMultiBoxAdaptorElement>(
+        key: key,
+        itemBuilder: (BuildContext p0) {
+          return D4.extractBridgedArg<
+            List<PopupMenuEntry<SliverMultiBoxAdaptorElement>>
+          >(
+            D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+            'callback',
+            visitor,
+          );
+        },
+        initialValue: initialValue as SliverMultiBoxAdaptorElement?,
+        onOpened: onOpened == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onOpened, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        onSelected: onSelected == null
+            ? null
+            : (SliverMultiBoxAdaptorElement p0) async {
+                D4.callInterpreterCallback(visitor, onSelected, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        onCanceled: onCanceled == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onCanceled, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        tooltip: tooltip,
+        elevation: (elevation as num?)?.toDouble(),
+        shadowColor: shadowColor,
+        surfaceTintColor: surfaceTintColor,
+        padding: padding ?? const EdgeInsets.all(8.0),
+        menuPadding: menuPadding,
+        child: child,
+        borderRadius: borderRadius,
+        splashRadius: (splashRadius as num?)?.toDouble(),
+        icon: icon,
+        iconSize: (iconSize as num?)?.toDouble(),
+        offset: offset ?? Offset.zero,
+        enabled: enabled ?? true,
+        shape: shape,
+        color: color,
+        iconColor: iconColor,
+        enableFeedback: enableFeedback,
+        constraints: constraints,
+        position: position,
+        clipBehavior: clipBehavior ?? Clip.none,
+        useRootNavigator: useRootNavigator ?? false,
+        popUpAnimationStyle: popUpAnimationStyle,
+        routeSettings: routeSettings,
+        style: style,
+        requestFocus: requestFocus,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       PopupMenuButton<SliverMultiBoxAdaptorParentData>(
         key: key,
@@ -693938,6 +694488,47 @@ Object? _rc2PopupMenuButton$leaf21(
         style: style,
         requestFocus: requestFocus,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'SweepGradient' => PopupMenuButton<SweepGradient>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -694046,47 +694637,6 @@ Object? _rc2PopupMenuButton$leaf21(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'SwitchListTile' => PopupMenuButton<SwitchListTile>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -697455,6 +698005,47 @@ Object? _rc2PopupMenuButton$leaf22(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'TextInputStyle' => PopupMenuButton<TextInputStyle>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -697563,47 +698154,6 @@ Object? _rc2PopupMenuButton$leaf22(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'TextMagnifier' => PopupMenuButton<TextMagnifier>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -700981,6 +701531,47 @@ Object? _rc2PopupMenuButton$leaf23(
       style: style,
       requestFocus: requestFocus,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuButton$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? itemBuilder,
+  Object? initialValue,
+  Object? onOpened,
+  Object? onSelected,
+  Object? onCanceled,
+  String? tooltip,
+  double? elevation,
+  Color? shadowColor,
+  Color? surfaceTintColor,
+  EdgeInsetsGeometry? padding,
+  EdgeInsetsGeometry? menuPadding,
+  Widget? child,
+  BorderRadius? borderRadius,
+  double? splashRadius,
+  Widget? icon,
+  double? iconSize,
+  Offset? offset,
+  bool? enabled,
+  ShapeBorder? shape,
+  Color? color,
+  Color? iconColor,
+  bool? enableFeedback,
+  BoxConstraints? constraints,
+  PopupMenuPosition? position,
+  Clip? clipBehavior,
+  bool? useRootNavigator,
+  AnimationStyle? popUpAnimationStyle,
+  RouteSettings? routeSettings,
+  ButtonStyle? style,
+  bool? requestFocus,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => PopupMenuButton<TransposeCharactersIntent>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -701090,47 +701681,6 @@ Object? _rc2PopupMenuButton$leaf23(
       style: style,
       requestFocus: requestFocus,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuButton$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? itemBuilder,
-  Object? initialValue,
-  Object? onOpened,
-  Object? onSelected,
-  Object? onCanceled,
-  String? tooltip,
-  double? elevation,
-  Color? shadowColor,
-  Color? surfaceTintColor,
-  EdgeInsetsGeometry? padding,
-  EdgeInsetsGeometry? menuPadding,
-  Widget? child,
-  BorderRadius? borderRadius,
-  double? splashRadius,
-  Widget? icon,
-  double? iconSize,
-  Offset? offset,
-  bool? enabled,
-  ShapeBorder? shape,
-  Color? color,
-  Color? iconColor,
-  bool? enableFeedback,
-  BoxConstraints? constraints,
-  PopupMenuPosition? position,
-  Clip? clipBehavior,
-  bool? useRootNavigator,
-  AnimationStyle? popUpAnimationStyle,
-  RouteSettings? routeSettings,
-  ButtonStyle? style,
-  bool? requestFocus,
-) {
-  return switch (typeName) {
     'TreeSliverController' => PopupMenuButton<TreeSliverController>(
       key: key,
       itemBuilder: (BuildContext p0) {
@@ -704509,121 +705059,11 @@ Object? _rc2PopupMenuButton$leaf24(
       style: style,
       requestFocus: requestFocus,
     ),
-    'WidgetInspector' => PopupMenuButton<WidgetInspector>(
-      key: key,
-      itemBuilder: (BuildContext p0) {
-        return D4.extractBridgedArg<List<PopupMenuEntry<WidgetInspector>>>(
-          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      initialValue: initialValue as WidgetInspector?,
-      onOpened: onOpened == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onOpened, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onSelected: onSelected == null
-          ? null
-          : (WidgetInspector p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onCanceled: onCanceled == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onCanceled, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      tooltip: tooltip,
-      elevation: (elevation as num?)?.toDouble(),
-      shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor,
-      padding: padding ?? const EdgeInsets.all(8.0),
-      menuPadding: menuPadding,
-      child: child,
-      borderRadius: borderRadius,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      icon: icon,
-      iconSize: (iconSize as num?)?.toDouble(),
-      offset: offset ?? Offset.zero,
-      enabled: enabled ?? true,
-      shape: shape,
-      color: color,
-      iconColor: iconColor,
-      enableFeedback: enableFeedback,
-      constraints: constraints,
-      position: position,
-      clipBehavior: clipBehavior ?? Clip.none,
-      useRootNavigator: useRootNavigator ?? false,
-      popUpAnimationStyle: popUpAnimationStyle,
-      routeSettings: routeSettings,
-      style: style,
-      requestFocus: requestFocus,
-    ),
-    'WidgetOrderTraversalPolicy' => PopupMenuButton<WidgetOrderTraversalPolicy>(
-      key: key,
-      itemBuilder: (BuildContext p0) {
-        return D4.extractBridgedArg<
-          List<PopupMenuEntry<WidgetOrderTraversalPolicy>>
-        >(
-          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
-          'callback',
-          visitor,
-        );
-      },
-      initialValue: initialValue as WidgetOrderTraversalPolicy?,
-      onOpened: onOpened == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onOpened, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onSelected: onSelected == null
-          ? null
-          : (WidgetOrderTraversalPolicy p0) async {
-              D4.callInterpreterCallback(visitor, onSelected, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      onCanceled: onCanceled == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onCanceled, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      tooltip: tooltip,
-      elevation: (elevation as num?)?.toDouble(),
-      shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor,
-      padding: padding ?? const EdgeInsets.all(8.0),
-      menuPadding: menuPadding,
-      child: child,
-      borderRadius: borderRadius,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      icon: icon,
-      iconSize: (iconSize as num?)?.toDouble(),
-      offset: offset ?? Offset.zero,
-      enabled: enabled ?? true,
-      shape: shape,
-      color: color,
-      iconColor: iconColor,
-      enableFeedback: enableFeedback,
-      constraints: constraints,
-      position: position,
-      clipBehavior: clipBehavior ?? Clip.none,
-      useRootNavigator: useRootNavigator ?? false,
-      popUpAnimationStyle: popUpAnimationStyle,
-      routeSettings: routeSettings,
-      style: style,
-      requestFocus: requestFocus,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2PopupMenuButton` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButton$leaf25(
   String typeName,
   dynamic visitor,
@@ -705111,6 +705551,116 @@ Object? _rc2PopupMenuButton$leaf25(
       onSelected: onSelected == null
           ? null
           : (num? p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'WidgetInspector' => PopupMenuButton<WidgetInspector>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<List<PopupMenuEntry<WidgetInspector>>>(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as WidgetInspector?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (WidgetInspector p0) async {
+              D4.callInterpreterCallback(visitor, onSelected, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onCanceled: onCanceled == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onCanceled, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      tooltip: tooltip,
+      elevation: (elevation as num?)?.toDouble(),
+      shadowColor: shadowColor,
+      surfaceTintColor: surfaceTintColor,
+      padding: padding ?? const EdgeInsets.all(8.0),
+      menuPadding: menuPadding,
+      child: child,
+      borderRadius: borderRadius,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      icon: icon,
+      iconSize: (iconSize as num?)?.toDouble(),
+      offset: offset ?? Offset.zero,
+      enabled: enabled ?? true,
+      shape: shape,
+      color: color,
+      iconColor: iconColor,
+      enableFeedback: enableFeedback,
+      constraints: constraints,
+      position: position,
+      clipBehavior: clipBehavior ?? Clip.none,
+      useRootNavigator: useRootNavigator ?? false,
+      popUpAnimationStyle: popUpAnimationStyle,
+      routeSettings: routeSettings,
+      style: style,
+      requestFocus: requestFocus,
+    ),
+    'WidgetOrderTraversalPolicy' => PopupMenuButton<WidgetOrderTraversalPolicy>(
+      key: key,
+      itemBuilder: (BuildContext p0) {
+        return D4.extractBridgedArg<
+          List<PopupMenuEntry<WidgetOrderTraversalPolicy>>
+        >(
+          D4.callInterpreterCallback(visitor, itemBuilder, [p0]),
+          'callback',
+          visitor,
+        );
+      },
+      initialValue: initialValue as WidgetOrderTraversalPolicy?,
+      onOpened: onOpened == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onOpened, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      onSelected: onSelected == null
+          ? null
+          : (WidgetOrderTraversalPolicy p0) async {
               D4.callInterpreterCallback(visitor, onSelected, [p0]);
               await Future.delayed(const Duration(milliseconds: 1));
             },
@@ -705870,7 +706420,7 @@ Object? _rc2PopupMenuButtonState(
       : null;
   if (rawTypeName == null) return null;
   final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -705898,51 +706448,51 @@ Object? _rc2PopupMenuButtonState(
       }
       return _rc2PopupMenuButtonState$leaf8(typeName, visitor);
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2PopupMenuButtonState$leaf9(typeName, visitor);
       }
       return _rc2PopupMenuButtonState$leaf10(typeName, visitor);
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2PopupMenuButtonState$leaf11(typeName, visitor);
     }
     return _rc2PopupMenuButtonState$leaf12(typeName, visitor);
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2PopupMenuButtonState$leaf13(typeName, visitor);
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2PopupMenuButtonState$leaf14(typeName, visitor);
       }
       return _rc2PopupMenuButtonState$leaf15(typeName, visitor);
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2PopupMenuButtonState$leaf16(typeName, visitor);
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2PopupMenuButtonState$leaf17(typeName, visitor);
     }
     return _rc2PopupMenuButtonState$leaf18(typeName, visitor);
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2PopupMenuButtonState$leaf19(typeName, visitor);
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2PopupMenuButtonState$leaf20(typeName, visitor);
     }
     return _rc2PopupMenuButtonState$leaf21(typeName, visitor);
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2PopupMenuButtonState$leaf22(typeName, visitor);
     }
     return _rc2PopupMenuButtonState$leaf23(typeName, visitor);
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2PopupMenuButtonState$leaf24(typeName, visitor);
   }
   return _rc2PopupMenuButtonState$leaf25(typeName, visitor);
@@ -706826,7 +707376,7 @@ Object? _rc2PopupMenuButtonState$leaf9(String typeName, dynamic visitor) {
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf10(String typeName, dynamic visitor) {
   return switch (typeName) {
     'ImageStreamListener' => PopupMenuButtonState<ImageStreamListener>(),
@@ -706865,6 +707415,7 @@ Object? _rc2PopupMenuButtonState$leaf10(String typeName, dynamic visitor) {
     'IntProperty' => PopupMenuButtonState<IntProperty>(),
     'IntTween' => PopupMenuButtonState<IntTween>(),
     'InteractiveViewer' => PopupMenuButtonState<InteractiveViewer>(),
+    'IntersectionResult' => PopupMenuButtonState<IntersectionResult>(),
     'Interval' => PopupMenuButtonState<Interval>(),
     'IntrinsicColumnWidth' => PopupMenuButtonState<IntrinsicColumnWidth>(),
     'IntrinsicHeight' => PopupMenuButtonState<IntrinsicHeight>(),
@@ -706903,14 +707454,14 @@ Object? _rc2PopupMenuButtonState$leaf10(String typeName, dynamic visitor) {
     'LicensePage' => PopupMenuButtonState<LicensePage>(),
     'LicenseParagraph' => PopupMenuButtonState<LicenseParagraph>(),
     'LimitedBox' => PopupMenuButtonState<LimitedBox>(),
-    'LineBoundary' => PopupMenuButtonState<LineBoundary>(),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf11(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'LineBoundary' => PopupMenuButtonState<LineBoundary>(),
     'LineMetrics' => PopupMenuButtonState<LineMetrics>(),
     'LinearBorder' => PopupMenuButtonState<LinearBorder>(),
     'LinearBorderEdge' => PopupMenuButtonState<LinearBorderEdge>(),
@@ -706987,14 +707538,14 @@ Object? _rc2PopupMenuButtonState$leaf11(String typeName, dynamic visitor) {
     'Matrix4Tween' => PopupMenuButtonState<Matrix4Tween>(),
     'MatrixTransition' => PopupMenuButtonState<MatrixTransition>(),
     'MaxColumnWidth' => PopupMenuButtonState<MaxColumnWidth>(),
-    'MediaQuery' => PopupMenuButtonState<MediaQuery>(),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf12(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'MediaQuery' => PopupMenuButtonState<MediaQuery>(),
     'MediaQueryData' => PopupMenuButtonState<MediaQueryData>(),
     'MemoryImage' => PopupMenuButtonState<MemoryImage>(),
     'MenuAcceleratorCallbackBinding' =>
@@ -707071,15 +707622,15 @@ Object? _rc2PopupMenuButtonState$leaf12(String typeName, dynamic visitor) {
       PopupMenuButtonState<NoDefaultCupertinoThemeData>(),
     'NoSplash' => PopupMenuButtonState<NoSplash>(),
     'NotificationListener' => PopupMenuButtonState<NotificationListener>(),
-    'NumericFocusOrder' => PopupMenuButtonState<NumericFocusOrder>(),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf13(String typeName, dynamic visitor) {
   return switch (typeName) {
     'Object' || 'Object?' => PopupMenuButtonState<dynamic>(),
+    'NumericFocusOrder' => PopupMenuButtonState<NumericFocusOrder>(),
     'ObjectCreated' => PopupMenuButtonState<ObjectCreated>(),
     'ObjectDisposed' => PopupMenuButtonState<ObjectDisposed>(),
     'ObjectFlagProperty' => PopupMenuButtonState<ObjectFlagProperty>(),
@@ -707150,14 +707701,14 @@ Object? _rc2PopupMenuButtonState$leaf13(String typeName, dynamic visitor) {
     'PathMetric' => PopupMenuButtonState<PathMetric>(),
     'PathMetricIterator' => PopupMenuButtonState<PathMetricIterator>(),
     'PathMetrics' => PopupMenuButtonState<PathMetrics>(),
-    'PercentProperty' => PopupMenuButtonState<PercentProperty>(),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedTransition' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PercentProperty' to 'PositionedDirectional' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf14(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PercentProperty' => PopupMenuButtonState<PercentProperty>(),
     'PerformanceModeRequestHandle' =>
       PopupMenuButtonState<PerformanceModeRequestHandle>(),
     'PerformanceOverlay' => PopupMenuButtonState<PerformanceOverlay>(),
@@ -707233,14 +707784,14 @@ Object? _rc2PopupMenuButtonState$leaf14(String typeName, dynamic visitor) {
     'PopupMenuThemeData' => PopupMenuButtonState<PopupMenuThemeData>(),
     'Positioned' => PopupMenuButtonState<Positioned>(),
     'PositionedDirectional' => PopupMenuButtonState<PositionedDirectional>(),
-    'PositionedTransition' => PopupMenuButtonState<PositionedTransition>(),
     _ => null,
   };
 }
 
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf15(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'PositionedTransition' => PopupMenuButtonState<PositionedTransition>(),
     'PredictiveBackEvent' => PopupMenuButtonState<PredictiveBackEvent>(),
     'PredictiveBackFullscreenPageTransitionsBuilder' =>
       PopupMenuButtonState<PredictiveBackFullscreenPageTransitionsBuilder>(),
@@ -707259,6 +707810,7 @@ Object? _rc2PopupMenuButtonState$leaf15(String typeName, dynamic visitor) {
     'ProgressIndicatorThemeData' =>
       PopupMenuButtonState<ProgressIndicatorThemeData>(),
     'ProxyAnimation' => PopupMenuButtonState<ProxyAnimation>(),
+    'Quad' => PopupMenuButtonState<Quad>(),
     'RRect' => PopupMenuButtonState<RRect>(),
     'RSTransform' => PopupMenuButtonState<RSTransform>(),
     'RSuperellipse' => PopupMenuButtonState<RSuperellipse>(),
@@ -707316,15 +707868,15 @@ Object? _rc2PopupMenuButtonState$leaf15(String typeName, dynamic visitor) {
       PopupMenuButtonState<RelativePositionedTransition>(),
     'RelativeRect' => PopupMenuButtonState<RelativeRect>(),
     'RelativeRectTween' => PopupMenuButtonState<RelativeRectTween>(),
-    'RenderAbsorbPointer' => PopupMenuButtonState<RenderAbsorbPointer>(),
-    'RenderAndroidView' => PopupMenuButtonState<RenderAndroidView>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf16(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderAbsorbPointer' => PopupMenuButtonState<RenderAbsorbPointer>(),
+    'RenderAndroidView' => PopupMenuButtonState<RenderAndroidView>(),
     'RenderAnimatedOpacity' => PopupMenuButtonState<RenderAnimatedOpacity>(),
     'RenderAnimatedSize' => PopupMenuButtonState<RenderAnimatedSize>(),
     'RenderAnnotatedRegion' => PopupMenuButtonState<RenderAnnotatedRegion>(),
@@ -707401,16 +707953,16 @@ Object? _rc2PopupMenuButtonState$leaf16(String typeName, dynamic visitor) {
     'RenderSemanticsGestureHandler' =>
       PopupMenuButtonState<RenderSemanticsGestureHandler>(),
     'RenderShaderMask' => PopupMenuButtonState<RenderShaderMask>(),
-    'RenderShrinkWrappingViewport' =>
-      PopupMenuButtonState<RenderShrinkWrappingViewport>(),
-    'RenderSizedOverflowBox' => PopupMenuButtonState<RenderSizedOverflowBox>(),
     _ => null,
   };
 }
 
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf17(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RenderShrinkWrappingViewport' =>
+      PopupMenuButtonState<RenderShrinkWrappingViewport>(),
+    'RenderSizedOverflowBox' => PopupMenuButtonState<RenderSizedOverflowBox>(),
     'RenderSliverAnimatedOpacity' =>
       PopupMenuButtonState<RenderSliverAnimatedOpacity>(),
     'RenderSliverConstrainedCrossAxis' =>
@@ -707495,15 +708047,15 @@ Object? _rc2PopupMenuButtonState$leaf17(String typeName, dynamic visitor) {
     'RestorableTextEditingController' =>
       PopupMenuButtonState<RestorableTextEditingController>(),
     'RestorableTimeOfDay' => PopupMenuButtonState<RestorableTimeOfDay>(),
-    'RestorationBucket' => PopupMenuButtonState<RestorationBucket>(),
-    'RestorationManager' => PopupMenuButtonState<RestorationManager>(),
     _ => null,
   };
 }
 
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf18(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'RestorationBucket' => PopupMenuButtonState<RestorationBucket>(),
+    'RestorationManager' => PopupMenuButtonState<RestorationManager>(),
     'RestorationScope' => PopupMenuButtonState<RestorationScope>(),
     'RevealedOffset' => PopupMenuButtonState<RevealedOffset>(),
     'ReverseAnimation' => PopupMenuButtonState<ReverseAnimation>(),
@@ -707586,15 +708138,15 @@ Object? _rc2PopupMenuButtonState$leaf18(String typeName, dynamic visitor) {
       PopupMenuButtonState<ScrollToDocumentBoundaryIntent>(),
     'ScrollUpdateNotification' =>
       PopupMenuButtonState<ScrollUpdateNotification>(),
-    'Scrollable' => PopupMenuButtonState<Scrollable>(),
-    'ScrollableDetails' => PopupMenuButtonState<ScrollableDetails>(),
     _ => null,
   };
 }
 
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf19(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'Scrollable' => PopupMenuButtonState<Scrollable>(),
+    'ScrollableDetails' => PopupMenuButtonState<ScrollableDetails>(),
     'ScrollableState' => PopupMenuButtonState<ScrollableState>(),
     'Scrollbar' => PopupMenuButtonState<Scrollbar>(),
     'ScrollbarPainter' => PopupMenuButtonState<ScrollbarPainter>(),
@@ -707667,15 +708219,15 @@ Object? _rc2PopupMenuButtonState$leaf19(String typeName, dynamic visitor) {
     'Shader' => PopupMenuButtonState<Shader>(),
     'ShaderMask' => PopupMenuButtonState<ShaderMask>(),
     'ShaderMaskEngineLayer' => PopupMenuButtonState<ShaderMaskEngineLayer>(),
-    'ShaderMaskLayer' => PopupMenuButtonState<ShaderMaskLayer>(),
-    'Shadow' => PopupMenuButtonState<Shadow>(),
     _ => null,
   };
 }
 
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf20(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'ShaderMaskLayer' => PopupMenuButtonState<ShaderMaskLayer>(),
+    'Shadow' => PopupMenuButtonState<Shadow>(),
     'ShapeBorderClipper' => PopupMenuButtonState<ShapeBorderClipper>(),
     'ShapeBorderTween' => PopupMenuButtonState<ShapeBorderTween>(),
     'ShapeDecoration' => PopupMenuButtonState<ShapeDecoration>(),
@@ -707752,18 +708304,18 @@ Object? _rc2PopupMenuButtonState$leaf20(String typeName, dynamic visitor) {
       PopupMenuButtonState<SliverLogicalContainerParentData>(),
     'SliverLogicalParentData' =>
       PopupMenuButtonState<SliverLogicalParentData>(),
-    'SliverMainAxisGroup' => PopupMenuButtonState<SliverMainAxisGroup>(),
-    'SliverMultiBoxAdaptorElement' =>
-      PopupMenuButtonState<SliverMultiBoxAdaptorElement>(),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf21(String typeName, dynamic visitor) {
   return switch (typeName) {
     'String' => PopupMenuButtonState<String>(),
     'String?' => PopupMenuButtonState<String?>(),
+    'SliverMainAxisGroup' => PopupMenuButtonState<SliverMainAxisGroup>(),
+    'SliverMultiBoxAdaptorElement' =>
+      PopupMenuButtonState<SliverMultiBoxAdaptorElement>(),
     'SliverMultiBoxAdaptorParentData' =>
       PopupMenuButtonState<SliverMultiBoxAdaptorParentData>(),
     'SliverOffstage' => PopupMenuButtonState<SliverOffstage>(),
@@ -707838,15 +708390,15 @@ Object? _rc2PopupMenuButtonState$leaf21(String typeName, dynamic visitor) {
     'Summary' => PopupMenuButtonState<Summary>(),
     'SurfaceAndroidViewController' =>
       PopupMenuButtonState<SurfaceAndroidViewController>(),
-    'SweepGradient' => PopupMenuButtonState<SweepGradient>(),
-    'Switch' => PopupMenuButtonState<Switch>(),
     _ => null,
   };
 }
 
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf22(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'SweepGradient' => PopupMenuButtonState<SweepGradient>(),
+    'Switch' => PopupMenuButtonState<Switch>(),
     'SwitchListTile' => PopupMenuButtonState<SwitchListTile>(),
     'SwitchTheme' => PopupMenuButtonState<SwitchTheme>(),
     'SwitchThemeData' => PopupMenuButtonState<SwitchThemeData>(),
@@ -707917,15 +708469,15 @@ Object? _rc2PopupMenuButtonState$leaf22(String typeName, dynamic visitor) {
     'TextInput' => PopupMenuButtonState<TextInput>(),
     'TextInputConfiguration' => PopupMenuButtonState<TextInputConfiguration>(),
     'TextInputConnection' => PopupMenuButtonState<TextInputConnection>(),
-    'TextInputStyle' => PopupMenuButtonState<TextInputStyle>(),
-    'TextInputType' => PopupMenuButtonState<TextInputType>(),
     _ => null,
   };
 }
 
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf23(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TextInputStyle' => PopupMenuButtonState<TextInputStyle>(),
+    'TextInputType' => PopupMenuButtonState<TextInputType>(),
     'TextMagnifier' => PopupMenuButtonState<TextMagnifier>(),
     'TextMagnifierConfiguration' =>
       PopupMenuButtonState<TextMagnifierConfiguration>(),
@@ -707997,16 +708549,16 @@ Object? _rc2PopupMenuButtonState$leaf23(String typeName, dynamic visitor) {
     'TransformProperty' => PopupMenuButtonState<TransformProperty>(),
     'TransformationController' =>
       PopupMenuButtonState<TransformationController>(),
-    'TransposeCharactersIntent' =>
-      PopupMenuButtonState<TransposeCharactersIntent>(),
-    'TreeSliver' => PopupMenuButtonState<TreeSliver>(),
     _ => null,
   };
 }
 
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf24(String typeName, dynamic visitor) {
   return switch (typeName) {
+    'TransposeCharactersIntent' =>
+      PopupMenuButtonState<TransposeCharactersIntent>(),
+    'TreeSliver' => PopupMenuButtonState<TreeSliver>(),
     'TreeSliverController' => PopupMenuButtonState<TreeSliverController>(),
     'TreeSliverIndentationType' =>
       PopupMenuButtonState<TreeSliverIndentationType>(),
@@ -708081,14 +708633,11 @@ Object? _rc2PopupMenuButtonState$leaf24(String typeName, dynamic visitor) {
     'VoidCallbackAction' => PopupMenuButtonState<VoidCallbackAction>(),
     'VoidCallbackIntent' => PopupMenuButtonState<VoidCallbackIntent>(),
     'WeakMap' => PopupMenuButtonState<WeakMap>(),
-    'WidgetInspector' => PopupMenuButtonState<WidgetInspector>(),
-    'WidgetOrderTraversalPolicy' =>
-      PopupMenuButtonState<WidgetOrderTraversalPolicy>(),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2PopupMenuButtonState` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuButtonState$leaf25(String typeName, dynamic visitor) {
   return switch (typeName) {
     'dynamic' => PopupMenuButtonState<dynamic>(),
@@ -708100,6 +708649,9 @@ Object? _rc2PopupMenuButtonState$leaf25(String typeName, dynamic visitor) {
     'double?' => PopupMenuButtonState<double?>(),
     'bool?' => PopupMenuButtonState<bool?>(),
     'num?' => PopupMenuButtonState<num?>(),
+    'WidgetInspector' => PopupMenuButtonState<WidgetInspector>(),
+    'WidgetOrderTraversalPolicy' =>
+      PopupMenuButtonState<WidgetOrderTraversalPolicy>(),
     'WidgetSpan' => PopupMenuButtonState<WidgetSpan>(),
     'WidgetStateMapper' => PopupMenuButtonState<WidgetStateMapper>(),
     'WidgetStatePropertyAll' => PopupMenuButtonState<WidgetStatePropertyAll>(),
@@ -708160,7 +708712,7 @@ Object? _rc2PopupMenuItem(
   final child = named.containsKey('child')
       ? D4.extractBridgedArg<Widget?>(named['child'], 'child')
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -708305,7 +708857,7 @@ Object? _rc2PopupMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2PopupMenuItem$leaf9(
           typeName,
@@ -708337,7 +708889,7 @@ Object? _rc2PopupMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2PopupMenuItem$leaf11(
         typeName,
         visitor,
@@ -708368,9 +708920,9 @@ Object? _rc2PopupMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2PopupMenuItem$leaf13(
           typeName,
           visitor,
@@ -708386,7 +708938,7 @@ Object? _rc2PopupMenuItem(
           child,
         );
       }
-      if (typeName.compareTo('PredictiveBackEvent') < 0) {
+      if (typeName.compareTo('PositionedTransition') < 0) {
         return _rc2PopupMenuItem$leaf14(
           typeName,
           visitor,
@@ -708417,7 +708969,7 @@ Object? _rc2PopupMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2PopupMenuItem$leaf16(
         typeName,
         visitor,
@@ -708433,7 +708985,7 @@ Object? _rc2PopupMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2PopupMenuItem$leaf17(
         typeName,
         visitor,
@@ -708464,8 +709016,8 @@ Object? _rc2PopupMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2PopupMenuItem$leaf19(
         typeName,
         visitor,
@@ -708481,7 +709033,7 @@ Object? _rc2PopupMenuItem(
         child,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2PopupMenuItem$leaf20(
         typeName,
         visitor,
@@ -708512,8 +709064,8 @@ Object? _rc2PopupMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2PopupMenuItem$leaf22(
         typeName,
         visitor,
@@ -708544,7 +709096,7 @@ Object? _rc2PopupMenuItem(
       child,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2PopupMenuItem$leaf24(
       typeName,
       visitor,
@@ -719750,7 +720302,7 @@ Object? _rc2PopupMenuItem$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuItem$leaf10(
   String typeName,
   dynamic visitor,
@@ -720265,6 +720817,23 @@ Object? _rc2PopupMenuItem$leaf10(
     'InteractiveViewer' => PopupMenuItem<InteractiveViewer>(
       key: key,
       value: value as InteractiveViewer?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'IntersectionResult' => PopupMenuItem<IntersectionResult>(
+      key: key,
+      value: value as IntersectionResult?,
       onTap: onTap == null
           ? null
           : () async {
@@ -720841,6 +721410,26 @@ Object? _rc2PopupMenuItem$leaf10(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'LineBoundary' => PopupMenuItem<LineBoundary>(
       key: key,
       value: value as LineBoundary?,
@@ -720858,26 +721447,6 @@ Object? _rc2PopupMenuItem$leaf10(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'LineMetrics' => PopupMenuItem<LineMetrics>(
       key: key,
       value: value as LineMetrics?,
@@ -721954,6 +722523,26 @@ Object? _rc2PopupMenuItem$leaf11(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'MediaQuery' => PopupMenuItem<MediaQuery>(
       key: key,
       value: value as MediaQuery?,
@@ -721971,26 +722560,6 @@ Object? _rc2PopupMenuItem$leaf11(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'MediaQueryData' => PopupMenuItem<MediaQueryData>(
       key: key,
       value: value as MediaQueryData?,
@@ -723066,28 +723635,11 @@ Object? _rc2PopupMenuItem$leaf12(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    'NumericFocusOrder' => PopupMenuItem<NumericFocusOrder>(
-      key: key,
-      value: value as NumericFocusOrder?,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
-      padding: padding,
-      textStyle: textStyle,
-      labelTextStyle: labelTextStyle,
-      mouseCursor: mouseCursor,
-      child: child,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuItem$leaf13(
   String typeName,
   dynamic visitor,
@@ -723106,6 +723658,23 @@ Object? _rc2PopupMenuItem$leaf13(
     'Object' || 'Object?' => PopupMenuItem<dynamic>(
       key: key,
       value: value,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'NumericFocusOrder' => PopupMenuItem<NumericFocusOrder>(
+      key: key,
+      value: value as NumericFocusOrder?,
       onTap: onTap == null
           ? null
           : () async {
@@ -724163,6 +724732,26 @@ Object? _rc2PopupMenuItem$leaf13(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PercentProperty' to 'PositionedDirectional' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'PercentProperty' => PopupMenuItem<PercentProperty>(
       key: key,
       value: value as PercentProperty?,
@@ -724180,26 +724769,6 @@ Object? _rc2PopupMenuItem$leaf13(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedTransition' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       PopupMenuItem<PerformanceModeRequestHandle>(
         key: key,
@@ -725278,6 +725847,26 @@ Object? _rc2PopupMenuItem$leaf14(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedTransition' to 'RelativeRectTween' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'PositionedTransition' => PopupMenuItem<PositionedTransition>(
       key: key,
       value: value as PositionedTransition?,
@@ -725295,26 +725884,6 @@ Object? _rc2PopupMenuItem$leaf14(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PredictiveBackEvent' to 'RenderAndroidView' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'PredictiveBackEvent' => PopupMenuItem<PredictiveBackEvent>(
       key: key,
       value: value as PredictiveBackEvent?,
@@ -725541,6 +726110,23 @@ Object? _rc2PopupMenuItem$leaf15(
     'ProxyAnimation' => PopupMenuItem<ProxyAnimation>(
       key: key,
       value: value as ProxyAnimation?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'Quad' => PopupMenuItem<Quad>(
+      key: key,
+      value: value as Quad?,
       onTap: onTap == null
           ? null
           : () async {
@@ -726376,6 +726962,26 @@ Object? _rc2PopupMenuItem$leaf15(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => PopupMenuItem<RenderAbsorbPointer>(
       key: key,
       value: value as RenderAbsorbPointer?,
@@ -726410,26 +727016,6 @@ Object? _rc2PopupMenuItem$leaf15(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => PopupMenuItem<RenderAnimatedOpacity>(
       key: key,
       value: value as RenderAnimatedOpacity?,
@@ -727491,6 +728077,26 @@ Object? _rc2PopupMenuItem$leaf16(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       PopupMenuItem<RenderShrinkWrappingViewport>(
         key: key,
@@ -727526,26 +728132,6 @@ Object? _rc2PopupMenuItem$leaf16(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => PopupMenuItem<RenderSliverAnimatedOpacity>(
       key: key,
       value: value as RenderSliverAnimatedOpacity?,
@@ -728609,6 +729195,26 @@ Object? _rc2PopupMenuItem$leaf17(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RestorationBucket' => PopupMenuItem<RestorationBucket>(
       key: key,
       value: value as RestorationBucket?,
@@ -728643,26 +729249,6 @@ Object? _rc2PopupMenuItem$leaf17(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RestorationScope' => PopupMenuItem<RestorationScope>(
       key: key,
       value: value as RestorationScope?,
@@ -729724,6 +730310,26 @@ Object? _rc2PopupMenuItem$leaf18(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'Scrollable' => PopupMenuItem<Scrollable>(
       key: key,
       value: value as Scrollable?,
@@ -729758,26 +730364,6 @@ Object? _rc2PopupMenuItem$leaf18(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ScrollableState' => PopupMenuItem<ScrollableState>(
       key: key,
       value: value as ScrollableState?,
@@ -730834,6 +731420,26 @@ Object? _rc2PopupMenuItem$leaf19(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => PopupMenuItem<ShaderMaskLayer>(
       key: key,
       value: value as ShaderMaskLayer?,
@@ -730868,26 +731474,6 @@ Object? _rc2PopupMenuItem$leaf19(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => PopupMenuItem<ShapeBorderClipper>(
       key: key,
       value: value as ShapeBorderClipper?,
@@ -731947,46 +732533,11 @@ Object? _rc2PopupMenuItem$leaf20(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    'SliverMainAxisGroup' => PopupMenuItem<SliverMainAxisGroup>(
-      key: key,
-      value: value as SliverMainAxisGroup?,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
-      padding: padding,
-      textStyle: textStyle,
-      labelTextStyle: labelTextStyle,
-      mouseCursor: mouseCursor,
-      child: child,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      PopupMenuItem<SliverMultiBoxAdaptorElement>(
-        key: key,
-        value: value as SliverMultiBoxAdaptorElement?,
-        onTap: onTap == null
-            ? null
-            : () async {
-                D4.callInterpreterCallback(visitor, onTap, []);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        enabled: enabled ?? true,
-        height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
-        padding: padding,
-        textStyle: textStyle,
-        labelTextStyle: labelTextStyle,
-        mouseCursor: mouseCursor,
-        child: child,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuItem$leaf21(
   String typeName,
   dynamic visitor,
@@ -732036,6 +732587,41 @@ Object? _rc2PopupMenuItem$leaf21(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    'SliverMainAxisGroup' => PopupMenuItem<SliverMainAxisGroup>(
+      key: key,
+      value: value as SliverMainAxisGroup?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      PopupMenuItem<SliverMultiBoxAdaptorElement>(
+        key: key,
+        value: value as SliverMultiBoxAdaptorElement?,
+        onTap: onTap == null
+            ? null
+            : () async {
+                D4.callInterpreterCallback(visitor, onTap, []);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        enabled: enabled ?? true,
+        height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+        padding: padding,
+        textStyle: textStyle,
+        labelTextStyle: labelTextStyle,
+        mouseCursor: mouseCursor,
+        child: child,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       PopupMenuItem<SliverMultiBoxAdaptorParentData>(
         key: key,
@@ -733063,6 +733649,26 @@ Object? _rc2PopupMenuItem$leaf21(
         mouseCursor: mouseCursor,
         child: child,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'SweepGradient' => PopupMenuItem<SweepGradient>(
       key: key,
       value: value as SweepGradient?,
@@ -733097,26 +733703,6 @@ Object? _rc2PopupMenuItem$leaf21(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'SwitchListTile' => PopupMenuItem<SwitchListTile>(
       key: key,
       value: value as SwitchListTile?,
@@ -734173,6 +734759,26 @@ Object? _rc2PopupMenuItem$leaf22(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TextInputStyle' => PopupMenuItem<TextInputStyle>(
       key: key,
       value: value as TextInputStyle?,
@@ -734207,26 +734813,6 @@ Object? _rc2PopupMenuItem$leaf22(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TextMagnifier' => PopupMenuItem<TextMagnifier>(
       key: key,
       value: value as TextMagnifier?,
@@ -735286,6 +735872,26 @@ Object? _rc2PopupMenuItem$leaf23(
       mouseCursor: mouseCursor,
       child: child,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PopupMenuItem$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? onTap,
+  bool? enabled,
+  double? height,
+  EdgeInsets? padding,
+  TextStyle? textStyle,
+  WidgetStateProperty<TextStyle?>? labelTextStyle,
+  MouseCursor? mouseCursor,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => PopupMenuItem<TransposeCharactersIntent>(
       key: key,
       value: value as TransposeCharactersIntent?,
@@ -735320,26 +735926,6 @@ Object? _rc2PopupMenuItem$leaf23(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2PopupMenuItem$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? onTap,
-  bool? enabled,
-  double? height,
-  EdgeInsets? padding,
-  TextStyle? textStyle,
-  WidgetStateProperty<TextStyle?>? labelTextStyle,
-  MouseCursor? mouseCursor,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TreeSliverController' => PopupMenuItem<TreeSliverController>(
       key: key,
       value: value as TreeSliverController?,
@@ -736400,45 +736986,11 @@ Object? _rc2PopupMenuItem$leaf24(
       mouseCursor: mouseCursor,
       child: child,
     ),
-    'WidgetInspector' => PopupMenuItem<WidgetInspector>(
-      key: key,
-      value: value as WidgetInspector?,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
-      padding: padding,
-      textStyle: textStyle,
-      labelTextStyle: labelTextStyle,
-      mouseCursor: mouseCursor,
-      child: child,
-    ),
-    'WidgetOrderTraversalPolicy' => PopupMenuItem<WidgetOrderTraversalPolicy>(
-      key: key,
-      value: value as WidgetOrderTraversalPolicy?,
-      onTap: onTap == null
-          ? null
-          : () async {
-              D4.callInterpreterCallback(visitor, onTap, []);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      enabled: enabled ?? true,
-      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
-      padding: padding,
-      textStyle: textStyle,
-      labelTextStyle: labelTextStyle,
-      mouseCursor: mouseCursor,
-      child: child,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2PopupMenuItem` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2PopupMenuItem$leaf25(
   String typeName,
   dynamic visitor,
@@ -736593,6 +737145,40 @@ Object? _rc2PopupMenuItem$leaf25(
     'num?' => PopupMenuItem<num?>(
       key: key,
       value: value as num?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'WidgetInspector' => PopupMenuItem<WidgetInspector>(
+      key: key,
+      value: value as WidgetInspector?,
+      onTap: onTap == null
+          ? null
+          : () async {
+              D4.callInterpreterCallback(visitor, onTap, []);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      enabled: enabled ?? true,
+      height: (height as num?)?.toDouble() ?? kMinInteractiveDimension,
+      padding: padding,
+      textStyle: textStyle,
+      labelTextStyle: labelTextStyle,
+      mouseCursor: mouseCursor,
+      child: child,
+    ),
+    'WidgetOrderTraversalPolicy' => PopupMenuItem<WidgetOrderTraversalPolicy>(
+      key: key,
+      value: value as WidgetOrderTraversalPolicy?,
       onTap: onTap == null
           ? null
           : () async {
@@ -736924,7 +737510,7 @@ Object? _rc2Radio(
   // GEN-102: Fall through to default bridge constructor when a required
   // T-typed value is null and the type argument is not nullable.
   if (!typeName.endsWith('?') && (value == null)) return null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -737168,7 +737754,7 @@ Object? _rc2Radio(
         innerRadius,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2Radio$leaf9(
           typeName,
@@ -737222,7 +737808,7 @@ Object? _rc2Radio(
         innerRadius,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2Radio$leaf11(
         typeName,
         visitor,
@@ -737275,9 +737861,9 @@ Object? _rc2Radio(
       innerRadius,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2Radio$leaf13(
           typeName,
           visitor,
@@ -737304,7 +737890,7 @@ Object? _rc2Radio(
           innerRadius,
         );
       }
-      if (typeName.compareTo('PositionedTransition') < 0) {
+      if (typeName.compareTo('PositionedDirectional') < 0) {
         return _rc2Radio$leaf14(
           typeName,
           visitor,
@@ -737357,7 +737943,7 @@ Object? _rc2Radio(
         innerRadius,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2Radio$leaf16(
         typeName,
         visitor,
@@ -737384,7 +737970,7 @@ Object? _rc2Radio(
         innerRadius,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2Radio$leaf17(
         typeName,
         visitor,
@@ -737437,8 +738023,8 @@ Object? _rc2Radio(
       innerRadius,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2Radio$leaf19(
         typeName,
         visitor,
@@ -737465,7 +738051,7 @@ Object? _rc2Radio(
         innerRadius,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2Radio$leaf20(
         typeName,
         visitor,
@@ -737518,8 +738104,8 @@ Object? _rc2Radio(
       innerRadius,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2Radio$leaf22(
         typeName,
         visitor,
@@ -737572,7 +738158,7 @@ Object? _rc2Radio(
       innerRadius,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2Radio$leaf24(
       typeName,
       visitor,
@@ -758137,7 +758723,7 @@ Object? _rc2Radio$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio$leaf10(
   String typeName,
   dynamic visitor,
@@ -759099,6 +759685,38 @@ Object? _rc2Radio$leaf10(
       enabled: enabled,
       groupRegistry: D4
           .extractBridgedArg<RadioGroupRegistry<InteractiveViewer>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'IntersectionResult' => Radio<IntersectionResult>(
+      key: key,
+      value: value as IntersectionResult,
+      groupValue: groupValue as IntersectionResult?,
+      onChanged: onChanged == null
+          ? null
+          : (IntersectionResult? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<IntersectionResult>?>(
             groupRegistry,
             'groupRegistry',
           ),
@@ -760143,6 +760761,37 @@ Object? _rc2Radio$leaf10(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'LineBoundary' => Radio<LineBoundary>(
       key: key,
       value: value as LineBoundary,
@@ -760174,37 +760823,6 @@ Object? _rc2Radio$leaf10(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'LineMetrics' => Radio<LineMetrics>(
       key: key,
       value: value as LineMetrics,
@@ -762193,6 +762811,37 @@ Object? _rc2Radio$leaf11(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'MediaQuery' => Radio<MediaQuery>(
       key: key,
       value: value as MediaQuery,
@@ -762224,37 +762873,6 @@ Object? _rc2Radio$leaf11(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'MediaQueryData' => Radio<MediaQueryData>(
       key: key,
       value: value as MediaQueryData,
@@ -764241,43 +764859,11 @@ Object? _rc2Radio$leaf12(
       side: side,
       innerRadius: innerRadius,
     ),
-    'NumericFocusOrder' => Radio<NumericFocusOrder>(
-      key: key,
-      value: value as NumericFocusOrder,
-      groupValue: groupValue as NumericFocusOrder?,
-      onChanged: onChanged == null
-          ? null
-          : (NumericFocusOrder? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<NumericFocusOrder>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio$leaf13(
   String typeName,
   dynamic visitor,
@@ -764331,6 +764917,38 @@ Object? _rc2Radio$leaf13(
         groupRegistry,
         'groupRegistry',
       ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'NumericFocusOrder' => Radio<NumericFocusOrder>(
+      key: key,
+      value: value as NumericFocusOrder,
+      groupValue: groupValue as NumericFocusOrder?,
+      onChanged: onChanged == null
+          ? null
+          : (NumericFocusOrder? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<NumericFocusOrder>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
       backgroundColor: backgroundColor,
       side: side,
       innerRadius: innerRadius,
@@ -766253,6 +766871,37 @@ Object? _rc2Radio$leaf13(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PercentProperty' to 'Positioned' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'PercentProperty' => Radio<PercentProperty>(
       key: key,
       value: value as PercentProperty,
@@ -766284,37 +766933,6 @@ Object? _rc2Radio$leaf13(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'PerformanceModeRequestHandle' => Radio<PerformanceModeRequestHandle>(
       key: key,
       value: value as PerformanceModeRequestHandle,
@@ -768312,6 +768930,37 @@ Object? _rc2Radio$leaf14(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedDirectional' to 'RelativeRectTween' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'PositionedDirectional' => Radio<PositionedDirectional>(
       key: key,
       value: value as PositionedDirectional,
@@ -768344,37 +768993,6 @@ Object? _rc2Radio$leaf14(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PositionedTransition' to 'RenderAndroidView' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'PositionedTransition' => Radio<PositionedTransition>(
       key: key,
       value: value as PositionedTransition,
@@ -768848,6 +769466,37 @@ Object? _rc2Radio$leaf15(
       autofocus: autofocus ?? false,
       enabled: enabled,
       groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<ProxyAnimation>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'Quad' => Radio<Quad>(
+      key: key,
+      value: value as Quad,
+      groupValue: groupValue as Quad?,
+      onChanged: onChanged == null
+          ? null
+          : (Quad? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<Quad>?>(
         groupRegistry,
         'groupRegistry',
       ),
@@ -770329,6 +770978,37 @@ Object? _rc2Radio$leaf15(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => Radio<RenderAbsorbPointer>(
       key: key,
       value: value as RenderAbsorbPointer,
@@ -770393,37 +771073,6 @@ Object? _rc2Radio$leaf15(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => Radio<RenderAnimatedOpacity>(
       key: key,
       value: value as RenderAnimatedOpacity,
@@ -772386,6 +773035,37 @@ Object? _rc2Radio$leaf16(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' => Radio<RenderShrinkWrappingViewport>(
       key: key,
       value: value as RenderShrinkWrappingViewport,
@@ -772450,37 +773130,6 @@ Object? _rc2Radio$leaf16(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => Radio<RenderSliverAnimatedOpacity>(
       key: key,
       value: value as RenderSliverAnimatedOpacity,
@@ -774444,6 +775093,37 @@ Object? _rc2Radio$leaf17(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'RestorationBucket' => Radio<RestorationBucket>(
       key: key,
       value: value as RestorationBucket,
@@ -774508,37 +775188,6 @@ Object? _rc2Radio$leaf17(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'RestorationScope' => Radio<RestorationScope>(
       key: key,
       value: value as RestorationScope,
@@ -776497,6 +777146,37 @@ Object? _rc2Radio$leaf18(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'Scrollable' => Radio<Scrollable>(
       key: key,
       value: value as Scrollable,
@@ -776560,37 +777240,6 @@ Object? _rc2Radio$leaf18(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'ScrollableState' => Radio<ScrollableState>(
       key: key,
       value: value as ScrollableState,
@@ -778550,6 +779199,37 @@ Object? _rc2Radio$leaf19(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => Radio<ShaderMaskLayer>(
       key: key,
       value: value as ShaderMaskLayer,
@@ -778612,37 +779292,6 @@ Object? _rc2Radio$leaf19(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => Radio<ShapeBorderClipper>(
       key: key,
       value: value as ShapeBorderClipper,
@@ -780607,75 +781256,11 @@ Object? _rc2Radio$leaf20(
       side: side,
       innerRadius: innerRadius,
     ),
-    'SliverMainAxisGroup' => Radio<SliverMainAxisGroup>(
-      key: key,
-      value: value as SliverMainAxisGroup,
-      groupValue: groupValue as SliverMainAxisGroup?,
-      onChanged: onChanged == null
-          ? null
-          : (SliverMainAxisGroup? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<SliverMainAxisGroup>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
-    'SliverMultiBoxAdaptorElement' => Radio<SliverMultiBoxAdaptorElement>(
-      key: key,
-      value: value as SliverMultiBoxAdaptorElement,
-      groupValue: groupValue as SliverMultiBoxAdaptorElement?,
-      onChanged: onChanged == null
-          ? null
-          : (SliverMultiBoxAdaptorElement? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<SliverMultiBoxAdaptorElement>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio$leaf21(
   String typeName,
   dynamic visitor,
@@ -780760,6 +781345,70 @@ Object? _rc2Radio$leaf21(
         groupRegistry,
         'groupRegistry',
       ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'SliverMainAxisGroup' => Radio<SliverMainAxisGroup>(
+      key: key,
+      value: value as SliverMainAxisGroup,
+      groupValue: groupValue as SliverMainAxisGroup?,
+      onChanged: onChanged == null
+          ? null
+          : (SliverMainAxisGroup? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<SliverMainAxisGroup>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'SliverMultiBoxAdaptorElement' => Radio<SliverMultiBoxAdaptorElement>(
+      key: key,
+      value: value as SliverMultiBoxAdaptorElement,
+      groupValue: groupValue as SliverMultiBoxAdaptorElement?,
+      onChanged: onChanged == null
+          ? null
+          : (SliverMultiBoxAdaptorElement? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<SliverMultiBoxAdaptorElement>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
       backgroundColor: backgroundColor,
       side: side,
       innerRadius: innerRadius,
@@ -782652,6 +783301,37 @@ Object? _rc2Radio$leaf21(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'SweepGradient' => Radio<SweepGradient>(
       key: key,
       value: value as SweepGradient,
@@ -782714,37 +783394,6 @@ Object? _rc2Radio$leaf21(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'SwitchListTile' => Radio<SwitchListTile>(
       key: key,
       value: value as SwitchListTile,
@@ -784698,6 +785347,37 @@ Object? _rc2Radio$leaf22(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'TextInputStyle' => Radio<TextInputStyle>(
       key: key,
       value: value as TextInputStyle,
@@ -784760,37 +785440,6 @@ Object? _rc2Radio$leaf22(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'TextMagnifier' => Radio<TextMagnifier>(
       key: key,
       value: value as TextMagnifier,
@@ -786740,6 +787389,37 @@ Object? _rc2Radio$leaf23(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => Radio<TransposeCharactersIntent>(
       key: key,
       value: value as TransposeCharactersIntent,
@@ -786803,37 +787483,6 @@ Object? _rc2Radio$leaf23(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'TreeSliverController' => Radio<TreeSliverController>(
       key: key,
       value: value as TreeSliverController,
@@ -788783,74 +789432,11 @@ Object? _rc2Radio$leaf24(
       side: side,
       innerRadius: innerRadius,
     ),
-    'WidgetInspector' => Radio<WidgetInspector>(
-      key: key,
-      value: value as WidgetInspector,
-      groupValue: groupValue as WidgetInspector?,
-      onChanged: onChanged == null
-          ? null
-          : (WidgetInspector? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      enabled: enabled,
-      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<WidgetInspector>?>(
-        groupRegistry,
-        'groupRegistry',
-      ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
-    'WidgetOrderTraversalPolicy' => Radio<WidgetOrderTraversalPolicy>(
-      key: key,
-      value: value as WidgetOrderTraversalPolicy,
-      groupValue: groupValue as WidgetOrderTraversalPolicy?,
-      onChanged: onChanged == null
-          ? null
-          : (WidgetOrderTraversalPolicy? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<WidgetOrderTraversalPolicy>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2Radio` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio$leaf25(
   String typeName,
   dynamic visitor,
@@ -789152,6 +789738,69 @@ Object? _rc2Radio$leaf25(
         groupRegistry,
         'groupRegistry',
       ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'WidgetInspector' => Radio<WidgetInspector>(
+      key: key,
+      value: value as WidgetInspector,
+      groupValue: groupValue as WidgetInspector?,
+      onChanged: onChanged == null
+          ? null
+          : (WidgetInspector? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<WidgetInspector>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'WidgetOrderTraversalPolicy' => Radio<WidgetOrderTraversalPolicy>(
+      key: key,
+      value: value as WidgetOrderTraversalPolicy,
+      groupValue: groupValue as WidgetOrderTraversalPolicy?,
+      onChanged: onChanged == null
+          ? null
+          : (WidgetOrderTraversalPolicy? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<WidgetOrderTraversalPolicy>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
       backgroundColor: backgroundColor,
       side: side,
       innerRadius: innerRadius,
@@ -789665,7 +790314,7 @@ Object? _rc2Radio_adaptive(
   // GEN-102: Fall through to default bridge constructor when a required
   // T-typed value is null and the type argument is not nullable.
   if (!typeName.endsWith('?') && (value == null)) return null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -789918,7 +790567,7 @@ Object? _rc2Radio_adaptive(
         innerRadius,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2Radio_adaptive$leaf9(
           typeName,
@@ -789974,7 +790623,7 @@ Object? _rc2Radio_adaptive(
         innerRadius,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2Radio_adaptive$leaf11(
         typeName,
         visitor,
@@ -790029,9 +790678,9 @@ Object? _rc2Radio_adaptive(
       innerRadius,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2Radio_adaptive$leaf13(
           typeName,
           visitor,
@@ -790059,7 +790708,7 @@ Object? _rc2Radio_adaptive(
           innerRadius,
         );
       }
-      if (typeName.compareTo('PositionedTransition') < 0) {
+      if (typeName.compareTo('PositionedDirectional') < 0) {
         return _rc2Radio_adaptive$leaf14(
           typeName,
           visitor,
@@ -790114,7 +790763,7 @@ Object? _rc2Radio_adaptive(
         innerRadius,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2Radio_adaptive$leaf16(
         typeName,
         visitor,
@@ -790142,7 +790791,7 @@ Object? _rc2Radio_adaptive(
         innerRadius,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2Radio_adaptive$leaf17(
         typeName,
         visitor,
@@ -790197,8 +790846,8 @@ Object? _rc2Radio_adaptive(
       innerRadius,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2Radio_adaptive$leaf19(
         typeName,
         visitor,
@@ -790226,7 +790875,7 @@ Object? _rc2Radio_adaptive(
         innerRadius,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2Radio_adaptive$leaf20(
         typeName,
         visitor,
@@ -790281,8 +790930,8 @@ Object? _rc2Radio_adaptive(
       innerRadius,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2Radio_adaptive$leaf22(
         typeName,
         visitor,
@@ -790337,7 +790986,7 @@ Object? _rc2Radio_adaptive(
       innerRadius,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2Radio_adaptive$leaf24(
       typeName,
       visitor,
@@ -811583,7 +812232,7 @@ Object? _rc2Radio_adaptive$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio_adaptive$leaf10(
   String typeName,
   dynamic visitor,
@@ -812578,6 +813227,39 @@ Object? _rc2Radio_adaptive$leaf10(
       enabled: enabled,
       groupRegistry: D4
           .extractBridgedArg<RadioGroupRegistry<InteractiveViewer>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'IntersectionResult' => Radio<IntersectionResult>.adaptive(
+      key: key,
+      value: value as IntersectionResult,
+      groupValue: groupValue as IntersectionResult?,
+      onChanged: onChanged == null
+          ? null
+          : (IntersectionResult? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<IntersectionResult>?>(
             groupRegistry,
             'groupRegistry',
           ),
@@ -813655,6 +814337,38 @@ Object? _rc2Radio_adaptive$leaf10(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf11(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'LineBoundary' => Radio<LineBoundary>.adaptive(
       key: key,
       value: value as LineBoundary,
@@ -813687,38 +814401,6 @@ Object? _rc2Radio_adaptive$leaf10(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf11(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'LineMetrics' => Radio<LineMetrics>.adaptive(
       key: key,
       value: value as LineMetrics,
@@ -815773,6 +816455,38 @@ Object? _rc2Radio_adaptive$leaf11(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf12(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'MediaQuery' => Radio<MediaQuery>.adaptive(
       key: key,
       value: value as MediaQuery,
@@ -815805,38 +816519,6 @@ Object? _rc2Radio_adaptive$leaf11(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf12(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'MediaQueryData' => Radio<MediaQueryData>.adaptive(
       key: key,
       value: value as MediaQueryData,
@@ -817889,44 +818571,11 @@ Object? _rc2Radio_adaptive$leaf12(
       side: side,
       innerRadius: innerRadius,
     ),
-    'NumericFocusOrder' => Radio<NumericFocusOrder>.adaptive(
-      key: key,
-      value: value as NumericFocusOrder,
-      groupValue: groupValue as NumericFocusOrder?,
-      onChanged: onChanged == null
-          ? null
-          : (NumericFocusOrder? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<NumericFocusOrder>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio_adaptive$leaf13(
   String typeName,
   dynamic visitor,
@@ -817982,6 +818631,39 @@ Object? _rc2Radio_adaptive$leaf13(
         groupRegistry,
         'groupRegistry',
       ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'NumericFocusOrder' => Radio<NumericFocusOrder>.adaptive(
+      key: key,
+      value: value as NumericFocusOrder,
+      groupValue: groupValue as NumericFocusOrder?,
+      onChanged: onChanged == null
+          ? null
+          : (NumericFocusOrder? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<NumericFocusOrder>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
       backgroundColor: backgroundColor,
       side: side,
       innerRadius: innerRadius,
@@ -819967,6 +820649,38 @@ Object? _rc2Radio_adaptive$leaf13(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PercentProperty' to 'Positioned' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf14(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'PercentProperty' => Radio<PercentProperty>.adaptive(
       key: key,
       value: value as PercentProperty,
@@ -819999,38 +820713,6 @@ Object? _rc2Radio_adaptive$leaf13(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf14(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'PerformanceModeRequestHandle' =>
       Radio<PerformanceModeRequestHandle>.adaptive(
         key: key,
@@ -822094,6 +822776,38 @@ Object? _rc2Radio_adaptive$leaf14(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'PositionedDirectional' to 'RelativeRectTween' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf15(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'PositionedDirectional' => Radio<PositionedDirectional>.adaptive(
       key: key,
       value: value as PositionedDirectional,
@@ -822127,38 +822841,6 @@ Object? _rc2Radio_adaptive$leaf14(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'PositionedTransition' to 'RenderAndroidView' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf15(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'PositionedTransition' => Radio<PositionedTransition>.adaptive(
       key: key,
       value: value as PositionedTransition,
@@ -822647,6 +823329,38 @@ Object? _rc2Radio_adaptive$leaf15(
       useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
       enabled: enabled,
       groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<ProxyAnimation>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'Quad' => Radio<Quad>.adaptive(
+      key: key,
+      value: value as Quad,
+      groupValue: groupValue as Quad?,
+      onChanged: onChanged == null
+          ? null
+          : (Quad? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<Quad>?>(
         groupRegistry,
         'groupRegistry',
       ),
@@ -824176,6 +824890,38 @@ Object? _rc2Radio_adaptive$leaf15(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => Radio<RenderAbsorbPointer>.adaptive(
       key: key,
       value: value as RenderAbsorbPointer,
@@ -824242,38 +824988,6 @@ Object? _rc2Radio_adaptive$leaf15(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => Radio<RenderAnimatedOpacity>.adaptive(
       key: key,
       value: value as RenderAnimatedOpacity,
@@ -826302,6 +827016,38 @@ Object? _rc2Radio_adaptive$leaf16(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' =>
       Radio<RenderShrinkWrappingViewport>.adaptive(
         key: key,
@@ -826368,38 +827114,6 @@ Object? _rc2Radio_adaptive$leaf16(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' =>
       Radio<RenderSliverAnimatedOpacity>.adaptive(
         key: key,
@@ -828426,6 +829140,38 @@ Object? _rc2Radio_adaptive$leaf17(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'RestorationBucket' => Radio<RestorationBucket>.adaptive(
       key: key,
       value: value as RestorationBucket,
@@ -828492,38 +829238,6 @@ Object? _rc2Radio_adaptive$leaf17(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'RestorationScope' => Radio<RestorationScope>.adaptive(
       key: key,
       value: value as RestorationScope,
@@ -830548,6 +831262,38 @@ Object? _rc2Radio_adaptive$leaf18(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'Scrollable' => Radio<Scrollable>.adaptive(
       key: key,
       value: value as Scrollable,
@@ -830613,38 +831359,6 @@ Object? _rc2Radio_adaptive$leaf18(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'ScrollableState' => Radio<ScrollableState>.adaptive(
       key: key,
       value: value as ScrollableState,
@@ -832667,6 +833381,38 @@ Object? _rc2Radio_adaptive$leaf19(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => Radio<ShaderMaskLayer>.adaptive(
       key: key,
       value: value as ShaderMaskLayer,
@@ -832731,38 +833477,6 @@ Object? _rc2Radio_adaptive$leaf19(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => Radio<ShapeBorderClipper>.adaptive(
       key: key,
       value: value as ShapeBorderClipper,
@@ -834791,77 +835505,11 @@ Object? _rc2Radio_adaptive$leaf20(
       side: side,
       innerRadius: innerRadius,
     ),
-    'SliverMainAxisGroup' => Radio<SliverMainAxisGroup>.adaptive(
-      key: key,
-      value: value as SliverMainAxisGroup,
-      groupValue: groupValue as SliverMainAxisGroup?,
-      onChanged: onChanged == null
-          ? null
-          : (SliverMainAxisGroup? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<SliverMainAxisGroup>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
-    'SliverMultiBoxAdaptorElement' =>
-      Radio<SliverMultiBoxAdaptorElement>.adaptive(
-        key: key,
-        value: value as SliverMultiBoxAdaptorElement,
-        groupValue: groupValue as SliverMultiBoxAdaptorElement?,
-        onChanged: onChanged == null
-            ? null
-            : (SliverMultiBoxAdaptorElement? p0) async {
-                D4.callInterpreterCallback(visitor, onChanged, [p0]);
-                await Future.delayed(const Duration(milliseconds: 1));
-              },
-        mouseCursor: mouseCursor,
-        toggleable: toggleable ?? false,
-        activeColor: activeColor,
-        fillColor: fillColor,
-        focusColor: focusColor,
-        hoverColor: hoverColor,
-        overlayColor: overlayColor,
-        splashRadius: (splashRadius as num?)?.toDouble(),
-        materialTapTargetSize: materialTapTargetSize,
-        visualDensity: visualDensity,
-        focusNode: focusNode,
-        autofocus: autofocus ?? false,
-        useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
-        enabled: enabled,
-        groupRegistry: D4
-            .extractBridgedArg<
-              RadioGroupRegistry<SliverMultiBoxAdaptorElement>?
-            >(groupRegistry, 'groupRegistry'),
-        backgroundColor: backgroundColor,
-        side: side,
-        innerRadius: innerRadius,
-      ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio_adaptive$leaf21(
   String typeName,
   dynamic visitor,
@@ -834953,6 +835601,72 @@ Object? _rc2Radio_adaptive$leaf21(
       side: side,
       innerRadius: innerRadius,
     ),
+    'SliverMainAxisGroup' => Radio<SliverMainAxisGroup>.adaptive(
+      key: key,
+      value: value as SliverMainAxisGroup,
+      groupValue: groupValue as SliverMainAxisGroup?,
+      onChanged: onChanged == null
+          ? null
+          : (SliverMainAxisGroup? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<SliverMainAxisGroup>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'SliverMultiBoxAdaptorElement' =>
+      Radio<SliverMultiBoxAdaptorElement>.adaptive(
+        key: key,
+        value: value as SliverMultiBoxAdaptorElement,
+        groupValue: groupValue as SliverMultiBoxAdaptorElement?,
+        onChanged: onChanged == null
+            ? null
+            : (SliverMultiBoxAdaptorElement? p0) async {
+                D4.callInterpreterCallback(visitor, onChanged, [p0]);
+                await Future.delayed(const Duration(milliseconds: 1));
+              },
+        mouseCursor: mouseCursor,
+        toggleable: toggleable ?? false,
+        activeColor: activeColor,
+        fillColor: fillColor,
+        focusColor: focusColor,
+        hoverColor: hoverColor,
+        overlayColor: overlayColor,
+        splashRadius: (splashRadius as num?)?.toDouble(),
+        materialTapTargetSize: materialTapTargetSize,
+        visualDensity: visualDensity,
+        focusNode: focusNode,
+        autofocus: autofocus ?? false,
+        useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+        enabled: enabled,
+        groupRegistry: D4
+            .extractBridgedArg<
+              RadioGroupRegistry<SliverMultiBoxAdaptorElement>?
+            >(groupRegistry, 'groupRegistry'),
+        backgroundColor: backgroundColor,
+        side: side,
+        innerRadius: innerRadius,
+      ),
     'SliverMultiBoxAdaptorParentData' =>
       Radio<SliverMultiBoxAdaptorParentData>.adaptive(
         key: key,
@@ -836903,6 +837617,38 @@ Object? _rc2Radio_adaptive$leaf21(
         side: side,
         innerRadius: innerRadius,
       ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'SweepGradient' => Radio<SweepGradient>.adaptive(
       key: key,
       value: value as SweepGradient,
@@ -836967,38 +837713,6 @@ Object? _rc2Radio_adaptive$leaf21(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'SwitchListTile' => Radio<SwitchListTile>.adaptive(
       key: key,
       value: value as SwitchListTile,
@@ -839015,6 +839729,38 @@ Object? _rc2Radio_adaptive$leaf22(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'TextInputStyle' => Radio<TextInputStyle>.adaptive(
       key: key,
       value: value as TextInputStyle,
@@ -839079,38 +839825,6 @@ Object? _rc2Radio_adaptive$leaf22(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'TextMagnifier' => Radio<TextMagnifier>.adaptive(
       key: key,
       value: value as TextMagnifier,
@@ -841123,6 +841837,38 @@ Object? _rc2Radio_adaptive$leaf23(
       side: side,
       innerRadius: innerRadius,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2Radio_adaptive$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? value,
+  Object? groupValue,
+  Object? onChanged,
+  MouseCursor? mouseCursor,
+  bool? toggleable,
+  Color? activeColor,
+  WidgetStateProperty<Color?>? fillColor,
+  Color? focusColor,
+  Color? hoverColor,
+  WidgetStateProperty<Color?>? overlayColor,
+  double? splashRadius,
+  MaterialTapTargetSize? materialTapTargetSize,
+  VisualDensity? visualDensity,
+  FocusNode? focusNode,
+  bool? autofocus,
+  bool? useCupertinoCheckmarkStyle,
+  bool? enabled,
+  Object? groupRegistry,
+  WidgetStateProperty<Color?>? backgroundColor,
+  BorderSide? side,
+  WidgetStateProperty<double?>? innerRadius,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => Radio<TransposeCharactersIntent>.adaptive(
       key: key,
       value: value as TransposeCharactersIntent,
@@ -841188,38 +841934,6 @@ Object? _rc2Radio_adaptive$leaf23(
       side: side,
       innerRadius: innerRadius,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2Radio_adaptive$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? value,
-  Object? groupValue,
-  Object? onChanged,
-  MouseCursor? mouseCursor,
-  bool? toggleable,
-  Color? activeColor,
-  WidgetStateProperty<Color?>? fillColor,
-  Color? focusColor,
-  Color? hoverColor,
-  WidgetStateProperty<Color?>? overlayColor,
-  double? splashRadius,
-  MaterialTapTargetSize? materialTapTargetSize,
-  VisualDensity? visualDensity,
-  FocusNode? focusNode,
-  bool? autofocus,
-  bool? useCupertinoCheckmarkStyle,
-  bool? enabled,
-  Object? groupRegistry,
-  WidgetStateProperty<Color?>? backgroundColor,
-  BorderSide? side,
-  WidgetStateProperty<double?>? innerRadius,
-) {
-  return switch (typeName) {
     'TreeSliverController' => Radio<TreeSliverController>.adaptive(
       key: key,
       value: value as TreeSliverController,
@@ -843234,76 +843948,11 @@ Object? _rc2Radio_adaptive$leaf24(
       side: side,
       innerRadius: innerRadius,
     ),
-    'WidgetInspector' => Radio<WidgetInspector>.adaptive(
-      key: key,
-      value: value as WidgetInspector,
-      groupValue: groupValue as WidgetInspector?,
-      onChanged: onChanged == null
-          ? null
-          : (WidgetInspector? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
-      enabled: enabled,
-      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<WidgetInspector>?>(
-        groupRegistry,
-        'groupRegistry',
-      ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
-    'WidgetOrderTraversalPolicy' => Radio<WidgetOrderTraversalPolicy>.adaptive(
-      key: key,
-      value: value as WidgetOrderTraversalPolicy,
-      groupValue: groupValue as WidgetOrderTraversalPolicy?,
-      onChanged: onChanged == null
-          ? null
-          : (WidgetOrderTraversalPolicy? p0) async {
-              D4.callInterpreterCallback(visitor, onChanged, [p0]);
-              await Future.delayed(const Duration(milliseconds: 1));
-            },
-      mouseCursor: mouseCursor,
-      toggleable: toggleable ?? false,
-      activeColor: activeColor,
-      fillColor: fillColor,
-      focusColor: focusColor,
-      hoverColor: hoverColor,
-      overlayColor: overlayColor,
-      splashRadius: (splashRadius as num?)?.toDouble(),
-      materialTapTargetSize: materialTapTargetSize,
-      visualDensity: visualDensity,
-      focusNode: focusNode,
-      autofocus: autofocus ?? false,
-      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
-      enabled: enabled,
-      groupRegistry: D4
-          .extractBridgedArg<RadioGroupRegistry<WidgetOrderTraversalPolicy>?>(
-            groupRegistry,
-            'groupRegistry',
-          ),
-      backgroundColor: backgroundColor,
-      side: side,
-      innerRadius: innerRadius,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2Radio_adaptive` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2Radio_adaptive$leaf25(
   String typeName,
   dynamic visitor,
@@ -843615,6 +844264,71 @@ Object? _rc2Radio_adaptive$leaf25(
         groupRegistry,
         'groupRegistry',
       ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'WidgetInspector' => Radio<WidgetInspector>.adaptive(
+      key: key,
+      value: value as WidgetInspector,
+      groupValue: groupValue as WidgetInspector?,
+      onChanged: onChanged == null
+          ? null
+          : (WidgetInspector? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4.extractBridgedArg<RadioGroupRegistry<WidgetInspector>?>(
+        groupRegistry,
+        'groupRegistry',
+      ),
+      backgroundColor: backgroundColor,
+      side: side,
+      innerRadius: innerRadius,
+    ),
+    'WidgetOrderTraversalPolicy' => Radio<WidgetOrderTraversalPolicy>.adaptive(
+      key: key,
+      value: value as WidgetOrderTraversalPolicy,
+      groupValue: groupValue as WidgetOrderTraversalPolicy?,
+      onChanged: onChanged == null
+          ? null
+          : (WidgetOrderTraversalPolicy? p0) async {
+              D4.callInterpreterCallback(visitor, onChanged, [p0]);
+              await Future.delayed(const Duration(milliseconds: 1));
+            },
+      mouseCursor: mouseCursor,
+      toggleable: toggleable ?? false,
+      activeColor: activeColor,
+      fillColor: fillColor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      overlayColor: overlayColor,
+      splashRadius: (splashRadius as num?)?.toDouble(),
+      materialTapTargetSize: materialTapTargetSize,
+      visualDensity: visualDensity,
+      focusNode: focusNode,
+      autofocus: autofocus ?? false,
+      useCupertinoCheckmarkStyle: useCupertinoCheckmarkStyle ?? false,
+      enabled: enabled,
+      groupRegistry: D4
+          .extractBridgedArg<RadioGroupRegistry<WidgetOrderTraversalPolicy>?>(
+            groupRegistry,
+            'groupRegistry',
+          ),
       backgroundColor: backgroundColor,
       side: side,
       innerRadius: innerRadius,
@@ -844067,7 +844781,7 @@ Object? _rc2RadioGroup(
   final child = named.containsKey('child')
       ? D4.extractBridgedArg<Widget?>(named['child'], 'child')
       : null;
-  if (typeName.compareTo('Object') < 0) {
+  if (typeName.compareTo('NumericFocusOrder') < 0) {
     if (typeName.compareTo('DividerTheme') < 0) {
       if (typeName.compareTo('ClipPath') < 0) {
         if (typeName.compareTo('AppBarTheme') < 0) {
@@ -844158,7 +844872,7 @@ Object? _rc2RadioGroup(
         child,
       );
     }
-    if (typeName.compareTo('LineMetrics') < 0) {
+    if (typeName.compareTo('LineBoundary') < 0) {
       if (typeName.compareTo('ImageStreamListener') < 0) {
         return _rc2RadioGroup$leaf9(
           typeName,
@@ -844178,7 +844892,7 @@ Object? _rc2RadioGroup(
         child,
       );
     }
-    if (typeName.compareTo('MediaQueryData') < 0) {
+    if (typeName.compareTo('MediaQuery') < 0) {
       return _rc2RadioGroup$leaf11(
         typeName,
         visitor,
@@ -844197,9 +844911,9 @@ Object? _rc2RadioGroup(
       child,
     );
   }
-  if (typeName.compareTo('ScrollableState') < 0) {
-    if (typeName.compareTo('RenderAnimatedOpacity') < 0) {
-      if (typeName.compareTo('PerformanceModeRequestHandle') < 0) {
+  if (typeName.compareTo('Scrollable') < 0) {
+    if (typeName.compareTo('RenderAbsorbPointer') < 0) {
+      if (typeName.compareTo('PercentProperty') < 0) {
         return _rc2RadioGroup$leaf13(
           typeName,
           visitor,
@@ -844209,7 +844923,7 @@ Object? _rc2RadioGroup(
           child,
         );
       }
-      if (typeName.compareTo('PositionedTransition') < 0) {
+      if (typeName.compareTo('PositionedDirectional') < 0) {
         return _rc2RadioGroup$leaf14(
           typeName,
           visitor,
@@ -844228,7 +844942,7 @@ Object? _rc2RadioGroup(
         child,
       );
     }
-    if (typeName.compareTo('RenderSliverAnimatedOpacity') < 0) {
+    if (typeName.compareTo('RenderShrinkWrappingViewport') < 0) {
       return _rc2RadioGroup$leaf16(
         typeName,
         visitor,
@@ -844238,7 +844952,7 @@ Object? _rc2RadioGroup(
         child,
       );
     }
-    if (typeName.compareTo('RestorationScope') < 0) {
+    if (typeName.compareTo('RestorationBucket') < 0) {
       return _rc2RadioGroup$leaf17(
         typeName,
         visitor,
@@ -844257,8 +844971,8 @@ Object? _rc2RadioGroup(
       child,
     );
   }
-  if (typeName.compareTo('SwitchListTile') < 0) {
-    if (typeName.compareTo('ShapeBorderClipper') < 0) {
+  if (typeName.compareTo('SweepGradient') < 0) {
+    if (typeName.compareTo('ShaderMaskLayer') < 0) {
       return _rc2RadioGroup$leaf19(
         typeName,
         visitor,
@@ -844268,7 +844982,7 @@ Object? _rc2RadioGroup(
         child,
       );
     }
-    if (typeName.compareTo('SliverMultiBoxAdaptorParentData') < 0) {
+    if (typeName.compareTo('SliverMainAxisGroup') < 0) {
       return _rc2RadioGroup$leaf20(
         typeName,
         visitor,
@@ -844287,8 +845001,8 @@ Object? _rc2RadioGroup(
       child,
     );
   }
-  if (typeName.compareTo('TreeSliverController') < 0) {
-    if (typeName.compareTo('TextMagnifier') < 0) {
+  if (typeName.compareTo('TransposeCharactersIntent') < 0) {
+    if (typeName.compareTo('TextInputStyle') < 0) {
       return _rc2RadioGroup$leaf22(
         typeName,
         visitor,
@@ -844307,7 +845021,7 @@ Object? _rc2RadioGroup(
       child,
     );
   }
-  if (typeName.compareTo('WidgetSpan') < 0) {
+  if (typeName.compareTo('WidgetInspector') < 0) {
     return _rc2RadioGroup$leaf24(
       typeName,
       visitor,
@@ -850316,7 +851030,7 @@ Object? _rc2RadioGroup$leaf9(
   };
 }
 
-/// Selectors 'ImageStreamListener' to 'LineBoundary' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'ImageStreamListener' to 'LimitedBox' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf10(
   String typeName,
   dynamic visitor,
@@ -850594,6 +851308,15 @@ Object? _rc2RadioGroup$leaf10(
       key: key,
       groupValue: groupValue as InteractiveViewer?,
       onChanged: (InteractiveViewer? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'IntersectionResult' => RadioGroup<IntersectionResult>(
+      key: key,
+      groupValue: groupValue as IntersectionResult?,
+      onChanged: (IntersectionResult? p0) async {
         D4.callInterpreterCallback(visitor, onChanged, [p0]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -850897,20 +851620,11 @@ Object? _rc2RadioGroup$leaf10(
       },
       child: child!,
     ),
-    'LineBoundary' => RadioGroup<LineBoundary>(
-      key: key,
-      groupValue: groupValue as LineBoundary?,
-      onChanged: (LineBoundary? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'LineMetrics' to 'MediaQuery' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'LineBoundary' to 'MaxColumnWidth' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf11(
   String typeName,
   dynamic visitor,
@@ -850920,6 +851634,15 @@ Object? _rc2RadioGroup$leaf11(
   Widget? child,
 ) {
   return switch (typeName) {
+    'LineBoundary' => RadioGroup<LineBoundary>(
+      key: key,
+      groupValue: groupValue as LineBoundary?,
+      onChanged: (LineBoundary? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
     'LineMetrics' => RadioGroup<LineMetrics>(
       key: key,
       groupValue: groupValue as LineMetrics?,
@@ -851492,20 +852215,11 @@ Object? _rc2RadioGroup$leaf11(
       },
       child: child!,
     ),
-    'MediaQuery' => RadioGroup<MediaQuery>(
-      key: key,
-      groupValue: groupValue as MediaQuery?,
-      onChanged: (MediaQuery? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'MediaQueryData' to 'NumericFocusOrder' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'MediaQuery' to 'NotificationListener' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf12(
   String typeName,
   dynamic visitor,
@@ -851515,6 +852229,15 @@ Object? _rc2RadioGroup$leaf12(
   Widget? child,
 ) {
   return switch (typeName) {
+    'MediaQuery' => RadioGroup<MediaQuery>(
+      key: key,
+      groupValue: groupValue as MediaQuery?,
+      onChanged: (MediaQuery? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
     'MediaQueryData' => RadioGroup<MediaQueryData>(
       key: key,
       groupValue: groupValue as MediaQueryData?,
@@ -852085,20 +852808,11 @@ Object? _rc2RadioGroup$leaf12(
       },
       child: child!,
     ),
-    'NumericFocusOrder' => RadioGroup<NumericFocusOrder>(
-      key: key,
-      groupValue: groupValue as NumericFocusOrder?,
-      onChanged: (NumericFocusOrder? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'Object' to 'PercentProperty' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'NumericFocusOrder' to 'PathMetrics' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf13(
   String typeName,
   dynamic visitor,
@@ -852112,6 +852826,15 @@ Object? _rc2RadioGroup$leaf13(
       key: key,
       groupValue: groupValue,
       onChanged: (dynamic? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'NumericFocusOrder' => RadioGroup<NumericFocusOrder>(
+      key: key,
+      groupValue: groupValue as NumericFocusOrder?,
+      onChanged: (NumericFocusOrder? p0) async {
         D4.callInterpreterCallback(visitor, onChanged, [p0]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -852671,20 +853394,11 @@ Object? _rc2RadioGroup$leaf13(
       },
       child: child!,
     ),
-    'PercentProperty' => RadioGroup<PercentProperty>(
-      key: key,
-      groupValue: groupValue as PercentProperty?,
-      onChanged: (PercentProperty? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PerformanceModeRequestHandle' to 'PositionedDirectional' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PercentProperty' to 'Positioned' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf14(
   String typeName,
   dynamic visitor,
@@ -852694,6 +853408,15 @@ Object? _rc2RadioGroup$leaf14(
   Widget? child,
 ) {
   return switch (typeName) {
+    'PercentProperty' => RadioGroup<PercentProperty>(
+      key: key,
+      groupValue: groupValue as PercentProperty?,
+      onChanged: (PercentProperty? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
     'PerformanceModeRequestHandle' => RadioGroup<PerformanceModeRequestHandle>(
       key: key,
       groupValue: groupValue as PerformanceModeRequestHandle?,
@@ -853267,20 +853990,11 @@ Object? _rc2RadioGroup$leaf14(
       },
       child: child!,
     ),
-    'PositionedDirectional' => RadioGroup<PositionedDirectional>(
-      key: key,
-      groupValue: groupValue as PositionedDirectional?,
-      onChanged: (PositionedDirectional? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'PositionedTransition' to 'RenderAndroidView' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'PositionedDirectional' to 'RelativeRectTween' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf15(
   String typeName,
   dynamic visitor,
@@ -853290,6 +854004,15 @@ Object? _rc2RadioGroup$leaf15(
   Widget? child,
 ) {
   return switch (typeName) {
+    'PositionedDirectional' => RadioGroup<PositionedDirectional>(
+      key: key,
+      groupValue: groupValue as PositionedDirectional?,
+      onChanged: (PositionedDirectional? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
     'PositionedTransition' => RadioGroup<PositionedTransition>(
       key: key,
       groupValue: groupValue as PositionedTransition?,
@@ -853423,6 +854146,15 @@ Object? _rc2RadioGroup$leaf15(
       key: key,
       groupValue: groupValue as ProxyAnimation?,
       onChanged: (ProxyAnimation? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'Quad' => RadioGroup<Quad>(
+      key: key,
+      groupValue: groupValue as Quad?,
+      onChanged: (Quad? p0) async {
         D4.callInterpreterCallback(visitor, onChanged, [p0]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -853855,6 +854587,20 @@ Object? _rc2RadioGroup$leaf15(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderAbsorbPointer' to 'RenderShaderMask' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf16(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderAbsorbPointer' => RadioGroup<RenderAbsorbPointer>(
       key: key,
       groupValue: groupValue as RenderAbsorbPointer?,
@@ -853873,20 +854619,6 @@ Object? _rc2RadioGroup$leaf15(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderAnimatedOpacity' to 'RenderSizedOverflowBox' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf16(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderAnimatedOpacity' => RadioGroup<RenderAnimatedOpacity>(
       key: key,
       groupValue: groupValue as RenderAnimatedOpacity?,
@@ -854451,6 +855183,20 @@ Object? _rc2RadioGroup$leaf16(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RenderShrinkWrappingViewport' to 'RestorableTimeOfDay' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf17(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RenderShrinkWrappingViewport' => RadioGroup<RenderShrinkWrappingViewport>(
       key: key,
       groupValue: groupValue as RenderShrinkWrappingViewport?,
@@ -854469,20 +855215,6 @@ Object? _rc2RadioGroup$leaf16(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RenderSliverAnimatedOpacity' to 'RestorationManager' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf17(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RenderSliverAnimatedOpacity' => RadioGroup<RenderSliverAnimatedOpacity>(
       key: key,
       groupValue: groupValue as RenderSliverAnimatedOpacity?,
@@ -855048,6 +855780,20 @@ Object? _rc2RadioGroup$leaf17(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'RestorationBucket' to 'ScrollUpdateNotification' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf18(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'RestorationBucket' => RadioGroup<RestorationBucket>(
       key: key,
       groupValue: groupValue as RestorationBucket?,
@@ -855066,20 +855812,6 @@ Object? _rc2RadioGroup$leaf17(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'RestorationScope' to 'ScrollableDetails' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf18(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'RestorationScope' => RadioGroup<RestorationScope>(
       key: key,
       groupValue: groupValue as RestorationScope?,
@@ -855645,6 +856377,20 @@ Object? _rc2RadioGroup$leaf18(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'Scrollable' to 'ShaderMaskEngineLayer' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf19(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'Scrollable' => RadioGroup<Scrollable>(
       key: key,
       groupValue: groupValue as Scrollable?,
@@ -855663,20 +856409,6 @@ Object? _rc2RadioGroup$leaf18(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ScrollableState' to 'Shadow' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf19(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ScrollableState' => RadioGroup<ScrollableState>(
       key: key,
       groupValue: groupValue as ScrollableState?,
@@ -856237,6 +856969,20 @@ Object? _rc2RadioGroup$leaf19(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'ShaderMaskLayer' to 'SliverLogicalParentData' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf20(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'ShaderMaskLayer' => RadioGroup<ShaderMaskLayer>(
       key: key,
       groupValue: groupValue as ShaderMaskLayer?,
@@ -856255,20 +857001,6 @@ Object? _rc2RadioGroup$leaf19(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'ShapeBorderClipper' to 'SliverMultiBoxAdaptorElement' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf20(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'ShapeBorderClipper' => RadioGroup<ShapeBorderClipper>(
       key: key,
       groupValue: groupValue as ShapeBorderClipper?,
@@ -856832,29 +857564,11 @@ Object? _rc2RadioGroup$leaf20(
       },
       child: child!,
     ),
-    'SliverMainAxisGroup' => RadioGroup<SliverMainAxisGroup>(
-      key: key,
-      groupValue: groupValue as SliverMainAxisGroup?,
-      onChanged: (SliverMainAxisGroup? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
-    'SliverMultiBoxAdaptorElement' => RadioGroup<SliverMultiBoxAdaptorElement>(
-      key: key,
-      groupValue: groupValue as SliverMultiBoxAdaptorElement?,
-      onChanged: (SliverMultiBoxAdaptorElement? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'SliverMultiBoxAdaptorParentData' to 'Switch' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'SliverMainAxisGroup' to 'SurfaceAndroidViewController' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf21(
   String typeName,
   dynamic visitor,
@@ -856877,6 +857591,24 @@ Object? _rc2RadioGroup$leaf21(
       key: key,
       groupValue: groupValue as String?,
       onChanged: (String? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'SliverMainAxisGroup' => RadioGroup<SliverMainAxisGroup>(
+      key: key,
+      groupValue: groupValue as SliverMainAxisGroup?,
+      onChanged: (SliverMainAxisGroup? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'SliverMultiBoxAdaptorElement' => RadioGroup<SliverMultiBoxAdaptorElement>(
+      key: key,
+      groupValue: groupValue as SliverMultiBoxAdaptorElement?,
+      onChanged: (SliverMultiBoxAdaptorElement? p0) async {
         D4.callInterpreterCallback(visitor, onChanged, [p0]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
@@ -857427,6 +858159,20 @@ Object? _rc2RadioGroup$leaf21(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'SweepGradient' to 'TextInputConnection' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf22(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'SweepGradient' => RadioGroup<SweepGradient>(
       key: key,
       groupValue: groupValue as SweepGradient?,
@@ -857445,20 +858191,6 @@ Object? _rc2RadioGroup$leaf21(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'SwitchListTile' to 'TextInputType' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf22(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'SwitchListTile' => RadioGroup<SwitchListTile>(
       key: key,
       groupValue: groupValue as SwitchListTile?,
@@ -858019,6 +858751,20 @@ Object? _rc2RadioGroup$leaf22(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TextInputStyle' to 'TransformationController' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf23(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TextInputStyle' => RadioGroup<TextInputStyle>(
       key: key,
       groupValue: groupValue as TextInputStyle?,
@@ -858037,20 +858783,6 @@ Object? _rc2RadioGroup$leaf22(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TextMagnifier' to 'TreeSliver' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf23(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TextMagnifier' => RadioGroup<TextMagnifier>(
       key: key,
       groupValue: groupValue as TextMagnifier?,
@@ -858612,6 +859344,20 @@ Object? _rc2RadioGroup$leaf23(
       },
       child: child!,
     ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TransposeCharactersIntent' to 'WeakMap' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2RadioGroup$leaf24(
+  String typeName,
+  dynamic visitor,
+  Key? key,
+  Object? groupValue,
+  Object? onChanged,
+  Widget? child,
+) {
+  return switch (typeName) {
     'TransposeCharactersIntent' => RadioGroup<TransposeCharactersIntent>(
       key: key,
       groupValue: groupValue as TransposeCharactersIntent?,
@@ -858630,20 +859376,6 @@ Object? _rc2RadioGroup$leaf23(
       },
       child: child!,
     ),
-    _ => null,
-  };
-}
-
-/// Selectors 'TreeSliverController' to 'WidgetOrderTraversalPolicy' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
-Object? _rc2RadioGroup$leaf24(
-  String typeName,
-  dynamic visitor,
-  Key? key,
-  Object? groupValue,
-  Object? onChanged,
-  Widget? child,
-) {
-  return switch (typeName) {
     'TreeSliverController' => RadioGroup<TreeSliverController>(
       key: key,
       groupValue: groupValue as TreeSliverController?,
@@ -859208,29 +859940,11 @@ Object? _rc2RadioGroup$leaf24(
       },
       child: child!,
     ),
-    'WidgetInspector' => RadioGroup<WidgetInspector>(
-      key: key,
-      groupValue: groupValue as WidgetInspector?,
-      onChanged: (WidgetInspector? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
-    'WidgetOrderTraversalPolicy' => RadioGroup<WidgetOrderTraversalPolicy>(
-      key: key,
-      groupValue: groupValue as WidgetOrderTraversalPolicy?,
-      onChanged: (WidgetOrderTraversalPolicy? p0) async {
-        D4.callInterpreterCallback(visitor, onChanged, [p0]);
-        await Future.delayed(const Duration(milliseconds: 1));
-      },
-      child: child!,
-    ),
     _ => null,
   };
 }
 
-/// Selectors 'WidgetSpan' to 'num?' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
+/// Selectors 'WidgetInspector' to 'num?' of `_rc2RadioGroup` (bounded dispatch, al-the-bear/tom_d4rt#11).
 Object? _rc2RadioGroup$leaf25(
   String typeName,
   dynamic visitor,
@@ -859316,6 +860030,24 @@ Object? _rc2RadioGroup$leaf25(
       key: key,
       groupValue: groupValue as num?,
       onChanged: (num? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'WidgetInspector' => RadioGroup<WidgetInspector>(
+      key: key,
+      groupValue: groupValue as WidgetInspector?,
+      onChanged: (WidgetInspector? p0) async {
+        D4.callInterpreterCallback(visitor, onChanged, [p0]);
+        await Future.delayed(const Duration(milliseconds: 1));
+      },
+      child: child!,
+    ),
+    'WidgetOrderTraversalPolicy' => RadioGroup<WidgetOrderTraversalPolicy>(
+      key: key,
+      groupValue: groupValue as WidgetOrderTraversalPolicy?,
+      onChanged: (WidgetOrderTraversalPolicy? p0) async {
         D4.callInterpreterCallback(visitor, onChanged, [p0]);
         await Future.delayed(const Duration(milliseconds: 1));
       },
