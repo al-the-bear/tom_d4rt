@@ -1,5 +1,19 @@
 ## 0.244.0
 
+### Fixed — a bridged class alias whose target a re-exported library declares
+
+`material.dart` registers `MaterialStateProperty` as an alias of
+`WidgetStateProperty`, which `widgets.dart` declares and `material.dart`
+re-exports. A bridged module's environment registered its aliases before
+merging its re-exports, so such an alias found no target and the name was
+undefined (`Undefined variable: MaterialStateProperty`; also
+`ExpansionTileController`, `MaterialStateMouseCursor`). The Flutter twins only
+got these names because the generator registered every module under one
+shared sub-package barrel as well (tom_d4rt_generator 1.66.0 stops that). While
+it builds a module's environment the loader now parks an alias without a target
+and defines it once the re-exports are merged; `Environment.defineBridgeAlias`
+returns whether it found the target (`warnIfMissing:`).
+
 ### Added — per-execution hooks (GitHub #19)
 
 `hooks: D4rtExecutionHooks(...)` on `executeBundle`, `execute`, `executeFromJson` and their typed /
@@ -32,7 +46,9 @@ another Zone runs in it; `D4rtExecutionContext.of(visitor)` / `.current` and
 contexts. Without hooks nothing changes: one null check per entry and per run,
 no extra Zone. Documented in `doc/execution_hooks.md`.
 
-Name resolution: no.
+Name resolution: yes — a bridged class alias now resolves when its target
+comes from a library its own library re-exports (the per-execution hooks
+change no name resolution).
 
 ## 0.243.0
 

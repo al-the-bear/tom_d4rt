@@ -1,5 +1,27 @@
 ## 1.66.0
 
+### Fixed — a sub-package barrel offers only what that package declares
+
+A module whose bridged declarations include some from another package lists
+that package's barrel in `subPackageBarrels()`, and the generated registration
+then called `registerBridges(d4rt, barrel)` for it - registering the whole
+module under the other package's barrel. In the Flutter twins the cupertino,
+material and widgets modules each bridge `StringCharacters` from
+`package:characters`, so all their classes were registered under
+`package:characters/characters.dart`; `widgets.dart` re-exports that library,
+so a script importing only `material.dart` could use every cupertino class
+(Dart rejects that). The generated dartscript now calls
+`registerBridges(d4rt, barrel, onlyOwnPackage: true)`, and `registerBridges`
+with `onlyOwnPackage` registers only the declarations whose source is in that
+barrel's package: classes, enums, top-level functions, global variables and
+getters (`registerGlobalVariables(..., include:)`), extensions, and the aliases
+of its classes; function typedefs carry no source and are left out. A script
+importing the sub-package directly still gets its declarations (GEN-030).
+
+Name resolution: yes — a name a script did not import through any of its
+libraries no longer resolves through a sub-package barrel. Measured on the
+Flutter corpus with the analyzer: one script relied on it (fixed).
+
 ### Changed — proxies enter the script through `D4.enterInterpreted` (GitHub #19)
 
 A generated proxy calls its script instance with

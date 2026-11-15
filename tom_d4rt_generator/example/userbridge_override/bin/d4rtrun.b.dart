@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Test runner for userbridge_override_example
-// Generated: 2026-11-13T08:03:10.196342 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-15T05:55:05.344608 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: avoid_print
 

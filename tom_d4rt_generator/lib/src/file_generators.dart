@@ -224,7 +224,10 @@ String generateDartscriptFileContent(
     buffer.writeln(
       '    for (final barrel in $prefix.$bridgeClass.subPackageBarrels()) {',
     );
-    buffer.writeln('      $prefix.$bridgeClass.registerBridges(d4rt, barrel);');
+    // Only what the sub-package itself declares (not the whole module).
+    buffer.writeln(
+      '      $prefix.$bridgeClass.registerBridges(d4rt, barrel, onlyOwnPackage: true);',
+    );
     buffer.writeln('    }');
   }
 

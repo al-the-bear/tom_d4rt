@@ -832,14 +832,14 @@ class PerPackageBridgeOrchestrator {
     // registerBridges()
     buffer.writeln('  /// Register all bridges with the interpreter.');
     buffer.writeln(
-      '  static void registerBridges(D4rt interpreter, String importPath) {',
+      '  static void registerBridges(D4rt interpreter, String importPath, {bool onlyOwnPackage = false}) {',
     );
     for (final pkgName in sortedPackages) {
       if (packageFiles.containsKey(pkgName)) {
         final alias = 'pkg_${pkgName.replaceAll('-', '_')}';
         final pkgClassName = 'Package${_toPascalCase(pkgName)}Bridge';
         buffer.writeln(
-          '    $alias.$pkgClassName.registerBridges(interpreter, importPath);',
+          '    $alias.$pkgClassName.registerBridges(interpreter, importPath, onlyOwnPackage: onlyOwnPackage);',
         );
       }
     }

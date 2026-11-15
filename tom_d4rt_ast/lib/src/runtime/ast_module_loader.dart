@@ -610,6 +610,7 @@ class AstModuleLoader implements ModuleContext {
       // site — it must NOT be baked into the cached module env, which is
       // shared across every import of this URI.
       moduleEnv = Environment(enclosing: moduleEnclosing);
+      final pending = _beginAliasCollection();
       _registerBridgesForUriInto(uriString, null, null, moduleEnv);
       // GEN-107: Merge re-exported libraries into this module's environment.
       _mergeReExports(
@@ -619,6 +620,7 @@ class AstModuleLoader implements ModuleContext {
         null,
         <String, Set<String>?>{},
       );
+      _retryPendingAliases(pending);
       cache[uriString] = moduleEnv;
       _registeredBridgeUris.add(uriString);
       onBridgedModuleEnvBuilt?.call();
@@ -633,6 +635,49 @@ class AstModuleLoader implements ModuleContext {
     );
     _moduleCache[uri] = module;
     return module;
+  }
+
+  /// Aliases whose target was not in their module environment yet, while a
+  /// bridged module's environment is built; null outside a build.
+  ///
+  /// ghfeatures2: an alias's target may come from a library the module
+  /// re-exports (`material.dart`'s `MaterialStateProperty` names
+  /// `widgets.dart`'s `WidgetStateProperty`), and the aliases are registered
+  /// before the re-exports are merged. Such an alias is retried after the
+  /// merge ([_retryPendingAliases]).
+  List<(Environment, String, String)>? _pendingAliases;
+
+  /// Defines an alias, parking it while a module build is in progress and its
+  /// target is not there yet.
+  void _defineAlias(Environment env, String aliasName, String targetName) {
+    final pending = _pendingAliases;
+    if (env.defineBridgeAlias(
+      aliasName,
+      targetName,
+      warnIfMissing: pending == null,
+    )) {
+      return;
+    }
+    pending?.add((env, aliasName, targetName));
+  }
+
+  /// Starts collecting unresolved aliases for one module build; returns the
+  /// list that was being collected before (builds do not nest today, but a
+  /// nested one keeps the outer list intact).
+  List<(Environment, String, String)>? _beginAliasCollection() {
+    final outer = _pendingAliases;
+    _pendingAliases = [];
+    return outer;
+  }
+
+  /// Retries the aliases parked during the build (now with the re-exports
+  /// merged; a target still missing is logged) and restores [outer].
+  void _retryPendingAliases(List<(Environment, String, String)>? outer) {
+    final pending = _pendingAliases ?? const [];
+    _pendingAliases = outer;
+    for (final (env, aliasName, targetName) in pending) {
+      env.defineBridgeAlias(aliasName, targetName);
+    }
   }
 
   /// Checks if the runner has any bridged content for the given URI.
@@ -705,7 +750,7 @@ class AstModuleLoader implements ModuleContext {
       if (alias.library != uriString) continue;
       if (!_shouldInclude(alias.aliasName, showNames, hideNames)) continue;
 
-      targetEnvironment.defineBridgeAlias(alias.aliasName, alias.targetName);
+      _defineAlias(targetEnvironment, alias.aliasName, alias.targetName);
       Logger.debugLazy(
         () =>
             '[AstModuleLoader] Registered class alias: '

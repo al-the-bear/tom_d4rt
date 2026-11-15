@@ -997,7 +997,17 @@ class Environment {
   ///
   /// This allows deprecated type alias names (e.g., `MaterialStateProperty`)
   /// to resolve to their canonical bridged class (e.g., `WidgetStateProperty`).
-  void defineBridgeAlias(String aliasName, String targetName) {
+  ///
+  /// Returns whether the target was found. With [warnIfMissing] false a
+  /// missing target is not logged: the module loader then retries the alias
+  /// once the library's re-exports are merged (its target may come from a
+  /// re-exported library, `material.dart`'s `MaterialStateProperty` →
+  /// `widgets.dart`'s `WidgetStateProperty`).
+  bool defineBridgeAlias(
+    String aliasName,
+    String targetName, {
+    bool warnIfMissing = true,
+  }) {
     // Walk the scope chain to find the target bridged class
     BridgedClass? target;
     Environment? current = this;
@@ -1024,13 +1034,14 @@ class Environment {
             "[Environment] Defined bridge alias: $aliasName -> enum $targetName",
           );
         }
-        return;
+        return true;
       }
+      if (!warnIfMissing) return false;
       Logger.warn(
         "[Environment] Cannot register alias '$aliasName' -> '$targetName': "
         "target class or enum not found",
       );
-      return;
+      return false;
     }
     _bridgedClassesOrNew[aliasName] = target;
     if (Logger.isDebug) {
@@ -1038,6 +1049,7 @@ class Environment {
         "[Environment] Defined bridge alias: $aliasName -> $targetName",
       );
     }
+    return true;
   }
 
   /// Converts a native object to a bridged instance if a bridge exists.

@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 // Logic-gate laboratory exploration of `WidgetStatesConstraint`, the Flutter
 // mixin-class that powers compound predicates over a Set<WidgetState>. Each
-// WidgetState value implements WidgetStatesConstraint; the overloaded
+// WidgetState value with WidgetStatesConstraint; the overloaded
 // operators `&`, `|`, and `~` compose new constraint objects that still
 // answer the single-method contract `bool isSatisfiedBy(Set<WidgetState>)`.
 //
@@ -135,9 +135,9 @@ String _setLabel(Set<WidgetState> states) {
 
 /// A user-defined constraint that is satisfied whenever the set of active
 /// widget states has an even count (0, 2, 4, …). Demonstrates that
-/// WidgetStatesConstraint is just an interface: anything implementing
+/// WidgetStatesConstraint is a mixin: any class mixing it in and implementing
 /// `isSatisfiedBy` participates in the compositional algebra.
-class _WsctEven implements WidgetStatesConstraint {
+class _WsctEven with WidgetStatesConstraint {
   const _WsctEven();
 
   @override
@@ -149,7 +149,7 @@ class _WsctEven implements WidgetStatesConstraint {
 
 /// A second custom constraint: at least N states are active. Useful as a
 /// "busy enough" signal when wiring several interactions together.
-class _WsctAtLeast implements WidgetStatesConstraint {
+class _WsctAtLeast with WidgetStatesConstraint {
   final int n;
   const _WsctAtLeast(this.n);
 
@@ -578,7 +578,7 @@ class _WsctHomeState extends State<_WsctHome>
             _WsctCodeBlock(
               heading: 'Atomic satisfaction',
               code:
-                  'enum WidgetState implements WidgetStatesConstraint {\n'
+                  'enum WidgetState with WidgetStatesConstraint {\n'
                   '  hovered, focused, pressed, dragged, selected,\n'
                   '  scrolledUnder, disabled, error, any;\n'
                   '\n'
@@ -1014,7 +1014,7 @@ class _WsctHomeState extends State<_WsctHome>
               const _WsctCodeBlock(
                 heading: 'Definition',
                 code:
-                    'class _WsctEven implements WidgetStatesConstraint {\n'
+                    'class _WsctEven with WidgetStatesConstraint {\n'
                     '  const _WsctEven();\n'
                     '  @override\n'
                     '  bool isSatisfiedBy(Set<WidgetState> states) =>\n'
@@ -1025,7 +1025,7 @@ class _WsctHomeState extends State<_WsctHome>
               const _WsctCodeBlock(
                 heading: 'Another — "at least N"',
                 code:
-                    'class _WsctAtLeast implements WidgetStatesConstraint {\n'
+                    'class _WsctAtLeast with WidgetStatesConstraint {\n'
                     '  final int n;\n'
                     '  const _WsctAtLeast(this.n);\n'
                     '  @override\n'
@@ -1184,7 +1184,7 @@ class _WsctHomeState extends State<_WsctHome>
                 def:
                     'The enum of interaction states: hovered, focused,'
                     ' pressed, dragged, selected, scrolledUnder, disabled,'
-                    ' error. Also implements WidgetStatesConstraint.',
+                    ' error. Also with WidgetStatesConstraint.',
               ),
               SizedBox(height: 8),
               _WsctGlossaryEntry(

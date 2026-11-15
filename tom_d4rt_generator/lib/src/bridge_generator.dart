@@ -7181,8 +7181,33 @@ class BridgeGenerator {
     buffer.writeln(
       "  /// to access these classes (e.g., 'package:my_package/my_package.dart').",
     );
+    buffer.writeln('  ///');
     buffer.writeln(
-      '  static void registerBridges(D4rt interpreter, String importPath) {',
+      '  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),',
+    );
+    buffer.writeln(
+      "  /// only the declarations whose source is in [importPath]'s package are",
+    );
+    buffer.writeln(
+      '  /// registered: a script importing that barrel sees what the package',
+    );
+    buffer.writeln(
+      '  /// declares, not the whole module. (Without it, a module bridging one',
+    );
+    buffer.writeln(
+      "  /// `package:characters` extension would put all of its classes under",
+    );
+    buffer.writeln(
+      "  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)",
+    );
+    buffer.writeln(
+      '  static void registerBridges(D4rt interpreter, String importPath, {bool onlyOwnPackage = false}) {',
+    );
+    buffer.writeln(
+      "    final String? ownPrefix = onlyOwnPackage ? 'package:\${importPath.substring('package:'.length).split('/').first}/' : null;",
+    );
+    buffer.writeln(
+      '    bool include(String? sourceUri) => ownPrefix == null || (sourceUri != null && sourceUri.startsWith(ownPrefix));',
     );
     buffer.writeln(
       '    // Step #17 — register deferred factory thunks (not pre-built',
@@ -7197,6 +7222,7 @@ class BridgeGenerator {
     buffer.writeln('    final classTypes = bridgeClassTypes();');
     buffer.writeln('    final classSources = classSourceUris();');
     buffer.writeln('    for (final entry in classThunks.entries) {');
+    buffer.writeln('      if (!include(classSources[entry.key])) continue;');
     buffer.writeln('      interpreter.registerBridgedClassLazy(');
     buffer.writeln('        entry.key,');
     buffer.writeln('        classTypes[entry.key]!,');
@@ -7222,6 +7248,9 @@ class BridgeGenerator {
       buffer.writeln('    final enumSources = enumSourceUris();');
       buffer.writeln('    for (final enumDef in enums) {');
       buffer.writeln(
+        '      if (!include(enumSources[enumDef.name])) continue;',
+      );
+      buffer.writeln(
         '      interpreter.registerBridgedEnum(enumDef, importPath, sourceUri: enumSources[enumDef.name]);',
       );
       buffer.writeln('    }');
@@ -7230,7 +7259,9 @@ class BridgeGenerator {
     if (globalVariables.isNotEmpty) {
       buffer.writeln();
       buffer.writeln('    // Register global variables');
-      buffer.writeln('    registerGlobalVariables(interpreter, importPath);');
+      buffer.writeln(
+        '    registerGlobalVariables(interpreter, importPath, include: include);',
+      );
     }
     // Register global functions
     if (globalFunctions.isNotEmpty) {
@@ -7242,6 +7273,7 @@ class BridgeGenerator {
       buffer.writeln('    final funcSources = globalFunctionSourceUris();');
       buffer.writeln('    final funcSigs = globalFunctionSignatures();');
       buffer.writeln('    for (final entry in funcs.entries) {');
+      buffer.writeln('      if (!include(funcSources[entry.key])) continue;');
       buffer.writeln(
         '      interpreter.registertopLevelFunction(entry.key, entry.value, importPath, sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);',
       );
@@ -7260,6 +7292,7 @@ class BridgeGenerator {
         "      final extKey = '\${extDef.name ?? '<unnamed>'}"
         "@\${extDef.onTypeName}';",
       );
+      buffer.writeln('      if (!include(extSources[extKey])) continue;');
       buffer.writeln(
         '      interpreter.registerBridgedExtension(extDef, importPath, sourceUri: extSources[extKey]);',
       );
@@ -7272,6 +7305,12 @@ class BridgeGenerator {
       buffer.writeln('    final aliases = classAliases();');
       buffer.writeln('    for (final entry in aliases.entries) {');
       buffer.writeln(
+        '      // An alias follows the class it names; it has no source of its own.',
+      );
+      buffer.writeln(
+        '      if (ownPrefix != null && !include(classSources[entry.value])) continue;',
+      );
+      buffer.writeln(
         '      interpreter.registerClassAlias(entry.key, entry.value, importPath);',
       );
       buffer.writeln('    }');
@@ -7282,7 +7321,11 @@ class BridgeGenerator {
       buffer.writeln('    // Register function typedefs for type resolution');
       buffer.writeln('    final typedefs = functionTypedefs();');
       buffer.writeln('    final typedefArity = functionTypedefArity();');
+      buffer.writeln(
+        '    // Function typedefs carry no source; a sub-package barrel gets none.',
+      );
       buffer.writeln('    for (final name in typedefs) {');
+      buffer.writeln('      if (ownPrefix != null) break;');
       buffer.writeln('      final arity = typedefArity[name];');
       buffer.writeln('      interpreter.registerFunctionTypedef(');
       buffer.writeln('        name,');
@@ -7327,7 +7370,7 @@ class BridgeGenerator {
       );
       buffer.writeln('  /// with all error details if any registrations fail.');
       buffer.writeln(
-        '  static void registerGlobalVariables(D4rt interpreter, String importPath) {',
+        '  static void registerGlobalVariables(D4rt interpreter, String importPath, {bool Function(String? sourceUri)? include}) {',
       );
       buffer.writeln('    final errors = <String>[];');
       buffer.writeln();
@@ -7354,6 +7397,7 @@ class BridgeGenerator {
                 globalsUserBridge.sourceFile,
               )
             : null;
+        buffer.writeln("    if (include == null || include('$sourceUri')) {");
         buffer.writeln('    try {');
         if (override != null) {
           buffer.writeln(
@@ -7368,6 +7412,7 @@ class BridgeGenerator {
         buffer.writeln(
           "      errors.add('Failed to register variable \"${variable.name}\": \$e');",
         );
+        buffer.writeln('    }');
         buffer.writeln('    }');
       }
 
@@ -7393,6 +7438,7 @@ class BridgeGenerator {
                 globalsUserBridge.sourceFile,
               )
             : null;
+        buffer.writeln("    if (include == null || include('$sourceUri')) {");
         if (override != null) {
           buffer.writeln(
             "    interpreter.registerGlobalGetter('${variable.name}', $prefixedGlobalsBridge.$override(), importPath, sourceUri: '$sourceUri');",
@@ -7416,6 +7462,7 @@ class BridgeGenerator {
             "    interpreter.registerGlobalSetter('${variable.name}', (v) => $prefixedGetterName = v as $resolvedSetterType, importPath, sourceUri: '$sourceUri');",
           );
         }
+        buffer.writeln('    }');
       }
 
       // Throw collected errors if any

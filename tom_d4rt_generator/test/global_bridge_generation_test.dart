@@ -328,8 +328,10 @@ void main() {
       () {
         expect(
           generatedCode,
-          contains(
-            'static void registerGlobalVariables(D4rt interpreter, String importPath)',
+          matches(
+            RegExp(
+              r'static void registerGlobalVariables\(\s*D4rt interpreter,\s*String importPath,\s*\{\s*bool Function\(String\? sourceUri\)\? include',
+            ),
           ),
         );
       },
@@ -340,8 +342,10 @@ void main() {
       () {
         expect(
           generatedCode,
-          contains(
-            'static void registerBridges(D4rt interpreter, String importPath)',
+          matches(
+            RegExp(
+              r'static void registerBridges\(\s*D4rt interpreter,\s*String importPath,\s*\{\s*bool onlyOwnPackage = false',
+            ),
           ),
         );
       },
@@ -626,8 +630,10 @@ void main() {
         () {
           expect(
             generatedCode,
-            contains(
-              'static void registerGlobalVariables(D4rt interpreter, String importPath)',
+            matches(
+              RegExp(
+                r'static void registerGlobalVariables\(\s*D4rt interpreter,\s*String importPath,\s*\{\s*bool Function\(String\? sourceUri\)\? include',
+              ),
             ),
           );
         },

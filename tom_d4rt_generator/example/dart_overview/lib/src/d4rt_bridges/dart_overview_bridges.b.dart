@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 16 files
-// Generated: 2026-11-13T08:01:07.025710 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-15T05:54:13.019740 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -978,7 +978,24 @@ class AllBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -986,6 +1003,7 @@ class AllBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -1004,6 +1022,7 @@ class AllBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -1012,13 +1031,14 @@ class AllBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -1031,13 +1051,17 @@ class AllBridge {
     // Register class aliases (typedef type aliases)
     final aliases = classAliases();
     for (final entry in aliases.entries) {
+      // An alias follows the class it names; it has no source of its own.
+      if (ownPrefix != null && !include(classSources[entry.value])) continue;
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
 
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -1063,179 +1087,237 @@ class AllBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'globalCounter',
-        $dart_overview_13.globalCounter,
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'globalCounter',
+          $dart_overview_13.globalCounter,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "globalCounter": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'appName',
+          $dart_overview_13.appName,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "appName": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'maxRetries',
+          $dart_overview_13.maxRetries,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "maxRetries": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'currentUser',
+          $dart_overview_13.currentUser,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "currentUser": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'lastProcessedId',
+          $dart_overview_13.lastProcessedId,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "lastProcessedId": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'appStartTime',
+          $dart_overview_13.appStartTime,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "appStartTime": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'sessionId',
+          $dart_overview_13.sessionId,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "sessionId": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'apiUrl',
+          $dart_overview_13.apiUrl,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "apiUrl": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'maxConnections',
+          $dart_overview_13.maxConnections,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "maxConnections": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'defaultTimeout',
+          $dart_overview_13.defaultTimeout,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "defaultTimeout": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'validStatuses',
+          $dart_overview_13.validStatuses,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "validStatuses": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'priorities',
+          $dart_overview_13.priorities,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "priorities": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'reservedIds',
+          $dart_overview_13.reservedIds,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "reservedIds": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'lazyConfig',
+          $dart_overview_13.lazyConfig,
+          importPath,
+          sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "lazyConfig": $e');
+      }
+    }
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      interpreter.registerGlobalGetter(
+        'now',
+        () => $dart_overview_13.now,
         importPath,
         sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "globalCounter": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'appName',
-        $dart_overview_13.appName,
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      interpreter.registerGlobalGetter(
+        'connectionCount',
+        () => $dart_overview_13.connectionCount,
         importPath,
         sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "appName": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'maxRetries',
-        $dart_overview_13.maxRetries,
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      interpreter.registerGlobalGetter(
+        'cachedValue',
+        () => $dart_overview_13.cachedValue,
         importPath,
         sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "maxRetries": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'currentUser',
-        $dart_overview_13.currentUser,
+    if (include == null ||
+        include('package:dart_overview/globals/basics/run_basics.dart')) {
+      interpreter.registerGlobalGetter(
+        'logLevel',
+        () => $dart_overview_13.logLevel,
         importPath,
         sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "currentUser": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'lastProcessedId',
-        $dart_overview_13.lastProcessedId,
+      interpreter.registerGlobalSetter(
+        'logLevel',
+        (v) => $dart_overview_13.logLevel = v as $dart_overview_13.LogSeverity,
         importPath,
         sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "lastProcessedId": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'appStartTime',
-        $dart_overview_13.appStartTime,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "appStartTime": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'sessionId',
-        $dart_overview_13.sessionId,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "sessionId": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'apiUrl',
-        $dart_overview_13.apiUrl,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "apiUrl": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'maxConnections',
-        $dart_overview_13.maxConnections,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "maxConnections": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'defaultTimeout',
-        $dart_overview_13.defaultTimeout,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "defaultTimeout": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'validStatuses',
-        $dart_overview_13.validStatuses,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "validStatuses": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'priorities',
-        $dart_overview_13.priorities,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "priorities": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'reservedIds',
-        $dart_overview_13.reservedIds,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "reservedIds": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'lazyConfig',
-        $dart_overview_13.lazyConfig,
-        importPath,
-        sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "lazyConfig": $e');
-    }
-    interpreter.registerGlobalGetter(
-      'now',
-      () => $dart_overview_13.now,
-      importPath,
-      sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'connectionCount',
-      () => $dart_overview_13.connectionCount,
-      importPath,
-      sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'cachedValue',
-      () => $dart_overview_13.cachedValue,
-      importPath,
-      sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'logLevel',
-      () => $dart_overview_13.logLevel,
-      importPath,
-      sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-    );
-    interpreter.registerGlobalSetter(
-      'logLevel',
-      (v) => $dart_overview_13.logLevel = v as $dart_overview_13.LogSeverity,
-      importPath,
-      sourceUri: 'package:dart_overview/globals/basics/run_basics.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(

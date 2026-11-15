@@ -224,7 +224,11 @@ class $className {
   static Map<String, String> classSourceUris() => const {};
   static List<BridgedEnumDefinition> bridgedEnums() => const [];
   static Map<String, NativeFunctionImpl> globalFunctions() => const {};
-  static void registerBridges(D4rt interpreter, String importPath) {}
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {}
 }
 ''';
 }

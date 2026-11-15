@@ -87,6 +87,14 @@ const Map<String, String> _deferred = {
   // the post-publish full corpus recorded under `Verification runs` at that
   // pair (ghissues1001, 2026-11-15). An empty map is the normal state; each
   // entry is a debt with its reason, deleted when the run is made.
+  '1.264.0':
+      'ghfeatures2: aliases resolve through re-exports; unpublished, the twins '
+      'resolve the published interpreter (DGUC6); ghfeatures1000 runs the '
+      'post-publish corpus',
+  '0.244.0':
+      'ghfeatures2: aliases resolve through re-exports; unpublished, the twins '
+      'resolve the published interpreter (DGUC6); ghfeatures1000 runs the '
+      'post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

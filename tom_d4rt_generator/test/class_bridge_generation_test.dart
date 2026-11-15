@@ -513,8 +513,10 @@ void main() {
       () {
         expect(
           generatedCode,
-          contains(
-            'static void registerBridges(D4rt interpreter, String importPath)',
+          matches(
+            RegExp(
+              r'static void registerBridges\(\s*D4rt interpreter,\s*String importPath,\s*\{\s*bool onlyOwnPackage = false',
+            ),
           ),
         );
       },
