@@ -1,3 +1,13 @@
+## 0.2.6
+
+### Changed — takes tom_d4rt_ast 0.244.0
+
+`tom_d4rt_ast ^0.244.0` (from `^0.243.0`): the release with per-execution
+hooks (GitHub #19), aliases whose target a re-exported library declares, and
+export-only bridged libraries. Nothing in the bundling changes.
+
+Name resolution: no.
+
 ## 0.2.5
 
 ### Changed — takes tom_d4rt_ast 0.243.0
