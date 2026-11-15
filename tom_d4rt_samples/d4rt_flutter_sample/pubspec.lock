@@ -268,10 +268,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_d4rt_flutter
-      sha256: cd8600dcde6b3b39f8338f15842f56be5a2e2f4e057159d825657a7046eb6b67
+      sha256: c0b0f8eae2a8ba29388f2240be614e766a4a6bdaf263352191d64d4edfa903bb
       url: "https://pub.dev"
     source: hosted
-    version: "1.10.0"
+    version: "1.11.0"
   typed_data:
     dependency: transitive
     description:
