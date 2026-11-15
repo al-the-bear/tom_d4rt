@@ -1,4 +1,4 @@
-// Generated: 2026-11-13T07:43:05.229951 by tom_d4rt_generator 1.63.0
+// Generated: 2026-11-15T01:01:39.270093 by tom_d4rt_generator 1.65.0
 /// D4rt GEN-079 Relaxer Wrappers for tom_d4rt_dcli
 ///
 /// Auto-generated wrapper classes and factory functions for generic
@@ -10,12 +10,2388 @@ library;
 
 // ignore_for_file: unused_import, invalid_implementation_override, deprecated_member_use, sort_child_properties_last, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unused_local_variable, unintended_html_in_doc_comment, non_constant_identifier_names, unreachable_switch_case, must_call_super, no_logic_in_create_state, unused_field, unused_element, unnecessary_cast, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, use_key_in_widget_constructors, annotate_overrides, unnecessary_import
 
-// GEN-095: No relaxers or RC-2 generic constructors reachable via barrels
-// Emitting empty stubs so the dartscript registration calls
-// to registerRelaxers() / registerGenericConstructors() resolve.
+import 'package:tom_d4rt/d4rt.dart' show D4;
 
-/// No-op: no GEN-079 relaxer wrappers for this package.
+import 'dart:async';
+
+import 'package:path/path.dart';
+import 'package:tom_d4rt_dcli/tom_d4rt_cli_api.dart';
+import 'package:tom_dcli/dcli.dart';
+import 'package:tom_vscode_scripting_api/script_globals.dart';
+
+/// Numeric coercion helper: converts int→double when needed for type V.
+/// D4rt returns `int` for integer literals even when
+/// the declared return type is `double` or `double?`.
+V _coerceToV<V>(dynamic v) {
+  if (v is int && v is! V) {
+    final d = v.toDouble();
+    if (d is V) return d as V;
+  }
+  return v as V;
+}
+
+// =============================================================================
+// Registration
+// =============================================================================
+
+/// Register all auto-generated relaxer factories with the D4 runtime.
+///
+/// Call this once during bridge setup — replaces the old hand-written
+/// `registerGenericTypeRelaxers()` function.
 void registerRelaxers() {}
 
-/// No-op: no RC-2 generic constructor factories for this package.
-void registerGenericConstructors() {}
+// =============================================================================
+// RC-2: Generic Constructor Registrations
+// =============================================================================
+
+/// RC-2: Generic constructor factory for `PathMap<V>`.
+Object? _rc2PathMap(
+  dynamic visitor,
+  List<Object?> positional,
+  Map<String, Object?> named,
+  List<dynamic>? typeArgs,
+) {
+  final rawTypeName = typeArgs?.isNotEmpty == true
+      ? typeArgs!.first.name as String?
+      : null;
+  if (rawTypeName == null) return null;
+  final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
+  final context = named.containsKey('context')
+      ? D4.extractBridgedArg<Context?>(named['context'], 'context')
+      : null;
+  if (typeName.compareTo('QueuedFollowUp') < 0) {
+    if (typeName.compareTo('FileSort') < 0) {
+      return _rc2PathMap$leaf0(typeName, visitor, context);
+    }
+    return _rc2PathMap$leaf1(typeName, visitor, context);
+  }
+  if (typeName.compareTo('TrailEntry') < 0) {
+    return _rc2PathMap$leaf2(typeName, visitor, context);
+  }
+  return _rc2PathMap$leaf3(typeName, visitor, context);
+}
+
+/// Selectors 'AgentDefinition' to 'FileNotFoundException' of `_rc2PathMap` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap$leaf0(String typeName, dynamic visitor, Context? context) {
+  return switch (typeName) {
+    'AgentDefinition' => PathMap<AgentDefinition>(context: context),
+    'AgentQuery' => PathMap<AgentQuery>(context: context),
+    'AgentSdkClient' => PathMap<AgentSdkClient>(context: context),
+    'AgentSdkQueryException' => PathMap<AgentSdkQueryException>(
+      context: context,
+    ),
+    'AgentSdkToolRegistry' => PathMap<AgentSdkToolRegistry>(context: context),
+    'Ansi' => PathMap<Ansi>(context: context),
+    'AnsiColor' => PathMap<AnsiColor>(context: context),
+    'Ask' => PathMap<Ask>(context: context),
+    'AskValidatorException' => PathMap<AskValidatorException>(context: context),
+    'AskValidatorIPAddress' => PathMap<AskValidatorIPAddress>(context: context),
+    'BackupFileException' => PathMap<BackupFileException>(context: context),
+    'BridgeRequestDispatcher' => PathMap<BridgeRequestDispatcher>(
+      context: context,
+    ),
+    'BridgeWorkspaceNotFoundException' =>
+      PathMap<BridgeWorkspaceNotFoundException>(context: context),
+    'CallToolResult' => PathMap<CallToolResult>(context: context),
+    'CanUseToolContext' => PathMap<CanUseToolContext>(context: context),
+    'CatException' => PathMap<CatException>(context: context),
+    'ChatContext' => PathMap<ChatContext>(context: context),
+    'ChatErrorDetails' => PathMap<ChatErrorDetails>(context: context),
+    'ChatParticipant' => PathMap<ChatParticipant>(context: context),
+    'ChatPromptReference' => PathMap<ChatPromptReference>(context: context),
+    'ChatRequest' => PathMap<ChatRequest>(context: context),
+    'ChatResponseStream' => PathMap<ChatResponseStream>(context: context),
+    'ChatResult' => PathMap<ChatResult>(context: context),
+    'ChatVariable' => PathMap<ChatVariable>(context: context),
+    'ChatVariableListResult' => PathMap<ChatVariableListResult>(
+      context: context,
+    ),
+    'CliException' => PathMap<CliException>(context: context),
+    'CliFileNotFoundException' => PathMap<CliFileNotFoundException>(
+      context: context,
+    ),
+    'CliGlobalHolder' => PathMap<CliGlobalHolder>(context: context),
+    'CliNotInitializedException' => PathMap<CliNotInitializedException>(
+      context: context,
+    ),
+    'CliRuntimeImpl' => PathMap<CliRuntimeImpl>(context: context),
+    'CliState' => PathMap<CliState>(context: context),
+    'Column' => PathMap<Column>(context: context),
+    'CompiledExecutable' => PathMap<CompiledExecutable>(context: context),
+    'Confirm' => PathMap<Confirm>(context: context),
+    'Context' => PathMap<Context>(context: context),
+    'ContextStack' => PathMap<ContextStack>(context: context),
+    'CopyException' => PathMap<CopyException>(context: context),
+    'CreateDirException' => PathMap<CreateDirException>(context: context),
+    'D4rtCliController' => PathMap<D4rtCliController>(context: context),
+    'DCliException' => PathMap<DCliException>(context: context),
+    'DCliFunction' => PathMap<DCliFunction>(context: context),
+    'DCliFunctionException' => PathMap<DCliFunctionException>(context: context),
+    'DCliPaths' => PathMap<DCliPaths>(context: context),
+    'DartProject' => PathMap<DartProject>(context: context),
+    'DartProjectException' => PathMap<DartProjectException>(context: context),
+    'DartScript' => PathMap<DartScript>(context: context),
+    'DartSdk' => PathMap<DartSdk>(context: context),
+    'DeleteDirException' => PathMap<DeleteDirException>(context: context),
+    'DeleteException' => PathMap<DeleteException>(context: context),
+    'DirectoryNotFoundException' => PathMap<DirectoryNotFoundException>(
+      context: context,
+    ),
+    'DocumentContent' => PathMap<DocumentContent>(context: context),
+    'DocumentInfo' => PathMap<DocumentInfo>(context: context),
+    'DocumentListResult' => PathMap<DocumentListResult>(context: context),
+    'Env' => PathMap<Env>(context: context),
+    'ExecuteResult' => PathMap<ExecuteResult>(context: context),
+    'ExecutionContext' => PathMap<ExecutionContext>(context: context),
+    'ExecutionException' => PathMap<ExecutionException>(context: context),
+    'Extension' => PathMap<Extension>(context: context),
+    'FetchData' => PathMap<FetchData>(context: context),
+    'FetchException' => PathMap<FetchException>(context: context),
+    'FetchProgress' => PathMap<FetchProgress>(context: context),
+    'FetchUrl' => PathMap<FetchUrl>(context: context),
+    'FileBatch' => PathMap<FileBatch>(context: context),
+    'FileNotFoundException' => PathMap<FileNotFoundException>(context: context),
+    _ => null,
+  };
+}
+
+/// Selectors 'FileSort' to 'QueueListResult' of `_rc2PathMap` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap$leaf1(String typeName, dynamic visitor, Context? context) {
+  return switch (typeName) {
+    'Object' || 'Object?' => PathMap<dynamic>(context: context),
+    'FileSort' => PathMap<FileSort>(context: context),
+    'FileSync' => PathMap<FileSync>(context: context),
+    'FileSystemWatcherOptions' => PathMap<FileSystemWatcherOptions>(
+      context: context,
+    ),
+    'Find' => PathMap<Find>(context: context),
+    'FindItem' => PathMap<FindItem>(context: context),
+    'FollowUpInput' => PathMap<FollowUpInput>(context: context),
+    'Format' => PathMap<Format>(context: context),
+    'GuidelineInfo' => PathMap<GuidelineInfo>(context: context),
+    'GuidelineListResult' => PathMap<GuidelineListResult>(context: context),
+    'HelperLogging' => PathMap<HelperLogging>(context: context),
+    'ImportInfo' => PathMap<ImportInfo>(context: context),
+    'InputBoxOptions' => PathMap<InputBoxOptions>(context: context),
+    'InstallException' => PathMap<InstallException>(context: context),
+    'InvalidArgumentException' => PathMap<InvalidArgumentException>(
+      context: context,
+    ),
+    'InvalidMultilineModeException' => PathMap<InvalidMultilineModeException>(
+      context: context,
+    ),
+    'InvalidProjectTemplateException' =>
+      PathMap<InvalidProjectTemplateException>(context: context),
+    'InvalidTemplateException' => PathMap<InvalidTemplateException>(
+      context: context,
+    ),
+    'InvalidTodo' => PathMap<InvalidTodo>(context: context),
+    'LanguageModelCallException' => PathMap<LanguageModelCallException>(
+      context: context,
+    ),
+    'LanguageModelChat' => PathMap<LanguageModelChat>(context: context),
+    'LanguageModelChatMessage' => PathMap<LanguageModelChatMessage>(
+      context: context,
+    ),
+    'LanguageModelChatResponse' => PathMap<LanguageModelChatResponse>(
+      context: context,
+    ),
+    'LanguageModelToolInformation' => PathMap<LanguageModelToolInformation>(
+      context: context,
+    ),
+    'LanguageModelToolResult' => PathMap<LanguageModelToolResult>(
+      context: context,
+    ),
+    'LazyVSCodeBridgeAdapter' => PathMap<LazyVSCodeBridgeAdapter>(
+      context: context,
+    ),
+    'LockException' => PathMap<LockException>(context: context),
+    'MaxNestingDepthException' => PathMap<MaxNestingDepthException>(
+      context: context,
+    ),
+    'McpHttpServerConfig' => PathMap<McpHttpServerConfig>(context: context),
+    'McpSSEServerConfig' => PathMap<McpSSEServerConfig>(context: context),
+    'McpSdkServerConfig' => PathMap<McpSdkServerConfig>(context: context),
+    'McpServerToolPolicy' => PathMap<McpServerToolPolicy>(context: context),
+    'McpStdioServerConfig' => PathMap<McpStdioServerConfig>(context: context),
+    'MessageOptions' => PathMap<MessageOptions>(context: context),
+    'MoveDirException' => PathMap<MoveDirException>(context: context),
+    'MoveException' => PathMap<MoveException>(context: context),
+    'MoveTreeException' => PathMap<MoveTreeException>(context: context),
+    'NamedLock' => PathMap<NamedLock>(context: context),
+    'NamedLockObservation' => PathMap<NamedLockObservation>(context: context),
+    'NotAFileException' => PathMap<NotAFileException>(context: context),
+    'Options' => PathMap<Options>(context: context),
+    'OutputFormat' => PathMap<OutputFormat>(context: context),
+    'PathException' => PathMap<PathException>(context: context),
+    'PathSet' => PathMap<PathSet>(context: context),
+    'PermissionAllow' => PathMap<PermissionAllow>(context: context),
+    'PermissionDeny' => PathMap<PermissionDeny>(context: context),
+    'PermissionRuleValue' => PathMap<PermissionRuleValue>(context: context),
+    'PermissionUpdateDirectories' => PathMap<PermissionUpdateDirectories>(
+      context: context,
+    ),
+    'PermissionUpdateRules' => PathMap<PermissionUpdateRules>(context: context),
+    'PermissionUpdateSetMode' => PathMap<PermissionUpdateSetMode>(
+      context: context,
+    ),
+    'PluginConfig' => PathMap<PluginConfig>(context: context),
+    'Position' => PathMap<Position>(context: context),
+    'ProcessDetails' => PathMap<ProcessDetails>(context: context),
+    'ProcessHelper' => PathMap<ProcessHelper>(context: context),
+    'ProcessSyncException' => PathMap<ProcessSyncException>(context: context),
+    'ProjectInfo' => PathMap<ProjectInfo>(context: context),
+    'ProjectListResult' => PathMap<ProjectListResult>(context: context),
+    'PubCache' => PathMap<PubCache>(context: context),
+    'PubGetException' => PathMap<PubGetException>(context: context),
+    'QuestInfo' => PathMap<QuestInfo>(context: context),
+    'QuestListResult' => PathMap<QuestListResult>(context: context),
+    'QueueItemInput' => PathMap<QueueItemInput>(context: context),
+    'QueueListResult' => PathMap<QueueListResult>(context: context),
+    _ => null,
+  };
+}
+
+/// Selectors 'QueuedFollowUp' to 'ToolsList' of `_rc2PathMap` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap$leaf2(String typeName, dynamic visitor, Context? context) {
+  return switch (typeName) {
+    'String' => PathMap<String>(context: context),
+    'String?' => PathMap<String?>(context: context),
+    'QueuedFollowUp' => PathMap<QueuedFollowUp>(context: context),
+    'QueuedPrompt' => PathMap<QueuedPrompt>(context: context),
+    'QuickPickItem' => PathMap<QuickPickItem>(context: context),
+    'Range' => PathMap<Range>(context: context),
+    'ReadException' => PathMap<ReadException>(context: context),
+    'Remote' => PathMap<Remote>(context: context),
+    'ReplayException' => PathMap<ReplayException>(context: context),
+    'ResourceException' => PathMap<ResourceException>(context: context),
+    'Resources' => PathMap<Resources>(context: context),
+    'RestoreFileException' => PathMap<RestoreFileException>(context: context),
+    'RunException' => PathMap<RunException>(context: context),
+    'ScheduledTime' => PathMap<ScheduledTime>(context: context),
+    'SdkAssistantMessage' => PathMap<SdkAssistantMessage>(context: context),
+    'SdkMcpTool' => PathMap<SdkMcpTool>(context: context),
+    'SdkPartialAssistantMessage' => PathMap<SdkPartialAssistantMessage>(
+      context: context,
+    ),
+    'SdkResultMessage' => PathMap<SdkResultMessage>(context: context),
+    'SdkSystemEvent' => PathMap<SdkSystemEvent>(context: context),
+    'SdkSystemMessage' => PathMap<SdkSystemMessage>(context: context),
+    'SdkUnknownMessage' => PathMap<SdkUnknownMessage>(context: context),
+    'SdkUserInput' => PathMap<SdkUserInput>(context: context),
+    'SdkUserMessage' => PathMap<SdkUserMessage>(context: context),
+    'Selection' => PathMap<Selection>(context: context),
+    'SendToChatResult' => PathMap<SendToChatResult>(context: context),
+    'Settings' => PathMap<Settings>(context: context),
+    'SettingsInline' => PathMap<SettingsInline>(context: context),
+    'SettingsPath' => PathMap<SettingsPath>(context: context),
+    'ShellDetection' => PathMap<ShellDetection>(context: context),
+    'ShellException' => PathMap<ShellException>(context: context),
+    'SkillsAll' => PathMap<SkillsAll>(context: context),
+    'SkillsList' => PathMap<SkillsList>(context: context),
+    'StackList' => PathMap<StackList>(context: context),
+    'SymbolInfo' => PathMap<SymbolInfo>(context: context),
+    'SystemPromptList' => PathMap<SystemPromptList>(context: context),
+    'SystemPromptPreset' => PathMap<SystemPromptPreset>(context: context),
+    'SystemPromptText' => PathMap<SystemPromptText>(context: context),
+    'TaskBudget' => PathMap<TaskBudget>(context: context),
+    'TemplateNotFoundException' => PathMap<TemplateNotFoundException>(
+      context: context,
+    ),
+    'Terminal' => PathMap<Terminal>(context: context),
+    'TerminalOptions' => PathMap<TerminalOptions>(context: context),
+    'TextBlock' => PathMap<TextBlock>(context: context),
+    'TextDocument' => PathMap<TextDocument>(context: context),
+    'TextEditor' => PathMap<TextEditor>(context: context),
+    'ThinkingAdaptive' => PathMap<ThinkingAdaptive>(context: context),
+    'ThinkingBlock' => PathMap<ThinkingBlock>(context: context),
+    'ThinkingDisabled' => PathMap<ThinkingDisabled>(context: context),
+    'ThinkingEnabled' => PathMap<ThinkingEnabled>(context: context),
+    'TimedRequest' => PathMap<TimedRequest>(context: context),
+    'TimedRequestInput' => PathMap<TimedRequestInput>(context: context),
+    'TimedRequestListResult' => PathMap<TimedRequestListResult>(
+      context: context,
+    ),
+    'TodoEntry' => PathMap<TodoEntry>(context: context),
+    'TodoFileListResult' => PathMap<TodoFileListResult>(context: context),
+    'TodoListResult' => PathMap<TodoListResult>(context: context),
+    'TomTodo' => PathMap<TomTodo>(context: context),
+    'TomTodoDecision' => PathMap<TomTodoDecision>(context: context),
+    'TomTodoReference' => PathMap<TomTodoReference>(context: context),
+    'TomTodoRepeat' => PathMap<TomTodoRepeat>(context: context),
+    'TomTodoScope' => PathMap<TomTodoScope>(context: context),
+    'ToolDefinitionJson' => PathMap<ToolDefinitionJson>(context: context),
+    'ToolResultBlock' => PathMap<ToolResultBlock>(context: context),
+    'ToolUseBlock' => PathMap<ToolUseBlock>(context: context),
+    'ToolsClaudeCodePreset' => PathMap<ToolsClaudeCodePreset>(context: context),
+    'ToolsList' => PathMap<ToolsList>(context: context),
+    _ => null,
+  };
+}
+
+/// Selectors 'TrailEntry' to 'num?' of `_rc2PathMap` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap$leaf3(String typeName, dynamic visitor, Context? context) {
+  return switch (typeName) {
+    'dynamic' => PathMap<dynamic>(context: context),
+    'int' => PathMap<int>(context: context),
+    'double' => PathMap<double>(context: context),
+    'bool' => PathMap<bool>(context: context),
+    'num' => PathMap<num>(context: context),
+    'int?' => PathMap<int?>(context: context),
+    'double?' => PathMap<double?>(context: context),
+    'bool?' => PathMap<bool?>(context: context),
+    'num?' => PathMap<num?>(context: context),
+    'TrailEntry' => PathMap<TrailEntry>(context: context),
+    'TrailListResult' => PathMap<TrailListResult>(context: context),
+    'UnknownBlock' => PathMap<UnknownBlock>(context: context),
+    'UnknownShell' => PathMap<UnknownShell>(context: context),
+    'VSCode' => PathMap<VSCode>(context: context),
+    'VSCodeBridgeAdapter' => PathMap<VSCodeBridgeAdapter>(context: context),
+    'VSCodeBridgeAgentSdkTransport' => PathMap<VSCodeBridgeAgentSdkTransport>(
+      context: context,
+    ),
+    'VSCodeBridgeClient' => PathMap<VSCodeBridgeClient>(context: context),
+    'VSCodeBridgeResult' => PathMap<VSCodeBridgeResult>(context: context),
+    'VSCodeChat' => PathMap<VSCodeChat>(context: context),
+    'VSCodeCommands' => PathMap<VSCodeCommands>(context: context),
+    'VSCodeCommonCommands' => PathMap<VSCodeCommonCommands>(context: context),
+    'VSCodeExtensions' => PathMap<VSCodeExtensions>(context: context),
+    'VSCodeLanguageModel' => PathMap<VSCodeLanguageModel>(context: context),
+    'VSCodeUri' => PathMap<VSCodeUri>(context: context),
+    'VSCodeWindow' => PathMap<VSCodeWindow>(context: context),
+    'VSCodeWorkspace' => PathMap<VSCodeWorkspace>(context: context),
+    'VerificationFailure' => PathMap<VerificationFailure>(context: context),
+    'VsCodeHelper' => PathMap<VsCodeHelper>(context: context),
+    'VsProgress' => PathMap<VsProgress>(context: context),
+    'WorkspaceFolder' => PathMap<WorkspaceFolder>(context: context),
+    'WorkspaceInfo' => PathMap<WorkspaceInfo>(context: context),
+    _ => null,
+  };
+}
+
+/// RC-2: Generic constructor factory for `PathMap<V>.of`.
+Object? _rc2PathMap_of(
+  dynamic visitor,
+  List<Object?> positional,
+  Map<String, Object?> named,
+  List<dynamic>? typeArgs,
+) {
+  final rawTypeName = typeArgs?.isNotEmpty == true
+      ? typeArgs!.first.name as String?
+      : null;
+  if (rawTypeName == null) return null;
+  final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
+  final other = positional.length > 0 ? positional[0] : null;
+  final context = named.containsKey('context')
+      ? D4.extractBridgedArg<Context?>(named['context'], 'context')
+      : null;
+  if (typeName.compareTo('QueuedFollowUp') < 0) {
+    if (typeName.compareTo('FileSort') < 0) {
+      return _rc2PathMap_of$leaf0(typeName, visitor, other, context);
+    }
+    return _rc2PathMap_of$leaf1(typeName, visitor, other, context);
+  }
+  if (typeName.compareTo('TrailEntry') < 0) {
+    return _rc2PathMap_of$leaf2(typeName, visitor, other, context);
+  }
+  return _rc2PathMap_of$leaf3(typeName, visitor, other, context);
+}
+
+/// Selectors 'AgentDefinition' to 'FileNotFoundException' of `_rc2PathMap_of` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap_of$leaf0(
+  String typeName,
+  dynamic visitor,
+  Object? other,
+  Context? context,
+) {
+  return switch (typeName) {
+    'AgentDefinition' => PathMap<AgentDefinition>.of(
+      D4.coerceMap<String, AgentDefinition>(other, 'other'),
+      context: context,
+    ),
+    'AgentQuery' => PathMap<AgentQuery>.of(
+      D4.coerceMap<String, AgentQuery>(other, 'other'),
+      context: context,
+    ),
+    'AgentSdkClient' => PathMap<AgentSdkClient>.of(
+      D4.coerceMap<String, AgentSdkClient>(other, 'other'),
+      context: context,
+    ),
+    'AgentSdkQueryException' => PathMap<AgentSdkQueryException>.of(
+      D4.coerceMap<String, AgentSdkQueryException>(other, 'other'),
+      context: context,
+    ),
+    'AgentSdkToolRegistry' => PathMap<AgentSdkToolRegistry>.of(
+      D4.coerceMap<String, AgentSdkToolRegistry>(other, 'other'),
+      context: context,
+    ),
+    'Ansi' => PathMap<Ansi>.of(
+      D4.coerceMap<String, Ansi>(other, 'other'),
+      context: context,
+    ),
+    'AnsiColor' => PathMap<AnsiColor>.of(
+      D4.coerceMap<String, AnsiColor>(other, 'other'),
+      context: context,
+    ),
+    'Ask' => PathMap<Ask>.of(
+      D4.coerceMap<String, Ask>(other, 'other'),
+      context: context,
+    ),
+    'AskValidatorException' => PathMap<AskValidatorException>.of(
+      D4.coerceMap<String, AskValidatorException>(other, 'other'),
+      context: context,
+    ),
+    'AskValidatorIPAddress' => PathMap<AskValidatorIPAddress>.of(
+      D4.coerceMap<String, AskValidatorIPAddress>(other, 'other'),
+      context: context,
+    ),
+    'BackupFileException' => PathMap<BackupFileException>.of(
+      D4.coerceMap<String, BackupFileException>(other, 'other'),
+      context: context,
+    ),
+    'BridgeRequestDispatcher' => PathMap<BridgeRequestDispatcher>.of(
+      D4.coerceMap<String, BridgeRequestDispatcher>(other, 'other'),
+      context: context,
+    ),
+    'BridgeWorkspaceNotFoundException' =>
+      PathMap<BridgeWorkspaceNotFoundException>.of(
+        D4.coerceMap<String, BridgeWorkspaceNotFoundException>(other, 'other'),
+        context: context,
+      ),
+    'CallToolResult' => PathMap<CallToolResult>.of(
+      D4.coerceMap<String, CallToolResult>(other, 'other'),
+      context: context,
+    ),
+    'CanUseToolContext' => PathMap<CanUseToolContext>.of(
+      D4.coerceMap<String, CanUseToolContext>(other, 'other'),
+      context: context,
+    ),
+    'CatException' => PathMap<CatException>.of(
+      D4.coerceMap<String, CatException>(other, 'other'),
+      context: context,
+    ),
+    'ChatContext' => PathMap<ChatContext>.of(
+      D4.coerceMap<String, ChatContext>(other, 'other'),
+      context: context,
+    ),
+    'ChatErrorDetails' => PathMap<ChatErrorDetails>.of(
+      D4.coerceMap<String, ChatErrorDetails>(other, 'other'),
+      context: context,
+    ),
+    'ChatParticipant' => PathMap<ChatParticipant>.of(
+      D4.coerceMap<String, ChatParticipant>(other, 'other'),
+      context: context,
+    ),
+    'ChatPromptReference' => PathMap<ChatPromptReference>.of(
+      D4.coerceMap<String, ChatPromptReference>(other, 'other'),
+      context: context,
+    ),
+    'ChatRequest' => PathMap<ChatRequest>.of(
+      D4.coerceMap<String, ChatRequest>(other, 'other'),
+      context: context,
+    ),
+    'ChatResponseStream' => PathMap<ChatResponseStream>.of(
+      D4.coerceMap<String, ChatResponseStream>(other, 'other'),
+      context: context,
+    ),
+    'ChatResult' => PathMap<ChatResult>.of(
+      D4.coerceMap<String, ChatResult>(other, 'other'),
+      context: context,
+    ),
+    'ChatVariable' => PathMap<ChatVariable>.of(
+      D4.coerceMap<String, ChatVariable>(other, 'other'),
+      context: context,
+    ),
+    'ChatVariableListResult' => PathMap<ChatVariableListResult>.of(
+      D4.coerceMap<String, ChatVariableListResult>(other, 'other'),
+      context: context,
+    ),
+    'CliException' => PathMap<CliException>.of(
+      D4.coerceMap<String, CliException>(other, 'other'),
+      context: context,
+    ),
+    'CliFileNotFoundException' => PathMap<CliFileNotFoundException>.of(
+      D4.coerceMap<String, CliFileNotFoundException>(other, 'other'),
+      context: context,
+    ),
+    'CliGlobalHolder' => PathMap<CliGlobalHolder>.of(
+      D4.coerceMap<String, CliGlobalHolder>(other, 'other'),
+      context: context,
+    ),
+    'CliNotInitializedException' => PathMap<CliNotInitializedException>.of(
+      D4.coerceMap<String, CliNotInitializedException>(other, 'other'),
+      context: context,
+    ),
+    'CliRuntimeImpl' => PathMap<CliRuntimeImpl>.of(
+      D4.coerceMap<String, CliRuntimeImpl>(other, 'other'),
+      context: context,
+    ),
+    'CliState' => PathMap<CliState>.of(
+      D4.coerceMap<String, CliState>(other, 'other'),
+      context: context,
+    ),
+    'Column' => PathMap<Column>.of(
+      D4.coerceMap<String, Column>(other, 'other'),
+      context: context,
+    ),
+    'CompiledExecutable' => PathMap<CompiledExecutable>.of(
+      D4.coerceMap<String, CompiledExecutable>(other, 'other'),
+      context: context,
+    ),
+    'Confirm' => PathMap<Confirm>.of(
+      D4.coerceMap<String, Confirm>(other, 'other'),
+      context: context,
+    ),
+    'Context' => PathMap<Context>.of(
+      D4.coerceMap<String, Context>(other, 'other'),
+      context: context,
+    ),
+    'ContextStack' => PathMap<ContextStack>.of(
+      D4.coerceMap<String, ContextStack>(other, 'other'),
+      context: context,
+    ),
+    'CopyException' => PathMap<CopyException>.of(
+      D4.coerceMap<String, CopyException>(other, 'other'),
+      context: context,
+    ),
+    'CreateDirException' => PathMap<CreateDirException>.of(
+      D4.coerceMap<String, CreateDirException>(other, 'other'),
+      context: context,
+    ),
+    'D4rtCliController' => PathMap<D4rtCliController>.of(
+      D4.coerceMap<String, D4rtCliController>(other, 'other'),
+      context: context,
+    ),
+    'DCliException' => PathMap<DCliException>.of(
+      D4.coerceMap<String, DCliException>(other, 'other'),
+      context: context,
+    ),
+    'DCliFunction' => PathMap<DCliFunction>.of(
+      D4.coerceMap<String, DCliFunction>(other, 'other'),
+      context: context,
+    ),
+    'DCliFunctionException' => PathMap<DCliFunctionException>.of(
+      D4.coerceMap<String, DCliFunctionException>(other, 'other'),
+      context: context,
+    ),
+    'DCliPaths' => PathMap<DCliPaths>.of(
+      D4.coerceMap<String, DCliPaths>(other, 'other'),
+      context: context,
+    ),
+    'DartProject' => PathMap<DartProject>.of(
+      D4.coerceMap<String, DartProject>(other, 'other'),
+      context: context,
+    ),
+    'DartProjectException' => PathMap<DartProjectException>.of(
+      D4.coerceMap<String, DartProjectException>(other, 'other'),
+      context: context,
+    ),
+    'DartScript' => PathMap<DartScript>.of(
+      D4.coerceMap<String, DartScript>(other, 'other'),
+      context: context,
+    ),
+    'DartSdk' => PathMap<DartSdk>.of(
+      D4.coerceMap<String, DartSdk>(other, 'other'),
+      context: context,
+    ),
+    'DeleteDirException' => PathMap<DeleteDirException>.of(
+      D4.coerceMap<String, DeleteDirException>(other, 'other'),
+      context: context,
+    ),
+    'DeleteException' => PathMap<DeleteException>.of(
+      D4.coerceMap<String, DeleteException>(other, 'other'),
+      context: context,
+    ),
+    'DirectoryNotFoundException' => PathMap<DirectoryNotFoundException>.of(
+      D4.coerceMap<String, DirectoryNotFoundException>(other, 'other'),
+      context: context,
+    ),
+    'DocumentContent' => PathMap<DocumentContent>.of(
+      D4.coerceMap<String, DocumentContent>(other, 'other'),
+      context: context,
+    ),
+    'DocumentInfo' => PathMap<DocumentInfo>.of(
+      D4.coerceMap<String, DocumentInfo>(other, 'other'),
+      context: context,
+    ),
+    'DocumentListResult' => PathMap<DocumentListResult>.of(
+      D4.coerceMap<String, DocumentListResult>(other, 'other'),
+      context: context,
+    ),
+    'Env' => PathMap<Env>.of(
+      D4.coerceMap<String, Env>(other, 'other'),
+      context: context,
+    ),
+    'ExecuteResult' => PathMap<ExecuteResult>.of(
+      D4.coerceMap<String, ExecuteResult>(other, 'other'),
+      context: context,
+    ),
+    'ExecutionContext' => PathMap<ExecutionContext>.of(
+      D4.coerceMap<String, ExecutionContext>(other, 'other'),
+      context: context,
+    ),
+    'ExecutionException' => PathMap<ExecutionException>.of(
+      D4.coerceMap<String, ExecutionException>(other, 'other'),
+      context: context,
+    ),
+    'Extension' => PathMap<Extension>.of(
+      D4.coerceMap<String, Extension>(other, 'other'),
+      context: context,
+    ),
+    'FetchData' => PathMap<FetchData>.of(
+      D4.coerceMap<String, FetchData>(other, 'other'),
+      context: context,
+    ),
+    'FetchException' => PathMap<FetchException>.of(
+      D4.coerceMap<String, FetchException>(other, 'other'),
+      context: context,
+    ),
+    'FetchProgress' => PathMap<FetchProgress>.of(
+      D4.coerceMap<String, FetchProgress>(other, 'other'),
+      context: context,
+    ),
+    'FetchUrl' => PathMap<FetchUrl>.of(
+      D4.coerceMap<String, FetchUrl>(other, 'other'),
+      context: context,
+    ),
+    'FileBatch' => PathMap<FileBatch>.of(
+      D4.coerceMap<String, FileBatch>(other, 'other'),
+      context: context,
+    ),
+    'FileNotFoundException' => PathMap<FileNotFoundException>.of(
+      D4.coerceMap<String, FileNotFoundException>(other, 'other'),
+      context: context,
+    ),
+    _ => null,
+  };
+}
+
+/// Selectors 'FileSort' to 'QueueListResult' of `_rc2PathMap_of` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap_of$leaf1(
+  String typeName,
+  dynamic visitor,
+  Object? other,
+  Context? context,
+) {
+  return switch (typeName) {
+    'Object' || 'Object?' => PathMap<dynamic>.of(
+      D4.coerceMap<String, dynamic>(other, 'other'),
+      context: context,
+    ),
+    'FileSort' => PathMap<FileSort>.of(
+      D4.coerceMap<String, FileSort>(other, 'other'),
+      context: context,
+    ),
+    'FileSync' => PathMap<FileSync>.of(
+      D4.coerceMap<String, FileSync>(other, 'other'),
+      context: context,
+    ),
+    'FileSystemWatcherOptions' => PathMap<FileSystemWatcherOptions>.of(
+      D4.coerceMap<String, FileSystemWatcherOptions>(other, 'other'),
+      context: context,
+    ),
+    'Find' => PathMap<Find>.of(
+      D4.coerceMap<String, Find>(other, 'other'),
+      context: context,
+    ),
+    'FindItem' => PathMap<FindItem>.of(
+      D4.coerceMap<String, FindItem>(other, 'other'),
+      context: context,
+    ),
+    'FollowUpInput' => PathMap<FollowUpInput>.of(
+      D4.coerceMap<String, FollowUpInput>(other, 'other'),
+      context: context,
+    ),
+    'Format' => PathMap<Format>.of(
+      D4.coerceMap<String, Format>(other, 'other'),
+      context: context,
+    ),
+    'GuidelineInfo' => PathMap<GuidelineInfo>.of(
+      D4.coerceMap<String, GuidelineInfo>(other, 'other'),
+      context: context,
+    ),
+    'GuidelineListResult' => PathMap<GuidelineListResult>.of(
+      D4.coerceMap<String, GuidelineListResult>(other, 'other'),
+      context: context,
+    ),
+    'HelperLogging' => PathMap<HelperLogging>.of(
+      D4.coerceMap<String, HelperLogging>(other, 'other'),
+      context: context,
+    ),
+    'ImportInfo' => PathMap<ImportInfo>.of(
+      D4.coerceMap<String, ImportInfo>(other, 'other'),
+      context: context,
+    ),
+    'InputBoxOptions' => PathMap<InputBoxOptions>.of(
+      D4.coerceMap<String, InputBoxOptions>(other, 'other'),
+      context: context,
+    ),
+    'InstallException' => PathMap<InstallException>.of(
+      D4.coerceMap<String, InstallException>(other, 'other'),
+      context: context,
+    ),
+    'InvalidArgumentException' => PathMap<InvalidArgumentException>.of(
+      D4.coerceMap<String, InvalidArgumentException>(other, 'other'),
+      context: context,
+    ),
+    'InvalidMultilineModeException' =>
+      PathMap<InvalidMultilineModeException>.of(
+        D4.coerceMap<String, InvalidMultilineModeException>(other, 'other'),
+        context: context,
+      ),
+    'InvalidProjectTemplateException' =>
+      PathMap<InvalidProjectTemplateException>.of(
+        D4.coerceMap<String, InvalidProjectTemplateException>(other, 'other'),
+        context: context,
+      ),
+    'InvalidTemplateException' => PathMap<InvalidTemplateException>.of(
+      D4.coerceMap<String, InvalidTemplateException>(other, 'other'),
+      context: context,
+    ),
+    'InvalidTodo' => PathMap<InvalidTodo>.of(
+      D4.coerceMap<String, InvalidTodo>(other, 'other'),
+      context: context,
+    ),
+    'LanguageModelCallException' => PathMap<LanguageModelCallException>.of(
+      D4.coerceMap<String, LanguageModelCallException>(other, 'other'),
+      context: context,
+    ),
+    'LanguageModelChat' => PathMap<LanguageModelChat>.of(
+      D4.coerceMap<String, LanguageModelChat>(other, 'other'),
+      context: context,
+    ),
+    'LanguageModelChatMessage' => PathMap<LanguageModelChatMessage>.of(
+      D4.coerceMap<String, LanguageModelChatMessage>(other, 'other'),
+      context: context,
+    ),
+    'LanguageModelChatResponse' => PathMap<LanguageModelChatResponse>.of(
+      D4.coerceMap<String, LanguageModelChatResponse>(other, 'other'),
+      context: context,
+    ),
+    'LanguageModelToolInformation' => PathMap<LanguageModelToolInformation>.of(
+      D4.coerceMap<String, LanguageModelToolInformation>(other, 'other'),
+      context: context,
+    ),
+    'LanguageModelToolResult' => PathMap<LanguageModelToolResult>.of(
+      D4.coerceMap<String, LanguageModelToolResult>(other, 'other'),
+      context: context,
+    ),
+    'LazyVSCodeBridgeAdapter' => PathMap<LazyVSCodeBridgeAdapter>.of(
+      D4.coerceMap<String, LazyVSCodeBridgeAdapter>(other, 'other'),
+      context: context,
+    ),
+    'LockException' => PathMap<LockException>.of(
+      D4.coerceMap<String, LockException>(other, 'other'),
+      context: context,
+    ),
+    'MaxNestingDepthException' => PathMap<MaxNestingDepthException>.of(
+      D4.coerceMap<String, MaxNestingDepthException>(other, 'other'),
+      context: context,
+    ),
+    'McpHttpServerConfig' => PathMap<McpHttpServerConfig>.of(
+      D4.coerceMap<String, McpHttpServerConfig>(other, 'other'),
+      context: context,
+    ),
+    'McpSSEServerConfig' => PathMap<McpSSEServerConfig>.of(
+      D4.coerceMap<String, McpSSEServerConfig>(other, 'other'),
+      context: context,
+    ),
+    'McpSdkServerConfig' => PathMap<McpSdkServerConfig>.of(
+      D4.coerceMap<String, McpSdkServerConfig>(other, 'other'),
+      context: context,
+    ),
+    'McpServerToolPolicy' => PathMap<McpServerToolPolicy>.of(
+      D4.coerceMap<String, McpServerToolPolicy>(other, 'other'),
+      context: context,
+    ),
+    'McpStdioServerConfig' => PathMap<McpStdioServerConfig>.of(
+      D4.coerceMap<String, McpStdioServerConfig>(other, 'other'),
+      context: context,
+    ),
+    'MessageOptions' => PathMap<MessageOptions>.of(
+      D4.coerceMap<String, MessageOptions>(other, 'other'),
+      context: context,
+    ),
+    'MoveDirException' => PathMap<MoveDirException>.of(
+      D4.coerceMap<String, MoveDirException>(other, 'other'),
+      context: context,
+    ),
+    'MoveException' => PathMap<MoveException>.of(
+      D4.coerceMap<String, MoveException>(other, 'other'),
+      context: context,
+    ),
+    'MoveTreeException' => PathMap<MoveTreeException>.of(
+      D4.coerceMap<String, MoveTreeException>(other, 'other'),
+      context: context,
+    ),
+    'NamedLock' => PathMap<NamedLock>.of(
+      D4.coerceMap<String, NamedLock>(other, 'other'),
+      context: context,
+    ),
+    'NamedLockObservation' => PathMap<NamedLockObservation>.of(
+      D4.coerceMap<String, NamedLockObservation>(other, 'other'),
+      context: context,
+    ),
+    'NotAFileException' => PathMap<NotAFileException>.of(
+      D4.coerceMap<String, NotAFileException>(other, 'other'),
+      context: context,
+    ),
+    'Options' => PathMap<Options>.of(
+      D4.coerceMap<String, Options>(other, 'other'),
+      context: context,
+    ),
+    'OutputFormat' => PathMap<OutputFormat>.of(
+      D4.coerceMap<String, OutputFormat>(other, 'other'),
+      context: context,
+    ),
+    'PathException' => PathMap<PathException>.of(
+      D4.coerceMap<String, PathException>(other, 'other'),
+      context: context,
+    ),
+    'PathSet' => PathMap<PathSet>.of(
+      D4.coerceMap<String, PathSet>(other, 'other'),
+      context: context,
+    ),
+    'PermissionAllow' => PathMap<PermissionAllow>.of(
+      D4.coerceMap<String, PermissionAllow>(other, 'other'),
+      context: context,
+    ),
+    'PermissionDeny' => PathMap<PermissionDeny>.of(
+      D4.coerceMap<String, PermissionDeny>(other, 'other'),
+      context: context,
+    ),
+    'PermissionRuleValue' => PathMap<PermissionRuleValue>.of(
+      D4.coerceMap<String, PermissionRuleValue>(other, 'other'),
+      context: context,
+    ),
+    'PermissionUpdateDirectories' => PathMap<PermissionUpdateDirectories>.of(
+      D4.coerceMap<String, PermissionUpdateDirectories>(other, 'other'),
+      context: context,
+    ),
+    'PermissionUpdateRules' => PathMap<PermissionUpdateRules>.of(
+      D4.coerceMap<String, PermissionUpdateRules>(other, 'other'),
+      context: context,
+    ),
+    'PermissionUpdateSetMode' => PathMap<PermissionUpdateSetMode>.of(
+      D4.coerceMap<String, PermissionUpdateSetMode>(other, 'other'),
+      context: context,
+    ),
+    'PluginConfig' => PathMap<PluginConfig>.of(
+      D4.coerceMap<String, PluginConfig>(other, 'other'),
+      context: context,
+    ),
+    'Position' => PathMap<Position>.of(
+      D4.coerceMap<String, Position>(other, 'other'),
+      context: context,
+    ),
+    'ProcessDetails' => PathMap<ProcessDetails>.of(
+      D4.coerceMap<String, ProcessDetails>(other, 'other'),
+      context: context,
+    ),
+    'ProcessHelper' => PathMap<ProcessHelper>.of(
+      D4.coerceMap<String, ProcessHelper>(other, 'other'),
+      context: context,
+    ),
+    'ProcessSyncException' => PathMap<ProcessSyncException>.of(
+      D4.coerceMap<String, ProcessSyncException>(other, 'other'),
+      context: context,
+    ),
+    'ProjectInfo' => PathMap<ProjectInfo>.of(
+      D4.coerceMap<String, ProjectInfo>(other, 'other'),
+      context: context,
+    ),
+    'ProjectListResult' => PathMap<ProjectListResult>.of(
+      D4.coerceMap<String, ProjectListResult>(other, 'other'),
+      context: context,
+    ),
+    'PubCache' => PathMap<PubCache>.of(
+      D4.coerceMap<String, PubCache>(other, 'other'),
+      context: context,
+    ),
+    'PubGetException' => PathMap<PubGetException>.of(
+      D4.coerceMap<String, PubGetException>(other, 'other'),
+      context: context,
+    ),
+    'QuestInfo' => PathMap<QuestInfo>.of(
+      D4.coerceMap<String, QuestInfo>(other, 'other'),
+      context: context,
+    ),
+    'QuestListResult' => PathMap<QuestListResult>.of(
+      D4.coerceMap<String, QuestListResult>(other, 'other'),
+      context: context,
+    ),
+    'QueueItemInput' => PathMap<QueueItemInput>.of(
+      D4.coerceMap<String, QueueItemInput>(other, 'other'),
+      context: context,
+    ),
+    'QueueListResult' => PathMap<QueueListResult>.of(
+      D4.coerceMap<String, QueueListResult>(other, 'other'),
+      context: context,
+    ),
+    _ => null,
+  };
+}
+
+/// Selectors 'QueuedFollowUp' to 'ToolsList' of `_rc2PathMap_of` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap_of$leaf2(
+  String typeName,
+  dynamic visitor,
+  Object? other,
+  Context? context,
+) {
+  return switch (typeName) {
+    'String' => PathMap<String>.of(
+      D4.coerceMap<String, String>(other, 'other'),
+      context: context,
+    ),
+    'String?' => PathMap<String?>.of(
+      D4.coerceMap<String, String?>(other, 'other'),
+      context: context,
+    ),
+    'QueuedFollowUp' => PathMap<QueuedFollowUp>.of(
+      D4.coerceMap<String, QueuedFollowUp>(other, 'other'),
+      context: context,
+    ),
+    'QueuedPrompt' => PathMap<QueuedPrompt>.of(
+      D4.coerceMap<String, QueuedPrompt>(other, 'other'),
+      context: context,
+    ),
+    'QuickPickItem' => PathMap<QuickPickItem>.of(
+      D4.coerceMap<String, QuickPickItem>(other, 'other'),
+      context: context,
+    ),
+    'Range' => PathMap<Range>.of(
+      D4.coerceMap<String, Range>(other, 'other'),
+      context: context,
+    ),
+    'ReadException' => PathMap<ReadException>.of(
+      D4.coerceMap<String, ReadException>(other, 'other'),
+      context: context,
+    ),
+    'Remote' => PathMap<Remote>.of(
+      D4.coerceMap<String, Remote>(other, 'other'),
+      context: context,
+    ),
+    'ReplayException' => PathMap<ReplayException>.of(
+      D4.coerceMap<String, ReplayException>(other, 'other'),
+      context: context,
+    ),
+    'ResourceException' => PathMap<ResourceException>.of(
+      D4.coerceMap<String, ResourceException>(other, 'other'),
+      context: context,
+    ),
+    'Resources' => PathMap<Resources>.of(
+      D4.coerceMap<String, Resources>(other, 'other'),
+      context: context,
+    ),
+    'RestoreFileException' => PathMap<RestoreFileException>.of(
+      D4.coerceMap<String, RestoreFileException>(other, 'other'),
+      context: context,
+    ),
+    'RunException' => PathMap<RunException>.of(
+      D4.coerceMap<String, RunException>(other, 'other'),
+      context: context,
+    ),
+    'ScheduledTime' => PathMap<ScheduledTime>.of(
+      D4.coerceMap<String, ScheduledTime>(other, 'other'),
+      context: context,
+    ),
+    'SdkAssistantMessage' => PathMap<SdkAssistantMessage>.of(
+      D4.coerceMap<String, SdkAssistantMessage>(other, 'other'),
+      context: context,
+    ),
+    'SdkMcpTool' => PathMap<SdkMcpTool>.of(
+      D4.coerceMap<String, SdkMcpTool>(other, 'other'),
+      context: context,
+    ),
+    'SdkPartialAssistantMessage' => PathMap<SdkPartialAssistantMessage>.of(
+      D4.coerceMap<String, SdkPartialAssistantMessage>(other, 'other'),
+      context: context,
+    ),
+    'SdkResultMessage' => PathMap<SdkResultMessage>.of(
+      D4.coerceMap<String, SdkResultMessage>(other, 'other'),
+      context: context,
+    ),
+    'SdkSystemEvent' => PathMap<SdkSystemEvent>.of(
+      D4.coerceMap<String, SdkSystemEvent>(other, 'other'),
+      context: context,
+    ),
+    'SdkSystemMessage' => PathMap<SdkSystemMessage>.of(
+      D4.coerceMap<String, SdkSystemMessage>(other, 'other'),
+      context: context,
+    ),
+    'SdkUnknownMessage' => PathMap<SdkUnknownMessage>.of(
+      D4.coerceMap<String, SdkUnknownMessage>(other, 'other'),
+      context: context,
+    ),
+    'SdkUserInput' => PathMap<SdkUserInput>.of(
+      D4.coerceMap<String, SdkUserInput>(other, 'other'),
+      context: context,
+    ),
+    'SdkUserMessage' => PathMap<SdkUserMessage>.of(
+      D4.coerceMap<String, SdkUserMessage>(other, 'other'),
+      context: context,
+    ),
+    'Selection' => PathMap<Selection>.of(
+      D4.coerceMap<String, Selection>(other, 'other'),
+      context: context,
+    ),
+    'SendToChatResult' => PathMap<SendToChatResult>.of(
+      D4.coerceMap<String, SendToChatResult>(other, 'other'),
+      context: context,
+    ),
+    'Settings' => PathMap<Settings>.of(
+      D4.coerceMap<String, Settings>(other, 'other'),
+      context: context,
+    ),
+    'SettingsInline' => PathMap<SettingsInline>.of(
+      D4.coerceMap<String, SettingsInline>(other, 'other'),
+      context: context,
+    ),
+    'SettingsPath' => PathMap<SettingsPath>.of(
+      D4.coerceMap<String, SettingsPath>(other, 'other'),
+      context: context,
+    ),
+    'ShellDetection' => PathMap<ShellDetection>.of(
+      D4.coerceMap<String, ShellDetection>(other, 'other'),
+      context: context,
+    ),
+    'ShellException' => PathMap<ShellException>.of(
+      D4.coerceMap<String, ShellException>(other, 'other'),
+      context: context,
+    ),
+    'SkillsAll' => PathMap<SkillsAll>.of(
+      D4.coerceMap<String, SkillsAll>(other, 'other'),
+      context: context,
+    ),
+    'SkillsList' => PathMap<SkillsList>.of(
+      D4.coerceMap<String, SkillsList>(other, 'other'),
+      context: context,
+    ),
+    'StackList' => PathMap<StackList>.of(
+      D4.coerceMap<String, StackList>(other, 'other'),
+      context: context,
+    ),
+    'SymbolInfo' => PathMap<SymbolInfo>.of(
+      D4.coerceMap<String, SymbolInfo>(other, 'other'),
+      context: context,
+    ),
+    'SystemPromptList' => PathMap<SystemPromptList>.of(
+      D4.coerceMap<String, SystemPromptList>(other, 'other'),
+      context: context,
+    ),
+    'SystemPromptPreset' => PathMap<SystemPromptPreset>.of(
+      D4.coerceMap<String, SystemPromptPreset>(other, 'other'),
+      context: context,
+    ),
+    'SystemPromptText' => PathMap<SystemPromptText>.of(
+      D4.coerceMap<String, SystemPromptText>(other, 'other'),
+      context: context,
+    ),
+    'TaskBudget' => PathMap<TaskBudget>.of(
+      D4.coerceMap<String, TaskBudget>(other, 'other'),
+      context: context,
+    ),
+    'TemplateNotFoundException' => PathMap<TemplateNotFoundException>.of(
+      D4.coerceMap<String, TemplateNotFoundException>(other, 'other'),
+      context: context,
+    ),
+    'Terminal' => PathMap<Terminal>.of(
+      D4.coerceMap<String, Terminal>(other, 'other'),
+      context: context,
+    ),
+    'TerminalOptions' => PathMap<TerminalOptions>.of(
+      D4.coerceMap<String, TerminalOptions>(other, 'other'),
+      context: context,
+    ),
+    'TextBlock' => PathMap<TextBlock>.of(
+      D4.coerceMap<String, TextBlock>(other, 'other'),
+      context: context,
+    ),
+    'TextDocument' => PathMap<TextDocument>.of(
+      D4.coerceMap<String, TextDocument>(other, 'other'),
+      context: context,
+    ),
+    'TextEditor' => PathMap<TextEditor>.of(
+      D4.coerceMap<String, TextEditor>(other, 'other'),
+      context: context,
+    ),
+    'ThinkingAdaptive' => PathMap<ThinkingAdaptive>.of(
+      D4.coerceMap<String, ThinkingAdaptive>(other, 'other'),
+      context: context,
+    ),
+    'ThinkingBlock' => PathMap<ThinkingBlock>.of(
+      D4.coerceMap<String, ThinkingBlock>(other, 'other'),
+      context: context,
+    ),
+    'ThinkingDisabled' => PathMap<ThinkingDisabled>.of(
+      D4.coerceMap<String, ThinkingDisabled>(other, 'other'),
+      context: context,
+    ),
+    'ThinkingEnabled' => PathMap<ThinkingEnabled>.of(
+      D4.coerceMap<String, ThinkingEnabled>(other, 'other'),
+      context: context,
+    ),
+    'TimedRequest' => PathMap<TimedRequest>.of(
+      D4.coerceMap<String, TimedRequest>(other, 'other'),
+      context: context,
+    ),
+    'TimedRequestInput' => PathMap<TimedRequestInput>.of(
+      D4.coerceMap<String, TimedRequestInput>(other, 'other'),
+      context: context,
+    ),
+    'TimedRequestListResult' => PathMap<TimedRequestListResult>.of(
+      D4.coerceMap<String, TimedRequestListResult>(other, 'other'),
+      context: context,
+    ),
+    'TodoEntry' => PathMap<TodoEntry>.of(
+      D4.coerceMap<String, TodoEntry>(other, 'other'),
+      context: context,
+    ),
+    'TodoFileListResult' => PathMap<TodoFileListResult>.of(
+      D4.coerceMap<String, TodoFileListResult>(other, 'other'),
+      context: context,
+    ),
+    'TodoListResult' => PathMap<TodoListResult>.of(
+      D4.coerceMap<String, TodoListResult>(other, 'other'),
+      context: context,
+    ),
+    'TomTodo' => PathMap<TomTodo>.of(
+      D4.coerceMap<String, TomTodo>(other, 'other'),
+      context: context,
+    ),
+    'TomTodoDecision' => PathMap<TomTodoDecision>.of(
+      D4.coerceMap<String, TomTodoDecision>(other, 'other'),
+      context: context,
+    ),
+    'TomTodoReference' => PathMap<TomTodoReference>.of(
+      D4.coerceMap<String, TomTodoReference>(other, 'other'),
+      context: context,
+    ),
+    'TomTodoRepeat' => PathMap<TomTodoRepeat>.of(
+      D4.coerceMap<String, TomTodoRepeat>(other, 'other'),
+      context: context,
+    ),
+    'TomTodoScope' => PathMap<TomTodoScope>.of(
+      D4.coerceMap<String, TomTodoScope>(other, 'other'),
+      context: context,
+    ),
+    'ToolDefinitionJson' => PathMap<ToolDefinitionJson>.of(
+      D4.coerceMap<String, ToolDefinitionJson>(other, 'other'),
+      context: context,
+    ),
+    'ToolResultBlock' => PathMap<ToolResultBlock>.of(
+      D4.coerceMap<String, ToolResultBlock>(other, 'other'),
+      context: context,
+    ),
+    'ToolUseBlock' => PathMap<ToolUseBlock>.of(
+      D4.coerceMap<String, ToolUseBlock>(other, 'other'),
+      context: context,
+    ),
+    'ToolsClaudeCodePreset' => PathMap<ToolsClaudeCodePreset>.of(
+      D4.coerceMap<String, ToolsClaudeCodePreset>(other, 'other'),
+      context: context,
+    ),
+    'ToolsList' => PathMap<ToolsList>.of(
+      D4.coerceMap<String, ToolsList>(other, 'other'),
+      context: context,
+    ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TrailEntry' to 'num?' of `_rc2PathMap_of` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2PathMap_of$leaf3(
+  String typeName,
+  dynamic visitor,
+  Object? other,
+  Context? context,
+) {
+  return switch (typeName) {
+    'dynamic' => PathMap<dynamic>.of(
+      D4.coerceMap<String, dynamic>(other, 'other'),
+      context: context,
+    ),
+    'int' => PathMap<int>.of(
+      D4.coerceMap<String, int>(other, 'other'),
+      context: context,
+    ),
+    'double' => PathMap<double>.of(
+      D4.coerceMap<String, double>(other, 'other'),
+      context: context,
+    ),
+    'bool' => PathMap<bool>.of(
+      D4.coerceMap<String, bool>(other, 'other'),
+      context: context,
+    ),
+    'num' => PathMap<num>.of(
+      D4.coerceMap<String, num>(other, 'other'),
+      context: context,
+    ),
+    'int?' => PathMap<int?>.of(
+      D4.coerceMap<String, int?>(other, 'other'),
+      context: context,
+    ),
+    'double?' => PathMap<double?>.of(
+      D4.coerceMap<String, double?>(other, 'other'),
+      context: context,
+    ),
+    'bool?' => PathMap<bool?>.of(
+      D4.coerceMap<String, bool?>(other, 'other'),
+      context: context,
+    ),
+    'num?' => PathMap<num?>.of(
+      D4.coerceMap<String, num?>(other, 'other'),
+      context: context,
+    ),
+    'TrailEntry' => PathMap<TrailEntry>.of(
+      D4.coerceMap<String, TrailEntry>(other, 'other'),
+      context: context,
+    ),
+    'TrailListResult' => PathMap<TrailListResult>.of(
+      D4.coerceMap<String, TrailListResult>(other, 'other'),
+      context: context,
+    ),
+    'UnknownBlock' => PathMap<UnknownBlock>.of(
+      D4.coerceMap<String, UnknownBlock>(other, 'other'),
+      context: context,
+    ),
+    'UnknownShell' => PathMap<UnknownShell>.of(
+      D4.coerceMap<String, UnknownShell>(other, 'other'),
+      context: context,
+    ),
+    'VSCode' => PathMap<VSCode>.of(
+      D4.coerceMap<String, VSCode>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeBridgeAdapter' => PathMap<VSCodeBridgeAdapter>.of(
+      D4.coerceMap<String, VSCodeBridgeAdapter>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeBridgeAgentSdkTransport' =>
+      PathMap<VSCodeBridgeAgentSdkTransport>.of(
+        D4.coerceMap<String, VSCodeBridgeAgentSdkTransport>(other, 'other'),
+        context: context,
+      ),
+    'VSCodeBridgeClient' => PathMap<VSCodeBridgeClient>.of(
+      D4.coerceMap<String, VSCodeBridgeClient>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeBridgeResult' => PathMap<VSCodeBridgeResult>.of(
+      D4.coerceMap<String, VSCodeBridgeResult>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeChat' => PathMap<VSCodeChat>.of(
+      D4.coerceMap<String, VSCodeChat>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeCommands' => PathMap<VSCodeCommands>.of(
+      D4.coerceMap<String, VSCodeCommands>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeCommonCommands' => PathMap<VSCodeCommonCommands>.of(
+      D4.coerceMap<String, VSCodeCommonCommands>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeExtensions' => PathMap<VSCodeExtensions>.of(
+      D4.coerceMap<String, VSCodeExtensions>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeLanguageModel' => PathMap<VSCodeLanguageModel>.of(
+      D4.coerceMap<String, VSCodeLanguageModel>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeUri' => PathMap<VSCodeUri>.of(
+      D4.coerceMap<String, VSCodeUri>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeWindow' => PathMap<VSCodeWindow>.of(
+      D4.coerceMap<String, VSCodeWindow>(other, 'other'),
+      context: context,
+    ),
+    'VSCodeWorkspace' => PathMap<VSCodeWorkspace>.of(
+      D4.coerceMap<String, VSCodeWorkspace>(other, 'other'),
+      context: context,
+    ),
+    'VerificationFailure' => PathMap<VerificationFailure>.of(
+      D4.coerceMap<String, VerificationFailure>(other, 'other'),
+      context: context,
+    ),
+    'VsCodeHelper' => PathMap<VsCodeHelper>.of(
+      D4.coerceMap<String, VsCodeHelper>(other, 'other'),
+      context: context,
+    ),
+    'VsProgress' => PathMap<VsProgress>.of(
+      D4.coerceMap<String, VsProgress>(other, 'other'),
+      context: context,
+    ),
+    'WorkspaceFolder' => PathMap<WorkspaceFolder>.of(
+      D4.coerceMap<String, WorkspaceFolder>(other, 'other'),
+      context: context,
+    ),
+    'WorkspaceInfo' => PathMap<WorkspaceInfo>.of(
+      D4.coerceMap<String, WorkspaceInfo>(other, 'other'),
+      context: context,
+    ),
+    _ => null,
+  };
+}
+
+/// RC-2: Generic constructor factory for `StackList<T>`.
+Object? _rc2StackList(
+  dynamic visitor,
+  List<Object?> positional,
+  Map<String, Object?> named,
+  List<dynamic>? typeArgs,
+) {
+  final rawTypeName = typeArgs?.isNotEmpty == true
+      ? typeArgs!.first.name as String?
+      : null;
+  if (rawTypeName == null) return null;
+  final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
+  if (typeName.compareTo('QueueListResult') < 0) {
+    if (typeName.compareTo('FileSort') < 0) {
+      return _rc2StackList$leaf0(typeName, visitor);
+    }
+    return _rc2StackList$leaf1(typeName, visitor);
+  }
+  if (typeName.compareTo('TrailEntry') < 0) {
+    return _rc2StackList$leaf2(typeName, visitor);
+  }
+  return _rc2StackList$leaf3(typeName, visitor);
+}
+
+/// Selectors 'AgentDefinition' to 'FileNotFoundException' of `_rc2StackList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList$leaf0(String typeName, dynamic visitor) {
+  return switch (typeName) {
+    'AgentDefinition' => StackList<AgentDefinition>(),
+    'AgentQuery' => StackList<AgentQuery>(),
+    'AgentSdkClient' => StackList<AgentSdkClient>(),
+    'AgentSdkQueryException' => StackList<AgentSdkQueryException>(),
+    'AgentSdkToolRegistry' => StackList<AgentSdkToolRegistry>(),
+    'Ansi' => StackList<Ansi>(),
+    'AnsiColor' => StackList<AnsiColor>(),
+    'Ask' => StackList<Ask>(),
+    'AskValidatorException' => StackList<AskValidatorException>(),
+    'AskValidatorIPAddress' => StackList<AskValidatorIPAddress>(),
+    'BackupFileException' => StackList<BackupFileException>(),
+    'BridgeRequestDispatcher' => StackList<BridgeRequestDispatcher>(),
+    'BridgeWorkspaceNotFoundException' =>
+      StackList<BridgeWorkspaceNotFoundException>(),
+    'CallToolResult' => StackList<CallToolResult>(),
+    'CanUseToolContext' => StackList<CanUseToolContext>(),
+    'CatException' => StackList<CatException>(),
+    'ChatContext' => StackList<ChatContext>(),
+    'ChatErrorDetails' => StackList<ChatErrorDetails>(),
+    'ChatParticipant' => StackList<ChatParticipant>(),
+    'ChatPromptReference' => StackList<ChatPromptReference>(),
+    'ChatRequest' => StackList<ChatRequest>(),
+    'ChatResponseStream' => StackList<ChatResponseStream>(),
+    'ChatResult' => StackList<ChatResult>(),
+    'ChatVariable' => StackList<ChatVariable>(),
+    'ChatVariableListResult' => StackList<ChatVariableListResult>(),
+    'CliException' => StackList<CliException>(),
+    'CliFileNotFoundException' => StackList<CliFileNotFoundException>(),
+    'CliGlobalHolder' => StackList<CliGlobalHolder>(),
+    'CliNotInitializedException' => StackList<CliNotInitializedException>(),
+    'CliRuntimeImpl' => StackList<CliRuntimeImpl>(),
+    'CliState' => StackList<CliState>(),
+    'Column' => StackList<Column>(),
+    'CompiledExecutable' => StackList<CompiledExecutable>(),
+    'Confirm' => StackList<Confirm>(),
+    'Context' => StackList<Context>(),
+    'ContextStack' => StackList<ContextStack>(),
+    'CopyException' => StackList<CopyException>(),
+    'CreateDirException' => StackList<CreateDirException>(),
+    'D4rtCliController' => StackList<D4rtCliController>(),
+    'DCliException' => StackList<DCliException>(),
+    'DCliFunction' => StackList<DCliFunction>(),
+    'DCliFunctionException' => StackList<DCliFunctionException>(),
+    'DCliPaths' => StackList<DCliPaths>(),
+    'DartProject' => StackList<DartProject>(),
+    'DartProjectException' => StackList<DartProjectException>(),
+    'DartScript' => StackList<DartScript>(),
+    'DartSdk' => StackList<DartSdk>(),
+    'DeleteDirException' => StackList<DeleteDirException>(),
+    'DeleteException' => StackList<DeleteException>(),
+    'DirectoryNotFoundException' => StackList<DirectoryNotFoundException>(),
+    'DocumentContent' => StackList<DocumentContent>(),
+    'DocumentInfo' => StackList<DocumentInfo>(),
+    'DocumentListResult' => StackList<DocumentListResult>(),
+    'Env' => StackList<Env>(),
+    'ExecuteResult' => StackList<ExecuteResult>(),
+    'ExecutionContext' => StackList<ExecutionContext>(),
+    'ExecutionException' => StackList<ExecutionException>(),
+    'Extension' => StackList<Extension>(),
+    'FetchData' => StackList<FetchData>(),
+    'FetchException' => StackList<FetchException>(),
+    'FetchProgress' => StackList<FetchProgress>(),
+    'FetchUrl' => StackList<FetchUrl>(),
+    'FileBatch' => StackList<FileBatch>(),
+    'FileNotFoundException' => StackList<FileNotFoundException>(),
+    _ => null,
+  };
+}
+
+/// Selectors 'FileSort' to 'QueueItemInput' of `_rc2StackList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList$leaf1(String typeName, dynamic visitor) {
+  return switch (typeName) {
+    'Object' || 'Object?' => StackList<dynamic>(),
+    'FileSort' => StackList<FileSort>(),
+    'FileSync' => StackList<FileSync>(),
+    'FileSystemWatcherOptions' => StackList<FileSystemWatcherOptions>(),
+    'Find' => StackList<Find>(),
+    'FindItem' => StackList<FindItem>(),
+    'FollowUpInput' => StackList<FollowUpInput>(),
+    'Format' => StackList<Format>(),
+    'GuidelineInfo' => StackList<GuidelineInfo>(),
+    'GuidelineListResult' => StackList<GuidelineListResult>(),
+    'HelperLogging' => StackList<HelperLogging>(),
+    'ImportInfo' => StackList<ImportInfo>(),
+    'InputBoxOptions' => StackList<InputBoxOptions>(),
+    'InstallException' => StackList<InstallException>(),
+    'InvalidArgumentException' => StackList<InvalidArgumentException>(),
+    'InvalidMultilineModeException' =>
+      StackList<InvalidMultilineModeException>(),
+    'InvalidProjectTemplateException' =>
+      StackList<InvalidProjectTemplateException>(),
+    'InvalidTemplateException' => StackList<InvalidTemplateException>(),
+    'InvalidTodo' => StackList<InvalidTodo>(),
+    'LanguageModelCallException' => StackList<LanguageModelCallException>(),
+    'LanguageModelChat' => StackList<LanguageModelChat>(),
+    'LanguageModelChatMessage' => StackList<LanguageModelChatMessage>(),
+    'LanguageModelChatResponse' => StackList<LanguageModelChatResponse>(),
+    'LanguageModelToolInformation' => StackList<LanguageModelToolInformation>(),
+    'LanguageModelToolResult' => StackList<LanguageModelToolResult>(),
+    'LazyVSCodeBridgeAdapter' => StackList<LazyVSCodeBridgeAdapter>(),
+    'LockException' => StackList<LockException>(),
+    'MaxNestingDepthException' => StackList<MaxNestingDepthException>(),
+    'McpHttpServerConfig' => StackList<McpHttpServerConfig>(),
+    'McpSSEServerConfig' => StackList<McpSSEServerConfig>(),
+    'McpSdkServerConfig' => StackList<McpSdkServerConfig>(),
+    'McpServerToolPolicy' => StackList<McpServerToolPolicy>(),
+    'McpStdioServerConfig' => StackList<McpStdioServerConfig>(),
+    'MessageOptions' => StackList<MessageOptions>(),
+    'MoveDirException' => StackList<MoveDirException>(),
+    'MoveException' => StackList<MoveException>(),
+    'MoveTreeException' => StackList<MoveTreeException>(),
+    'NamedLock' => StackList<NamedLock>(),
+    'NamedLockObservation' => StackList<NamedLockObservation>(),
+    'NotAFileException' => StackList<NotAFileException>(),
+    'Options' => StackList<Options>(),
+    'OutputFormat' => StackList<OutputFormat>(),
+    'PathException' => StackList<PathException>(),
+    'PathMap' => StackList<PathMap>(),
+    'PathSet' => StackList<PathSet>(),
+    'PermissionAllow' => StackList<PermissionAllow>(),
+    'PermissionDeny' => StackList<PermissionDeny>(),
+    'PermissionRuleValue' => StackList<PermissionRuleValue>(),
+    'PermissionUpdateDirectories' => StackList<PermissionUpdateDirectories>(),
+    'PermissionUpdateRules' => StackList<PermissionUpdateRules>(),
+    'PermissionUpdateSetMode' => StackList<PermissionUpdateSetMode>(),
+    'PluginConfig' => StackList<PluginConfig>(),
+    'Position' => StackList<Position>(),
+    'ProcessDetails' => StackList<ProcessDetails>(),
+    'ProcessHelper' => StackList<ProcessHelper>(),
+    'ProcessSyncException' => StackList<ProcessSyncException>(),
+    'ProjectInfo' => StackList<ProjectInfo>(),
+    'ProjectListResult' => StackList<ProjectListResult>(),
+    'PubCache' => StackList<PubCache>(),
+    'PubGetException' => StackList<PubGetException>(),
+    'QuestInfo' => StackList<QuestInfo>(),
+    'QuestListResult' => StackList<QuestListResult>(),
+    'QueueItemInput' => StackList<QueueItemInput>(),
+    _ => null,
+  };
+}
+
+/// Selectors 'QueueListResult' to 'ToolsList' of `_rc2StackList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList$leaf2(String typeName, dynamic visitor) {
+  return switch (typeName) {
+    'String' => StackList<String>(),
+    'String?' => StackList<String?>(),
+    'QueueListResult' => StackList<QueueListResult>(),
+    'QueuedFollowUp' => StackList<QueuedFollowUp>(),
+    'QueuedPrompt' => StackList<QueuedPrompt>(),
+    'QuickPickItem' => StackList<QuickPickItem>(),
+    'Range' => StackList<Range>(),
+    'ReadException' => StackList<ReadException>(),
+    'Remote' => StackList<Remote>(),
+    'ReplayException' => StackList<ReplayException>(),
+    'ResourceException' => StackList<ResourceException>(),
+    'Resources' => StackList<Resources>(),
+    'RestoreFileException' => StackList<RestoreFileException>(),
+    'RunException' => StackList<RunException>(),
+    'ScheduledTime' => StackList<ScheduledTime>(),
+    'SdkAssistantMessage' => StackList<SdkAssistantMessage>(),
+    'SdkMcpTool' => StackList<SdkMcpTool>(),
+    'SdkPartialAssistantMessage' => StackList<SdkPartialAssistantMessage>(),
+    'SdkResultMessage' => StackList<SdkResultMessage>(),
+    'SdkSystemEvent' => StackList<SdkSystemEvent>(),
+    'SdkSystemMessage' => StackList<SdkSystemMessage>(),
+    'SdkUnknownMessage' => StackList<SdkUnknownMessage>(),
+    'SdkUserInput' => StackList<SdkUserInput>(),
+    'SdkUserMessage' => StackList<SdkUserMessage>(),
+    'Selection' => StackList<Selection>(),
+    'SendToChatResult' => StackList<SendToChatResult>(),
+    'Settings' => StackList<Settings>(),
+    'SettingsInline' => StackList<SettingsInline>(),
+    'SettingsPath' => StackList<SettingsPath>(),
+    'ShellDetection' => StackList<ShellDetection>(),
+    'ShellException' => StackList<ShellException>(),
+    'SkillsAll' => StackList<SkillsAll>(),
+    'SkillsList' => StackList<SkillsList>(),
+    'SymbolInfo' => StackList<SymbolInfo>(),
+    'SystemPromptList' => StackList<SystemPromptList>(),
+    'SystemPromptPreset' => StackList<SystemPromptPreset>(),
+    'SystemPromptText' => StackList<SystemPromptText>(),
+    'TaskBudget' => StackList<TaskBudget>(),
+    'TemplateNotFoundException' => StackList<TemplateNotFoundException>(),
+    'Terminal' => StackList<Terminal>(),
+    'TerminalOptions' => StackList<TerminalOptions>(),
+    'TextBlock' => StackList<TextBlock>(),
+    'TextDocument' => StackList<TextDocument>(),
+    'TextEditor' => StackList<TextEditor>(),
+    'ThinkingAdaptive' => StackList<ThinkingAdaptive>(),
+    'ThinkingBlock' => StackList<ThinkingBlock>(),
+    'ThinkingDisabled' => StackList<ThinkingDisabled>(),
+    'ThinkingEnabled' => StackList<ThinkingEnabled>(),
+    'TimedRequest' => StackList<TimedRequest>(),
+    'TimedRequestInput' => StackList<TimedRequestInput>(),
+    'TimedRequestListResult' => StackList<TimedRequestListResult>(),
+    'TodoEntry' => StackList<TodoEntry>(),
+    'TodoFileListResult' => StackList<TodoFileListResult>(),
+    'TodoListResult' => StackList<TodoListResult>(),
+    'TomTodo' => StackList<TomTodo>(),
+    'TomTodoDecision' => StackList<TomTodoDecision>(),
+    'TomTodoReference' => StackList<TomTodoReference>(),
+    'TomTodoRepeat' => StackList<TomTodoRepeat>(),
+    'TomTodoScope' => StackList<TomTodoScope>(),
+    'ToolDefinitionJson' => StackList<ToolDefinitionJson>(),
+    'ToolResultBlock' => StackList<ToolResultBlock>(),
+    'ToolUseBlock' => StackList<ToolUseBlock>(),
+    'ToolsClaudeCodePreset' => StackList<ToolsClaudeCodePreset>(),
+    'ToolsList' => StackList<ToolsList>(),
+    _ => null,
+  };
+}
+
+/// Selectors 'TrailEntry' to 'num?' of `_rc2StackList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList$leaf3(String typeName, dynamic visitor) {
+  return switch (typeName) {
+    'dynamic' => StackList<dynamic>(),
+    'int' => StackList<int>(),
+    'double' => StackList<double>(),
+    'bool' => StackList<bool>(),
+    'num' => StackList<num>(),
+    'int?' => StackList<int?>(),
+    'double?' => StackList<double?>(),
+    'bool?' => StackList<bool?>(),
+    'num?' => StackList<num?>(),
+    'TrailEntry' => StackList<TrailEntry>(),
+    'TrailListResult' => StackList<TrailListResult>(),
+    'UnknownBlock' => StackList<UnknownBlock>(),
+    'UnknownShell' => StackList<UnknownShell>(),
+    'VSCode' => StackList<VSCode>(),
+    'VSCodeBridgeAdapter' => StackList<VSCodeBridgeAdapter>(),
+    'VSCodeBridgeAgentSdkTransport' =>
+      StackList<VSCodeBridgeAgentSdkTransport>(),
+    'VSCodeBridgeClient' => StackList<VSCodeBridgeClient>(),
+    'VSCodeBridgeResult' => StackList<VSCodeBridgeResult>(),
+    'VSCodeChat' => StackList<VSCodeChat>(),
+    'VSCodeCommands' => StackList<VSCodeCommands>(),
+    'VSCodeCommonCommands' => StackList<VSCodeCommonCommands>(),
+    'VSCodeExtensions' => StackList<VSCodeExtensions>(),
+    'VSCodeLanguageModel' => StackList<VSCodeLanguageModel>(),
+    'VSCodeUri' => StackList<VSCodeUri>(),
+    'VSCodeWindow' => StackList<VSCodeWindow>(),
+    'VSCodeWorkspace' => StackList<VSCodeWorkspace>(),
+    'VerificationFailure' => StackList<VerificationFailure>(),
+    'VsCodeHelper' => StackList<VsCodeHelper>(),
+    'VsProgress' => StackList<VsProgress>(),
+    'WorkspaceFolder' => StackList<WorkspaceFolder>(),
+    'WorkspaceInfo' => StackList<WorkspaceInfo>(),
+    _ => null,
+  };
+}
+
+/// RC-2: Generic constructor factory for `StackList<T>.fromList`.
+Object? _rc2StackList_fromList(
+  dynamic visitor,
+  List<Object?> positional,
+  Map<String, Object?> named,
+  List<dynamic>? typeArgs,
+) {
+  final rawTypeName = typeArgs?.isNotEmpty == true
+      ? typeArgs!.first.name as String?
+      : null;
+  if (rawTypeName == null) return null;
+  final typeName = rawTypeName.replaceFirst(RegExp(r'<.*>'), '');
+  final initialStack = positional.length > 0 ? positional[0] : null;
+  if (typeName.compareTo('QueueListResult') < 0) {
+    if (typeName.compareTo('FileSort') < 0) {
+      return _rc2StackList_fromList$leaf0(typeName, visitor, initialStack);
+    }
+    return _rc2StackList_fromList$leaf1(typeName, visitor, initialStack);
+  }
+  if (typeName.compareTo('TrailEntry') < 0) {
+    return _rc2StackList_fromList$leaf2(typeName, visitor, initialStack);
+  }
+  return _rc2StackList_fromList$leaf3(typeName, visitor, initialStack);
+}
+
+/// Selectors 'AgentDefinition' to 'FileNotFoundException' of `_rc2StackList_fromList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList_fromList$leaf0(
+  String typeName,
+  dynamic visitor,
+  Object? initialStack,
+) {
+  return switch (typeName) {
+    'AgentDefinition' => StackList<AgentDefinition>.fromList(
+      D4.coerceList<AgentDefinition>(initialStack, 'initialStack'),
+    ),
+    'AgentQuery' => StackList<AgentQuery>.fromList(
+      D4.coerceList<AgentQuery>(initialStack, 'initialStack'),
+    ),
+    'AgentSdkClient' => StackList<AgentSdkClient>.fromList(
+      D4.coerceList<AgentSdkClient>(initialStack, 'initialStack'),
+    ),
+    'AgentSdkQueryException' => StackList<AgentSdkQueryException>.fromList(
+      D4.coerceList<AgentSdkQueryException>(initialStack, 'initialStack'),
+    ),
+    'AgentSdkToolRegistry' => StackList<AgentSdkToolRegistry>.fromList(
+      D4.coerceList<AgentSdkToolRegistry>(initialStack, 'initialStack'),
+    ),
+    'Ansi' => StackList<Ansi>.fromList(
+      D4.coerceList<Ansi>(initialStack, 'initialStack'),
+    ),
+    'AnsiColor' => StackList<AnsiColor>.fromList(
+      D4.coerceList<AnsiColor>(initialStack, 'initialStack'),
+    ),
+    'Ask' => StackList<Ask>.fromList(
+      D4.coerceList<Ask>(initialStack, 'initialStack'),
+    ),
+    'AskValidatorException' => StackList<AskValidatorException>.fromList(
+      D4.coerceList<AskValidatorException>(initialStack, 'initialStack'),
+    ),
+    'AskValidatorIPAddress' => StackList<AskValidatorIPAddress>.fromList(
+      D4.coerceList<AskValidatorIPAddress>(initialStack, 'initialStack'),
+    ),
+    'BackupFileException' => StackList<BackupFileException>.fromList(
+      D4.coerceList<BackupFileException>(initialStack, 'initialStack'),
+    ),
+    'BridgeRequestDispatcher' => StackList<BridgeRequestDispatcher>.fromList(
+      D4.coerceList<BridgeRequestDispatcher>(initialStack, 'initialStack'),
+    ),
+    'BridgeWorkspaceNotFoundException' =>
+      StackList<BridgeWorkspaceNotFoundException>.fromList(
+        D4.coerceList<BridgeWorkspaceNotFoundException>(
+          initialStack,
+          'initialStack',
+        ),
+      ),
+    'CallToolResult' => StackList<CallToolResult>.fromList(
+      D4.coerceList<CallToolResult>(initialStack, 'initialStack'),
+    ),
+    'CanUseToolContext' => StackList<CanUseToolContext>.fromList(
+      D4.coerceList<CanUseToolContext>(initialStack, 'initialStack'),
+    ),
+    'CatException' => StackList<CatException>.fromList(
+      D4.coerceList<CatException>(initialStack, 'initialStack'),
+    ),
+    'ChatContext' => StackList<ChatContext>.fromList(
+      D4.coerceList<ChatContext>(initialStack, 'initialStack'),
+    ),
+    'ChatErrorDetails' => StackList<ChatErrorDetails>.fromList(
+      D4.coerceList<ChatErrorDetails>(initialStack, 'initialStack'),
+    ),
+    'ChatParticipant' => StackList<ChatParticipant>.fromList(
+      D4.coerceList<ChatParticipant>(initialStack, 'initialStack'),
+    ),
+    'ChatPromptReference' => StackList<ChatPromptReference>.fromList(
+      D4.coerceList<ChatPromptReference>(initialStack, 'initialStack'),
+    ),
+    'ChatRequest' => StackList<ChatRequest>.fromList(
+      D4.coerceList<ChatRequest>(initialStack, 'initialStack'),
+    ),
+    'ChatResponseStream' => StackList<ChatResponseStream>.fromList(
+      D4.coerceList<ChatResponseStream>(initialStack, 'initialStack'),
+    ),
+    'ChatResult' => StackList<ChatResult>.fromList(
+      D4.coerceList<ChatResult>(initialStack, 'initialStack'),
+    ),
+    'ChatVariable' => StackList<ChatVariable>.fromList(
+      D4.coerceList<ChatVariable>(initialStack, 'initialStack'),
+    ),
+    'ChatVariableListResult' => StackList<ChatVariableListResult>.fromList(
+      D4.coerceList<ChatVariableListResult>(initialStack, 'initialStack'),
+    ),
+    'CliException' => StackList<CliException>.fromList(
+      D4.coerceList<CliException>(initialStack, 'initialStack'),
+    ),
+    'CliFileNotFoundException' => StackList<CliFileNotFoundException>.fromList(
+      D4.coerceList<CliFileNotFoundException>(initialStack, 'initialStack'),
+    ),
+    'CliGlobalHolder' => StackList<CliGlobalHolder>.fromList(
+      D4.coerceList<CliGlobalHolder>(initialStack, 'initialStack'),
+    ),
+    'CliNotInitializedException' =>
+      StackList<CliNotInitializedException>.fromList(
+        D4.coerceList<CliNotInitializedException>(initialStack, 'initialStack'),
+      ),
+    'CliRuntimeImpl' => StackList<CliRuntimeImpl>.fromList(
+      D4.coerceList<CliRuntimeImpl>(initialStack, 'initialStack'),
+    ),
+    'CliState' => StackList<CliState>.fromList(
+      D4.coerceList<CliState>(initialStack, 'initialStack'),
+    ),
+    'Column' => StackList<Column>.fromList(
+      D4.coerceList<Column>(initialStack, 'initialStack'),
+    ),
+    'CompiledExecutable' => StackList<CompiledExecutable>.fromList(
+      D4.coerceList<CompiledExecutable>(initialStack, 'initialStack'),
+    ),
+    'Confirm' => StackList<Confirm>.fromList(
+      D4.coerceList<Confirm>(initialStack, 'initialStack'),
+    ),
+    'Context' => StackList<Context>.fromList(
+      D4.coerceList<Context>(initialStack, 'initialStack'),
+    ),
+    'ContextStack' => StackList<ContextStack>.fromList(
+      D4.coerceList<ContextStack>(initialStack, 'initialStack'),
+    ),
+    'CopyException' => StackList<CopyException>.fromList(
+      D4.coerceList<CopyException>(initialStack, 'initialStack'),
+    ),
+    'CreateDirException' => StackList<CreateDirException>.fromList(
+      D4.coerceList<CreateDirException>(initialStack, 'initialStack'),
+    ),
+    'D4rtCliController' => StackList<D4rtCliController>.fromList(
+      D4.coerceList<D4rtCliController>(initialStack, 'initialStack'),
+    ),
+    'DCliException' => StackList<DCliException>.fromList(
+      D4.coerceList<DCliException>(initialStack, 'initialStack'),
+    ),
+    'DCliFunction' => StackList<DCliFunction>.fromList(
+      D4.coerceList<DCliFunction>(initialStack, 'initialStack'),
+    ),
+    'DCliFunctionException' => StackList<DCliFunctionException>.fromList(
+      D4.coerceList<DCliFunctionException>(initialStack, 'initialStack'),
+    ),
+    'DCliPaths' => StackList<DCliPaths>.fromList(
+      D4.coerceList<DCliPaths>(initialStack, 'initialStack'),
+    ),
+    'DartProject' => StackList<DartProject>.fromList(
+      D4.coerceList<DartProject>(initialStack, 'initialStack'),
+    ),
+    'DartProjectException' => StackList<DartProjectException>.fromList(
+      D4.coerceList<DartProjectException>(initialStack, 'initialStack'),
+    ),
+    'DartScript' => StackList<DartScript>.fromList(
+      D4.coerceList<DartScript>(initialStack, 'initialStack'),
+    ),
+    'DartSdk' => StackList<DartSdk>.fromList(
+      D4.coerceList<DartSdk>(initialStack, 'initialStack'),
+    ),
+    'DeleteDirException' => StackList<DeleteDirException>.fromList(
+      D4.coerceList<DeleteDirException>(initialStack, 'initialStack'),
+    ),
+    'DeleteException' => StackList<DeleteException>.fromList(
+      D4.coerceList<DeleteException>(initialStack, 'initialStack'),
+    ),
+    'DirectoryNotFoundException' =>
+      StackList<DirectoryNotFoundException>.fromList(
+        D4.coerceList<DirectoryNotFoundException>(initialStack, 'initialStack'),
+      ),
+    'DocumentContent' => StackList<DocumentContent>.fromList(
+      D4.coerceList<DocumentContent>(initialStack, 'initialStack'),
+    ),
+    'DocumentInfo' => StackList<DocumentInfo>.fromList(
+      D4.coerceList<DocumentInfo>(initialStack, 'initialStack'),
+    ),
+    'DocumentListResult' => StackList<DocumentListResult>.fromList(
+      D4.coerceList<DocumentListResult>(initialStack, 'initialStack'),
+    ),
+    'Env' => StackList<Env>.fromList(
+      D4.coerceList<Env>(initialStack, 'initialStack'),
+    ),
+    'ExecuteResult' => StackList<ExecuteResult>.fromList(
+      D4.coerceList<ExecuteResult>(initialStack, 'initialStack'),
+    ),
+    'ExecutionContext' => StackList<ExecutionContext>.fromList(
+      D4.coerceList<ExecutionContext>(initialStack, 'initialStack'),
+    ),
+    'ExecutionException' => StackList<ExecutionException>.fromList(
+      D4.coerceList<ExecutionException>(initialStack, 'initialStack'),
+    ),
+    'Extension' => StackList<Extension>.fromList(
+      D4.coerceList<Extension>(initialStack, 'initialStack'),
+    ),
+    'FetchData' => StackList<FetchData>.fromList(
+      D4.coerceList<FetchData>(initialStack, 'initialStack'),
+    ),
+    'FetchException' => StackList<FetchException>.fromList(
+      D4.coerceList<FetchException>(initialStack, 'initialStack'),
+    ),
+    'FetchProgress' => StackList<FetchProgress>.fromList(
+      D4.coerceList<FetchProgress>(initialStack, 'initialStack'),
+    ),
+    'FetchUrl' => StackList<FetchUrl>.fromList(
+      D4.coerceList<FetchUrl>(initialStack, 'initialStack'),
+    ),
+    'FileBatch' => StackList<FileBatch>.fromList(
+      D4.coerceList<FileBatch>(initialStack, 'initialStack'),
+    ),
+    'FileNotFoundException' => StackList<FileNotFoundException>.fromList(
+      D4.coerceList<FileNotFoundException>(initialStack, 'initialStack'),
+    ),
+    _ => null,
+  };
+}
+
+/// Selectors 'FileSort' to 'QueueItemInput' of `_rc2StackList_fromList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList_fromList$leaf1(
+  String typeName,
+  dynamic visitor,
+  Object? initialStack,
+) {
+  return switch (typeName) {
+    'Object' || 'Object?' => StackList<dynamic>.fromList(
+      D4.coerceList<dynamic>(initialStack, 'initialStack'),
+    ),
+    'FileSort' => StackList<FileSort>.fromList(
+      D4.coerceList<FileSort>(initialStack, 'initialStack'),
+    ),
+    'FileSync' => StackList<FileSync>.fromList(
+      D4.coerceList<FileSync>(initialStack, 'initialStack'),
+    ),
+    'FileSystemWatcherOptions' => StackList<FileSystemWatcherOptions>.fromList(
+      D4.coerceList<FileSystemWatcherOptions>(initialStack, 'initialStack'),
+    ),
+    'Find' => StackList<Find>.fromList(
+      D4.coerceList<Find>(initialStack, 'initialStack'),
+    ),
+    'FindItem' => StackList<FindItem>.fromList(
+      D4.coerceList<FindItem>(initialStack, 'initialStack'),
+    ),
+    'FollowUpInput' => StackList<FollowUpInput>.fromList(
+      D4.coerceList<FollowUpInput>(initialStack, 'initialStack'),
+    ),
+    'Format' => StackList<Format>.fromList(
+      D4.coerceList<Format>(initialStack, 'initialStack'),
+    ),
+    'GuidelineInfo' => StackList<GuidelineInfo>.fromList(
+      D4.coerceList<GuidelineInfo>(initialStack, 'initialStack'),
+    ),
+    'GuidelineListResult' => StackList<GuidelineListResult>.fromList(
+      D4.coerceList<GuidelineListResult>(initialStack, 'initialStack'),
+    ),
+    'HelperLogging' => StackList<HelperLogging>.fromList(
+      D4.coerceList<HelperLogging>(initialStack, 'initialStack'),
+    ),
+    'ImportInfo' => StackList<ImportInfo>.fromList(
+      D4.coerceList<ImportInfo>(initialStack, 'initialStack'),
+    ),
+    'InputBoxOptions' => StackList<InputBoxOptions>.fromList(
+      D4.coerceList<InputBoxOptions>(initialStack, 'initialStack'),
+    ),
+    'InstallException' => StackList<InstallException>.fromList(
+      D4.coerceList<InstallException>(initialStack, 'initialStack'),
+    ),
+    'InvalidArgumentException' => StackList<InvalidArgumentException>.fromList(
+      D4.coerceList<InvalidArgumentException>(initialStack, 'initialStack'),
+    ),
+    'InvalidMultilineModeException' =>
+      StackList<InvalidMultilineModeException>.fromList(
+        D4.coerceList<InvalidMultilineModeException>(
+          initialStack,
+          'initialStack',
+        ),
+      ),
+    'InvalidProjectTemplateException' =>
+      StackList<InvalidProjectTemplateException>.fromList(
+        D4.coerceList<InvalidProjectTemplateException>(
+          initialStack,
+          'initialStack',
+        ),
+      ),
+    'InvalidTemplateException' => StackList<InvalidTemplateException>.fromList(
+      D4.coerceList<InvalidTemplateException>(initialStack, 'initialStack'),
+    ),
+    'InvalidTodo' => StackList<InvalidTodo>.fromList(
+      D4.coerceList<InvalidTodo>(initialStack, 'initialStack'),
+    ),
+    'LanguageModelCallException' =>
+      StackList<LanguageModelCallException>.fromList(
+        D4.coerceList<LanguageModelCallException>(initialStack, 'initialStack'),
+      ),
+    'LanguageModelChat' => StackList<LanguageModelChat>.fromList(
+      D4.coerceList<LanguageModelChat>(initialStack, 'initialStack'),
+    ),
+    'LanguageModelChatMessage' => StackList<LanguageModelChatMessage>.fromList(
+      D4.coerceList<LanguageModelChatMessage>(initialStack, 'initialStack'),
+    ),
+    'LanguageModelChatResponse' =>
+      StackList<LanguageModelChatResponse>.fromList(
+        D4.coerceList<LanguageModelChatResponse>(initialStack, 'initialStack'),
+      ),
+    'LanguageModelToolInformation' =>
+      StackList<LanguageModelToolInformation>.fromList(
+        D4.coerceList<LanguageModelToolInformation>(
+          initialStack,
+          'initialStack',
+        ),
+      ),
+    'LanguageModelToolResult' => StackList<LanguageModelToolResult>.fromList(
+      D4.coerceList<LanguageModelToolResult>(initialStack, 'initialStack'),
+    ),
+    'LazyVSCodeBridgeAdapter' => StackList<LazyVSCodeBridgeAdapter>.fromList(
+      D4.coerceList<LazyVSCodeBridgeAdapter>(initialStack, 'initialStack'),
+    ),
+    'LockException' => StackList<LockException>.fromList(
+      D4.coerceList<LockException>(initialStack, 'initialStack'),
+    ),
+    'MaxNestingDepthException' => StackList<MaxNestingDepthException>.fromList(
+      D4.coerceList<MaxNestingDepthException>(initialStack, 'initialStack'),
+    ),
+    'McpHttpServerConfig' => StackList<McpHttpServerConfig>.fromList(
+      D4.coerceList<McpHttpServerConfig>(initialStack, 'initialStack'),
+    ),
+    'McpSSEServerConfig' => StackList<McpSSEServerConfig>.fromList(
+      D4.coerceList<McpSSEServerConfig>(initialStack, 'initialStack'),
+    ),
+    'McpSdkServerConfig' => StackList<McpSdkServerConfig>.fromList(
+      D4.coerceList<McpSdkServerConfig>(initialStack, 'initialStack'),
+    ),
+    'McpServerToolPolicy' => StackList<McpServerToolPolicy>.fromList(
+      D4.coerceList<McpServerToolPolicy>(initialStack, 'initialStack'),
+    ),
+    'McpStdioServerConfig' => StackList<McpStdioServerConfig>.fromList(
+      D4.coerceList<McpStdioServerConfig>(initialStack, 'initialStack'),
+    ),
+    'MessageOptions' => StackList<MessageOptions>.fromList(
+      D4.coerceList<MessageOptions>(initialStack, 'initialStack'),
+    ),
+    'MoveDirException' => StackList<MoveDirException>.fromList(
+      D4.coerceList<MoveDirException>(initialStack, 'initialStack'),
+    ),
+    'MoveException' => StackList<MoveException>.fromList(
+      D4.coerceList<MoveException>(initialStack, 'initialStack'),
+    ),
+    'MoveTreeException' => StackList<MoveTreeException>.fromList(
+      D4.coerceList<MoveTreeException>(initialStack, 'initialStack'),
+    ),
+    'NamedLock' => StackList<NamedLock>.fromList(
+      D4.coerceList<NamedLock>(initialStack, 'initialStack'),
+    ),
+    'NamedLockObservation' => StackList<NamedLockObservation>.fromList(
+      D4.coerceList<NamedLockObservation>(initialStack, 'initialStack'),
+    ),
+    'NotAFileException' => StackList<NotAFileException>.fromList(
+      D4.coerceList<NotAFileException>(initialStack, 'initialStack'),
+    ),
+    'Options' => StackList<Options>.fromList(
+      D4.coerceList<Options>(initialStack, 'initialStack'),
+    ),
+    'OutputFormat' => StackList<OutputFormat>.fromList(
+      D4.coerceList<OutputFormat>(initialStack, 'initialStack'),
+    ),
+    'PathException' => StackList<PathException>.fromList(
+      D4.coerceList<PathException>(initialStack, 'initialStack'),
+    ),
+    'PathMap' => StackList<PathMap>.fromList(
+      D4.coerceList<PathMap>(initialStack, 'initialStack'),
+    ),
+    'PathSet' => StackList<PathSet>.fromList(
+      D4.coerceList<PathSet>(initialStack, 'initialStack'),
+    ),
+    'PermissionAllow' => StackList<PermissionAllow>.fromList(
+      D4.coerceList<PermissionAllow>(initialStack, 'initialStack'),
+    ),
+    'PermissionDeny' => StackList<PermissionDeny>.fromList(
+      D4.coerceList<PermissionDeny>(initialStack, 'initialStack'),
+    ),
+    'PermissionRuleValue' => StackList<PermissionRuleValue>.fromList(
+      D4.coerceList<PermissionRuleValue>(initialStack, 'initialStack'),
+    ),
+    'PermissionUpdateDirectories' =>
+      StackList<PermissionUpdateDirectories>.fromList(
+        D4.coerceList<PermissionUpdateDirectories>(
+          initialStack,
+          'initialStack',
+        ),
+      ),
+    'PermissionUpdateRules' => StackList<PermissionUpdateRules>.fromList(
+      D4.coerceList<PermissionUpdateRules>(initialStack, 'initialStack'),
+    ),
+    'PermissionUpdateSetMode' => StackList<PermissionUpdateSetMode>.fromList(
+      D4.coerceList<PermissionUpdateSetMode>(initialStack, 'initialStack'),
+    ),
+    'PluginConfig' => StackList<PluginConfig>.fromList(
+      D4.coerceList<PluginConfig>(initialStack, 'initialStack'),
+    ),
+    'Position' => StackList<Position>.fromList(
+      D4.coerceList<Position>(initialStack, 'initialStack'),
+    ),
+    'ProcessDetails' => StackList<ProcessDetails>.fromList(
+      D4.coerceList<ProcessDetails>(initialStack, 'initialStack'),
+    ),
+    'ProcessHelper' => StackList<ProcessHelper>.fromList(
+      D4.coerceList<ProcessHelper>(initialStack, 'initialStack'),
+    ),
+    'ProcessSyncException' => StackList<ProcessSyncException>.fromList(
+      D4.coerceList<ProcessSyncException>(initialStack, 'initialStack'),
+    ),
+    'ProjectInfo' => StackList<ProjectInfo>.fromList(
+      D4.coerceList<ProjectInfo>(initialStack, 'initialStack'),
+    ),
+    'ProjectListResult' => StackList<ProjectListResult>.fromList(
+      D4.coerceList<ProjectListResult>(initialStack, 'initialStack'),
+    ),
+    'PubCache' => StackList<PubCache>.fromList(
+      D4.coerceList<PubCache>(initialStack, 'initialStack'),
+    ),
+    'PubGetException' => StackList<PubGetException>.fromList(
+      D4.coerceList<PubGetException>(initialStack, 'initialStack'),
+    ),
+    'QuestInfo' => StackList<QuestInfo>.fromList(
+      D4.coerceList<QuestInfo>(initialStack, 'initialStack'),
+    ),
+    'QuestListResult' => StackList<QuestListResult>.fromList(
+      D4.coerceList<QuestListResult>(initialStack, 'initialStack'),
+    ),
+    'QueueItemInput' => StackList<QueueItemInput>.fromList(
+      D4.coerceList<QueueItemInput>(initialStack, 'initialStack'),
+    ),
+    _ => null,
+  };
+}
+
+/// Selectors 'QueueListResult' to 'ToolsList' of `_rc2StackList_fromList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList_fromList$leaf2(
+  String typeName,
+  dynamic visitor,
+  Object? initialStack,
+) {
+  return switch (typeName) {
+    'String' => StackList<String>.fromList(
+      D4.coerceList<String>(initialStack, 'initialStack'),
+    ),
+    'String?' => StackList<String?>.fromList(
+      D4.coerceList<String?>(initialStack, 'initialStack'),
+    ),
+    'QueueListResult' => StackList<QueueListResult>.fromList(
+      D4.coerceList<QueueListResult>(initialStack, 'initialStack'),
+    ),
+    'QueuedFollowUp' => StackList<QueuedFollowUp>.fromList(
+      D4.coerceList<QueuedFollowUp>(initialStack, 'initialStack'),
+    ),
+    'QueuedPrompt' => StackList<QueuedPrompt>.fromList(
+      D4.coerceList<QueuedPrompt>(initialStack, 'initialStack'),
+    ),
+    'QuickPickItem' => StackList<QuickPickItem>.fromList(
+      D4.coerceList<QuickPickItem>(initialStack, 'initialStack'),
+    ),
+    'Range' => StackList<Range>.fromList(
+      D4.coerceList<Range>(initialStack, 'initialStack'),
+    ),
+    'ReadException' => StackList<ReadException>.fromList(
+      D4.coerceList<ReadException>(initialStack, 'initialStack'),
+    ),
+    'Remote' => StackList<Remote>.fromList(
+      D4.coerceList<Remote>(initialStack, 'initialStack'),
+    ),
+    'ReplayException' => StackList<ReplayException>.fromList(
+      D4.coerceList<ReplayException>(initialStack, 'initialStack'),
+    ),
+    'ResourceException' => StackList<ResourceException>.fromList(
+      D4.coerceList<ResourceException>(initialStack, 'initialStack'),
+    ),
+    'Resources' => StackList<Resources>.fromList(
+      D4.coerceList<Resources>(initialStack, 'initialStack'),
+    ),
+    'RestoreFileException' => StackList<RestoreFileException>.fromList(
+      D4.coerceList<RestoreFileException>(initialStack, 'initialStack'),
+    ),
+    'RunException' => StackList<RunException>.fromList(
+      D4.coerceList<RunException>(initialStack, 'initialStack'),
+    ),
+    'ScheduledTime' => StackList<ScheduledTime>.fromList(
+      D4.coerceList<ScheduledTime>(initialStack, 'initialStack'),
+    ),
+    'SdkAssistantMessage' => StackList<SdkAssistantMessage>.fromList(
+      D4.coerceList<SdkAssistantMessage>(initialStack, 'initialStack'),
+    ),
+    'SdkMcpTool' => StackList<SdkMcpTool>.fromList(
+      D4.coerceList<SdkMcpTool>(initialStack, 'initialStack'),
+    ),
+    'SdkPartialAssistantMessage' =>
+      StackList<SdkPartialAssistantMessage>.fromList(
+        D4.coerceList<SdkPartialAssistantMessage>(initialStack, 'initialStack'),
+      ),
+    'SdkResultMessage' => StackList<SdkResultMessage>.fromList(
+      D4.coerceList<SdkResultMessage>(initialStack, 'initialStack'),
+    ),
+    'SdkSystemEvent' => StackList<SdkSystemEvent>.fromList(
+      D4.coerceList<SdkSystemEvent>(initialStack, 'initialStack'),
+    ),
+    'SdkSystemMessage' => StackList<SdkSystemMessage>.fromList(
+      D4.coerceList<SdkSystemMessage>(initialStack, 'initialStack'),
+    ),
+    'SdkUnknownMessage' => StackList<SdkUnknownMessage>.fromList(
+      D4.coerceList<SdkUnknownMessage>(initialStack, 'initialStack'),
+    ),
+    'SdkUserInput' => StackList<SdkUserInput>.fromList(
+      D4.coerceList<SdkUserInput>(initialStack, 'initialStack'),
+    ),
+    'SdkUserMessage' => StackList<SdkUserMessage>.fromList(
+      D4.coerceList<SdkUserMessage>(initialStack, 'initialStack'),
+    ),
+    'Selection' => StackList<Selection>.fromList(
+      D4.coerceList<Selection>(initialStack, 'initialStack'),
+    ),
+    'SendToChatResult' => StackList<SendToChatResult>.fromList(
+      D4.coerceList<SendToChatResult>(initialStack, 'initialStack'),
+    ),
+    'Settings' => StackList<Settings>.fromList(
+      D4.coerceList<Settings>(initialStack, 'initialStack'),
+    ),
+    'SettingsInline' => StackList<SettingsInline>.fromList(
+      D4.coerceList<SettingsInline>(initialStack, 'initialStack'),
+    ),
+    'SettingsPath' => StackList<SettingsPath>.fromList(
+      D4.coerceList<SettingsPath>(initialStack, 'initialStack'),
+    ),
+    'ShellDetection' => StackList<ShellDetection>.fromList(
+      D4.coerceList<ShellDetection>(initialStack, 'initialStack'),
+    ),
+    'ShellException' => StackList<ShellException>.fromList(
+      D4.coerceList<ShellException>(initialStack, 'initialStack'),
+    ),
+    'SkillsAll' => StackList<SkillsAll>.fromList(
+      D4.coerceList<SkillsAll>(initialStack, 'initialStack'),
+    ),
+    'SkillsList' => StackList<SkillsList>.fromList(
+      D4.coerceList<SkillsList>(initialStack, 'initialStack'),
+    ),
+    'SymbolInfo' => StackList<SymbolInfo>.fromList(
+      D4.coerceList<SymbolInfo>(initialStack, 'initialStack'),
+    ),
+    'SystemPromptList' => StackList<SystemPromptList>.fromList(
+      D4.coerceList<SystemPromptList>(initialStack, 'initialStack'),
+    ),
+    'SystemPromptPreset' => StackList<SystemPromptPreset>.fromList(
+      D4.coerceList<SystemPromptPreset>(initialStack, 'initialStack'),
+    ),
+    'SystemPromptText' => StackList<SystemPromptText>.fromList(
+      D4.coerceList<SystemPromptText>(initialStack, 'initialStack'),
+    ),
+    'TaskBudget' => StackList<TaskBudget>.fromList(
+      D4.coerceList<TaskBudget>(initialStack, 'initialStack'),
+    ),
+    'TemplateNotFoundException' =>
+      StackList<TemplateNotFoundException>.fromList(
+        D4.coerceList<TemplateNotFoundException>(initialStack, 'initialStack'),
+      ),
+    'Terminal' => StackList<Terminal>.fromList(
+      D4.coerceList<Terminal>(initialStack, 'initialStack'),
+    ),
+    'TerminalOptions' => StackList<TerminalOptions>.fromList(
+      D4.coerceList<TerminalOptions>(initialStack, 'initialStack'),
+    ),
+    'TextBlock' => StackList<TextBlock>.fromList(
+      D4.coerceList<TextBlock>(initialStack, 'initialStack'),
+    ),
+    'TextDocument' => StackList<TextDocument>.fromList(
+      D4.coerceList<TextDocument>(initialStack, 'initialStack'),
+    ),
+    'TextEditor' => StackList<TextEditor>.fromList(
+      D4.coerceList<TextEditor>(initialStack, 'initialStack'),
+    ),
+    'ThinkingAdaptive' => StackList<ThinkingAdaptive>.fromList(
+      D4.coerceList<ThinkingAdaptive>(initialStack, 'initialStack'),
+    ),
+    'ThinkingBlock' => StackList<ThinkingBlock>.fromList(
+      D4.coerceList<ThinkingBlock>(initialStack, 'initialStack'),
+    ),
+    'ThinkingDisabled' => StackList<ThinkingDisabled>.fromList(
+      D4.coerceList<ThinkingDisabled>(initialStack, 'initialStack'),
+    ),
+    'ThinkingEnabled' => StackList<ThinkingEnabled>.fromList(
+      D4.coerceList<ThinkingEnabled>(initialStack, 'initialStack'),
+    ),
+    'TimedRequest' => StackList<TimedRequest>.fromList(
+      D4.coerceList<TimedRequest>(initialStack, 'initialStack'),
+    ),
+    'TimedRequestInput' => StackList<TimedRequestInput>.fromList(
+      D4.coerceList<TimedRequestInput>(initialStack, 'initialStack'),
+    ),
+    'TimedRequestListResult' => StackList<TimedRequestListResult>.fromList(
+      D4.coerceList<TimedRequestListResult>(initialStack, 'initialStack'),
+    ),
+    'TodoEntry' => StackList<TodoEntry>.fromList(
+      D4.coerceList<TodoEntry>(initialStack, 'initialStack'),
+    ),
+    'TodoFileListResult' => StackList<TodoFileListResult>.fromList(
+      D4.coerceList<TodoFileListResult>(initialStack, 'initialStack'),
+    ),
+    'TodoListResult' => StackList<TodoListResult>.fromList(
+      D4.coerceList<TodoListResult>(initialStack, 'initialStack'),
+    ),
+    'TomTodo' => StackList<TomTodo>.fromList(
+      D4.coerceList<TomTodo>(initialStack, 'initialStack'),
+    ),
+    'TomTodoDecision' => StackList<TomTodoDecision>.fromList(
+      D4.coerceList<TomTodoDecision>(initialStack, 'initialStack'),
+    ),
+    'TomTodoReference' => StackList<TomTodoReference>.fromList(
+      D4.coerceList<TomTodoReference>(initialStack, 'initialStack'),
+    ),
+    'TomTodoRepeat' => StackList<TomTodoRepeat>.fromList(
+      D4.coerceList<TomTodoRepeat>(initialStack, 'initialStack'),
+    ),
+    'TomTodoScope' => StackList<TomTodoScope>.fromList(
+      D4.coerceList<TomTodoScope>(initialStack, 'initialStack'),
+    ),
+    'ToolDefinitionJson' => StackList<ToolDefinitionJson>.fromList(
+      D4.coerceList<ToolDefinitionJson>(initialStack, 'initialStack'),
+    ),
+    'ToolResultBlock' => StackList<ToolResultBlock>.fromList(
+      D4.coerceList<ToolResultBlock>(initialStack, 'initialStack'),
+    ),
+    'ToolUseBlock' => StackList<ToolUseBlock>.fromList(
+      D4.coerceList<ToolUseBlock>(initialStack, 'initialStack'),
+    ),
+    'ToolsClaudeCodePreset' => StackList<ToolsClaudeCodePreset>.fromList(
+      D4.coerceList<ToolsClaudeCodePreset>(initialStack, 'initialStack'),
+    ),
+    'ToolsList' => StackList<ToolsList>.fromList(
+      D4.coerceList<ToolsList>(initialStack, 'initialStack'),
+    ),
+    _ => null,
+  };
+}
+
+/// Selectors 'TrailEntry' to 'num?' of `_rc2StackList_fromList` (bounded dispatch, al-the-bear/tom_d4rt#11).
+Object? _rc2StackList_fromList$leaf3(
+  String typeName,
+  dynamic visitor,
+  Object? initialStack,
+) {
+  return switch (typeName) {
+    'dynamic' => StackList<dynamic>.fromList(
+      D4.coerceList<dynamic>(initialStack, 'initialStack'),
+    ),
+    'int' => StackList<int>.fromList(
+      D4.coerceList<int>(initialStack, 'initialStack'),
+    ),
+    'double' => StackList<double>.fromList(
+      D4.coerceList<double>(initialStack, 'initialStack'),
+    ),
+    'bool' => StackList<bool>.fromList(
+      D4.coerceList<bool>(initialStack, 'initialStack'),
+    ),
+    'num' => StackList<num>.fromList(
+      D4.coerceList<num>(initialStack, 'initialStack'),
+    ),
+    'int?' => StackList<int?>.fromList(
+      D4.coerceList<int?>(initialStack, 'initialStack'),
+    ),
+    'double?' => StackList<double?>.fromList(
+      D4.coerceList<double?>(initialStack, 'initialStack'),
+    ),
+    'bool?' => StackList<bool?>.fromList(
+      D4.coerceList<bool?>(initialStack, 'initialStack'),
+    ),
+    'num?' => StackList<num?>.fromList(
+      D4.coerceList<num?>(initialStack, 'initialStack'),
+    ),
+    'TrailEntry' => StackList<TrailEntry>.fromList(
+      D4.coerceList<TrailEntry>(initialStack, 'initialStack'),
+    ),
+    'TrailListResult' => StackList<TrailListResult>.fromList(
+      D4.coerceList<TrailListResult>(initialStack, 'initialStack'),
+    ),
+    'UnknownBlock' => StackList<UnknownBlock>.fromList(
+      D4.coerceList<UnknownBlock>(initialStack, 'initialStack'),
+    ),
+    'UnknownShell' => StackList<UnknownShell>.fromList(
+      D4.coerceList<UnknownShell>(initialStack, 'initialStack'),
+    ),
+    'VSCode' => StackList<VSCode>.fromList(
+      D4.coerceList<VSCode>(initialStack, 'initialStack'),
+    ),
+    'VSCodeBridgeAdapter' => StackList<VSCodeBridgeAdapter>.fromList(
+      D4.coerceList<VSCodeBridgeAdapter>(initialStack, 'initialStack'),
+    ),
+    'VSCodeBridgeAgentSdkTransport' =>
+      StackList<VSCodeBridgeAgentSdkTransport>.fromList(
+        D4.coerceList<VSCodeBridgeAgentSdkTransport>(
+          initialStack,
+          'initialStack',
+        ),
+      ),
+    'VSCodeBridgeClient' => StackList<VSCodeBridgeClient>.fromList(
+      D4.coerceList<VSCodeBridgeClient>(initialStack, 'initialStack'),
+    ),
+    'VSCodeBridgeResult' => StackList<VSCodeBridgeResult>.fromList(
+      D4.coerceList<VSCodeBridgeResult>(initialStack, 'initialStack'),
+    ),
+    'VSCodeChat' => StackList<VSCodeChat>.fromList(
+      D4.coerceList<VSCodeChat>(initialStack, 'initialStack'),
+    ),
+    'VSCodeCommands' => StackList<VSCodeCommands>.fromList(
+      D4.coerceList<VSCodeCommands>(initialStack, 'initialStack'),
+    ),
+    'VSCodeCommonCommands' => StackList<VSCodeCommonCommands>.fromList(
+      D4.coerceList<VSCodeCommonCommands>(initialStack, 'initialStack'),
+    ),
+    'VSCodeExtensions' => StackList<VSCodeExtensions>.fromList(
+      D4.coerceList<VSCodeExtensions>(initialStack, 'initialStack'),
+    ),
+    'VSCodeLanguageModel' => StackList<VSCodeLanguageModel>.fromList(
+      D4.coerceList<VSCodeLanguageModel>(initialStack, 'initialStack'),
+    ),
+    'VSCodeUri' => StackList<VSCodeUri>.fromList(
+      D4.coerceList<VSCodeUri>(initialStack, 'initialStack'),
+    ),
+    'VSCodeWindow' => StackList<VSCodeWindow>.fromList(
+      D4.coerceList<VSCodeWindow>(initialStack, 'initialStack'),
+    ),
+    'VSCodeWorkspace' => StackList<VSCodeWorkspace>.fromList(
+      D4.coerceList<VSCodeWorkspace>(initialStack, 'initialStack'),
+    ),
+    'VerificationFailure' => StackList<VerificationFailure>.fromList(
+      D4.coerceList<VerificationFailure>(initialStack, 'initialStack'),
+    ),
+    'VsCodeHelper' => StackList<VsCodeHelper>.fromList(
+      D4.coerceList<VsCodeHelper>(initialStack, 'initialStack'),
+    ),
+    'VsProgress' => StackList<VsProgress>.fromList(
+      D4.coerceList<VsProgress>(initialStack, 'initialStack'),
+    ),
+    'WorkspaceFolder' => StackList<WorkspaceFolder>.fromList(
+      D4.coerceList<WorkspaceFolder>(initialStack, 'initialStack'),
+    ),
+    'WorkspaceInfo' => StackList<WorkspaceInfo>.fromList(
+      D4.coerceList<WorkspaceInfo>(initialStack, 'initialStack'),
+    ),
+    _ => null,
+  };
+}
+
+/// RC-2: Register auto-generated generic constructor factories.
+///
+/// Enables scripts to construct generic classes with explicit type
+/// arguments (e.g., `GlobalKey<NavigatorState>()`). Uses chaining —
+/// downstream packages can register additional type dispatches.
+void registerGenericConstructors() {
+  D4.registerGenericConstructor('PathMap', '', _rc2PathMap);
+  D4.registerGenericConstructor('PathMap', 'of', _rc2PathMap_of);
+  D4.registerGenericConstructor('StackList', '', _rc2StackList);
+  D4.registerGenericConstructor(
+    'StackList',
+    'fromList',
+    _rc2StackList_fromList,
+  );
+}
