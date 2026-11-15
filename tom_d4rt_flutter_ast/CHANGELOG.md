@@ -2,7 +2,7 @@
 
 ### Changed — on the interpreter release for GitHub #13-#18, bridges by tom_d4rt_generator 1.65.0
 
-The floor is `tom_d4rt_ast ^0.243.0` (with `tom_d4rt_exec ^1.60.0`, `tom_ast_generator ^0.2.5`: a bridged `noSuchMethod` satisfies an interface, the
+The floor is `tom_d4rt_ast ^0.243.0` (with `tom_d4rt_exec ^1.60.0`, `tom_ast_generator ^0.2.5`): a bridged `noSuchMethod` satisfies an interface, the
 extensions of a prefixed import apply, generic function references keep their
 type arguments, an extension's own type parameters are bound, explicit
 extension overrides `E(x).member` work, and an extension holds a getter and a
