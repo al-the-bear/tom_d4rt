@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Source: package:vector_math/vector_math_64.dart
-// Generated: 2026-11-15T01:08:58.421405 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:29:42.009929 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -207,7 +207,24 @@ class VectorMath64Bridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -215,6 +232,7 @@ class VectorMath64Bridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -230,13 +248,14 @@ class VectorMath64Bridge {
     BridgedClass.registerSupertypes(classSupertypes());
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -252,28 +271,36 @@ class VectorMath64Bridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'degrees2Radians',
-        $vector_math_1.degrees2Radians,
-        importPath,
-        sourceUri: 'package:vector_math/vector_math_64.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "degrees2Radians": $e');
+    if (include == null || include('package:vector_math/vector_math_64.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'degrees2Radians',
+          $vector_math_1.degrees2Radians,
+          importPath,
+          sourceUri: 'package:vector_math/vector_math_64.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "degrees2Radians": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'radians2Degrees',
-        $vector_math_1.radians2Degrees,
-        importPath,
-        sourceUri: 'package:vector_math/vector_math_64.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "radians2Degrees": $e');
+    if (include == null || include('package:vector_math/vector_math_64.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'radians2Degrees',
+          $vector_math_1.radians2Degrees,
+          importPath,
+          sourceUri: 'package:vector_math/vector_math_64.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "radians2Degrees": $e');
+      }
     }
 
     if (errors.isNotEmpty) {

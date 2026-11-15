@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-11-15T01:08:15.266738 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:28:50.800499 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1623,7 +1623,24 @@ class FlutterGesturesBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -1631,6 +1648,7 @@ class FlutterGesturesBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -1649,6 +1667,7 @@ class FlutterGesturesBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -1657,13 +1676,14 @@ class FlutterGesturesBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -1676,7 +1696,9 @@ class FlutterGesturesBridge {
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -1702,410 +1724,528 @@ class FlutterGesturesBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'kPrimaryButton',
-        $flutter_13.kPrimaryButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPrimaryButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPrimaryButton',
+          $flutter_13.kPrimaryButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPrimaryButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSecondaryButton',
-        $flutter_13.kSecondaryButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSecondaryButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSecondaryButton',
+          $flutter_13.kSecondaryButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSecondaryButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPrimaryMouseButton',
-        $flutter_13.kPrimaryMouseButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPrimaryMouseButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPrimaryMouseButton',
+          $flutter_13.kPrimaryMouseButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPrimaryMouseButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSecondaryMouseButton',
-        $flutter_13.kSecondaryMouseButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSecondaryMouseButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSecondaryMouseButton',
+          $flutter_13.kSecondaryMouseButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSecondaryMouseButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kStylusContact',
-        $flutter_13.kStylusContact,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kStylusContact": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kStylusContact',
+          $flutter_13.kStylusContact,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kStylusContact": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPrimaryStylusButton',
-        $flutter_13.kPrimaryStylusButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPrimaryStylusButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPrimaryStylusButton',
+          $flutter_13.kPrimaryStylusButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPrimaryStylusButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kTertiaryButton',
-        $flutter_13.kTertiaryButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kTertiaryButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kTertiaryButton',
+          $flutter_13.kTertiaryButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kTertiaryButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMiddleMouseButton',
-        $flutter_13.kMiddleMouseButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMiddleMouseButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMiddleMouseButton',
+          $flutter_13.kMiddleMouseButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMiddleMouseButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kSecondaryStylusButton',
-        $flutter_13.kSecondaryStylusButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kSecondaryStylusButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kSecondaryStylusButton',
+          $flutter_13.kSecondaryStylusButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kSecondaryStylusButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kBackMouseButton',
-        $flutter_13.kBackMouseButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kBackMouseButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kBackMouseButton',
+          $flutter_13.kBackMouseButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kBackMouseButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kForwardMouseButton',
-        $flutter_13.kForwardMouseButton,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kForwardMouseButton": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kForwardMouseButton',
+          $flutter_13.kForwardMouseButton,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kForwardMouseButton": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kTouchContact',
-        $flutter_13.kTouchContact,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/events.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kTouchContact": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/events.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kTouchContact',
+          $flutter_13.kTouchContact,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/events.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kTouchContact": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPressTimeout',
-        $flutter_7.kPressTimeout,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPressTimeout": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPressTimeout',
+          $flutter_7.kPressTimeout,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPressTimeout": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kHoverTapTimeout',
-        $flutter_7.kHoverTapTimeout,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kHoverTapTimeout": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kHoverTapTimeout',
+          $flutter_7.kHoverTapTimeout,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kHoverTapTimeout": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kHoverTapSlop',
-        $flutter_7.kHoverTapSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kHoverTapSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kHoverTapSlop',
+          $flutter_7.kHoverTapSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kHoverTapSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kLongPressTimeout',
-        $flutter_7.kLongPressTimeout,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kLongPressTimeout": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kLongPressTimeout',
+          $flutter_7.kLongPressTimeout,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kLongPressTimeout": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDoubleTapTimeout',
-        $flutter_7.kDoubleTapTimeout,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDoubleTapTimeout": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDoubleTapTimeout',
+          $flutter_7.kDoubleTapTimeout,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDoubleTapTimeout": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDoubleTapMinTime',
-        $flutter_7.kDoubleTapMinTime,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDoubleTapMinTime": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDoubleTapMinTime',
+          $flutter_7.kDoubleTapMinTime,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDoubleTapMinTime": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDoubleTapTouchSlop',
-        $flutter_7.kDoubleTapTouchSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDoubleTapTouchSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDoubleTapTouchSlop',
+          $flutter_7.kDoubleTapTouchSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDoubleTapTouchSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDoubleTapSlop',
-        $flutter_7.kDoubleTapSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDoubleTapSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDoubleTapSlop',
+          $flutter_7.kDoubleTapSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDoubleTapSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kZoomControlsTimeout',
-        $flutter_7.kZoomControlsTimeout,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kZoomControlsTimeout": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kZoomControlsTimeout',
+          $flutter_7.kZoomControlsTimeout,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kZoomControlsTimeout": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kTouchSlop',
-        $flutter_7.kTouchSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kTouchSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kTouchSlop',
+          $flutter_7.kTouchSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kTouchSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPagingTouchSlop',
-        $flutter_7.kPagingTouchSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPagingTouchSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPagingTouchSlop',
+          $flutter_7.kPagingTouchSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPagingTouchSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPanSlop',
-        $flutter_7.kPanSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPanSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPanSlop',
+          $flutter_7.kPanSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPanSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kScaleSlop',
-        $flutter_7.kScaleSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kScaleSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kScaleSlop',
+          $flutter_7.kScaleSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kScaleSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWindowTouchSlop',
-        $flutter_7.kWindowTouchSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWindowTouchSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWindowTouchSlop',
+          $flutter_7.kWindowTouchSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWindowTouchSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMinFlingVelocity',
-        $flutter_7.kMinFlingVelocity,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMinFlingVelocity": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMinFlingVelocity',
+          $flutter_7.kMinFlingVelocity,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMinFlingVelocity": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMaxFlingVelocity',
-        $flutter_7.kMaxFlingVelocity,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMaxFlingVelocity": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMaxFlingVelocity',
+          $flutter_7.kMaxFlingVelocity,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMaxFlingVelocity": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kJumpTapTimeout',
-        $flutter_7.kJumpTapTimeout,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kJumpTapTimeout": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kJumpTapTimeout',
+          $flutter_7.kJumpTapTimeout,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kJumpTapTimeout": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPrecisePointerHitSlop',
-        $flutter_7.kPrecisePointerHitSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPrecisePointerHitSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPrecisePointerHitSlop',
+          $flutter_7.kPrecisePointerHitSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPrecisePointerHitSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPrecisePointerPanSlop',
-        $flutter_7.kPrecisePointerPanSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPrecisePointerPanSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPrecisePointerPanSlop',
+          $flutter_7.kPrecisePointerPanSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kPrecisePointerPanSlop": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kPrecisePointerScaleSlop',
-        $flutter_7.kPrecisePointerScaleSlop,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kPrecisePointerScaleSlop": $e');
+    if (include == null ||
+        include('package:flutter/src/gestures/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kPrecisePointerScaleSlop',
+          $flutter_7.kPrecisePointerScaleSlop,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/constants.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kPrecisePointerScaleSlop": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintHitTestResults',
-        $flutter_9.debugPrintHitTestResults,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPrintHitTestResults": $e');
+    if (include == null || include('package:flutter/src/gestures/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintHitTestResults',
+          $flutter_9.debugPrintHitTestResults,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintHitTestResults": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintMouseHoverEvents',
-        $flutter_9.debugPrintMouseHoverEvents,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintMouseHoverEvents": $e',
-      );
+    if (include == null || include('package:flutter/src/gestures/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintMouseHoverEvents',
+          $flutter_9.debugPrintMouseHoverEvents,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintMouseHoverEvents": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintGestureArenaDiagnostics',
-        $flutter_9.debugPrintGestureArenaDiagnostics,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintGestureArenaDiagnostics": $e',
-      );
+    if (include == null || include('package:flutter/src/gestures/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintGestureArenaDiagnostics',
+          $flutter_9.debugPrintGestureArenaDiagnostics,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintGestureArenaDiagnostics": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintRecognizerCallbacksTrace',
-        $flutter_9.debugPrintRecognizerCallbacksTrace,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintRecognizerCallbacksTrace": $e',
-      );
+    if (include == null || include('package:flutter/src/gestures/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintRecognizerCallbacksTrace',
+          $flutter_9.debugPrintRecognizerCallbacksTrace,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintRecognizerCallbacksTrace": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintResamplingMargin',
-        $flutter_9.debugPrintResamplingMargin,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintResamplingMargin": $e',
-      );
+    if (include == null || include('package:flutter/src/gestures/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintResamplingMargin',
+          $flutter_9.debugPrintResamplingMargin,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintResamplingMargin": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultMouseScrollToScaleFactor',
-        $flutter_27.kDefaultMouseScrollToScaleFactor,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/scale.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultMouseScrollToScaleFactor": $e',
-      );
+    if (include == null || include('package:flutter/src/gestures/scale.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultMouseScrollToScaleFactor',
+          $flutter_27.kDefaultMouseScrollToScaleFactor,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/scale.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultMouseScrollToScaleFactor": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultTrackpadScrollToScaleFactor',
-        $flutter_27.kDefaultTrackpadScrollToScaleFactor,
-        importPath,
-        sourceUri: 'package:flutter/src/gestures/scale.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultTrackpadScrollToScaleFactor": $e',
-      );
+    if (include == null || include('package:flutter/src/gestures/scale.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultTrackpadScrollToScaleFactor',
+          $flutter_27.kDefaultTrackpadScrollToScaleFactor,
+          importPath,
+          sourceUri: 'package:flutter/src/gestures/scale.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultTrackpadScrollToScaleFactor": $e',
+        );
+      }
     }
 
     if (errors.isNotEmpty) {

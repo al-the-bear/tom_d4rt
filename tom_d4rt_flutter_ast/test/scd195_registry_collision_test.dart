@@ -83,9 +83,15 @@ int main() => 1;
 
 /// Floors, not equalities — the counts move with every Flutter SDK bump and
 /// every regeneration. Measured 2026-09-15: 2 426 class names, 1 659 of them
-/// re-exported under more than one barrel, 213 bridged enums.
+/// re-exported under more than one barrel, 213 bridged enums. Measured
+/// 2026-11-15, bridges by tom_d4rt_generator 1.66.0: 279 names with more than
+/// one candidate. The drop is not a loss of re-exports - most of the 1 659 were
+/// every class of the cupertino, material and widgets modules also registered
+/// under `package:characters/characters.dart` (a module that bridged one
+/// `characters` extension was registered whole under that barrel); 1.66.0
+/// registers a sub-package barrel with its own package's declarations only.
 const int _minClassNames = 1500;
-const int _minReExports = 800;
+const int _minReExports = 200;
 const int _minEnumNames = 120;
 
 /// Every bridged class name reachable from [env], across the scope chain.
@@ -199,8 +205,8 @@ void main() {
         greaterThanOrEqualTo(_minReExports),
         reason:
             'Only ${candidates.length} names have more than one candidate. '
-            'The generated bridges re-export each other heavily (1 659 such '
-            'names on 2026-09-15), so a number near zero means '
+            'The generated bridges re-export each other (279 such names on '
+            '2026-11-15), so a number near zero means '
             'findAllBridgedClassesByName is not seeing the shadowed entries '
             'and F-SCD195-1 is passing over nothing.',
       );
@@ -236,7 +242,7 @@ void main() {
             'Candidates that all share one nativeType are NOT reported: that '
             'is one class reached through several barrels, which '
             '`defineBridgeLazy` deduplicates on purpose and which describes '
-            '1 659 of the names here.\n\n'
+            'most of the names here.\n\n'
             'Fix the GENERATOR, not the `.b.dart`. Its `Dedup:` line names '
             'every class generated from different sources under one name. A '
             'build-time refusal was decided against while this case was '

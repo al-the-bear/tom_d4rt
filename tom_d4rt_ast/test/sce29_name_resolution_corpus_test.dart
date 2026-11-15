@@ -83,18 +83,10 @@ const Map<String, String> _referenceOnly = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // Every release up to tom_d4rt 1.263.0 / tom_d4rt_ast 0.243.0 is covered by
+  // Every release up to tom_d4rt 1.264.0 / tom_d4rt_ast 0.244.0 is covered by
   // the post-publish full corpus recorded under `Verification runs` at that
-  // pair (ghissues1001, 2026-11-15). An empty map is the normal state; each
+  // pair (ghfeatures1000, 2026-11-15). An empty map is the normal state; each
   // entry is a debt with its reason, deleted when the run is made.
-  '1.264.0':
-      'ghfeatures2: aliases resolve through re-exports; unpublished, the twins '
-      'resolve the published interpreter (DGUC6); ghfeatures1000 runs the '
-      'post-publish corpus',
-  '0.244.0':
-      'ghfeatures2: aliases resolve through re-exports; unpublished, the twins '
-      'resolve the published interpreter (DGUC6); ghfeatures1000 runs the '
-      'post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

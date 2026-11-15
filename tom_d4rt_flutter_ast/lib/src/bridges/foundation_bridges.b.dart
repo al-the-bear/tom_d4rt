@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 27 files
-// Generated: 2026-11-15T01:08:10.448858 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:28:44.604317 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -855,7 +855,24 @@ class FlutterFoundationBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -863,6 +880,7 @@ class FlutterFoundationBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -881,6 +899,7 @@ class FlutterFoundationBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -889,13 +908,14 @@ class FlutterFoundationBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -908,13 +928,17 @@ class FlutterFoundationBridge {
     // Register class aliases (typedef type aliases)
     final aliases = classAliases();
     for (final entry in aliases.entries) {
+      // An alias follows the class it names; it has no source of its own.
+      if (ownPrefix != null && !include(classSources[entry.value])) continue;
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
 
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -940,416 +964,535 @@ class FlutterFoundationBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'awaitNotRequired',
-        $meta_1.awaitNotRequired,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "awaitNotRequired": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'awaitNotRequired',
+          $meta_1.awaitNotRequired,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "awaitNotRequired": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'factory',
-        $meta_1.factory,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "factory": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'factory',
+          $meta_1.factory,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "factory": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'immutable',
-        $meta_1.immutable,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "immutable": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'immutable',
+          $meta_1.immutable,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "immutable": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'internal',
-        $meta_1.internal,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "internal": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'internal',
+          $meta_1.internal,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "internal": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'mustCallSuper',
-        $meta_1.mustCallSuper,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "mustCallSuper": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'mustCallSuper',
+          $meta_1.mustCallSuper,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "mustCallSuper": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'nonVirtual',
-        $meta_1.nonVirtual,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "nonVirtual": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'nonVirtual',
+          $meta_1.nonVirtual,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "nonVirtual": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'optionalTypeArgs',
-        $meta_1.optionalTypeArgs,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "optionalTypeArgs": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'optionalTypeArgs',
+          $meta_1.optionalTypeArgs,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "optionalTypeArgs": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'protected',
-        $meta_1.protected,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "protected": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'protected',
+          $meta_1.protected,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "protected": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'visibleForOverriding',
-        $meta_1.visibleForOverriding,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "visibleForOverriding": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'visibleForOverriding',
+          $meta_1.visibleForOverriding,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "visibleForOverriding": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'visibleForTesting',
-        $meta_1.visibleForTesting,
-        importPath,
-        sourceUri: 'package:meta/meta.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "visibleForTesting": $e');
+    if (include == null || include('package:meta/meta.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'visibleForTesting',
+          $meta_1.visibleForTesting,
+          importPath,
+          sourceUri: 'package:meta/meta.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "visibleForTesting": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'sparseTextConfiguration',
-        $flutter_11.sparseTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "sparseTextConfiguration": $e');
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'sparseTextConfiguration',
+          $flutter_11.sparseTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "sparseTextConfiguration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'dashedTextConfiguration',
-        $flutter_11.dashedTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "dashedTextConfiguration": $e');
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'dashedTextConfiguration',
+          $flutter_11.dashedTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "dashedTextConfiguration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'denseTextConfiguration',
-        $flutter_11.denseTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "denseTextConfiguration": $e');
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'denseTextConfiguration',
+          $flutter_11.denseTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "denseTextConfiguration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'transitionTextConfiguration',
-        $flutter_11.transitionTextConfiguration,
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'transitionTextConfiguration',
+          $flutter_11.transitionTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "transitionTextConfiguration": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'errorTextConfiguration',
+          $flutter_11.errorTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "errorTextConfiguration": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'whitespaceTextConfiguration',
+          $flutter_11.whitespaceTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "whitespaceTextConfiguration": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'flatTextConfiguration',
+          $flutter_11.flatTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "flatTextConfiguration": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'singleLineTextConfiguration',
+          $flutter_11.singleLineTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "singleLineTextConfiguration": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'errorPropertyTextConfiguration',
+          $flutter_11.errorPropertyTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "errorPropertyTextConfiguration": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'shallowTextConfiguration',
+          $flutter_11.shallowTextConfiguration,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "shallowTextConfiguration": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/diagnostics.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kNoDefaultValue',
+          $flutter_11.kNoDefaultValue,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kNoDefaultValue": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/bitfield.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMaxUnsignedSMI',
+          $flutter_5.kMaxUnsignedSMI,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/bitfield.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMaxUnsignedSMI": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kReleaseMode',
+          $flutter_9.kReleaseMode,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kReleaseMode": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kProfileMode',
+          $flutter_9.kProfileMode,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kProfileMode": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDebugMode',
+          $flutter_9.kDebugMode,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDebugMode": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'precisionErrorTolerance',
+          $flutter_9.precisionErrorTolerance,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "precisionErrorTolerance": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kIsWeb',
+          $flutter_9.kIsWeb,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kIsWeb": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kIsWasm',
+          $flutter_9.kIsWasm,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kIsWasm": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/print.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrint',
+          $flutter_20.debugPrint,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/print.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPrint": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugInstrumentationEnabled',
+          $flutter_10.debugInstrumentationEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugInstrumentationEnabled": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugDoublePrecision',
+          $flutter_10.debugDoublePrecision,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugDoublePrecision": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugBrightnessOverride',
+          $flutter_10.debugBrightnessOverride,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugBrightnessOverride": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'activeDevToolsServerAddress',
+          $flutter_10.activeDevToolsServerAddress,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "activeDevToolsServerAddress": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'connectedVmServiceUri',
+          $flutter_10.connectedVmServiceUri,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "connectedVmServiceUri": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/memory_allocations.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFlutterMemoryAllocationsEnabled',
+          $flutter_15.kFlutterMemoryAllocationsEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/foundation/memory_allocations.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kFlutterMemoryAllocationsEnabled": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/foundation/capabilities.dart')) {
+      interpreter.registerGlobalGetter(
+        'isCanvasKit',
+        () => $flutter_6.isCanvasKit,
         importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "transitionTextConfiguration": $e',
+        sourceUri: 'package:flutter/src/foundation/capabilities.dart',
       );
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'errorTextConfiguration',
-        $flutter_11.errorTextConfiguration,
+    if (include == null ||
+        include('package:flutter/src/foundation/capabilities.dart')) {
+      interpreter.registerGlobalGetter(
+        'isSkwasm',
+        () => $flutter_6.isSkwasm,
         importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "errorTextConfiguration": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'whitespaceTextConfiguration',
-        $flutter_11.whitespaceTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "whitespaceTextConfiguration": $e',
+        sourceUri: 'package:flutter/src/foundation/capabilities.dart',
       );
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'flatTextConfiguration',
-        $flutter_11.flatTextConfiguration,
+    if (include == null ||
+        include('package:flutter/src/foundation/capabilities.dart')) {
+      interpreter.registerGlobalGetter(
+        'isSkiaWeb',
+        () => $flutter_6.isSkiaWeb,
         importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "flatTextConfiguration": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'singleLineTextConfiguration',
-        $flutter_11.singleLineTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "singleLineTextConfiguration": $e',
+        sourceUri: 'package:flutter/src/foundation/capabilities.dart',
       );
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'errorPropertyTextConfiguration',
-        $flutter_11.errorPropertyTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "errorPropertyTextConfiguration": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'shallowTextConfiguration',
-        $flutter_11.shallowTextConfiguration,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "shallowTextConfiguration": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kNoDefaultValue',
-        $flutter_11.kNoDefaultValue,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/diagnostics.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kNoDefaultValue": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMaxUnsignedSMI',
-        $flutter_5.kMaxUnsignedSMI,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/bitfield.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMaxUnsignedSMI": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kReleaseMode',
-        $flutter_9.kReleaseMode,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kReleaseMode": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kProfileMode',
-        $flutter_9.kProfileMode,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kProfileMode": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDebugMode',
-        $flutter_9.kDebugMode,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDebugMode": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'precisionErrorTolerance',
-        $flutter_9.precisionErrorTolerance,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "precisionErrorTolerance": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kIsWeb',
-        $flutter_9.kIsWeb,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kIsWeb": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kIsWasm',
-        $flutter_9.kIsWasm,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kIsWasm": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrint',
-        $flutter_20.debugPrint,
+    if (include == null ||
+        include('package:flutter/src/foundation/print.dart')) {
+      interpreter.registerGlobalGetter(
+        'debugPrintDone',
+        () => $flutter_20.debugPrintDone,
         importPath,
         sourceUri: 'package:flutter/src/foundation/print.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPrint": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugInstrumentationEnabled',
-        $flutter_10.debugInstrumentationEnabled,
+    if (include == null ||
+        include('package:flutter/src/foundation/platform.dart')) {
+      interpreter.registerGlobalGetter(
+        'defaultTargetPlatform',
+        () => $flutter_19.defaultTargetPlatform,
         importPath,
-        sourceUri: 'package:flutter/src/foundation/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugInstrumentationEnabled": $e',
+        sourceUri: 'package:flutter/src/foundation/platform.dart',
       );
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugDoublePrecision',
-        $flutter_10.debugDoublePrecision,
+    if (include == null ||
+        include('package:flutter/src/foundation/platform.dart')) {
+      interpreter.registerGlobalGetter(
+        'debugDefaultTargetPlatformOverride',
+        () => $flutter_19.debugDefaultTargetPlatformOverride,
         importPath,
-        sourceUri: 'package:flutter/src/foundation/debug.dart',
+        sourceUri: 'package:flutter/src/foundation/platform.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "debugDoublePrecision": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugBrightnessOverride',
-        $flutter_10.debugBrightnessOverride,
+      interpreter.registerGlobalSetter(
+        'debugDefaultTargetPlatformOverride',
+        (v) => $flutter_19.debugDefaultTargetPlatformOverride =
+            v as $flutter_19.TargetPlatform?,
         importPath,
-        sourceUri: 'package:flutter/src/foundation/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugBrightnessOverride": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'activeDevToolsServerAddress',
-        $flutter_10.activeDevToolsServerAddress,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "activeDevToolsServerAddress": $e',
+        sourceUri: 'package:flutter/src/foundation/platform.dart',
       );
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'connectedVmServiceUri',
-        $flutter_10.connectedVmServiceUri,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "connectedVmServiceUri": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFlutterMemoryAllocationsEnabled',
-        $flutter_15.kFlutterMemoryAllocationsEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/foundation/memory_allocations.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kFlutterMemoryAllocationsEnabled": $e',
-      );
-    }
-    interpreter.registerGlobalGetter(
-      'isCanvasKit',
-      () => $flutter_6.isCanvasKit,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/capabilities.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'isSkwasm',
-      () => $flutter_6.isSkwasm,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/capabilities.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'isSkiaWeb',
-      () => $flutter_6.isSkiaWeb,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/capabilities.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'debugPrintDone',
-      () => $flutter_20.debugPrintDone,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/print.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'defaultTargetPlatform',
-      () => $flutter_19.defaultTargetPlatform,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/platform.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'debugDefaultTargetPlatformOverride',
-      () => $flutter_19.debugDefaultTargetPlatformOverride,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/platform.dart',
-    );
-    interpreter.registerGlobalSetter(
-      'debugDefaultTargetPlatformOverride',
-      (v) => $flutter_19.debugDefaultTargetPlatformOverride =
-          v as $flutter_19.TargetPlatform?,
-      importPath,
-      sourceUri: 'package:flutter/src/foundation/platform.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(

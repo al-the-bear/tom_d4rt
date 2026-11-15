@@ -1,4 +1,4 @@
-// Generated: 2026-11-15T01:11:43.735487 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:33:00.341427 by tom_d4rt_generator 1.66.0
 /// D4rt Proxy Classes for flutter_material_bridges
 ///
 /// Generated proxy/adapter subclasses that delegate abstract methods
@@ -1435,10 +1435,14 @@ void registerProxyFactories() {
       onPaint: (Canvas canvas, Size size) {
         final method = instance.klass.findInstanceMethod('paint');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [
-            canvas,
-            size,
-          ], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [canvas, size],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'CustomPainter.paint',
+          );
           return;
         }
         throw StateError(
@@ -1448,7 +1452,14 @@ void registerProxyFactories() {
       onShouldRepaint: (CustomPainter oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRepaint');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [oldDelegate],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'CustomPainter.shouldRepaint',
+          );
           return D4.extractBridgedArg<bool>(result, 'shouldRepaint', visitor);
         }
         throw StateError(
@@ -1459,9 +1470,14 @@ void registerProxyFactories() {
           ? (VoidCallback listener) {
               final method = instance.klass.findInstanceMethod('addListener');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  listener,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [listener],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomPainter.addListener',
+                );
                 return;
               }
               throw StateError(
@@ -1476,9 +1492,14 @@ void registerProxyFactories() {
                 'removeListener',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  listener,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [listener],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomPainter.removeListener',
+                );
                 return;
               }
               throw StateError(
@@ -1493,9 +1514,14 @@ void registerProxyFactories() {
                 'shouldRebuildSemantics',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  oldDelegate,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [oldDelegate],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomPainter.shouldRebuildSemantics',
+                );
                 return D4.extractBridgedArg<bool>(
                   result,
                   'shouldRebuildSemantics',
@@ -1511,9 +1537,14 @@ void registerProxyFactories() {
           ? (Offset position) {
               final method = instance.klass.findInstanceMethod('hitTest');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  position,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [position],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomPainter.hitTest',
+                );
                 return D4.extractBridgedArg<bool?>(result, 'hitTest', visitor);
               }
               throw StateError(
@@ -1528,12 +1559,26 @@ void registerProxyFactories() {
                 'semanticsBuilder',
               );
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomPainter.semanticsBuilder',
+                );
                 if (result == null) return null;
                 if (result is Callable) {
                   final _callable = result;
                   return (Size p0) {
-                    final _out = _callable.call(visitor, [p0], {});
+                    final _out = D4.enterInterpreted(
+                      visitor,
+                      _callable,
+                      [p0],
+                      {},
+                      D4rtEntryKind.callback,
+                      'CustomPainter.semanticsBuilder',
+                    );
                     if (_out is List) {
                       return _out
                           .map(
@@ -1562,7 +1607,14 @@ void registerProxyFactories() {
                 if (field is Callable) {
                   final _callable = field;
                   return (Size p0) {
-                    final _out = _callable.call(visitor, [p0], {});
+                    final _out = D4.enterInterpreted(
+                      visitor,
+                      _callable,
+                      [p0],
+                      {},
+                      D4rtEntryKind.callback,
+                      'CustomPainter.semanticsBuilder',
+                    );
                     if (_out is List) {
                       return _out
                           .map(
@@ -1600,7 +1652,14 @@ void registerProxyFactories() {
       onGetClip: (Size size) {
         final method = instance.klass.findInstanceMethod('getClip');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [size], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [size],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'CustomClipper.getClip',
+          );
           return D4.extractBridgedArg<Object>(result, 'getClip', visitor);
         }
         throw StateError(
@@ -1610,7 +1669,14 @@ void registerProxyFactories() {
       onShouldReclip: (CustomClipper<Object> oldClipper) {
         final method = instance.klass.findInstanceMethod('shouldReclip');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldClipper], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [oldClipper],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'CustomClipper.shouldReclip',
+          );
           return D4.extractBridgedArg<bool>(result, 'shouldReclip', visitor);
         }
         throw StateError(
@@ -1621,9 +1687,14 @@ void registerProxyFactories() {
           ? (VoidCallback listener) {
               final method = instance.klass.findInstanceMethod('addListener');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  listener,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [listener],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomClipper.addListener',
+                );
                 return;
               }
               throw StateError(
@@ -1638,9 +1709,14 @@ void registerProxyFactories() {
                 'removeListener',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  listener,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [listener],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomClipper.removeListener',
+                );
                 return;
               }
               throw StateError(
@@ -1655,7 +1731,14 @@ void registerProxyFactories() {
                 'getApproximateClipRect',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [size], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [size],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'CustomClipper.getApproximateClipRect',
+                );
                 return D4.extractBridgedArg<Rect>(
                   result,
                   'getApproximateClipRect',
@@ -1677,7 +1760,14 @@ void registerProxyFactories() {
       onPaintChildren: (FlowPaintingContext context) {
         final method = instance.klass.findInstanceMethod('paintChildren');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [context], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [context],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'FlowDelegate.paintChildren',
+          );
           return;
         }
         throw StateError(
@@ -1687,7 +1777,14 @@ void registerProxyFactories() {
       onShouldRepaint: (FlowDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRepaint');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [oldDelegate],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'FlowDelegate.shouldRepaint',
+          );
           return D4.extractBridgedArg<bool>(result, 'shouldRepaint', visitor);
         }
         throw StateError(
@@ -1698,9 +1795,14 @@ void registerProxyFactories() {
           ? (BoxConstraints constraints) {
               final method = instance.klass.findInstanceMethod('getSize');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  constraints,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [constraints],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'FlowDelegate.getSize',
+                );
                 return D4.extractBridgedArg<Size>(result, 'getSize', visitor);
               }
               throw StateError(
@@ -1715,10 +1817,14 @@ void registerProxyFactories() {
                 'getConstraintsForChild',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  i,
-                  constraints,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [i, constraints],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'FlowDelegate.getConstraintsForChild',
+                );
                 return D4.extractBridgedArg<BoxConstraints>(
                   result,
                   'getConstraintsForChild',
@@ -1737,9 +1843,14 @@ void registerProxyFactories() {
                 'shouldRelayout',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  oldDelegate,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [oldDelegate],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'FlowDelegate.shouldRelayout',
+                );
                 return D4.extractBridgedArg<bool>(
                   result,
                   'shouldRelayout',
@@ -1761,7 +1872,14 @@ void registerProxyFactories() {
       onPerformLayout: (Size size) {
         final method = instance.klass.findInstanceMethod('performLayout');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [size], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [size],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'MultiChildLayoutDelegate.performLayout',
+          );
           return;
         }
         throw StateError(
@@ -1771,7 +1889,14 @@ void registerProxyFactories() {
       onShouldRelayout: (MultiChildLayoutDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRelayout');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [oldDelegate],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'MultiChildLayoutDelegate.shouldRelayout',
+          );
           return D4.extractBridgedArg<bool>(result, 'shouldRelayout', visitor);
         }
         throw StateError(
@@ -1782,9 +1907,14 @@ void registerProxyFactories() {
           ? (Object childId) {
               final method = instance.klass.findInstanceMethod('hasChild');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  childId,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [childId],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'MultiChildLayoutDelegate.hasChild',
+                );
                 return D4.extractBridgedArg<bool>(result, 'hasChild', visitor);
               }
               throw StateError(
@@ -1796,10 +1926,14 @@ void registerProxyFactories() {
           ? (Object childId, BoxConstraints constraints) {
               final method = instance.klass.findInstanceMethod('layoutChild');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  childId,
-                  constraints,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [childId, constraints],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'MultiChildLayoutDelegate.layoutChild',
+                );
                 return D4.extractBridgedArg<Size>(
                   result,
                   'layoutChild',
@@ -1816,10 +1950,14 @@ void registerProxyFactories() {
           ? (Object childId, Offset offset) {
               final method = instance.klass.findInstanceMethod('positionChild');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  childId,
-                  offset,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [childId, offset],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'MultiChildLayoutDelegate.positionChild',
+                );
                 return;
               }
               throw StateError(
@@ -1831,9 +1969,14 @@ void registerProxyFactories() {
           ? (BoxConstraints constraints) {
               final method = instance.klass.findInstanceMethod('getSize');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  constraints,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [constraints],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'MultiChildLayoutDelegate.getSize',
+                );
                 return D4.extractBridgedArg<Size>(result, 'getSize', visitor);
               }
               throw StateError(
@@ -1851,7 +1994,14 @@ void registerProxyFactories() {
       onShouldRelayout: (SingleChildLayoutDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRelayout');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [oldDelegate],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SingleChildLayoutDelegate.shouldRelayout',
+          );
           return D4.extractBridgedArg<bool>(result, 'shouldRelayout', visitor);
         }
         throw StateError(
@@ -1862,9 +2012,14 @@ void registerProxyFactories() {
           ? (BoxConstraints constraints) {
               final method = instance.klass.findInstanceMethod('getSize');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  constraints,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [constraints],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SingleChildLayoutDelegate.getSize',
+                );
                 return D4.extractBridgedArg<Size>(result, 'getSize', visitor);
               }
               throw StateError(
@@ -1879,9 +2034,14 @@ void registerProxyFactories() {
                 'getConstraintsForChild',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  constraints,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [constraints],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SingleChildLayoutDelegate.getConstraintsForChild',
+                );
                 return D4.extractBridgedArg<BoxConstraints>(
                   result,
                   'getConstraintsForChild',
@@ -1900,10 +2060,14 @@ void registerProxyFactories() {
                 'getPositionForChild',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  size,
-                  childSize,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [size, childSize],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SingleChildLayoutDelegate.getPositionForChild',
+                );
                 return D4.extractBridgedArg<Offset>(
                   result,
                   'getPositionForChild',
@@ -1928,11 +2092,14 @@ void registerProxyFactories() {
       onBuild: (BuildContext context, double shrinkOffset, bool overlapsContent) {
         final method = instance.klass.findInstanceMethod('build');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [
-            context,
-            shrinkOffset,
-            overlapsContent,
-          ], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [context, shrinkOffset, overlapsContent],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SliverPersistentHeaderDelegate.build',
+          );
           return D4.extractBridgedArg<Widget>(result, 'build', visitor);
         }
         throw StateError(
@@ -1942,7 +2109,14 @@ void registerProxyFactories() {
       onShouldRebuild: (SliverPersistentHeaderDelegate oldDelegate) {
         final method = instance.klass.findInstanceMethod('shouldRebuild');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [oldDelegate], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [oldDelegate],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SliverPersistentHeaderDelegate.shouldRebuild',
+          );
           return D4.extractBridgedArg<bool>(result, 'shouldRebuild', visitor);
         }
         throw StateError(
@@ -1952,7 +2126,14 @@ void registerProxyFactories() {
       onMinExtent: () {
         final getter = instance.klass.findInstanceGetter('minExtent');
         if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            getter.bind(instance),
+            [],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SliverPersistentHeaderDelegate.minExtent',
+          );
           return D4.extractBridgedArg<double>(result, 'minExtent', visitor);
         }
         try {
@@ -1966,7 +2147,14 @@ void registerProxyFactories() {
       onMaxExtent: () {
         final getter = instance.klass.findInstanceGetter('maxExtent');
         if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            getter.bind(instance),
+            [],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SliverPersistentHeaderDelegate.maxExtent',
+          );
           return D4.extractBridgedArg<double>(result, 'maxExtent', visitor);
         }
         try {
@@ -1981,7 +2169,14 @@ void registerProxyFactories() {
           ? () {
               final getter = instance.klass.findInstanceGetter('vsync');
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SliverPersistentHeaderDelegate.vsync',
+                );
                 return D4.extractBridgedArg<TickerProvider?>(
                   result,
                   'vsync',
@@ -2008,7 +2203,14 @@ void registerProxyFactories() {
                 'snapConfiguration',
               );
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SliverPersistentHeaderDelegate.snapConfiguration',
+                );
                 return D4.extractBridgedArg<FloatingHeaderSnapConfiguration?>(
                   result,
                   'snapConfiguration',
@@ -2035,7 +2237,14 @@ void registerProxyFactories() {
                 'stretchConfiguration',
               );
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SliverPersistentHeaderDelegate.stretchConfiguration',
+                );
                 return D4
                     .extractBridgedArg<OverScrollHeaderStretchConfiguration?>(
                       result,
@@ -2064,7 +2273,14 @@ void registerProxyFactories() {
                 'showOnScreenConfiguration',
               );
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'SliverPersistentHeaderDelegate.showOnScreenConfiguration',
+                );
                 return D4.extractBridgedArg<
                   PersistentHeaderShowOnScreenConfiguration?
                 >(result, 'showOnScreenConfiguration', visitor);
@@ -2090,7 +2306,14 @@ void registerProxyFactories() {
       onGetRow: (int index) {
         final method = instance.klass.findInstanceMethod('getRow');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [index], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [index],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'DataTableSource.getRow',
+          );
           return D4.extractBridgedArg<DataRow?>(result, 'getRow', visitor);
         }
         throw StateError(
@@ -2100,7 +2323,14 @@ void registerProxyFactories() {
       onRowCount: () {
         final getter = instance.klass.findInstanceGetter('rowCount');
         if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            getter.bind(instance),
+            [],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'DataTableSource.rowCount',
+          );
           return D4.extractBridgedArg<int>(result, 'rowCount', visitor);
         }
         try {
@@ -2116,7 +2346,14 @@ void registerProxyFactories() {
           'isRowCountApproximate',
         );
         if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            getter.bind(instance),
+            [],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'DataTableSource.isRowCountApproximate',
+          );
           return D4.extractBridgedArg<bool>(
             result,
             'isRowCountApproximate',
@@ -2138,7 +2375,14 @@ void registerProxyFactories() {
       onSelectedRowCount: () {
         final getter = instance.klass.findInstanceGetter('selectedRowCount');
         if (getter != null) {
-          final result = getter.bind(instance).call(visitor, [], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            getter.bind(instance),
+            [],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'DataTableSource.selectedRowCount',
+          );
           return D4.extractBridgedArg<int>(result, 'selectedRowCount', visitor);
         }
         try {
@@ -2153,9 +2397,14 @@ void registerProxyFactories() {
           ? (VoidCallback listener) {
               final method = instance.klass.findInstanceMethod('addListener');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  listener,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [listener],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'DataTableSource.addListener',
+                );
                 return;
               }
               throw StateError(
@@ -2170,9 +2419,14 @@ void registerProxyFactories() {
                 'removeListener',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  listener,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [listener],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'DataTableSource.removeListener',
+                );
                 return;
               }
               throw StateError(
@@ -2184,7 +2438,14 @@ void registerProxyFactories() {
           ? () {
               final method = instance.klass.findInstanceMethod('dispose');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'DataTableSource.dispose',
+                );
                 return;
               }
               throw StateError(
@@ -2199,7 +2460,14 @@ void registerProxyFactories() {
                 'notifyListeners',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'DataTableSource.notifyListeners',
+                );
                 return;
               }
               throw StateError(
@@ -2211,7 +2479,14 @@ void registerProxyFactories() {
           ? () {
               final getter = instance.klass.findInstanceGetter('hasListeners');
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'DataTableSource.hasListeners',
+                );
                 return D4.extractBridgedArg<bool>(
                   result,
                   'hasListeners',
@@ -2248,11 +2523,18 @@ void registerProxyFactories() {
           }) {
             final method = instance.klass.findInstanceMethod('resolve');
             if (method != null) {
-              final result = method.bind(instance).call(visitor, [], {
-                'newPageRouteHistory': newPageRouteHistory,
-                'locationToExitingPageRoute': locationToExitingPageRoute,
-                'pageRouteToPagelessRoutes': pageRouteToPagelessRoutes,
-              });
+              final result = D4.enterInterpreted(
+                visitor,
+                method.bind(instance),
+                [],
+                {
+                  'newPageRouteHistory': newPageRouteHistory,
+                  'locationToExitingPageRoute': locationToExitingPageRoute,
+                  'pageRouteToPagelessRoutes': pageRouteToPagelessRoutes,
+                },
+                D4rtEntryKind.proxyMethod,
+                'TransitionDelegate.resolve',
+              );
               if (result is List && result is! List<RouteTransitionRecord>) {
                 return D4.coerceList<RouteTransitionRecord>(result, 'resolve');
               }
@@ -2276,9 +2558,14 @@ void registerProxyFactories() {
       onTransform: (Rect bounds, {TextDirection? textDirection}) {
         final method = instance.klass.findInstanceMethod('transform');
         if (method != null) {
-          final result = method
-              .bind(instance)
-              .call(visitor, [bounds], {'textDirection': textDirection});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [bounds],
+            {'textDirection': textDirection},
+            D4rtEntryKind.proxyMethod,
+            'GradientTransform.transform',
+          );
           return D4.extractBridgedArg<Matrix4?>(result, 'transform', visitor);
         }
         throw StateError(
@@ -2295,10 +2582,14 @@ void registerProxyFactories() {
       onGetPreferredSize: (bool isEnabled, bool isDiscrete) {
         final method = instance.klass.findInstanceMethod('getPreferredSize');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [
-            isEnabled,
-            isDiscrete,
-          ], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [isEnabled, isDiscrete],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SliderComponentShape.getPreferredSize',
+          );
           return D4.extractBridgedArg<Size>(
             result,
             'getPreferredSize',
@@ -2326,24 +2617,25 @@ void registerProxyFactories() {
           }) {
             final method = instance.klass.findInstanceMethod('paint');
             if (method != null) {
-              final result = method
-                  .bind(instance)
-                  .call(
-                    visitor,
-                    [context, center],
-                    {
-                      'activationAnimation': activationAnimation,
-                      'enableAnimation': enableAnimation,
-                      'isDiscrete': isDiscrete,
-                      'labelPainter': labelPainter,
-                      'parentBox': parentBox,
-                      'sliderTheme': sliderTheme,
-                      'textDirection': textDirection,
-                      'value': value,
-                      'textScaleFactor': textScaleFactor,
-                      'sizeWithOverflow': sizeWithOverflow,
-                    },
-                  );
+              final result = D4.enterInterpreted(
+                visitor,
+                method.bind(instance),
+                [context, center],
+                {
+                  'activationAnimation': activationAnimation,
+                  'enableAnimation': enableAnimation,
+                  'isDiscrete': isDiscrete,
+                  'labelPainter': labelPainter,
+                  'parentBox': parentBox,
+                  'sliderTheme': sliderTheme,
+                  'textDirection': textDirection,
+                  'value': value,
+                  'textScaleFactor': textScaleFactor,
+                  'sizeWithOverflow': sizeWithOverflow,
+                },
+                D4rtEntryKind.proxyMethod,
+                'SliderComponentShape.paint',
+              );
               return;
             }
             throw StateError(
@@ -2362,10 +2654,14 @@ void registerProxyFactories() {
           'fetchSpellCheckSuggestions',
         );
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [
-            locale,
-            text,
-          ], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [locale, text],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'SpellCheckService.fetchSpellCheckSuggestions',
+          );
           if (result is Future && result is! Future<List<SuggestionSpan>?>) {
             return result.then(
               (v) => v is List && v is! List<SuggestionSpan>
@@ -2400,7 +2696,14 @@ void registerProxyFactories() {
       onCreateBoxPainter: ([VoidCallback? onChanged]) {
         final method = instance.klass.findInstanceMethod('createBoxPainter');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [onChanged], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [onChanged],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'Decoration.createBoxPainter',
+          );
           return D4.extractBridgedArg<BoxPainter>(
             result,
             'createBoxPainter',
@@ -2416,7 +2719,14 @@ void registerProxyFactories() {
           ? () {
               final method = instance.klass.findInstanceMethod('toStringShort');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.toStringShort',
+                );
                 return D4.extractBridgedArg<String>(
                   result,
                   'toStringShort',
@@ -2435,7 +2745,14 @@ void registerProxyFactories() {
                 'debugAssertIsValid',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.debugAssertIsValid',
+                );
                 return D4.extractBridgedArg<bool>(
                   result,
                   'debugAssertIsValid',
@@ -2451,7 +2768,14 @@ void registerProxyFactories() {
           ? (Decoration? a, double t) {
               final method = instance.klass.findInstanceMethod('lerpFrom');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [a, t], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [a, t],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.lerpFrom',
+                );
                 return D4.extractBridgedArg<Decoration?>(
                   result,
                   'lerpFrom',
@@ -2467,7 +2791,14 @@ void registerProxyFactories() {
           ? (Decoration? b, double t) {
               final method = instance.klass.findInstanceMethod('lerpTo');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [b, t], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [b, t],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.lerpTo',
+                );
                 return D4.extractBridgedArg<Decoration?>(
                   result,
                   'lerpTo',
@@ -2483,13 +2814,14 @@ void registerProxyFactories() {
           ? (Size size, Offset position, {TextDirection? textDirection}) {
               final method = instance.klass.findInstanceMethod('hitTest');
               if (method != null) {
-                final result = method
-                    .bind(instance)
-                    .call(
-                      visitor,
-                      [size, position],
-                      {'textDirection': textDirection},
-                    );
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [size, position],
+                  {'textDirection': textDirection},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.hitTest',
+                );
                 return D4.extractBridgedArg<bool>(result, 'hitTest', visitor);
               }
               throw StateError(
@@ -2501,10 +2833,14 @@ void registerProxyFactories() {
           ? (Rect rect, TextDirection textDirection) {
               final method = instance.klass.findInstanceMethod('getClipPath');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  rect,
-                  textDirection,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [rect, textDirection],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.getClipPath',
+                );
                 return D4.extractBridgedArg<Path>(
                   result,
                   'getClipPath',
@@ -2520,7 +2856,14 @@ void registerProxyFactories() {
           ? () {
               final getter = instance.klass.findInstanceGetter('padding');
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.padding',
+                );
                 return D4.extractBridgedArg<EdgeInsetsGeometry>(
                   result,
                   'padding',
@@ -2544,7 +2887,14 @@ void registerProxyFactories() {
           ? () {
               final getter = instance.klass.findInstanceGetter('isComplex');
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'Decoration.isComplex',
+                );
                 return D4.extractBridgedArg<bool>(result, 'isComplex', visitor);
               }
               try {
@@ -2566,11 +2916,14 @@ void registerProxyFactories() {
       onPaint: (Canvas canvas, Offset offset, ImageConfiguration configuration) {
         final method = instance.klass.findInstanceMethod('paint');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [
-            canvas,
-            offset,
-            configuration,
-          ], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [canvas, offset, configuration],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'BoxPainter.paint',
+          );
           return;
         }
         throw StateError(
@@ -2581,7 +2934,14 @@ void registerProxyFactories() {
           ? () {
               final method = instance.klass.findInstanceMethod('dispose');
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'BoxPainter.dispose',
+                );
                 return;
               }
               throw StateError(
@@ -2603,9 +2963,14 @@ void registerProxyFactories() {
                 'parseRouteInformation',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  routeInformation,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [routeInformation],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'RouteInformationParser.parseRouteInformation',
+                );
                 if (result is Future && result is! Future<Object>) {
                   return result.then(
                     (v) => D4.extractBridgedArg<Object>(
@@ -2636,10 +3001,14 @@ void registerProxyFactories() {
                 'parseRouteInformationWithDependencies',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  routeInformation,
-                  context,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [routeInformation, context],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'RouteInformationParser.parseRouteInformationWithDependencies',
+                );
                 if (result is Future && result is! Future<Object>) {
                   return result.then(
                     (v) => D4.extractBridgedArg<Object>(
@@ -2667,9 +3036,14 @@ void registerProxyFactories() {
                 'restoreRouteInformation',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  configuration,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [configuration],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'RouteInformationParser.restoreRouteInformation',
+                );
                 return D4.extractBridgedArg<RouteInformation?>(
                   result,
                   'restoreRouteInformation',
@@ -2691,9 +3065,14 @@ void registerProxyFactories() {
       onSetNewRoutePath: (Object configuration) {
         final method = instance.klass.findInstanceMethod('setNewRoutePath');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [
-            configuration,
-          ], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [configuration],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'RouterDelegate.setNewRoutePath',
+          );
           return D4.extractBridgedArg<Future<void>>(
             result,
             'setNewRoutePath',
@@ -2707,7 +3086,14 @@ void registerProxyFactories() {
       onPopRoute: () {
         final method = instance.klass.findInstanceMethod('popRoute');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'RouterDelegate.popRoute',
+          );
           if (result is Future && result is! Future<bool>) {
             return result.then(
               (v) => D4.extractBridgedArg<bool>(v, 'popRoute', visitor),
@@ -2726,7 +3112,14 @@ void registerProxyFactories() {
       onBuild: (BuildContext context) {
         final method = instance.klass.findInstanceMethod('build');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [context], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [context],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'RouterDelegate.build',
+          );
           return D4.extractBridgedArg<Widget>(result, 'build', visitor);
         }
         throw StateError(
@@ -2736,7 +3129,14 @@ void registerProxyFactories() {
       onAddListener: (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('addListener');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [listener],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'RouterDelegate.addListener',
+          );
           return;
         }
         throw StateError(
@@ -2746,7 +3146,14 @@ void registerProxyFactories() {
       onRemoveListener: (VoidCallback listener) {
         final method = instance.klass.findInstanceMethod('removeListener');
         if (method != null) {
-          final result = method.bind(instance).call(visitor, [listener], {});
+          final result = D4.enterInterpreted(
+            visitor,
+            method.bind(instance),
+            [listener],
+            {},
+            D4rtEntryKind.proxyMethod,
+            'RouterDelegate.removeListener',
+          );
           return;
         }
         throw StateError(
@@ -2760,9 +3167,14 @@ void registerProxyFactories() {
                 'setInitialRoutePath',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  configuration,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [configuration],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'RouterDelegate.setInitialRoutePath',
+                );
                 return D4.extractBridgedArg<Future<void>>(
                   result,
                   'setInitialRoutePath',
@@ -2781,9 +3193,14 @@ void registerProxyFactories() {
                 'setRestoredRoutePath',
               );
               if (method != null) {
-                final result = method.bind(instance).call(visitor, [
-                  configuration,
-                ], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  method.bind(instance),
+                  [configuration],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'RouterDelegate.setRestoredRoutePath',
+                );
                 return D4.extractBridgedArg<Future<void>>(
                   result,
                   'setRestoredRoutePath',
@@ -2802,7 +3219,14 @@ void registerProxyFactories() {
                 'currentConfiguration',
               );
               if (getter != null) {
-                final result = getter.bind(instance).call(visitor, [], {});
+                final result = D4.enterInterpreted(
+                  visitor,
+                  getter.bind(instance),
+                  [],
+                  {},
+                  D4rtEntryKind.proxyMethod,
+                  'RouterDelegate.currentConfiguration',
+                );
                 return D4.extractBridgedArg<Object?>(
                   result,
                   'currentConfiguration',

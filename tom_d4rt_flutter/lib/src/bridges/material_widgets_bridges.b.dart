@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-11-15T01:11:30.028693 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:32:40.425418 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -8107,7 +8107,24 @@ class FlutterMaterialBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -8115,6 +8132,7 @@ class FlutterMaterialBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -8133,6 +8151,7 @@ class FlutterMaterialBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -8141,13 +8160,14 @@ class FlutterMaterialBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -8162,6 +8182,7 @@ class FlutterMaterialBridge {
     final extSources = extensionSourceUris();
     for (final extDef in extensions) {
       final extKey = '${extDef.name ?? '<unnamed>'}@${extDef.onTypeName}';
+      if (!include(extSources[extKey])) continue;
       interpreter.registerBridgedExtension(
         extDef,
         importPath,
@@ -8172,13 +8193,17 @@ class FlutterMaterialBridge {
     // Register class aliases (typedef type aliases)
     final aliases = classAliases();
     for (final entry in aliases.entries) {
+      // An alias follows the class it names; it has no source of its own.
+      if (ownPrefix != null && !include(classSources[entry.value])) continue;
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
 
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -8204,477 +8229,613 @@ class FlutterMaterialBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'kMinInteractiveDimension',
-        $flutter_62.kMinInteractiveDimension,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMinInteractiveDimension": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMinInteractiveDimension',
+          $flutter_62.kMinInteractiveDimension,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kMinInteractiveDimension": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kToolbarHeight',
-        $flutter_62.kToolbarHeight,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kToolbarHeight": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kToolbarHeight',
+          $flutter_62.kToolbarHeight,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kToolbarHeight": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kBottomNavigationBarHeight',
-        $flutter_62.kBottomNavigationBarHeight,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kBottomNavigationBarHeight": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kBottomNavigationBarHeight',
+          $flutter_62.kBottomNavigationBarHeight,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kBottomNavigationBarHeight": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kTextTabBarHeight',
-        $flutter_62.kTextTabBarHeight,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kTextTabBarHeight": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kTextTabBarHeight',
+          $flutter_62.kTextTabBarHeight,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kTextTabBarHeight": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kThemeChangeDuration',
-        $flutter_62.kThemeChangeDuration,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kThemeChangeDuration": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kThemeChangeDuration',
+          $flutter_62.kThemeChangeDuration,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kThemeChangeDuration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kRadialReactionRadius',
-        $flutter_62.kRadialReactionRadius,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kRadialReactionRadius": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kRadialReactionRadius',
+          $flutter_62.kRadialReactionRadius,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kRadialReactionRadius": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kRadialReactionDuration',
-        $flutter_62.kRadialReactionDuration,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kRadialReactionDuration": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kRadialReactionDuration',
+          $flutter_62.kRadialReactionDuration,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kRadialReactionDuration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kRadialReactionAlpha',
-        $flutter_62.kRadialReactionAlpha,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kRadialReactionAlpha": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kRadialReactionAlpha',
+          $flutter_62.kRadialReactionAlpha,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kRadialReactionAlpha": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kTabScrollDuration',
-        $flutter_62.kTabScrollDuration,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kTabScrollDuration": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kTabScrollDuration',
+          $flutter_62.kTabScrollDuration,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kTabScrollDuration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kTabLabelPadding',
-        $flutter_62.kTabLabelPadding,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kTabLabelPadding": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kTabLabelPadding',
+          $flutter_62.kTabLabelPadding,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kTabLabelPadding": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMaterialListPadding',
-        $flutter_62.kMaterialListPadding,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMaterialListPadding": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMaterialListPadding',
+          $flutter_62.kMaterialListPadding,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMaterialListPadding": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultIconLightColor',
-        $flutter_62.kDefaultIconLightColor,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDefaultIconLightColor": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultIconLightColor',
+          $flutter_62.kDefaultIconLightColor,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDefaultIconLightColor": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultIconDarkColor',
-        $flutter_62.kDefaultIconDarkColor,
-        importPath,
-        sourceUri: 'package:flutter/src/material/constants.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDefaultIconDarkColor": $e');
+    if (include == null ||
+        include('package:flutter/src/material/constants.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultIconDarkColor',
+          $flutter_62.kDefaultIconDarkColor,
+          importPath,
+          sourceUri: 'package:flutter/src/material/constants.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDefaultIconDarkColor": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'desktopTextSelectionHandleControls',
-        $flutter_70.desktopTextSelectionHandleControls,
-        importPath,
-        sourceUri: 'package:flutter/src/material/desktop_text_selection.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "desktopTextSelectionHandleControls": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/material/desktop_text_selection.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'desktopTextSelectionHandleControls',
+          $flutter_70.desktopTextSelectionHandleControls,
+          importPath,
+          sourceUri: 'package:flutter/src/material/desktop_text_selection.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "desktopTextSelectionHandleControls": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'desktopTextSelectionControls',
-        $flutter_70.desktopTextSelectionControls,
-        importPath,
-        sourceUri: 'package:flutter/src/material/desktop_text_selection.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "desktopTextSelectionControls": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/material/desktop_text_selection.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'desktopTextSelectionControls',
+          $flutter_70.desktopTextSelectionControls,
+          importPath,
+          sourceUri: 'package:flutter/src/material/desktop_text_selection.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "desktopTextSelectionControls": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFloatingActionButtonMargin',
-        $flutter_96.kFloatingActionButtonMargin,
-        importPath,
-        sourceUri:
-            'package:flutter/src/material/floating_action_button_location.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kFloatingActionButtonMargin": $e',
-      );
+    if (include == null ||
+        include(
+          'package:flutter/src/material/floating_action_button_location.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFloatingActionButtonMargin',
+          $flutter_96.kFloatingActionButtonMargin,
+          importPath,
+          sourceUri:
+              'package:flutter/src/material/floating_action_button_location.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kFloatingActionButtonMargin": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFloatingActionButtonSegue',
-        $flutter_96.kFloatingActionButtonSegue,
-        importPath,
-        sourceUri:
-            'package:flutter/src/material/floating_action_button_location.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kFloatingActionButtonSegue": $e',
-      );
+    if (include == null ||
+        include(
+          'package:flutter/src/material/floating_action_button_location.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFloatingActionButtonSegue',
+          $flutter_96.kFloatingActionButtonSegue,
+          importPath,
+          sourceUri:
+              'package:flutter/src/material/floating_action_button_location.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kFloatingActionButtonSegue": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFloatingActionButtonTurnInterval',
-        $flutter_96.kFloatingActionButtonTurnInterval,
-        importPath,
-        sourceUri:
-            'package:flutter/src/material/floating_action_button_location.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kFloatingActionButtonTurnInterval": $e',
-      );
+    if (include == null ||
+        include(
+          'package:flutter/src/material/floating_action_button_location.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFloatingActionButtonTurnInterval',
+          $flutter_96.kFloatingActionButtonTurnInterval,
+          importPath,
+          sourceUri:
+              'package:flutter/src/material/floating_action_button_location.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kFloatingActionButtonTurnInterval": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMiniButtonOffsetAdjustment',
-        $flutter_96.kMiniButtonOffsetAdjustment,
-        importPath,
-        sourceUri:
-            'package:flutter/src/material/floating_action_button_location.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kMiniButtonOffsetAdjustment": $e',
-      );
+    if (include == null ||
+        include(
+          'package:flutter/src/material/floating_action_button_location.dart',
+        )) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMiniButtonOffsetAdjustment',
+          $flutter_96.kMiniButtonOffsetAdjustment,
+          importPath,
+          sourceUri:
+              'package:flutter/src/material/floating_action_button_location.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kMiniButtonOffsetAdjustment": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMaterialEdges',
-        $flutter_116.kMaterialEdges,
-        importPath,
-        sourceUri: 'package:flutter/src/material/material.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMaterialEdges": $e');
+    if (include == null ||
+        include('package:flutter/src/material/material.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMaterialEdges',
+          $flutter_116.kMaterialEdges,
+          importPath,
+          sourceUri: 'package:flutter/src/material/material.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMaterialEdges": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'iOSHorizontalOffset',
-        $flutter_161.iOSHorizontalOffset,
-        importPath,
-        sourceUri: 'package:flutter/src/material/selectable_text.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "iOSHorizontalOffset": $e');
+    if (include == null ||
+        include('package:flutter/src/material/selectable_text.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'iOSHorizontalOffset',
+          $flutter_161.iOSHorizontalOffset,
+          importPath,
+          sourceUri: 'package:flutter/src/material/selectable_text.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "iOSHorizontalOffset": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kElevationToShadow',
-        $flutter_163.kElevationToShadow,
-        importPath,
-        sourceUri: 'package:flutter/src/material/shadows.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kElevationToShadow": $e');
+    if (include == null ||
+        include('package:flutter/src/material/shadows.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kElevationToShadow',
+          $flutter_163.kElevationToShadow,
+          importPath,
+          sourceUri: 'package:flutter/src/material/shadows.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kElevationToShadow": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'materialTextSelectionHandleControls',
-        $flutter_184.materialTextSelectionHandleControls,
-        importPath,
-        sourceUri: 'package:flutter/src/material/text_selection.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "materialTextSelectionHandleControls": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/material/text_selection.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'materialTextSelectionHandleControls',
+          $flutter_184.materialTextSelectionHandleControls,
+          importPath,
+          sourceUri: 'package:flutter/src/material/text_selection.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "materialTextSelectionHandleControls": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'materialTextSelectionControls',
-        $flutter_184.materialTextSelectionControls,
-        importPath,
-        sourceUri: 'package:flutter/src/material/text_selection.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "materialTextSelectionControls": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/material/text_selection.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'materialTextSelectionControls',
+          $flutter_184.materialTextSelectionControls,
+          importPath,
+          sourceUri: 'package:flutter/src/material/text_selection.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "materialTextSelectionControls": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kThemeAnimationDuration',
-        $flutter_189.kThemeAnimationDuration,
-        importPath,
-        sourceUri: 'package:flutter/src/material/theme.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kThemeAnimationDuration": $e');
+    if (include == null || include('package:flutter/src/material/theme.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kThemeAnimationDuration',
+          $flutter_189.kThemeAnimationDuration,
+          importPath,
+          sourceUri: 'package:flutter/src/material/theme.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kThemeAnimationDuration": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintRebuildDirtyWidgets',
-        $flutter_264.debugPrintRebuildDirtyWidgets,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintRebuildDirtyWidgets": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintRebuildDirtyWidgets',
+          $flutter_264.debugPrintRebuildDirtyWidgets,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintRebuildDirtyWidgets": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugOnRebuildDirtyWidget',
-        $flutter_264.debugOnRebuildDirtyWidget,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugOnRebuildDirtyWidget": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugOnRebuildDirtyWidget',
+          $flutter_264.debugOnRebuildDirtyWidget,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugOnRebuildDirtyWidget": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintBuildScope',
-        $flutter_264.debugPrintBuildScope,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPrintBuildScope": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintBuildScope',
+          $flutter_264.debugPrintBuildScope,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPrintBuildScope": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintScheduleBuildForStacks',
-        $flutter_264.debugPrintScheduleBuildForStacks,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintScheduleBuildForStacks": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintScheduleBuildForStacks',
+          $flutter_264.debugPrintScheduleBuildForStacks,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintScheduleBuildForStacks": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintGlobalKeyedWidgetLifecycle',
-        $flutter_264.debugPrintGlobalKeyedWidgetLifecycle,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintGlobalKeyedWidgetLifecycle": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintGlobalKeyedWidgetLifecycle',
+          $flutter_264.debugPrintGlobalKeyedWidgetLifecycle,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintGlobalKeyedWidgetLifecycle": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfileBuildsEnabled',
-        $flutter_264.debugProfileBuildsEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugProfileBuildsEnabled": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfileBuildsEnabled',
+          $flutter_264.debugProfileBuildsEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfileBuildsEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfileBuildsEnabledUserWidgets',
-        $flutter_264.debugProfileBuildsEnabledUserWidgets,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugProfileBuildsEnabledUserWidgets": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfileBuildsEnabledUserWidgets',
+          $flutter_264.debugProfileBuildsEnabledUserWidgets,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfileBuildsEnabledUserWidgets": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugEnhanceBuildTimelineArguments',
-        $flutter_264.debugEnhanceBuildTimelineArguments,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugEnhanceBuildTimelineArguments": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugEnhanceBuildTimelineArguments',
+          $flutter_264.debugEnhanceBuildTimelineArguments,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugEnhanceBuildTimelineArguments": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugHighlightDeprecatedWidgets',
-        $flutter_264.debugHighlightDeprecatedWidgets,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugHighlightDeprecatedWidgets": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugHighlightDeprecatedWidgets',
+          $flutter_264.debugHighlightDeprecatedWidgets,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugHighlightDeprecatedWidgets": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintFocusBoxes',
-        $flutter_264.debugPaintFocusBoxes,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPaintFocusBoxes": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintFocusBoxes',
+          $flutter_264.debugPaintFocusBoxes,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPaintFocusBoxes": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultContentInsertionMimeTypes',
-        $flutter_270.kDefaultContentInsertionMimeTypes,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/editable_text.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultContentInsertionMimeTypes": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/widgets/editable_text.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultContentInsertionMimeTypes',
+          $flutter_270.kDefaultContentInsertionMimeTypes,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/editable_text.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultContentInsertionMimeTypes": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugFocusChanges',
-        $flutter_272.debugFocusChanges,
+    if (include == null ||
+        include('package:flutter/src/widgets/focus_manager.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugFocusChanges',
+          $flutter_272.debugFocusChanges,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/focus_manager.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugFocusChanges": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/icon_data.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'staticIconProvider',
+          $flutter_278.staticIconProvider,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/icon_data.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "staticIconProvider": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/navigator.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultRouteTraversalEdgeBehavior',
+          $flutter_288.kDefaultRouteTraversalEdgeBehavior,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/navigator.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultRouteTraversalEdgeBehavior": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/navigator.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultRouteDirectionalTraversalEdgeBehavior',
+          $flutter_288.kDefaultRouteDirectionalTraversalEdgeBehavior,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/navigator.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultRouteDirectionalTraversalEdgeBehavior": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/text_selection.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'emptyTextSelectionControls',
+          $flutter_323.emptyTextSelectionControls,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/text_selection.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "emptyTextSelectionControls": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/widget_inspector.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'widgetFactory',
+          $flutter_327.widgetFactory,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/widget_inspector.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "widgetFactory": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/focus_manager.dart')) {
+      interpreter.registerGlobalGetter(
+        'primaryFocus',
+        () => $flutter_272.primaryFocus,
         importPath,
         sourceUri: 'package:flutter/src/widgets/focus_manager.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "debugFocusChanges": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'staticIconProvider',
-        $flutter_278.staticIconProvider,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/icon_data.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "staticIconProvider": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultRouteTraversalEdgeBehavior',
-        $flutter_288.kDefaultRouteTraversalEdgeBehavior,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/navigator.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultRouteTraversalEdgeBehavior": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultRouteDirectionalTraversalEdgeBehavior',
-        $flutter_288.kDefaultRouteDirectionalTraversalEdgeBehavior,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/navigator.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultRouteDirectionalTraversalEdgeBehavior": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'emptyTextSelectionControls',
-        $flutter_323.emptyTextSelectionControls,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/text_selection.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "emptyTextSelectionControls": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'widgetFactory',
-        $flutter_327.widgetFactory,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/widget_inspector.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "widgetFactory": $e');
-    }
-    interpreter.registerGlobalGetter(
-      'primaryFocus',
-      () => $flutter_272.primaryFocus,
-      importPath,
-      sourceUri: 'package:flutter/src/widgets/focus_manager.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(

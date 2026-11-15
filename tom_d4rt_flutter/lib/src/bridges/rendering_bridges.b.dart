@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 49 files
-// Generated: 2026-11-15T01:11:01.451006 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:32:05.963917 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -3528,7 +3528,24 @@ class FlutterRenderingBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -3536,6 +3553,7 @@ class FlutterRenderingBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -3554,6 +3572,7 @@ class FlutterRenderingBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -3562,13 +3581,14 @@ class FlutterRenderingBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -3581,7 +3601,9 @@ class FlutterRenderingBridge {
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -3607,228 +3629,304 @@ class FlutterRenderingBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintSizeEnabled',
-        $flutter_45.debugPaintSizeEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPaintSizeEnabled": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintSizeEnabled',
+          $flutter_45.debugPaintSizeEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPaintSizeEnabled": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintBaselinesEnabled',
-        $flutter_45.debugPaintBaselinesEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPaintBaselinesEnabled": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintBaselinesEnabled',
+          $flutter_45.debugPaintBaselinesEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPaintBaselinesEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintTextLayoutBoxes',
-        $flutter_45.debugPaintTextLayoutBoxes,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPaintTextLayoutBoxes": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintTextLayoutBoxes',
+          $flutter_45.debugPaintTextLayoutBoxes,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPaintTextLayoutBoxes": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintLayerBordersEnabled',
-        $flutter_45.debugPaintLayerBordersEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPaintLayerBordersEnabled": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintLayerBordersEnabled',
+          $flutter_45.debugPaintLayerBordersEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPaintLayerBordersEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintPointersEnabled',
-        $flutter_45.debugPaintPointersEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPaintPointersEnabled": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintPointersEnabled',
+          $flutter_45.debugPaintPointersEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPaintPointersEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugRepaintRainbowEnabled',
-        $flutter_45.debugRepaintRainbowEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugRepaintRainbowEnabled": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugRepaintRainbowEnabled',
+          $flutter_45.debugRepaintRainbowEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugRepaintRainbowEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugRepaintTextRainbowEnabled',
-        $flutter_45.debugRepaintTextRainbowEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugRepaintTextRainbowEnabled": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugRepaintTextRainbowEnabled',
+          $flutter_45.debugRepaintTextRainbowEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugRepaintTextRainbowEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugCurrentRepaintColor',
-        $flutter_45.debugCurrentRepaintColor,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugCurrentRepaintColor": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugCurrentRepaintColor',
+          $flutter_45.debugCurrentRepaintColor,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugCurrentRepaintColor": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintMarkNeedsLayoutStacks',
-        $flutter_45.debugPrintMarkNeedsLayoutStacks,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintMarkNeedsLayoutStacks": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintMarkNeedsLayoutStacks',
+          $flutter_45.debugPrintMarkNeedsLayoutStacks,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintMarkNeedsLayoutStacks": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintMarkNeedsPaintStacks',
-        $flutter_45.debugPrintMarkNeedsPaintStacks,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintMarkNeedsPaintStacks": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintMarkNeedsPaintStacks',
+          $flutter_45.debugPrintMarkNeedsPaintStacks,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintMarkNeedsPaintStacks": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintLayouts',
-        $flutter_45.debugPrintLayouts,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPrintLayouts": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintLayouts',
+          $flutter_45.debugPrintLayouts,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPrintLayouts": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugCheckIntrinsicSizes',
-        $flutter_45.debugCheckIntrinsicSizes,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugCheckIntrinsicSizes": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugCheckIntrinsicSizes',
+          $flutter_45.debugCheckIntrinsicSizes,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugCheckIntrinsicSizes": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfileLayoutsEnabled',
-        $flutter_45.debugProfileLayoutsEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugProfileLayoutsEnabled": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfileLayoutsEnabled',
+          $flutter_45.debugProfileLayoutsEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfileLayoutsEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfilePaintsEnabled',
-        $flutter_45.debugProfilePaintsEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugProfilePaintsEnabled": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfilePaintsEnabled',
+          $flutter_45.debugProfilePaintsEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfilePaintsEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugEnhanceLayoutTimelineArguments',
-        $flutter_45.debugEnhanceLayoutTimelineArguments,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugEnhanceLayoutTimelineArguments": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugEnhanceLayoutTimelineArguments',
+          $flutter_45.debugEnhanceLayoutTimelineArguments,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugEnhanceLayoutTimelineArguments": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugEnhancePaintTimelineArguments',
-        $flutter_45.debugEnhancePaintTimelineArguments,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugEnhancePaintTimelineArguments": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugEnhancePaintTimelineArguments',
+          $flutter_45.debugEnhancePaintTimelineArguments,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugEnhancePaintTimelineArguments": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugOnProfilePaint',
-        $flutter_45.debugOnProfilePaint,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugOnProfilePaint": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugOnProfilePaint',
+          $flutter_45.debugOnProfilePaint,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugOnProfilePaint": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugDisableClipLayers',
-        $flutter_45.debugDisableClipLayers,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugDisableClipLayers": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugDisableClipLayers',
+          $flutter_45.debugDisableClipLayers,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugDisableClipLayers": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugDisablePhysicalShapeLayers',
-        $flutter_45.debugDisablePhysicalShapeLayers,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugDisablePhysicalShapeLayers": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugDisablePhysicalShapeLayers',
+          $flutter_45.debugDisablePhysicalShapeLayers,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugDisablePhysicalShapeLayers": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugDisableOpacityLayers',
-        $flutter_45.debugDisableOpacityLayers,
-        importPath,
-        sourceUri: 'package:flutter/src/rendering/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugDisableOpacityLayers": $e');
+    if (include == null ||
+        include('package:flutter/src/rendering/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugDisableOpacityLayers',
+          $flutter_45.debugDisableOpacityLayers,
+          importPath,
+          sourceUri: 'package:flutter/src/rendering/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugDisableOpacityLayers": $e',
+        );
+      }
     }
 
     if (errors.isNotEmpty) {

@@ -66,6 +66,7 @@ run 'bridges execute in-process' { flutter test test/bridge_execution_test.dart 
 run 'script Diagnosticable classes run on their proxy' { flutter test test/ghissues25_diagnosticable_proxy_test.dart }
 run 'super.m() on a hand-written receiver runs once' { flutter test test/ghissues35_hand_written_receiver_test.dart }
 run "a proxied override's list reaches native code typed" { flutter test test/ghissues38_proxy_list_return_test.dart }
+run 'an unimported bridged name stays undefined' { flutter test test/ghfeatures2_sub_package_barrel_test.dart }
 run 'name-keyed dispatch reads nullable and nested type arguments' { flutter test test/ghissues42_type_arg_names_test.dart }
 run 'no bridge file above the GitHub size budget' { flutter test test/relaxsize1_bridge_file_size_test.dart }
 run 'import-optimization timings hold' { flutter test test/import_optimization_perf_test.dart }

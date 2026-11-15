@@ -82,7 +82,7 @@ Add the package to your Flutter application's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  tom_d4rt_flutter_ast: ^0.15.0
+  tom_d4rt_flutter_ast: ^0.16.0
 ```
 
 Or via the command line:

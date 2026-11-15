@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for flutter_material_bridges
-// Generated: 2026-11-15T01:11:43.677996 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:33:00.179964 by tom_d4rt_generator 1.66.0
 
 /// D4rt Bridge Registration for flutter_material_bridges
 library;
@@ -32,7 +32,11 @@ class FlutterMaterialBridges {
     dart_ui_bridges.DartUiBridge.registerBridges(d4rt, 'dart:ui');
     // Register under sub-package barrels for direct imports
     for (final barrel in dart_ui_bridges.DartUiBridge.subPackageBarrels()) {
-      dart_ui_bridges.DartUiBridge.registerBridges(d4rt, barrel);
+      dart_ui_bridges.DartUiBridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
     flutter_painting_bridges.FlutterPaintingBridge.registerBridges(
       d4rt,
@@ -44,6 +48,7 @@ class FlutterMaterialBridges {
       flutter_painting_bridges.FlutterPaintingBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_foundation_bridges.FlutterFoundationBridge.registerBridges(
@@ -57,6 +62,7 @@ class FlutterMaterialBridges {
       flutter_foundation_bridges.FlutterFoundationBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_animation_bridges.FlutterAnimationBridge.registerBridges(
@@ -70,6 +76,7 @@ class FlutterMaterialBridges {
       flutter_animation_bridges.FlutterAnimationBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_physics_bridges.FlutterPhysicsBridge.registerBridges(
@@ -82,6 +89,7 @@ class FlutterMaterialBridges {
       flutter_physics_bridges.FlutterPhysicsBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_scheduler_bridges.FlutterSchedulerBridge.registerBridges(
@@ -95,6 +103,7 @@ class FlutterMaterialBridges {
       flutter_scheduler_bridges.FlutterSchedulerBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_semantics_bridges.FlutterSemanticsBridge.registerBridges(
@@ -108,6 +117,7 @@ class FlutterMaterialBridges {
       flutter_semantics_bridges.FlutterSemanticsBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_services_bridges.FlutterServicesBridge.registerBridges(
@@ -120,6 +130,7 @@ class FlutterMaterialBridges {
       flutter_services_bridges.FlutterServicesBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_gestures_bridges.FlutterGesturesBridge.registerBridges(
@@ -132,6 +143,7 @@ class FlutterMaterialBridges {
       flutter_gestures_bridges.FlutterGesturesBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_rendering_bridges.FlutterRenderingBridge.registerBridges(
@@ -145,6 +157,7 @@ class FlutterMaterialBridges {
       flutter_rendering_bridges.FlutterRenderingBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_widgets_bridges.FlutterWidgetsBridge.registerBridges(
@@ -157,6 +170,7 @@ class FlutterMaterialBridges {
       flutter_widgets_bridges.FlutterWidgetsBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_material_bridges.FlutterMaterialBridge.registerBridges(
@@ -169,6 +183,7 @@ class FlutterMaterialBridges {
       flutter_material_bridges.FlutterMaterialBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(
@@ -182,6 +197,7 @@ class FlutterMaterialBridges {
       flutter_cupertino_bridges.FlutterCupertinoBridge.registerBridges(
         d4rt,
         barrel,
+        onlyOwnPackage: true,
       );
     }
     vector_math_64_bridges.VectorMath64Bridge.registerBridges(
@@ -191,7 +207,11 @@ class FlutterMaterialBridges {
     // Register under sub-package barrels for direct imports
     for (final barrel
         in vector_math_64_bridges.VectorMath64Bridge.subPackageBarrels()) {
-      vector_math_64_bridges.VectorMath64Bridge.registerBridges(d4rt, barrel);
+      vector_math_64_bridges.VectorMath64Bridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
 
     // GEN-092: Register proxy factories for interface proxies

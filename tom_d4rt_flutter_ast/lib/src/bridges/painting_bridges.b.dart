@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 46 files
-// Generated: 2026-11-15T01:08:08.891313 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:28:42.863684 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2805,7 +2805,24 @@ class FlutterPaintingBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -2813,6 +2830,7 @@ class FlutterPaintingBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -2831,6 +2849,7 @@ class FlutterPaintingBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -2839,13 +2858,14 @@ class FlutterPaintingBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -2858,13 +2878,17 @@ class FlutterPaintingBridge {
     // Register class aliases (typedef type aliases)
     final aliases = classAliases();
     for (final entry in aliases.entries) {
+      // An alias follows the class it names; it has no source of its own.
+      if (ownPrefix != null && !include(classSources[entry.value])) continue;
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
 
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -2890,105 +2914,129 @@ class FlutterPaintingBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'debugDisableShadows',
-        $flutter_24.debugDisableShadows,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugDisableShadows": $e');
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugDisableShadows',
+          $flutter_24.debugDisableShadows,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugDisableShadows": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugNetworkImageHttpClientProvider',
-        $flutter_24.debugNetworkImageHttpClientProvider,
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugNetworkImageHttpClientProvider',
+          $flutter_24.debugNetworkImageHttpClientProvider,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugNetworkImageHttpClientProvider": $e',
+        );
+      }
+    }
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugOnPaintImage',
+          $flutter_24.debugOnPaintImage,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugOnPaintImage": $e');
+      }
+    }
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugInvertOversizedImages',
+          $flutter_24.debugInvertOversizedImages,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugInvertOversizedImages": $e',
+        );
+      }
+    }
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugImageOverheadAllowance',
+          $flutter_24.debugImageOverheadAllowance,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugImageOverheadAllowance": $e',
+        );
+      }
+    }
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugCaptureShaderWarmUpPicture',
+          $flutter_24.debugCaptureShaderWarmUpPicture,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugCaptureShaderWarmUpPicture": $e',
+        );
+      }
+    }
+    if (include == null || include('package:flutter/src/painting/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugCaptureShaderWarmUpImage',
+          $flutter_24.debugCaptureShaderWarmUpImage,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugCaptureShaderWarmUpImage": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/painting/text_painter.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultFontSize',
+          $flutter_50.kDefaultFontSize,
+          importPath,
+          sourceUri: 'package:flutter/src/painting/text_painter.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kDefaultFontSize": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/painting/binding.dart')) {
+      interpreter.registerGlobalGetter(
+        'imageCache',
+        () => $flutter_13.imageCache,
         importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugNetworkImageHttpClientProvider": $e',
+        sourceUri: 'package:flutter/src/painting/binding.dart',
       );
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugOnPaintImage',
-        $flutter_24.debugOnPaintImage,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugOnPaintImage": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugInvertOversizedImages',
-        $flutter_24.debugInvertOversizedImages,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugInvertOversizedImages": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugImageOverheadAllowance',
-        $flutter_24.debugImageOverheadAllowance,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugImageOverheadAllowance": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugCaptureShaderWarmUpPicture',
-        $flutter_24.debugCaptureShaderWarmUpPicture,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugCaptureShaderWarmUpPicture": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugCaptureShaderWarmUpImage',
-        $flutter_24.debugCaptureShaderWarmUpImage,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugCaptureShaderWarmUpImage": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultFontSize',
-        $flutter_50.kDefaultFontSize,
-        importPath,
-        sourceUri: 'package:flutter/src/painting/text_painter.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kDefaultFontSize": $e');
-    }
-    interpreter.registerGlobalGetter(
-      'imageCache',
-      () => $flutter_13.imageCache,
-      importPath,
-      sourceUri: 'package:flutter/src/painting/binding.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(

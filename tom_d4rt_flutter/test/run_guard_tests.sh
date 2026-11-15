@@ -82,6 +82,10 @@ run "super.m() on a hand-written receiver runs once" \
 # by tom_d4rt_generator 1.62.0).
 run "a proxied override's list reaches native code typed" \
   flutter test test/ghissues38_proxy_list_return_test.dart
+# ghfeatures2: a bridged name the script did not import does not resolve
+# (material.dart does not offer cupertino classes), in-process.
+run "an unimported bridged name stays undefined" \
+  flutter test test/ghfeatures2_sub_package_barrel_test.dart
 # ghissues42: the hand-written name-keyed dispatch reads `T?` and `T<U>` type
 # arguments, in-process (skips below tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0).
 run "name-keyed dispatch reads nullable and nested type arguments" \

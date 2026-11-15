@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-11-15T01:11:15.774187 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:32:22.570369 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -9745,7 +9745,24 @@ class FlutterWidgetsBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -9753,6 +9770,7 @@ class FlutterWidgetsBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -9771,6 +9789,7 @@ class FlutterWidgetsBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -9779,13 +9798,14 @@ class FlutterWidgetsBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -9800,6 +9820,7 @@ class FlutterWidgetsBridge {
     final extSources = extensionSourceUris();
     for (final extDef in extensions) {
       final extKey = '${extDef.name ?? '<unnamed>'}@${extDef.onTypeName}';
+      if (!include(extSources[extKey])) continue;
       interpreter.registerBridgedExtension(
         extDef,
         importPath,
@@ -9810,13 +9831,17 @@ class FlutterWidgetsBridge {
     // Register class aliases (typedef type aliases)
     final aliases = classAliases();
     for (final entry in aliases.entries) {
+      // An alias follows the class it names; it has no source of its own.
+      if (ownPrefix != null && !include(classSources[entry.value])) continue;
       interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
 
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -9842,205 +9867,257 @@ class FlutterWidgetsBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintRebuildDirtyWidgets',
-        $flutter_143.debugPrintRebuildDirtyWidgets,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintRebuildDirtyWidgets": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintRebuildDirtyWidgets',
+          $flutter_143.debugPrintRebuildDirtyWidgets,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintRebuildDirtyWidgets": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugOnRebuildDirtyWidget',
-        $flutter_143.debugOnRebuildDirtyWidget,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugOnRebuildDirtyWidget": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugOnRebuildDirtyWidget',
+          $flutter_143.debugOnRebuildDirtyWidget,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugOnRebuildDirtyWidget": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintBuildScope',
-        $flutter_143.debugPrintBuildScope,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPrintBuildScope": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintBuildScope',
+          $flutter_143.debugPrintBuildScope,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPrintBuildScope": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintScheduleBuildForStacks',
-        $flutter_143.debugPrintScheduleBuildForStacks,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintScheduleBuildForStacks": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintScheduleBuildForStacks',
+          $flutter_143.debugPrintScheduleBuildForStacks,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintScheduleBuildForStacks": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintGlobalKeyedWidgetLifecycle',
-        $flutter_143.debugPrintGlobalKeyedWidgetLifecycle,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugPrintGlobalKeyedWidgetLifecycle": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintGlobalKeyedWidgetLifecycle',
+          $flutter_143.debugPrintGlobalKeyedWidgetLifecycle,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintGlobalKeyedWidgetLifecycle": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfileBuildsEnabled',
-        $flutter_143.debugProfileBuildsEnabled,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugProfileBuildsEnabled": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfileBuildsEnabled',
+          $flutter_143.debugProfileBuildsEnabled,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfileBuildsEnabled": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfileBuildsEnabledUserWidgets',
-        $flutter_143.debugProfileBuildsEnabledUserWidgets,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugProfileBuildsEnabledUserWidgets": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfileBuildsEnabledUserWidgets',
+          $flutter_143.debugProfileBuildsEnabledUserWidgets,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfileBuildsEnabledUserWidgets": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugEnhanceBuildTimelineArguments',
-        $flutter_143.debugEnhanceBuildTimelineArguments,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugEnhanceBuildTimelineArguments": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugEnhanceBuildTimelineArguments',
+          $flutter_143.debugEnhanceBuildTimelineArguments,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugEnhanceBuildTimelineArguments": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugHighlightDeprecatedWidgets',
-        $flutter_143.debugHighlightDeprecatedWidgets,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugHighlightDeprecatedWidgets": $e',
-      );
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugHighlightDeprecatedWidgets',
+          $flutter_143.debugHighlightDeprecatedWidgets,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugHighlightDeprecatedWidgets": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPaintFocusBoxes',
-        $flutter_143.debugPaintFocusBoxes,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPaintFocusBoxes": $e');
+    if (include == null || include('package:flutter/src/widgets/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPaintFocusBoxes',
+          $flutter_143.debugPaintFocusBoxes,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/debug.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugPaintFocusBoxes": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultContentInsertionMimeTypes',
-        $flutter_156.kDefaultContentInsertionMimeTypes,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/editable_text.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultContentInsertionMimeTypes": $e',
-      );
+    if (include == null ||
+        include('package:flutter/src/widgets/editable_text.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultContentInsertionMimeTypes',
+          $flutter_156.kDefaultContentInsertionMimeTypes,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/editable_text.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultContentInsertionMimeTypes": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugFocusChanges',
-        $flutter_161.debugFocusChanges,
+    if (include == null ||
+        include('package:flutter/src/widgets/focus_manager.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugFocusChanges',
+          $flutter_161.debugFocusChanges,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/focus_manager.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "debugFocusChanges": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/icon_data.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'staticIconProvider',
+          $flutter_170.staticIconProvider,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/icon_data.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "staticIconProvider": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/navigator.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultRouteTraversalEdgeBehavior',
+          $flutter_191.kDefaultRouteTraversalEdgeBehavior,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/navigator.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultRouteTraversalEdgeBehavior": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/navigator.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kDefaultRouteDirectionalTraversalEdgeBehavior',
+          $flutter_191.kDefaultRouteDirectionalTraversalEdgeBehavior,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/navigator.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kDefaultRouteDirectionalTraversalEdgeBehavior": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/text_selection.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'emptyTextSelectionControls',
+          $flutter_268.emptyTextSelectionControls,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/text_selection.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "emptyTextSelectionControls": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/widget_inspector.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'widgetFactory',
+          $flutter_284.widgetFactory,
+          importPath,
+          sourceUri: 'package:flutter/src/widgets/widget_inspector.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "widgetFactory": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/widgets/focus_manager.dart')) {
+      interpreter.registerGlobalGetter(
+        'primaryFocus',
+        () => $flutter_161.primaryFocus,
         importPath,
         sourceUri: 'package:flutter/src/widgets/focus_manager.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "debugFocusChanges": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'staticIconProvider',
-        $flutter_170.staticIconProvider,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/icon_data.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "staticIconProvider": $e');
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultRouteTraversalEdgeBehavior',
-        $flutter_191.kDefaultRouteTraversalEdgeBehavior,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/navigator.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultRouteTraversalEdgeBehavior": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'kDefaultRouteDirectionalTraversalEdgeBehavior',
-        $flutter_191.kDefaultRouteDirectionalTraversalEdgeBehavior,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/navigator.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "kDefaultRouteDirectionalTraversalEdgeBehavior": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'emptyTextSelectionControls',
-        $flutter_268.emptyTextSelectionControls,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/text_selection.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "emptyTextSelectionControls": $e',
-      );
-    }
-    try {
-      interpreter.registerGlobalVariable(
-        'widgetFactory',
-        $flutter_284.widgetFactory,
-        importPath,
-        sourceUri: 'package:flutter/src/widgets/widget_inspector.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "widgetFactory": $e');
-    }
-    interpreter.registerGlobalGetter(
-      'primaryFocus',
-      () => $flutter_161.primaryFocus,
-      importPath,
-      sourceUri: 'package:flutter/src/widgets/focus_manager.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(

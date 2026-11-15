@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 44 files
-// Generated: 2026-11-15T01:08:14.231642 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:28:49.513321 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2368,7 +2368,24 @@ class FlutterServicesBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -2376,6 +2393,7 @@ class FlutterServicesBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -2394,6 +2412,7 @@ class FlutterServicesBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -2402,13 +2421,14 @@ class FlutterServicesBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -2421,7 +2441,9 @@ class FlutterServicesBridge {
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -2447,347 +2469,455 @@ class FlutterServicesBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'appBuildName',
-        $flutter_10.appBuildName,
-        importPath,
-        sourceUri: 'package:flutter/src/services/app_version.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "appBuildName": $e');
+    if (include == null ||
+        include('package:flutter/src/services/app_version.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'appBuildName',
+          $flutter_10.appBuildName,
+          importPath,
+          sourceUri: 'package:flutter/src/services/app_version.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "appBuildName": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'appBuildNumber',
-        $flutter_10.appBuildNumber,
-        importPath,
-        sourceUri: 'package:flutter/src/services/app_version.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "appBuildNumber": $e');
+    if (include == null ||
+        include('package:flutter/src/services/app_version.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'appBuildNumber',
+          $flutter_10.appBuildNumber,
+          importPath,
+          sourceUri: 'package:flutter/src/services/app_version.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "appBuildNumber": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'rootBundle',
-        $flutter_11.rootBundle,
-        importPath,
-        sourceUri: 'package:flutter/src/services/asset_bundle.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "rootBundle": $e');
+    if (include == null ||
+        include('package:flutter/src/services/asset_bundle.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'rootBundle',
+          $flutter_11.rootBundle,
+          importPath,
+          sourceUri: 'package:flutter/src/services/asset_bundle.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "rootBundle": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugPrintKeyboardEvents',
-        $flutter_18.debugPrintKeyboardEvents,
-        importPath,
-        sourceUri: 'package:flutter/src/services/debug.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "debugPrintKeyboardEvents": $e');
+    if (include == null || include('package:flutter/src/services/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugPrintKeyboardEvents',
+          $flutter_18.debugPrintKeyboardEvents,
+          importPath,
+          sourceUri: 'package:flutter/src/services/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugPrintKeyboardEvents": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'debugProfilePlatformChannels',
-        $flutter_18.debugProfilePlatformChannels,
-        importPath,
-        sourceUri: 'package:flutter/src/services/debug.dart',
-      );
-    } catch (e) {
-      errors.add(
-        'Failed to register variable "debugProfilePlatformChannels": $e',
-      );
+    if (include == null || include('package:flutter/src/services/debug.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'debugProfilePlatformChannels',
+          $flutter_18.debugProfilePlatformChannels,
+          importPath,
+          sourceUri: 'package:flutter/src/services/debug.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "debugProfilePlatformChannels": $e',
+        );
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'appFlavor',
-        $flutter_20.appFlavor,
-        importPath,
-        sourceUri: 'package:flutter/src/services/flavor.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "appFlavor": $e');
+    if (include == null ||
+        include('package:flutter/src/services/flavor.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'appFlavor',
+          $flutter_20.appFlavor,
+          importPath,
+          sourceUri: 'package:flutter/src/services/flavor.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "appFlavor": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kAndroidToLogicalKey',
-        $flutter_27.kAndroidToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kAndroidToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kAndroidToLogicalKey',
+          $flutter_27.kAndroidToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kAndroidToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kAndroidToPhysicalKey',
-        $flutter_27.kAndroidToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kAndroidToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kAndroidToPhysicalKey',
+          $flutter_27.kAndroidToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kAndroidToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kAndroidNumPadMap',
-        $flutter_27.kAndroidNumPadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kAndroidNumPadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kAndroidNumPadMap',
+          $flutter_27.kAndroidNumPadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kAndroidNumPadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFuchsiaToLogicalKey',
-        $flutter_27.kFuchsiaToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kFuchsiaToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFuchsiaToLogicalKey',
+          $flutter_27.kFuchsiaToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kFuchsiaToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kFuchsiaToPhysicalKey',
-        $flutter_27.kFuchsiaToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kFuchsiaToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kFuchsiaToPhysicalKey',
+          $flutter_27.kFuchsiaToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kFuchsiaToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMacOsToPhysicalKey',
-        $flutter_27.kMacOsToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMacOsToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMacOsToPhysicalKey',
+          $flutter_27.kMacOsToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMacOsToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMacOsNumPadMap',
-        $flutter_27.kMacOsNumPadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMacOsNumPadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMacOsNumPadMap',
+          $flutter_27.kMacOsNumPadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMacOsNumPadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMacOsFunctionKeyMap',
-        $flutter_27.kMacOsFunctionKeyMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMacOsFunctionKeyMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMacOsFunctionKeyMap',
+          $flutter_27.kMacOsFunctionKeyMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMacOsFunctionKeyMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kMacOsToLogicalKey',
-        $flutter_27.kMacOsToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kMacOsToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kMacOsToLogicalKey',
+          $flutter_27.kMacOsToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kMacOsToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kIosToPhysicalKey',
-        $flutter_27.kIosToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kIosToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kIosToPhysicalKey',
+          $flutter_27.kIosToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kIosToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kIosSpecialLogicalMap',
-        $flutter_27.kIosSpecialLogicalMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kIosSpecialLogicalMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kIosSpecialLogicalMap',
+          $flutter_27.kIosSpecialLogicalMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kIosSpecialLogicalMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kIosNumPadMap',
-        $flutter_27.kIosNumPadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kIosNumPadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kIosNumPadMap',
+          $flutter_27.kIosNumPadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kIosNumPadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kIosToLogicalKey',
-        $flutter_27.kIosToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kIosToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kIosToLogicalKey',
+          $flutter_27.kIosToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kIosToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kGlfwToLogicalKey',
-        $flutter_27.kGlfwToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kGlfwToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kGlfwToLogicalKey',
+          $flutter_27.kGlfwToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kGlfwToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kGlfwNumpadMap',
-        $flutter_27.kGlfwNumpadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kGlfwNumpadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kGlfwNumpadMap',
+          $flutter_27.kGlfwNumpadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kGlfwNumpadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kGtkToLogicalKey',
-        $flutter_27.kGtkToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kGtkToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kGtkToLogicalKey',
+          $flutter_27.kGtkToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kGtkToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kGtkNumpadMap',
-        $flutter_27.kGtkNumpadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kGtkNumpadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kGtkNumpadMap',
+          $flutter_27.kGtkNumpadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kGtkNumpadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kLinuxToPhysicalKey',
-        $flutter_27.kLinuxToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kLinuxToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kLinuxToPhysicalKey',
+          $flutter_27.kLinuxToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kLinuxToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWebToLogicalKey',
-        $flutter_27.kWebToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWebToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWebToLogicalKey',
+          $flutter_27.kWebToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWebToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWebToPhysicalKey',
-        $flutter_27.kWebToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWebToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWebToPhysicalKey',
+          $flutter_27.kWebToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWebToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWebNumPadMap',
-        $flutter_27.kWebNumPadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWebNumPadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWebNumPadMap',
+          $flutter_27.kWebNumPadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWebNumPadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWebLocationMap',
-        $flutter_27.kWebLocationMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWebLocationMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWebLocationMap',
+          $flutter_27.kWebLocationMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWebLocationMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWindowsToLogicalKey',
-        $flutter_27.kWindowsToLogicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWindowsToLogicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWindowsToLogicalKey',
+          $flutter_27.kWindowsToLogicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWindowsToLogicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWindowsToPhysicalKey',
-        $flutter_27.kWindowsToPhysicalKey,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWindowsToPhysicalKey": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWindowsToPhysicalKey',
+          $flutter_27.kWindowsToPhysicalKey,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWindowsToPhysicalKey": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kWindowsNumPadMap',
-        $flutter_27.kWindowsNumPadMap,
-        importPath,
-        sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "kWindowsNumPadMap": $e');
+    if (include == null ||
+        include('package:flutter/src/services/keyboard_maps.g.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kWindowsNumPadMap',
+          $flutter_27.kWindowsNumPadMap,
+          importPath,
+          sourceUri: 'package:flutter/src/services/keyboard_maps.g.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "kWindowsNumPadMap": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'kProfilePlatformChannels',
-        $flutter_33.kProfilePlatformChannels,
+    if (include == null ||
+        include('package:flutter/src/services/platform_channel.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'kProfilePlatformChannels',
+          $flutter_33.kProfilePlatformChannels,
+          importPath,
+          sourceUri: 'package:flutter/src/services/platform_channel.dart',
+        );
+      } catch (e) {
+        errors.add(
+          'Failed to register variable "kProfilePlatformChannels": $e',
+        );
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/services/platform_views.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'platformViewsRegistry',
+          $flutter_34.platformViewsRegistry,
+          importPath,
+          sourceUri: 'package:flutter/src/services/platform_views.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "platformViewsRegistry": $e');
+      }
+    }
+    if (include == null ||
+        include('package:flutter/src/services/platform_channel.dart')) {
+      interpreter.registerGlobalGetter(
+        'shouldProfilePlatformChannels',
+        () => $flutter_33.shouldProfilePlatformChannels,
         importPath,
         sourceUri: 'package:flutter/src/services/platform_channel.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "kProfilePlatformChannels": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'platformViewsRegistry',
-        $flutter_34.platformViewsRegistry,
-        importPath,
-        sourceUri: 'package:flutter/src/services/platform_views.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "platformViewsRegistry": $e');
-    }
-    interpreter.registerGlobalGetter(
-      'shouldProfilePlatformChannels',
-      () => $flutter_33.shouldProfilePlatformChannels,
-      importPath,
-      sourceUri: 'package:flutter/src/services/platform_channel.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(
