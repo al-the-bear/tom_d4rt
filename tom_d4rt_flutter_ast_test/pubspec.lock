@@ -516,10 +516,10 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_ast_generator
-      sha256: d2000788f0a9561f1c81b9229891c74f67bc2bdfaf762099dfff773d7ba97e7e
+      sha256: a16717f8efe9cd4e0bb3b765f8256ed7eb546bdaa1bbc304cb765b1bc84101c9
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.4"
+    version: "0.2.5"
   tom_ast_model:
     dependency: transitive
     description:
@@ -540,17 +540,17 @@ packages:
     dependency: "direct main"
     description:
       name: tom_d4rt_ast
-      sha256: "3f8f9da1f7b40112f09303e59d9b93024314f7f130595d3c3850e5455e0b8b48"
+      sha256: a79e10d7423aa67fb84637905aa15663dbd5c37b554245bbe21a70f9e4f51127
       url: "https://pub.dev"
     source: hosted
-    version: "0.237.0"
+    version: "0.243.0"
   tom_d4rt_flutter_ast:
     dependency: "direct main"
     description:
       path: "../tom_d4rt_flutter_ast"
       relative: true
     source: path
-    version: "0.14.1"
+    version: "0.15.0"
   tom_dcli:
     dependency: transitive
     description:

@@ -260,18 +260,18 @@ packages:
     dependency: transitive
     description:
       name: tom_d4rt
-      sha256: eec43dcd850a1111cc01405adaa06604d53ad8e2833d52cf1b4067cd9805bb93
+      sha256: def560ee2d4a06ed587653f6465fae8cfa7c81379e45f1ef3c2a89d97cde2501
       url: "https://pub.dev"
     source: hosted
-    version: "1.257.0"
+    version: "1.263.0"
   tom_d4rt_flutter:
     dependency: "direct main"
     description:
       name: tom_d4rt_flutter
-      sha256: "9796cd7961e9695c3f8f5753806dc42e96c152e0c80c0e8cc66fdd955a753365"
+      sha256: cd8600dcde6b3b39f8338f15842f56be5a2e2f4e057159d825657a7046eb6b67
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.0"
+    version: "1.10.0"
   typed_data:
     dependency: transitive
     description:
