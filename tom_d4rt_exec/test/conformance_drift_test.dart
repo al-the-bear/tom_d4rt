@@ -443,9 +443,26 @@ const _partialTwinBudget = 0;
 /// twin holds both cases. GHFEATURES1000 ports it after the release. The
 /// copier surface a port would add is a constructor call, a property read and
 /// an `is` test, which the corpus copies on every run.
-const _copierGapBudget = 43;
+///
+/// 43 -> 44: GHFEATURES3 added `ghfeatures3_export_only_library_test.dart`
+/// (a bridged library with only re-exports, aliases or typedefs). Exec
+/// resolves tom_d4rt_ast 0.243.0 from pub.dev, which refuses such a library,
+/// so a port would fail against it; its ast twin holds the same four cases.
+/// GHFEATURES1000 ports it after the release. The copier surface a port would
+/// add is constructor calls, property reads, an `is` test and a typed
+/// parameter, which the corpus copies on every run.
+const _copierGapBudget = 44;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  // GHFEATURES3: exec resolves a tom_d4rt_ast that refuses an export-only
+  // bridged library; ported by GHFEATURES1000 after the release.
+  'ghfeatures3_export_only_library_test.dart': _Coverage(
+    'ast:runtime/ghfeatures3_export_only_library_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 4,
+  ),
   // GHFEATURES2: exec resolves a tom_d4rt_ast without the alias fix; ported
   // by GHFEATURES1000 after the release.
   'ghfeatures2_alias_target_reexported_test.dart': _Coverage(

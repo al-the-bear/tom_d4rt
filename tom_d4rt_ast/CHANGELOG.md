@@ -1,5 +1,14 @@
 ## 0.244.0
 
+### Fixed — a bridged library with only re-exports, aliases or typedefs is importable
+
+Whether a URI is a bridged library was decided from its classes, enums,
+functions, variables, getters, setters and extensions. A library whose bridges
+are only re-exports - a pure export barrel, `export 'src/a.dart'; export
+'src/b.dart';` - or only class aliases or function typedefs was not one, and
+`import` of it threw `SourceCodeException: Package module source not preloaded`.
+Re-exports, class aliases and function typedefs now count.
+
 ### Fixed — a bridged class alias whose target a re-exported library declares
 
 `material.dart` registers `MaterialStateProperty` as an alias of
@@ -47,8 +56,9 @@ contexts. Without hooks nothing changes: one null check per entry and per run,
 no extra Zone. Documented in `doc/execution_hooks.md`.
 
 Name resolution: yes — a bridged class alias now resolves when its target
-comes from a library its own library re-exports (the per-execution hooks
-change no name resolution).
+comes from a library its own library re-exports, and a library with only
+re-exports, aliases or typedefs is now a bridged library (the per-execution
+hooks change no name resolution).
 
 ## 0.243.0
 

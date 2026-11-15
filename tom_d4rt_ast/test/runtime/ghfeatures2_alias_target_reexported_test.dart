@@ -20,8 +20,8 @@ class Gh2Target {
   String get name => 'target';
 }
 
-/// A class of the alias's own library (a library with only an alias and a
-/// re-export is not a loadable bridged library today; ghfeatures3 tracks it).
+/// A class of the alias's own library, as the twins' material library has
+/// one (an alias-only library is tested in ghfeatures3_*).
 class Gh2Own {}
 
 const _entry = 'package:p/main.dart';

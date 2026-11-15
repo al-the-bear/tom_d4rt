@@ -370,14 +370,26 @@ class ModuleLoader {
   }
 
   /// Checks if there are bridges registered for a specific URI.
+  ///
+  /// A library whose bridges are only re-exports, class aliases or function
+  /// typedefs counts too: a pure export barrel (`export 'src/a.dart';`) is a
+  /// library a script imports like any other (ghfeatures3). Aliases and
+  /// typedefs are lists, scanned only when no keyed registry matched.
   bool _hasBridgedContentForUri(String uriString) {
-    return bridgedEnumDefinitions.containsKey(uriString) ||
+    if (bridgedEnumDefinitions.containsKey(uriString) ||
         bridgedClases.containsKey(uriString) ||
         libraryFunctions.containsKey(uriString) ||
         libraryVariables.containsKey(uriString) ||
         libraryGetters.containsKey(uriString) ||
         librarySetters.containsKey(uriString) ||
-        bridgedExtensions.containsKey(uriString);
+        bridgedExtensions.containsKey(uriString)) {
+      return true;
+    }
+    final owner = d4rt;
+    if (owner == null) return false;
+    return (owner.libraryReExports[uriString]?.isNotEmpty ?? false) ||
+        owner.classAliases.any((alias) => alias.library == uriString) ||
+        owner.functionTypedefs.any((typedef) => typedef.library == uriString);
   }
 
   // ===========================================================================

@@ -685,6 +685,11 @@ class AstModuleLoader implements ModuleContext {
   /// Step 1 (import-optimization plan): the registries are now URI-keyed,
   /// so this is an O(1) `containsKey` per registry instead of scanning the
   /// whole list.
+  ///
+  /// A library whose bridges are only re-exports, class aliases or function
+  /// typedefs counts too: a pure export barrel (`export 'src/a.dart';`) is a
+  /// library a script imports like any other (ghfeatures3). Aliases and
+  /// typedefs are lists, scanned only when no keyed registry matched.
   bool _hasBridgedContent(String uriString) {
     return runner.bridgedEnumDefinitions.containsKey(uriString) ||
         runner.bridgedClasses.containsKey(uriString) ||
@@ -692,7 +697,10 @@ class AstModuleLoader implements ModuleContext {
         runner.libraryFunctions.containsKey(uriString) ||
         runner.libraryVariables.containsKey(uriString) ||
         runner.libraryGetters.containsKey(uriString) ||
-        runner.librarySetters.containsKey(uriString);
+        runner.librarySetters.containsKey(uriString) ||
+        (runner.libraryReExports[uriString]?.isNotEmpty ?? false) ||
+        runner.classAliases.any((alias) => alias.library == uriString) ||
+        runner.functionTypedefs.any((typedef) => typedef.library == uriString);
   }
 
   /// Registers all bridged definitions for a URI into a target environment.
