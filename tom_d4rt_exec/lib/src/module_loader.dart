@@ -11,6 +11,7 @@
 import 'dart:io';
 
 import 'package:tom_d4rt_ast/runtime.dart';
+import 'package:tom_d4rt_ast/src/runtime/execution_run.dart';
 import 'package:tom_d4rt_ast/src/runtime/module_context.dart' as context;
 import 'package:tom_d4rt_ast/src/runtime/stdlib/convert.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/isolate.dart';
@@ -70,6 +71,11 @@ class _InFlightModule {
 class ModuleLoader implements context.ModuleContext {
   @override
   final Environment globalEnvironment;
+
+  /// The run this loader loads for when the execution has hooks (GitHub
+  /// #19): its `onImport` sees every library once. (Its permission set is
+  /// consulted by [D4rt.checkPermission], from the run's Zone.)
+  D4rtExecutionContext? executionContext;
 
   /// The scope the entry script's own declarations live in, enclosing
   /// [globalEnvironment]: the script sees everything registered there (the
@@ -569,7 +575,18 @@ class ModuleLoader implements context.ModuleContext {
       moduleEnv = _bridgedModuleEnvironments[uriString]!;
     } else {
       moduleEnv = Environment(enclosing: globalEnvironment);
+      final pending = _beginAliasCollection();
       _registerBridgesForUriInto(uriString, null, null, moduleEnv);
+      // GEN-107: merge the libraries this bridged library re-exports, as
+      // tom_d4rt's and tom_d4rt_ast's loaders do.
+      _mergeReExports(
+        uriString,
+        moduleEnv,
+        null,
+        null,
+        <String, Set<String>?>{},
+      );
+      _retryPendingAliases(pending);
       _bridgedModuleEnvironments[uriString] = moduleEnv;
       Logger.debug(
         '[ModuleLoader] GEN-100: created per-module env for $uriString',
@@ -608,7 +625,136 @@ class ModuleLoader implements context.ModuleContext {
     for (final entry in bridgedExtensions) {
       if (entry.containsKey(uriString)) return true;
     }
-    return false;
+    // A library whose bridges are only re-exports, class aliases or function
+    // typedefs counts too: a pure export barrel (`export 'src/a.dart';`) is a
+    // library a script imports like any other (ghfeatures3).
+    final owner = d4rt;
+    if (owner == null) return false;
+    return (owner.libraryReExports[uriString]?.isNotEmpty ?? false) ||
+        owner.classAliases.any((alias) => alias.library == uriString) ||
+        owner.functionTypedefs.any((typedef) => typedef.library == uriString);
+  }
+
+  /// Merges, into [moduleEnv], the bridges of every library [sourceUri]
+  /// re-exports (GEN-107, `D4rt.registerLibraryReExport`), transitively and
+  /// under the combined `show` / `hide` filters. The port of tom_d4rt's
+  /// `ModuleLoader._mergeReExports`: exec's loader registered each barrel's
+  /// own content only, so a library reaching its names through a recorded
+  /// re-export had none of them (ghfeatures1000).
+  ///
+  /// [visitedShows] maps each visited URI to the broadest `show` it was
+  /// merged with (null: everything), so a URI reached first through a narrow
+  /// filter is merged again when a broader path arrives.
+  void _mergeReExports(
+    String sourceUri,
+    Environment moduleEnv,
+    Set<String>? outerShow,
+    Set<String>? outerHide,
+    Map<String, Set<String>?> visitedShows,
+  ) {
+    if (visitedShows.containsKey(sourceUri)) {
+      final prevShow = visitedShows[sourceUri];
+      if (prevShow == null) return;
+      if (outerShow != null && outerShow.difference(prevShow).isEmpty) return;
+      if (outerShow == null) {
+        visitedShows[sourceUri] = null;
+      } else {
+        prevShow.addAll(outerShow);
+      }
+    } else {
+      visitedShows[sourceUri] = outerShow != null ? Set.of(outerShow) : null;
+    }
+
+    final reExports = d4rt?.libraryReExports[sourceUri];
+    if (reExports == null || reExports.isEmpty) return;
+
+    for (final re in reExports) {
+      final effectiveShow = _intersectShow(outerShow, re.show);
+      final effectiveHide = _unionHide(outerHide, re.hide);
+
+      final targetUri = Uri.parse(re.uri);
+      if (targetUri.scheme == 'dart') {
+        try {
+          final stdlibModule = _loadStdlibModule(targetUri, targetUri);
+          if (stdlibModule != null) {
+            moduleEnv.importEnvironment(
+              stdlibModule.exportedEnvironment,
+              show: effectiveShow,
+              hide: effectiveHide,
+            );
+          }
+        } on SourceCodeD4rtException {
+          // Re-export of an unsupported dart: library - ignored.
+        }
+      }
+
+      _registerBridgesForUriInto(
+        re.uri,
+        effectiveShow,
+        effectiveHide,
+        moduleEnv,
+      );
+      _mergeReExports(
+        re.uri,
+        moduleEnv,
+        effectiveShow,
+        effectiveHide,
+        visitedShows,
+      );
+    }
+  }
+
+  /// Intersection of two optional show-filters (null = show everything).
+  Set<String>? _intersectShow(Set<String>? outer, Set<String>? inner) {
+    if (outer == null) return inner;
+    if (inner == null) return outer;
+    return outer.intersection(inner);
+  }
+
+  /// Union of two optional hide-filters (null = hide nothing).
+  Set<String>? _unionHide(Set<String>? outer, Set<String>? inner) {
+    if (outer == null && inner == null) return null;
+    return {...?outer, ...?inner};
+  }
+
+  /// Aliases whose target was not in their module environment yet, while a
+  /// bridged module's environment is built; null outside a build. An alias's
+  /// target may come from a library the module re-exports (`material.dart`'s
+  /// `MaterialStateProperty` names `widgets.dart`'s `WidgetStateProperty`),
+  /// and the aliases are registered before the re-exports are merged, so such
+  /// an alias is retried after the merge ([_retryPendingAliases]).
+  List<(Environment, String, String)>? _pendingAliases;
+
+  /// Defines an alias, parking it while a module build is in progress and its
+  /// target is not there yet.
+  void _defineAlias(Environment env, String aliasName, String targetName) {
+    final pending = _pendingAliases;
+    if (env.defineBridgeAlias(
+      aliasName,
+      targetName,
+      warnIfMissing: pending == null,
+    )) {
+      return;
+    }
+    pending?.add((env, aliasName, targetName));
+  }
+
+  /// Starts collecting unresolved aliases for one module build; returns the
+  /// list that was being collected before.
+  List<(Environment, String, String)>? _beginAliasCollection() {
+    final outer = _pendingAliases;
+    _pendingAliases = [];
+    return outer;
+  }
+
+  /// Retries the aliases parked during the build (now with the re-exports
+  /// merged; a target still missing is logged) and restores [outer].
+  void _retryPendingAliases(List<(Environment, String, String)>? outer) {
+    final pending = _pendingAliases ?? const [];
+    _pendingAliases = outer;
+    for (final (env, aliasName, targetName) in pending) {
+      env.defineBridgeAlias(aliasName, targetName);
+    }
   }
 
   @override
@@ -638,6 +784,7 @@ class ModuleLoader implements context.ModuleContext {
     Set<String>? showNames,
     Set<String>? hideNames,
   }) {
+    if (executionContext case final ExecutionRun run) run.checkImport(uri);
     final LoadedModule module;
     _loadDepth++;
     try {
@@ -1415,10 +1562,7 @@ class ModuleLoader implements context.ModuleContext {
             continue;
           }
           try {
-            targetEnvironment.defineBridgeAlias(
-              alias.aliasName,
-              alias.targetName,
-            );
+            _defineAlias(targetEnvironment, alias.aliasName, alias.targetName);
             Logger.debug(
               ' [execute] Registered alias: ${alias.aliasName} → ${alias.targetName} from $uriString',
             );

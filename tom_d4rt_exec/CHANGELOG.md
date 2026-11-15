@@ -1,3 +1,37 @@
+## 1.61.0
+
+### Added — per-execution hooks (GitHub #19), as in tom_d4rt's `D4rt`
+
+`hooks: D4rtExecutionHooks(...)` on `execute`, `continuedExecute`,
+`executeProgram`, their async variants and `executeBundle` /
+`executeBundleAs` / `executeBundleAsAsync`, and `executionHooks` for every
+execution without its own (held by the inner `D4rtRunner`, so the bundle path
+shares it). The source path runs the same lifecycle as tom_d4rt: `onStart`
+before any import or script code (a `library:` root starts the run before its
+load), `onImport` per library, the entry function as the first accepted entry,
+`onEnd`, per-run `onError`, per-run permissions (`D4rt.checkPermission` asks the
+run from its Zone) and output, the run's Zones. See tom_d4rt_ast's
+`doc/execution_hooks.md`.
+
+### Fixed — exec's module loader merges a bridged library's re-exports
+
+Exec's loader registered each bridged library's own content only and ignored
+`registerLibraryReExport` (GEN-107), so a library reaching names through a
+recorded re-export had none of them. It now merges them transitively under
+the combined `show` / `hide` filters, as tom_d4rt's and tom_d4rt_ast's loaders
+do; an alias whose target a re-exported library declares is defined after that
+merge; and a library whose bridges are only re-exports, aliases or typedefs is
+a bridged library.
+
+### Changed — takes tom_d4rt_ast 0.244.0
+
+`tom_d4rt_ast ^0.244.0` (from `^0.243.0`): per-execution hooks, aliases
+through re-exports, export-only bridged libraries. The three conformance suites
+paired with their ast twins meanwhile (ghfeatures1-3) now run here as ports.
+
+Name resolution: yes — re-exported bridged libraries, aliases whose target is
+re-exported and export-only bridged libraries now resolve in exec.
+
 ## 1.60.0
 
 ### Changed — takes tom_d4rt_ast 0.243.0 and tom_ast_generator 0.2.5

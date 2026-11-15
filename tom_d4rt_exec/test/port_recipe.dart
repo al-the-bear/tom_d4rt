@@ -185,6 +185,14 @@ const List<PortImport> portImports = <PortImport>[
     'package:tom_d4rt/src/static_name_report.dart',
     'package:tom_d4rt_exec/src/static_name_report.dart',
   ),
+  // GHFEATURES1000: `ghfeatures1_execution_hooks_test.dart` (EH-15) checks the
+  // web stub of the per-run output capture directly. The `src/` pattern again:
+  // with the pair in place the two copies are byte-identical.
+  PortImport(
+    '@STDIO_CAPTURE_STUB@',
+    'package:tom_d4rt/src/stdio_capture_stub.dart',
+    'package:tom_d4rt_ast/src/runtime/stdio_capture_stub.dart',
+  ),
 ];
 
 /// [source] with every interpreter import collapsed to its token, so the two

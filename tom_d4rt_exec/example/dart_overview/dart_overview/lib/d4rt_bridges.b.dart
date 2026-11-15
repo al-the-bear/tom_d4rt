@@ -1,4 +1,4 @@
-// Generated: 2026-11-13T19:15:21.984784 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-15T13:05:54.488917 by tom_d4rt_generator 1.66.0
 /// D4rt Bridges for dart_overview
 library;
 
