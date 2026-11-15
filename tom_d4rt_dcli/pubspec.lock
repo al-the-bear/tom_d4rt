@@ -613,18 +613,18 @@ packages:
     dependency: "direct main"
     description:
       name: tom_d4rt
-      sha256: def560ee2d4a06ed587653f6465fae8cfa7c81379e45f1ef3c2a89d97cde2501
+      sha256: "3eabef769ff0c925b418396547c7654c04d0970f7ccdc8e8bae5a046196e93c6"
       url: "https://pub.dev"
     source: hosted
-    version: "1.263.0"
+    version: "1.264.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
       name: tom_d4rt_generator
-      sha256: "40213d6da4736e1316c0396f9f39dbc0650e16d180c535fbd729b4a6fba11919"
+      sha256: "3792ba6a46410d7a05be90e0e84a7b2b501930e037f1b15722953128e5662e96"
       url: "https://pub.dev"
     source: hosted
-    version: "1.65.0"
+    version: "1.66.0"
   tom_dcli:
     dependency: "direct main"
     description:

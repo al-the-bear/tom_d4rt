@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 10 files
-// Generated: 2026-11-15T01:01:35.913921 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:18:55.745487 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -20,6 +20,7 @@ import 'package:tom_d4rt/d4rt.dart' as $tom_d4rt_8;
 import 'package:tom_d4rt/d4rt.dart' as $tom_d4rt_9;
 import 'package:tom_d4rt/d4rt.dart' as $tom_d4rt_10;
 import 'package:tom_d4rt/d4rt.dart' as $tom_d4rt_11;
+import 'package:tom_d4rt/d4rt.dart' as $tom_d4rt_12;
 import 'package:tom_d4rt_dcli/src/api/cli_api.dart' as $tom_d4rt_dcli_1;
 import 'package:tom_d4rt_dcli/src/api/cli_bridge.dart' as $tom_d4rt_dcli_2;
 import 'package:tom_d4rt_dcli/src/api/cli_controller.dart' as $tom_d4rt_dcli_3;
@@ -344,7 +345,24 @@ class CliApiBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -352,6 +370,7 @@ class CliApiBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -370,6 +389,7 @@ class CliApiBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(
         enumDef,
         importPath,
@@ -378,13 +398,14 @@ class CliApiBridge {
     }
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -397,7 +418,9 @@ class CliApiBridge {
     // Register function typedefs for type resolution
     final typedefs = functionTypedefs();
     final typedefArity = functionTypedefArity();
+    // Function typedefs carry no source; a sub-package barrel gets none.
     for (final name in typedefs) {
+      if (ownPrefix != null) break;
       final arity = typedefArity[name];
       interpreter.registerFunctionTypedef(
         name,
@@ -423,35 +446,48 @@ class CliApiBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'cliLibrary',
-        $tom_d4rt_dcli_2.cliLibrary,
-        importPath,
-        sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "cliLibrary": $e');
+    if (include == null ||
+        include('package:tom_d4rt_dcli/src/api/cli_bridge.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'cliLibrary',
+          $tom_d4rt_dcli_2.cliLibrary,
+          importPath,
+          sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "cliLibrary": $e');
+      }
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'cliGlobalHolder',
-        $tom_d4rt_dcli_2.cliGlobalHolder,
-        importPath,
-        sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "cliGlobalHolder": $e');
+    if (include == null ||
+        include('package:tom_d4rt_dcli/src/api/cli_bridge.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'cliGlobalHolder',
+          $tom_d4rt_dcli_2.cliGlobalHolder,
+          importPath,
+          sourceUri: 'package:tom_d4rt_dcli/src/api/cli_bridge.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "cliGlobalHolder": $e');
+      }
     }
-    interpreter.registerGlobalGetter(
-      'verificationFailures',
-      () => $tom_d4rt_dcli_8.verificationFailures,
-      importPath,
-      sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
-    );
+    if (include == null ||
+        include('package:tom_d4rt_dcli/src/api/cli_test_utils.dart')) {
+      interpreter.registerGlobalGetter(
+        'verificationFailures',
+        () => $tom_d4rt_dcli_8.verificationFailures,
+        importPath,
+        sourceUri: 'package:tom_d4rt_dcli/src/api/cli_test_utils.dart',
+      );
+    }
 
     if (errors.isNotEmpty) {
       throw StateError(
@@ -4269,6 +4305,8 @@ BridgedClass _createD4rtBridge() {
           D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt').reuseAcrossRuns,
       'onUncaughtError': (visitor, target) =>
           D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt').onUncaughtError,
+      'executionHooks': (visitor, target) =>
+          D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt').executionHooks,
       'visitor': (visitor, target) =>
           D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt').visitor,
       'bridgesFinalized': (visitor, target) =>
@@ -4307,6 +4345,12 @@ BridgedClass _createD4rtBridge() {
                 ]);
               };
       },
+      'executionHooks': (visitor, target, value) =>
+          D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt').executionHooks =
+              D4.extractBridgedArgOrNull<$tom_d4rt_6.D4rtExecutionHooks>(
+                value,
+                'executionHooks',
+              ),
     },
     methods: {
       'providePackage': (visitor, target, positional, named, typeArgs) {
@@ -4540,10 +4584,10 @@ BridgedClass _createD4rtBridge() {
         t.registertopLevelFunction(
           name,
           ((
-                $tom_d4rt_7.InterpreterVisitor p0,
+                $tom_d4rt_8.InterpreterVisitor p0,
                 List<Object?> p1,
                 Map<String, Object?> p2,
-                List<$tom_d4rt_9.RuntimeType>? p3,
+                List<$tom_d4rt_10.RuntimeType>? p3,
               ) {
                 return D4.castCallbackResult<Object?>(
                   D4.callInterpreterCallback(visitor!, functionRaw, [
@@ -4555,10 +4599,10 @@ BridgedClass _createD4rtBridge() {
                 );
               })
               as Object? Function(
-                $tom_d4rt_7.InterpreterVisitor,
+                $tom_d4rt_8.InterpreterVisitor,
                 List<Object?>,
                 Map<String, Object?>,
-                List<$tom_d4rt_9.RuntimeType>?,
+                List<$tom_d4rt_10.RuntimeType>?,
               ),
           library,
           sourceUri: sourceUri,
@@ -4708,7 +4752,7 @@ BridgedClass _createD4rtBridge() {
       'grant': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'grant');
-        final permission = D4.getRequiredArg<$tom_d4rt_11.Permission>(
+        final permission = D4.getRequiredArg<$tom_d4rt_12.Permission>(
           positional,
           0,
           'permission',
@@ -4720,7 +4764,7 @@ BridgedClass _createD4rtBridge() {
       'revoke': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'revoke');
-        final permission = D4.getRequiredArg<$tom_d4rt_11.Permission>(
+        final permission = D4.getRequiredArg<$tom_d4rt_12.Permission>(
           positional,
           0,
           'permission',
@@ -4803,16 +4847,16 @@ BridgedClass _createD4rtBridge() {
         t.registerInterfaceProxy(
           bridgedTypeName,
           ((
-                $tom_d4rt_7.InterpreterVisitor p0,
-                $tom_d4rt_10.InterpretedInstance p1,
+                $tom_d4rt_8.InterpreterVisitor p0,
+                $tom_d4rt_11.InterpretedInstance p1,
               ) {
                 return D4.castCallbackResult<Object?>(
                   D4.callInterpreterCallback(visitor!, factoryRaw, [p0, p1]),
                 );
               })
               as Object? Function(
-                $tom_d4rt_7.InterpreterVisitor,
-                $tom_d4rt_10.InterpretedInstance,
+                $tom_d4rt_8.InterpreterVisitor,
+                $tom_d4rt_11.InterpretedInstance,
               ),
         );
         return null;
@@ -4842,10 +4886,10 @@ BridgedClass _createD4rtBridge() {
           className,
           constructorName,
           ((
-                $tom_d4rt_7.InterpreterVisitor p0,
+                $tom_d4rt_8.InterpreterVisitor p0,
                 List<Object?> p1,
                 Map<String, Object?> p2,
-                List<$tom_d4rt_9.RuntimeType>? p3,
+                List<$tom_d4rt_10.RuntimeType>? p3,
               ) {
                 return D4.castCallbackResult<Object?>(
                   D4.callInterpreterCallback(visitor!, factoryRaw, [
@@ -4857,10 +4901,10 @@ BridgedClass _createD4rtBridge() {
                 );
               })
               as Object? Function(
-                $tom_d4rt_7.InterpreterVisitor,
+                $tom_d4rt_8.InterpreterVisitor,
                 List<Object?>,
                 Map<String, Object?>,
-                List<$tom_d4rt_9.RuntimeType>?,
+                List<$tom_d4rt_10.RuntimeType>?,
               ),
         );
         return null;
@@ -4868,7 +4912,7 @@ BridgedClass _createD4rtBridge() {
       'hasPermission': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_d4rt_5.D4rt>(target, 'D4rt');
         D4.requireMinArgs(positional, 1, 'hasPermission');
-        final permission = D4.getRequiredArg<$tom_d4rt_11.Permission>(
+        final permission = D4.getRequiredArg<$tom_d4rt_12.Permission>(
           positional,
           0,
           'permission',
@@ -4919,6 +4963,10 @@ BridgedClass _createD4rtBridge() {
           'allowFileSystemImports',
           false,
         );
+        final hooks = D4.getOptionalNamedArg<$tom_d4rt_6.D4rtExecutionHooks?>(
+          named,
+          'hooks',
+        );
         return t.execute(
           source: source,
           name: name,
@@ -4929,6 +4977,7 @@ BridgedClass _createD4rtBridge() {
           sources: sources,
           basePath: basePath,
           allowFileSystemImports: allowFileSystemImports,
+          hooks: hooks,
         );
       },
       'continuedExecute': (visitor, target, positional, named, typeArgs) {
@@ -4944,12 +4993,17 @@ BridgedClass _createD4rtBridge() {
           'namedArgs',
         );
         final library = D4.getOptionalNamedArg<String?>(named, 'library');
+        final hooks = D4.getOptionalNamedArg<$tom_d4rt_6.D4rtExecutionHooks?>(
+          named,
+          'hooks',
+        );
         return t.continuedExecute(
           source: source,
           name: name,
           positionalArgs: positionalArgs,
           namedArgs: namedArgs,
           library: library,
+          hooks: hooks,
         );
       },
       'parse': (visitor, target, positional, named, typeArgs) {
@@ -4991,6 +5045,10 @@ BridgedClass _createD4rtBridge() {
           'allowFileSystemImports',
           false,
         );
+        final hooks = D4.getOptionalNamedArg<$tom_d4rt_6.D4rtExecutionHooks?>(
+          named,
+          'hooks',
+        );
         return t.executeProgram(
           program,
           name: name,
@@ -4998,6 +5056,7 @@ BridgedClass _createD4rtBridge() {
           namedArgs: namedArgs,
           sources: sources,
           allowFileSystemImports: allowFileSystemImports,
+          hooks: hooks,
         );
       },
       'executeAsync': (visitor, target, positional, named, typeArgs) {
@@ -5023,6 +5082,10 @@ BridgedClass _createD4rtBridge() {
           'allowFileSystemImports',
           false,
         );
+        final hooks = D4.getOptionalNamedArg<$tom_d4rt_6.D4rtExecutionHooks?>(
+          named,
+          'hooks',
+        );
         return t.executeAsync(
           source: source,
           name: name,
@@ -5032,6 +5095,7 @@ BridgedClass _createD4rtBridge() {
           sources: sources,
           basePath: basePath,
           allowFileSystemImports: allowFileSystemImports,
+          hooks: hooks,
         );
       },
       'executeAsAsync': (visitor, target, positional, named, typeArgs) {
@@ -5057,6 +5121,10 @@ BridgedClass _createD4rtBridge() {
           'allowFileSystemImports',
           false,
         );
+        final hooks = D4.getOptionalNamedArg<$tom_d4rt_6.D4rtExecutionHooks?>(
+          named,
+          'hooks',
+        );
         return t.executeAsAsync(
           source: source,
           name: name,
@@ -5066,6 +5134,7 @@ BridgedClass _createD4rtBridge() {
           sources: sources,
           basePath: basePath,
           allowFileSystemImports: allowFileSystemImports,
+          hooks: hooks,
         );
       },
       'executeProgramAsync': (visitor, target, positional, named, typeArgs) {
@@ -5095,6 +5164,10 @@ BridgedClass _createD4rtBridge() {
           'allowFileSystemImports',
           false,
         );
+        final hooks = D4.getOptionalNamedArg<$tom_d4rt_6.D4rtExecutionHooks?>(
+          named,
+          'hooks',
+        );
         return t.executeProgramAsync(
           program,
           name: name,
@@ -5102,6 +5175,7 @@ BridgedClass _createD4rtBridge() {
           namedArgs: namedArgs,
           sources: sources,
           allowFileSystemImports: allowFileSystemImports,
+          hooks: hooks,
         );
       },
       'analyze': (visitor, target, positional, named, typeArgs) {
@@ -5228,18 +5302,18 @@ BridgedClass _createD4rtBridge() {
       'getConfiguration': 'D4rtConfiguration getConfiguration()',
       'getEnvironmentState': 'EnvironmentState? getEnvironmentState()',
       'execute':
-          'dynamic execute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Object? args, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+          'dynamic execute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Object? args, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false, D4rtExecutionHooks? hooks})',
       'continuedExecute':
-          'dynamic continuedExecute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library})',
+          'dynamic continuedExecute({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, D4rtExecutionHooks? hooks})',
       'parse': 'D4rtProgram parse(String source, {String? basePath})',
       'executeProgram':
-          'dynamic executeProgram(D4rtProgram program, {String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Map<String, String>? sources, bool allowFileSystemImports = false})',
+          'dynamic executeProgram(D4rtProgram program, {String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Map<String, String>? sources, bool allowFileSystemImports = false, D4rtExecutionHooks? hooks})',
       'executeAsync':
-          'Future<Object?> executeAsync({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+          'Future<Object?> executeAsync({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false, D4rtExecutionHooks? hooks})',
       'executeAsAsync':
-          'Future<T> executeAsAsync({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false})',
+          'Future<T> executeAsAsync({String? source, String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, String? library, Map<String, String>? sources, String? basePath, bool allowFileSystemImports = false, D4rtExecutionHooks? hooks})',
       'executeProgramAsync':
-          'Future<Object?> executeProgramAsync(D4rtProgram program, {String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Map<String, String>? sources, bool allowFileSystemImports = false})',
+          'Future<Object?> executeProgramAsync(D4rtProgram program, {String name = \'main\', List<Object?>? positionalArgs, Map<String, Object?>? namedArgs, Map<String, String>? sources, bool allowFileSystemImports = false, D4rtExecutionHooks? hooks})',
       'analyze':
           'IntrospectionResult analyze({required String source, Map<String, String>? sources, bool includeBuiltins = false})',
       'eval': 'dynamic eval(String expression)',
@@ -5250,6 +5324,7 @@ BridgedClass _createD4rtBridge() {
       'reuseAcrossRuns': 'bool get reuseAcrossRuns',
       'onUncaughtError':
           'void Function(Object error, StackTrace stackTrace)? get onUncaughtError',
+      'executionHooks': 'D4rtExecutionHooks? get executionHooks',
       'visitor': 'InterpreterVisitor? get visitor',
       'bridgesFinalized': 'bool get bridgesFinalized',
       'allowedPackages': 'Set<String> get allowedPackages',
@@ -5263,7 +5338,10 @@ BridgedClass _createD4rtBridge() {
           'Map<String, List<({Set<String>? hide, Set<String>? show, String uri})>> get libraryReExports',
       'lastErrorTrace': 'List<D4rtStackFrame> get lastErrorTrace',
     },
-    setterSignatures: {'onUncaughtError': 'set onUncaughtError(dynamic value)'},
+    setterSignatures: {
+      'onUncaughtError': 'set onUncaughtError(dynamic value)',
+      'executionHooks': 'set executionHooks(dynamic value)',
+    },
     staticMethodSignatures: {
       'debugPooledClassCount': 'int debugPooledClassCount(String packageName)',
       'debugResetPool': 'void debugResetPool()',

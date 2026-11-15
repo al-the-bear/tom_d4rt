@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_dcli_exec
-// Generated: 2026-11-15T00:59:53.598410 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:18:38.708747 by tom_d4rt_generator 1.66.0
 
 /// D4rt Bridge Registration for tom_dcli_exec
 library;
@@ -25,7 +25,11 @@ class TomD4rtDcliBridge {
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in cli_api_bridges.CliApiBridge.subPackageBarrels()) {
-      cli_api_bridges.CliApiBridge.registerBridges(d4rt, barrel);
+      cli_api_bridges.CliApiBridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
     tom_vscode_scripting_api_bridges
         .TomVscodeScriptingApiBridge.registerBridges(
@@ -37,17 +41,29 @@ class TomD4rtDcliBridge {
         in tom_vscode_scripting_api_bridges
             .TomVscodeScriptingApiBridge.subPackageBarrels()) {
       tom_vscode_scripting_api_bridges
-          .TomVscodeScriptingApiBridge.registerBridges(d4rt, barrel);
+          .TomVscodeScriptingApiBridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
     dcli_bridges.DcliBridge.registerBridges(d4rt, 'package:tom_dcli/dcli.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in dcli_bridges.DcliBridge.subPackageBarrels()) {
-      dcli_bridges.DcliBridge.registerBridges(d4rt, barrel);
+      dcli_bridges.DcliBridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
     path_bridges.PathBridge.registerBridges(d4rt, 'package:path/path.dart');
     // Register under sub-package barrels for direct imports
     for (final barrel in path_bridges.PathBridge.subPackageBarrels()) {
-      path_bridges.PathBridge.registerBridges(d4rt, barrel);
+      path_bridges.PathBridge.registerBridges(
+        d4rt,
+        barrel,
+        onlyOwnPackage: true,
+      );
     }
 
     // RC-2: Register generic constructor factories

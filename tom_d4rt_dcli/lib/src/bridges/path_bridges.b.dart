@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-11-15T01:01:39.085096 by tom_d4rt_generator 1.65.0
+// Generated: 2026-11-15T13:18:59.794835 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -185,7 +185,24 @@ class PathBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(
+    D4rt interpreter,
+    String importPath, {
+    bool onlyOwnPackage = false,
+  }) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -193,6 +210,7 @@ class PathBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -208,13 +226,14 @@ class PathBridge {
     BridgedClass.registerSupertypes(classSupertypes());
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(
         entry.key,
         entry.value,
@@ -240,67 +259,85 @@ class PathBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(
+    D4rt interpreter,
+    String importPath, {
+    bool Function(String? sourceUri)? include,
+  }) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-        'posix',
-        $path_1.posix,
+    if (include == null || include('package:path/path.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'posix',
+          $path_1.posix,
+          importPath,
+          sourceUri: 'package:path/path.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "posix": $e');
+      }
+    }
+    if (include == null || include('package:path/path.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'windows',
+          $path_1.windows,
+          importPath,
+          sourceUri: 'package:path/path.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "windows": $e');
+      }
+    }
+    if (include == null || include('package:path/path.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'url',
+          $path_1.url,
+          importPath,
+          sourceUri: 'package:path/path.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "url": $e');
+      }
+    }
+    if (include == null || include('package:path/path.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+          'context',
+          $path_1.context,
+          importPath,
+          sourceUri: 'package:path/path.dart',
+        );
+      } catch (e) {
+        errors.add('Failed to register variable "context": $e');
+      }
+    }
+    if (include == null || include('package:path/path.dart')) {
+      interpreter.registerGlobalGetter(
+        'style',
+        () => $path_1.style,
         importPath,
         sourceUri: 'package:path/path.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "posix": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'windows',
-        $path_1.windows,
+    if (include == null || include('package:path/path.dart')) {
+      interpreter.registerGlobalGetter(
+        'current',
+        () => $path_1.current,
         importPath,
         sourceUri: 'package:path/path.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "windows": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'url',
-        $path_1.url,
+    if (include == null || include('package:path/path.dart')) {
+      interpreter.registerGlobalGetter(
+        'separator',
+        () => $path_1.separator,
         importPath,
         sourceUri: 'package:path/path.dart',
       );
-    } catch (e) {
-      errors.add('Failed to register variable "url": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-        'context',
-        $path_1.context,
-        importPath,
-        sourceUri: 'package:path/path.dart',
-      );
-    } catch (e) {
-      errors.add('Failed to register variable "context": $e');
-    }
-    interpreter.registerGlobalGetter(
-      'style',
-      () => $path_1.style,
-      importPath,
-      sourceUri: 'package:path/path.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'current',
-      () => $path_1.current,
-      importPath,
-      sourceUri: 'package:path/path.dart',
-    );
-    interpreter.registerGlobalGetter(
-      'separator',
-      () => $path_1.separator,
-      importPath,
-      sourceUri: 'package:path/path.dart',
-    );
 
     if (errors.isNotEmpty) {
       throw StateError(
