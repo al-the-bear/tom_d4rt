@@ -83,29 +83,10 @@ const Map<String, String> _referenceOnly = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // Every release up to tom_d4rt 1.257.0 / tom_d4rt_ast 0.237.0 is covered by
+  // Every release up to tom_d4rt 1.263.0 / tom_d4rt_ast 0.243.0 is covered by
   // the post-publish full corpus recorded under `Verification runs` at that
-  // pair (ghissues999, 2026-11-13). An empty map is the normal state; each
+  // pair (ghissues1001, 2026-11-15). An empty map is the normal state; each
   // entry is a debt with its reason, deleted when the run is made.
-  // ghissues47 (GitHub #14): an extension now applies through a prefixed
-  // import. Unpublished; the twins resolve from pub.dev, so the base corpus
-  // runs after the batch release publishes it (ghissues1001).
-  '1.259.0': 'ghissues47 - extensions through a prefixed import; corpus run '
-      'owed after the ghissues1001 publish',
-  '0.239.0': 'ghissues47 - extensions through a prefixed import; corpus run '
-      'owed after the ghissues1001 publish',
-  '1.261.0': 'ghissues49 - extension type parameters bound; corpus run owed '
-      'after the ghissues1001 publish',
-  '0.241.0': 'ghissues49 - extension type parameters bound; corpus run owed '
-      'after the ghissues1001 publish',
-  '1.262.0': 'ghissues53 - explicit extension overrides; corpus run owed '
-      'after the ghissues1001 publish',
-  '0.242.0': 'ghissues53 - explicit extension overrides; corpus run owed '
-      'after the ghissues1001 publish',
-  '1.263.0': 'ghissues56 - extension getter / setter pairs; corpus run owed '
-      'after the ghissues1001 publish',
-  '0.243.0': 'ghissues56 - extension getter / setter pairs; corpus run owed '
-      'after the ghissues1001 publish',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
