@@ -645,10 +645,10 @@ packages:
     dependency: transitive
     description:
       name: tom_todo_model
-      sha256: f5b7dae7c8614fd08a701f466a0ceac102d18fd064d326b9670b646487ca967a
+      sha256: b80dbd958a64b2c9505c21167cc835585349187fdd08cbb8f6199de2d2513fe4
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   tom_vscode_scripting_api:
     dependency: transitive
     description:
