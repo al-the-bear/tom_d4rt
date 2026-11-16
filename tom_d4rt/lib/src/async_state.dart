@@ -122,6 +122,26 @@ class AsyncExecutionState {
   final Map<CatchClause, Environment> catchEnvironments =
       Map<CatchClause, Environment>.identity();
 
+  /// The environment an if-case binds its pattern variables in, keyed by the
+  /// `if` statement; its THEN branch runs in it.
+  ///
+  /// ghissues62: the state machine runs an if-case of an async function
+  /// itself. Selected structurally, as [catchEnvironments] is and for the same
+  /// reasons: a node lexically inside the then branch gets the environment,
+  /// nothing has to be popped, and a re-entered `if` overwrites its entry.
+  /// Keyed by identity for the same reason too.
+  final Map<IfStatement, Environment> caseEnvironments =
+      Map<IfStatement, Environment>.identity();
+
+  /// The `for` loops whose CONDITION is suspended at an await.
+  ///
+  /// ghissues62: on resumption the loop is re-entered to evaluate its
+  /// condition again, the resolved awaits replaying. Without the record the
+  /// resumption read as one from the loop's initializer, never evaluated the
+  /// condition and spun for ever (`for (; i < await n(); i++)`). Keyed by
+  /// identity, as [doBodiesStarted] is.
+  final Set<ForStatement> forConditionsSuspended = Set<ForStatement>.identity();
+
   /// A cascade's target value, memoised for the duration of that cascade.
   ///
   /// SCE81, and the reason option (b) was reachable at all. Dart evaluates a

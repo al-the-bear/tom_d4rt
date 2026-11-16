@@ -244,7 +244,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '69fa72f0',
+    'InterpretedFunction._determineNextNodeAfterAwait': '2eb99e5c',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': 'ef0c1ab1',
@@ -252,17 +252,18 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES12: both trees choose and bind the catch clause for the native
     // error a RuntimeD4rtException carries; the recorded residue is unchanged
     // in kind, its signature moved with the shared edit.
-    'InterpretedFunction._handleAsyncError': '1fe0d3c2',
+    'InterpretedFunction._handleAsyncError': 'b3203f52',
     'InterpretedFunction._instantiateRedirectedFactory': '92a6e173',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate
     // above, and divergent for the same architectural reason — the mirror
     // AST has no `parent` getter, so the twin walks with `_parentOf`.
     'InterpretedFunction._isInsideFinallyBlockOf': '34fd9762',
-    // SCE79: the catch-clause environment lookup, divergent for the same
-    // architectural reason as the two predicates around it — the mirror
-    // AST has no `parent` getter, so the twin walks with `_parentOf`.
-    'InterpretedFunction._catchEnvironmentFor': '34fd9762',
+    // SCE79: the catch-clause (and, ghissues62, if-case) environment lookup,
+    // divergent for the same architectural reason as the two predicates
+    // around it — the mirror AST has no `parent` getter, so the twin walks
+    // with `_parentOf`.
+    'InterpretedFunction._clauseEnvironmentFor': '34fd9762',
     // SCE81: the cascade walker, divergent for the same architectural
     // reason as its neighbours — the mirror AST has no `parent` getter, so
     // the twin walks with `_parentOf`.
@@ -301,7 +302,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // DASY1: the state machine's body moved to `_runStateMachineSegment`;
     // `_runStateMachine` is now the frame wrapper both trees agree on. The
     // divergence (`parent` against `_parentOf`) moved with the body.
-    'InterpretedFunction._runStateMachineSegment': '597c59af',
+    'InterpretedFunction._runStateMachineSegment': '4d62d4a1',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
@@ -356,7 +357,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES23: both trees give a record field its `?`, spelled
     // `question != null` here and `isNullable` (on a nullable field type) in
     // the twin.
-    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'd274bc1f',
+    'InterpreterVisitor._resolveTypeAnnotationWithEnvironment': 'b17502f8',
     'InterpreterVisitor._statementsIntroduceBindings': '73f8180e',
     'InterpreterVisitor._subtreeContainsClosure': 'b6e41360',
     'InterpreterVisitor._valueHasType': '716e1f67',
@@ -419,7 +420,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitFunctionDeclaration': '43b5f2f2',
     'InterpreterVisitor.visitFunctionDeclarationStatement': '1a8fa2ed',
     'InterpreterVisitor.visitIdentifier': '842b50f3',
-    'InterpreterVisitor.visitIfStatement': 'f881cee4',
+    'InterpreterVisitor.visitIfStatement': '01eee2e2',
     // GHISSUES7: both trees bind a prefix to `prefixSurface`; the new residue
     // is the loader field's name, `moduleLoader` here and `moduleContext` in
     // the twin.

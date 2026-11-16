@@ -1,3 +1,38 @@
+## 0.247.0
+
+### Fixed — an `await` inside more expression and statement forms (ghissues62)
+
+The await-resumption machinery hands a suspended `await` up to the statement
+the state machine re-runs. Several forms used the interpreter's own suspension
+object as a value instead, or had no resumption:
+
+- `(await f()) is T` answered false (`is!` true); `(await f()) as T` failed
+  with `Cast failed ... AsyncSuspensionRequest`;
+- a conditional `(await c) ? a : b`, a switch expression's scrutinee or
+  guard, a record literal `(await f(), 1)` and adjacent strings
+  `'${await f()}' 'x'` used the suspension as a value;
+- a switch statement (scrutinee, `when` guard), an `assert`, a pattern
+  declaration `var (a, b) = await f();`, a pattern assignment and
+  `throw await f()` were never resumed: the function completed with null, and
+  the `throw` spun for ever;
+- an await in a `for` condition (`for (; i < await n(); i++)`) spun for ever:
+  its resumption was read as one from the loop's initializer.
+
+Each form now hands the suspension up; those statements are re-entered whole
+with the resolved awaits replaying, and a `for` whose condition suspended
+evaluates the condition again.
+
+### Fixed — an if-case in an async function
+
+`if (x case int v)` in an async function failed even without an `await`
+(`If condition must evaluate to a boolean, but got int`): the state machine ran
+it as a plain condition. It now matches the pattern and the guard (which may
+await) and binds the pattern's variables in a scope its then branch runs in.
+`InterpreterVisitor.matchCaseClause` is the shared step.
+
+Name resolution: yes — an if-case's pattern variables in an async function
+now resolve in its then branch, and only there.
+
 ## 0.246.0
 
 ### Fixed — parts (GitHub #21)

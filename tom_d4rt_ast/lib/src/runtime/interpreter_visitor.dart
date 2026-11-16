@@ -541,6 +541,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     // Evaluate the right-hand side value
     final rhsValue = initializer.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (rhsValue is AsyncSuspensionRequest) return rhsValue;
 
     // Match and bind the pattern to the value
     try {
@@ -584,6 +588,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitAsExpression(SAsExpression node) {
     final value = node.expression!.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (value is AsyncSuspensionRequest) return value;
     final result = _tryCast(value, node.type);
     if (!identical(result, _castFailed)) return result;
     final typeDesc = _castTypeDescription(node.type);
@@ -818,12 +826,16 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       for (final stringLiteral in node.strings) {
         if (stringLiteral is SSimpleStringLiteral) {
           buffer.write(stringLiteral.value);
-        } else if (stringLiteral is SStringInterpolation) {
-          // G-DOV-1/2 FIX: Handle SStringInterpolation children within SAdjacentStrings
-          buffer.write(visitStringInterpolation(stringLiteral));
         } else {
-          // Recursively handle nested adjacent strings or other string types
-          final value = visitStringLiteral(stringLiteral);
+          // G-DOV-1/2 FIX: Handle SStringInterpolation children within
+          // SAdjacentStrings; recursively handle nested adjacent strings.
+          final value = stringLiteral is SStringInterpolation
+              ? visitStringInterpolation(stringLiteral)
+              : visitStringLiteral(stringLiteral);
+          // ghissues62: an awaited operand suspends; hand the suspension up so
+          // the state machine resumes this node instead of using the request
+          // as a value.
+          if (value is AsyncSuspensionRequest) return value;
           buffer.write(value.toString());
         }
       }
@@ -7416,6 +7428,49 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     return value.toString();
   }
 
+  /// Whether [value] matches the pattern of an if-case [clause] and passes
+  /// its guard: `true` / `false`, or the [AsyncSuspensionRequest] of an
+  /// awaiting guard. The pattern's variables are bound in [caseEnvironment],
+  /// where the guard is evaluated.
+  ///
+  /// ghissues62: shared by [visitIfStatement] and the async state machine,
+  /// which runs an if-case of an async function itself and treated it as a
+  /// plain condition ("If condition must evaluate to a boolean, but got
+  /// int").
+  Object matchCaseClause(
+    SCaseClause clause,
+    Object? value,
+    Environment caseEnvironment,
+  ) {
+    final pattern = clause.guardedPattern.pattern;
+    try {
+      _matchAndBind(pattern, value, caseEnvironment);
+    } on PatternMatchD4rtException {
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[SIfStatement] Pattern ${pattern.runtimeType} did not match.",
+        );
+      }
+      return false;
+    }
+    final guard = clause.guardedPattern.whenClause?.expression;
+    if (guard == null) return true;
+    final previousVisitorEnv = environment;
+    try {
+      environment = caseEnvironment; // Evaluate guard in case scope
+      final guardResult = guard.accept<Object?>(this);
+      if (guardResult is AsyncSuspensionRequest) return guardResult;
+      if (guardResult is! bool) {
+        throw RuntimeD4rtException(
+          "If-case 'when' clause must evaluate to a boolean.",
+        );
+      }
+      return guardResult;
+    } finally {
+      environment = previousVisitorEnv;
+    }
+  }
+
   @override
   Object? visitIfStatement(SIfStatement node) {
     // Evaluate the expression
@@ -7433,69 +7488,26 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final caseClause = node.caseClause;
     if (caseClause != null) {
       // This is an if-case statement: if (expr case Pattern when guard) { ... }
-      final cc = caseClause;
-      final gp = cc.guardedPattern;
-      final pattern = gp.pattern;
-      final guard = gp.whenClause?.expression;
-
-      // Create a temporary environment for pattern variable bindings
+      // Pattern variables are bound in a scope of their own.
       final caseEnvironment = Environment(enclosing: environment);
-
-      try {
-        // Attempt to match the pattern against the expression value
-        _matchAndBind(pattern, expressionValue, caseEnvironment);
-        if (Logger.isDebug) {
-          Logger.debug(
-            "[SIfStatement] Pattern ${pattern.runtimeType} matched value ${expressionValue?.runtimeType}",
-          );
+      final matched = matchCaseClause(
+        caseClause,
+        expressionValue,
+        caseEnvironment,
+      );
+      if (matched is AsyncSuspensionRequest) return matched;
+      if (matched == true) {
+        final previousVisitorEnv = environment;
+        try {
+          environment = caseEnvironment; // Execute body in case scope
+          node.thenStatement!.accept<Object?>(this);
+        } finally {
+          environment = previousVisitorEnv;
         }
-
-        // Pattern matched, now check the guard (if it exists)
-        bool guardPassed = true;
-        if (guard != null) {
-          final previousVisitorEnv = environment;
-          try {
-            environment = caseEnvironment; // Evaluate guard in case scope
-            final guardResult = guard.accept<Object?>(this);
-            if (guardResult is! bool) {
-              throw RuntimeD4rtException(
-                "If-case 'when' clause must evaluate to a boolean.",
-              );
-            }
-            guardPassed = guardResult;
-            if (Logger.isDebug) {
-              Logger.debug("[SIfStatement] Guard evaluated to: $guardPassed");
-            }
-          } finally {
-            environment = previousVisitorEnv;
-          }
-        }
-
-        // If pattern matched and guard passed, execute thenStatement
-        if (guardPassed) {
-          final previousVisitorEnv = environment;
-          try {
-            environment = caseEnvironment; // Execute body in case scope
-            node.thenStatement!.accept<Object?>(this);
-          } finally {
-            environment = previousVisitorEnv;
-          }
-        } else if (node.elseStatement != null) {
-          // Guard failed, execute elseStatement
-          node.elseStatement!.accept<Object?>(this);
-        }
-      } on PatternMatchD4rtException {
-        // Pattern didn't match, execute elseStatement if present
-        if (Logger.isDebug) {
-          Logger.debug(
-            "[SIfStatement] Pattern ${pattern.runtimeType} did not match. Executing else if present.",
-          );
-        }
-        if (node.elseStatement != null) {
-          node.elseStatement!.accept<Object?>(this);
-        }
+      } else if (node.elseStatement != null) {
+        // The pattern did not match or the guard failed.
+        node.elseStatement!.accept<Object?>(this);
       }
-
       return null;
     }
 
@@ -10114,6 +10126,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitConditionalExpression(SConditionalExpression node) {
     final conditionValue = node.condition!.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (conditionValue is AsyncSuspensionRequest) return conditionValue;
     bool conditionResult;
     final bridgedInstance = toBridgedInstance(conditionValue);
     if (conditionValue is bool) {
@@ -12068,6 +12084,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitAssertStatement(SAssertStatement node) {
     // Assertions are always enabled in this interpreter for now.
     final conditionValue = node.condition!.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (conditionValue is AsyncSuspensionRequest) return conditionValue;
 
     final bridgedInstance = toBridgedInstance(conditionValue);
     bool conditionResult;
@@ -12090,6 +12110,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       Object? assertionMessage;
       if (node.message != null) {
         assertionMessage = node.message!.accept<Object?>(this);
+        if (assertionMessage is AsyncSuspensionRequest) return assertionMessage;
       }
       throw AssertionError(assertionMessage);
     }
@@ -13898,6 +13919,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitThrowExpression(SThrowExpression node) {
     // 1. Evaluate the expression that is thrown
     final thrownValue = node.expression!.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    // `throw await f()` threw the request itself, which never completed.
+    if (thrownValue is AsyncSuspensionRequest) return thrownValue;
 
     // 2. Create and throw an InternalInterpreterException.
     final message = stringify(thrownValue); // Keep for debug log
@@ -13957,10 +13983,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   @override
   Object? visitIsExpression(SIsExpression node) {
-    final result = _valueHasType(
-      node.type,
-      node.expression!.accept<Object?>(this),
-    );
+    final value = node.expression!.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (value is AsyncSuspensionRequest) return value;
+    final result = _valueHasType(node.type, value);
     return node.isNot ? !result : result;
   }
 
@@ -16002,6 +16030,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitSwitchStatement(SSwitchStatement node) {
     final labels = _labelsOf(node);
     final switchValue = node.expression!.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (switchValue is AsyncSuspensionRequest) return switchValue;
     final switchEnvironment = Environment(enclosing: environment);
     final previousEnvironment = environment;
     environment = switchEnvironment;
@@ -16107,6 +16139,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
                       try {
                         final guardResult = gpWhenClause.expression
                             .accept<Object?>(this);
+                        if (guardResult is AsyncSuspensionRequest) {
+                          return guardResult; // ghissues62
+                        }
                         if (guardResult != true) {
                           environment = prevEnv;
                           // Guard failed, pattern doesn't match - reset matched so other cases can try
@@ -17028,6 +17063,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (field is SRecordLiteralNamedField) {
         final name = field.name.name;
         final value = field.fieldExpression.accept<Object?>(this);
+        if (value is AsyncSuspensionRequest) return value; // ghissues62
         if (named.containsKey(name)) {
           throw RuntimeD4rtException(
             "Record literal field '$name' specified more than once.",
@@ -17042,7 +17078,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             "Positional fields must come before named fields in record literal.",
           );
         }
-        positional.add(field.accept<Object?>(this));
+        final value = field.accept<Object?>(this);
+        if (value is AsyncSuspensionRequest) return value; // ghissues62
+        positional.add(value);
       }
     }
     if (Logger.isDebug) {
@@ -17055,6 +17093,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   Object? visitPatternAssignment(SPatternAssignment node) {
     // 1. Evaluate the right-hand side expression
     final rhsValue = node.expression.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (rhsValue is AsyncSuspensionRequest) return rhsValue;
 
     // 2. Match the pattern against the value and bind variables
     try {
@@ -17077,6 +17119,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   @override
   Object? visitSwitchExpression(SSwitchExpression node) {
     final switchValue = node.expression.accept<Object?>(this);
+    // ghissues62: an awaited operand suspends; hand the suspension up so
+    // the state machine resumes this node instead of using the request
+    // as a value.
+    if (switchValue is AsyncSuspensionRequest) return switchValue;
     final originalEnvironment = environment; // Backup current environment
 
     for (final caseExpr in node.cases) {
@@ -17106,6 +17152,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           try {
             environment = caseEnvironment; // Evaluate guard in case scope
             final guardResult = guard.accept<Object?>(this);
+            if (guardResult is AsyncSuspensionRequest) return guardResult;
             if (guardResult is! bool) {
               throw RuntimeD4rtException(
                 "Switch expression 'when' clause must evaluate to a boolean.",

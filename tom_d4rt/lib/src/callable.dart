@@ -2321,7 +2321,7 @@ class InterpretedFunction implements Callable {
       // sees the exception variable and must keep winning; a catch INSIDE a
       // loop built its environment as a child of the loop's, so switching to it
       // still reaches the loop variables.
-      final catchEnvironment = _catchEnvironmentFor(currentState, currentNode);
+      final catchEnvironment = _clauseEnvironmentFor(currentState, currentNode);
       if (catchEnvironment != null &&
           !_chainReaches(visitor.environment, catchEnvironment)) {
         visitor.environment = catchEnvironment;
@@ -3121,8 +3121,11 @@ class InterpretedFunction implements Callable {
               if (lastResult is AsyncSuspensionRequest) {
                 // Suspended during the condition
                 Logger.debug("[StateMachine] For loop condition suspended.");
+                // ghissues62: resumed by re-evaluating the condition.
+                currentState.forConditionsSuspended.add(forNode);
                 // Keep the environment for the suspension logic
               } else if (lastResult is bool) {
+                _endReplayedEvaluation(currentState);
                 conditionValue = lastResult;
               } else {
                 // Restore the environment before throwing the error
@@ -3273,7 +3276,25 @@ class InterpretedFunction implements Callable {
           final ifNode = currentNode;
           Logger.debug("[StateMachine] Handling IfStatement condition.");
           // Evaluate the condition
-          final conditionResult = ifNode.expression.accept<Object?>(visitor);
+          Object? conditionResult = ifNode.expression.accept<Object?>(visitor);
+          // ghissues62: an if-case matches its pattern (and guard) against
+          // the value; its variables are bound in an environment its then
+          // branch runs in ([AsyncExecutionState.caseEnvironments]). It was
+          // read as a plain condition: "If condition must evaluate to a
+          // boolean, but got int".
+          final caseClause = ifNode.caseClause;
+          if (caseClause != null &&
+              conditionResult is! AsyncSuspensionRequest) {
+            final caseEnvironment = Environment(enclosing: visitor.environment);
+            conditionResult = visitor.matchCaseClause(
+              caseClause,
+              conditionResult,
+              caseEnvironment,
+            );
+            if (conditionResult == true) {
+              currentState.caseEnvironments[ifNode] = caseEnvironment;
+            }
+          }
 
           if (conditionResult is AsyncSuspensionRequest) {
             // The condition is asynchronous, suspend
@@ -3749,6 +3770,13 @@ class InterpretedFunction implements Callable {
         // Other error during state execution (SYNC)
 
         _recordAsyncEscape(visitor, error);
+        // ghissues62: a re-run statement that ends in an error (`throw await
+        // f()`) has finished its evaluation too; its per-site cache must not
+        // replay into the next evaluation of the same node.
+        if (currentState.resumingStatementHasMoreAwaits) {
+          currentState.resumingStatementHasMoreAwaits = false;
+          currentState.clearStatementReplay();
+        }
 
         // Check if the error comes from rethrow
         if (error is InternalInterpreterD4rtException) {
@@ -4207,7 +4235,7 @@ class InterpretedFunction implements Callable {
       // Derived from the state, in the order a scope actually nests: the
       // enclosing catch clause's environment if this try sits inside one, then
       // the innermost loop's, then the function's.
-      final enclosingCatchEnvironment = _catchEnvironmentFor(
+      final enclosingCatchEnvironment = _clauseEnvironmentFor(
         state,
         matchingCatchClause.parent,
       );
@@ -4556,26 +4584,35 @@ class InterpretedFunction implements Callable {
     return false;
   }
 
-  /// The environment for the innermost catch clause [node] sits inside, or
-  /// null when it is in none that has one.
+  /// The environment for the innermost catch clause, or if-case then branch,
+  /// [node] sits inside, or null when it is in none that has one.
   ///
   /// SCE79. The lookup is structural — the AST says which clause a node is in —
   /// which is why the binding needs no stack and no popping. Stops at a
   /// `FunctionBody` so a closure written inside a catch block does not inherit
-  /// the clause's scope by accident.
-  static Environment? _catchEnvironmentFor(
+  /// the clause's scope by accident. ghissues62 added the if-case's then
+  /// branch ([AsyncExecutionState.caseEnvironments]), which binds the
+  /// pattern's variables the same way.
+  static Environment? _clauseEnvironmentFor(
     AsyncExecutionState state,
     AstNode? node,
   ) {
-    if (state.catchEnvironments.isEmpty) return null;
+    if (state.catchEnvironments.isEmpty && state.caseEnvironments.isEmpty) {
+      return null;
+    }
     AstNode? current = node;
     while (current != null) {
       if (current is CatchClause) {
         final found = state.catchEnvironments[current];
         if (found != null) return found;
       }
+      final parent = current.parent;
+      if (parent is IfStatement && identical(parent.thenStatement, current)) {
+        final found = state.caseEnvironments[parent];
+        if (found != null) return found;
+      }
       if (current is FunctionBody) return null;
-      current = current.parent;
+      current = parent;
     }
     return null;
   }
@@ -4668,6 +4705,8 @@ class InterpretedFunction implements Callable {
   ///   the body. Each clears the replay cache when the condition completes.
   ///
   /// A `for` is not re-entered: its node initialises the loop on arrival.
+  ///
+  /// ghissues62 added the statements of [_reEnteredWhole].
   static AstNode? _resumableNodeFor(AstNode node) {
     AstNode? parent = node;
     while (parent != null &&
@@ -4681,11 +4720,29 @@ class InterpretedFunction implements Callable {
         parent is ReturnStatement ||
         parent is IfStatement ||
         parent is WhileStatement ||
-        parent is DoStatement) {
+        parent is DoStatement ||
+        (parent != null && _reEnteredWhole(parent))) {
       return parent;
     }
     return null;
   }
+
+  /// ghissues62: the statements whose await, wherever it sits in them, is
+  /// resumed by evaluating the statement again with the resolved await sites
+  /// replaying (SCC40): a `switch` (scrutinee, guards), an `assert`, a
+  /// pattern declaration, a pattern assignment or `throw` statement, and an
+  /// if-case. Each evaluates up to its first await before anything it guards
+  /// runs, so evaluating it again repeats nothing. Without this an await in
+  /// one of them had no resumption: the machine stopped and the function
+  /// completed with null, or kept the suspension itself as a value.
+  static bool _reEnteredWhole(AstNode node) =>
+      node is SwitchStatement ||
+      node is AssertStatement ||
+      node is PatternVariableDeclarationStatement ||
+      (node is IfStatement && node.caseClause != null) ||
+      (node is ExpressionStatement &&
+          (node.expression is PatternAssignment ||
+              node.expression is ThrowExpression));
 
   /// Whether [expression] is an `await` and nothing more, parentheses aside —
   /// the one shape whose value `lastAwaitResult` already is (SCF29).
@@ -4827,6 +4884,21 @@ class InterpretedFunction implements Callable {
       Logger.debug(
         "[_determineNextNodeAfterAwait] Determined await context: ${awaitContextNode.runtimeType}",
       );
+    }
+
+    // ghissues62: a statement re-entered whole, the resolved awaits replaying.
+    if (_reEnteredWhole(awaitContextNode)) {
+      if (Logger.isDebug) {
+        Logger.debug(
+          "[_determineNextNodeAfterAwait] Re-running "
+          "${awaitContextNode.runtimeType} so the resolved await sites replay.",
+        );
+      }
+      state.resumingStatementHasMoreAwaits = true;
+      if (visitor.environment != currentExecutionEnvironment) {
+        visitor.environment = currentExecutionEnvironment;
+      }
+      return awaitContextNode;
     }
 
     // Logic based on the type of node that contained the await (awaitContextNode)
@@ -5777,6 +5849,15 @@ class InterpretedFunction implements Callable {
         (awaitContextNode.forLoopParts is ForPartsWithDeclarations ||
             awaitContextNode.forLoopParts is ForPartsWithExpression)) {
       final forNode = awaitContextNode;
+      // ghissues62: the CONDITION suspended. Re-enter the loop as a
+      // resumption (no updaters run) so the condition is evaluated again with
+      // the resolved awaits replaying; it clears the replay cache once it
+      // yields a bool.
+      if (state.forConditionsSuspended.remove(forNode)) {
+        state.resumedFromInitializer = true;
+        state.resumingStatementHasMoreAwaits = true;
+        return forNode;
+      }
       // Use nodeThatCausedSuspension to find where the await occurred
       // AstNode? nodeThatContainedAwait = nodeThatCausedSuspension; // Can be AwaitExpression or ForStatement if await in condition/updater
       final awaitResult = state.lastAwaitResult;

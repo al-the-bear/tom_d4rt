@@ -103,6 +103,14 @@ const Map<String, String> _deferred = {
       'ghissues61: parts resolve in their library, a library\'s _ names '
       'stay in it; unpublished, the twins resolve the published '
       'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '1.267.0':
+      'ghissues62: an if-case\'s variables in an async function resolve in '
+      'its then branch; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.247.0':
+      'ghissues62: an if-case\'s variables in an async function resolve in '
+      'its then branch; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

@@ -450,9 +450,36 @@ const _partialTwinBudget = 0;
 /// the mechanism. ghissues1002 ports it after publishing. The copier surface
 /// a port would have added is libraries with parts, which the corpus has none
 /// of.
-const _copierGapBudget = 43;
+///
+/// 43 -> 44: GHISSUES62 added `ghissues62_await_propagation_test.dart`,
+/// which runs source to check that an `await` inside `is`, `as`, a
+/// conditional, a switch expression or statement, a record literal, adjacent
+/// strings, a pattern declaration or assignment, an `assert`, a `throw` and a
+/// `for` condition answers what Dart answers, that an if-case in an async
+/// function matches and scopes its variables, and that an async function may
+/// return a Future of a record type. Exec resolves tom_d4rt_ast 0.244.0 from
+/// pub.dev, where those forms fail or hang, so a port would fail. Its ast twin
+/// holds the mechanism. ghissues1002 ports it after publishing. The copier
+/// surface a port would have added is awaits in those forms, which the corpus
+/// copies on every run.
+const _copierGapBudget = 44;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues62_await_propagation_test.dart': _Coverage(
+    'ast:runtime/ghissues62_await_propagation_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 6,
+    whyPartial:
+        'the twin pins one bundle per mechanism: is / as / conditional, a '
+        'switch expression and a record literal, an if-case with and without '
+        'an await, a switch statement, a pattern declaration / assert / '
+        'throw, and the for condition. The reference adds the remaining '
+        'forms of the same two mechanisms (propagation, re-entry), the '
+        'if-case scoping cases and the Future-of-record return type, which '
+        'the AST twin always resolved.',
+  ),
   'gh21_parts_and_library_privacy_test.dart': _Coverage(
     'ast:runtime/gh21_parts_and_library_privacy_test.dart',
     _astTwin,
