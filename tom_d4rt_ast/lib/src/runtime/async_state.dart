@@ -136,6 +136,21 @@ class AsyncExecutionState {
   final Map<SIfStatement, Environment> caseEnvironments =
       Map<SIfStatement, Environment>.identity();
 
+  /// The environment of each block the state machine has entered, keyed by
+  /// the block; every node lexically inside it runs in it.
+  ///
+  /// ghissues63: a block's locals went into the enclosing scope, so they
+  /// leaked out of it and overwrote an outer variable of the same name.
+  /// Selected structurally like [catchEnvironments], and replaced each time
+  /// the block is entered (a loop body, every iteration). Keyed by identity
+  /// for the same reason.
+  final Map<SBlock, Environment> blockEnvironments =
+      Map<SBlock, Environment>.identity();
+
+  /// The node the state machine executed last; tells entering a block from
+  /// staying in it (ghissues63).
+  SAstNode? lastScopedNode;
+
   /// The `for` loops whose CONDITION is suspended at an await.
   ///
   /// ghissues62: on resumption the loop is re-entered to evaluate its

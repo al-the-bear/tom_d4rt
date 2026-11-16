@@ -1,3 +1,23 @@
+## 1.268.0
+
+### Fixed — a block is a scope in an async function (ghissues63)
+
+The async state machine runs a block's statements one by one rather than
+through the block visitor, so a block's declarations went into the enclosing
+scope: `var x = 1; if (true) { var x = 2; } return x;` answered 2 in an async
+function, and so did a bare, else, labelled, nested or finally block and
+`var x = await f()` inside a block; a closure created in a loop body captured
+one variable for every iteration. Each block the machine enters now gets an
+environment of its own, created on entry and reused while the machine stays
+inside it (an `await` included); a loop body gets a fresh one every
+iteration. The scope a node runs in is the innermost of its loop's, catch
+clause's, if-case's and block's environments, the same choice everywhere the
+machine executes or resumes a node.
+
+Name resolution: yes — in an async function a name declared in a block now
+resolves only inside that block, and a closure created in a loop body sees
+that iteration's variables.
+
 ## 1.267.0
 
 ### Fixed — an `await` inside more expression and statement forms (ghissues62)

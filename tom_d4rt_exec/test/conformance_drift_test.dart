@@ -462,9 +462,32 @@ const _partialTwinBudget = 0;
 /// holds the mechanism. ghissues1002 ports it after publishing. The copier
 /// surface a port would have added is awaits in those forms, which the corpus
 /// copies on every run.
-const _copierGapBudget = 44;
+///
+/// 44 -> 45: GHISSUES63 added `ghissues63_async_block_scope_test.dart`,
+/// which runs source to check that a block in an async function is a scope
+/// of its own (if / else / bare / labelled / nested / finally blocks, a
+/// loop body fresh per iteration, the loop, try and if-case nestings).
+/// Exec resolves tom_d4rt_ast 0.244.0 from pub.dev, where a block's locals
+/// leak, so a port would fail. Its ast twin holds the mechanism.
+/// ghissues1002 ports it after publishing. The copier surface a port would
+/// have added is block-local declarations in async functions, which the
+/// corpus copies on every run.
+const _copierGapBudget = 45;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues63_async_block_scope_test.dart': _Coverage(
+    'ast:runtime/ghissues63_async_block_scope_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 1,
+    twinCases: 3,
+    whyPartial:
+        'the twin pins the todo\'s three shapes and a while body that must be '
+        'a fresh scope every iteration, as bundles. The reference runs twenty '
+        'shapes against native Dart (else, labelled, nested and finally '
+        'blocks, the loop / try / if-case nestings, closures per iteration), '
+        'which take the same block-environment selection.',
+  ),
   'ghissues62_await_propagation_test.dart': _Coverage(
     'ast:runtime/ghissues62_await_propagation_test.dart',
     _astTwin,

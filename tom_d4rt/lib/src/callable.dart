@@ -2303,29 +2303,11 @@ class InterpretedFunction implements Callable {
       final originalVisitorEnv = visitor.environment;
       final previousAsyncState = visitor.currentAsyncState;
 
-      // Configure the visitor for the current state
-      // Use the top of the loop environment stack if it exists, otherwise the state environment
-      if (currentState.loopEnvironmentStack.isNotEmpty) {
-        visitor.environment = currentState.loopEnvironmentStack.last;
-      } else {
-        visitor.environment = currentState.environment;
-      }
-      // SCE79: a node lexically inside a catch clause runs in that clause's own
-      // environment.
-      //
-      // Applied AFTER the loop selection rather than instead of it, and only
-      // when the environment already chosen does not reach the catch
-      // environment through its parents. That one condition is what makes both
-      // nestings come out right without any ordering bookkeeping: a loop INSIDE
-      // a catch built its environment as a child of the catch's, so it already
-      // sees the exception variable and must keep winning; a catch INSIDE a
-      // loop built its environment as a child of the loop's, so switching to it
-      // still reaches the loop variables.
-      final catchEnvironment = _clauseEnvironmentFor(currentState, currentNode);
-      if (catchEnvironment != null &&
-          !_chainReaches(visitor.environment, catchEnvironment)) {
-        visitor.environment = catchEnvironment;
-      }
+      // Configure the visitor for the current state: the innermost scope the
+      // node sits in - a loop's, a catch clause's (SCE79), an if-case's
+      // (ghissues62) or a block's (ghissues63). See [_scopeFor].
+      visitor.environment = _scopeFor(currentState, currentNode);
+      currentState.lastScopedNode = currentNode;
       visitor.currentAsyncState = currentState;
       // Set currentFunction from the state - important for async callbacks
       // that may run after the original call() returns
@@ -2816,10 +2798,8 @@ class InterpretedFunction implements Callable {
                   } else {
                     // Environment doesn't exist yet - create it
                     // Note: node and iterator were already added to stacks above
-                    final parentEnv =
-                        currentState.loopEnvironmentStack.isNotEmpty
-                        ? currentState.loopEnvironmentStack.last
-                        : currentState.environment;
+                    // ghissues63: the scope at the loop's position.
+                    final parentEnv = _scopeFor(currentState, forNode);
                     final newLoopEnvironment = Environment(
                       enclosing: parentEnv,
                     );
@@ -3222,13 +3202,10 @@ class InterpretedFunction implements Callable {
           // `Undefined variable`, which is what `{ var log = [];
           // log.add(await f()); }` did.
           //
-          // Stepping in puts the block's declarations in the function frame,
-          // which is where every other block's declarations in an async
-          // function already go. That is a real limitation of this machine --
-          // it flattens the statement tree, so block-scoped shadowing is not
-          // honoured in async code -- but it is the limitation the if, for,
-          // while and labelled cases already have, and a hard error is worse
-          // than an inconsistency shared with every sibling construct.
+          // Stepping in gives the block's declarations the block's own
+          // environment ([_blockEnvironmentFor], ghissues63), as every block
+          // the machine steps into gets: the machine flattens the statement
+          // tree, and the scopes are recovered structurally.
           final blockNode = currentNode;
           currentNode =
               blockNode.statements.firstOrNull ??
@@ -4232,19 +4209,11 @@ class InterpretedFunction implements Callable {
       // catch block could not even assign to a local of its own function
       // (`Assigning to undefined variable 'result'`).
       //
-      // Derived from the state, in the order a scope actually nests: the
-      // enclosing catch clause's environment if this try sits inside one, then
-      // the innermost loop's, then the function's.
-      final enclosingCatchEnvironment = _clauseEnvironmentFor(
-        state,
-        matchingCatchClause.parent,
-      );
+      // Derived from the state: the scope at the try's position ([_scopeFor]) -
+      // an enclosing catch clause's or block's environment, the innermost
+      // loop's, or the function's.
       final catchEnvironment = Environment(
-        enclosing:
-            enclosingCatchEnvironment ??
-            (state.loopEnvironmentStack.isNotEmpty
-                ? state.loopEnvironmentStack.last
-                : state.environment),
+        enclosing: _scopeFor(state, matchingCatchClause.parent),
       );
       state.catchEnvironments[matchingCatchClause] = catchEnvironment;
 
@@ -4617,6 +4586,89 @@ class InterpretedFunction implements Callable {
     return null;
   }
 
+  /// The environment a node runs in: the innermost of the scopes it sits in.
+  ///
+  /// The candidates are the innermost loop's environment (or the function's),
+  /// the environment of the innermost catch clause or if-case then branch
+  /// ([_clauseEnvironmentFor]) and that of the innermost block
+  /// ([_blockEnvironmentFor]). Scopes nest as the AST does, so the innermost
+  /// one reaches the others through its parents, and it is the one chosen: a
+  /// loop INSIDE a catch built its environment as a child of the catch's and
+  /// wins; a catch INSIDE a loop built its environment as a child of the
+  /// loop's and wins. That one rule is what makes every nesting come out right
+  /// without ordering bookkeeping (SCE79's rule, generalised by ghissues63).
+  static Environment _scopeFor(AsyncExecutionState state, AstNode? node) {
+    final loopOrFunction = state.loopEnvironmentStack.isNotEmpty
+        ? state.loopEnvironmentStack.last
+        : state.environment;
+    final candidates = <Environment>[
+      loopOrFunction,
+      ?_clauseEnvironmentFor(state, node),
+      ?_blockEnvironmentFor(state, node),
+    ];
+    for (final candidate in candidates.reversed) {
+      if (candidates.every((other) => _chainReaches(candidate, other))) {
+        return candidate;
+      }
+    }
+    // Not reached while scopes nest as the AST does: keep SCE79's order.
+    var chosen = loopOrFunction;
+    for (final candidate in candidates.skip(1)) {
+      if (!_chainReaches(chosen, candidate)) chosen = candidate;
+    }
+    return chosen;
+  }
+
+  /// The environment of the innermost block [node] sits in, or null when it
+  /// sits directly in the function body.
+  ///
+  /// ghissues63. The state machine runs a block's statements one by one
+  /// rather than through `visitBlock`, so a block's locals went into the
+  /// enclosing scope - `var x = 1; { var x = 2; } return x;` answered 2 in an
+  /// async function, and a closure captured one variable for every iteration
+  /// of a loop body. Each block now has an environment of its own, selected
+  /// structurally like [AsyncExecutionState.catchEnvironments]: it is created
+  /// when the machine ENTERS the block - the node executed before is not
+  /// strictly inside it (it is the statement before the block, the block
+  /// itself, the `if` or the loop) - and reused while the machine stays inside
+  /// it, a resumption after an `await` included. A loop body is entered again
+  /// every iteration, so each iteration gets a fresh one, as in Dart. Its
+  /// parent is the scope at the block's own position ([_scopeFor]).
+  static Environment? _blockEnvironmentFor(
+    AsyncExecutionState state,
+    AstNode? node,
+  ) {
+    final block = _innermostScopedBlock(node);
+    if (block == null) return null;
+    final existing = state.blockEnvironments[block];
+    final previous = state.lastScopedNode;
+    if (existing != null &&
+        previous != null &&
+        !identical(previous, block) &&
+        _isWithin(previous, block)) {
+      return existing;
+    }
+    final created = Environment(enclosing: _scopeFor(state, block));
+    state.blockEnvironments[block] = created;
+    return created;
+  }
+
+  /// The innermost block enclosing [node] (not [node] itself) that has a
+  /// scope of its own: every block but a function body's, whose scope is the
+  /// function's environment. Stops at a function body, so a closure's blocks
+  /// are its own.
+  static Block? _innermostScopedBlock(AstNode? node) {
+    for (AstNode? current = node?.parent;
+        current != null;
+        current = current.parent) {
+      if (current is FunctionBody) return null;
+      if (current is Block) {
+        return current.parent is BlockFunctionBody ? null : current;
+      }
+    }
+    return null;
+  }
+
   /// Whether [target] is [from] or one of its enclosing environments.
   static bool _chainReaches(Environment? from, Environment target) {
     Environment? current = from;
@@ -4768,9 +4820,11 @@ class InterpretedFunction implements Callable {
     AstNode nodeThatCausedSuspension,
   ) {
     Object? futureResult = state.lastAwaitResult;
-    final currentExecutionEnvironment = state.loopEnvironmentStack.isNotEmpty
-        ? state.loopEnvironmentStack.last
-        : state.environment;
+    // ghissues63: the scope the suspended node runs in, block scopes included.
+    final currentExecutionEnvironment = _scopeFor(
+      state,
+      nodeThatCausedSuspension,
+    );
     if (Logger.isDebug) {
       Logger.debug(
         "[_determineNextNodeAfterAwait] Modifying environment: ${currentExecutionEnvironment.hashCode} (state.environment: ${state.environment.hashCode}, loop stack depth: ${state.loopEnvironmentStack.length})",
@@ -5018,9 +5072,7 @@ class InterpretedFunction implements Callable {
             final varName = varDecl.name.lexeme;
 
             // Set the variable in the current environment
-            final currentEnv = state.loopEnvironmentStack.isNotEmpty
-                ? state.loopEnvironmentStack.last
-                : currentExecutionEnvironment;
+            final currentEnv = currentExecutionEnvironment;
             currentEnv.define(varName, result);
             if (Logger.isDebug) {
               Logger.debug(
@@ -5279,9 +5331,7 @@ class InterpretedFunction implements Callable {
         targetVar ??= varList.variables.first;
 
         // Assign the result in the correct environment (the loop environment if inside one)
-        final currentEnv = state.loopEnvironmentStack.isNotEmpty
-            ? state.loopEnvironmentStack.last
-            : currentExecutionEnvironment;
+        final currentEnv = currentExecutionEnvironment;
         // Use define() because the variable was not defined during the initial visit
         currentEnv.define(targetVar.name.lexeme, futureResult);
         // SPECULATIVE FIX: Try assigning immediately after defining
@@ -5349,9 +5399,7 @@ class InterpretedFunction implements Callable {
         Object? resolvedRhs = state.lastAwaitResult; // La valeur résolue
         final operatorType = assignmentNode.operator.type;
         final lhs = assignmentNode.leftHandSide;
-        final currentEnv = state.loopEnvironmentStack.isNotEmpty
-            ? state.loopEnvironmentStack.last
-            : currentExecutionEnvironment;
+        final currentEnv = currentExecutionEnvironment;
 
         if (Logger.isDebug) {
           Logger.debug(
@@ -5565,9 +5613,7 @@ class InterpretedFunction implements Callable {
       final operatorType = assignmentNode.operator.type;
       final lhs = assignmentNode.leftHandSide;
       // Use the correct environment (the loop environment if applicable)
-      final currentEnv = state.loopEnvironmentStack.isNotEmpty
-          ? state.loopEnvironmentStack.last
-          : currentExecutionEnvironment;
+      final currentEnv = currentExecutionEnvironment;
 
       if (Logger.isDebug) {
         Logger.debug(
@@ -6201,11 +6247,8 @@ class InterpretedFunction implements Callable {
     AsyncExecutionState state,
     ForStatement forNode,
   ) {
-    final loopEnvironment = Environment(
-      enclosing: state.loopEnvironmentStack.isNotEmpty
-          ? state.loopEnvironmentStack.last
-          : state.environment,
-    );
+    // ghissues63: the scope at the loop's position.
+    final loopEnvironment = Environment(enclosing: _scopeFor(state, forNode));
     final parts = forNode.forLoopParts;
     if (parts is ForEachPartsWithDeclaration) {
       loopEnvironment.define(parts.loopVariable.name.lexeme, null);

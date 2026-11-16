@@ -244,7 +244,7 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
     'InterpretedFunction._containsAwait': 'ee448f09',
-    'InterpretedFunction._determineNextNodeAfterAwait': '2eb99e5c',
+    'InterpretedFunction._determineNextNodeAfterAwait': 'd5957a20',
     'InterpretedFunction._findEnclosingTryStatement': '64523cb5',
     'InterpretedFunction._findInvocationWithAwaitInArguments': '5fedfaed',
     'InterpretedFunction._findNextSequentialNode': 'ef0c1ab1',
@@ -252,7 +252,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES12: both trees choose and bind the catch clause for the native
     // error a RuntimeD4rtException carries; the recorded residue is unchanged
     // in kind, its signature moved with the shared edit.
-    'InterpretedFunction._handleAsyncError': 'b3203f52',
+    'InterpretedFunction._handleAsyncError': '02b3d650',
     'InterpretedFunction._instantiateRedirectedFactory': '92a6e173',
     'InterpretedFunction._isInsideCatchClauseOf': '3782eeaf',
     // SCE78: the finally-block companion to the catch-clause predicate
@@ -264,6 +264,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // around it — the mirror AST has no `parent` getter, so the twin walks
     // with `_parentOf`.
     'InterpretedFunction._clauseEnvironmentFor': '34fd9762',
+    // GHISSUES63: the innermost block with a scope of its own; the twin walks
+    // with `_parentOf` for the same reason.
+    'InterpretedFunction._innermostScopedBlock': 'fb517d3a',
     // SCE81: the cascade walker, divergent for the same architectural
     // reason as its neighbours — the mirror AST has no `parent` getter, so
     // the twin walks with `_parentOf`.
@@ -302,7 +305,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // DASY1: the state machine's body moved to `_runStateMachineSegment`;
     // `_runStateMachine` is now the frame wrapper both trees agree on. The
     // divergence (`parent` against `_parentOf`) moved with the body.
-    'InterpretedFunction._runStateMachineSegment': '4d62d4a1',
+    'InterpretedFunction._runStateMachineSegment': 'ba97c92d',
     'InterpretedFunction._tryOwningCatchClauseOf': 'f1617e03',
     'InterpretedFunction._tryOwningFinallyBlockOf': '34fd9762',
     'InterpretedFunction.bind': '78b56933',
