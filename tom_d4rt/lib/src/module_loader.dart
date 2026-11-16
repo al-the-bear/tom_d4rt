@@ -1180,7 +1180,9 @@ class ModuleLoader {
       showNames: showNames,
       hideNames: hideNames,
     ); // Pass show/hide to filter bridged registrations
-    CompilationUnit ast = _parseSource(uri, sourceCode);
+    // GitHub #21: a part is not a library, and a library's parts are part of
+    // it.
+    CompilationUnit ast = parseLibrary(uri, sourceCode);
 
     Environment moduleEnvironment = Environment(enclosing: globalEnvironment);
     // Must also enclose globalEnvironment. DFUB10 — created here rather than
@@ -1442,7 +1444,7 @@ class ModuleLoader {
     // its `export` directives name, merged below.
     exportedEnvironment.importEnvironment(
       moduleEnvironment,
-      show: _ownTopLevelNames(ast),
+      show: _exportableNames(ast),
     );
     Logger.debug(
       "[ModuleLoader loadModule for $uri] Initialized exportedEnvironment with local declarations (post-initialization).",
@@ -2365,6 +2367,101 @@ class ModuleLoader {
     return null; // Type not found anywhere
   }
 
+  /// [sourceCode] of the library at [uri], parsed as a LIBRARY: its parts
+  /// merged in, the Dart rules for parts checked.
+  ///
+  /// GitHub #21. A part (`part of 'owner.dart';`) is not a library: importing,
+  /// exporting or running it is refused, as Dart refuses it. A library's
+  /// `part 'piece.dart';` makes the part's declarations its own - they share
+  /// its imports and its private names - so each part is fetched, parsed on its
+  /// own (its syntax errors name the part and its lines), checked to name this
+  /// library in its `part of`, and its text, with that directive blanked,
+  /// appended to the library's. A part has no directives of its own (Dart
+  /// before enhanced parts). The appended declarations report positions after
+  /// the library's own text.
+  CompilationUnit parseLibrary(Uri uri, String sourceCode) {
+    final unit = _parseSource(uri, sourceCode);
+    if (unit.directives.any((d) => d is PartOfDirective)) {
+      throw SourceCodeD4rtException(
+        "'$uri' is a part of another library (it has a part-of directive), "
+        'not a library: only its library can be imported, exported or run.',
+      );
+    }
+    final parts = unit.directives.whereType<PartDirective>().toList();
+    if (parts.isEmpty) return unit;
+    final merged = StringBuffer(sourceCode);
+    for (final part in parts) {
+      final partString = part.uri.stringValue;
+      if (partString == null) continue;
+      final partUri = _canonicalizeModuleUri(uri.resolve(partString));
+      final partSource = _fetchModuleSource(partUri);
+      final partUnit = _parseSource(partUri, partSource);
+      _checkPartOwner(uri, unit, partUri, partUnit);
+      final text = partSource.split('');
+      for (final directive in partUnit.directives) {
+        for (var i = directive.offset; i < directive.end; i++) {
+          if (text[i] != '\n' && text[i] != '\r') text[i] = ' ';
+        }
+      }
+      merged
+        ..write('\n')
+        ..write(text.join());
+    }
+    return _parseSource(uri, merged.toString());
+  }
+
+  /// GitHub #21: [partUnit] at [partUri] may be included by the library at
+  /// [ownerUri] only if its `part of` names that library (by URI, or by the
+  /// name of its `library` directive) and it has no directive of its own (the
+  /// parser already refuses one: "The part-of directive must be the only
+  /// directive in a part"; the AST twin's bundles need not come from it).
+  void _checkPartOwner(
+    Uri ownerUri,
+    CompilationUnit ownerUnit,
+    Uri partUri,
+    CompilationUnit partUnit,
+  ) {
+    final partOf = partUnit.directives.whereType<PartOfDirective>().firstOrNull;
+    if (partOf == null) {
+      throw SourceCodeD4rtException(
+        "The included part '$partUri' of '$ownerUri' must have a part-of "
+        'directive.',
+      );
+    }
+    final own = partUnit.directives.where((d) => d is! PartOfDirective);
+    if (own.isNotEmpty) {
+      throw SourceCodeD4rtException(
+        "The part '$partUri' has a directive of its own "
+        "('${own.first.toSource()}'); a part shares the directives of its "
+        "library '$ownerUri'.",
+      );
+    }
+    final ofUri = partOf.uri?.stringValue;
+    if (ofUri != null) {
+      final named = _canonicalizeModuleUri(partUri.resolve(ofUri));
+      if (_moduleIdentityUri(named) != _moduleIdentityUri(ownerUri)) {
+        throw SourceCodeD4rtException(
+          "Expected '$partUri' to be part of '$ownerUri', not '$named'.",
+        );
+      }
+      return;
+    }
+    final ofName = partOf.libraryName?.toSource();
+    final library = ownerUnit.directives
+        .whereType<LibraryDirective>()
+        .firstOrNull;
+    final ownerName = library?.name?.toSource();
+    if (ownerName != ofName) {
+      throw SourceCodeD4rtException(
+        ownerName == null
+            ? "Expected '$partUri' to be part of '$ownerUri', which has no "
+                  "library name, not of the library '$ofName'."
+            : "Expected '$partUri' to be part of the library '$ownerName' "
+                  "('$ownerUri'), not of '$ofName'.",
+      );
+    }
+  }
+
   CompilationUnit _parseSource(Uri uri, String sourceCode) {
     Logger.debug("[ModuleLoader] Parsing source for module: ${uri.toString()}");
     // Ensure the path passed to parseString is meaningful for errors.
@@ -2522,9 +2619,21 @@ class ModuleLoader {
   }
 }
 
-/// The names a module declares at its top level (DFIN6): what its exported
-/// environment carries before its `export` directives are applied. Imported
-/// names are not among them.
+/// The names a module offers another library (DFIN6): what its exported
+/// environment carries before its `export` directives are applied - its own
+/// top-level names, without the library-private ones.
+///
+/// GitHub #21: a `_` name is private to its library, so an import (or an
+/// export barrel) must not carry it. `class Child extends _PrivateBase` through
+/// `export 'base.dart'` used to load and run; Dart reports the type as not
+/// found.
+Set<String> _exportableNames(CompilationUnit unit) => {
+  for (final name in _ownTopLevelNames(unit))
+    if (!name.startsWith('_')) name,
+};
+
+/// The names a module declares at its top level (DFIN6). Imported names are
+/// not among them.
 Set<String> _ownTopLevelNames(CompilationUnit unit) {
   final names = <String>{};
   for (final d in unit.declarations) {

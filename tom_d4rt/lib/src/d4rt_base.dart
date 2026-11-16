@@ -2382,7 +2382,29 @@ class D4rt {
       if (source == null) {
         throw RuntimeD4rtException('Source content must be provided');
       }
-      return _parseDirectSource(source, _moduleLoader.basePath);
+      final unit = _parseDirectSource(source, _moduleLoader.basePath);
+      // GitHub #21: a part is not a library, and a library's parts are part
+      // of it. A direct source has no URI to find its parts from unless
+      // filesystem imports anchor it at `<basePath>/main.dart`.
+      final hasParts = unit.directives.any(
+        (d) => d is PartDirective || d is PartOfDirective,
+      );
+      if (!hasParts) return unit;
+      final basePath = _moduleLoader.basePath;
+      if (unit.directives.any((d) => d is PartDirective) &&
+          !(_moduleLoader.allowFileSystemImports && basePath != null)) {
+        throw SourceCodeD4rtException(
+          "A 'source:' with a part directive has no URI to find its parts "
+          "from: run it as 'library:' with 'sources:', or with filesystem "
+          'imports and a basePath.',
+        );
+      }
+      return _moduleLoader.parseLibrary(
+        basePath != null
+            ? Directory(basePath).absolute.uri.resolve('main.dart')
+            : Uri.parse('main.dart'),
+        source,
+      );
     }
   }
 

@@ -438,9 +438,35 @@ const _partialTwinBudget = 0;
 /// publishing. The copier surface a port would have added is generic
 /// top-level functions across an import cycle, which the corpus copies on
 /// every run.
-const _copierGapBudget = 42;
+///
+/// 42 -> 43: GHISSUES61 (GitHub #21) added
+/// `gh21_parts_and_library_privacy_test.dart`, which runs source to check
+/// that a library's parts are part of it (across an import cycle, sharing its
+/// imports and private names, named by URI or library name), that a part
+/// naming another library, a part with a directive of its own and a part
+/// imported, exported or run as a library are refused, and that a library's
+/// `_` names do not reach its importers. Exec resolves tom_d4rt_ast 0.244.0
+/// from pub.dev, which ignores parts, so a port would fail. Its ast twin holds
+/// the mechanism. ghissues1002 ports it after publishing. The copier surface
+/// a port would have added is libraries with parts, which the corpus has none
+/// of.
+const _copierGapBudget = 43;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'gh21_parts_and_library_privacy_test.dart': _Coverage(
+    'ast:runtime/gh21_parts_and_library_privacy_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 9,
+    twinCases: 8,
+    whyPartial:
+        'the twin pins the issue\'s five graphs as bundles, a named library '
+        'with a part as the entry, the wrong-owner, missing-part-of, '
+        'own-directive and part-missing-from-the-bundle refusals, and a part '
+        'imported, exported or run. The reference adds the direct-source '
+        'refusals, which the AST line has no counterpart of (a bundle always '
+        'has URIs).',
+  ),
   'gh20_function_signature_import_cycle_test.dart': _Coverage(
     'ast:runtime/gh20_function_signature_import_cycle_test.dart',
     _astTwin,

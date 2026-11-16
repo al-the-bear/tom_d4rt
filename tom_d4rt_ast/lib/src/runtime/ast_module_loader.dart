@@ -344,7 +344,9 @@ class AstModuleLoader implements ModuleContext {
     final uriString = uri.toString();
     final ast = modules[uriString];
     if (ast != null) {
-      return _loadBundleModule(uri, ast);
+      // GitHub #21: a part is not a library, and a library's parts are part
+      // of it.
+      return _loadBundleModule(uri, libraryUnit(uri, ast));
     }
 
     // 5. Not found
@@ -1049,6 +1051,107 @@ class AstModuleLoader implements ModuleContext {
   /// 4. Run interpreter visitor (initialize values)
   /// 5. Build exported environment
   /// 6. Cache and return
+  /// The bundle module [unit] at [uri] as a LIBRARY: its parts merged in,
+  /// the Dart rules for parts checked.
+  ///
+  /// GitHub #21. A part (`part of 'owner.dart';`) is not a library: importing,
+  /// exporting or running it is refused, as Dart refuses it. A library's
+  /// `part 'piece.dart';` makes the part's declarations its own - they share
+  /// its imports and its private names - so each part (a module of the bundle,
+  /// which `AstBundler` includes by following part directives) is checked to
+  /// name this library in its `part of` and to have no directive of its own
+  /// (Dart before enhanced parts), and its declarations are appended to the
+  /// library's. The part stays a module of the bundle, so a diagnostic still
+  /// finds a part's node in the part's own source.
+  SCompilationUnit libraryUnit(Uri uri, SCompilationUnit unit) {
+    if (unit.directives.any((d) => d is SPartOfDirective)) {
+      throw SourceCodeD4rtException(
+        "'$uri' is a part of another library (it has a part-of directive), "
+        'not a library: only its library can be imported, exported or run.',
+      );
+    }
+    final parts = unit.directives.whereType<SPartDirective>().toList();
+    if (parts.isEmpty) return unit;
+    final declarations = [...unit.declarations];
+    for (final part in parts) {
+      final partString = _partUriString(part.uri);
+      if (partString == null) continue;
+      final partUri = uri.resolve(partString);
+      final partUnit = modules[partUri.toString()];
+      if (partUnit == null) {
+        throw SourceCodeD4rtException(
+          "The part '$partUri' of '$uri' is not in the bundle. Build the "
+          'bundle with its part directives followed.',
+        );
+      }
+      _checkPartOwner(uri, unit, partUri, partUnit);
+      declarations.addAll(partUnit.declarations);
+    }
+    return SCompilationUnit(
+      offset: unit.offset,
+      length: unit.length,
+      directives: unit.directives,
+      declarations: declarations,
+    );
+  }
+
+  static String? _partUriString(SStringLiteral? literal) =>
+      literal is SSimpleStringLiteral ? literal.value : null;
+
+  /// GitHub #21: [partUnit] at [partUri] may be included by the library at
+  /// [ownerUri] only if its `part of` names that library (by URI, or by the
+  /// name of its `library` directive) and it has no directive of its own.
+  static void _checkPartOwner(
+    Uri ownerUri,
+    SCompilationUnit ownerUnit,
+    Uri partUri,
+    SCompilationUnit partUnit,
+  ) {
+    final partOf = partUnit.directives
+        .whereType<SPartOfDirective>()
+        .firstOrNull;
+    if (partOf == null) {
+      throw SourceCodeD4rtException(
+        "The included part '$partUri' of '$ownerUri' must have a part-of "
+        'directive.',
+      );
+    }
+    final own = partUnit.directives.where((d) => d is! SPartOfDirective);
+    if (own.isNotEmpty) {
+      throw SourceCodeD4rtException(
+        "The part '$partUri' has a directive of its own "
+        "(${own.first.nodeType}); a part shares the directives of its "
+        "library '$ownerUri'.",
+      );
+    }
+    final ofUri = _partUriString(partOf.uri);
+    if (ofUri != null) {
+      final named = partUri.resolve(ofUri);
+      if (named != ownerUri) {
+        throw SourceCodeD4rtException(
+          "Expected '$partUri' to be part of '$ownerUri', not '$named'.",
+        );
+      }
+      return;
+    }
+    String? dotted(SDottedName? name) =>
+        name?.components.map((c) => c.name).join('.');
+    final ofName = dotted(partOf.libraryName);
+    final library = ownerUnit.directives
+        .whereType<SLibraryDirective>()
+        .firstOrNull;
+    final ownerName = dotted(library?.name);
+    if (ownerName != ofName) {
+      throw SourceCodeD4rtException(
+        ownerName == null
+            ? "Expected '$partUri' to be part of '$ownerUri', which has no "
+                  "library name, not of the library '$ofName'."
+            : "Expected '$partUri' to be part of the library '$ownerName' "
+                  "('$ownerUri'), not of '$ofName'.",
+      );
+    }
+  }
+
   LoadedModule _loadBundleModule(Uri uri, SCompilationUnit ast) {
     // Save and set current library for relative import resolution
     final previousLibrary = currentLibrary;
@@ -1098,7 +1201,7 @@ class AstModuleLoader implements ModuleContext {
     // re-exported every import: with main -> a -> b, main could call a name
     // only b declares, which Dart rejects. What a module re-exports is what
     // its `export` directives name, merged below.
-    exportedEnv.importEnvironment(moduleEnv, show: _ownTopLevelNames(ast));
+    exportedEnv.importEnvironment(moduleEnv, show: _exportableNames(ast));
 
     // Process export directives
     _processExports(uri, ast, exportedEnv);
@@ -1400,9 +1503,21 @@ class _InFlightModule {
   _InFlightModule(this.partial);
 }
 
-/// The names a module declares at its top level (DFIN6): what its exported
-/// environment carries before its `export` directives are applied. Imported
-/// names are not among them.
+/// The names a module offers another library (DFIN6): what its exported
+/// environment carries before its `export` directives are applied - its own
+/// top-level names, without the library-private ones.
+///
+/// GitHub #21: a `_` name is private to its library, so an import (or an
+/// export barrel) must not carry it. `class Child extends _PrivateBase` through
+/// `export 'base.dart'` used to load and run; Dart reports the type as not
+/// found.
+Set<String> _exportableNames(SCompilationUnit unit) => {
+  for (final name in _ownTopLevelNames(unit))
+    if (!name.startsWith('_')) name,
+};
+
+/// The names a module declares at its top level (DFIN6). Imported names are
+/// not among them.
 Set<String> _ownTopLevelNames(SCompilationUnit unit) {
   final names = <String>{};
   void add(SSimpleIdentifier? id) {

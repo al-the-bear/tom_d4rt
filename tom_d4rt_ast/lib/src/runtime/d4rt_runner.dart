@@ -1851,11 +1851,16 @@ class D4rtRunner {
 
     // Execute with full module context. ghissues14: the entry runs in the
     // loader's script scope, so the modules it loads do not see its names.
+    // GitHub #21: the entry is a library - not a part - with its parts.
+    final entryLibrary = moduleLoader.libraryUnit(
+      Uri.parse(entryUri),
+      entryAst,
+    );
     final run = _createRun(hooks, entryUri);
     moduleLoader.executionContext = run;
     return _executeInEnvironment(
       run: run,
-      compilationUnit: entryAst,
+      compilationUnit: entryLibrary,
       executionEnvironment: moduleLoader.scriptEnvironment,
       moduleContext: moduleLoader,
       name: name,

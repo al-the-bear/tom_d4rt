@@ -95,6 +95,14 @@ const Map<String, String> _deferred = {
       'ghissues60: a top-level function\'s bound and return type resolve '
       'across an import cycle; unpublished, the twins resolve the published '
       'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '1.266.0':
+      'ghissues61: parts resolve in their library, a library\'s _ names '
+      'stay in it; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.246.0':
+      'ghissues61: parts resolve in their library, a library\'s _ names '
+      'stay in it; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

@@ -1,3 +1,33 @@
+## 0.246.0
+
+### Fixed — parts (GitHub #21)
+
+`part` and `part of` were ignored: a part's declarations never reached its
+library (`part 'piece.dart';` with `class Base` in the part: `Undefined
+variable: Base`, cycle or not), and a part file loaded as a library of its
+own. A library is now loaded with its parts merged in - their declarations
+share its imports and its private names - after checking that each part names
+it in its `part of` (by URI, or by the name of its `library` directive) and
+has no directive of its own. A part that names another library is refused
+(`Expected '…/piece.dart' to be part of '…/owner.dart', not '…/other.dart'`),
+and so is importing, exporting or running a part.
+
+`AstModuleLoader.libraryUnit` is the shared step, for every bundle module and
+the entry. A part stays a module of the bundle (`AstBundler` follows part
+directives), so a diagnostic still finds a part's node in the part's source;
+a part missing from the bundle is refused by name.
+
+### Fixed — library-private names stay in their library (GitHub #21)
+
+An import, or an `export` barrel, carried a library's `_` names to every
+importer: `class Child extends _PrivateBase` through `export 'base.dart'`
+loaded and ran, where Dart reports the type as not found. A library now offers
+its public names only; its own code, its parts included, still uses the
+private ones.
+
+Name resolution: yes — a part's declarations now resolve in its library, and a
+library's `_` names no longer resolve in the libraries that import it.
+
 ## 0.245.0
 
 ### Fixed — a top-level function whose signature names a class of an import cycle (GitHub #20)
