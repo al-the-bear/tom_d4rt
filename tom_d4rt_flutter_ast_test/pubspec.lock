@@ -532,10 +532,10 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: "052b8cc6821800b3f0477969b0a7f90d838709d3843778830d739b004330d789"
+      sha256: "3b52e51a16936aa5e4a4d61c975b6ea1bf736f73ef700f9520f249f8f3373882"
       url: "https://pub.dev"
     source: hosted
-    version: "2.38.2"
+    version: "2.39.0"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
@@ -631,6 +631,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.4"
+  yaml_edit:
+    dependency: transitive
+    description:
+      name: yaml_edit
+      sha256: "07c9e63ba42519745182b88ca12264a7ba2484d8239958778dfe4d44fe760488"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.4"
 sdks:
   dart: ">=3.13.0 <4.0.0"
   flutter: ">=3.47.0"
