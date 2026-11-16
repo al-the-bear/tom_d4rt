@@ -9781,13 +9781,28 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // Use the temp environment (if any) for type resolution, otherwise use the normal environment
     final resolveEnvironment = tempEnvironment ?? environment;
 
-    final declaredReturnType = tempEnvironment != null
+    RuntimeType? resolveReturnType() => tempEnvironment != null
         ? _resolveTypeAnnotationWithEnvironment(
             node.returnType,
             resolveEnvironment,
             isAsync: isAsync,
           )
         : _resolveTypeAnnotation(node.returnType, isAsync: isAsync);
+
+    // GitHub #20: a top-level function's return type or type-parameter bound
+    // may name a class of a library in the same import cycle that has not
+    // declared it yet (slang's `_findNode<T extends Node>`). As for a method
+    // (#9), both are resolved once the outermost module load returns; an
+    // undefined name is reported then.
+    final lenientBounds = moduleContext.isLoadingModules;
+    RuntimeType? declaredReturnType;
+    var deferReturnType = false;
+    try {
+      declaredReturnType = resolveReturnType();
+    } on RuntimeD4rtException {
+      if (!lenientBounds) rethrow;
+      deferReturnType = true;
+    }
 
     // DFUB6: capture the applied return type (`Box<int>`, `List<String>`) at
     // declaration time. SAstNode has no parent references, so the return
@@ -9808,6 +9823,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       node.returnType,
       resolveEnvironment,
     );
+    // An applied return type (`List<Node>`) whose argument is not declared
+    // yet is resolved with the deferred return type.
+    final returnTypeArguments = switch (node.returnType) {
+      SNamedType(:final typeArguments) => typeArguments?.arguments,
+      _ => null,
+    };
+    if (lenientBounds &&
+        declaredReturnTypeApplied == null &&
+        returnTypeArguments != null &&
+        returnTypeArguments.isNotEmpty) {
+      deferReturnType = true;
+    }
 
     final function = InterpretedFunction.declaration(
       node,
@@ -9815,7 +9842,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       declaredReturnType,
       isNullable,
       declaredReturnTypeApplied: declaredReturnTypeApplied,
+      lenientBounds: lenientBounds,
     );
+    if (lenientBounds) {
+      _deferUnresolvedBounds(function, typeParameters, environment);
+    }
+    if (deferReturnType) {
+      moduleContext.deferUntilModulesLoaded(() {
+        function.resolveDeferredReturnType(
+          resolveReturnType(),
+          applied: _resolveAppliedReturnType(
+            node.returnType,
+            resolveEnvironment,
+          ),
+        );
+      });
+    }
     // Define the function in the current environment. SCF25: a setter under
     // its setter name, `v=`.
     environment.define(
@@ -9860,7 +9902,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (fnStr.startsWith('<fn ') && fnStr.endsWith('>')) {
         functionName = fnStr.substring(4, fnStr.length - 1);
       }
-      RuntimeType? declaredType = currentCallable.declaredReturnType;
+      RuntimeType? declaredType = _returnTypeForThisCall(
+        currentCallable.declaredReturnType,
+      );
       RuntimeType? valueRuntimeType;
 
       try {
@@ -10039,8 +10083,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     String functionName,
     bool isNullable,
   ) {
-    final appliedDeclared = currentCallable.declaredReturnTypeApplied;
-    if (appliedDeclared == null) return;
+    final declaredWithParameters = currentCallable.declaredReturnTypeApplied;
+    if (declaredWithParameters == null) return;
+    // GitHub #20: a type argument that is the function's own type parameter
+    // (`List<T> wrap<T>(T x)`) is checked as this call's type argument; one
+    // with no type argument bound leaves the check permissive.
+    final arguments = [
+      for (final argument in declaredWithParameters.typeArguments)
+        _returnTypeForThisCall(argument),
+    ];
+    if (arguments.contains(null)) return;
+    final appliedDeclared = AppliedRuntimeType(
+      declaredWithParameters.baseType,
+      arguments.nonNulls.toList(),
+    );
 
     final appliedValue = environment.appliedRuntimeTypeOf(returnValue);
     if (appliedValue == null) return;
@@ -11399,6 +11455,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       _labelledStatement = previousStatement;
       _labelledStatementLabels = previousLabels;
     }
+  }
+
+  /// The type a `return` in the running function is checked against.
+  ///
+  /// GitHub #20: a return type that is the function's own type parameter
+  /// (`T identity<T extends Node>(T x) { return x; }`) was checked against the
+  /// bare parameter, which only a bridged value passes, so returning an
+  /// interpreted instance threw "can't be returned ... return type of 'T'".
+  /// Dart checks against the type argument of this call, which the call's
+  /// environment binds; a parameter with no type argument bound (a
+  /// placeholder) is not checked, as an expression body is not.
+  RuntimeType? _returnTypeForThisCall(RuntimeType? declared) {
+    if (declared is! TypeParameter) return declared;
+    if (!environment.isDefined(declared.name)) return null;
+    final bound = environment.get(declared.name);
+    return bound is RuntimeType && bound is! TypeParameter ? bound : null;
   }
 
   /// GitHub #9 — the bounds of [function]'s type parameters that could not be

@@ -139,7 +139,18 @@ class InterpretedFunction implements Callable {
   // and instantiates the target instead of executing the (empty) body.
   final ConstructorName? redirectedFactoryTarget;
 
-  final RuntimeType? declaredReturnType; // Store the declared type
+  /// The declared return type; null for none (dynamic).
+  RuntimeType? get declaredReturnType => _declaredReturnType;
+  RuntimeType? _declaredReturnType;
+
+  /// GitHub #20 — a top-level function's return type may name a class of a
+  /// library in the same import cycle that has not declared it yet; the
+  /// interpreter builds the function without it and sets it here once the
+  /// outermost module load returns.
+  void resolveDeferredReturnType(RuntimeType type) {
+    _declaredReturnType = type;
+    _cachedCallableRuntimeType = null;
+  }
 
   final bool isNullable; // Store if the return type is nullable
 
@@ -652,11 +663,12 @@ class InterpretedFunction implements Callable {
     this.isAsyncGenerator = false,
     this.isFactory = false,
     this.redirectedFactoryTarget,
-    this.declaredReturnType,
+    RuntimeType? declaredReturnType,
     this.isNullable = false,
     this.typeParameterNames = const [],
     this.typeParameterBounds = const {},
-  }) : _constructorInitializers = constructorInitializers {
+  }) : _constructorInitializers = constructorInitializers,
+       _declaredReturnType = declaredReturnType {
     D4rtDiag.closureAllocs++;
   }
 

@@ -1,3 +1,32 @@
+## 0.245.0
+
+### Fixed — a top-level function whose signature names a class of an import cycle (GitHub #20)
+
+`helper.dart` imports `node.dart`, which imports `helper.dart` back and declares
+`Node` after that import. `T identity<T extends Node>(T x)` in helper.dart -
+slang 4.19.2's `_findNode<T extends Node>` - failed to load with `Undefined
+variable: Node`, although nothing called it; a return type naming the class
+(`Node make()`, `Node? f()`, a getter) failed with `Type 'Node' not found`.
+GitHub #9 deferred a class's supertypes and a method's bounds while modules
+load; a top-level function's bounds and return type are now deferred the same
+way: resolved once the outermost load returns, still checked when the function
+is called or returns, and an undefined name is still reported.
+
+### Fixed — a block body returning the function's own type parameter
+
+`T identity<T>(T x) { return x; }` refused to return an instance of an
+interpreted class (`A value of type 'Leaf' can't be returned from the function
+'identity' because it has a return type of 'T'`): the return was checked
+against the bare `T`. It is now checked against the type argument of this
+call, and not checked when the call bound none (as an expression body is not);
+`T make<T>()` returning a `String` for `make<int>()` is refused as in Dart.
+The applied return type (`List<T> wrap<T>(T x) { return [x]; }`) is checked
+against the call's type arguments too.
+
+Name resolution: yes — a top-level function's type-parameter bound and return
+type now resolve to a class an import cycle declares after the function's
+library is loaded.
+
 ## 0.244.0
 
 ### Fixed — a bridged library with only re-exports, aliases or typedefs is importable

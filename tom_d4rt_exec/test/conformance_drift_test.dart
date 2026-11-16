@@ -426,9 +426,34 @@ const _partialTwinBudget = 0;
 /// without the fix. Since the batch release exec resolves tom_d4rt_ast
 /// 0.243.0, so each is now a verbatim port and runs through exec's own front
 /// end.
-const _copierGapBudget = 41;
+///
+/// 41 -> 42: GHISSUES60 (GitHub #20) added
+/// `gh20_function_signature_import_cycle_test.dart`, which runs source to
+/// check that a top-level function whose bound or return type names a class
+/// of an import cycle loads, that the bound and the return type are still
+/// checked, and that a block body returning the function's own type
+/// parameter is checked against the call's type argument. Exec resolves
+/// tom_d4rt_ast 0.244.0 from pub.dev, where the load fails, so a port would
+/// fail. Its ast twin holds the mechanism. ghissues1002 ports it after
+/// publishing. The copier surface a port would have added is generic
+/// top-level functions across an import cycle, which the corpus copies on
+/// every run.
+const _copierGapBudget = 42;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'gh20_function_signature_import_cycle_test.dart': _Coverage(
+    'ast:runtime/gh20_function_signature_import_cycle_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 6,
+    whyPartial:
+        'the twin pins the issue\'s graph as bundles: the bound never called, '
+        'the bound checked on a call, a return type checked on a return, the '
+        'applied return type List<Node>, the generic block-body return and an '
+        'undefined name. The reference adds a returned closure and an '
+        'F-bounded parameter, which take the same deferral.',
+  ),
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
     'ast:runtime/sce208_bind_forwarding_source_errors_test.dart',
     _astTwin,
@@ -3355,7 +3380,7 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = null;
+const String? _astPublishBlock = 'ghissues1002_akpu-batch-release-github-20-21';
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

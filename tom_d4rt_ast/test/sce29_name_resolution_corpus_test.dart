@@ -87,6 +87,14 @@ const Map<String, String> _deferred = {
   // the post-publish full corpus recorded under `Verification runs` at that
   // pair (ghfeatures1000, 2026-11-15). An empty map is the normal state; each
   // entry is a debt with its reason, deleted when the run is made.
+  '1.265.0':
+      'ghissues60: a top-level function\'s bound and return type resolve '
+      'across an import cycle; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.245.0':
+      'ghissues60: a top-level function\'s bound and return type resolve '
+      'across an import cycle; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

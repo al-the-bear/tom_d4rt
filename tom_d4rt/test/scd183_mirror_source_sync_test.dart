@@ -342,6 +342,7 @@ const _memberDivergence = <String, (List<String>, List<String>)>{
     <String>[],
     <String>[
       'InterpretedFunction._buildParentMap',
+      'InterpretedFunction._declaredReturnTypeApplied',
       'InterpretedFunction._isBodyAsync',
       'InterpretedFunction._isBodyGenerator',
       'InterpretedFunction._loopVarName',
@@ -349,7 +350,7 @@ const _memberDivergence = <String, (List<String>, List<String>)>{
       'InterpretedFunction._parentOf',
       'InterpretedFunction._resolveRecordFieldTypeDynamic',
       'InterpretedFunction._walkChildren',
-      'InterpretedFunction.declaredReturnTypeApplied',
+      'InterpretedFunction.get declaredReturnTypeApplied',
       '_ChildCollectorVisitor.children',
       '_ChildCollectorVisitor.visitNode',
       'class _ChildCollectorVisitor',

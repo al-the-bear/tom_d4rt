@@ -9834,7 +9834,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     // Use the temp environment (if any) for type resolution, otherwise use the normal environment
     final resolveEnvironment = tempEnvironment ?? environment;
 
-    final declaredReturnType = tempEnvironment != null
+    RuntimeType? resolveReturnType() => tempEnvironment != null
         ? _resolveTypeAnnotationWithEnvironment(
             node.returnType,
             resolveEnvironment,
@@ -9842,12 +9842,36 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           )
         : _resolveTypeAnnotation(node.returnType, isAsync: isAsync);
 
+    // GitHub #20: a top-level function's return type or type-parameter bound
+    // may name a class of a library in the same import cycle that has not
+    // declared it yet (slang's `_findNode<T extends Node>`). As for a method
+    // (#9), both are resolved once the outermost module load returns; an
+    // undefined name is reported then.
+    final lenientBounds = moduleLoader.isLoadingModules;
+    RuntimeType? declaredReturnType;
+    var deferReturnType = false;
+    try {
+      declaredReturnType = resolveReturnType();
+    } on RuntimeD4rtException {
+      if (!lenientBounds) rethrow;
+      deferReturnType = true;
+    }
     final function = InterpretedFunction.declaration(
       node,
       environment,
       declaredReturnType,
       isNullable,
+      lenientBounds: lenientBounds,
     );
+    if (lenientBounds) {
+      _deferUnresolvedBounds(function, typeParameters, environment);
+    }
+    if (deferReturnType) {
+      moduleLoader.deferUntilModulesLoaded(() {
+        final type = resolveReturnType();
+        if (type != null) function.resolveDeferredReturnType(type);
+      });
+    }
     // Define the function in the current environment. SCF25: a setter under
     // its setter name, `v=`.
     environment.define(
@@ -9930,7 +9954,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
 
         if (currentCallable is InterpretedFunction) {
-          declaredType = currentCallable.declaredReturnType;
+          declaredType = _returnTypeForThisCall(
+            currentCallable.declaredReturnType,
+          );
           isNullable = currentCallable.isNullable;
 
           // Special handling for async* generators: return without value should be allowed
@@ -11462,6 +11488,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       _labelledStatement = previousStatement;
       _labelledStatementLabels = previousLabels;
     }
+  }
+
+  /// The type a `return` in the running function is checked against.
+  ///
+  /// GitHub #20: a return type that is the function's own type parameter
+  /// (`T identity<T extends Node>(T x) { return x; }`) was checked against the
+  /// bare parameter, which only a bridged value passes, so returning an
+  /// interpreted instance threw "can't be returned ... return type of 'T'".
+  /// Dart checks against the type argument of this call, which the call's
+  /// environment binds; a parameter with no type argument bound (a
+  /// placeholder) is not checked, as an expression body is not.
+  RuntimeType? _returnTypeForThisCall(RuntimeType? declared) {
+    if (declared is! TypeParameter) return declared;
+    if (!environment.isDefined(declared.name)) return null;
+    final bound = environment.get(declared.name);
+    return bound is RuntimeType && bound is! TypeParameter ? bound : null;
   }
 
   /// GitHub #9 — the bounds of [function]'s type parameters that could not be

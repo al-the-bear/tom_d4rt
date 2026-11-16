@@ -232,6 +232,11 @@ const _divergentBodies = <String, Map<String, String>>{
     'BridgedEnumValue.toString': '184efa79',
   },
   'callable.dart': {
+    // GHISSUES60 (GitHub #20): a deferred return type also sets DFUB6's
+    // applied return type, which only the AST tree captures (the reference
+    // reads the annotation at the return statement).
+    'InterpretedFunction.new _internal': 'd90b488f',
+    'InterpretedFunction.resolveDeferredReturnType': '11ac2e7e',
     // GHISSUES32: `type.name.lexeme` against the mirror model's nullable
     // `type.name?.name`; the same test otherwise.
     'ResolvedBinding.declaresDouble': 'b1de00ae',
@@ -326,7 +331,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // The run's loader is `moduleLoader` here and `moduleContext` in the twin.
     'InterpreterVisitor.get callStack': 'e8f05235',
     'InterpreterVisitor._chainHasNullAwareSelector': 'c135924e',
-    'InterpreterVisitor._checkAppliedGenericReturn': '04ded847',
+    'InterpreterVisitor._checkAppliedGenericReturn': '308278d8',
     'InterpreterVisitor._evaluateArguments': '0df79830',
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
     'InterpreterVisitor._executeCascadeAssignment': '6ba592d9',
@@ -411,7 +416,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // itself is unchanged.
     'InterpreterVisitor.visitExtensionTypeDeclaration': '32961e82',
     'InterpreterVisitor.visitForStatement': '1df0d7d7',
-    'InterpreterVisitor.visitFunctionDeclaration': '07212aed',
+    'InterpreterVisitor.visitFunctionDeclaration': '43b5f2f2',
     'InterpreterVisitor.visitFunctionDeclarationStatement': '1a8fa2ed',
     'InterpreterVisitor.visitIdentifier': '842b50f3',
     'InterpreterVisitor.visitIfStatement': 'f881cee4',
@@ -491,7 +496,7 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES53: 5866e41a -> 927cf3fc, both trees dispatch an explicit extension
     // override alike.
     'InterpreterVisitor.visitPropertyAccess': '927cf3fc',
-    'InterpreterVisitor.visitReturnStatement': '76023c84',
+    'InterpreterVisitor.visitReturnStatement': 'f152feca',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     'InterpreterVisitor.visitSimpleIdentifier': '62e52aee',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',

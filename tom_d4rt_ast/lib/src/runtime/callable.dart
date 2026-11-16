@@ -147,7 +147,9 @@ class InterpretedFunction implements Callable {
   // and instantiates the target instead of executing the (empty) body.
   final SConstructorName? redirectedFactoryTarget;
 
-  final RuntimeType? declaredReturnType; // Store the declared type
+  /// The declared return type; null for none (dynamic).
+  RuntimeType? get declaredReturnType => _declaredReturnType;
+  RuntimeType? _declaredReturnType;
 
   /// DFUB6: the declared return type with its applied type arguments preserved
   /// (e.g. `Box<int>` / `List<String>`), when the return type is a generic
@@ -156,7 +158,23 @@ class InterpretedFunction implements Callable {
   /// captured here at declaration time — the return statement cannot walk up
   /// the AST to re-read the annotation. Used by
   /// `visitReturnStatement._checkAppliedGenericReturn`.
-  final AppliedRuntimeType? declaredReturnTypeApplied;
+  AppliedRuntimeType? get declaredReturnTypeApplied =>
+      _declaredReturnTypeApplied;
+  AppliedRuntimeType? _declaredReturnTypeApplied;
+
+  /// GitHub #20 — a top-level function's return type may name a class of a
+  /// library in the same import cycle that has not declared it yet; the
+  /// interpreter builds the function without it and sets it here once the
+  /// outermost module load returns. [applied] is the DFUB6 applied return
+  /// type, resolved at the same time.
+  void resolveDeferredReturnType(
+    RuntimeType? type, {
+    AppliedRuntimeType? applied,
+  }) {
+    _declaredReturnType = type;
+    _declaredReturnTypeApplied = applied;
+    _cachedCallableRuntimeType = null;
+  }
 
   final bool isNullable; // Store if the return type is nullable
 
@@ -733,12 +751,14 @@ class InterpretedFunction implements Callable {
     this.isAsyncGenerator = false,
     this.isFactory = false,
     this.redirectedFactoryTarget,
-    this.declaredReturnType,
-    this.declaredReturnTypeApplied,
+    RuntimeType? declaredReturnType,
+    AppliedRuntimeType? declaredReturnTypeApplied,
     this.isNullable = false,
     this.typeParameterNames = const [],
     this.typeParameterBounds = const {},
-  }) : _constructorInitializers = constructorInitializers {
+  }) : _constructorInitializers = constructorInitializers,
+       _declaredReturnType = declaredReturnType,
+       _declaredReturnTypeApplied = declaredReturnTypeApplied {
     D4rtDiag.closureAllocs++;
   }
 
