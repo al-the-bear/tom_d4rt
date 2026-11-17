@@ -1,3 +1,33 @@
+## 0.249.0
+
+### Fixed — an enum value through an import prefix, an enum's own names in its members, a field implementing an interface getter (ghissues66, GitHub #21)
+
+- **An enum value through an import prefix.** `import 'e.dart' as e;
+  e.Color.green` failed with `Undefined static property 'green' on enum
+  'Color'`, for every enum: through a prefix the access is a property access
+  on `e.Color`, whose enum branch looked up static getters, fields and
+  methods, mixins and `values`, but never the enum's values. It now looks the
+  values up first, as the unprefixed `Color.green` always did. This was the
+  remaining failure of the #21 reporter's Slang 4.19.2 suite
+  (`AppLocale.zhCn`).
+- **An enum's own names inside its members.** In an enum's static and
+  instance members and in its static field initializers, a bare value name,
+  `values`, a static field, a static getter or a static method was undefined
+  (`static E parse(String s) => values.firstWhere(...)`). They now resolve as
+  in Dart. A static field whose initializer names one of the enum's values
+  (`static const AppLocale base = AppLocale.en;`) is evaluated once the values
+  exist instead of failing the declaration.
+- **A field implements an interface getter.** `class A implements I { final
+  int x; ... }` with `abstract class I { int get x; }` was refused with
+  `Missing concrete implementation for interface getter 'x'` (source_span's
+  `_FileSpan`). The interface check now counts instance fields for getters
+  and setters, as the check of inherited abstract members already did; a
+  field still does not implement an interface method.
+
+Name resolution: yes — `p.Enum.value` through an import prefix now resolves
+to the enum value, and inside an enum its own values, `values` and static
+members resolve by their bare names.
+
 ## 0.248.0
 
 ### Fixed — a block is a scope in an async function (ghissues63)

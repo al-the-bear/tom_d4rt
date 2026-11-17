@@ -119,6 +119,14 @@ const Map<String, String> _deferred = {
       'ghissues63: a block is a scope in an async function; unpublished, '
       'the twins resolve the published interpreter (DGUC6); ghissues1002 '
       'runs the post-publish corpus',
+  '1.269.0':
+      'ghissues66: a prefixed enum value and an enum\'s own names in its '
+      'members resolve; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.249.0':
+      'ghissues66: a prefixed enum value and an enum\'s own names in its '
+      'members resolve; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

@@ -472,9 +472,35 @@ const _partialTwinBudget = 0;
 /// ghissues1002 ports it after publishing. The copier surface a port would
 /// have added is block-local declarations in async functions, which the
 /// corpus copies on every run.
-const _copierGapBudget = 45;
+///
+/// 45 -> 46: GHISSUES66 (GitHub #21) added
+/// `ghissues66_prefixed_enum_value_test.dart`, which runs source to check
+/// that an enum value reached through an import prefix resolves (`e.Color.
+/// green`, a Slang-shaped enhanced enum, prefixed switch cases), that an
+/// enum's own values, `values` and statics resolve by bare name in its
+/// members and static initializers, and that a field implements an interface
+/// getter. Exec resolves tom_d4rt_ast 0.244.0 from pub.dev, where those fail,
+/// so a port would fail. Its ast twin holds the mechanism. ghissues1002 ports
+/// it after publishing. The copier surface a port would have added is prefixed
+/// property accesses and enum members, which the corpus copies on every run.
+const _copierGapBudget = 46;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues66_prefixed_enum_value_test.dart': _Coverage(
+    'ast:runtime/ghissues66_prefixed_enum_value_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 8,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins the prefixed value, the refused unknown name, an '
+        'enum\'s own names in a static initializer and in static and '
+        'instance members, and a field implementing an interface getter, as '
+        'bundles. The reference runs eight shapes against native Dart (a '
+        'Slang-shaped enhanced enum, prefixed switch cases and statics, a '
+        'mutable field implementing a setter, source_span\'s shape, a field '
+        'that does not implement a method), which take the same lookups.',
+  ),
   'ghissues63_async_block_scope_test.dart': _Coverage(
     'ast:runtime/ghissues63_async_block_scope_test.dart',
     _astTwin,

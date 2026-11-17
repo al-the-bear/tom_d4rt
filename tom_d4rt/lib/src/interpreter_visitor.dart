@@ -950,6 +950,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       thisInstance = environment.get('this');
     } on RuntimeD4rtException {
       // 'this' does not exist in the current environment.
+      // ghissues66: in an enum's static member, the enum's own values,
+      // `values` and statics are in scope by their bare names.
+      final ownerEnum =
+          _enumInitializerOwner != null &&
+              identical(currentFunction, _enumInitializerFunction)
+          ? _enumInitializerOwner
+          : currentFunction?.ownerType;
+      if (ownerEnum is InterpretedEnum) {
+        final (found, member) = _enumStaticByBareName(ownerEnum, name);
+        if (found) return member;
+      }
       // Before giving up, try searching static methods in the current class if we're in a static context
       if (currentFunction != null &&
           currentFunction!.ownerType is InterpretedClass) {
@@ -1103,6 +1114,13 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             "[visitSimpleIdentifier] Found '$name' via implicit InterpretedEnumValue 'this'.",
           );
         }
+        // ghissues66: the enum's own values, `values` and statics by their
+        // bare names (Dart forbids an instance member of the same name).
+        final (isStatic, staticMember) = _enumStaticByBareName(
+          thisInstance.parentEnum,
+          name,
+        );
+        if (isStatic) return staticMember;
         // Delegate to the get method of the enum value, passing visitor
         // This will execute getters or return bound methods/fields.
         final enumMember = thisInstance.get(name, this);
@@ -6732,7 +6750,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         );
       }
     } else if (target is InterpretedEnum) {
-      // Accessing static member on the enum itself
+      // Accessing static member on the enum itself.
+      // ghissues66 (GitHub #21, Slang's `AppLocale.zhCn`): through an import
+      // prefix (`p.Color.green`) the access arrives here, not as a prefixed
+      // identifier, so the enum's values are looked up first here too.
+      final enumValue = target.values[propertyName];
+      if (enumValue != null) return enumValue;
       InterpretedFunction? staticGetter = target.staticGetters[propertyName];
       if (staticGetter != null) {
         // Call the static getter
@@ -11882,9 +11905,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       if (!klass.isAbstract) {
         final requiredInterfaceMembers = klass.getAllInterfaceMembers();
         final availableConcreteMembers = klass.getAllConcreteMembers();
+        // ghissues66: an instance field implements an interface getter (and
+        // setter) as in Dart - `class A implements I { final int x; }` with
+        // `abstract class I { int get x; }` (source_span's `_FileSpan`).
+        final instanceFieldNames = klass.getInstanceFieldNames();
         for (final requiredName in requiredInterfaceMembers.keys) {
+          final memberType = requiredInterfaceMembers[requiredName]!;
+          if (memberType != 'method' &&
+              instanceFieldNames.contains(requiredName)) {
+            continue;
+          }
           if (!availableConcreteMembers.containsKey(requiredName)) {
-            final memberType = requiredInterfaceMembers[requiredName]!;
             throw RuntimeD4rtException(
               "Missing concrete implementation for interface $memberType '$requiredName' in class '${klass.name}'.",
             );
@@ -12496,6 +12527,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     // Process Members (Static and Instance)
     // Members defined in the enum body (methods, getters, fields, constructors)
+    // Static fields whose initializer failed before the values existed.
+    final staticFieldsAfterValues = <VariableDeclaration>[];
     final originalVisitorEnv = environment; // Save original environment
     try {
       // Members are defined in the enum's declaration scope
@@ -12581,12 +12614,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               }
             }
           } else {
-            // Evaluate static fields immediately
+            // Evaluate static fields now; one whose initializer needs a
+            // value of this enum (`static const AppLocale base =
+            // AppLocale.en;`, ghissues66) is evaluated again once the values
+            // exist, below - in Dart a static is initialized when first read.
             for (final variable in member.fields.variables) {
               final fieldName = variable.name.lexeme;
               Object? value;
               if (variable.initializer != null) {
-                value = variable.initializer!.accept<Object?>(this);
+                try {
+                  value = _evaluateEnumStaticInitializer(
+                    enumObj,
+                    variable.initializer!,
+                  );
+                } on RuntimeD4rtException {
+                  staticFieldsAfterValues.add(variable);
+                  continue;
+                }
               }
               enumObj.staticFields[fieldName] = value;
               if (Logger.isDebug) {
@@ -12747,10 +12791,66 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       );
     }
 
+    // ghissues66: the static fields that needed a value of this enum, now
+    // that the values exist. An error here is the initializer's own.
+    if (staticFieldsAfterValues.isNotEmpty) {
+      final savedEnv = environment;
+      try {
+        environment = enumObj.declarationEnvironment;
+        for (final variable in staticFieldsAfterValues) {
+          enumObj.staticFields[variable.name.lexeme] =
+              _evaluateEnumStaticInitializer(enumObj, variable.initializer!);
+        }
+      } finally {
+        environment = savedEnv;
+      }
+    }
+
     if (Logger.isDebug) {
       Logger.debug("[Visitor.visitEnumDeclaration] END (Pass 2) for '$enumName'");
     }
     return null; // Declaration doesn't return a value
+  }
+
+  /// The enum whose static field initializer is being evaluated, and the
+  /// [currentFunction] it runs under: in that frame - not in a function the
+  /// initializer calls - the enum's own names are in scope by bare name, as
+  /// in a member (`static const E first = a;`, ghissues66).
+  InterpretedEnum? _enumInitializerOwner;
+  Object? _enumInitializerFunction;
+
+  Object? _evaluateEnumStaticInitializer(
+    InterpretedEnum owner,
+    Expression initializer,
+  ) {
+    final savedOwner = _enumInitializerOwner;
+    final savedFunction = _enumInitializerFunction;
+    _enumInitializerOwner = owner;
+    _enumInitializerFunction = currentFunction;
+    try {
+      return initializer.accept<Object?>(this);
+    } finally {
+      _enumInitializerOwner = savedOwner;
+      _enumInitializerFunction = savedFunction;
+    }
+  }
+
+  /// An enum's own static member named by a bare identifier inside one of
+  /// its members (ghissues66): a value (`a`), `values`, a static field, a
+  /// static getter (called) or a static method (the function). Returns
+  /// `(false, null)` when [name] is none of them.
+  (bool, Object?) _enumStaticByBareName(InterpretedEnum owner, String name) {
+    final value = owner.values[name];
+    if (value != null) return (true, value);
+    if (name == 'values') return (true, owner.valuesList);
+    if (owner.staticFields.containsKey(name)) {
+      return (true, owner.staticFields[name]);
+    }
+    final getter = owner.staticGetters[name];
+    if (getter != null) return (true, getter.call(this, [], {}));
+    final method = owner.staticMethods[name];
+    if (method != null) return (true, method);
+    return (false, null);
   }
 
   /// Writes [value] back to the bare name [name] that an increment or

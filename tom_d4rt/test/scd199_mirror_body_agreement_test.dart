@@ -395,14 +395,18 @@ const _divergentBodies = <String, Map<String, String>>{
     // accessors; the residue left is the loader field's name.
     // GHISSUES46: 799fab94 -> 0ec82bb0, both trees skip the missing-member
     // check for a class with a non-trivial noSuchMethod alike.
-    'InterpreterVisitor.visitClassDeclaration': '0ec82bb0',
+    // GHISSUES66: 0ec82bb0 -> b1767df8, both trees count instance fields
+    // against an interface's getters and setters alike.
+    'InterpreterVisitor.visitClassDeclaration': 'b1767df8',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
     // GHISSUES19: both trees resolve the enum's `implements` clause, deferred
     // while modules load; the residue grows by the interface name's accessor
     // (`name.lexeme` / `name!.name`) and the loader field's name.
-    'InterpreterVisitor.visitEnumDeclaration': '5b42c393',
+    // GHISSUES66: 5b42c393 -> 9e445e69, both trees evaluate a static field
+    // that names one of the enum's values once the values exist, alike.
+    'InterpreterVisitor.visitEnumDeclaration': '9e445e69',
     // GHISSUES11: both trees defer an `on` type declared in a library still
     // loading; the residue grows by the loader field's name, `moduleLoader`
     // here and `moduleContext` in the twin.
@@ -499,10 +503,14 @@ const _divergentBodies = <String, Map<String, String>>{
     // null target alike.
     // GHISSUES53: 5866e41a -> 927cf3fc, both trees dispatch an explicit extension
     // override alike.
-    'InterpreterVisitor.visitPropertyAccess': '927cf3fc',
+    // GHISSUES66: 927cf3fc -> 3227b276, both trees look an enum's values up
+    // first on a property access (`p.Color.green`) alike.
+    'InterpreterVisitor.visitPropertyAccess': '3227b276',
     'InterpreterVisitor.visitReturnStatement': 'f152feca',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
-    'InterpreterVisitor.visitSimpleIdentifier': '62e52aee',
+    // GHISSUES66: 62e52aee -> d2853fe6, both trees resolve an enum's own
+    // values, `values` and statics by bare name inside its members alike.
+    'InterpreterVisitor.visitSimpleIdentifier': 'd2853fe6',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
