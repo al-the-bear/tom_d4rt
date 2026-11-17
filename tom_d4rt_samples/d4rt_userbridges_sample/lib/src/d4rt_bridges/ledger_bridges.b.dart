@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 4 files
-// Generated: 2026-11-09T14:41:24.240629 by tom_d4rt_generator 1.57.0
+// Generated: 2026-11-17T07:18:13.226539 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -200,8 +200,22 @@ class LedgerBridge {
   /// Registers all bridges with an interpreter.
   ///
   /// [importPath] is the package import path that D4rt scripts will use
-  /// to access these classes (e.g., 'package:tom_build/tom.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  /// to access these classes (e.g., 'package:my_package/my_package.dart').
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(D4rt interpreter, String importPath,
+      {bool onlyOwnPackage = false}) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -209,6 +223,7 @@ class LedgerBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -224,13 +239,14 @@ class LedgerBridge {
     BridgedClass.registerSupertypes(classSupertypes());
 
     // Register global variables
-    registerGlobalVariables(interpreter, importPath);
+    registerGlobalVariables(interpreter, importPath, include: include);
 
     // Register global functions with source URIs for deduplication
     final funcs = globalFunctions();
     final funcSources = globalFunctionSourceUris();
     final funcSigs = globalFunctionSignatures();
     for (final entry in funcs.entries) {
+      if (!include(funcSources[entry.key])) continue;
       interpreter.registertopLevelFunction(entry.key, entry.value, importPath,
           sourceUri: funcSources[entry.key], signature: funcSigs[entry.key]);
     }
@@ -247,38 +263,48 @@ class LedgerBridge {
   /// [importPath] is the package import path for library-scoped registration.
   /// Collects all registration errors and throws a single exception
   /// with all error details if any registrations fail.
-  static void registerGlobalVariables(D4rt interpreter, String importPath) {
+  static void registerGlobalVariables(D4rt interpreter, String importPath,
+      {bool Function(String? sourceUri)? include}) {
     final errors = <String>[];
 
-    try {
-      interpreter.registerGlobalVariable(
-          'appName',
+    if (include == null ||
+        include('package:d4rt_userbridges_sample/src/config/app_config.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+            'appName',
+            $d4rt_userbridges_sample_3.AppConfigUserBridge
+                .overrideGlobalVariableAppName(),
+            importPath,
+            sourceUri:
+                'package:d4rt_userbridges_sample/src/config/app_config.dart');
+      } catch (e) {
+        errors.add('Failed to register variable "appName": $e');
+      }
+    }
+    if (include == null ||
+        include('package:d4rt_userbridges_sample/src/config/app_config.dart')) {
+      try {
+        interpreter.registerGlobalVariable(
+            'maxItems',
+            $d4rt_userbridges_sample_3.AppConfigUserBridge
+                .overrideGlobalVariableMaxItems(),
+            importPath,
+            sourceUri:
+                'package:d4rt_userbridges_sample/src/config/app_config.dart');
+      } catch (e) {
+        errors.add('Failed to register variable "maxItems": $e');
+      }
+    }
+    if (include == null ||
+        include('package:d4rt_userbridges_sample/src/config/app_config.dart')) {
+      interpreter.registerGlobalGetter(
+          'currentTime',
           $d4rt_userbridges_sample_3.AppConfigUserBridge
-              .overrideGlobalVariableAppName(),
+              .overrideGlobalGetterCurrentTime(),
           importPath,
           sourceUri:
               'package:d4rt_userbridges_sample/src/config/app_config.dart');
-    } catch (e) {
-      errors.add('Failed to register variable "appName": $e');
     }
-    try {
-      interpreter.registerGlobalVariable(
-          'maxItems',
-          $d4rt_userbridges_sample_3.AppConfigUserBridge
-              .overrideGlobalVariableMaxItems(),
-          importPath,
-          sourceUri:
-              'package:d4rt_userbridges_sample/src/config/app_config.dart');
-    } catch (e) {
-      errors.add('Failed to register variable "maxItems": $e');
-    }
-    interpreter.registerGlobalGetter(
-        'currentTime',
-        $d4rt_userbridges_sample_3.AppConfigUserBridge
-            .overrideGlobalGetterCurrentTime(),
-        importPath,
-        sourceUri:
-            'package:d4rt_userbridges_sample/src/config/app_config.dart');
 
     if (errors.isNotEmpty) {
       throw StateError(
