@@ -194,6 +194,16 @@ cd tom_d4rt_flutter_ast
 flutter test test/send_test_runner.dart
 ```
 
+### Corpus check (before a verification run)
+
+Run `./test/run_corpus_check.sh` by hand before a corpus verification run. It
+resolves every corpus script with the analyzer (tom_ast_generator's resolving
+check) and fails on any error Dart would report, which the interpreter, parsing
+without resolution, would run anyway: a name a script never imported, a type
+mismatch, a missing member. The corpus resolves with 0 errors (2096 scripts,
+about two minutes). Pass folders or files to check only those. It needs the
+companion app's `flutter pub get` and a `dart` or `flutter` on PATH.
+
 ### Writing New Tests
 
 Example test file:

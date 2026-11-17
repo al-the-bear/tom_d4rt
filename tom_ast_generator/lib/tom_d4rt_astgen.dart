@@ -7,3 +7,5 @@ library;
 export 'package:tom_d4rt_ast/ast.dart';
 export 'src/bundler/ast_bundler.dart';
 export 'src/converter/ast_converter.dart';
+export 'src/resolver/ast_resolver.dart';
+export 'src/resolver/dart_sdk_locator.dart';

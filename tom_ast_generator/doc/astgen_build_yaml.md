@@ -146,7 +146,9 @@ A project **fails** — and the run exits non-zero — when:
 - a `root` directory does not exist;
 - an `output` cannot be resolved (a `project:` name that is not found);
 - a matched file has a parse error. Conversion stops at that file; files
-  converted before it are already written.
+  converted before it are already written;
+- with `--resolve`, a matched file has an analyzer error. That file is
+  reported (file, line, code) and not written; the others are converted.
 
 An `entrypoints` glob that matches nothing is a **warning**, not a failure: a
 project whose scripts have not been written yet should not break a
@@ -176,6 +178,10 @@ shared ones described in
 | `-v, --verbose` | Print each conversion's settings, the resolved paths and a summary. |
 | `-l, --list` | List the projects that have an `astgen:` section, and do nothing else. |
 | `--show` | With `--list`, also print each project's `astgen:` section. |
+| `--resolve` | Resolve each entrypoint with the analyzer first (the resolving check); a file with an analyzer error is not written and the run fails. |
+| `--dart-sdk=<path>` | With `--resolve`, the Dart SDK to analyze against (default: `DART_SDK`, else the `dart` or `flutter` on `PATH`). |
+| `--stubs=<folder>` | With `--resolve`, declaration stubs for libraries that exist only at run time: `<folder>/<package>/<path>` declares `package:<package>/<path>`. |
+| `--runtime-library=<uri>` | With `--resolve`, a library that exists only at run time; its missing import and the names it would supply are counted, not reported (repeatable). |
 
 ```bash
 # Check a configuration: which projects, what they say, what they would write

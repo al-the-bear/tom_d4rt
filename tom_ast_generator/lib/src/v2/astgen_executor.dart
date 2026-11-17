@@ -26,6 +26,9 @@ const _toolKey = 'astgen';
 
 /// Default executor for the astgen tool (single-command).
 class AstgenExecutor extends CommandExecutor {
+  /// The resolver `--resolve` uses, shared by every project of the run.
+  AstResolver? _resolver;
+
   @override
   Future<ItemResult> execute(CommandContext context, CliArgs args) async {
     // Skip projects without astgen config
@@ -56,11 +59,21 @@ class AstgenExecutor extends CommandExecutor {
     }
 
     try {
+      final check = args.extraOptions['resolve'] == true
+          ? _ResolveCheck(
+              _resolver ??= AstResolver(
+                sdkPath: args.extraOptions['dart-sdk'] as String?,
+              ),
+              _readStubs(args.extraOptions['stubs'] as String?),
+              _uris(args.extraOptions['runtime-library']),
+            )
+          : null;
       final success = await _processProject(
         context.path,
         TomBuildConfig.projectFilename,
         args.verbose,
         args.dryRun,
+        check,
       );
 
       return success
@@ -80,6 +93,42 @@ class AstgenExecutor extends CommandExecutor {
       );
     }
   }
+}
+
+// =============================================================================
+// Resolving check (--resolve)
+// =============================================================================
+
+/// What `--resolve` checks each entrypoint with.
+class _ResolveCheck {
+  final AstResolver resolver;
+  final Map<String, String> stubs;
+  final Set<String> runtimeOnlyLibraries;
+
+  _ResolveCheck(this.resolver, this.stubs, this.runtimeOnlyLibraries);
+}
+
+/// The URIs of a repeatable option: none, one (a `String`) or several.
+Set<String> _uris(Object? value) => switch (value) {
+  null => const {},
+  final List<Object?> list => {for (final uri in list) '$uri'},
+  _ => {'$value'},
+};
+
+/// The declaration stubs of [folder]: `<folder>/<package>/<path>` declares
+/// `package:<package>/<path>`. Empty without a folder.
+Map<String, String> _readStubs(String? folder) {
+  if (folder == null) return const {};
+  final dir = Directory(folder);
+  if (!dir.existsSync()) {
+    throw ArgumentError('Stub folder not found: $folder');
+  }
+  return {
+    for (final file in dir.listSync(recursive: true).whereType<File>())
+      if (file.path.endsWith('.dart'))
+        'package:${p.split(p.relative(file.path, from: dir.path)).join('/')}':
+            file.readAsStringSync(),
+  };
 }
 
 // =============================================================================
@@ -116,6 +165,7 @@ Future<bool> _processProject(
   String configFileName,
   bool verbose,
   bool dryRun,
+  _ResolveCheck? check,
 ) async {
   // Load conversion configurations from buildkit.yaml
   final configPath = p.join(projectPath, configFileName);
@@ -197,6 +247,30 @@ Future<bool> _processProject(
 
         if (verbose || dryRun) {
           print('  ${dryRun ? '[DRY RUN] ' : ''}$relativePath -> $outputPath');
+        }
+
+        if (check != null) {
+          final report = await check.resolver.checkFiles(
+            [file],
+            projectRoot: projectPath,
+            stubs: check.stubs,
+            runtimeOnlyLibraries: check.runtimeOnlyLibraries,
+          );
+          for (final error in report.errors) {
+            stderr.writeln('    $error');
+          }
+          if (report.filteredCount > 0 || verbose) {
+            print(
+              '    resolve $relativePath: ${report.errors.length} error(s), '
+              '${report.filteredCount} filtered (runtime-only libraries '
+              'without source or stub)',
+            );
+          }
+          if (!report.passed) {
+            stderr.writeln('  $relativePath: not converted (resolving check)');
+            errorCount++;
+            continue;
+          }
         }
 
         if (!dryRun) {

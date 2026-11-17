@@ -1,3 +1,49 @@
+## 0.2.7
+
+### Added — the resolving check (ghissues68, GitHub #18 option 3, part 1)
+
+An opt-in mode that resolves a bundle's modules with the analyzer and reports
+what Dart would reject - a name the script never imported, a type mismatch, a
+missing member - which parse-only bundling cannot see. Plain bundling is
+unchanged and stays parse-only.
+
+- **`AstBundlerConfig(resolve: true)`**: after collecting the modules,
+  `AstBundler` resolves them; on an error it throws `AstResolveException`
+  (`report.errors`: module URI, line, column, analyzer code, message) and
+  returns no bundle. A passed check's report is `AstBundler.lastResolveReport`.
+  Works from `explicitSources` with file reads disabled (the sources are
+  analyzer overlays in a virtual package configuration; nothing is written to
+  disk) and inside a project (`createFromFile`, `projectRoot`), whose
+  `package_config.json` supplies the packages.
+- **`AstBundler.declarationStubs`**: Dart declarations, by library URI, for
+  libraries that exist only at run time (a host function registered with
+  `registerTopLevelFunction`). The resolver checks against them; they are
+  never bundled.
+- **Runtime-only libraries without source or stub** (`bridgedLibraries`):
+  their import and the names they would supply are left out and counted
+  (`ResolveReport.filtered`), not reported.
+- **The Dart SDK is found without a flag** (`findDartSdk`):
+  `AstBundlerConfig.sdkPath`, else `DART_SDK`, else the `dart` on `PATH`, else
+  the `flutter` on `PATH` (`bin/cache/dart-sdk`), else the running VM. Works in
+  the AOT-compiled `astgen`; when nothing is found, `DartSdkNotFoundException`
+  names every place searched.
+- **`AstResolver`**, the check itself: `checkModules` (what the bundler uses)
+  and `checkFiles`, which resolves many files of one project in one analysis
+  context, for checking a corpus.
+- **`astgen --resolve`** checks each entrypoint before converting it; a file
+  with an error is reported and not written, and the run exits non-zero.
+  `--dart-sdk <path>`, `--stubs <folder>` (`<folder>/<package>/<path>`
+  declares `package:<package>/<path>`) and `--runtime-library <uri>`
+  (repeatable) go with it.
+- **`tool/resolve_check.dart`** runs the check over folders of scripts in a
+  project; `tom_d4rt_flutter_ast/test/run_corpus_check.sh` runs it over the
+  twins' corpus (2096 scripts, 0 errors).
+- In a project, an `analysis_options.yaml` that excludes files is seen by the
+  check without its `analyzer: exclude`: a file the check is asked about is
+  resolved even when `dart analyze` skips it.
+
+Name resolution: no.
+
 ## 0.2.6
 
 ### Changed — takes tom_d4rt_ast 0.244.0

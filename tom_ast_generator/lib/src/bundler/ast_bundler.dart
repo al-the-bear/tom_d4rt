@@ -12,6 +12,8 @@ import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/runtime.dart' show AstBundle;
 
 import 'package:tom_ast_generator/src/converter/ast_converter.dart';
+import 'package:tom_ast_generator/src/resolver/ast_resolver.dart';
+import 'package:tom_ast_generator/src/resolver/dart_sdk_locator.dart';
 import 'package:tom_ast_generator/src/version.versioner.dart';
 import '../bundle_feature_set.dart';
 
@@ -149,6 +151,32 @@ class AstBundlerConfig {
   /// bundle a web app will load.
   final BundleTarget target;
 
+  /// Whether the bundle's modules are resolved with the analyzer before the
+  /// bundle is returned - the resolving check (GitHub #18, option 3).
+  ///
+  /// The check reports what Dart would reject: a name the script never
+  /// imported, a type mismatch, a missing member. On an error the bundler
+  /// throws [AstResolveException] with the errors and returns no bundle; the
+  /// report of a passed check is [AstBundler.lastResolveReport]. Errors that
+  /// come only from a library in [AstBundler.bridgedLibraries] that has
+  /// neither source nor stub ([AstBundler.declarationStubs]) are left out and
+  /// counted.
+  ///
+  /// The analyzer reads the Dart SDK ([sdkPath], else found from `DART_SDK`,
+  /// the `dart` or `flutter` on `PATH`) and, in a project, the packages its
+  /// `package_config.json` names; [AstBundler.fileAccessValidator] governs
+  /// the bundler's own reads, not those. Bundle sources and stubs are
+  /// analyzer overlays: nothing is written to disk.
+  ///
+  /// Off by default: plain bundling stays parse-only. Resolving costs about
+  /// 0.2-0.6 s for a plain script and 3-4 s for the first Flutter script of a
+  /// process.
+  final bool resolve;
+
+  /// The Dart SDK the resolving check analyzes against. When null it is found
+  /// as [findDartSdk] describes.
+  final String? sdkPath;
+
   /// Default configuration.
   const AstBundlerConfig({
     this.stdlibSchemes = const {'dart'},
@@ -156,6 +184,8 @@ class AstBundlerConfig {
     this.followPartDirectives = true,
     this.includeSources = false,
     this.target = BundleTarget.vm,
+    this.resolve = false,
+    this.sdkPath,
   });
 }
 
@@ -288,8 +318,25 @@ class AstBundler {
   /// [D4rt] instance.
   final FileAccessValidator? fileAccessValidator;
 
+  /// Dart declarations, keyed by library URI, of libraries that exist only at
+  /// run time - a host function registered with `registerTopLevelFunction`,
+  /// a bridged library whose source is not at hand. Only the resolving check
+  /// ([AstBundlerConfig.resolve]) reads them: they are never bundled.
+  ///
+  /// A stub declares what the script uses, e.g. for
+  /// `package:map_repro/native.dart`:
+  /// `Map<String, int> sameMap() => throw UnimplementedError();`.
+  final Map<String, String> declarationStubs;
+
   /// The [AstConverter] used for parsing. Injected for testability.
   final AstConverter _converter;
+
+  /// The resolver of the resolving check; one per bundler unless passed.
+  final AstResolver _resolver;
+
+  /// The report of the last resolving check this bundler ran, or null.
+  ResolveReport? get lastResolveReport => _lastResolveReport;
+  ResolveReport? _lastResolveReport;
 
   /// Creates an [AstBundler].
   ///
@@ -300,6 +347,9 @@ class AstBundler {
   /// - [config] — import resolution configuration
   /// - [fileAccessValidator] — optional callback that gates file reads
   /// - [converter] — custom [AstConverter] (defaults to a new instance)
+  /// - [declarationStubs] — declarations the resolving check reads
+  /// - [resolver] — the [AstResolver] for the resolving check (a new one by
+  ///   default; pass one to share its SDK lookup)
   AstBundler({
     this.bridgedLibraries = const {},
     this.explicitSources = const {},
@@ -307,8 +357,11 @@ class AstBundler {
     this.projectRoot,
     this.config = const AstBundlerConfig(),
     this.fileAccessValidator,
+    this.declarationStubs = const {},
     AstConverter? converter,
-  }) : _converter = converter ?? AstConverter();
+    AstResolver? resolver,
+  }) : _converter = converter ?? AstConverter(),
+       _resolver = resolver ?? AstResolver(sdkPath: config.sdkPath);
 
   // ===========================================================================
   // Public API
@@ -332,11 +385,12 @@ class AstBundler {
     // Parse and collect entry point
     final entryAst = _parseSourceCode(source, path: sourcePath);
     modules[entryUri] = entryAst;
-    _collectedSources = config.includeSources ? {entryUri: source} : null;
+    _startCollecting(entryUri, source);
 
     // Recursively resolve imports
     await _resolveImports(entryAst, Uri.parse(entryUri), modules, depth: 0);
 
+    await _check(projectRoot);
     return _bundle(entryUri, modules);
   }
 
@@ -364,7 +418,7 @@ class AstBundler {
     // Parse entry point
     final entryAst = _parseSourceCode(source, path: entryPointPath);
     modules[entryUri] = entryAst;
-    _collectedSources = config.includeSources ? {entryUri: source} : null;
+    _startCollecting(entryUri, source);
 
     // Recursively resolve imports
     await _resolveImports(
@@ -375,7 +429,37 @@ class AstBundler {
       fileSystemRoot: root,
     );
 
+    await _check(root);
     return _bundle(entryUri, modules);
+  }
+
+  /// Source text by module URI for the resolving check, when
+  /// [AstBundlerConfig.resolve] is on; `null` otherwise.
+  Map<String, String>? _checkedSources;
+
+  void _startCollecting(String entryUri, String source) {
+    _collectedSources = config.includeSources ? {entryUri: source} : null;
+    _checkedSources = config.resolve ? {entryUri: source} : null;
+    _lastResolveReport = null;
+  }
+
+  /// The resolving check over the collected modules, in the project at
+  /// [root] when there is one; throws [AstResolveException] on an error.
+  Future<void> _check(String? root) async {
+    final sources = _checkedSources;
+    _checkedSources = null;
+    if (sources == null) return;
+    final report = await _resolver.checkModules(
+      modules: sources,
+      stubs: declarationStubs,
+      runtimeOnlyLibraries: bridgedLibraries,
+      projectRoot: root,
+    );
+    _lastResolveReport = report;
+    if (!report.passed) {
+      _collectedSources = null;
+      throw AstResolveException(report);
+    }
   }
 
   /// Source text by module URI for the bundle being built, when
@@ -457,6 +541,7 @@ class AstBundler {
           );
           modules[resolution.canonicalUri] = importedAst;
           _collectedSources?[resolution.canonicalUri] = resolution.value!;
+          _checkedSources?[resolution.canonicalUri] = resolution.value!;
 
           // Recurse into the imported module's imports
           await _resolveImports(

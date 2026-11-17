@@ -16,6 +16,35 @@ const astgenOptions = <OptionDefinition>[
     description:
         'With --list, show buildkit.yaml configuration for each project',
   ),
+  OptionDefinition.flag(
+    name: 'resolve',
+    description:
+        'Resolve each entrypoint with the analyzer first; a file with an '
+        'analyzer error is reported and not converted, and the run fails',
+  ),
+  OptionDefinition.option(
+    name: 'dart-sdk',
+    valueName: 'path',
+    description:
+        'With --resolve, the Dart SDK to analyze against (default: DART_SDK, '
+        'else the dart or flutter on PATH)',
+  ),
+  OptionDefinition.option(
+    name: 'stubs',
+    valueName: 'folder',
+    description:
+        'With --resolve, a folder of declaration stubs for libraries that '
+        'exist only at run time: <folder>/<package>/<path> declares '
+        'package:<package>/<path>. Never converted or bundled',
+  ),
+  OptionDefinition.multi(
+    name: 'runtime-library',
+    valueName: 'uri',
+    description:
+        'With --resolve, a library that exists only at run time (bridged or '
+        'registered by the host); an import of it without source or stub, and '
+        'the names it would supply, are not reported but counted',
+  ),
 ];
 
 // =============================================================================

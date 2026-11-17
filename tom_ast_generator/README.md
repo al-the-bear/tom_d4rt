@@ -134,6 +134,17 @@ optional `maxImportDepth` (default 64) acts as a final safeguard.
 A `fileAccessValidator` callback can gate every disk read, wiring the bundler
 to D4rt's `FilesystemPermission` sandbox.
 
+**The resolving check** (opt-in, `AstBundlerConfig(resolve: true)`) resolves
+the bundle's modules with the analyzer and throws `AstResolveException` - no
+bundle - when Dart would reject the program: a name the script never imported,
+a type mismatch, a missing member. It works from `explicitSources` alone
+(nothing is written to disk) or inside a project, finds the Dart SDK from
+`DART_SDK` or the `dart` / `flutter` on `PATH`, checks against
+`declarationStubs` for libraries that exist only at run time (never bundled),
+and counts rather than reports the errors of a bridged library that has
+neither. See the user guide's
+[resolving check](doc/tom_ast_generator_user_guide.md#the-resolving-check).
+
 The resulting `AstBundle` (from `tom_d4rt_ast`) is JSON- and
 binary-serializable (`toJson()`, `toBytes()`, `fromJson()`, `fromBytes()`),
 making it suitable for embedding as a Flutter asset or writing to disk.
@@ -155,6 +166,7 @@ Key CLI options (standard `tom_build_base` flags):
 | `--dry-run` / `-n` | Show what would be converted, write nothing |
 | `--verbose` / `-v` | Show per-file detail |
 | `--list` | List projects that have astgen config; combine with `--show` to print their config sections |
+| `--resolve` | Resolve each entrypoint with the analyzer first; a file with an error is not converted and the run fails (`--dart-sdk`, `--stubs`, `--runtime-library` go with it) |
 | `--version` / `-V` | Print version |
 
 Generated files use the `.ast.yaml` extension:

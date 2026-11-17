@@ -124,6 +124,77 @@ patterns, command-line options — lives in
 [astgen_build_yaml.md](astgen_build_yaml.md); the README's "astgen CLI"
 section has the quick-start.
 
+## The resolving check
+
+Bundling parses; it does not resolve. A bundle can therefore carry a program
+Dart rejects - a name the script never imported, a type mismatch, a missing
+member - and the interpreter will run what it can of it. The resolving check
+resolves the bundle's modules with the analyzer first and refuses such a
+program. It is opt-in; without it bundling is unchanged.
+
+```dart
+final bundler = AstBundler(
+  bridgedLibraries: runner.bridgedLibraryUris.toSet(),
+  explicitSources: sources,            // e.g. collected via package_config.json
+  fileAccessValidator: (_) => false,   // no file reads by the bundler
+  declarationStubs: {
+    // Libraries that exist only at run time: the resolver checks against
+    // them; they are never bundled.
+    'package:my_app/host.dart':
+        'Map<String, int> sameMap() => throw UnimplementedError();',
+  },
+  config: const AstBundlerConfig(resolve: true),
+);
+try {
+  final bundle = await bundler.createFromSource(source, sourcePath: entry);
+  print(bundler.lastResolveReport!.summary);
+} on AstResolveException catch (e) {
+  for (final error in e.report.errors) {
+    print(error); // package:my_app/main.dart:3:9: error: ... (undefined_...)
+  }
+}
+```
+
+- **Where the sources come from.** From `explicitSources` (and the modules
+  the bundler reads) - the sources are analyzer overlays in a virtual package
+  configuration, and nothing is written to disk - or from a project
+  (`createFromFile`, `projectRoot`), whose `.dart_tool/package_config.json`
+  supplies the imported packages.
+- **What the analyzer reads.** The Dart SDK, and in a project the packages its
+  configuration names. `fileAccessValidator` governs the bundler's own reads,
+  not the analyzer's.
+- **The Dart SDK** is found without configuration: `AstBundlerConfig.sdkPath`,
+  else `DART_SDK`, else the `dart` on `PATH`, else the `flutter` on `PATH`
+  (`<flutter>/bin/cache/dart-sdk`), else the SDK of the running Dart VM. When
+  nothing is found, `DartSdkNotFoundException` lists every place searched.
+- **Runtime-only libraries.** An import of a library in `bridgedLibraries`
+  that has neither source nor stub cannot resolve; that import and the names
+  it would supply are left out and counted (`ResolveReport.filtered`) instead
+  of failing the check. Any other error in the same module is still reported.
+  Give a stub to have such a library checked against.
+- **Cost.** About 0.2-0.6 s for a plain script; a Flutter script takes 3-4 s
+  for the first in a process. Bundle at build time, not per request.
+- **Many scripts.** `AstResolver.checkFiles` resolves files of one project in
+  one analysis context, so the analyzer starts once.
+  `dart run tool/resolve_check.dart --project <root> <folder>...` does that
+  from the command line; the twins' corpus is checked with it
+  (`tom_d4rt_flutter_ast/test/run_corpus_check.sh`).
+- **`astgen --resolve`** checks each entrypoint before converting it, with
+  `--dart-sdk`, `--stubs <folder>` (`<folder>/<package>/<path>` declares
+  `package:<package>/<path>`) and `--runtime-library <uri>`.
+
+### Stubs from bridge signatures
+
+A stub only declares what a script may call; bodies can throw. For a host API
+bridged with `d4rtgen`, the generator already knows every bridged signature -
+the class, its constructors and members with their parameter and return
+types - so it could emit a declaration-only Dart library per bridged library
+(`external` members, or bodies that throw) to pass as `declarationStubs` or
+put in an `astgen --stubs` folder. It does not do that yet; until it does,
+write the stubs for the functions a script uses by hand. For a host API that
+already exists as Dart source (a typed interface whose implementation the
+host registers), that source can serve as its own stub.
+
 ## Limitations
 
 See [tom_ast_generator_limitations.md](tom_ast_generator_limitations.md) for
