@@ -1,3 +1,26 @@
+## 0.3.2
+
+### Added — the static facts table of a resolved bundle (ghissues69, GitHub #18 option 3)
+
+`SStaticFacts`, the optional table a resolving bundler (tom_ast_generator's
+resolving check) writes beside a bundle's modules, and its JSON codec:
+
+- `SExtensionCallFact` - the static type of an extension member access's
+  receiver, the extension it resolves to and its type arguments;
+- `STypeArgumentsFact` - the inferred type arguments of a generic call, an
+  instance creation or a collection literal that does not write them;
+- `SFactType` - a type as a structured reference (kind, library URI, name,
+  type arguments, nullability; function and record types as their spelling),
+  interned in one table per bundle;
+- `SFactsStamp` - the Dart SDK and package versions the facts were computed
+  against;
+- `SStaticFactsBuilder` - interns types and collects facts.
+
+Facts are keyed by module URI and the node's `offset:length`
+(`SStaticFacts.factAt`). A table of another `SStaticFacts.format` reads as
+null. No node class changed: the mirror stays a one-to-one copy of the
+analyzer's AST.
+
 ## 0.3.1
 
 ### Changed — two more analyzer 14 shapes (vstdm3)

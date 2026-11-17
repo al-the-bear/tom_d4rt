@@ -7,3 +7,4 @@
 library;
 
 export 'src/ast/ast_core.dart';
+export 'src/facts/static_facts.dart';
