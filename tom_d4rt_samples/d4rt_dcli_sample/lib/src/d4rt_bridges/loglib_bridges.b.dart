@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 3 files
-// Generated: 2026-11-13T08:26:24.973177 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-17T07:16:43.779813 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -174,7 +174,21 @@ class LoglibBridge {
   ///
   /// [importPath] is the package import path that D4rt scripts will use
   /// to access these classes (e.g., 'package:my_package/my_package.dart').
-  static void registerBridges(D4rt interpreter, String importPath) {
+  ///
+  /// With [onlyOwnPackage] (a sub-package barrel, [subPackageBarrels]),
+  /// only the declarations whose source is in [importPath]'s package are
+  /// registered: a script importing that barrel sees what the package
+  /// declares, not the whole module. (Without it, a module bridging one
+  /// `package:characters` extension would put all of its classes under
+  /// `package:characters/characters.dart`, which `widgets.dart` re-exports.)
+  static void registerBridges(D4rt interpreter, String importPath,
+      {bool onlyOwnPackage = false}) {
+    final String? ownPrefix = onlyOwnPackage
+        ? 'package:${importPath.substring('package:'.length).split('/').first}/'
+        : null;
+    bool include(String? sourceUri) =>
+        ownPrefix == null ||
+        (sourceUri != null && sourceUri.startsWith(ownPrefix));
     // Step #17 — register deferred factory thunks (not pre-built
     // BridgedClass objects): a script touching N of the M classes
     // materializes ≈N (each thunk builds its class on first resolve).
@@ -182,6 +196,7 @@ class LoglibBridge {
     final classTypes = bridgeClassTypes();
     final classSources = classSourceUris();
     for (final entry in classThunks.entries) {
+      if (!include(classSources[entry.key])) continue;
       interpreter.registerBridgedClassLazy(
         entry.key,
         classTypes[entry.key]!,
@@ -200,6 +215,7 @@ class LoglibBridge {
     final enums = bridgedEnums();
     final enumSources = enumSourceUris();
     for (final enumDef in enums) {
+      if (!include(enumSources[enumDef.name])) continue;
       interpreter.registerBridgedEnum(enumDef, importPath,
           sourceUri: enumSources[enumDef.name]);
     }

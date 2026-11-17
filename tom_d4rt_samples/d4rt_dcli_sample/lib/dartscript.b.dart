@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for d4rt_dcli_sample
-// Generated: 2026-11-13T08:26:25.771330 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-17T07:16:43.942416 by tom_d4rt_generator 1.66.0
 
 /// D4rt Bridge Registration for d4rt_dcli_sample
 library;
@@ -21,7 +21,8 @@ class DcliSampleBridges {
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in loglib_bridges.LoglibBridge.subPackageBarrels()) {
-      loglib_bridges.LoglibBridge.registerBridges(d4rt, barrel);
+      loglib_bridges.LoglibBridge.registerBridges(d4rt, barrel,
+          onlyOwnPackage: true);
     }
 
     // RC-2: Register generic constructor factories
