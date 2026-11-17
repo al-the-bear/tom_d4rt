@@ -1,8 +1,9 @@
-/// The scripting-API bridges and tom_todo_model 2.x: a script reads and
+/// The scripting-API bridges and tom_todo_model 3.x: a script reads and
 /// builds repeated todos (`waiting-for-repeat`, `repeat`, `next_repeat`,
 /// `repeat_count`) through the bridged `TomTodo`, `TomTodoRepeat` and
 /// `TomTodoRepeatRule` — a todo file holding one was refused by the 1.x
-/// model.
+/// model — and todo groups (`group`, `comprised_of`), which the 2.x model
+/// refused.
 library;
 
 import 'dart:async';
@@ -87,5 +88,40 @@ void main() {
 }
 ''');
     expect(lines, ['waiting-for-repeat', 'daily', '2', '1']);
+  });
+
+  test('TMB-3: a script reads a todo group from its map', () async {
+    final lines = await run('''
+void main() {
+  final todo = TomTodo.fromMap({
+    'id': 'G1',
+    'title': 'Release the batch',
+    'status': 'group',
+    'comprised_of': ['A1', 'd4rt/B2'],
+  });
+  print(todo.status == TomTodoStatus.group);
+  print(todo.isGroup);
+  print(todo.comprisedOf.join(','));
+}
+''');
+    expect(lines, ['true', 'true', 'A1,d4rt/B2']);
+  });
+
+  test('TMB-4: a script builds a group and writes its map', () async {
+    final lines = await run('''
+void main() {
+  final todo = TomTodo(
+    id: 'G2',
+    title: 'Groups',
+    status: TomTodoStatus.group,
+    comprisedOf: ['C1'],
+  );
+  todo.comprisedOf = [...todo.comprisedOf, 'C2'];
+  final map = todo.toMap();
+  print(map['status']);
+  print((map['comprised_of'] as List).join(','));
+}
+''');
+    expect(lines, ['group', 'C1,C2']);
   });
 }

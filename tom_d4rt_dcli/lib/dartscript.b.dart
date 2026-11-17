@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for tom_d4rt_dcli
-// Generated: 2026-11-15T13:18:59.884942 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-17T07:00:54.857122 by tom_d4rt_generator 1.66.0
 
 /// D4rt Bridge Registration for tom_d4rt_dcli
 library;

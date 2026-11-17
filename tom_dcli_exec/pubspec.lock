@@ -669,18 +669,18 @@ packages:
     dependency: "direct main"
     description:
       name: tom_todo_model
-      sha256: b80dbd958a64b2c9505c21167cc835585349187fdd08cbb8f6199de2d2513fe4
+      sha256: a99efa3512a076321bf0de60138f3d67f87f2f78a93b0813623b32de433704f1
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   tom_vscode_scripting_api:
     dependency: "direct main"
     description:
       name: tom_vscode_scripting_api
-      sha256: d0ee8fd4b3b01a0c7e57ae372fee867772b679d03e16d6148b37c106d5465e07
+      sha256: "429559ca28e80539fab0afb40c80e73269e6d2d6e20b5d4972713f318e3024a6"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   typed_data:
     dependency: transitive
     description:

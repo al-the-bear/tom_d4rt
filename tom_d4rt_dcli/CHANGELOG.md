@@ -1,3 +1,16 @@
+## 2.3.0
+
+### Changed — on tom_todo_model 3.0.0 and tom_vscode_scripting_api 5.0.0 (todo groups)
+
+`tom_todo_model` ^3.0.0 and `tom_vscode_scripting_api` ^5.0.0, up from ^2.0.0
+and ^4.0.0. A todo file holding a todo group — the `group` status and a
+`comprised_of` member list — was refused by the 2.x model; scripts now read
+it. The scripting-API bridges are regenerated: scripts reach
+`TomTodoStatus.group`, `TomTodo.isGroup` and `TomTodo.comprisedOf` (read,
+assigned, and as a constructor parameter). No bridged class was removed. A
+script with an exhaustive `switch` over `TomTodoStatus` needs a case for
+`group`.
+
 ## 2.2.0
 
 ### Changed — on the interpreter release with per-execution hooks (GitHub #19)
