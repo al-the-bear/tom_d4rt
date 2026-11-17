@@ -62,6 +62,20 @@ const Map<String, String> _recorded = {
       'analyzer AST.',
   'SAstNodeFactory': 'model-only: the JSON nodeType registry.',
   'StaticResolver': 'model-only, and not an S-prefixed mirror at all.',
+  'SStaticFacts':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
+  'SStaticFactsBuilder':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
+  'SFactsStamp':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
+  'SFactType':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
+  'SStaticFact':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
+  'SExtensionCallFact':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
+  'STypeArgumentsFact':
+      'model-only: the static facts table of a resolved bundle (ghissues69), not an AST node; no interpreter code compares over it.',
 };
 
 final _classDecl = RegExp(

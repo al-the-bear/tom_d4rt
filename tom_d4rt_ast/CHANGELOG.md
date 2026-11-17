@@ -40,6 +40,13 @@ and writes are not checked against the written arguments
 
 Name resolution: no.
 
+### Changed — requires tom_ast_model 0.3.2 (ghissues69)
+
+The floor rises to `^0.3.2`, the release that holds the static facts table
+(`SStaticFacts`) a resolving tom_ast_generator writes into a bundle under the
+optional `facts` key. This release still reads such a bundle as before and
+ignores the table; using it is ghissues70.
+
 ## 0.249.0
 
 ### Fixed — an enum value through an import prefix, an enum's own names in its members, a field implementing an interface getter (ghissues66, GitHub #21)

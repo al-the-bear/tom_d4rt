@@ -144,6 +144,9 @@ a type mismatch, a missing member. It works from `explicitSources` alone
 and counts rather than reports the errors of a bridged library that has
 neither. See the user guide's
 [resolving check](doc/tom_ast_generator_user_guide.md#the-resolving-check).
+The same resolution records an optional static facts table (extension receiver
+types, inferred type arguments) that the bundle carries under `facts`; see
+[resolved_bundles.md](doc/resolved_bundles.md).
 
 The resulting `AstBundle` (from `tom_d4rt_ast`) is JSON- and
 binary-serializable (`toJson()`, `toBytes()`, `fromJson()`, `fromBytes()`),

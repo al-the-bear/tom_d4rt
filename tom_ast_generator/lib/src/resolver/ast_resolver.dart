@@ -36,7 +36,10 @@ import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'package:tom_ast_model/tom_ast_model.dart' show SFactsStamp, SStaticFacts;
+
 import 'dart_sdk_locator.dart';
+import 'static_facts_collector.dart';
 
 /// One analyzer error of a checked module.
 class ResolveDiagnostic {
@@ -79,10 +82,16 @@ class ResolveReport {
   /// stub: its import, and the names a module importing it cannot resolve.
   final List<ResolveDiagnostic> filtered;
 
+  /// The static facts of the checked modules (ghissues69), when they were
+  /// asked for, the check passed and at least one fact was found; null
+  /// otherwise.
+  final SStaticFacts? facts;
+
   const ResolveReport({
     required this.modulesChecked,
     required this.errors,
     required this.filtered,
+    this.facts,
   });
 
   /// Whether the check passed: no error is left.
@@ -171,7 +180,31 @@ class AstResolver {
     Map<String, String> stubs = const {},
     Set<String> runtimeOnlyLibraries = const {},
     String? projectRoot,
+    bool collectFacts = false,
   }) async {
+    // In a project whose modules are its files as they are on disk (and no
+    // stubs), the project's cached context serves - as for [checkFiles], so
+    // bundling many scripts of one project starts the analyzer once.
+    if (projectRoot != null && stubs.isEmpty) {
+      final root = p.normalize(p.absolute(projectRoot));
+      final onDisk = <String, String>{};
+      for (final MapEntry(key: uri, value: source) in modules.entries) {
+        final path = _Workspace.physicalPathOf(root, uri, _packagesOf(root));
+        if (path == null) break;
+        final file = File(path);
+        if (!file.existsSync() || file.readAsStringSync() != source) break;
+        onDisk[uri] = path;
+      }
+      if (onDisk.length == modules.length) {
+        return _resolveAll(
+          _projectCollection(root, const {}),
+          onDisk,
+          runtimeOnlyLibraries,
+          facts: collectFacts ? (packages: _packagesOf(root)) : null,
+        );
+      }
+    }
+
     final workspace = _Workspace(
       projectRoot != null
           ? p.normalize(p.absolute(projectRoot))
@@ -197,20 +230,34 @@ class AstResolver {
       sdkPath: dartSdk,
     );
     try {
-      return await _resolveAll(collection, modulePaths, runtimeOnlyLibraries);
+      return await _resolveAll(
+        collection,
+        modulePaths,
+        runtimeOnlyLibraries,
+        facts: collectFacts ? (packages: workspace.packages) : null,
+      );
     } finally {
       await collection.dispose();
     }
   }
 
-  /// Resolves each module of [paths] (URI -> path) in [collection].
+  final Map<String, Map<String, _Package>> _packageConfigs = {};
+
+  Map<String, _Package> _packagesOf(String root) =>
+      _packageConfigs[root] ??= _Workspace._readPackageConfig(root);
+
+  /// Resolves each module of [paths] (URI -> path) in [collection]; with
+  /// [facts], also collects the static facts of the modules, stamped with the
+  /// versions of the packages (by name) their types come from.
   Future<ResolveReport> _resolveAll(
     AnalysisContextCollection collection,
     Map<String, String> paths,
-    Set<String> runtimeOnlyLibraries,
-  ) async {
+    Set<String> runtimeOnlyLibraries, {
+    ({Map<String, _Package> packages})? facts,
+  }) async {
     final errors = <ResolveDiagnostic>[];
     final filtered = <ResolveDiagnostic>[];
+    final collector = facts == null ? null : StaticFactsCollector();
     for (final MapEntry(key: uri, value: path) in paths.entries) {
       final result = await collection
           .contextFor(path)
@@ -237,11 +284,34 @@ class AstResolver {
         errors,
         filtered,
       );
+      collector?.collect(uri, result.unit);
     }
     return ResolveReport(
       modulesChecked: paths.length,
       errors: errors,
       filtered: filtered,
+      facts: collector == null || collector.isEmpty || errors.isNotEmpty
+          ? null
+          : collector.build(_stamp(collector.typeLibraries, facts!.packages)),
+    );
+  }
+
+  /// The stamp of a facts table whose types come from [libraries]: the SDK
+  /// version, and the version (from its `pubspec.yaml`) of each `package:`
+  /// library's package that has one.
+  SFactsStamp _stamp(Set<String> libraries, Map<String, _Package> packages) {
+    final versions = <String, String>{};
+    for (final library in libraries) {
+      final uri = Uri.parse(library);
+      if (!uri.isScheme('package') || uri.pathSegments.isEmpty) continue;
+      final name = uri.pathSegments.first;
+      if (versions.containsKey(name)) continue;
+      final version = packages[name]?.version;
+      if (version != null) versions[name] = version;
+    }
+    return SFactsStamp(
+      sdkVersion: File(p.join(dartSdk, 'version')).readAsStringSync().trim(),
+      packages: versions,
     );
   }
 
@@ -262,27 +332,34 @@ class AstResolver {
     Set<String> runtimeOnlyLibraries = const {},
   }) async {
     final root = p.normalize(p.absolute(projectRoot));
-    final collection = _projectCollections[root] ??= () {
-      final workspace = _Workspace(
-        root,
-        isProject: true,
-        languageVersion: _sdkLanguageVersion(),
-      );
-      for (final MapEntry(key: uri, value: source) in stubs.entries) {
-        workspace.place(uri, source);
-      }
-      workspace.finish();
-      return AnalysisContextCollection(
-        includedPaths: [root],
-        resourceProvider: workspace.provider,
-        sdkPath: dartSdk,
-      );
-    }();
+    final collection = _projectCollection(root, stubs);
     return _resolveAll(collection, {
       for (final file in paths)
         p.normalize(p.absolute(file)): p.normalize(p.absolute(file)),
     }, runtimeOnlyLibraries);
   }
+
+  /// The project's cached analysis context; [stubs] are placed when it is
+  /// created.
+  AnalysisContextCollection _projectCollection(
+    String root,
+    Map<String, String> stubs,
+  ) => _projectCollections[root] ??= () {
+    final workspace = _Workspace(
+      root,
+      isProject: true,
+      languageVersion: _sdkLanguageVersion(),
+    );
+    for (final MapEntry(key: uri, value: source) in stubs.entries) {
+      workspace.place(uri, source);
+    }
+    workspace.finish();
+    return AnalysisContextCollection(
+      includedPaths: [root],
+      resourceProvider: workspace.provider,
+      sdkPath: dartSdk,
+    );
+  }();
 
   /// Releases the analysis contexts [checkFiles] keeps.
   Future<void> dispose() async {
@@ -389,6 +466,28 @@ class _Workspace {
   late final Map<String, _Package> _packages = isProject
       ? _readPackageConfig(root)
       : {};
+
+  /// The packages the placed files can import, by name.
+  Map<String, _Package> get packages => _packages;
+
+  /// Where [uri] lives in the project at [root] with [packages], or null
+  /// when it is a package [packages] does not have.
+  static String? physicalPathOf(
+    String root,
+    String uri,
+    Map<String, _Package> packages,
+  ) {
+    final parsed = Uri.parse(uri);
+    if (parsed.isScheme('package') && parsed.pathSegments.isNotEmpty) {
+      final package = packages[parsed.pathSegments.first];
+      if (package == null) return null;
+      return p.normalize(
+        p.join(package.libPath, parsed.pathSegments.skip(1).join('/')),
+      );
+    }
+    if (parsed.isScheme('file')) return parsed.toFilePath();
+    return p.normalize(p.join(root, uri));
+  }
   bool _addedPackage = false;
 
   _Workspace(
@@ -545,4 +644,17 @@ class _Package {
   _Package(this.name, this.root, this.packageUri, this.languageVersion);
 
   String get libPath => p.join(root, packageUri);
+
+  /// The package's version from its `pubspec.yaml`, or null (a virtual
+  /// package, no pubspec, no version).
+  late final String? version = () {
+    final file = File(p.join(root, 'pubspec.yaml'));
+    if (!file.existsSync()) return null;
+    try {
+      final version = (loadYaml(file.readAsStringSync()) as Map?)?['version'];
+      return version?.toString();
+    } on Object {
+      return null;
+    }
+  }();
 }

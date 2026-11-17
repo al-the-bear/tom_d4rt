@@ -183,6 +183,17 @@ try {
   `--dart-sdk`, `--stubs <folder>` (`<folder>/<package>/<path>` declares
   `package:<package>/<path>`) and `--runtime-library <uri>`.
 
+### The static facts table
+
+With the check on, the bundler also records the static types the runtime
+cannot see in the syntax: the receiver type and type arguments of each
+extension call, and the inferred type arguments of generic calls, instance
+creations and untyped collection literals. It returns a `ResolvedAstBundle`,
+whose JSON (and `toBytes`) carries them under the optional `facts` key.
+Readers that do not know the key ignore it. `AstBundlerConfig(staticFacts: false)`
+leaves the table out. Layout, stamp and sizes:
+[resolved_bundles.md](resolved_bundles.md).
+
 ### Stubs from bridge signatures
 
 A stub only declares what a script may call; bodies can throw. For a host API

@@ -1,3 +1,29 @@
+## 0.2.8
+
+### Added — the static facts table (ghissues69, GitHub #18 option 3, part 2)
+
+- **A resolving bundle records static facts.** With
+  `AstBundlerConfig(resolve: true)` and `staticFacts: true` (the default), the
+  resolution also records, per module and node `offset:length`:
+  - the static receiver type, extension and type arguments of every extension
+    member access with an explicit receiver;
+  - the inferred type arguments of generic calls, instance creations and
+    collection literals that do not write them.
+
+  Types are interned once per bundle. The table is stamped with the Dart SDK
+  version and the versions of the packages its types come from.
+- **`ResolvedAstBundle`**, an `AstBundle` whose JSON (and so `toBytes`)
+  carries the table under the optional `facts` key; `ResolvedAstBundle.readFacts`
+  reads it back. Readers that do not know the key, the published tom_d4rt_ast
+  included, read and run the bundle as before, and the bundle format version
+  stays `2.0`. The ZIP form does not carry the table yet.
+- **`StaticFactsCollector`**, the collector, and `ResolveReport.facts`.
+- **`doc/resolved_bundles.md`**: what is recorded, the layout, the stamp and
+  the rule a runtime compares it with, and sizes (the 351 material corpus
+  scripts: +0.3% JSON / +1.1% gz).
+- **Requires tom_ast_model 0.3.2**, which holds the model and codec
+  (`SStaticFacts`).
+
 ## 0.2.7
 
 ### Added — the resolving check (ghissues68, GitHub #18 option 3, part 1)
