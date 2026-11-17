@@ -524,18 +524,18 @@ packages:
     dependency: transitive
     description:
       name: tom_ast_model
-      sha256: b9394b99df6b82ad0de6c98a4a6c86b5e0e31e22f8bd1c132318561dfab3970d
+      sha256: "4788bf9f9afb7bded8929927e00d953749f12d5b02971faf48170c151a44625e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   tom_build_base:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: "0b00185021196d1c5b06697aee963a99dd7c87854a595e3931494eb0892bd7a3"
+      sha256: "3e681c0eca9dfa148c0c7565b94868ee8c37824f0aea4fb37b2eb1169d44a42d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.39.3"
+    version: "2.40.0"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
