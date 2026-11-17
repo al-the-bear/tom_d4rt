@@ -499,7 +499,9 @@ class HashSetCollection {
         );
       },
       'runtimeType': (visitor, target) {
-        if (target is HashSet) return target.runtimeType;
+        if (target is HashSet) {
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
+        }
         throw RuntimeD4rtException(
           "Target is not a HashSet for getter 'runtimeType'",
         );

@@ -314,7 +314,8 @@ class ObjectCore {
     },
     getters: {
       'hashCode': (visitor, target) => target.hashCode,
-      'runtimeType': (visitor, target) => target.runtimeType,
+      'runtimeType': (visitor, target) =>
+          WrittenCollectionType.of(target) ?? target.runtimeType,
     },
   );
 }

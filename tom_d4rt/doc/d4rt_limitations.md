@@ -3068,7 +3068,7 @@ reference.
 ### Lim-13: Extension Type Parameters Without Static Types
 
 **Status:** ⚠️ Limited
-**Recorded:** 2026-11-14 (ghissues49, GitHub #18)
+**Recorded:** 2026-11-14 (ghissues49, GitHub #18); collections a script creates: 2026-11-17 (ghissues67)
 **Complexity:** Fundamental
 
 Dart infers an extension's own type parameters (`K`, `V` of
@@ -3083,20 +3083,42 @@ it has, in this order:
    `final Map<dynamic, dynamic> wide = narrow; wide.keyKind()` gives
    `dynamic`, as in Dart;
 2. the receiver's **runtime type arguments**: a native generic object
-   (`Map<String, int>` from a bridge) or an interpreted generic instance;
+   (`Map<String, int>` from a bridge), an interpreted generic instance, or a
+   collection the script created with written type arguments
+   (`<String, int>{}`, `Map<String, int>()`, `List<String>.empty()`);
 3. otherwise `dynamic`.
+
+#### Collections a script creates
+
+A script's collection is a native `List<Object?>` / `Set<Object?>` /
+`Map<Object?, Object?>` (a script class cannot be a native type argument, and
+bridged code receives the same objects either way). The type arguments it was
+written with - in a list, set or map literal, or to a `List`, `Set` or `Map`
+constructor - are recorded beside it, and `is` / `as`, `runtimeType` and the
+binding above read them: `<String>[] is List<int>` is false,
+`<String, int>{}.runtimeType` prints `_Map<String, int>`, `<P>[]` is a
+`List<P>`, as in Dart.
 
 #### What differs from Dart
 
-A receiver that is neither typed nor reified falls through to `dynamic` where
-Dart infers a type: an untyped collection literal (`{'x': 7}.keyKind()` -
-Dart: `String`; the interpreter does not reify the collections a script
-creates), the result of a call, an index or a cast. Operators, index and
-setter members of an extension use the runtime source only.
+- A receiver that is neither typed nor reified falls through to `dynamic`
+  where Dart infers a type: an untyped collection literal (`{'x': 7}.keyKind()`
+  - Dart: `String`, from the elements; it has no written type arguments), the
+  result of a call, an index or a cast. Operators, index and setter members of
+  an extension use the runtime source only.
+- An untyped literal's type is still answered from its elements: `[]` passes
+  `is List<int>` (Dart: a `List<dynamic>` does not).
+- Writes are not checked against the written type arguments:
+  `(<String>[] as dynamic).add(1)` succeeds where Dart throws a `TypeError`.
+- `runtimeType` of a written collection prints and compares like Dart's
+  (`<String>[].runtimeType == <String>[].runtimeType`), but is not equal to a
+  type literal such as `List<String>`, which the interpreter evaluates to the
+  `List` bridge (as for every collection).
 
 #### Workaround
 
-Give the receiver a written type (`final Map<String, int> m = {'x': 7};`).
+Give the receiver a written type (`final Map<String, int> m = {'x': 7};`), or
+write the literal's type arguments (`<String, int>{'x': 7}`).
 
 ## Intentionally-Unbridged SDK Classes
 

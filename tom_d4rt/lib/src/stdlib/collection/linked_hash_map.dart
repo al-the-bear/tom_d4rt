@@ -307,7 +307,9 @@ class LinkedHashMapCollection {
         );
       },
       'runtimeType': (visitor, target) {
-        if (target is LinkedHashMap) return target.runtimeType;
+        if (target is LinkedHashMap) {
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
+        }
         throw RuntimeD4rtException(
           "Target is not a LinkedHashMap for getter 'runtimeType'",
         );

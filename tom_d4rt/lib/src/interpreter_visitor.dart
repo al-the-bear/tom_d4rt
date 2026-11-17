@@ -571,7 +571,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final result = _tryCast(value, node.type);
     if (!identical(result, _castFailed)) return result;
     // GEN-094: Include actual value type for actionable diagnostics.
-    final valueDesc = value?.runtimeType.toString() ?? 'Null';
+    // ghissues67: a script collection is described by its written type.
+    final valueDesc =
+        (WrittenCollectionType.of(value) ?? value?.runtimeType)?.toString() ??
+        'Null';
     throw D4rtTypeError(
       "Cast failed with 'as' : value of type $valueDesc cannot be cast to "
       '${_castTypeDescription(node.type)}',
@@ -656,17 +659,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           if (value is bool) return value;
           break;
         case 'List':
-          if (value is List) return value;
+          // ghissues67: `<String>[] as List<int>` fails as in Dart.
+          if (value is List && _writtenTypeArgumentsAllow(value, typeNode)) {
+            return value;
+          }
           break;
         case 'Map':
           // SCE104: from the pattern's ladder. Absent here, so `'s' as Map`
           // reached `default` and RETURNED the String.
-          if (value is Map) return value;
+          if (value is Map && _writtenTypeArgumentsAllow(value, typeNode)) {
+            return value;
+          }
           break;
         case 'Set':
           // SCE104: likewise — and `Set` is the one name the pattern's ladder
           // had that this one did not.
-          if (value is Set) return value;
+          if (value is Set && _writtenTypeArgumentsAllow(value, typeNode)) {
+            return value;
+          }
           break;
         case 'Null':
           if (value == null) return value;
@@ -1758,7 +1768,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case 'hashCode':
           return bridgedInstance.nativeObject.hashCode;
         case 'runtimeType':
-          return bridgedInstance.nativeObject.runtimeType;
+          return WrittenCollectionType.of(bridgedInstance.nativeObject) ??
+              bridgedInstance.nativeObject.runtimeType;
         default:
       }
       // Getter first, then method: the same order as `BridgedInstance.get`
@@ -1889,7 +1900,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case 'hashCode':
           return bridgedInstance.nativeObject.hashCode;
         case 'runtimeType':
-          return bridgedInstance.nativeObject.runtimeType;
+          return WrittenCollectionType.of(bridgedInstance.nativeObject) ??
+              bridgedInstance.nativeObject.runtimeType;
         case 'toString':
           return NativeFunction(
             (visitor, args, namedArgs, typeArgs) =>
@@ -6211,7 +6223,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 "[visitMethodInvocation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
               );
             }
-            return bridgedInstance;
+            // ghissues67: `Map<String, int>()` keeps its written type
+            // arguments.
+            return _recordWrittenTypeArguments(bridgedInstance, typeArgsNode);
           }
         } on RuntimeD4rtException {
           rethrow;
@@ -6279,7 +6293,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}",
             );
           }
-          return bridgedInstance;
+          // ghissues67: `Map<String, int>()` keeps its written type
+          // arguments.
+          return _recordWrittenTypeArguments(bridgedInstance, typeArgsNode);
         } on RuntimeD4rtException catch (e) {
           throw RuntimeD4rtException(
             "Error during default bridged constructor for '${bridgedClass.name}': ${e.message}",
@@ -6849,7 +6865,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return target.hashCode;
           }
           if (propertyName == 'runtimeType') {
-            return target.runtimeType;
+            return WrittenCollectionType.of(target) ?? target.runtimeType;
           }
           throw UndefinedStaticMemberD4rtException(
             "Undefined static member '$propertyName' on class '${target.name}'.",
@@ -6966,7 +6982,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // nothing.
       switch (propertyName) {
         case 'runtimeType':
-          return bridgedInstance.nativeObject.runtimeType;
+          return WrittenCollectionType.of(bridgedInstance.nativeObject) ??
+              bridgedInstance.nativeObject.runtimeType;
         case 'hashCode':
           return bridgedInstance.nativeObject.hashCode;
         default:
@@ -7110,7 +7127,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         case 'hashCode':
           return bridgedInstance.nativeObject.hashCode;
         case 'runtimeType':
-          return bridgedInstance.nativeObject.runtimeType;
+          return WrittenCollectionType.of(bridgedInstance.nativeObject) ??
+              bridgedInstance.nativeObject.runtimeType;
         case 'toString':
           return NativeFunction(
             (visitor, args, namedArgs, typeArgs) =>
@@ -7255,7 +7273,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       }
       switch (propertyName) {
         case 'runtimeType':
-          return target.runtimeType;
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
         case 'hashCode':
           return target.hashCode;
         case 'toString':
@@ -7305,7 +7323,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           case 'hashCode':
             return target.hashCode;
           case 'runtimeType':
-            return target.runtimeType;
+            return WrittenCollectionType.of(target) ?? target.runtimeType;
           case 'toString':
             return NativeFunction(
               (visitor, args, namedArgs, typeArgs) => target.toString(),
@@ -7358,7 +7376,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           case 'hashCode':
             return target.hashCode;
           case 'runtimeType':
-            return target.runtimeType;
+            return WrittenCollectionType.of(target) ?? target.runtimeType;
           case 'toString':
             return NativeFunction(
               (visitor, args, namedArgs, typeArgs) => target.toString(),
@@ -8598,10 +8616,39 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     // If this is a const list, return an unmodifiable version
     if (node.constKeyword != null) {
-      return List.unmodifiable(list);
+      return _recordWrittenTypeArguments(
+        List.unmodifiable(list),
+        node.typeArguments,
+      );
     }
 
-    return list;
+    return _recordWrittenTypeArguments(list, node.typeArguments);
+  }
+
+  /// ghissues67: records the type arguments [typeArguments] a collection
+  /// literal or a collection constructor was written with, for the native
+  /// `List`, `Set` or `Map` [collection] (see
+  /// [recordWrittenCollectionTypeArguments]), and returns [collection]
+  /// unchanged. An argument the interpreter cannot resolve records nothing:
+  /// the collection is then answered from its elements, as before.
+  Object? _recordWrittenTypeArguments(
+    Object? collection,
+    TypeArgumentList? typeArguments,
+  ) {
+    final nodes = typeArguments?.arguments;
+    if (nodes == null || nodes.isEmpty) return collection;
+    final native = collection is BridgedInstance
+        ? collection.nativeObject
+        : collection;
+    if (native is! List && native is! Set && native is! Map) return collection;
+    try {
+      recordWrittenCollectionTypeArguments(native, [
+        for (final typeNode in nodes) _resolveTypeArgument(typeNode),
+      ]);
+    } on RuntimeD4rtException {
+      // Not resolvable here: no record.
+    }
+    return collection;
   }
 
   @override
@@ -13231,6 +13278,40 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return true;
   }
 
+  /// ghissues67: whether a cast of the collection [value] to [typeNode]
+  /// (`List<int>`, `Map<String, int>`) is allowed by [value]'s written type
+  /// arguments; true without type arguments on either side.
+  bool _writtenTypeArgumentsAllow(Object value, NamedType typeNode) {
+    final arguments = typeNode.typeArguments?.arguments;
+    if (arguments == null || arguments.isEmpty) return true;
+    return _writtenTypeArgumentsSatisfy(value, arguments) ?? true;
+  }
+
+  /// ghissues67: whether [value]'s written collection type arguments (see
+  /// [recordWrittenCollectionTypeArguments]) satisfy [typeArgumentNodes], the
+  /// ones a type test asks for (`<String>[] is List<int>` is false as in
+  /// Dart, whatever the elements). Null when [value] has no written type
+  /// arguments or their number differs - the caller then decides as before.
+  bool? _writtenTypeArgumentsSatisfy(
+    Object? value,
+    List<TypeAnnotation> typeArgumentNodes,
+  ) {
+    final native = value is BridgedInstance ? value.nativeObject : value;
+    final written = writtenCollectionTypeArgumentsOf(native);
+    if (written == null || written.length != typeArgumentNodes.length) {
+      return null;
+    }
+    for (var i = 0; i < written.length; i++) {
+      if (!writtenTypeArgumentIsSubtype(
+        written[i],
+        _resolveTypeArgument(typeArgumentNodes[i]),
+      )) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /// Check if a Map matches the expected generic type arguments
   bool _checkGenericMapType(
     Map map,
@@ -14223,11 +14304,16 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // No type arguments specified, just check if it's a List
             result = true;
           } else {
-            // Check generic type arguments
-            result = _checkGenericListType(
-              shapeValue,
-              typeNode.typeArguments!.arguments[0],
-            );
+            // ghissues67: written type arguments decide; else the elements.
+            result =
+                _writtenTypeArgumentsSatisfy(
+                  shapeValue,
+                  typeNode.typeArguments!.arguments,
+                ) ??
+                _checkGenericListType(
+                  shapeValue,
+                  typeNode.typeArguments!.arguments[0],
+                );
           }
           break;
         case 'Map':
@@ -14241,11 +14327,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Check generic type arguments
             final typeArgs = typeNode.typeArguments!.arguments;
             if (typeArgs.length >= 2) {
-              result = _checkGenericMapType(
-                shapeValue,
-                typeArgs[0],
-                typeArgs[1],
-              );
+              // ghissues67: written type arguments decide; else the entries.
+              result =
+                  _writtenTypeArgumentsSatisfy(shapeValue, typeArgs) ??
+                  _checkGenericMapType(shapeValue, typeArgs[0], typeArgs[1]);
             } else {
               result = true; // Partial generic, just accept
             }
@@ -14310,6 +14395,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                         _resolveTypeAnnotation(argNode),
                     ],
             );
+            // ghissues67: `<String>{} is Set<int>`, `<String>[] is
+            // Iterable<int>` - a bridged collection type's arguments are
+            // decided by the written ones when the value has them.
+            if (result &&
+                targetType is BridgedClass &&
+                typeArgNodes != null &&
+                typeArgNodes.isNotEmpty) {
+              result =
+                  _writtenTypeArgumentsSatisfy(expressionValue, typeArgNodes) ??
+                  true;
+            }
           } on RuntimeD4rtException catch (e) {
             // Propagate type lookup error
             // Wrap in InternalInterpreterException to be caught correctly
@@ -14481,10 +14577,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           ? Map.unmodifiable(collection as Map<Object?, Object?>)
           : Set.unmodifiable(collection as Set<Object?>);
       _constCollectionCache[node] = canonical;
-      return canonical;
+      return _recordWrittenTypeArguments(canonical, node.typeArguments);
     }
 
-    return collection;
+    return _recordWrittenTypeArguments(collection, node.typeArguments);
   }
 
   // Resolve TypeAnnotation AST node to RuntimeType
@@ -15000,6 +15096,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
     final native = value is BridgedInstance ? value.nativeObject : value;
     if (native is! Map && native is! Iterable) return null;
+    // ghissues67: the type arguments a script wrote for the collection.
+    final written = writtenCollectionTypeArgumentsOf(native);
+    if (written != null) {
+      return AppliedRuntimeType(const NamedRuntimeType('Object'), written);
+    }
     final text = native.runtimeType.toString();
     final open = text.indexOf('<');
     if (open < 0 || !text.endsWith('>')) return null;
@@ -15350,6 +15451,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
   @override
   Object? visitInstanceCreationExpression(InstanceCreationExpression node) {
+    final created = _instanceCreation(node);
+    // ghissues67: `Map<String, int>()`, `List<String>.empty()` - a native
+    // collection constructed with written type arguments keeps them.
+    if (created is AsyncSuspensionRequest) return created;
+    return _recordWrittenTypeArguments(
+      created,
+      node.constructorName.type.typeArguments,
+    );
+  }
+
+  Object? _instanceCreation(InstanceCreationExpression node) {
     final constructorNameNode = node.constructorName.type;
 
     // Resolve class name and named constructor, handling unresolved AST

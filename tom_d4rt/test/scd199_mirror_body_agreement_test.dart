@@ -368,7 +368,9 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.new': '53a57695',
     'InterpreterVisitor.registerTypeAlias': '8b81a27c',
     'InterpreterVisitor.resolveStaticCoordinates': '1c58137b',
-    'InterpreterVisitor.visitAsExpression': '749f9253',
+    // GHISSUES67: 749f9253 -> 98b0b8fd, both trees describe a failed cast of a
+    // script collection by its written type alike.
+    'InterpreterVisitor.visitAsExpression': '98b0b8fd',
     // SCE176: 510fd0b5 -> fddd7587. Both trees appended the same
     // unbridged-native clause to the same two assignment errors; the residue
     // is still `PrefixedIdentifier` vs `SPrefixedIdentifier` in one message,
@@ -434,7 +436,9 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor.visitImportDirective': 'ccb08d3d',
     // GHISSUES36: 7ad649cc -> 0ff5eaa8, both trees resolve a call's type arguments
     // with `_resolveTypeArgument` alike.
-    'InterpreterVisitor.visitInstanceCreationExpression': '0ff5eaa8',
+    // GHISSUES67: the body moved to `_instanceCreation`; the visitor now
+    // records a constructed collection's written type arguments, alike.
+    'InterpreterVisitor._instanceCreation': '0ff5eaa8',
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
@@ -490,7 +494,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // QR1: the static step for a class target, the same operator spelling as
     // `_stepBridgedProperty` and nothing else.
     'InterpreterVisitor._stepStaticProperty': '15618af1',
-    'InterpreterVisitor.visitPrefixedIdentifier': '522d3312',
+    // GHISSUES67: 522d3312 -> ca024abf, both trees answer a script collection's runtimeType by its written type
+    // alike.
+    'InterpreterVisitor.visitPrefixedIdentifier': 'ca024abf',
     // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
     // declined-member reason to the same property-miss message.
     // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged
@@ -505,12 +511,16 @@ const _divergentBodies = <String, Map<String, String>>{
     // override alike.
     // GHISSUES66: 927cf3fc -> 3227b276, both trees look an enum's values up
     // first on a property access (`p.Color.green`) alike.
-    'InterpreterVisitor.visitPropertyAccess': '3227b276',
+    // GHISSUES67: 3227b276 -> 4bce0dcf, both trees answer a script collection's runtimeType by its written type
+    // alike.
+    'InterpreterVisitor.visitPropertyAccess': '4bce0dcf',
     'InterpreterVisitor.visitReturnStatement': 'f152feca',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     // GHISSUES66: 62e52aee -> d2853fe6, both trees resolve an enum's own
     // values, `values` and statics by bare name inside its members alike.
-    'InterpreterVisitor.visitSimpleIdentifier': 'd2853fe6',
+    // GHISSUES67: d2853fe6 -> d599dae3, both trees answer a script collection's runtimeType by its written type
+    // alike.
+    'InterpreterVisitor.visitSimpleIdentifier': 'd599dae3',
     'InterpreterVisitor.visitSwitchExpression': '0e2ec45a',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.

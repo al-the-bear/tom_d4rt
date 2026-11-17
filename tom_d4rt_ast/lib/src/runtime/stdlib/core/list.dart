@@ -608,7 +608,8 @@ class ListCore {
       'single': (visitor, target) => (target as List).single,
       'reversed': (visitor, target) => (target as List).reversed,
       'iterator': (visitor, target) => (target as List).iterator,
-      'runtimeType': (visitor, target) => (target as List).runtimeType,
+      'runtimeType': (visitor, target) =>
+          WrittenCollectionType.of(target) ?? (target as List).runtimeType,
       'hashCode': (visitor, target) => (target as List).hashCode,
       'firstOrNull': (visitor, target) => (target as List).firstOrNull,
       'lastOrNull': (visitor, target) => (target as List).lastOrNull,

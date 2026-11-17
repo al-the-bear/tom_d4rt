@@ -288,7 +288,9 @@ class HashMapCollection {
         );
       },
       'runtimeType': (visitor, target) {
-        if (target is HashMap) return target.runtimeType;
+        if (target is HashMap) {
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
+        }
         throw RuntimeD4rtException(
           "Target is not a HashMap for getter 'runtimeType'",
         );

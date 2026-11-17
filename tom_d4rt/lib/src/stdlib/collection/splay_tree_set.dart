@@ -587,7 +587,9 @@ class SplayTreeSetCollection {
         );
       },
       'runtimeType': (visitor, target) {
-        if (target is SplayTreeSet) return target.runtimeType;
+        if (target is SplayTreeSet) {
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
+        }
         throw RuntimeD4rtException(
           "Target is not a SplayTreeSet for getter 'runtimeType'",
         );

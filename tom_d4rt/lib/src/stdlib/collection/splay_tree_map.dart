@@ -296,7 +296,9 @@ class SplayTreeMapCollection {
         );
       },
       'runtimeType': (visitor, target) {
-        if (target is SplayTreeMap) return target.runtimeType;
+        if (target is SplayTreeMap) {
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
+        }
         throw RuntimeD4rtException(
           "Target is not a SplayTreeMap for getter 'runtimeType'",
         );

@@ -1,3 +1,45 @@
+## 1.270.0
+
+### Fixed — a collection a script creates keeps its written type arguments (ghissues67, GitHub #18)
+
+A collection written with type arguments kept none of them: `<String, int>{}`
+was a native `_Map<Object?, Object?>`, so its `runtimeType` said so, an empty
+`<String>[]` passed `is List<int>` (an empty collection passed every element
+check), `<String>[] as List<int>` succeeded, and an extension's `K` bound
+`dynamic` on `<String, int>{}.keyKind()` where Dart binds `String` (GitHub
+#18's `MapJsonExtension.toJson()` answered `[]` for an empty
+`<String, int>{}`; Dart answers `{}`).
+
+The collection stays the native object it was - bridged code receives what
+it received before, and a script class cannot be a native type argument - and
+the type arguments it was written with are recorded beside it: list, set and
+map literals, and the `List`, `Set` and `Map` constructors and those of the
+`dart:collection` hash, linked and splay-tree maps and sets
+(`Map<String, int>()`, `List<String>.empty()`, `.filled`, `.generate`).
+
+- **Type tests and casts:** `is` / `as` against a generic `List`, `Set`,
+  `Map` or `Iterable` decide by the written type arguments when the value has
+  them, by Dart's subtype rule (`<int>[] is List<num>` is true,
+  `<num>[] is List<int>`, `<dynamic>[] is List<int>` and `<int?>[] is
+  List<int>` are false). A failed cast names the written type
+  (`value of type List<String>`).
+- **`runtimeType`** prints the written arguments (`List<String>`,
+  `_Map<String, int>`, `List<P>` for a script class `P`) and compares like
+  Dart's; it is a `Type` (`WrittenCollectionType`).
+- **Extension type parameters** bind the written arguments (rule 2 of
+  Lim-13).
+- **New public API:** `recordWrittenCollectionTypeArguments`,
+  `writtenCollectionTypeArgumentsOf`, `writtenTypeArgumentIsSubtype` and
+  `WrittenCollectionType`, for a bridge that needs a script collection's
+  written type.
+
+Unchanged: an untyped literal (`{'x': 7}`, `[]`) has no written type
+arguments and is answered from its elements as before (Dart infers its type),
+and writes are not checked against the written arguments
+(`(<String>[] as dynamic).add(1)` still succeeds). Both are in Lim-13.
+
+Name resolution: no.
+
 ## 1.269.0
 
 ### Fixed — an enum value through an import prefix, an enum's own names in its members, a field implementing an interface getter (ghissues66, GitHub #21)

@@ -54,6 +54,12 @@
 // picking which unreachable answer is correct with no case to appeal to, so
 // the divergence stays and is named rather than silently closed.
 
+// THE LITERALS BELOW ARE UNTYPED ON PURPOSE (ghissues67). They were written
+// `<Object?>[x]` to hold any element, but a collection now keeps the type
+// arguments it was written with, and `is` decides by them: `<Object?>[null]
+// is List<Null>` is false, as in Dart, without asking the elements. An
+// untyped literal has no written type arguments, so it still reaches the
+// element predicate this file is about.
 import 'dart:collection';
 
 import 'package:test/test.dart';
@@ -117,14 +123,14 @@ void main() {
   group('SCE101: a generic element is asked the same question as `is`', () {
     test('F-SCE101-1: null satisfies Null and dynamic as an element '
         '[2026-09-22] (PASS)', () {
-      expect(run('var l = <Object?>[null]; return l is List<Null>;'), isTrue);
+      expect(run('var l = [null]; return l is List<Null>;'), isTrue);
       expect(
-        run('var l = <Object?>[null]; return l is List<dynamic>;'),
+        run('var l = [null]; return l is List<dynamic>;'),
         isTrue,
       );
       expect(
         run(
-          "var m = <String, Object?>{'a': null}; return m is Map<String, Null>;",
+          "var m = {'a': null}; return m is Map<String, Null>;",
         ),
         isTrue,
       );
@@ -133,17 +139,17 @@ void main() {
     test(
       'F-SCE101-2: a class satisfies Type as an element [2026-09-22] (PASS)',
       () {
-        expect(run('var l = <Object?>[int]; return l is List<Type>;'), isTrue);
-        expect(run('var l = <Object?>[Foo]; return l is List<Type>;'), isTrue);
+        expect(run('var l = [int]; return l is List<Type>;'), isTrue);
+        expect(run('var l = [Foo]; return l is List<Type>;'), isTrue);
       },
     );
 
     test('F-SCE101-3: a NATIVE bridged element satisfies its bridged class '
         '[2026-09-22] (PASS)', () {
-      expect(run('var l = <Object>[Bag([1])]; return l is List<Bag>;'), isTrue);
+      expect(run('var l = [Bag([1])]; return l is List<Bag>;'), isTrue);
       expect(
         run(
-          "var m = <String, Object>{'a': Bag([1])}; return m is Map<String, Bag>;",
+          "var m = {'a': Bag([1])}; return m is Map<String, Bag>;",
         ),
         isTrue,
       );
@@ -152,12 +158,12 @@ void main() {
     test('F-SCE101-4: a WRAPPED bridged element satisfies the shape arms '
         '[2026-09-22] (PASS)', () {
       expect(
-        run('var l = <Object>[WrappedBag([1])]; return l is List<List>;'),
+        run('var l = [WrappedBag([1])]; return l is List<List>;'),
         isTrue,
       );
       expect(
         run(
-          "var m = <String, Object>{'a': WrappedBag([1])}; "
+          "var m = {'a': WrappedBag([1])}; "
           'return m is Map<String, List>;',
         ),
         isTrue,
@@ -171,12 +177,12 @@ void main() {
 
     test('F-SCE101-5 (control): a non-matching element is still rejected '
         '[2026-09-22] (PASS)', () {
-      expect(run('var l = <Object?>[1]; return l is List<Null>;'), isFalse);
-      expect(run('var l = <Object?>[1]; return l is List<Bag>;'), isFalse);
-      expect(run("var l = <Object?>['s']; return l is List<int>;"), isFalse);
+      expect(run('var l = [1]; return l is List<Null>;'), isFalse);
+      expect(run('var l = [1]; return l is List<Bag>;'), isFalse);
+      expect(run("var l = ['s']; return l is List<int>;"), isFalse);
       expect(
         run(
-          "var m = <String, Object?>{'a': 1}; return m is Map<String, Null>;",
+          "var m = {'a': 1}; return m is Map<String, Null>;",
         ),
         isFalse,
       );
@@ -188,18 +194,18 @@ void main() {
       // answering "non-null". Splitting them is only correct if the `Object`
       // half keeps its answer.
       expect(
-        run('var l = <Object?>[null]; return l is List<Object>;'),
+        run('var l = [null]; return l is List<Object>;'),
         isFalse,
       );
-      expect(run('var l = <Object?>[1]; return l is List<Object>;'), isTrue);
+      expect(run('var l = [1]; return l is List<Object>;'), isTrue);
     });
 
     test('F-SCE101-7 (control): an interpreted element is unaffected '
         '[2026-09-22] (PASS)', () {
       // This arm was already correct and shares the `default` branch with the
       // bridged one, which is what F-SCE101-3 changes.
-      expect(run('var l = <Object>[Foo()]; return l is List<Foo>;'), isTrue);
-      expect(run('var l = <Object>[1]; return l is List<Foo>;'), isFalse);
+      expect(run('var l = [Foo()]; return l is List<Foo>;'), isTrue);
+      expect(run('var l = [1]; return l is List<Foo>;'), isFalse);
     });
 
     test('F-SCE101-8 (control): the nullable suffix still works on elements '
@@ -207,11 +213,11 @@ void main() {
       // SCD62 put this in the small predicate first; the arms added here must
       // not displace it.
       expect(
-        run('var l = <Object?>[null]; return l is List<String?>;'),
+        run('var l = [null]; return l is List<String?>;'),
         isTrue,
       );
       expect(
-        run('var l = <Object?>[null]; return l is List<String>;'),
+        run('var l = [null]; return l is List<String>;'),
         isFalse,
       );
     });
@@ -236,7 +242,7 @@ void main() {
       pairs.forEach((expr, type) {
         final direct = run('Object? v = $expr; return v is $type;');
         final element = run(
-          'var l = <Object?>[$expr]; return l is List<$type>;',
+          'var l = [$expr]; return l is List<$type>;',
         );
         if (direct != element) {
           disagreements.add('$expr is $type: direct=$direct element=$element');
@@ -312,7 +318,7 @@ void main() {
         for (final type in types) {
           final direct = outcome('Object? v = $expr; return v is $type;');
           final element = outcome(
-            'var l = <Object?>[$expr]; return l is List<$type>;',
+            'var l = [$expr]; return l is List<$type>;',
           );
           if (direct != element) {
             disagreements.add(

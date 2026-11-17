@@ -564,7 +564,9 @@ class LinkedHashSetCollection {
         );
       },
       'runtimeType': (visitor, target) {
-        if (target is LinkedHashSet) return target.runtimeType;
+        if (target is LinkedHashSet) {
+          return WrittenCollectionType.of(target) ?? target.runtimeType;
+        }
         throw RuntimeD4rtException(
           "Target is not a LinkedHashSet for getter 'runtimeType'",
         );

@@ -382,3 +382,105 @@ abstract class D4ReceiverProxy {
   /// with [member] not forwarded to the script.
   R d4rtSuperCall<R>(String member, R Function() call);
 }
+
+// ---------------------------------------------------------------------------
+// ghissues67: the written type arguments of a collection a script creates.
+//
+// A script's `<String, int>{}` or `List<String>.empty()` is a native
+// `Map<Object?, Object?>` / `List<Object?>`: the interpreter cannot
+// instantiate a native collection with a script class as its type argument,
+// and bridged code is written against the objects it receives today. So the
+// collection stays as it is, and the type arguments it was written with are
+// recorded beside it, for `is` / `as`, `runtimeType` and extension
+// type-parameter binding to read. A collection without written type
+// arguments has no record and is answered as before.
+// ---------------------------------------------------------------------------
+
+final Expando<List<RuntimeType>> _writtenCollectionTypeArguments = Expando(
+  'd4rt.writtenCollectionTypeArguments',
+);
+
+/// Records [typeArguments] as the written type arguments of [collection]
+/// (a native `List`, `Set` or `Map`); one argument for a list or set, two for
+/// a map. Any other value, or an argument count that does not fit, records
+/// nothing.
+void recordWrittenCollectionTypeArguments(
+  Object? collection,
+  List<RuntimeType> typeArguments,
+) {
+  final arity = collection is Map
+      ? 2
+      : (collection is List || collection is Set)
+      ? 1
+      : 0;
+  if (arity == 0 || typeArguments.length != arity) return;
+  _writtenCollectionTypeArguments[collection!] = List.unmodifiable(
+    typeArguments,
+  );
+}
+
+/// The written type arguments recorded for [collection], or null.
+List<RuntimeType>? writtenCollectionTypeArgumentsOf(Object? collection) =>
+    (collection is List || collection is Set || collection is Map)
+    ? _writtenCollectionTypeArguments[collection!]
+    : null;
+
+/// Whether a collection written with the type argument [sub] is one with
+/// the type argument [sup] (`List<sub>` is a `List<sup>`): Dart's subtype
+/// rule, stricter than [_runtimeTypeCompatible], which takes a top type on
+/// EITHER side as a match. A recorded argument is what the script wrote, so
+/// `<dynamic>[] is List<int>` and `<int?>[] is List<Object>` are false as in
+/// Dart.
+bool writtenTypeArgumentIsSubtype(RuntimeType sub, RuntimeType sup) {
+  final supName = sup.name;
+  if (supName == 'dynamic' || supName == 'void' || supName == 'Object?') {
+    return true;
+  }
+  final subName = sub.name;
+  final subTop =
+      subName == 'dynamic' || subName == 'void' || subName == 'Object?';
+  if (supName == 'Object') {
+    return !subTop && sub is! NullableRuntimeType && subName != 'Null';
+  }
+  if (subTop || subName == 'Object') return false;
+  return _runtimeTypeCompatible(sub, sup);
+}
+
+/// The `runtimeType` of a collection a script wrote type arguments for:
+/// the native class (`List`, `_Map`, `_Set`, ...) with the written
+/// arguments, `List<String>` / `_Map<String, int>` as Dart prints them. A
+/// script class can be an argument (`List<Point>`), which no native `Type`
+/// the interpreter could construct can hold, so this is a [Type] of its own,
+/// equal to another of the same spelling.
+class WrittenCollectionType implements Type {
+  /// The native class name, `List`, `_Map`, `_Set`, ...
+  final String className;
+
+  /// The written type arguments.
+  final List<RuntimeType> typeArguments;
+
+  WrittenCollectionType(this.className, this.typeArguments);
+
+  /// [collection]'s written type, or null when it has none recorded.
+  static WrittenCollectionType? of(Object? collection) {
+    final arguments = writtenCollectionTypeArgumentsOf(collection);
+    if (arguments == null) return null;
+    final native = collection.runtimeType.toString();
+    final open = native.indexOf('<');
+    return WrittenCollectionType(
+      open < 0 ? native : native.substring(0, open),
+      arguments,
+    );
+  }
+
+  @override
+  String toString() =>
+      '$className<${typeArguments.map((t) => t.name).join(', ')}>';
+
+  @override
+  bool operator ==(Object other) =>
+      other is WrittenCollectionType && other.toString() == toString();
+
+  @override
+  int get hashCode => toString().hashCode;
+}

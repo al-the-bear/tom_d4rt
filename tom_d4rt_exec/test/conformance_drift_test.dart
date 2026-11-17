@@ -483,9 +483,35 @@ const _partialTwinBudget = 0;
 /// so a port would fail. Its ast twin holds the mechanism. ghissues1002 ports
 /// it after publishing. The copier surface a port would have added is prefixed
 /// property accesses and enum members, which the corpus copies on every run.
-const _copierGapBudget = 46;
+///
+/// 46 -> 47: GHISSUES67 added
+/// `ghissues67_written_collection_type_arguments_test.dart`, which runs
+/// source to check that a collection a script creates keeps its written type
+/// arguments: `runtimeType`, `is` / `as` on an empty one, covariance and
+/// nullability, a script class and type parameters as arguments, and
+/// extension type parameters bound from them (GitHub #18's
+/// `MapJsonExtension`). Exec resolves tom_d4rt_ast 0.244.0 from pub.dev,
+/// where none of them hold, so a port would fail. Its ast twin holds the
+/// mechanism. ghissues1002 ports it after publishing. The copier surface a
+/// port would have added is typed collection literals, which the corpus copies
+/// on every run.
+const _copierGapBudget = 47;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues67_written_collection_type_arguments_test.dart': _Coverage(
+    'ast:runtime/ghissues67_written_collection_type_arguments_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 10,
+    twinCases: 4,
+    whyPartial:
+        'the twin pins runtimeType, is on an empty collection, a failed as, '
+        'a script class as the argument and K bound from a written map, as '
+        'bundles. The reference runs ten shapes against native Dart '
+        '(covariance, nullability, nesting and top types, type parameters, '
+        'constructors, runtimeType equality, the untyped literal left as it '
+        'was), which take the same recorded arguments.',
+  ),
   'ghissues66_prefixed_enum_value_test.dart': _Coverage(
     'ast:runtime/ghissues66_prefixed_enum_value_test.dart',
     _astTwin,
@@ -2298,6 +2324,21 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
+  // GHISSUES67: a collection a script creates keeps its written type
+  // arguments in the trees (tom_d4rt 1.270.0 / tom_d4rt_ast 0.250.0). The
+  // references moved with it: scc78's F-SCC78-7 expects `<int>[].runtimeType`
+  // to print `List<int>` (it pinned `List<Object?>`), and sce101 writes its
+  // element-predicate probes as untyped literals (`<Object?>[null] is
+  // List<Null>` is now false, as in Dart, without asking the elements). Exec
+  // resolves the published tom_d4rt_ast 0.244.0, where the old answers hold, so
+  // the ports keep them (DGUC6). ghissues1002 converges both downstream after
+  // the publish.
+  'scc78_bridged_runtimetype_test.dart': _Divergence.deliberate,
+  // GHISSUES67: sce101's element-predicate probes are untyped literals in the
+  // reference (a written `<Object?>[...]` is now decided by its type
+  // arguments); the port keeps the typed ones the published interpreter
+  // answers from the elements. ghissues1002 converges it downstream.
+  'sce101_element_type_test.dart': _Divergence.deliberate,
   // SCH2: the three repo-wide guards below are ported WITHOUT their source
   // scans. Each scan reads both interpreter trees off disk, so a second copy
   // here would re-read the identical files and produce a duplicate failure,
@@ -2409,6 +2450,8 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
+  'scc78_bridged_runtimetype_test.dart': '1257c4fe402d4946',
+  'sce101_element_type_test.dart': '17ac05334ac0ff3c',
   'dart313b1_sdk_313_members_test.dart': '7b2fbfaa832e8b8a',
   'scd34_constructor_trace_forwarding_test.dart': '239ecf0a3afc35f2',
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
