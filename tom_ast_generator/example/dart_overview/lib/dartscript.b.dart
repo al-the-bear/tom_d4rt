@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Dartscript registration for dart_overview
-// Generated: 2026-11-13T19:16:32.591783 by tom_d4rt_generator 1.63.2
+// Generated: 2026-11-17T13:18:38.219565 by tom_d4rt_generator 1.66.0
 
 /// D4rt Bridge Registration for dart_overview
 library;
@@ -21,7 +21,7 @@ class DartOverviewBridges {
     );
     // Register under sub-package barrels for direct imports
     for (final barrel in all_bridges.AllBridge.subPackageBarrels()) {
-      all_bridges.AllBridge.registerBridges(d4rt, barrel);
+      all_bridges.AllBridge.registerBridges(d4rt, barrel, onlyOwnPackage: true);
     }
 
     // RC-2: Register generic constructor factories

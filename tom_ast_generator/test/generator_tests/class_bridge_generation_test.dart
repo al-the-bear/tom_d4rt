@@ -457,8 +457,13 @@ void main() {
       () {
         expect(
           generatedCode,
-          contains(
-            'static void registerBridges(D4rt interpreter, String importPath)',
+          // The generator adds named parameters after these two
+          // (`onlyOwnPackage`, `include`, generator 1.66.0) and the
+          // formatter may wrap the line, so the two are matched.
+          matches(
+            RegExp(
+              r'static void registerBridges\(\s*D4rt interpreter,\s*String importPath\b',
+            ),
           ),
         );
       },
