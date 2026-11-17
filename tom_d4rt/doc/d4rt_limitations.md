@@ -3068,7 +3068,7 @@ reference.
 ### Lim-13: Extension Type Parameters Without Static Types
 
 **Status:** ⚠️ Limited
-**Recorded:** 2026-11-14 (ghissues49, GitHub #18); collections a script creates: 2026-11-17 (ghissues67)
+**Recorded:** 2026-11-14 (ghissues49, GitHub #18); collections a script creates: 2026-11-17 (ghissues67); resolved bundles: 2026-11-17 (ghissues70)
 **Complexity:** Fundamental
 
 Dart infers an extension's own type parameters (`K`, `V` of
@@ -3115,10 +3115,35 @@ binding above read them: `<String>[] is List<int>` is false,
   type literal such as `List<String>`, which the interpreter evaluates to the
   `List` bridge (as for every collection).
 
+#### Resolved bundles (tom_d4rt_ast only)
+
+A bundle made in tom_ast_generator's resolving mode
+(`AstBundlerConfig(resolve: true)`) carries the static facts the analyzer
+found. tom_d4rt_ast uses them in place of the order above, when their stamp
+agrees with the host (`tom_d4rt_ast/doc/resolved_bundles.md`):
+
+- **Extension type parameters** are bound from the receiver's static type.
+  This applies to a method call, a getter or a property access: `{'x': 7}.keyKind()`
+  gives `String`, and so does the result of a call.
+- **The extension** a method or getter call goes to is the one Dart picks by the
+  receiver's static type. With `on Map<dynamic, dynamic>` and
+  `on Map<String, int>` both in scope, `narrow.kind()` takes the second.
+- **Literals, instance creations and generic calls** that write no type
+  arguments get the ones Dart inferred:
+  - `[1, 2]` is a `List<int>`, and `Set<int> s = {}` is a set;
+  - `Box('s')` is a `Box<String>`;
+  - `typeOf(3)` binds `T = int`.
+
+Without facts (a parse-only bundle, or a stamp that does not agree), and in
+tom_d4rt, which runs source and has none, the order above applies. Operators,
+index and setter members of an extension are not covered by the facts yet and
+use the runtime source in both cases.
+
 #### Workaround
 
 Give the receiver a written type (`final Map<String, int> m = {'x': 7};`), or
-write the literal's type arguments (`<String, int>{'x': 7}`).
+write the literal's type arguments (`<String, int>{'x': 7}`). With
+tom_d4rt_ast, bundle in resolving mode.
 
 ## Intentionally-Unbridged SDK Classes
 

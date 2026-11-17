@@ -62,6 +62,17 @@ const Map<String, String> _twinOnlyRealignments = {
       'always has — the reference did not change',
 };
 
+/// A marked tom_d4rt_ast release whose change has no reference to mirror
+/// into, because the mechanism it changes exists only in the analyzer-free
+/// line: a resolved bundle's static facts, which tom_d4rt (it runs source)
+/// never has. Every entry must be a marked release (F-SCE29-2 checks).
+const Map<String, String> _twinOnly = {
+  '0.251.0':
+      'ghissues70: with a resolved bundle\'s static facts an extension call '
+      'goes to the extension the receiver\'s static type picks; tom_d4rt has '
+      'no facts, so it has nothing to change',
+};
+
 /// The other direction: a marked tom_d4rt release whose change has no twin to
 /// mirror into, because the mechanism it changes exists only in the analyzer
 /// line. The static name pass (scg6) reads the analyzer AST, which the
@@ -127,6 +138,11 @@ const Map<String, String> _deferred = {
       'ghissues66: a prefixed enum value and an enum\'s own names in its '
       'members resolve; unpublished, the twins resolve the published '
       'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.251.0':
+      'ghissues70: with a resolved bundle\'s static facts an extension call '
+      'goes to the extension the receiver\'s static type picks; unpublished, '
+      'the twins resolve the published interpreter (DGUC6); ghissues1002 runs '
+      'the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();
@@ -300,6 +316,12 @@ void main() {
       );
 
       expect(
+        _twinOnly.keys.where((v) => !ast.contains(v)),
+        isEmpty,
+        reason: 'a _twinOnly entry names no marked release',
+      );
+
+      expect(
         _referenceOnly.keys.where((v) => !source.contains(v)),
         isEmpty,
         reason: 'a _referenceOnly entry names no marked release',
@@ -310,7 +332,13 @@ void main() {
       // only the reference has, both recorded above.
       expect(
         source.where((v) => !_referenceOnly.containsKey(v)).length,
-        ast.where((v) => !_twinOnlyRealignments.containsKey(v)).length,
+        ast
+            .where(
+              (v) =>
+                  !_twinOnlyRealignments.containsKey(v) &&
+                  !_twinOnly.containsKey(v),
+            )
+            .length,
         reason:
             'a name-resolution change is mirrored, so each marked tom_d4rt '
             'release has a tom_d4rt_ast counterpart:\n'

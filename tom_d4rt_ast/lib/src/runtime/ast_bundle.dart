@@ -85,6 +85,18 @@ abstract final class AstBundleFormat {
   /// for a change that is not backwards compatible.
   static const String keyGenerator = 'generator';
 
+  /// Key for the optional static facts table (GitHub #18, ghissues69/70):
+  /// the static types a resolving bundler recorded, which the interpreter
+  /// uses where it would otherwise approximate from run-time values. A
+  /// reader that does not know it ignores it, so the format [version] does
+  /// not change for it (see `SStaticFacts` in tom_ast_model).
+  static const String keyFacts = 'facts';
+
+  /// The ZIP entry holding the static facts table (gzip-compressed JSON).
+  /// Not named in the manifest: a reader that does not know it never opens
+  /// it.
+  static const String factsFileName = 'facts.json.gz';
+
   /// File extension suffix for Dart source entries within the archive.
   static const String sourceDartSuffix = '.src.dart';
 
@@ -270,6 +282,12 @@ class AstBundle {
   /// whichever form it arrived in.
   final String? generator;
 
+  /// The static facts a resolving bundler recorded (`AstBundlerConfig(resolve:
+  /// true)` in tom_ast_generator), or null. `D4rtRunner.executeBundle` uses
+  /// them when their stamp agrees with the host (see
+  /// `doc/resolved_bundles.md`); a bundle without them runs as before.
+  final SStaticFacts? facts;
+
   /// Creates an [AstBundle] with the given entry point and modules.
   ///
   /// Optionally includes [sources] — a map from module URI to Dart source
@@ -283,6 +301,7 @@ class AstBundle {
     required this.modules,
     this.sources,
     this.generator,
+    this.facts,
   }) {
     if (!modules.containsKey(entryPointUri)) {
       throw ArgumentD4rtException(
@@ -318,6 +337,7 @@ class AstBundle {
     ),
     if (sources != null) AstBundleFormat.keySources: sources,
     if (generator != null) AstBundleFormat.keyGenerator: generator,
+    if (facts != null) AstBundleFormat.keyFacts: facts!.toJson(),
   };
 
   /// Deserializes a bundle from a JSON map.
@@ -370,7 +390,20 @@ class AstBundle {
       // Nullable and untyped-checked beyond String: provenance must never be
       // the reason a bundle fails to load.
       generator: json[AstBundleFormat.keyGenerator] as String?,
+      facts: _factsFrom(json[AstBundleFormat.keyFacts]),
     );
+  }
+
+  /// The facts table in [json], or null: absent, of another table format, or
+  /// unreadable. Facts only ever refine what the interpreter does without
+  /// them, so a table this reader cannot use is dropped, never an error.
+  static SStaticFacts? _factsFrom(Object? json) {
+    if (json is! Map<String, dynamic>) return null;
+    try {
+      return SStaticFacts.fromJson(json);
+    } on Object {
+      return null;
+    }
   }
 
   // ===========================================================================
@@ -485,6 +518,19 @@ class AstBundle {
       }
     }
 
+    if (facts != null) {
+      final compressed = _gzipEncoder.encodeBytes(
+        utf8.encode(jsonEncode(facts!.toJson())),
+      );
+      archive.addFile(
+        ArchiveFile.noCompress(
+          AstBundleFormat.factsFileName,
+          compressed.length,
+          compressed,
+        ),
+      );
+    }
+
     return ZipEncoder().encode(archive);
   }
 
@@ -558,7 +604,20 @@ class AstBundle {
       modules: modules,
       sources: sources,
       generator: manifest.generator,
+      facts: _zipFacts(archive),
     );
+  }
+
+  static SStaticFacts? _zipFacts(Archive archive) {
+    final file = archive.findFile(AstBundleFormat.factsFileName);
+    if (file == null) return null;
+    try {
+      return _factsFrom(
+        jsonDecode(utf8.decode(_gzipDecoder.decodeBytes(file.content))),
+      );
+    } on Object {
+      return null;
+    }
   }
 
   // ===========================================================================

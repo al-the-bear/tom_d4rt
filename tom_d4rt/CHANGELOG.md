@@ -1,3 +1,24 @@
+## 1.271.0
+
+### Fixed — a type interpolated into a string reads as its name (ghissues70)
+
+`'$T'` for a bound type parameter printed `Instance of 'BridgedClass'`, and a
+class literal `'${C}'` printed `<class C>`. Both now print the type's name, as
+`T.toString()` already did and as in Dart.
+
+### Changed — the twin's static-facts hooks (ghissues70)
+
+tom_d4rt_ast now uses a resolved bundle's static facts (GitHub #18, option
+B2). The code it shares with this interpreter calls three hooks, and here they
+return null: tom_d4rt runs source and has no facts, so nothing changes in what
+it does. The hooks are for the inferred type arguments of a call, creation or
+literal, an extension call's type arguments, and the extension a call goes to.
+Lim-13 in `doc/d4rt_limitations.md` names the one twin difference this leaves
+on purpose: a resolved bundle on tom_d4rt_ast answers as Dart, the same source
+on tom_d4rt approximates.
+
+Name resolution: no.
+
 ## 1.270.0
 
 ### Fixed — a collection a script creates keeps its written type arguments (ghissues67, GitHub #18)

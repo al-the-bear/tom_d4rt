@@ -1,3 +1,53 @@
+## 0.251.0
+
+### Added — a resolved bundle's static facts (ghissues70, GitHub #18 option B2)
+
+A bundle made by tom_ast_generator's resolving mode carries the static types
+the interpreter cannot see in the syntax. This release reads and uses them.
+
+- **`AstBundle.facts`** (`SStaticFacts` of tom_ast_model 0.3.2): read from
+  and written to JSON and gzip bytes under the `facts` key, and the ZIP as the
+  entry `facts.json.gz`, which the manifest does not name. A bundle without
+  them, or with a table of another format, loads and runs as before. The
+  bundle format version stays `2.0`.
+- **`D4rtRunner.executeBundle` uses the facts when their stamp agrees with
+  the host.** Agreeing means two things:
+  - each stamped package listed in the new `bridgedPackageVersions` has
+    exactly that version;
+  - the `major.minor` of `hostSdkVersion` (`Platform.version` on the VM, null
+    on the web) equals the stamp's SDK.
+
+  On a mismatch the run ignores the whole table, approximates as before, and
+  reports the mismatch once per bundle through the new `onDiagnostic` (and the
+  logger), naming both versions. `lastRunUsedStaticFacts` and
+  `lastStaticFactsMismatch` say what the last run did.
+- **With the facts, as in Dart:**
+  - an extension method call, getter or property access binds the extension's
+    type parameters from the receiver's static type (`{'x': 7}.keyKind()` →
+    `String`);
+  - it goes to the extension the static type picks (`on Map<String, int>`
+    over `on Map<dynamic, dynamic>` for a `Map<String, int>` local);
+  - a list, set or map literal, an instance creation or a generic call that
+    writes no type arguments gets the inferred ones (`[1, 2]` is a
+    `List<int>`, `Set<int> s = {}` is a set, `typeOf(3)` binds `T = int`,
+    `Box('s')` is a `Box<String>`).
+
+  GitHub #18's map cases now match native Dart; see `doc/resolved_bundles.md`.
+  Operators, index and setter members still follow the run-time receiver
+  (Lim-13).
+
+### Fixed — a type interpolated into a string reads as its name
+
+`'$T'` for a bound type parameter printed `Instance of 'BridgedClass'`, and a
+class literal `'${C}'` printed `<class C>`. Both now print the type's name, as
+`T.toString()` already did and as in Dart.
+
+Name resolution: yes — with a resolved bundle's static facts, an extension
+member call resolves to the extension the receiver's static type picks
+instead of the first one whose `on` type matches its run-time type. tom_d4rt
+runs source and has no facts, so it has no counterpart release (sce29
+`_twinOnly`).
+
 ## 0.250.0
 
 ### Fixed — a collection a script creates keeps its written type arguments (ghissues67, GitHub #18)

@@ -22,6 +22,9 @@ import 'package:tom_d4rt_ast/src/runtime/module_context.dart';
 import 'package:tom_d4rt_ast/src/runtime/profiler.dart';
 import 'package:tom_d4rt_ast/src/runtime/runtime_types.dart';
 import 'package:tom_d4rt_ast/src/runtime/security/permissions.dart';
+import 'package:tom_d4rt_ast/src/runtime/static_facts_index.dart';
+import 'package:tom_d4rt_ast/src/runtime/host_sdk_version_stub.dart'
+    if (dart.library.io) 'package:tom_d4rt_ast/src/runtime/host_sdk_version_io.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/stdlib.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/file_access/file_access.dart';
 import 'package:tom_d4rt_ast/src/runtime/utils/logger/logger.dart';
@@ -469,6 +472,65 @@ class D4rtRunner {
 
   /// Gets the current interpreter visitor instance.
   InterpreterVisitor? get visitor => _visitor;
+
+  // =========================================================================
+  // Static facts of a resolved bundle (ghissues70, GitHub #18)
+  // =========================================================================
+
+  /// The version of each package whose bridges this runner registers, by
+  /// package name (e.g. `{'flutter': '3.47.9'}`), for the stamp check of a
+  /// bundle's static facts: a stamped package listed here must have the
+  /// version the bundle was resolved against, else the run ignores the facts.
+  /// A package not listed is not compared. See `doc/resolved_bundles.md`.
+  final Map<String, String> bridgedPackageVersions = {};
+
+  /// The host's Dart SDK version for the stamp check (`Platform.version` on
+  /// the VM, null on the web): its `major.minor` must equal the stamp's. Null
+  /// is not compared.
+  String? hostSdkVersion = hostDartSdkVersion();
+
+  /// Receives the run's diagnostics: a stamp mismatch of a bundle's static
+  /// facts, reported once per bundle and runner.
+  void Function(String message)? onDiagnostic;
+
+  /// Whether the last [executeBundle] used its bundle's static facts.
+  bool get lastRunUsedStaticFacts => _lastRunUsedStaticFacts;
+  bool _lastRunUsedStaticFacts = false;
+
+  /// The stamp mismatch that made the last [executeBundle] ignore its
+  /// bundle's static facts, or null.
+  String? get lastStaticFactsMismatch => _lastStaticFactsMismatch;
+  String? _lastStaticFactsMismatch;
+
+  final Expando<bool> _factsMismatchReported = Expando('factsMismatch');
+
+  /// Uses [bundle]'s static facts for this run when their stamp agrees with
+  /// the host, else ignores them and reports the mismatch once.
+  void _applyStaticFacts(AstBundle bundle) {
+    _lastRunUsedStaticFacts = false;
+    _lastStaticFactsMismatch = null;
+    final facts = bundle.facts;
+    if (facts == null) return;
+    final mismatch = staticFactsStampMismatch(
+      facts.stamp,
+      bridgedPackageVersions: bridgedPackageVersions,
+      hostSdkVersion: hostSdkVersion,
+    );
+    if (mismatch == null) {
+      StaticFactsIndex.install(bundle);
+      _lastRunUsedStaticFacts = true;
+      return;
+    }
+    StaticFactsIndex.uninstall(bundle);
+    _lastStaticFactsMismatch = mismatch;
+    if (_factsMismatchReported[bundle] == true) return;
+    _factsMismatchReported[bundle] = true;
+    final message =
+        'Static facts of bundle ${bundle.entryPointUri} ignored, the run '
+        'approximates as without them: $mismatch.';
+    Logger.warn(message);
+    onDiagnostic?.call(message);
+  }
 
   /// Whether [finalizeBridges] has been called on this runner. Step 6.
   bool get bridgesFinalized => _bridgesFinalized;
@@ -1787,6 +1849,8 @@ class D4rtRunner {
         'Available: ${bundle.modules.keys.join(", ")}',
       );
     }
+
+    _applyStaticFacts(bundle);
 
     // Initialize environment
     final swInit = D4rtProfiler.enabled ? (Stopwatch()..start()) : null;

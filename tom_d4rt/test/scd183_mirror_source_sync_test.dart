@@ -184,6 +184,14 @@ const _astOnly = <String, String>{
       'absent; the reference is VM-only and imports dart:io directly.',
   'utils/file_access/io.dart': 'the dart:io half of the above.',
   'utils/file_access/web.dart': 'the web half of the above.',
+  'static_facts_index.dart':
+      'a resolved bundle\'s static facts attached to their nodes, and the '
+      'stamp check (ghissues70). The reference runs source and has no facts; '
+      'its visitor\'s fact hooks return null.',
+  'host_sdk_version_io.dart':
+      'the host\'s Dart SDK for the static-facts stamp check (ghissues70), '
+      'dart:io half; the reference has no bundle to check.',
+  'host_sdk_version_stub.dart': 'the web half of the above.',
 };
 
 /// Shared files whose divergence is ONE contiguous region, pinned on both

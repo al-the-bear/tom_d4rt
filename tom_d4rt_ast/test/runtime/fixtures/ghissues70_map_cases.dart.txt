@@ -1,0 +1,59 @@
+// GitHub #18's map cases (resbundle1_decision.md section 5) and the
+// inferred type arguments a resolved bundle records (ghissues70). The source
+// of ghissues70_map_cases.bundle.json, written by
+// tom_ast_generator/tool/write_resolved_bundle_fixture.dart; the test
+// ghissues70_static_facts_test.dart runs the same code natively.
+import 'package:map_repro/native.dart';
+
+extension KeyKind<K, V> on Map<K, V> {
+  String keyKind() => K.toString();
+}
+
+/// A reduced Serverpod `MapJsonExtension`: an empty map's JSON is `{}` when
+/// its keys are strings, else `[]`.
+extension MapJsonExtension<K, V> on Map<K, V> {
+  Object toJson() => K == String ? <String, Object?>{} : <Object?>[];
+}
+
+extension WideKind on Map<dynamic, dynamic> {
+  String kind() => 'wide';
+}
+
+extension NarrowKind on Map<String, int> {
+  String kind() => 'narrow';
+}
+
+String typeOf<T>(T value) => '$T';
+
+class Box<T> {
+  final T value;
+  Box(this.value);
+  String get kind => '$T';
+}
+
+Object main() {
+  final Map<String, int> narrow = sameMap();
+  final Map<dynamic, dynamic> wide = narrow;
+  final Map<String, int> emptyNarrow = emptyMap();
+  final Map<dynamic, dynamic> emptyWide = emptyNarrow;
+  final Set<int> emptySet = {};
+  final list = [1, 2];
+  return [
+    narrow.keyKind(),
+    wide.keyKind(),
+    {'x': 7}.keyKind(),
+    emptyNarrow.toJson(),
+    emptyWide.toJson(),
+    <String, int>{}.toJson(),
+    wide.kind(),
+    narrow.kind(),
+    emptySet is Set<int>,
+    list.keyKindOfList(),
+    typeOf(3),
+    Box('s').kind,
+  ].map((e) => '$e').toList();
+}
+
+extension ListKind<E> on List<E> {
+  String keyKindOfList() => E.toString();
+}

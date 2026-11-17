@@ -84,6 +84,16 @@ there.
 throwing `D4UnwrapException` (carrying `expectedType` / `actualType`) on a
 mismatch — so consumers get a native `T`, never a `BridgedInstance`.
 
+### Resolved bundles
+
+A bundle made in tom_ast_generator's resolving mode carries the static types
+the interpreter cannot see in the syntax (`AstBundle.facts`). `executeBundle`
+uses them when their stamp agrees with the host, so extension type
+parameters, the extension a call picks, and the inferred type arguments of
+literals, calls and creations answer as in Dart. A mismatch is reported
+through `D4rtRunner.onDiagnostic`; the run then approximates as without them.
+See [resolved_bundles.md](resolved_bundles.md).
+
 ## The Flutter / web deployment model
 
 This is the reason the package exists. The analyzer is a build-time concern; the

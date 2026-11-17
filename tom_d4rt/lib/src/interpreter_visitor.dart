@@ -1352,7 +1352,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitPrefixedIdentifier(PrefixedIdentifier node) {
     final prefixValue = node.prefix.accept<Object?>(this);
-    noteExtensionReceiver(prefixValue, node.prefix);
+    noteExtensionReceiver(prefixValue, node.prefix, node);
     if (prefixValue is AsyncSuspensionRequest) {
       // Propagate the suspension so that the state machine resumes this node after resolution
       return prefixValue;
@@ -4770,7 +4770,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     } else {
       // Property/Method call on a target (instance or class)
       targetValue = node.target!.accept<Object?>(this);
-      noteExtensionReceiver(targetValue, node.target!);
+      noteExtensionReceiver(targetValue, node.target!, node);
 
       // SCB14 — `await` in RECEIVER position, e.g. `(await f).join(',')`.
       // Why: evaluating the target can suspend, and the sentinel must travel
@@ -4895,7 +4895,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 }
                 final (positionalArgs, namedArgs) =
                     evaluationResult as (List<Object?>, Map<String, Object?>);
-                List<RuntimeType>? evaluatedTypeArguments;
+                List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+                  node,
+                );
                 final typeArgsNode = node.typeArguments;
                 if (typeArgsNode != null) {
                   evaluatedTypeArguments = typeArgsNode.arguments
@@ -5140,7 +5142,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // Plan E: forward script-supplied generic type arguments to the
           // bridged method adapter so interceptors (e.g. for
           // `Element.dependOnInheritedWidgetOfExactType<T>`) can act on `T`.
-          List<RuntimeType>? evaluatedTypeArguments;
+          List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+            node,
+          );
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
@@ -5289,7 +5293,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                   }
                   final (positionalArgs, namedArgs) =
                       evaluationResult as (List<Object?>, Map<String, Object?>);
-                  List<RuntimeType>? evaluatedTypeArguments;
+                  List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+                    node,
+                  );
                   final typeArgsNode = node.typeArguments;
                   if (typeArgsNode != null) {
                     evaluatedTypeArguments = typeArgsNode.arguments
@@ -5334,7 +5340,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             }
             final (positionalArgs, namedArgs) =
                 evaluationResult as (List<Object?>, Map<String, Object?>);
-            List<RuntimeType>? evaluatedTypeArguments;
+            List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+              node,
+            );
             final typeArgsNode = node.typeArguments;
             if (typeArgsNode != null) {
               evaluatedTypeArguments = typeArgsNode.arguments
@@ -5607,7 +5615,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         final (positionalArgs, namedArgs) =
             evaluationResult as (List<Object?>, Map<String, Object?>);
-        List<RuntimeType>? evaluatedTypeArguments;
+        List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+          node,
+        );
         final typeArgsNode = node.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
@@ -5768,7 +5778,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                 evaluationResult as (List<Object?>, Map<String, Object?>);
 
             // Evaluate type arguments for generic methods
-            List<RuntimeType>? evaluatedTypeArguments;
+            List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+              node,
+            );
             final typeArgsNode = node.typeArguments;
             if (typeArgsNode != null) {
               evaluatedTypeArguments = typeArgsNode.arguments
@@ -5944,7 +5956,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               evaluationResult as (List<Object?>, Map<String, Object?>);
 
           // Evaluate type arguments for generic methods
-          List<RuntimeType>? evaluatedTypeArguments;
+          List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+            node,
+          );
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
@@ -6012,7 +6026,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         final (positionalArgs, namedArgs) =
             evaluationResult as (List<Object?>, Map<String, Object?>);
-        List<RuntimeType>? evaluatedTypeArguments;
+        List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+          node,
+        );
         final typeArgsNode = node.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
@@ -6039,7 +6055,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         }
         final (positionalArgs, namedArgs) =
             evaluationResult as (List<Object?>, Map<String, Object?>);
-        List<RuntimeType>? evaluatedTypeArguments;
+        List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+          node,
+        );
         final typeArgsNode = node.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
@@ -6135,7 +6153,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           evaluationResult as (List<Object?>, Map<String, Object?>);
 
       // Evaluate Type Arguments for Method Invocation
-      List<RuntimeType>? evaluatedTypeArguments;
+      List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+        node,
+      );
       final typeArgsNode = node.typeArguments;
       if (typeArgsNode != null) {
         evaluatedTypeArguments = typeArgsNode.arguments
@@ -6172,7 +6192,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final bridgedClass = calleeValue;
 
       // RC-2: Evaluate type arguments (e.g., GlobalKey<NavigatorState>())
-      List<RuntimeType>? evaluatedTypeArguments;
+      List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+        node,
+      );
       final typeArgsNode = node.typeArguments;
       if (typeArgsNode != null) {
         evaluatedTypeArguments = typeArgsNode.arguments
@@ -6348,7 +6370,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           final (positionalArgs, namedArgs) = _evaluateArguments(
             node.argumentList,
           );
-          List<RuntimeType>? evaluatedTypeArguments;
+          List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+            node,
+          );
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
@@ -6385,7 +6409,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           final (positionalArgs, namedArgs) = _evaluateArguments(
             node.argumentList,
           );
-          List<RuntimeType>? evaluatedTypeArguments;
+          List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+            node,
+          );
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
@@ -6431,7 +6457,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           final (positionalArgs, namedArgs) = _evaluateArguments(
             node.argumentList,
           );
-          List<RuntimeType>? evaluatedTypeArguments;
+          List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+            node,
+          );
           final typeArgsNode = node.typeArguments;
           if (typeArgsNode != null) {
             evaluatedTypeArguments = typeArgsNode.arguments
@@ -6535,7 +6563,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   @override
   Object? visitPropertyAccess(PropertyAccess node) {
     final target = node.target?.accept<Object?>(this);
-    if (node.target != null) noteExtensionReceiver(target, node.target!);
+    if (node.target != null) {
+      noteExtensionReceiver(target, node.target!, node);
+    }
     if (target is AsyncSuspensionRequest) {
       // Propagate suspension so the state machine resumes this node after resolution
       return target;
@@ -7404,6 +7434,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   String stringify(Object? value) {
     if (value == null) return 'null';
     if (value is bool) return value.toString();
+    // ghissues70: a type as a value - `'$T'` for a bound type parameter, a
+    // class literal - reads as its name, as `T.toString()` already does; the
+    // type objects' own toString is the interpreter's (`<class C>`,
+    // `Instance of 'BridgedClass'`).
+    if (value is RuntimeType) return value.name;
     // The three interpreted values that can carry a script `toString` override.
     //
     // SCE116 added the second and third. Without them an enum value or an
@@ -8619,10 +8654,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       return _recordWrittenTypeArguments(
         List.unmodifiable(list),
         node.typeArguments,
+        node,
       );
     }
 
-    return _recordWrittenTypeArguments(list, node.typeArguments);
+    return _recordWrittenTypeArguments(list, node.typeArguments, node);
   }
 
   /// ghissues67: records the type arguments [typeArguments] a collection
@@ -8631,20 +8667,31 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   /// [recordWrittenCollectionTypeArguments]), and returns [collection]
   /// unchanged. An argument the interpreter cannot resolve records nothing:
   /// the collection is then answered from its elements, as before.
+  ///
+  /// ghissues70: a literal or constructor call [inferredFrom] that writes no
+  /// type arguments records the ones Dart inferred for it, when the bundle's
+  /// static facts know them.
   Object? _recordWrittenTypeArguments(
     Object? collection,
-    TypeArgumentList? typeArguments,
-  ) {
+    TypeArgumentList? typeArguments, [
+    AstNode? inferredFrom,
+  ]) {
     final nodes = typeArguments?.arguments;
-    if (nodes == null || nodes.isEmpty) return collection;
+    final written = nodes != null && nodes.isNotEmpty;
+    final inferred = written || inferredFrom == null
+        ? null
+        : _staticTypeArgumentsOf(inferredFrom);
+    if (!written && inferred == null) return collection;
     final native = collection is BridgedInstance
         ? collection.nativeObject
         : collection;
     if (native is! List && native is! Set && native is! Map) return collection;
     try {
-      recordWrittenCollectionTypeArguments(native, [
-        for (final typeNode in nodes) _resolveTypeArgument(typeNode),
-      ]);
+      recordWrittenCollectionTypeArguments(
+        native,
+        inferred ??
+            [for (final typeNode in nodes!) _resolveTypeArgument(typeNode)],
+      );
     } on RuntimeD4rtException {
       // Not resolvable here: no record.
     }
@@ -8762,7 +8809,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (evaluated is AsyncSuspensionRequest) return evaluated;
     final (positionalArgs, namedArgs) =
         evaluated as (List<Object?>, Map<String, Object?>);
-    List<RuntimeType>? evaluatedTypeArguments;
+    List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+      node,
+    );
     final typeArgsNode = node.typeArguments;
     if (typeArgsNode != null) {
       evaluatedTypeArguments = typeArgsNode.arguments
@@ -14464,9 +14513,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
     bool isMap;
     bool typeExplicit = false;
+    // ghissues70: `Set<int> s = {};` - the type arguments Dart inferred
+    // decide a literal that writes none, as written ones do.
+    final staticTypeArguments = node.typeArguments == null
+        ? _staticTypeArgumentsOf(node)
+        : null;
 
     // Check explicit type arguments first
-    if (node.typeArguments != null &&
+    if (staticTypeArguments != null) {
+      isMap = staticTypeArguments.length == 2;
+      typeExplicit = true;
+    } else if (node.typeArguments != null &&
         node.typeArguments!.arguments.isNotEmpty) {
       isMap = node.typeArguments!.arguments.length == 2;
       typeExplicit = true;
@@ -14577,10 +14634,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           ? Map.unmodifiable(collection as Map<Object?, Object?>)
           : Set.unmodifiable(collection as Set<Object?>);
       _constCollectionCache[node] = canonical;
-      return _recordWrittenTypeArguments(canonical, node.typeArguments);
+      return _recordWrittenTypeArguments(canonical, node.typeArguments, node);
     }
 
-    return _recordWrittenTypeArguments(collection, node.typeArguments);
+    return _recordWrittenTypeArguments(collection, node.typeArguments, node);
   }
 
   // Resolve TypeAnnotation AST node to RuntimeType
@@ -14593,11 +14650,27 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
   Object? _extensionReceiver;
   Expression? _extensionReceiverExpression;
 
+  /// ghissues70: the member access itself, whose static facts (a resolved
+  /// bundle's) name the extension it goes to and its type arguments.
+  AstNode? _extensionReceiverAccess;
+
   /// Notes [value], produced by [expression], as the receiver of the member
-  /// access being evaluated (see [bindExtensionTypeParameters]).
-  void noteExtensionReceiver(Object? value, Expression expression) {
+  /// access being evaluated (see [bindExtensionTypeParameters]); [access] is
+  /// that access. ghissues70: an extension named by the access's static fact
+  /// is the one an extension lookup on [value] prefers, as Dart picks it by
+  /// the receiver's static type.
+  void noteExtensionReceiver(
+    Object? value,
+    Expression expression, [
+    AstNode? access,
+  ]) {
     _extensionReceiver = value;
     _extensionReceiverExpression = expression;
+    _extensionReceiverAccess = access;
+    Environment.preferExtension(
+      value,
+      access == null ? null : _staticExtensionNameOf(access),
+    );
   }
 
   /// The extension type parameters [names], bound for a call on [target]:
@@ -14625,13 +14698,23 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       _overrideTypeArguments = null;
       _extensionReceiver = null;
       _extensionReceiverExpression = null;
+      _extensionReceiverAccess = null;
       return {for (var i = 0; i < names.length; i++) names[i]: explicit.$2[i]};
     }
-    final expression = identical(held(_extensionReceiver), held(target))
-        ? _extensionReceiverExpression
-        : null;
+    final noted = identical(held(_extensionReceiver), held(target));
+    final expression = noted ? _extensionReceiverExpression : null;
+    final access = noted ? _extensionReceiverAccess : null;
     _extensionReceiver = null;
     _extensionReceiverExpression = null;
+    _extensionReceiverAccess = null;
+    // ghissues70: the type arguments Dart inferred for this call, from the
+    // static receiver type, when the bundle's static facts know them.
+    final known = access == null
+        ? null
+        : _staticExtensionTypeArgumentsOf(access);
+    if (known != null && known.length == names.length) {
+      return {for (var i = 0; i < names.length; i++) names[i]: known[i]};
+    }
     final source =
         (expression == null ? null : _writtenTypeOfReceiver(expression)) ??
         _reifiedTypeOf(target);
@@ -14649,6 +14732,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     }
     return bound;
   }
+
+  // ghissues70: tom_d4rt runs source, not a resolved bundle, so it has no
+  // static facts; tom_d4rt_ast's twins of these read them.
+
+  List<RuntimeType>? _staticTypeArgumentsOf(AstNode node) => null;
+
+  List<RuntimeType>? _staticExtensionTypeArgumentsOf(AstNode access) => null;
+
+  String? _staticExtensionNameOf(AstNode access) => null;
 
   /// ghissues53: the explicit type arguments of the extension override whose
   /// member is being called, with its receiver; read once by
@@ -15458,6 +15550,7 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     return _recordWrittenTypeArguments(
       created,
       node.constructorName.type.typeArguments,
+      node,
     );
   }
 
@@ -15582,7 +15675,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       try {
         // Evaluate the type arguments
-        List<RuntimeType>? evaluatedTypeArguments;
+        List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+          node,
+        );
         final typeArgsNode = node.constructorName.type.typeArguments;
         if (typeArgsNode != null) {
           evaluatedTypeArguments = typeArgsNode.arguments
@@ -15688,7 +15783,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
 
       // RC-2: Evaluate type arguments for BridgedClass constructors
-      List<RuntimeType>? evaluatedTypeArguments;
+      List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+        node,
+      );
       final typeArgsNode = node.constructorName.type.typeArguments;
       if (typeArgsNode != null) {
         evaluatedTypeArguments = typeArgsNode.arguments
@@ -16098,7 +16195,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final (positionalArgs, namedArgs) = _evaluateArguments(node.argumentList);
 
     // 3. Evaluate type arguments (shared logic).
-    List<RuntimeType>? evaluatedTypeArguments;
+    List<RuntimeType>? evaluatedTypeArguments = _staticTypeArgumentsOf(
+      node,
+    );
     final typeArgsNode = node.typeArguments;
     if (typeArgsNode != null) {
       evaluatedTypeArguments = typeArgsNode.arguments

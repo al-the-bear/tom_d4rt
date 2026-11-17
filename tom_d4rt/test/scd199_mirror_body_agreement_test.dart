@@ -438,7 +438,9 @@ const _divergentBodies = <String, Map<String, String>>{
     // with `_resolveTypeArgument` alike.
     // GHISSUES67: the body moved to `_instanceCreation`; the visitor now
     // records a constructed collection's written type arguments, alike.
-    'InterpreterVisitor._instanceCreation': '0ff5eaa8',
+    // GHISSUES70: 0ff5eaa8 -> 434e1e5c, both trees start a creation's type
+    // arguments from the static-facts hook alike.
+    'InterpreterVisitor._instanceCreation': '434e1e5c',
     // SCE109 moved this signature without changing what diverges: the
     // arity-heuristic throw sites inside it now raise `RangeError`
     // rather than `RuntimeD4rtException`, symmetrically in both trees.
@@ -452,7 +454,16 @@ const _divergentBodies = <String, Map<String, String>>{
     // receiver alike.
     // GHISSUES53: 7d256f6b -> efa6c617, both trees dispatch an explicit extension
     // override alike.
-    'InterpreterVisitor.visitMethodInvocation': 'efa6c617',
+    // GHISSUES70: efa6c617 -> 88671abb, both trees note the member access with
+    // its receiver and start a call's type arguments from the static-facts
+    // hook alike.
+    'InterpreterVisitor.visitMethodInvocation': '88671abb',
+    // GHISSUES70 (GitHub #18, option B2): the static-facts hooks. tom_d4rt_ast
+    // reads a resolved bundle's facts attached to the node; tom_d4rt runs
+    // source, has no facts, and returns null. Every caller is shared.
+    'InterpreterVisitor._staticTypeArgumentsOf': 'fe162d3b',
+    'InterpreterVisitor._staticExtensionTypeArgumentsOf': '10f0f79c',
+    'InterpreterVisitor._staticExtensionNameOf': 'c21ebe20',
     // GHISSUES53: the explicit extension override. The analyzer's argument
     // list is required and wraps a positional argument (`argumentExpression`);
     // the mirror's is nullable and a positional argument IS the expression.

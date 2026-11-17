@@ -86,7 +86,8 @@ Two kinds of fact are recorded, each keyed by the node it is about.
   `AstBundle.fromJson` reads the keys it knows, so a reader that does not know
   `facts` reads and runs the bundle as before. The bundle's `version` stays
   `2.0`.
-- **The ZIP form** (`toZip`) does not carry the table yet.
+- **The ZIP form.** `ResolvedAstBundle.toZip` (tom_d4rt_ast 0.244's) does not
+  carry the table; tom_d4rt_ast 0.251.0's `AstBundle.toZip` does.
 
 ## The stamp, and when a runtime trusts the facts
 
@@ -112,6 +113,24 @@ A runtime compares the stamp with what it runs against, as follows:
    it does without one. It reports the mismatch once through the run's
    diagnostics. It never refuses the bundle, so a mismatch can never make
    behaviour worse than a bundle without facts.
+
+## The runtime side
+
+tom_d4rt_ast (from 0.251.0) reads the table into `AstBundle.facts`, from JSON,
+from gzip bytes and from the ZIP entry `facts.json.gz`.
+`D4rtRunner.executeBundle` runs the stamp check above:
+- the host declares its bridge versions in `bridgedPackageVersions`;
+- its SDK is `hostSdkVersion` (`Platform.version` on the VM, null on the web).
+
+When the check passes, the runner attaches each fact to its node, and the
+interpreter uses it:
+- for an extension member call's type arguments, and for the extension Dart
+  picks by the receiver's static type;
+- for the inferred type arguments of literals, calls and creations.
+
+On a mismatch the run ignores the table and reports the mismatch once through
+`D4rtRunner.onDiagnostic`. What changes for a script, side by side with native
+Dart: `tom_d4rt_ast/doc/resolved_bundles.md`.
 
 ## Size
 

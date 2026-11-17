@@ -2273,6 +2273,39 @@ class Environment {
     _unnamedExtensionsOrNew.add(extension);
   }
 
+  /// ghissues70 (GitHub #18): the named extension the member access being
+  /// evaluated goes to by its receiver's static type (a resolved bundle's
+  /// static facts, see `InterpreterVisitor.noteExtensionReceiver`), with its
+  /// receiver. Read by [findExtensionMember] for that receiver only.
+  static (Object?, String)? _preferredExtension;
+
+  /// Records that a lookup on [receiver] prefers the extension
+  /// [extensionName]; null clears it.
+  static void preferExtension(Object? receiver, String? extensionName) {
+    _preferredExtension = extensionName == null
+        ? null
+        : (receiver, extensionName);
+  }
+
+  Callable? _preferredExtensionMember(
+    Object? target,
+    Callable? Function(InterpretedExtension extension) lookup,
+  ) {
+    final preferred = _preferredExtension;
+    if (preferred == null) return null;
+    Object? held(Object? v) => v is BridgedInstance ? v.nativeObject : v;
+    if (!identical(held(preferred.$1), held(target))) return null;
+    for (final current in _extensionScopes()) {
+      for (final value in current._values.values) {
+        if (value is InterpretedExtension && value.name == preferred.$2) {
+          final member = lookup(value);
+          if (member != null) return member;
+        }
+      }
+    }
+    return null;
+  }
+
   // Method to find applicable extension members (Placeholder)
   ///
   /// ghissues56: [setter] looks up the setter [name] instead of the getter,
@@ -2289,6 +2322,10 @@ class Environment {
     if (target == null) {
       return _findNullableExtensionMember(name, setter: setter);
     }
+    // ghissues70: the extension the access's static fact names wins, as Dart
+    // picks the extension by the receiver's static type.
+    final preferred = _preferredExtensionMember(target, lookup);
+    if (preferred != null) return preferred;
     final targetType = getRuntimeType(target); // Helper to get RuntimeType
     if (targetType == null) return null;
     // Search current environment and enclosing ones

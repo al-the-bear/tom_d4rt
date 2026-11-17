@@ -495,9 +495,32 @@ const _partialTwinBudget = 0;
 /// mechanism. ghissues1002 ports it after publishing. The copier surface a
 /// port would have added is typed collection literals, which the corpus copies
 /// on every run.
-const _copierGapBudget = 47;
+///
+/// 47 -> 48: GHISSUES70 added `ghissues70_static_facts_twin_test.dart`, which
+/// runs GitHub #18's map cases as source and pins what tom_d4rt answers
+/// without static facts, and that a type interpolated into a string reads as
+/// its name. Exec resolves tom_d4rt_ast 0.244.0 from pub.dev, which prints
+/// `'$T'` as `Instance of 'BridgedClass'`, so a port would fail. Its ast twin
+/// holds the mechanism: it runs the same cases from a resolved bundle, with
+/// and without facts. ghissues1002 ports it after publishing. The copier
+/// surface a port would have added is generic extensions and interpolated
+/// type parameters, which the corpus copies on every run.
+const _copierGapBudget = 48;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues70_static_facts_twin_test.dart': _Coverage(
+    'ast:runtime/ghissues70_static_facts_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 2,
+    twinCases: 7,
+    whyPartial:
+        'the reference has no static facts: it pins the map cases as source '
+        'approximates them and a type interpolated into a string. The twin '
+        'runs the same cases from a resolved bundle against native Dart, with '
+        'the facts, without them, on a stamp mismatch and through each bundle '
+        'format; the interpolation is in its with-facts answers.',
+  ),
   'ghissues67_written_collection_type_arguments_test.dart': _Coverage(
     'ast:runtime/ghissues67_written_collection_type_arguments_test.dart',
     _astTwin,
