@@ -1,3 +1,21 @@
+## 0.4.0
+
+### Changed (breaking) — `SAnnotation.name` is an `SIdentifier` (ghissues78, GitHub #22)
+
+An annotation's name was typed `SSimpleIdentifier?`, narrower than the
+analyzer's `Annotation.name` (an `Identifier`), so a prefixed annotation such
+as Serverpod's `@_isc.useResult` (`@m.useResult`) could not be represented
+and tom_ast_generator's converter failed with
+`type 'SPrefixedIdentifier' is not a subtype of type 'SSimpleIdentifier?'`.
+`SAnnotation.name` is now `SIdentifier?`: an `SSimpleIdentifier` for
+`@override`, an `SPrefixedIdentifier` for `@m.useResult` and `@m.Foo.named(1)`.
+It is decoded by the node discriminator, so a bundle written with a simple
+name still reads; the bundle format version does not change.
+
+A reader that used `annotation.name?.name` reads `annotation.name?.identifierName`
+(`m.useResult` for a prefixed name), or checks for `SSimpleIdentifier` /
+`SPrefixedIdentifier`.
+
 ## 0.3.2
 
 ### Added — the static facts table of a resolved bundle (ghissues69, GitHub #18 option 3)

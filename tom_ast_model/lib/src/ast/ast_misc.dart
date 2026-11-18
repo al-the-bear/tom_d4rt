@@ -63,7 +63,10 @@ class SAnnotation extends SAstNode {
   @override
   final int length;
 
-  final SSimpleIdentifier? name;
+  /// The annotation's name as written: a simple identifier (`@override`) or
+  /// a prefixed one (`@m.useResult`, ghissues78 / GitHub #22), as the
+  /// analyzer's `Annotation.name` is an `Identifier`.
+  final SIdentifier? name;
   final STypeArgumentList? typeArguments;
   final SSimpleIdentifier? constructorName;
   final SArgumentList? arguments;
@@ -95,9 +98,11 @@ class SAnnotation extends SAstNode {
     return SAnnotation(
       offset: json['offset'] as int,
       length: json['length'] as int,
-      name: json['name'] != null
-          ? SSimpleIdentifier.fromJson(json['name'] as Map<String, dynamic>)
-          : null,
+      // By the node's discriminator: a bundle written before ghissues78
+      // holds a SimpleIdentifier here and reads as before.
+      name:
+          SAstNodeFactory.fromJson(json['name'] as Map<String, dynamic>?)
+              as SIdentifier?,
       typeArguments: json['typeArguments'] != null
           ? STypeArgumentList.fromJson(
               json['typeArguments'] as Map<String, dynamic>,
