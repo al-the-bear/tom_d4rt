@@ -175,12 +175,22 @@ class AstResolver {
   /// bundler's `bridgedLibraries`): a module importing one that has neither
   /// source nor stub has the errors that causes filtered out
   /// ([ResolveReport.filtered]).
+  ///
+  /// [languageVersions] (package name -> `major.minor`) is the language
+  /// version of each package placed in a virtual package; a package without
+  /// an entry gets the SDK's. In a project, a package the project's
+  /// configuration knows keeps the language version it has there - also when
+  /// one of its modules is outside [projectRoot] (a package in the pub cache,
+  /// say): such a package is moved into the virtual workspace, its library
+  /// files on disk with it, so the module can be resolved in the project's
+  /// context.
   Future<ResolveReport> checkModules({
     required Map<String, String> modules,
     Map<String, String> stubs = const {},
     Set<String> runtimeOnlyLibraries = const {},
     String? projectRoot,
     bool collectFacts = false,
+    Map<String, String> languageVersions = const {},
   }) async {
     // In a project whose modules are its files as they are on disk (and no
     // stubs), the project's cached context serves - as for [checkFiles], so
@@ -197,7 +207,7 @@ class AstResolver {
       }
       if (onDisk.length == modules.length) {
         return _resolveAll(
-          _projectCollection(root, const {}),
+          _projectCollection(root, const {}, const {}),
           onDisk,
           runtimeOnlyLibraries,
           facts: collectFacts ? (packages: _packagesOf(root)) : null,
@@ -214,7 +224,9 @@ class AstResolver {
             ),
       isProject: projectRoot != null,
       languageVersion: _sdkLanguageVersion(),
+      languageVersions: languageVersions,
     );
+    workspace.relocateOutside(modules.keys);
     final modulePaths = <String, String>{
       for (final MapEntry(key: uri, value: source) in modules.entries)
         uri: workspace.place(uri, source),
@@ -323,16 +335,18 @@ class AstResolver {
   /// and returns one report over all of them, with [stubs] (URI -> source)
   /// placed as in [checkModules]. The project's analysis context is created
   /// once and kept for later calls with the same root, so checking many files
-  /// costs the analyzer's start once; the stubs of the first call are the
-  /// ones that context sees. Call [dispose] when done.
+  /// costs the analyzer's start once; the stubs and [languageVersions] (of
+  /// the stubs' virtual packages, as in [checkModules]) of the first call are
+  /// the ones that context sees. Call [dispose] when done.
   Future<ResolveReport> checkFiles(
     List<String> paths, {
     required String projectRoot,
     Map<String, String> stubs = const {},
     Set<String> runtimeOnlyLibraries = const {},
+    Map<String, String> languageVersions = const {},
   }) async {
     final root = p.normalize(p.absolute(projectRoot));
-    final collection = _projectCollection(root, stubs);
+    final collection = _projectCollection(root, stubs, languageVersions);
     return _resolveAll(collection, {
       for (final file in paths)
         p.normalize(p.absolute(file)): p.normalize(p.absolute(file)),
@@ -344,11 +358,13 @@ class AstResolver {
   AnalysisContextCollection _projectCollection(
     String root,
     Map<String, String> stubs,
+    Map<String, String> languageVersions,
   ) => _projectCollections[root] ??= () {
     final workspace = _Workspace(
       root,
       isProject: true,
       languageVersion: _sdkLanguageVersion(),
+      languageVersions: languageVersions,
     );
     for (final MapEntry(key: uri, value: source) in stubs.entries) {
       workspace.place(uri, source);
@@ -456,8 +472,12 @@ class _Workspace {
   /// and extended) or virtual.
   final bool isProject;
 
-  /// The language version a virtual package gets.
+  /// The language version a virtual package gets when [languageVersions]
+  /// has none for it.
   final String languageVersion;
+
+  /// The language version of each virtual package, by package name.
+  final Map<String, String> languageVersions;
 
   final OverlayResourceProvider provider = OverlayResourceProvider(
     PhysicalResourceProvider.INSTANCE,
@@ -494,7 +514,50 @@ class _Workspace {
     this.root, {
     required this.isProject,
     required this.languageVersion,
+    this.languageVersions = const {},
   });
+
+  /// Where a virtual package [name] lives.
+  String _virtualRootOf(String name) => p.join(root, '__d4rt_resolve__', name);
+
+  /// In a project, moves each package the project's configuration places
+  /// outside [root] and one of [moduleUris] belongs to into the virtual
+  /// workspace: the analyzer resolves only files inside [root]'s context. The
+  /// package keeps its language version (and, for a facts stamp, its
+  /// version), and its library files on disk are mirrored as overlays, so
+  /// its other libraries, parts and relative imports are still there; a
+  /// source placed afterwards replaces its file.
+  void relocateOutside(Iterable<String> moduleUris) {
+    if (!isProject) return;
+    for (final uri in moduleUris) {
+      final parsed = Uri.parse(uri);
+      if (!parsed.isScheme('package') || parsed.pathSegments.isEmpty) continue;
+      final name = parsed.pathSegments.first;
+      final package = _packages[name];
+      if (package == null || package.relocated) continue;
+      if (p.isWithin(root, package.libPath)) continue;
+      final moved = _Package(
+        name,
+        _virtualRootOf(name),
+        'lib/',
+        package.languageVersion ?? languageVersions[name] ?? languageVersion,
+        versionRoot: package.root,
+        relocated: true,
+      );
+      _packages[name] = moved;
+      _addedPackage = true;
+      final lib = Directory(package.libPath);
+      if (!lib.existsSync()) continue;
+      for (final file in lib.listSync(recursive: true).whereType<File>()) {
+        if (!file.path.endsWith('.dart')) continue;
+        provider.setOverlay(
+          p.join(moved.libPath, p.relative(file.path, from: package.libPath)),
+          content: file.readAsStringSync(),
+          modificationStamp: 0,
+        );
+      }
+    }
+  }
 
   /// Puts [source] where [uri] lives and returns that path. A `package:` URI
   /// goes where the package configuration puts its package, or into a
@@ -515,9 +578,9 @@ class _Workspace {
         _addedPackage = true;
         return _Package(
           name,
-          p.join(root, '__d4rt_resolve__', name),
+          _virtualRootOf(name),
           'lib/',
-          languageVersion,
+          languageVersions[name] ?? languageVersion,
         );
       }();
       return p.normalize(p.join(package.libPath, rest));
@@ -641,14 +704,29 @@ class _Package {
   final String packageUri;
   final String? languageVersion;
 
-  _Package(this.name, this.root, this.packageUri, this.languageVersion);
+  /// Where the package's `pubspec.yaml` is: its [root], or, for a package
+  /// moved into the virtual workspace, where it was.
+  final String versionRoot;
+
+  /// Whether the package was moved into the virtual workspace
+  /// ([_Workspace.relocateOutside]).
+  final bool relocated;
+
+  _Package(
+    this.name,
+    this.root,
+    this.packageUri,
+    this.languageVersion, {
+    String? versionRoot,
+    this.relocated = false,
+  }) : versionRoot = versionRoot ?? root;
 
   String get libPath => p.join(root, packageUri);
 
   /// The package's version from its `pubspec.yaml`, or null (a virtual
   /// package, no pubspec, no version).
   late final String? version = () {
-    final file = File(p.join(root, 'pubspec.yaml'));
+    final file = File(p.join(versionRoot, 'pubspec.yaml'));
     if (!file.existsSync()) return null;
     try {
       final version = (loadYaml(file.readAsStringSync()) as Map?)?['version'];

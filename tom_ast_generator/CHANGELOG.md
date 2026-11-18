@@ -1,3 +1,30 @@
+## 0.2.9
+
+### Fixed — the resolving check reads each package under its own language version (ghissues74)
+
+With `explicitSources` the resolving check placed every package in a virtual
+workspace under the SDK's language version, so a package written for an older
+one was refused: intl 0.20.3 (language 3.9) declares
+`num parse(final String inputText)`, which Dart 3.13 reports as
+`extraneous_modifier`.
+
+- `AstBundler.packageLanguageVersions` (package name -> `major.minor`) gives
+  each package placed from `explicitSources` or `declarationStubs` its
+  language version (`AstResolver.checkModules(languageVersions:)`,
+  `checkFiles(languageVersions:)`); a package without an entry keeps the
+  SDK's.
+- `astgen --resolve --package-config <file>` reads those versions from a
+  `package_config.json` (its `languageVersion` entries; `rootUri` is not
+  read).
+- In a project, an explicit source of a package the project places outside
+  its root (the pub cache) failed with `Unable to find the context`. Such a
+  package is now moved into the virtual workspace with its other library
+  files, under the project's language version, and its facts stamp keeps
+  its version.
+
+The intl 0.20.3 closure (intl, clock, meta, path) from `explicitSources`
+passes the check with the packages' language versions given.
+
 ## 0.2.8
 
 ### Added — the static facts table (ghissues69, GitHub #18 option 3, part 2)

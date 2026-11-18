@@ -160,6 +160,19 @@ try {
   configuration, and nothing is written to disk - or from a project
   (`createFromFile`, `projectRoot`), whose `.dart_tool/package_config.json`
   supplies the imported packages.
+- **Language versions.** The analyzer reads each package under the language
+  version it was written for: a `final` parameter is valid in intl 0.20.3
+  (language 3.9) and an error under Dart 3.13's. A package placed from
+  `explicitSources` or `declarationStubs` gets the version
+  `packageLanguageVersions` gives it (package name -> `major.minor`, e.g.
+  the `languageVersion` entries of the `package_config.json` the sources
+  were collected from), else the SDK's. In a project, a package its
+  configuration knows keeps the version it has there.
+- **Sources of packages outside the project.** In a project, an explicit
+  source of a package the project's configuration places outside the
+  project root (in the pub cache, say) is moved, with that package's other
+  library files, into the virtual workspace, so it is resolved in the
+  project's context under the project's language version.
 - **What the analyzer reads.** The Dart SDK, and in a project the packages its
   configuration names. `fileAccessValidator` governs the bundler's own reads,
   not the analyzer's.
@@ -181,7 +194,9 @@ try {
   (`tom_d4rt_flutter_ast/test/run_corpus_check.sh`).
 - **`astgen --resolve`** checks each entrypoint before converting it, with
   `--dart-sdk`, `--stubs <folder>` (`<folder>/<package>/<path>` declares
-  `package:<package>/<path>`) and `--runtime-library <uri>`.
+  `package:<package>/<path>`), `--runtime-library <uri>` and
+  `--package-config <file>` (the `languageVersion` of each package the check
+  places virtually, the stubs' packages; `rootUri` is not read).
 
 ### The static facts table
 

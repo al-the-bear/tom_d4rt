@@ -343,6 +343,15 @@ class AstBundler {
   /// `Map<String, int> sameMap() => throw UnimplementedError();`.
   final Map<String, String> declarationStubs;
 
+  /// The language version (`major.minor`) of each package by name, for the
+  /// resolving check ([AstBundlerConfig.resolve]) of [explicitSources] and
+  /// [declarationStubs]: the analyzer reads a package under the language
+  /// version it was written for (its `languageVersion` in a
+  /// `package_config.json`). A package without an entry is read under the
+  /// SDK's language version. In a project, a package the project's package
+  /// configuration knows keeps the language version it has there.
+  final Map<String, String> packageLanguageVersions;
+
   /// The [AstConverter] used for parsing. Injected for testability.
   final AstConverter _converter;
 
@@ -363,6 +372,8 @@ class AstBundler {
   /// - [fileAccessValidator] — optional callback that gates file reads
   /// - [converter] — custom [AstConverter] (defaults to a new instance)
   /// - [declarationStubs] — declarations the resolving check reads
+  /// - [packageLanguageVersions] — each package's language version for the
+  ///   resolving check
   /// - [resolver] — the [AstResolver] for the resolving check (a new one by
   ///   default; pass one to share its SDK lookup)
   AstBundler({
@@ -373,6 +384,7 @@ class AstBundler {
     this.config = const AstBundlerConfig(),
     this.fileAccessValidator,
     this.declarationStubs = const {},
+    this.packageLanguageVersions = const {},
     AstConverter? converter,
     AstResolver? resolver,
   }) : _converter = converter ?? AstConverter(),
@@ -470,6 +482,7 @@ class AstBundler {
       runtimeOnlyLibraries: bridgedLibraries,
       projectRoot: root,
       collectFacts: config.staticFacts,
+      languageVersions: packageLanguageVersions,
     );
     _lastResolveReport = report;
     if (!report.passed) {

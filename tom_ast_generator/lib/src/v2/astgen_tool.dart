@@ -37,6 +37,15 @@ const astgenOptions = <OptionDefinition>[
         'exist only at run time: <folder>/<package>/<path> declares '
         'package:<package>/<path>. Never converted or bundled',
   ),
+  OptionDefinition.option(
+    name: 'package-config',
+    valueName: 'file',
+    description:
+        'With --resolve, a package_config.json whose languageVersion entries '
+        'give the language version of the packages the check places '
+        'virtually (the stubs\' packages); rootUri is ignored. A package '
+        'without one gets the SDK\'s',
+  ),
   OptionDefinition.multi(
     name: 'runtime-library',
     valueName: 'uri',

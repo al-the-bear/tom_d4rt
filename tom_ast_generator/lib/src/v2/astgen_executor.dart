@@ -4,6 +4,7 @@
 /// ToolRunner framework.
 library;
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/utilities.dart';
@@ -66,6 +67,9 @@ class AstgenExecutor extends CommandExecutor {
               ),
               _readStubs(args.extraOptions['stubs'] as String?),
               _uris(args.extraOptions['runtime-library']),
+              readPackageLanguageVersions(
+                args.extraOptions['package-config'] as String?,
+              ),
             )
           : null;
       final success = await _processProject(
@@ -104,8 +108,35 @@ class _ResolveCheck {
   final AstResolver resolver;
   final Map<String, String> stubs;
   final Set<String> runtimeOnlyLibraries;
+  final Map<String, String> languageVersions;
 
-  _ResolveCheck(this.resolver, this.stubs, this.runtimeOnlyLibraries);
+  _ResolveCheck(
+    this.resolver,
+    this.stubs,
+    this.runtimeOnlyLibraries,
+    this.languageVersions,
+  );
+}
+
+/// The language version of each package of the `package_config.json` at
+/// [file] (`--package-config`), by name; `rootUri` is not read. Empty
+/// without a file; a package without a `languageVersion` is left out.
+Map<String, String> readPackageLanguageVersions(String? file) {
+  if (file == null) return const {};
+  final config = File(file);
+  if (!config.existsSync()) {
+    throw ArgumentError('Package config not found: $file');
+  }
+  final json = jsonDecode(config.readAsStringSync());
+  final packages = json is Map<String, dynamic> ? json['packages'] : null;
+  if (packages is! List) {
+    throw ArgumentError('Not a package_config.json (no packages list): $file');
+  }
+  return {
+    for (final entry in packages.whereType<Map<String, dynamic>>())
+      if (entry['name'] is String && entry['languageVersion'] is String)
+        entry['name'] as String: entry['languageVersion'] as String,
+  };
 }
 
 /// The URIs of a repeatable option: none, one (a `String`) or several.
@@ -255,6 +286,7 @@ Future<bool> _processProject(
             projectRoot: projectPath,
             stubs: check.stubs,
             runtimeOnlyLibraries: check.runtimeOnlyLibraries,
+            languageVersions: check.languageVersions,
           );
           for (final error in report.errors) {
             stderr.writeln('    $error');
