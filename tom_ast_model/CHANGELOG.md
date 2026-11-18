@@ -1,6 +1,10 @@
-## 0.4.0
+## 0.3.3
 
-### Changed (breaking) — `SAnnotation.name` is an `SIdentifier` (ghissues78, GitHub #22)
+### Changed — `SAnnotation.name` is an `SIdentifier` (ghissues78, GitHub #22)
+
+The same change as 0.4.0, published in the 0.3 line so that every package on
+`tom_ast_model ^0.3.2` - the published tom_d4rt_ast among them - takes it
+(0.4.0 is otherwise identical; prefer 0.3.3).
 
 An annotation's name was typed `SSimpleIdentifier?`, narrower than the
 analyzer's `Annotation.name` (an `Identifier`), so a prefixed annotation such
@@ -15,6 +19,11 @@ name still reads; the bundle format version does not change.
 A reader that used `annotation.name?.name` reads `annotation.name?.identifierName`
 (`m.useResult` for a prefixed name), or checks for `SSimpleIdentifier` /
 `SPrefixedIdentifier`.
+
+## 0.4.0
+
+Identical to 0.3.3: the same change, published first under a minor bump that
+the 0.3 consumers (the published tom_d4rt_ast) could not resolve.
 
 ## 0.3.2
 
