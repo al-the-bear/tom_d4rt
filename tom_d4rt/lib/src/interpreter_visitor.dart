@@ -7363,19 +7363,38 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         memberName: propertyName,
         receiver: target,
       );
+    } else if (target is AppliedRuntimeType &&
+        (target.baseType is InterpretedClass ||
+            target.baseType is BridgedClass)) {
+      // ghissues79 (GitHub #23): `prefix.Box<int>.named` / `.new` - a
+      // constructor tear-off of a class applied to type arguments keeps them.
+      // ghissues80 (GitHub #24): the applied class is a type value
+      // (`List<String>`), so its other members are a Type's.
+      final base = target.baseType;
+      final tearOff = base is InterpretedClass
+          ? _interpretedConstructorTearOff(base, propertyName)
+          : _bridgedConstructorTearOff(base as BridgedClass, propertyName);
+      if (tearOff is Callable) {
+        return InstantiatedCallable(tearOff, target.typeArguments);
+      }
+      switch (propertyName) {
+        case 'hashCode':
+          return target.hashCode;
+        case 'runtimeType':
+          return Type;
+        case 'toString':
+          return NativeFunction(
+            (visitor, args, namedArgs, typeArgs) => target.toString(),
+            arity: 0,
+            name: 'toString',
+          );
+      }
+      throw UndefinedStaticMemberD4rtException(
+        "Undefined static member '$propertyName' on type '${target.name}'.",
+        memberName: propertyName,
+      );
     } else if (target is Callable) {
       // ENG-006: Handle property access on function objects (InterpretedFunction, NativeFunction, etc.)
-      // ghissues79: `prefix.Box<int>.named` / `.new` - a constructor tear-off
-      // of a class instantiated with type arguments keeps them.
-      if (target is InstantiatedCallable) {
-        final klass = target.target;
-        final tearOff = klass is InterpretedClass
-            ? _interpretedConstructorTearOff(klass, propertyName)
-            : null;
-        if (tearOff is Callable) {
-          return InstantiatedCallable(tearOff, target.typeArguments);
-        }
-      }
       // Functions support runtimeType, hashCode, toString, and call tear-off.
       if (Logger.isDebug) {
         Logger.debug(
@@ -16717,7 +16736,24 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (typeArgumentNodes == null ||
         typeArgumentNodes.isEmpty ||
         referenced is! Callable) {
+      // ghissues80 (GitHub #24): a class with type arguments as an
+      // expression (`List<String>`, `Box<int>`) is the applied type, equal
+      // to the same type argument (`T == List<String>`).
+      if (referenced is BridgedClass &&
+          typeArgumentNodes != null &&
+          typeArgumentNodes.isNotEmpty) {
+        return AppliedRuntimeType(referenced, [
+          for (final typeNode in typeArgumentNodes)
+            _resolveTypeArgument(typeNode),
+        ]);
+      }
       return referenced;
+    }
+    if (referenced is InterpretedClass) {
+      return AppliedRuntimeType(referenced, [
+        for (final typeNode in typeArgumentNodes)
+          _resolveTypeArgument(typeNode),
+      ]);
     }
     return InstantiatedCallable(referenced, [
       for (final typeNode in typeArgumentNodes) _resolveTypeArgument(typeNode),

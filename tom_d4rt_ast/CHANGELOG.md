@@ -1,3 +1,24 @@
+## 0.260.0
+
+### Fixed — a type argument equals a type literal with type arguments (ghissues80, GitHub #24)
+
+`T == List<String>` was false when `T` is `List<String>`, as was
+`List<String> == List<String>`, while `List<String> == List<int>` was true and
+`'${List<String>}'` printed `List`. A class with type arguments as an
+expression dropped them (a bridged class) or became a callable (a script
+class), and an applied type compared by identity.
+
+- `List<String>`, `Map<String, int>`, `Box<int>` as expressions are the
+  applied type (`AppliedRuntimeType`), named as Dart names it;
+- `AppliedRuntimeType`, `NullableRuntimeType` and `WrittenCollectionType`
+  compare by structure, with a `hashCode` to match (map keys, `Set`s), so
+  `List<String>?`, `List<List<String>>` and `List<int>` stay unequal to
+  `List<String>`;
+- `prefix.Box<int>.new` / `.named` keep their type arguments as before.
+
+Name resolution: no — what a resolved type literal evaluates to changes, not
+which declaration a name resolves to.
+
 ## 0.259.0
 
 ### Fixed — a constructor tear-off through an import prefix (ghissues79, GitHub #23)

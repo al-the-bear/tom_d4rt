@@ -1,8 +1,740 @@
 # tom_d4rt — archived changelog
 
-Releases 1.101.0 and earlier, moved out of `CHANGELOG.md` because pub.dev
+Releases 1.120.0 and earlier, moved out of `CHANGELOG.md` because pub.dev
 refuses a changelog over 262144 bytes (SCE209). Newer releases are in
 [CHANGELOG.md](CHANGELOG.md).
+
+## 1.120.0
+
+### Fixed - `x is Enum` answers what Dart answers (scd176)
+
+`Enum` was bridged but declared no `isAssignable`, and `_valueHasType`'s
+bridged branch only reaches its native-predicate fallback when the bridge has
+one. So `is Enum` was FALSE for every bridged value, including genuine SDK
+enums — false by omission rather than by any decision.
+
+A PREDICATE, NOT SUPERTYPE EDGES, and the distinction is load-bearing. The
+obvious repair is to declare an `-> Enum` edge on every "enum-shaped" bridge.
+Measured against Dart, four of the five usual candidates are not enums at all:
+`StdioType` and `InternetAddressType` are `final class`, `ProcessSignal` is an
+`interface class`, and `FileMode` is a class — all with static const instances
+that look like enum values from a script. Only
+`HttpClientResponseCompressionState` is a real `enum`. Hand-declared edges
+would have turned four correct answers into wrong ones; asking the native
+value classifies each correctly with no list to maintain.
+
+`is Comparable` is deliberately untouched. Dart answers FALSE for all five,
+including the genuine enum — `Enum` does not extend `Comparable` — and the
+bridge declares no `compareTo`, so the interpreter's existing `false` is
+already right.
+
+The hierarchy audit's one `_declinedEdges` entry is removed: it held this
+question open, and the audit now reports the edge as satisfied via
+`isAssignable` rather than missing by decision.
+
+## 1.119.0
+
+### Added - the TLS pair: `X509Certificate` and `SecurityContext` (scd171)
+
+Both were consumed by adapters and registered nowhere. `SecurityContext` is
+what `HttpServer.bindSecure` and `HttpClient(context:)` cast their argument to,
+so a script had no way to build the value they demand and both entry points
+were unreachable. `X509Certificate` is what the bridged `HttpRequest.certificate`
+and `HttpClientResponse.certificate` getters return — with no bridge claiming
+it, every member call on the result died with `Undefined property or method
+... on _X509CertificateImpl`.
+
+That one failed SILENTLY, and outlived the sweep built to catch it: SCC24 skips
+null getters, and `certificate` is null on a plain-HTTP request. Both trees'
+sweeps now capture a real certificate from a loopback TLS handshake, so the
+blind spot is closed for this type.
+
+`SecurityContext`'s four file-reading members — `usePrivateKey`,
+`useCertificateChain`, `setTrustedCertificates`, `setClientAuthorities` — go
+through the same `FilesystemPermission` gate as `File` and `Directory`. Handing
+the path straight to the SDK would let a script scoped to one directory read a
+private key anywhere on the host through a TLS API. The `*Bytes` variants read
+nothing and are ungated.
+
+`alpnSupported` is deliberately not bridged: the SDK deprecates it.
+
+## 1.118.0
+
+### Fixed - `NetworkPermission` now gates every socket-acquiring bridge (scd170)
+
+`NetworkPermission` was declared, documented and threaded through the
+permission system, and in the whole of `lib` it gated exactly ONE call site:
+`InternetAddress.lookup`. Everything that opens a socket ran unchecked —
+`Socket.connect` / `startConnect`, `ServerSocket.bind`, `RawSocket.connect` /
+`startConnect`, `RawServerSocket.bind`, `RawDatagramSocket.bind`,
+`HttpServer.bind` / `bindSecure` / `listenOn`, `WebSocket.connect`, and all
+fourteen `HttpClient` request methods.
+
+What stood in for a gate was the IMPORT gate on `dart:io`, which is keyed on
+`FilesystemPermission`. A script granted filesystem access therefore received
+unrestricted inbound and outbound network access. The quest's standing
+constraint is that the interpreter "must remain fully sandboxed".
+
+It is one sweep rather than a gate per class because a partial gate reads as a
+working sandbox: `HttpServer.bind` alone is bypassable with
+`ServerSocket.bind` + `HttpServer.listenOn`, `HttpClient.getUrl` alone with
+`HttpClient.open`, and all of HTTP with `Socket.connect`.
+
+The host and port are passed through, so `NetworkPermission.connectTo` now
+means something. The one gate that existed took a `host` argument and dropped
+it, asking only `{'type': 'network', 'connect': true}`.
+
+Each operation asks for exactly one flag — connects ask `connect`, binds ask
+`bind`, serving an already-bound socket asks `listen` — because
+`NetworkPermission.allows` requires every requested flag to be granted, so a
+combination would make the single-capability grants unusable.
+
+The `dart:io` import gate's key is deliberately unchanged; decoupling it is a
+breaking change to how every existing permission set is read.
+
+## 1.117.0
+
+### Fixed - a throw inside an `async` catch block no longer spins the machine (scd169)
+
+`_handleAsyncError` found the enclosing try with `_findEnclosingTryStatement`,
+which for an error raised in a catch block returns the try that catch belongs
+to. `selectCatchClause` then matched a clause of that same try, the clause ran
+and threw again, and the error was re-offered to the same try. The script did
+not fail and did not complete: it looped. Measured before the fix, the catch
+block of a four-line script ran **135,239 times in six seconds**.
+
+The symptom reported was "the returned future is never completed", which is
+true but misleading — the isolate is spinning, so no Timer runs and neither
+`dart test`'s per-test timeout nor a host-side `Future.timeout` fires. The
+process has to be killed with a signal.
+
+Dart's rule is that an exception raised in a catch block of `T` is not
+catchable by `T`: the handler that would claim it is the one already running.
+`_isInsideCatchClauseOf` answers that from the AST, and it is applied in two
+places because they cover different cases — the outward search now treats a try
+whose clauses are all ineligible as no handler at all, and clause selection
+refuses to match on a try that stays in the search because it has a `finally`.
+
+That `finally` still runs before the error carries on outward, as the
+synchronous path and the language both require; skipping the try outright would
+stop the spin and silently drop it.
+
+It was not limited to interpreter-level errors. An ordinary
+`throw ArgumentError(...)` from a catch block did the same, so this was plain
+correct Dart hanging, not an edge case of error reporting.
+
+## 1.116.0
+
+### Changed - `Uint8List` shares the inherited getters with its ten siblings (scd166)
+
+SCD28 folded this variant's methods and setters onto `inheritedListMethods` /
+`inheritedListSetters` and left its `getters` map hand-rolled. That kept
+`Uint8List` the one typed-data variant of eleven that would not receive the
+next getter added to `inheritedListGetters`, which is the exposure that
+produced SCB3 (`sort`/`shuffle`/`asUnmodifiableView` resolving here and
+nowhere else) and SCC9 (a `_TypeError` where the family raised a catchable
+`UnsupportedError`).
+
+The three getters it declared — `single`, `iterator`, `reversed` — were
+equivalent to the helper's, so the effective member set is unchanged and no
+behaviour moves: all eleven variants exposed the same fourteen getters before
+this change and after it. What changes is that they now do so from one source.
+
+The comment claiming `Uint8List` "hand-rolls its instance maps rather than
+sharing inheritedListMethods" is removed; it had been false since SCD28, three
+lines below the spread it denied.
+
+## 1.115.0
+
+### Changed - the `ServerSocket` bridge records why it shadows 28 `Stream` members (scd162)
+
+SCD38 registered `ServerSocket -> Stream`, which made every `Stream` adapter
+reachable through the walk. The 21 methods and 7 getters this bridge spells out
+by hand have shadowed an inherited copy ever since, and nothing said whether
+that was a decision or an oversight.
+
+It is now written at the bridge: DELETE THEM, once the shadow differential can
+see them. `F-SCC51-8` is the only thing that can say 28 copies are redundant
+rather than subtly different, and its fixture table covers the collection
+bridges alone. SCD152 is why that gate matters — driving the previously-skipped
+half of that differential found `HashMap.map` rebuilding its result wrongly, a
+leaf copy that had looked like pure redundancy for as long as nobody invoked it.
+
+Also recorded, because it is wrong today and waits on nothing: the arity
+diagnostics in `ServerSocketIo` say `Socket.map`, `Socket.where`, `Socket.fold`
+— copied from the `Socket` bridge above, naming the wrong class.
+
+Comment only; no adapter changed.
+
+## 1.114.0
+
+### Fixed - `HashMap.map` / `LinkedHashMap.map` ignored the entry the callback returns (scd152)
+
+Both bridges carried a local `map` adapter that rebuilt the result as
+`MapEntry(key, callbackResult)` — keeping the ORIGINAL key and storing whatever
+the callback returned as the value. `Map.map`'s contract is that the callback
+returns a `MapEntry` supplying BOTH halves. So
+
+```dart
+HashMap.from({'a': 1}).map((k, v) => MapEntry(v, k))
+```
+
+produced `{'a': MapEntry(1, 'a')}` where Dart gives `{1: 'a'}`. The shared
+`Map.map` adapter has always been right, including unwrapping a
+`BridgedInstance<MapEntry>` an interpreted `MapEntry(...)` produces, so the fix
+is to delete the two local copies and let it answer. `SplayTreeMap` never had a
+copy and was already correct — byte-for-byte the SCB17 `addEntries` asymmetry,
+where two of three map siblings carried the same divergent duplicate.
+
+### Changed - the `[]=` adapters on three map bridges no longer diverge
+
+`HashMap`, `LinkedHashMap` and `SplayTreeMap` each declared a local `[]=`
+returning the assigned value, while `Map.[]=` returns null. Not observable from
+a script — the interpreter discards the adapter's result and yields the assigned
+value itself — but a shadowed adapter whose body differs from the one it hides is
+what SCC51 exists to remove, so the local copies are gone.
+
+### Changed - the SCC51 shadow differential drives every pair (scd152)
+
+`F-SCC51-8` compared 281 of 542 shadowed pairs and SKIPPED 261, because its
+harness invokes adapters directly and a callback argument needs an
+interpreter-side `Callable` it did not build. The skipped half is where SCC51
+predicted divergence would hide, and both defects above were in it.
+
+Seven native callables and a per-member argument recipe remove the skip
+category entirely: the walk now compares **537** pairs with **no** skips. Two
+new counters make the ways it could stop measuring visible instead of silent —
+`undrivable` for a shadowed member with no recipe, and `vacuous` for a pair
+where both adapters rejected the arguments, which is agreement about nothing
+rather than a passing comparison. Both are asserted zero; the old skip set
+reached 261 precisely because nothing objected to it growing.
+
+The skip set was never only about callables, incidentally: of its 38 names, some
+twenty — `clear`, `removeLast`, `insert`, `setRange`, `asMap`, `[]=` and the rest
+— take no callback at all and were simply missing an argument recipe.
+
+## 1.113.0
+
+### Changed - `_isInterpreterOwned` now covers `InterpretedRecord` (scd147)
+
+The predicate SCC49 added to keep its structural pass from guessing a bridge for
+the interpreter's own representation tested `Enum`, `RuntimeType`, `RuntimeValue`
+and `Callable`. `InterpretedRecord` implements none of them, so the predicate
+could not see it - harmless only because no bridge is named `Record`, which Dart
+3 records make an entirely plausible addition. The predicate's contract is "is
+this the interpreter's own representation"; a record is, so leaving it out made
+the answer depend on the registry.
+
+### The boundary is held by SCD132, not by the predicate - measured
+
+Measured over the live registry (84 bridges): **eight** interpreter-owned type
+names match a bridge name today, not the one the 43-failure incident found.
+`BridgedEnum` and `InterpretedEnum` end with `Enum`; `InterpretedFunction` with
+`Function`; the four `*RuntimeType` types with `Type`; and `TypeParameter` matches
+`Type` as a >=3-character PREFIX.
+
+All eight are `RuntimeType` or `Callable`, so the predicate covers them - but only
+at step 4 of `toBridgedInstance`, the single site that consults it. `toBridgedClass`
+and its PASS B prefix fallback do not ask, and no interpreter-owned type is claimed
+there today for a different reason: ablate SCD132's corroboration requirement and
+`TypeParameter` is immediately claimed by the `Type` bridge.
+
+That protection is incidental - SCD132 was written about bridge-to-bridge false
+positives (`TextDirection` claimed by `Text`) and knows nothing about this
+distinction - and nothing recorded it, so widening PASS B again, or a bridge
+declaring one of these in its `nativeNames`, would reopen the hazard silently.
+`tom_d4rt/test/scd147_interpreter_owned_boundary_test.dart` now pins it, asserting
+the property at `toBridgedClass` precisely because no predicate guards it there.
+
+No behaviour change for any value that resolves today: the predicate addition is
+inert while no `Record` bridge exists, and the guard is a test.
+
+## 1.112.0
+
+### Changed - a native object no bridge claims now says so (scd145)
+
+A member call on a native object the interpreter never bridged reported
+
+```
+Undefined property or method 'moveNext' on _TallyIterator
+```
+
+The real cause - `Cannot bridge native object: No registered bridged class found
+for native type ...` - is thrown at the end of `Environment.toBridgedClass` and
+then absorbed: `InterpreterVisitorExtension.toBridgedInstance` catches it,
+revokes it and returns `(null, false)`. That catch is correct and load-bearing,
+because its callers use the `false` as a control-flow signal and fall through to
+other registries - an interpreter-internal value legitimately has no bridge. The
+cost was that the cause was gone by the time the fallthrough chain gave up, and
+the reader was pointed at the member: they went looking for a missing method on a
+bridge that does not exist.
+
+The two member-error sites for a raw native receiver now append the cause:
+
+```
+Undefined property or method 'tally' on Zqwx. No bridge claims this type: no
+bridged class is registered for the native type Zqwx, so the object was never
+bridged and has no members at all - the missing member is a consequence.
+Register a bridge for Zqwx, or add 'Zqwx' to an existing bridge's `nativeNames`.
+```
+
+**Only the message changes** - not the exception type, not `memberName`, not
+`receiver`, and not the control flow. `environment.dart` already records why
+widening resolution instead broke 43 enum-dispatch tests: callers use the throw
+as a signal. A message change on a path that is already failing cannot regress a
+passing one.
+
+Two exclusions, and they are the interesting part. Interpreter-internal values
+are tested against the abstractions the interpreter owns - `RuntimeValue`,
+`RuntimeType`, `Callable`, `InterpretedRecord` - rather than a list of concrete
+types, because a list is what rots when a new value shape appears; a
+script-declared class has no bridge and is not supposed to, so the clause would
+be noise on every script typo. And a type a bridge DOES claim earns nothing,
+because there the member really is the problem.
+
+This matters more after SCC49, not less: that change made implementation types
+named after their interface resolve structurally, so what still reaches this path
+is the hard residue - types the SDK abbreviates (`_StreamSinkWrapper`,
+`_ControllerSubscription`) and types with no naming relationship to any bridge.
+Those are exactly the cases where the reader most needs the diagnostic to name
+the cause.
+
+## 1.111.0
+
+### Added - a bridged function typedef can carry its positional arity (scd137)
+
+scd136 made a bridged function typedef accept any callable, arity-blind,
+because `BridgedClass(nativeType: Function, name: typedef.name)` was all that
+survived generation: the signature was discarded, so `VoidCallback` and
+`ValueChanged` were indistinguishable at runtime. A zero-argument closure
+passed where a one-argument callback is required bound happily, then threw at
+the call with a message naming neither the parameter nor the typedef.
+
+`BridgedClass` now carries `typedefRequiredPositional` /
+`typedefMaxPositional`, and `FunctionRuntimeType.isSubtypeOf` uses them to
+refuse a callable that PROVABLY cannot be invoked - moving the failure to the
+binding, where the parameter and the typedef can be named.
+
+The rule is deliberately narrow, because the prize is a better error rather
+than a caught bug: the program is broken either way, so a false rejection -
+refusing a callback that works, across every Flutter widget - costs far more
+than the diagnostic gains.
+
+- **Arity only; return types are never consulted.** An interpreted closure
+  always resolves to `dynamic Function(...)`, so checking returns would refuse
+  working callbacks wholesale.
+- **Only the typedef's REQUIRED positional count is checked**, never its
+  maximum. That is the one invocation shape a typedef guarantees; rejecting on
+  a possibility is how a working callback gets refused.
+- **Optional positionals on the callable side count toward what it accepts**,
+  so a closure taking one required and one optional argument serves a
+  one-argument typedef.
+- **No arity, no opinion.** A bridge registered without it behaves exactly as
+  scd136 left it.
+
+`registerFunctionTypedef` gains two optional named parameters, and the
+`functionTypedefs` record gains two nullable fields - both additive.
+
+**This is inert until a generator that emits the arity ships.** Every
+generated bridge in existence registers typedefs without it, so nothing
+changes for any current consumer. The generator half is tracked separately
+(sce163): generated output has to compile against the PUBLISHED interpreter,
+and it cannot emit a call to an API that does not exist yet - which the
+GEN-121 analyse gate demonstrated by going red the moment it tried.
+
+## 1.110.0
+
+### Fixed — an interpreted closure is accepted against a bridged function typedef (scd136 / GEN-125)
+
+Passing a script closure to any Flutter callback parameter was rejected:
+
+```
+type 'dynamic Function()'        is not a subtype of type 'VoidCallback?' of 'onPressed'
+type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged'  of 'onChanged'
+```
+
+A function typedef has no bridgeable class, so it is registered as
+`BridgedClass(nativeType: Function, name: typedef.name)` — and
+`FunctionRuntimeType.isSubtypeOf` ended by identifying `Function` **by name**.
+The bridge's name is `VoidCallback`, which is the one property of that
+registration deliberately not `Function`, so the nominal test could never match
+one. A bridged typedef is a structural type wearing a nominal name, which is
+also why the two escape hatches in `_checkArgumentType` (skip structural
+annotations, exempt a declared `Function` by name) both miss it.
+
+`isSubtypeOf` now asks what the bridge IS rather than what it is called:
+
+```dart
+if (other is BridgedClass && other.nativeType == Function) return true;
+```
+
+This subsumes the nominal test — `dart:core`'s own `Function` bridge carries
+`nativeType: Function` too — and because the argument check, the return check
+and `is`/`as` all route through the same method, one rule repairs all three.
+
+Deliberately arity-blind, exactly as the nominal test it subsumes was: the
+bridge carries `nativeType: Function` and nothing else, so there is no signature
+to check a closure against. Making it carry one is a generator change, tracked
+as scd137. The rule therefore does not widen what is accepted for typedefs that
+already matched — it stops rejecting the ones that never could.
+
+The rule was always wrong; nothing consulted it for arguments until
+`_checkArgumentType` began routing declared parameter types through
+`isSubtypeOf`, at which point a second reader of an already-wrong answer turned
+it into 15 corpus failures and ~276 framework errors across 109 scripts.
+
+## 1.109.0
+
+### Added — three files the barrel never exported (scd134)
+
+A type a consumer *receives* but cannot *name* is not a private type; it is a
+public type with a missing export. Three files were in that position, and the
+AST twin (`tom_d4rt_ast/runtime.dart`) exported all three equivalents:
+
+- `src/bridge/bridged_enum.dart` — `BridgedEnum`, `BridgedEnumValue`.
+  `BridgedEnumDefinition.buildBridgedEnum()` returns the first and
+  `Environment.getRuntimeType` returns it for any native enum value. Reaching
+  them meant importing `package:tom_d4rt/src/...`, which is exactly what the
+  `implementation_imports` lint forbids.
+- `src/sdk_errors.dart` — `D4rtTypeError`, `D4rtNoSuchMethodError`,
+  `indexRangeError`. These are the SDK error types the interpreter raises
+  itself so that `on TypeError` matches inside interpreted code (SCB10); a host
+  that wants to catch one needs the name.
+- `src/module_loader.dart` — `ModuleLoader`, `LoadedModule`.
+  `InterpreterVisitor.moduleLoader` is a public field of type `ModuleLoader`.
+
+Purely additive: seven names appear on the public surface, none change or move.
+
+`test/scd134_barrel_surface_parity_test.dart` now compares the two barrels'
+exported name sets on every run, with each remaining difference recorded
+individually and a reason attached. Twenty remain, and the classification is the
+useful part rather than the count: most follow from one line having an analyzer
+and the other deliberately not, two are one concept under two names, and five
+are recorded as genuine gaps rather than differences (see sce154 and sce155).
+
+## 1.108.0
+
+Name resolution: yes — `Environment.toBridgedClass` no longer claims a bridge on a bare-name prefix (scd132).
+
+### Changed — a bare name prefix no longer claims a bridge (scd132)
+
+`Environment.toBridgedClass` ends in a prefix fallback: if nothing else matched
+anywhere in the scope chain, it claimed any registered bridge whose name was a
+>=3-character prefix of the native type name, with no other corroboration. Two
+of the three false positives that method's own header documents are that rule
+firing — `MappedListIterable` claimed by `Map`, `TextDirection` claimed by
+`Text` — and each was repaired by routing ONE caller around the fallback, so the
+rule survived every fix and the next name-shaped coincidence was going to be
+claimed just as silently. A bridge named `Set` claims `Settings`.
+
+The prefix now only finds a CANDIDATE. The bridge must also declare the
+connection: `nativeNames` naming the type, or a supertype-registry edge between
+the two names. Both are things somebody wrote down. When nothing corroborates,
+the method throws — which every caller already handles, and which is more honest
+than a silently wrong dispatch.
+
+`isAssignable` is the obvious third corroboration and is deliberately absent: it
+takes a VALUE and this method is given only a `Type`. Callers that hold the
+value already consult it.
+
+**Measured before narrowing.** A probe on every fallback match across both
+trees' full suites fired 12 times: 11 for one test's deliberately prefix-named
+proxy, and once for `TextDirection` → `Text`, the known false positive.
+G-DCLI-05's `ProgressBothImpl` → `Progress` — the case the fallback was ADDED
+for — never reached it; an earlier pass resolves it today. So the rule had no
+measured legitimate user. The one test that relied on it now declares
+`nativeNames`, which is the relationship becoming declared instead of guessed.
+
+## 1.107.0
+
+### Fixed — a declaration keeps every `await` in its initializer (scd121)
+
+`var s = (await a) + (await b);` bound `s = 1`, not 3. The resumption branch for
+a variable declaration bound `futureResult` — the value of ONE await — straight
+to the variable and moved on, so everything else in the initializer was
+discarded. `var s = '${await a},${await b}';` was the same defect wearing a
+different symptom: `s` held the raw int, and the next line failed its own
+declared type with an error about a value the script never wrote. SCC40 had
+fixed this family on the RETURN route; this branch never got the treatment.
+
+**It was never a missing-evaluation bug.** The discarded operands WERE
+evaluated — visible by counting calls — so a repair that produces the right sum
+by evaluating an operand twice would pass a value-only test and still be wrong.
+The first attempt did exactly that, giving 5 instead of 3: an evaluation started
+inside the resumption branch cannot register its suspension with the state
+machine (the machine only ever attaches to a suspension raised by executing a
+node), so it is discarded and the statement re-executed anyway.
+
+So the branch now evaluates **nothing**. It hands the statement back to the
+machine, which executes the declaration again: sites already resolved replay
+from `resolvedAwaitResults`, the first one not yet reached suspends for real,
+and the variable is bound on the pass where nothing suspends — one evaluation
+per pass. The per-site cache is cleared when that statement completes, which for
+a declaration can only be seen where it is executed; the `return` route clears
+via its own completion path.
+
+### Fixed — `a + b` does not evaluate `b` while `a` is suspended (scd121)
+
+`visitBinaryExpression` evaluated BOTH operands before checking either for a
+suspension, so a suspending left operand still cost a full evaluation of the
+right, whose value was then thrown away. Invisible for pure operands, and
+invisible while a declaration never re-ran; once it did, `(await next()) +
+(await next())` against a counter cost three calls for two awaits and six for
+three. Dart evaluates `a + b` left to right and never reaches `b` while `a` is
+outstanding.
+
+## 1.106.0
+
+### Fixed — a native proxy now binds to a parameter declared as the script class it stands for (scd119)
+
+A script class that extends a bridged class crosses into native code as a
+registered `D4InterpretedProxy` — `_InterpretedThemeExtension` for
+`class BrandColors extends ThemeExtension<BrandColors>`, and the same for
+widgets, painters and states. Ask such a value for its runtime type and the
+answer is the BRIDGE's name, so binding it back to a parameter declared as the
+script's own class was rejected:
+
+    type 'ThemeExtension' is not a subtype of type 'BrandColors' of 'brand'
+
+Every member access on the same value worked, because the property and method
+paths already unwrap a proxy. The type check was the only place that did not —
+measured by changing the script's parameter to `dynamic`, which took the
+script's framework errors from 1 to 0 with nothing else touched.
+
+`ResolvedBinding.bind` now retries against the interpreted instance behind a
+proxy. The retry runs only AFTER the base check has already failed, so it can
+remove a rejection but never add one, and the PROXY is still what gets bound —
+the value stays whatever native code downstream expects, only the verdict on it
+changes. Teaching `Environment.getRuntimeType` to see through every proxy is
+the more correct model and was deliberately not done: it would change what
+`is`, `as` and `runtimeType` answer for every proxied widget in a live tree.
+
+## 1.105.0
+
+### Fixed — a type alias now resolves to its target (scd100)
+
+SCC33 gave both interpreters an explicit handler for type aliases that returned
+null without recursing. That stopped seven further node types reaching the
+dispatch backstop, and it made explicit a gap that had been hidden: a typedef
+had no runtime representation at all. Both handlers' doc comments said "making
+aliases actually resolve is separate work (SCD100)".
+
+**Measured before choosing a fix.** Nineteen shapes were probed; nine were
+already fine by leniency, and the rest split two ways — the first group being
+the one worth leading with:
+
+- **Seven legal programs THREW.** `1 is I` through `typedef I = int` did not
+  answer "no", it raised `Type check failed: Undefined variable: I`. So did a
+  generic bound and a RETURN TYPE written through an alias: `typedef I = int;
+  I f() => 5;` reported `Type 'I' not found.` and the program never ran.
+- **Three accepted silently what Dart rejects** — an `as`, a parameter bind and
+  a local, all of which stay lenient when an annotation cannot be resolved.
+
+The handler was never even REACHED: the ordered declaration walk had phases for
+enums, classes, extensions, extension types, functions and variables, and none
+for type aliases. That is why the gap was total rather than partial.
+
+**The fix is one registration.** Every type-resolution path already funnels
+through `environment.get(typeName)` — `is`/`as`, parameter binding, the return
+check, generic bounds and a collection literal's type argument — so binding the
+alias name to the RuntimeType its target resolves to makes each behave exactly
+as if the script had written the target. A new phase runs it to a FIXPOINT so
+declaration order does not matter, placed after classes so an alias can name one
+and before functions so their annotations can name an alias.
+
+**It had to land in TWO places**, which is worth recording because a fix in
+either alone looks complete: the `source:` form is ordered by `d4rt_base.dart`
+and the `sources:`/`library:` form by `module_loader.dart`. Patching only the
+first passed every hand-written probe while the test suite — which uses the
+second — still failed on the return-type case.
+
+**`as` needed a separate touch.** It does not resolve types at all; it switches
+on the WRITTEN name, so an alias fell to its permissive `default:` and cast
+anything to anything. The written name is now resolved through the alias first,
+which is a no-op for every non-alias since those resolve to their own name.
+
+**The handler still does not recurse**, which is the constraint SCC33 left: the
+target is read off the annotation by `_resolveTypeAnnotationWithEnvironment`,
+never by `accept`ing a child, so no type-level syntax reaches the backstop.
+
+**Two limits measured and left, each with its reason.** A generic bound written
+through an alias still throws — bounds are extracted in PASS 1, before any phase
+of pass 2 can have registered an alias, and fixing it means reordering pass 1
+(sce130). A local declared through an alias still accepts a mismatch, which is
+NOT alias-specific: `int x = 'a'` is equally lenient, because local variable
+declarations are not type-checked at all (sce131). A GENERIC alias
+(`typedef L<T> = List<T>`) is skipped on purpose — binding it here would bind
+`T` to nothing and answer confidently wrong.
+
+## 1.104.0
+
+### Fixed — `x.runtimeType == SomeType` was false for every type (scd99)
+
+The todo reported that `Duration(seconds: 1).runtimeType.toString()` is
+`'BridgedInstance<Object>'`. Measured, it is `Duration`: the member-access sites
+already answer `bridgedInstance.nativeObject.runtimeType`, and SCD98 then
+stopped the constructor producing a wrapper at all. The one-line fix the todo
+recommends was already in place at every site an audit finds.
+
+**What the todo was about survived that.** Its stated harm is "a script that
+branches on `x.runtimeType` takes the wrong branch with no error", and that was
+true — for a different reason, and not only for bridged values:
+
+```dart
+Duration(seconds: 1).runtimeType == Duration   // was false
+1.runtimeType == int                           // was false
+'a'.runtimeType == String                      // was false
+DateTime(2020).runtimeType == DateTime         // was false
+Duration == Duration(seconds: 1).runtimeType   // was TRUE
+```
+
+Asymmetric by operand order, and false in the order everybody writes. A correct
+`runtimeType` whose result cannot be compared against a type literal is not
+worth much.
+
+**The reconciliation existed and never ran.** `visitBinaryExpression` carried
+the Type-vs-`BridgedClass` comparison twice, in the `==` and `!=` arms of its
+operator switch. Neither was reachable for this shape:
+`Environment.toBridgedInstance` succeeds on a `Type` object, so the
+bridged-operator dispatch twenty lines ABOVE the switch found an `==` adapter
+and invoked it on the WRAPPER — comparing a wrapped `Type` against a
+`BridgedClass` and answering false.
+
+That is the wrapper substituting itself for the value it wraps, which is the
+shape SCD98 removed from the constructor; it survived here because a dispatch
+site reached it first. The reconciliation is now hoisted above that dispatch,
+and the two copies in the arms are deleted rather than left unreachable — a
+second implementation of one rule is what let this diverge unnoticed.
+
+A generic type argument still distinguishes: `[1].runtimeType == List` stays
+false, as real Dart has it, so the fix does not simply make every
+Type-versus-name comparison true.
+
+**The neighbours were audited, as the todo asked.** `toString`, `hashCode`,
+`is`, `is!`, `as` and cross-route `==` all already delegate to the native on
+both production routes. They are pinned anyway, alongside equality on enum,
+String, null, bridged and script-defined receivers — the hoist runs before the
+bridged dispatch, so those are the cases that say it intercepts nothing it
+should not.
+
+## 1.103.0
+
+### Fixed — one representation for a bridged value: the bare native (scd98)
+
+D4rt had two representations for the same bridged value and no rule about which
+one you got. A bridged CONSTRUCTOR call yielded a `BridgedInstance<T>` wrapper;
+every method return, getter return, operator return and static call yielded the
+bare native. The same conceptual value arrived in two shapes depending only on
+how the script happened to produce it, and the two routinely met in one
+collection.
+
+**The wrapping table, measured before choosing a direction** (the todo made
+writing it down a precondition, because the two candidate directions have very
+different blast radii and only the table says which one the codebase is already
+closer to):
+
+| site                                 | before      | after   |
+| ------------------------------------ | ----------- | ------- |
+| bridged constructor, default         | **wrapper** | native  |
+| bridged constructor, named           | **wrapper** | native  |
+| bridged constructor, generic factory | **wrapper** | native  |
+| redirecting factory target           | **wrapper** | native  |
+| bridged method / getter / operator   | native      | native  |
+| bridged static method, const         | native      | native  |
+| argument marshalled INTO a bridge    | native      | native  |
+| `Environment.toBridgedInstance`      | wrapper     | wrapper |
+
+The constructor was the lone outlier, so converging on the native was a
+four-site change at the introduction point rather than a refactor of the value
+representation. `toBridgedInstance` stays a wrapper on purpose — it IS the
+bridge-dispatch boundary the wrapper is meant to be confined to.
+
+**Why it was nearly invisible.** Every observation route a script has already
+unwraps: the host boundary, the `runtimeType` getter, argument marshalling, and
+`visitBinaryExpression`, which unwraps both operands before `==`. So
+`runtimeType`, `is`, `==` and simple membership all agreed beforehand. It bites
+where a NATIVE container compares its own stored elements, because then the
+interpreter is not in the loop:
+
+```dart
+[Duration(seconds: 86400),                          // constructed -> wrapper
+ DateTime(2020,1,2).difference(DateTime(2020,1,1))  // method      -> native
+].toSet().length   // was 2, is 1
+```
+
+and it was ORDER-DEPENDENT, which is the fingerprint: `[ctor, method]` failed
+while `[method, ctor]` passed. SCC32 gave `BridgedInstance` cross-boundary
+`==`/`hashCode`, so `wrapper == raw` is true — but `raw == wrapper` cannot be,
+because a native's `==` rejects a foreign type. A stored wrapper probed by a
+bare native runs the direction that cannot work.
+
+**A second defect, already live and unrelated to the wrapper.** Chasing the
+first surfaced it: `_bridgeInterpreterValueToNative` rebuilt every `List` with
+`.map(...).toList()`, which retypes unconditionally, so a `Uint8List` reaching
+the host from a METHOD or GETTER arrived as `List<Object?>` and an
+`as Uint8List` threw. The CONSTRUCTOR route survived only because its wrapper
+took the `BridgedInstance` branch and never reached the list branch — the same
+split, showing up as a type loss rather than a duplicate. The boundary now
+rebuilds a list or map only when an element actually changed, and returns the
+original instance otherwise.
+
+**SCC32 is not removed, and its doc comment now says why.** Its cross-boundary
+equality and hash-key normalisation are no longer load-bearing for values this
+interpreter produces — nothing it produces is a wrapper any more. But
+`toBridgedInstance` still hands one to bridge dispatch and an embedder can put
+one into a collection itself, so they stop being a workaround for an internal
+inconsistency and become what they read as: a courtesy to a wrapper that
+arrives from outside. F-SCC32-10/11/12 keep passing unchanged.
+
+## 1.102.0
+
+### Fixed — the host receives the error the script raised, not a bridged shell (scd96)
+
+A script doing `throw FormatException('boom')` handed its caller a
+`BridgedInstance<Object>`. An `on FormatException` written around `execute()` or
+`executeBundle()` did not match it, and a bare `catch (e)` saw a d4rt-internal
+type the host has no reason to know about.
+
+**The todo this came from was written against a stale premise, and re-measuring
+found a different leak at the same boundary.** It expected
+`InternalInterpreterD4rtException` to reach callers; that carrier has been
+peeled since SCC27. The leak is one peel further in: a *bridged* exception holds
+its native object inside the carrier, and `throwAsHostFacingError` peeled the
+carrier and stopped.
+
+`unwrapScriptError` has documented the pair since SCD73 — "Two peels, not one …
+a host that peeled only the first would get a `BridgedInstance` it cannot
+`catch` on". The zone-callback route already did both, which is why the
+behaviour was SPLIT rather than uniformly wrong:
+
+| entry point                       | before            | after             |
+| --------------------------------- | ----------------- | ----------------- |
+| `tom_d4rt.execute()`              | `BridgedInstance` | `FormatException` |
+| `D4rtRunner.executeBundle`        | `BridgedInstance` | `FormatException` |
+| `D4rtRunner.executeBundleAs<T>`   | `BridgedInstance` | `FormatException` |
+| `executeBundleAsAsync<T>`         | `FormatException` | `FormatException` |
+
+The async variant was right because it runs through the zone callbacks SCD73
+wrapped. So the todo's instruction to check the typed variants was pointing at a
+split that already existed between the synchronous and asynchronous halves of
+one boundary — the shape SCC27 was written to remove.
+
+The todo offered two fixes and said to prefer teaching the shared helper "if the
+sweep is clean, because the asymmetry is the defect and [the narrow fix] only
+relocates it". It is clean — both full suites pass unchanged — so the fix is one
+line in `throwAsHostFacingError`, mirrored, and every present and future caller
+of that boundary gets it.
+
+**Not peeled, deliberately**: a script-declared exception class arrives as
+`InterpretedInstance` (there is no native object, and the host cannot name a
+type the script invented); a thrown non-error value arrives as itself, because
+real Dart lets a script `throw 'plain'`; and `UndefinedNameD4rtException`
+arrives as itself, because SCC31 exists to make it reach the host and peeling it
+would undo that.
+
+This matters most on the analyzer-free line: `executeBundle` is what a Flutter
+app calls to run a downloaded bundle, and it is the one API whose caller cannot
+fall back to a different runner.
 
 ## 1.101.0
 

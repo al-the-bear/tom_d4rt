@@ -85,6 +85,15 @@ class NullableRuntimeType implements RuntimeType {
     return _isWildcardTypeName(other.name);
   }
 
+  /// ghissues80: structural, as Dart's `Type ==` - `List<String?>` built in
+  /// two places is one type.
+  @override
+  bool operator ==(Object other) =>
+      other is NullableRuntimeType && other.inner == inner;
+
+  @override
+  int get hashCode => Object.hash(NullableRuntimeType, inner);
+
   @override
   String toString() => name;
 }
@@ -333,6 +342,31 @@ class AppliedRuntimeType implements RuntimeType {
     return _runtimeTypeCompatible(baseType, other);
   }
 
+  /// ghissues80 (GitHub #24): structural, as Dart's `Type ==`. Serverpod's
+  /// generated `deserialize<T>` asks `T == List<String>`; the `T` a call bound
+  /// and the literal are built separately, so identity answered false. The
+  /// same base and equal arguments, in order, are the same type - equality,
+  /// never subtyping (`List<int>`, `List<String>?` and `List<List<String>>`
+  /// are not `List<String>`). Equal to the `runtimeType` of a collection a
+  /// script wrote the same type arguments for ([WrittenCollectionType]).
+  @override
+  bool operator ==(Object other) {
+    if (other is WrittenCollectionType) return other.toString() == name;
+    if (other is! AppliedRuntimeType || other.baseType != baseType) {
+      return false;
+    }
+    if (other.typeArguments.length != typeArguments.length) return false;
+    for (var i = 0; i < typeArguments.length; i++) {
+      if (other.typeArguments[i] != typeArguments[i]) return false;
+    }
+    return true;
+  }
+
+  @override
+  // The spelling: equal applied types spell the same, and an equal
+  // [WrittenCollectionType] hashes the same spelling.
+  int get hashCode => name.hashCode;
+
   @override
   String toString() => name;
 }
@@ -477,9 +511,15 @@ class WrittenCollectionType implements Type {
   String toString() =>
       '$className<${typeArguments.map((t) => t.name).join(', ')}>';
 
+  /// Equal to another of the same spelling, and (ghissues80) to the
+  /// [AppliedRuntimeType] a type literal or a type parameter holds -
+  /// `<String>[].runtimeType == List<String>`, as in Dart.
   @override
-  bool operator ==(Object other) =>
-      other is WrittenCollectionType && other.toString() == toString();
+  bool operator ==(Object other) => switch (other) {
+    WrittenCollectionType() => other.toString() == toString(),
+    AppliedRuntimeType() => other.name == toString(),
+    _ => false,
+  };
 
   @override
   int get hashCode => toString().hashCode;

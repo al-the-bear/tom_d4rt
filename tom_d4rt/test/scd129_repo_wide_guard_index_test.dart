@@ -164,7 +164,7 @@ const int _bannerWindow = 12;
 /// package's suite runs — so it should cost one line here.
 const Map<String, int> _bannerCensus = {
   'tom_d4rt': 33,
-  'tom_d4rt_ast': 9,
+  'tom_d4rt_ast': 10, // +1 ghissues80: its copy of ghissues80's program is tom_d4rt's
   'tom_d4rt_exec': 7, // +1 ghissues47: dart313b1's port reads tom_d4rt_ast's audit
   'tom_d4rt_flutter': 3,
   'tom_d4rt_flutter_ast': 19,

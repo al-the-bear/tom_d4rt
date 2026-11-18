@@ -576,9 +576,29 @@ const _partialTwinBudget = 0;
 /// ghissues1002 ports it after publishing. The copier surface a port would
 /// have added is constructor tear-offs through a prefix, which the corpus
 /// copies on every run.
-const _copierGapBudget = 55;
+/// 55 -> 56: GHISSUES80 added `ghissues80_applied_type_equality_test.dart`,
+/// which runs source to check that a type argument equals a type literal with
+/// type arguments (`T == List<String>`, GitHub #24), with unequal controls,
+/// as native Dart does. Exec resolves tom_d4rt_ast 0.244.0 from pub.dev,
+/// where `T == List<String>` is false, so a port would fail. Its ast twin
+/// holds the mechanism, from parse-only and resolved bundles. ghissues1002
+/// ports it after publishing. The copier surface a port would have added is
+/// type literals with type arguments, which the corpus copies on every run.
+const _copierGapBudget = 56;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues80_applied_type_equality_test.dart': _Coverage(
+    'ast:runtime/ghissues80_applied_type_equality_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 5,
+    whyPartial:
+        'the same program: the reference runs it as source, the twin as '
+        'parse-only and resolved bundles that tom_ast_generator wrote, '
+        'through toBytes / fromBytes (each case run once per bundle), and '
+        'checks that its copy of the program is the reference\'s.',
+  ),
   'ghissues79_prefixed_constructor_tearoff_test.dart': _Coverage(
     'ast:runtime/ghissues79_prefixed_constructor_tearoff_test.dart',
     _astTwin,
