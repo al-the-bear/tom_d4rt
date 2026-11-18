@@ -25,7 +25,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
-| `[ ]` | Open (GEN-134) — a generic bridged instance's function-typed field cannot be read back through its getter adapter | A **generator** defect. Blast radius: every generic bridged class whose field type mentions a class type parameter inside a function type, built with type arguments and read back by a script; building and rendering work. Found 2026-11-18 by addtests2 (`material/radio_menu_button_on_changed_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl1_akrs-gen134-generic-function-field-getter`. |
+| `[ ]` | Open (GEN-134) — a generic bridged instance's function-typed field cannot be read back through its getter adapter | A **generator** defect. Blast radius: every generic bridged class whose field type mentions a class type parameter inside a function type, built with type arguments and read back by a script; building and rendering work. Found 2026-11-18 by addtests2 (`material/radio_menu_button_on_changed_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl1_akrs-gen134-generic-function-field-getter`. Fixed in tom_d4rt_generator 1.67.0 (unpublished); waits for the publish, the twins' regeneration and the skip's removal. |
 | `[ ]` | Open (GEN-135) — a private native class is wrapped as its bridged superclass, hiding the members of the bridged interface it implements | An **interpreter / bridge** defect. Blast radius: every private SDK class implementing a bridged interface its bridged superclass does not, read through that interface (`Material.of(context)`, a MaterialInkController). Found 2026-11-18 by addtests2 (`material/material_ink_controller_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl2_akrs-gen135-private-class-bridged-interface-members`. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
@@ -287,6 +287,20 @@ factory (RC-2), whose callback wrapper keeps T = int (`(int?) =>
 Future<void>`). The generated getter adapter reads the field through
 `RadioMenuButton<dynamic>`, and Dart's covariance check on the field's
 function type refuses the stored callback.
+
+**Fix (generator, tom_d4rt_generator 1.67.0, committed 9ceaefa0f, not yet
+published):** an instance getter whose type nests a class type parameter
+(`ValueChanged<T?>?`, `List<T>`, `T Function()`) reads the field through
+`dynamic`; a getter typed by the bare parameter keeps the static read
+(`test/gen134_generic_function_field_getter_test.dart`). Regenerated with the
+tree generator, 157 getters in the AST twin's bridges switch to the dynamic
+read, and `flutter_extended_27` passes there with the GEN-134 skip lifted
+(`20261118-gen134`: `+7 ~1`, only GEN-135 skipped; temporary path override,
+not a certifying run).
+
+**Left:** after the publish, regenerate both twins' bridges with the
+published 1.67.0, remove the GEN-134 skip from both `flutter_extended_27`
+drivers, run the driver alone in both twins and mark the cluster fixed.
 
 ### [ ] Open (GEN-135) — a private native class is wrapped as its bridged superclass, hiding the members of the bridged interface it implements
 
