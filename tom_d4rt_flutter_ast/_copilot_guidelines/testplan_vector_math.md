@@ -17,7 +17,7 @@ Every name the bridges register for `vector_math` (19), with its tier and the co
 | 5 | IntersectionResult | class | Hardly Relevant | ⬜ |  |
 | 6 | Matrix2 | class | Hardly Relevant | ⬜ |  |
 | 7 | Matrix3 | class | Hardly Relevant | ⬜ |  |
-| 8 | Matrix4 | class | Important | ✅ | animation/tween_test.dart, dart_ui/clip_path_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +36 |
+| 8 | Matrix4 | class | Important | ✅ | animation/tween_test.dart, dart_ui/clip_path_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +37 |
 | 9 | Obb3 | class | Hardly Relevant | ⬜ |  |
 | 10 | Plane | class | Hardly Relevant | ⬜ |  |
 | 11 | Quad | class | Hardly Relevant | ⬜ |  |

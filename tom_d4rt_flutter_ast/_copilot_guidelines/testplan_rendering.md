@@ -4,9 +4,9 @@
 
 Every name the bridges register for `rendering` (269), with its tier and the corpus scripts that use it. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 106 of 269 (39.4%)
-- **Used only by scripts no running test sends:** 1
-- **Not used by any script:** 162
+- **Exercised:** 141 of 269 (52.4%)
+- **Used only by scripts no running test sends:** 0
+- **Not used by any script:** 128
 
 | # | Name | Kind | Tier | Status | Scripts |
 |---|------|------|------|--------|---------|
@@ -17,7 +17,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 5 | AnnotationResult | class | Hardly Relevant | ⬜ |  |
 | 6 | BackdropFilterLayer | class | Important | ✅ | rendering/layers_test.dart |
 | 7 | BackdropKey | class | Hardly Relevant | ⬜ |  |
-| 8 | BoxConstraints | class | Essential | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +246 |
+| 8 | BoxConstraints | class | Essential | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +253 |
 | 9 | BoxHitTestEntry | class | Secondary | ✅ | rendering/box_hit_test_result_test.dart, rendering/relayout_when_system_fonts_change_mixin_test.dart |
 | 10 | BoxHitTestResult | class | Secondary | ✅ | gestures/hit_testable_test.dart, rendering/box_hit_test_result_test.dart, rendering/render_aligning_shifted_box_test.dart, +7 |
 | 11 | BoxParentData | class | Essential | ✅ | rendering/parent_data_test.dart, rendering/render_aligning_shifted_box_test.dart, rendering/viewport_test.dart, +5 |
@@ -42,26 +42,26 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 30 | DecorationPosition | enum | Hardly Relevant | ✅ | rendering/decoration_position_test.dart, widgets/decorated_sliver_test.dart, widgets/decoratedbox_test.dart |
 | 31 | DiagnosticsDebugCreator | class | Hardly Relevant | ⬜ |  |
 | 32 | DirectionallyExtendSelectionEvent | class | Hardly Relevant | ✅ | widgets/selection_types_test.dart |
-| 33 | FixedColumnWidth | class | Important | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, foundation/aggregated_timed_block_test.dart, +30 |
+| 33 | FixedColumnWidth | class | Important | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, foundation/aggregated_timed_block_test.dart, +31 |
 | 34 | FlexColumnWidth | class | Important | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/dialog_test.dart, cupertino/route_test.dart, +185 |
-| 35 | FlexFit | enum | Hardly Relevant | ✅ | rendering/flex_fit_test.dart, rendering/parent_data_test.dart, rendering/parentdata_test.dart, +6 |
-| 36 | FlexParentData | class | Important | ⬜ |  |
+| 35 | FlexFit | enum | Hardly Relevant | ✅ | rendering/flex_fit_test.dart, rendering/parent_data_test.dart, rendering/parentdata_test.dart, +7 |
+| 36 | FlexParentData | class | Important | ✅ | rendering/render_flex_test.dart |
 | 37 | FloatingHeaderSnapConfiguration | class | Hardly Relevant | ✅ | widgets/sliver_persistent_header_delegate_test.dart |
-| 38 | FlowDelegate | class | Important | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, widgets/table_wrap_flow_test.dart |
-| 39 | FlowPaintingContext | class | Hardly Relevant | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, widgets/table_wrap_flow_test.dart |
+| 38 | FlowDelegate | class | Important | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, rendering/render_view_layer_flow_test.dart, +1 |
+| 39 | FlowPaintingContext | class | Hardly Relevant | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, rendering/render_view_layer_flow_test.dart, +1 |
 | 40 | FlowParentData | class | Hardly Relevant | ✅ | rendering/flow_parent_data_test.dart |
 | 41 | FollowerLayer | class | Secondary | ✅ | rendering/layers_test.dart |
 | 42 | FractionColumnWidth | class | Hardly Relevant | ✅ | rendering/fraction_column_width_test.dart, widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 43 | FractionalOffsetTween | class | Hardly Relevant | ✅ | rendering/fractional_offset_tween_test.dart |
 | 44 | GranularlyExtendSelectionEvent | class | Hardly Relevant | ✅ | rendering/granularly_extend_selection_event_test.dart, widgets/selection_types_test.dart |
-| 45 | GrowthDirection | enum | Hardly Relevant | ✅ | rendering/growth_direction_test.dart, rendering/renderobjects_sliver_test.dart, rendering/viewport_test.dart |
+| 45 | GrowthDirection | enum | Hardly Relevant | ✅ | rendering/growth_direction_test.dart, rendering/render_slivers_test.dart, rendering/renderobjects_sliver_test.dart, +1 |
 | 46 | HitTestBehavior | enum | Hardly Relevant | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/immediate_multi_drag_gesture_recognizer_test.dart, +36 |
 | 47 | ImageFilterConfig | class | Hardly Relevant | ⬜ |  |
 | 48 | ImageFilterContext | class | Hardly Relevant | ⬜ |  |
 | 49 | ImageFilterLayer | class | Important | ✅ | rendering/layers_test.dart |
 | 50 | IntrinsicColumnWidth | class | Important | ✅ | gestures/tap_drag_start_details_test.dart, material/input_borders_test.dart, proxies/multichildlayout_proxy_test.dart, +20 |
 | 51 | KeepAliveParentDataMixin | class | Secondary | ⬜ |  |
-| 52 | Layer | class | Essential | ⬜ |  |
+| 52 | Layer | class | Essential | ✅ | rendering/render_view_layer_flow_test.dart |
 | 53 | LayerHandle | class | Secondary | ⬜ |  |
 | 54 | LayerLink | class | Secondary | ✅ | rendering/follower_layer_test.dart, rendering/layers_test.dart, rendering/render_follower_layer_test.dart, +3 |
 | 55 | LeaderLayer | class | Secondary | ✅ | rendering/layers_test.dart |
@@ -69,13 +69,13 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 57 | ListWheelChildManager | class | Hardly Relevant | ⬜ |  |
 | 58 | ListWheelParentData | class | Secondary | ⬜ |  |
 | 59 | MainAxisAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1038 |
-| 60 | MainAxisSize | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1010 |
+| 60 | MainAxisSize | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1011 |
 | 61 | MaxColumnWidth | class | Hardly Relevant | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 62 | MinColumnWidth | class | Hardly Relevant | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | 63 | MouseTracker | class | Secondary | ⬜ |  |
 | 64 | MultiChildLayoutDelegate | class | Important | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
 | 65 | MultiChildLayoutParentData | class | Hardly Relevant | ⬜ |  |
-| 66 | OffsetLayer | class | Essential | ✅ | rendering/layers_test.dart |
+| 66 | OffsetLayer | class | Essential | ✅ | rendering/layers_test.dart, rendering/render_view_layer_flow_test.dart |
 | 67 | OpacityLayer | class | Important | ✅ | rendering/layers_test.dart |
 | 68 | OverScrollHeaderStretchConfiguration | class | Hardly Relevant | ⬜ |  |
 | 69 | OverflowBoxFit | enum | Hardly Relevant | ⬜ |  |
@@ -103,47 +103,47 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 91 | RenderAnimatedSizeState | enum | Hardly Relevant | ⬜ |  |
 | 92 | RenderAnnotatedRegion | class | Secondary | ⬜ |  |
 | 93 | RenderAppKitView | class | Hardly Relevant | ⬜ |  |
-| 94 | RenderAspectRatio | class | Important | ⬜ |  |
+| 94 | RenderAspectRatio | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
 | 95 | RenderBackdropFilter | class | Secondary | ⬜ |  |
 | 96 | RenderBaseline | class | Secondary | ⬜ |  |
 | 97 | RenderBlockSemantics | class | Secondary | ⬜ |  |
-| 98 | RenderBox | class | Essential | ✅ | material/range_slider_track_shape_test.dart, material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart, +24 |
+| 98 | RenderBox | class | Essential | ✅ | material/range_slider_track_shape_test.dart, material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart, +30 |
 | 99 | RenderBoxContainerDefaultsMixin | class | Secondary | ✅ | rendering/render_box_container_defaults_mixin_test.dart, widgets/render_object_element_test.dart, widgets/render_object_widget_test.dart |
-| 100 | RenderClipOval | class | Important | ⬜ |  |
-| 101 | RenderClipPath | class | Important | ⬜ |  |
-| 102 | RenderClipRRect | class | Important | ⬜ |  |
+| 100 | RenderClipOval | class | Important | ✅ | rendering/render_clip_test.dart |
+| 101 | RenderClipPath | class | Important | ✅ | rendering/render_clip_test.dart |
+| 102 | RenderClipRRect | class | Important | ✅ | rendering/render_clip_test.dart |
 | 103 | RenderClipRSuperellipse | class | Hardly Relevant | ⬜ |  |
-| 104 | RenderClipRect | class | Important | ⬜ |  |
-| 105 | RenderConstrainedBox | class | Essential | 🟨 | open_issues/c2_typed_proxy_emission_test.dart |
+| 104 | RenderClipRect | class | Important | ✅ | rendering/render_clip_test.dart |
+| 105 | RenderConstrainedBox | class | Essential | ✅ | rendering/render_clip_test.dart, rendering/render_flex_test.dart, rendering/render_list_body_wrap_test.dart, +3 |
 | 106 | RenderConstrainedOverflowBox | class | Secondary | ⬜ |  |
 | 107 | RenderConstraintsTransformBox | class | Secondary | ⬜ |  |
 | 108 | RenderCustomMultiChildLayoutBox | class | Secondary | ⬜ |  |
 | 109 | RenderCustomPaint | class | Secondary | ⬜ |  |
 | 110 | RenderCustomSingleChildLayoutBox | class | Secondary | ⬜ |  |
 | 111 | RenderDarwinPlatformView | class | Hardly Relevant | ⬜ |  |
-| 112 | RenderDecoratedBox | class | Essential | ⬜ |  |
+| 112 | RenderDecoratedBox | class | Essential | ✅ | rendering/render_proxy_boxes_test.dart |
 | 113 | RenderDecoratedSliver | class | Hardly Relevant | ⬜ |  |
 | 114 | RenderEditable | class | Secondary | ⬜ |  |
 | 115 | RenderEditablePainter | class | Hardly Relevant | ⬜ |  |
 | 116 | RenderErrorBox | class | Secondary | ✅ | rendering/render_error_box_test.dart |
 | 117 | RenderExcludeSemantics | class | Secondary | ⬜ |  |
-| 118 | RenderFittedBox | class | Important | ⬜ |  |
-| 119 | RenderFlex | class | Essential | ⬜ |  |
-| 120 | RenderFlow | class | Important | ⬜ |  |
+| 118 | RenderFittedBox | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
+| 119 | RenderFlex | class | Essential | ✅ | rendering/render_flex_test.dart |
+| 120 | RenderFlow | class | Important | ✅ | rendering/render_view_layer_flow_test.dart |
 | 121 | RenderFollowerLayer | class | Secondary | ⬜ |  |
 | 122 | RenderFractionalTranslation | class | Secondary | ⬜ |  |
 | 123 | RenderFractionallySizedOverflowBox | class | Secondary | ⬜ |  |
 | 124 | RenderIgnoreBaseline | class | Secondary | ⬜ |  |
 | 125 | RenderIgnorePointer | class | Secondary | ⬜ |  |
-| 126 | RenderImage | class | Important | ⬜ |  |
+| 126 | RenderImage | class | Important | ✅ | rendering/render_paragraph_image_table_test.dart |
 | 127 | RenderIndexedSemantics | class | Secondary | ⬜ |  |
 | 128 | RenderIndexedStack | class | Secondary | ⬜ |  |
 | 129 | RenderInlineChildrenContainerDefaults | class | Hardly Relevant | ⬜ |  |
-| 130 | RenderIntrinsicHeight | class | Important | ⬜ |  |
-| 131 | RenderIntrinsicWidth | class | Important | ⬜ |  |
+| 130 | RenderIntrinsicHeight | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
+| 131 | RenderIntrinsicWidth | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
 | 132 | RenderLeaderLayer | class | Secondary | ⬜ |  |
-| 133 | RenderLimitedBox | class | Important | ⬜ |  |
-| 134 | RenderListBody | class | Important | ⬜ |  |
+| 133 | RenderLimitedBox | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
+| 134 | RenderListBody | class | Important | ✅ | rendering/render_list_body_wrap_test.dart |
 | 135 | RenderListWheelViewport | class | Secondary | ⬜ |  |
 | 136 | RenderMergeSemantics | class | Secondary | ⬜ |  |
 | 137 | RenderMetaData | class | Secondary | ⬜ |  |
@@ -152,14 +152,14 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 140 | RenderObjectWithChildMixin | class | Secondary | ⬜ |  |
 | 141 | RenderObjectWithLayoutCallbackMixin | class | Hardly Relevant | ⬜ |  |
 | 142 | RenderOffstage | class | Secondary | ⬜ |  |
-| 143 | RenderOpacity | class | Important | ⬜ |  |
+| 143 | RenderOpacity | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
 | 144 | RenderPadding | class | Essential | ✅ | widgets/render_object_element_test.dart |
-| 145 | RenderParagraph | class | Important | ⬜ |  |
+| 145 | RenderParagraph | class | Important | ✅ | rendering/render_paragraph_image_table_test.dart |
 | 146 | RenderPerformanceOverlay | class | Hardly Relevant | ⬜ |  |
 | 147 | RenderPhysicalModel | class | Secondary | ⬜ |  |
 | 148 | RenderPhysicalShape | class | Secondary | ⬜ |  |
 | 149 | RenderPointerListener | class | Secondary | ⬜ |  |
-| 150 | RenderPositionedBox | class | Essential | ⬜ |  |
+| 150 | RenderPositionedBox | class | Essential | ✅ | rendering/render_stack_test.dart |
 | 151 | RenderProxyBox | class | Important | ✅ | rendering/render_shrink_wrapping_viewport_test.dart, retest/rendering/render_animated_size_state_test.dart |
 | 152 | RenderProxyBoxMixin | class | Secondary | ⬜ |  |
 | 153 | RenderProxyBoxWithHitTestBehavior | class | Secondary | ⬜ |  |
@@ -172,7 +172,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 160 | RenderShiftedBox | class | Important | ✅ | widgets/render_object_widget_test.dart |
 | 161 | RenderShrinkWrappingViewport | class | Secondary | ⬜ |  |
 | 162 | RenderSizedOverflowBox | class | Secondary | ⬜ |  |
-| 163 | RenderSliver | class | Important | ⬜ |  |
+| 163 | RenderSliver | class | Important | ✅ | rendering/render_slivers_test.dart |
 | 164 | RenderSliverAnimatedOpacity | class | Secondary | ⬜ |  |
 | 165 | RenderSliverBoxChildManager | class | Hardly Relevant | ⬜ |  |
 | 166 | RenderSliverConstrainedCrossAxis | class | Hardly Relevant | ⬜ |  |
@@ -186,15 +186,15 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 174 | RenderSliverFixedExtentList | class | Secondary | ⬜ |  |
 | 175 | RenderSliverFloatingPersistentHeader | class | Secondary | ⬜ |  |
 | 176 | RenderSliverFloatingPinnedPersistentHeader | class | Hardly Relevant | ⬜ |  |
-| 177 | RenderSliverGrid | class | Important | ⬜ |  |
+| 177 | RenderSliverGrid | class | Important | ✅ | rendering/render_slivers_test.dart |
 | 178 | RenderSliverHelpers | class | Secondary | ⬜ |  |
 | 179 | RenderSliverIgnorePointer | class | Secondary | ⬜ |  |
-| 180 | RenderSliverList | class | Important | ⬜ |  |
+| 180 | RenderSliverList | class | Important | ✅ | rendering/render_slivers_test.dart |
 | 181 | RenderSliverMainAxisGroup | class | Hardly Relevant | ⬜ |  |
 | 182 | RenderSliverMultiBoxAdaptor | class | Secondary | ⬜ |  |
 | 183 | RenderSliverOffstage | class | Secondary | ⬜ |  |
-| 184 | RenderSliverOpacity | class | Important | ⬜ |  |
-| 185 | RenderSliverPadding | class | Important | ⬜ |  |
+| 184 | RenderSliverOpacity | class | Important | ✅ | rendering/render_slivers_test.dart |
+| 185 | RenderSliverPadding | class | Important | ✅ | rendering/render_slivers_test.dart |
 | 186 | RenderSliverPersistentHeader | class | Secondary | ⬜ |  |
 | 187 | RenderSliverPinnedPersistentHeader | class | Secondary | ⬜ |  |
 | 188 | RenderSliverScrollingPersistentHeader | class | Secondary | ⬜ |  |
@@ -203,21 +203,21 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 191 | RenderSliverToBoxAdapter | class | Secondary | ⬜ |  |
 | 192 | RenderSliverVariedExtentList | class | Secondary | ⬜ |  |
 | 193 | RenderSliverWithKeepAliveMixin | class | Secondary | ⬜ |  |
-| 194 | RenderStack | class | Essential | ⬜ |  |
-| 195 | RenderTable | class | Important | ⬜ |  |
-| 196 | RenderTransform | class | Important | ⬜ |  |
+| 194 | RenderStack | class | Essential | ✅ | rendering/render_stack_test.dart |
+| 195 | RenderTable | class | Important | ✅ | rendering/render_paragraph_image_table_test.dart |
+| 196 | RenderTransform | class | Important | ✅ | rendering/render_proxy_boxes_test.dart |
 | 197 | RenderTreeSliver | class | Secondary | ⬜ |  |
 | 198 | RenderUiKitView | class | Hardly Relevant | ⬜ |  |
-| 199 | RenderView | class | Important | ⬜ |  |
-| 200 | RenderViewport | class | Important | ⬜ |  |
+| 199 | RenderView | class | Important | ✅ | rendering/render_view_layer_flow_test.dart |
+| 200 | RenderViewport | class | Important | ✅ | rendering/render_slivers_test.dart |
 | 201 | RenderViewportBase | class | Secondary | ⬜ |  |
-| 202 | RenderWrap | class | Important | ⬜ |  |
+| 202 | RenderWrap | class | Important | ✅ | rendering/render_list_body_wrap_test.dart |
 | 203 | RendererBinding | class | Secondary | ⬜ |  |
 | 204 | RenderingFlutterBinding | class | Secondary | ⬜ |  |
 | 205 | RenderingServiceExtensions | enum | Hardly Relevant | ✅ | rendering/rendering_service_extensions_test.dart |
 | 206 | RevealedOffset | class | Hardly Relevant | ⬜ |  |
 | 207 | ScrollCacheExtent | class | Hardly Relevant | ✅ | rendering/scroll_cache_extent_test.dart |
-| 208 | ScrollDirection | enum | Hardly Relevant | ✅ | rendering/growth_direction_test.dart, rendering/scroll_direction_test.dart, rendering/viewport_test.dart, +1 |
+| 208 | ScrollDirection | enum | Hardly Relevant | ✅ | rendering/growth_direction_test.dart, rendering/render_slivers_test.dart, rendering/scroll_direction_test.dart, +2 |
 | 209 | SelectAllSelectionEvent | class | Hardly Relevant | ✅ | widgets/selection_types_test.dart |
 | 210 | SelectParagraphSelectionEvent | class | Hardly Relevant | ✅ | rendering/select_paragraph_selection_event_test.dart, widgets/selection_types_test.dart |
 | 211 | SelectWordSelectionEvent | class | Hardly Relevant | ✅ | rendering/select_word_selection_event_test.dart, widgets/selection_types_test.dart |
@@ -240,14 +240,14 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 228 | ShaderMaskLayer | class | Secondary | ✅ | rendering/layers_test.dart |
 | 229 | ShapeBorderClipper | class | Secondary | ✅ | proxies/customclipper_proxy_test.dart, services/flutter_version_test.dart, widgets/heromode_test.dart, +2 |
 | 230 | SingleChildLayoutDelegate | class | Important | ✅ | proxies/singlechildlayout_proxy_test.dart, rendering/render_custom_single_child_layout_box_test.dart, widgets/layout_builder_adv_test.dart |
-| 231 | SliverConstraints | class | Important | ✅ | widgets/layoutbuilder_test.dart, widgets/render_abstract_layout_builder_mixin_test.dart |
+| 231 | SliverConstraints | class | Important | ✅ | rendering/render_slivers_test.dart, widgets/layoutbuilder_test.dart, widgets/render_abstract_layout_builder_mixin_test.dart |
 | 232 | SliverGeometry | class | Important | ✅ | rendering/renderobjects_sliver_test.dart |
-| 233 | SliverGridDelegate | class | Important | ⬜ |  |
-| 234 | SliverGridDelegateWithFixedCrossAxisCount | class | Important | ✅ | material/no_splash_test.dart, material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, +84 |
+| 233 | SliverGridDelegate | class | Important | ✅ | rendering/render_slivers_test.dart |
+| 234 | SliverGridDelegateWithFixedCrossAxisCount | class | Important | ✅ | material/no_splash_test.dart, material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, +85 |
 | 235 | SliverGridDelegateWithMaxCrossAxisExtent | class | Important | ✅ | rendering/render_sliver_types_test.dart, rendering/sliver_delegates_test.dart, rendering/sliver_grid_layout_test.dart, +9 |
 | 236 | SliverGridGeometry | class | Secondary | ✅ | rendering/sliver_grid_geometry_test.dart |
 | 237 | SliverGridLayout | class | Secondary | ⬜ |  |
-| 238 | SliverGridParentData | class | Important | ⬜ |  |
+| 238 | SliverGridParentData | class | Important | ✅ | rendering/render_slivers_test.dart |
 | 239 | SliverGridRegularTileLayout | class | Secondary | ⬜ |  |
 | 240 | SliverHitTestEntry | class | Secondary | ⬜ |  |
 | 241 | SliverHitTestResult | class | Secondary | ⬜ |  |
@@ -259,7 +259,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 247 | SliverPhysicalContainerParentData | class | Hardly Relevant | ⬜ |  |
 | 248 | SliverPhysicalParentData | class | Secondary | ⬜ |  |
 | 249 | StackFit | enum | Hardly Relevant | ✅ | material/collapse_mode_test.dart, painting/decoration_image_painter_test.dart, painting/image_stream_adv_test.dart, +54 |
-| 250 | StackParentData | class | Important | ⬜ |  |
+| 250 | StackParentData | class | Important | ✅ | rendering/render_stack_test.dart |
 | 251 | TableBorder | class | Hardly Relevant | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/tab_test.dart, dart_ui/image_byte_format_test.dart, +136 |
 | 252 | TableCellParentData | class | Secondary | ⬜ |  |
 | 253 | TableCellVerticalAlignment | enum | Hardly Relevant | ✅ | foundation/aggregated_timed_block_test.dart, foundation/foundation_service_extensions_test.dart, material/hour_format_test.dart, +24 |
@@ -274,8 +274,8 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 262 | TreeSliverIndentationType | class | Hardly Relevant | ⬜ |  |
 | 263 | TreeSliverNodeParentData | class | Hardly Relevant | ⬜ |  |
 | 264 | VerticalCaretMovementRun | class | Hardly Relevant | ⬜ |  |
-| 265 | ViewConfiguration | class | Essential | ⬜ |  |
-| 266 | ViewportOffset | class | Essential | ✅ | rendering/viewport_test.dart, widgets/two_dimensional_child_builder_delegate_test.dart, widgets/two_dimensional_child_list_delegate_test.dart, +2 |
+| 265 | ViewConfiguration | class | Essential | ✅ | rendering/render_view_layer_flow_test.dart |
+| 266 | ViewportOffset | class | Essential | ✅ | rendering/render_slivers_test.dart, rendering/viewport_test.dart, widgets/two_dimensional_child_builder_delegate_test.dart, +3 |
 | 267 | WrapAlignment | enum | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, +293 |
 | 268 | WrapCrossAlignment | enum | Hardly Relevant | ✅ | cupertino/class_test.dart, cupertino/icons_test.dart, dart_ui/primitives_test.dart, +102 |
 | 269 | WrapParentData | class | Secondary | ⬜ |  |

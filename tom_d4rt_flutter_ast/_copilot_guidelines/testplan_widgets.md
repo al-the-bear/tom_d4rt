@@ -82,7 +82,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 70 | BouncingScrollSimulation | class | Hardly Relevant | ✅ | physics/clamped_simulation_test.dart, physics/simulations_test.dart, physics/spring_test.dart, +2 |
 | 71 | BoxConstraintsTween | class | Hardly Relevant | ✅ | widgets/box_constraints_tween_test.dart |
 | 72 | BoxScrollView | class | Hardly Relevant | ✅ | retest/widgets/box_scroll_view_test.dart, widgets/box_scroll_view_test.dart |
-| 73 | BuildContext | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2047 |
+| 73 | BuildContext | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2055 |
 | 74 | BuildOwner | class | Secondary | ✅ | widgets/root_element_mixin_test.dart, widgets/widgets_binding_test.dart |
 | 75 | BuildScope | class | Secondary | ⬜ |  |
 | 76 | Builder | class | Important | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, cupertino/cupertino_focus_halo_test.dart, +112 |
@@ -90,7 +90,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 78 | CallbackAction | class | Important | ✅ | material/materialapp_test.dart, material/menu_accelerator_callback_binding_test.dart, retest/widgets/default_text_editing_shortcuts_test.dart, +17 |
 | 79 | CallbackShortcuts | class | Hardly Relevant | ✅ | widgets/callback_shortcuts_test.dart |
 | 80 | CapturedThemes | class | Hardly Relevant | ⬜ |  |
-| 81 | Center | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1351 |
+| 81 | Center | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1358 |
 | 82 | ChangeReportingBehavior | enum | Hardly Relevant | ⬜ |  |
 | 83 | CharacterActivator | class | Hardly Relevant | ✅ | services/key_events_test.dart, widgets/callback_shortcuts_test.dart, widgets/context_action_test.dart, +7 |
 | 84 | CheckedModeBanner | class | Secondary | ✅ | widgets/checked_mode_banner_test.dart |
@@ -126,7 +126,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 114 | CrossFadeState | enum | Hardly Relevant | ✅ | animation/animatable_test.dart, widgets/animated_cross_fade_test.dart, widgets/animated_widgets_adv_test.dart, +3 |
 | 115 | CustomMultiChildLayout | class | Important | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
 | 116 | CustomPaint | class | Important | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +446 |
-| 117 | CustomScrollView | class | Important | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +132 |
+| 117 | CustomScrollView | class | Important | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +133 |
 | 118 | CustomSingleChildLayout | class | Important | ✅ | material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart, proxies/singlechildlayout_proxy_test.dart, +2 |
 | 119 | DebugCreator | class | Hardly Relevant | ⬜ |  |
 | 120 | DecoratedBox | class | Important | ✅ | animation/tweensequence_test.dart, cupertino/cupertino_sheet_route_test.dart, cupertino/cupertino_sheet_transition_test.dart, +109 |
@@ -633,10 +633,10 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 621 | SliverFillViewport | class | Important | ✅ | rendering/render_sliver_fill_viewport_test.dart, rendering/renderobjects_sliver_test.dart, widgets/customscrollview_test.dart, +2 |
 | 622 | SliverFixedExtentList | class | Important | ✅ | rendering/render_sliver_box_child_manager_test.dart, rendering/render_sliver_edge_insets_padding_test.dart, rendering/render_sliver_fill_remaining_test.dart, +14 |
 | 623 | SliverFloatingHeader | class | Secondary | ✅ | widgets/sliver_floating_header_test.dart |
-| 624 | SliverGrid | class | Important | ✅ | material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, material/reorderable_material_test.dart, +36 |
+| 624 | SliverGrid | class | Important | ✅ | material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, material/reorderable_material_test.dart, +37 |
 | 625 | SliverIgnorePointer | class | Secondary | ✅ | rendering/render_proxy_sliver_test.dart, rendering/render_sliver_ignore_pointer_test.dart, widgets/sliver_ignore_pointer_test.dart |
 | 626 | SliverLayoutBuilder | class | Secondary | ✅ | widgets/abstract_layout_builder_test.dart, widgets/constrained_layout_builder_test.dart, widgets/layoutbuilder_test.dart, +3 |
-| 627 | SliverList | class | Important | ✅ | cupertino/cupertino_refresh_mag_test.dart, material/collapse_mode_test.dart, material/material_scroll_behavior_test.dart, +101 |
+| 627 | SliverList | class | Important | ✅ | cupertino/cupertino_refresh_mag_test.dart, material/collapse_mode_test.dart, material/material_scroll_behavior_test.dart, +102 |
 | 628 | SliverMainAxisGroup | class | Secondary | ✅ | rendering/render_sliver_cross_axis_group_test.dart, rendering/render_sliver_edge_insets_padding_test.dart, rendering/render_sliver_main_axis_group_test.dart, +2 |
 | 629 | SliverMultiBoxAdaptorElement | class | Hardly Relevant | ⬜ |  |
 | 630 | SliverMultiBoxAdaptorWidget | class | Hardly Relevant | ⬜ |  |
@@ -689,7 +689,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 677 | TapRegion | class | Secondary | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/raw_menu_anchor_group_test.dart, widgets/raw_menu_anchor_test.dart, +3 |
 | 678 | TapRegionRegistry | class | Hardly Relevant | ⬜ |  |
 | 679 | TapRegionSurface | class | Secondary | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_test.dart |
-| 680 | Text | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2046 |
+| 680 | Text | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2054 |
 | 681 | TextEditingController | class | Important | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +77 |
 | 682 | TextFieldTapRegion | class | Secondary | ⬜ |  |
 | 683 | TextMagnifierConfiguration | class | Secondary | ✅ | material/selection_area_state_test.dart, widgets/text_editing_adv_test.dart, widgets/text_magnifier_configuration_test.dart |
@@ -747,7 +747,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 735 | UpdateSelectionIntent | class | Hardly Relevant | ✅ | widgets/update_selection_intent_test.dart |
 | 736 | UserScrollNotification | class | Hardly Relevant | ✅ | widgets/scroll_context_test.dart, widgets/scrollable_test.dart, widgets/user_scroll_notification_test.dart, +1 |
 | 737 | ValueListenableBuilder | class | Important | ✅ | cupertino/tab_test.dart, foundation/notifier_test.dart, material/list_tile_style_test.dart, +92 |
-| 738 | View | class | Secondary | ✅ | dart_ui/display_corner_radii_test.dart, dart_ui/flutter_view_test.dart, dart_ui/hit_test_request_response_test.dart, +3 |
+| 738 | View | class | Secondary | ✅ | dart_ui/display_corner_radii_test.dart, dart_ui/flutter_view_test.dart, dart_ui/hit_test_request_response_test.dart, +4 |
 | 739 | ViewAnchor | class | Secondary | ⬜ |  |
 | 740 | ViewCollection | class | Secondary | ⬜ |  |
 | 741 | Viewport | class | Secondary | ⬜ |  |

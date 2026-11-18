@@ -21,20 +21,20 @@ Measured by `tool/testplan_report.dart` from the bridges and the corpus. A name 
 | [meta](testplan_meta.md) | 1 | 0 | 0 | 1 | 0.0% |
 | [painting](testplan_painting.md) | 100 | 85 | 0 | 15 | 85.0% |
 | [physics](testplan_physics.md) | 10 | 10 | 0 | 0 | 100.0% |
-| [rendering](testplan_rendering.md) | 269 | 106 | 1 | 162 | 39.4% |
+| [rendering](testplan_rendering.md) | 269 | 141 | 0 | 128 | 52.4% |
 | [scheduler](testplan_scheduler.md) | 9 | 8 | 0 | 1 | 88.9% |
 | [semantics](testplan_semantics.md) | 27 | 19 | 0 | 8 | 70.4% |
 | [services](testplan_services.md) | 142 | 95 | 0 | 47 | 66.9% |
 | [vector_math](testplan_vector_math.md) | 19 | 1 | 1 | 17 | 5.3% |
 | [widgets](testplan_widgets.md) | 772 | 568 | 1 | 203 | 73.6% |
-| **Total** | **2251** | **1626** | **3** | **622** | **72.2%** |
+| **Total** | **2251** | **1661** | **2** | **588** | **73.8%** |
 
 By tier:
 
 | Tier | Bridged | Exercised | Coverage |
 |------|---------|-----------|----------|
-| [Essential](testplan_essential.md) | 227 | 213 | 93.8% |
-| [Important](testplan_important.md) | 440 | 338 | 76.8% |
+| [Essential](testplan_essential.md) | 227 | 220 | 96.9% |
+| [Important](testplan_important.md) | 440 | 366 | 83.2% |
 | [Secondary](testplan_secondary.md) | 559 | 374 | 66.9% |
 | [Hardly Relevant](testplan_hardly_relevant.md) | 1025 | 701 | 68.4% |
 <!-- testplan_report:end -->

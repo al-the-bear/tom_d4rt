@@ -24,7 +24,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 12 | Canvas | class | Essential | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +449 |
 | 13 | ChannelBuffers | class | Hardly Relevant | ⬜ |  |
 | 14 | CheckedState | enum | Hardly Relevant | ✅ | dart_ui/checked_state_test.dart |
-| 15 | Clip | enum | Hardly Relevant | ✅ | cupertino/button_test.dart, cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +299 |
+| 15 | Clip | enum | Hardly Relevant | ✅ | cupertino/button_test.dart, cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +300 |
 | 16 | ClipOp | enum | Hardly Relevant | ✅ | dart_ui/clip_op_test.dart |
 | 17 | ClipPathEngineLayer | class | Hardly Relevant | ⬜ |  |
 | 18 | ClipRRectEngineLayer | class | Hardly Relevant | ⬜ |  |
@@ -76,7 +76,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 64 | Locale | class | Essential | ✅ | cupertino/localization_test.dart, dart_ui/locale_string_attribute_test.dart, dart_ui/platform_dispatcher_test.dart, +17 |
 | 65 | LocaleStringAttribute | class | Secondary | ✅ | dart_ui/locale_string_attribute_test.dart, dart_ui/spell_out_string_attribute_test.dart, dart_ui/string_attribute_test.dart, +5 |
 | 66 | MaskFilter | class | Important | ✅ | cupertino/magnifier_test.dart, dart_ui/dart_ui_paint_canvas_test.dart, dart_ui/paint_test.dart, +5 |
-| 67 | Offset | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1591 |
+| 67 | Offset | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1592 |
 | 68 | OffsetBase | class | Secondary | ⬜ |  |
 | 69 | OffsetEngineLayer | class | Hardly Relevant | ⬜ |  |
 | 70 | OpacityEngineLayer | class | Hardly Relevant | ⬜ |  |
@@ -142,7 +142,7 @@ Every name the bridges register for `dart_ui` (158), with its tier and the corpu
 | 130 | TextBox | class | Important | ✅ | dart_ui/text_data_test.dart, dart_ui/text_test.dart, services/spellcheck_test.dart, +1 |
 | 131 | TextDecoration | class | Important | ✅ | cupertino/cupertino_nav_segmented_test.dart, cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/semantics_flag_test.dart, +94 |
 | 132 | TextDecorationStyle | enum | Hardly Relevant | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/text_data_test.dart, dart_ui/text_decoration_style_test.dart, +15 |
-| 133 | TextDirection | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +355 |
+| 133 | TextDirection | enum | Hardly Relevant | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +359 |
 | 134 | TextHeightBehavior | class | Important | ✅ | dart_ui/text_data_test.dart, material/selectabletext_test.dart, widgets/default_text_height_behavior_test.dart, +4 |
 | 135 | TextLeadingDistribution | enum | Hardly Relevant | ✅ | dart_ui/text_data_test.dart, dart_ui/text_leading_distribution_test.dart, painting/textstyle_test.dart, +4 |
 | 136 | TextPosition | class | Important | ✅ | dart_ui/text_affinity_test.dart, dart_ui/text_data_test.dart, painting/text_painting_test.dart, +6 |

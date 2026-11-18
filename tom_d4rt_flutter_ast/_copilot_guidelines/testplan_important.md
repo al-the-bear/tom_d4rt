@@ -4,7 +4,7 @@
 
 The bridged names the priority files classify as Important. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 338 of 440 (76.8%)
+- **Exercised:** 366 of 440 (83.2%)
 
 ## animation (10)
 
@@ -277,49 +277,49 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | ClipRectLayer | Clip rect layer | ✅ | rendering/layers_test.dart |
 | CustomClipper | Custom clipping | ✅ | dart_ui/r_superellipse_test.dart, material/collapse_mode_test.dart, painting/clip_context_test.dart, +13 |
 | CustomPainter | Custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +445 |
-| FixedColumnWidth | Fixed column | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, foundation/aggregated_timed_block_test.dart, +30 |
+| FixedColumnWidth | Fixed column | ✅ | cupertino/route_test.dart, cupertino/tab_test.dart, foundation/aggregated_timed_block_test.dart, +31 |
 | FlexColumnWidth | Flex column | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/dialog_test.dart, cupertino/route_test.dart, +185 |
-| FlexParentData | Flex parent data | ⬜ |  |
-| FlowDelegate | Flow layout delegate | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, widgets/table_wrap_flow_test.dart |
+| FlexParentData | Flex parent data | ✅ | rendering/render_flex_test.dart |
+| FlowDelegate | Flow layout delegate | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, rendering/render_view_layer_flow_test.dart, +1 |
 | ImageFilterLayer | Image filter layer | ✅ | rendering/layers_test.dart |
 | IntrinsicColumnWidth | Intrinsic column | ✅ | gestures/tap_drag_start_details_test.dart, material/input_borders_test.dart, proxies/multichildlayout_proxy_test.dart, +20 |
 | MultiChildLayoutDelegate | Multi layout | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
 | OpacityLayer | Opacity layer | ✅ | rendering/layers_test.dart |
 | RelativeRect | Relative positioning | ✅ | widgets/relative_rect_tween_test.dart |
-| RenderAspectRatio | Aspect ratio | ⬜ |  |
-| RenderClipOval | Clip oval | ⬜ |  |
-| RenderClipPath | Clip path | ⬜ |  |
-| RenderClipRRect | Clip rounded rect | ⬜ |  |
-| RenderClipRect | Clip rect | ⬜ |  |
-| RenderFittedBox | Fitted box | ⬜ |  |
-| RenderFlow | Flow layout | ⬜ |  |
-| RenderImage | Image render | ⬜ |  |
-| RenderIntrinsicHeight | Intrinsic height | ⬜ |  |
-| RenderIntrinsicWidth | Intrinsic width | ⬜ |  |
-| RenderLimitedBox | Limited box | ⬜ |  |
-| RenderListBody | List body | ⬜ |  |
-| RenderOpacity | Opacity render | ⬜ |  |
-| RenderParagraph | Text render | ⬜ |  |
+| RenderAspectRatio | Aspect ratio | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderClipOval | Clip oval | ✅ | rendering/render_clip_test.dart |
+| RenderClipPath | Clip path | ✅ | rendering/render_clip_test.dart |
+| RenderClipRRect | Clip rounded rect | ✅ | rendering/render_clip_test.dart |
+| RenderClipRect | Clip rect | ✅ | rendering/render_clip_test.dart |
+| RenderFittedBox | Fitted box | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderFlow | Flow layout | ✅ | rendering/render_view_layer_flow_test.dart |
+| RenderImage | Image render | ✅ | rendering/render_paragraph_image_table_test.dart |
+| RenderIntrinsicHeight | Intrinsic height | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderIntrinsicWidth | Intrinsic width | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderLimitedBox | Limited box | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderListBody | List body | ✅ | rendering/render_list_body_wrap_test.dart |
+| RenderOpacity | Opacity render | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderParagraph | Text render | ✅ | rendering/render_paragraph_image_table_test.dart |
 | RenderProxyBox | Proxy render box | ✅ | rendering/render_shrink_wrapping_viewport_test.dart, retest/rendering/render_animated_size_state_test.dart |
 | RenderShiftedBox | Shifted box | ✅ | widgets/render_object_widget_test.dart |
-| RenderSliver | Base sliver | ⬜ |  |
-| RenderSliverGrid | Sliver grid | ⬜ |  |
-| RenderSliverList | Sliver list | ⬜ |  |
-| RenderSliverOpacity | Sliver opacity | ⬜ |  |
-| RenderSliverPadding | Sliver padding | ⬜ |  |
-| RenderTable | Table layout | ⬜ |  |
-| RenderTransform | Transform render | ⬜ |  |
-| RenderView | Root view | ⬜ |  |
-| RenderViewport | Scroll viewport | ⬜ |  |
-| RenderWrap | Wrap layout | ⬜ |  |
+| RenderSliver | Base sliver | ✅ | rendering/render_slivers_test.dart |
+| RenderSliverGrid | Sliver grid | ✅ | rendering/render_slivers_test.dart |
+| RenderSliverList | Sliver list | ✅ | rendering/render_slivers_test.dart |
+| RenderSliverOpacity | Sliver opacity | ✅ | rendering/render_slivers_test.dart |
+| RenderSliverPadding | Sliver padding | ✅ | rendering/render_slivers_test.dart |
+| RenderTable | Table layout | ✅ | rendering/render_paragraph_image_table_test.dart |
+| RenderTransform | Transform render | ✅ | rendering/render_proxy_boxes_test.dart |
+| RenderView | Root view | ✅ | rendering/render_view_layer_flow_test.dart |
+| RenderViewport | Scroll viewport | ✅ | rendering/render_slivers_test.dart |
+| RenderWrap | Wrap layout | ✅ | rendering/render_list_body_wrap_test.dart |
 | SingleChildLayoutDelegate | Single layout | ✅ | proxies/singlechildlayout_proxy_test.dart, rendering/render_custom_single_child_layout_box_test.dart, widgets/layout_builder_adv_test.dart |
-| SliverConstraints | Sliver constraints | ✅ | widgets/layoutbuilder_test.dart, widgets/render_abstract_layout_builder_mixin_test.dart |
+| SliverConstraints | Sliver constraints | ✅ | rendering/render_slivers_test.dart, widgets/layoutbuilder_test.dart, widgets/render_abstract_layout_builder_mixin_test.dart |
 | SliverGeometry | Sliver geometry | ✅ | rendering/renderobjects_sliver_test.dart |
-| SliverGridDelegate | Grid delegate | ⬜ |  |
-| SliverGridDelegateWithFixedCrossAxisCount | Fixed count grid | ✅ | material/no_splash_test.dart, material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, +84 |
+| SliverGridDelegate | Grid delegate | ✅ | rendering/render_slivers_test.dart |
+| SliverGridDelegateWithFixedCrossAxisCount | Fixed count grid | ✅ | material/no_splash_test.dart, material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, +85 |
 | SliverGridDelegateWithMaxCrossAxisExtent | Max extent grid | ✅ | rendering/render_sliver_types_test.dart, rendering/sliver_delegates_test.dart, rendering/sliver_grid_layout_test.dart, +9 |
-| SliverGridParentData | Grid parent data | ⬜ |  |
-| StackParentData | Stack parent data | ⬜ |  |
+| SliverGridParentData | Grid parent data | ✅ | rendering/render_slivers_test.dart |
+| StackParentData | Stack parent data | ✅ | rendering/render_stack_test.dart |
 | TableColumnWidth | Table column width | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/route_test.dart, cupertino/tab_test.dart, +81 |
 | TransformLayer | Transform layer | ✅ | rendering/layers_test.dart |
 
@@ -378,7 +378,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| Matrix4 | 4x4 transformation matrix | ✅ | animation/tween_test.dart, dart_ui/clip_path_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +36 |
+| Matrix4 | 4x4 transformation matrix | ✅ | animation/tween_test.dart, dart_ui/clip_path_engine_layer_test.dart, dart_ui/engine_layer_test.dart, +37 |
 
 ## widgets (131)
 
@@ -412,7 +412,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | ConstrainedBox | Constraints | ✅ | animation/cubic_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/diagnosticable_tree_test.dart, +73 |
 | CustomMultiChildLayout | Multi layout | ✅ | proxies/multichildlayout_proxy_test.dart, rendering/render_custom_multi_child_layout_box_test.dart, rendering/renderobjects_layout_test.dart, +3 |
 | CustomPaint | Custom painting | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +446 |
-| CustomScrollView | Custom scrolling | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +132 |
+| CustomScrollView | Custom scrolling | ✅ | cupertino/cupertino_refresh_mag_test.dart, cupertino/cupertino_secondary_test.dart, cupertino/obstructing_preferred_size_widget_test.dart, +133 |
 | CustomSingleChildLayout | Single layout | ✅ | material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart, proxies/singlechildlayout_proxy_test.dart, +2 |
 | DecoratedBox | Decoration box | ✅ | animation/tweensequence_test.dart, cupertino/cupertino_sheet_route_test.dart, cupertino/cupertino_sheet_transition_test.dart, +109 |
 | DecoratedBoxTransition | Decoration animation | ✅ | animation/alwaysstoppedanimation_test.dart, widgets/border_tween_test.dart, widgets/decoratedbox_test.dart |
@@ -497,8 +497,8 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | SliverFillRemaining | Fill remaining | ✅ | cupertino/obstructing_preferred_size_widget_test.dart, material/sliverappbar_test.dart, rendering/render_sliver_fill_remaining_and_overscroll_test.dart, +11 |
 | SliverFillViewport | Fill viewport | ✅ | rendering/render_sliver_fill_viewport_test.dart, rendering/renderobjects_sliver_test.dart, widgets/customscrollview_test.dart, +2 |
 | SliverFixedExtentList | Fixed extent | ✅ | rendering/render_sliver_box_child_manager_test.dart, rendering/render_sliver_edge_insets_padding_test.dart, rendering/render_sliver_fill_remaining_test.dart, +14 |
-| SliverGrid | Sliver grid | ✅ | material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, material/reorderable_material_test.dart, +36 |
-| SliverList | Sliver list | ✅ | cupertino/cupertino_refresh_mag_test.dart, material/collapse_mode_test.dart, material/material_scroll_behavior_test.dart, +101 |
+| SliverGrid | Sliver grid | ✅ | material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, material/reorderable_material_test.dart, +37 |
+| SliverList | Sliver list | ✅ | cupertino/cupertino_refresh_mag_test.dart, material/collapse_mode_test.dart, material/material_scroll_behavior_test.dart, +102 |
 | SliverOpacity | Sliver opacity | ✅ | rendering/render_animated_opacity_test.dart, rendering/render_mixins_test.dart, rendering/render_proxy_sliver_test.dart, +1 |
 | SliverPadding | Sliver padding | ✅ | material/refresh_indicator_state_test.dart, material/refreshindicator_test.dart, rendering/render_abstract_viewport_test.dart, +42 |
 | SliverPersistentHeader | Persistent header | ✅ | rendering/render_sliver_animated_opacity_test.dart, rendering/render_sliver_floating_pinned_persistent_header_test.dart, rendering/render_sliver_persistent_header_test.dart, +13 |

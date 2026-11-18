@@ -82,7 +82,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | CallbackHandle | Callback registration | ✅ | dart_ui/plugin_utilities_test.dart |
 | ChannelBuffers | Platform channel buffers | ⬜ |  |
 | CheckedState | (not classified) | ✅ | dart_ui/checked_state_test.dart |
-| Clip | (not classified) | ✅ | cupertino/button_test.dart, cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +299 |
+| Clip | (not classified) | ✅ | cupertino/button_test.dart, cupertino/cupertino_expansion_tile_test.dart, cupertino/cupertino_list_tile_chevron_test.dart, +300 |
 | ClipOp | (not classified) | ✅ | dart_ui/clip_op_test.dart |
 | ClipPathEngineLayer | Clip path layer | ⬜ |  |
 | ClipRRectEngineLayer | Clip rounded rect layer | ⬜ |  |
@@ -136,7 +136,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | TextAlign | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_behavior_test.dart, animation/animation_eager_listener_mixin_test.dart, +1111 |
 | TextBaseline | (not classified) | ✅ | dart_ui/placeholder_alignment_test.dart, dart_ui/text_baseline_test.dart, dart_ui/text_test.dart, +27 |
 | TextDecorationStyle | (not classified) | ✅ | cupertino/cupertino_spell_check_suggestions_toolbar_test.dart, dart_ui/text_data_test.dart, dart_ui/text_decoration_style_test.dart, +15 |
-| TextDirection | (not classified) | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +355 |
+| TextDirection | (not classified) | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +359 |
 | TextLeadingDistribution | (not classified) | ✅ | dart_ui/text_data_test.dart, dart_ui/text_leading_distribution_test.dart, painting/textstyle_test.dart, +4 |
 | TileMode | (not classified) | ✅ | dart_ui/filters_test.dart, dart_ui/shader_mask_engine_layer_test.dart, dart_ui/tile_mode_test.dart, +7 |
 | TransformEngineLayer | Transform layer | ✅ | dart_ui/transform_engine_layer_test.dart |
@@ -426,10 +426,10 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | Accumulator | Internal accumulation | ✅ | painting/accumulator_test.dart |
 | AssetBundleImageKey | Asset cache key | ⬜ |  |
 | AssetBundleImageProvider | Asset image base | ⬜ |  |
-| Axis | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animationstyle_test.dart, cupertino/cupertino_expansion_tile_test.dart, +306 |
-| AxisDirection | (not classified) | ✅ | material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, painting/axis_direction_test.dart, +24 |
+| Axis | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animationstyle_test.dart, cupertino/cupertino_expansion_tile_test.dart, +307 |
+| AxisDirection | (not classified) | ✅ | material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, painting/axis_direction_test.dart, +25 |
 | BorderStyle | (not classified) | ✅ | dart_ui/offset_engine_layer_test.dart, dart_ui/opacity_engine_layer_test.dart, foundation/class_test.dart, +92 |
-| BoxFit | (not classified) | ✅ | dart_ui/image_descriptor_test.dart, painting/advanced_decorations_test.dart, painting/box_fit_test.dart, +17 |
+| BoxFit | (not classified) | ✅ | dart_ui/image_descriptor_test.dart, painting/advanced_decorations_test.dart, painting/box_fit_test.dart, +19 |
 | BoxShape | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1382 |
 | ClipContext | Clipping context | ⬜ |  |
 | ColorProperty | Diagnostics property | ✅ | foundation/diagnosticable_test.dart, foundation/diagnosticable_tree_mixin_test.dart, foundation/documentation_icon_test.dart, +1 |
@@ -479,20 +479,20 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | DecorationPosition | (not classified) | ✅ | rendering/decoration_position_test.dart, widgets/decorated_sliver_test.dart, widgets/decoratedbox_test.dart |
 | DiagnosticsDebugCreator | Debug creator | ⬜ |  |
 | DirectionallyExtendSelectionEvent | Directional extend | ✅ | widgets/selection_types_test.dart |
-| FlexFit | (not classified) | ✅ | rendering/flex_fit_test.dart, rendering/parent_data_test.dart, rendering/parentdata_test.dart, +6 |
+| FlexFit | (not classified) | ✅ | rendering/flex_fit_test.dart, rendering/parent_data_test.dart, rendering/parentdata_test.dart, +7 |
 | FloatingHeaderSnapConfiguration | Header snap config | ✅ | widgets/sliver_persistent_header_delegate_test.dart |
-| FlowPaintingContext | Flow context | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, widgets/table_wrap_flow_test.dart |
+| FlowPaintingContext | Flow context | ✅ | proxies/flowdelegate_proxy_test.dart, rendering/flow_painting_context_test.dart, rendering/render_view_layer_flow_test.dart, +1 |
 | FlowParentData | Flow parent data | ✅ | rendering/flow_parent_data_test.dart |
 | FractionColumnWidth | Fraction column | ✅ | rendering/fraction_column_width_test.dart, widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | FractionalOffsetTween | Offset tween | ✅ | rendering/fractional_offset_tween_test.dart |
 | GranularlyExtendSelectionEvent | Granular extend | ✅ | rendering/granularly_extend_selection_event_test.dart, widgets/selection_types_test.dart |
-| GrowthDirection | (not classified) | ✅ | rendering/growth_direction_test.dart, rendering/renderobjects_sliver_test.dart, rendering/viewport_test.dart |
+| GrowthDirection | (not classified) | ✅ | rendering/growth_direction_test.dart, rendering/render_slivers_test.dart, rendering/renderobjects_sliver_test.dart, +1 |
 | HitTestBehavior | (not classified) | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, gestures/gesture_callbacks_adv_test.dart, gestures/immediate_multi_drag_gesture_recognizer_test.dart, +36 |
 | ImageFilterConfig | Filter config | ⬜ |  |
 | ImageFilterContext | Filter context | ⬜ |  |
 | ListWheelChildManager | Wheel manager | ⬜ |  |
 | MainAxisAlignment | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1038 |
-| MainAxisSize | (not classified) | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1010 |
+| MainAxisSize | (not classified) | ✅ | animation/animatable_test.dart, animation/animation_lazy_listener_mixin_test.dart, animation/animation_local_listeners_mixin_test.dart, +1011 |
 | MaxColumnWidth | Max column | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | MinColumnWidth | Min column | ✅ | widgets/table_test.dart, widgets/table_wrap_flow_test.dart |
 | MultiChildLayoutParentData | (not classified) | ⬜ |  |
@@ -532,7 +532,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | RenderingServiceExtensions | (not classified) | ✅ | rendering/rendering_service_extensions_test.dart |
 | RevealedOffset | Revealed offset | ⬜ |  |
 | ScrollCacheExtent | (not classified) | ✅ | rendering/scroll_cache_extent_test.dart |
-| ScrollDirection | (not classified) | ✅ | rendering/growth_direction_test.dart, rendering/scroll_direction_test.dart, rendering/viewport_test.dart, +1 |
+| ScrollDirection | (not classified) | ✅ | rendering/growth_direction_test.dart, rendering/render_slivers_test.dart, rendering/scroll_direction_test.dart, +2 |
 | SelectAllSelectionEvent | Select all | ✅ | widgets/selection_types_test.dart |
 | SelectParagraphSelectionEvent | Select paragraph | ✅ | rendering/select_paragraph_selection_event_test.dart, widgets/selection_types_test.dart |
 | SelectWordSelectionEvent | Select word | ✅ | rendering/select_word_selection_event_test.dart, widgets/selection_types_test.dart |

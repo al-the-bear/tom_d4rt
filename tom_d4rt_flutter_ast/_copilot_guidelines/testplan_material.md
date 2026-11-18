@@ -80,7 +80,7 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 68 | CloseButtonIcon | class | Hardly Relevant | ✅ | material/drawer_button_test.dart |
 | 69 | CollapseMode | enum | Hardly Relevant | ✅ | material/collapse_mode_test.dart, material/sliverappbar_test.dart, retest/widgets/render_nested_scroll_view_viewport_test.dart |
 | 70 | ColorScheme | class | Essential | ✅ | animation/animationstyle_test.dart, animation/tween_test.dart, cupertino/cupertino_themes_batch4_test.dart, +279 |
-| 71 | Colors | class | Secondary | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1696 |
+| 71 | Colors | class | Secondary | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1697 |
 | 72 | ControlsDetails | class | Secondary | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | 73 | CupertinoBasedMaterialThemeData | class | Hardly Relevant | ⬜ |  |
 | 74 | DataCell | class | Important | ✅ | foundation/persistent_hash_map_test.dart, material/data_table_test.dart, material/datarow_test.dart, +31 |

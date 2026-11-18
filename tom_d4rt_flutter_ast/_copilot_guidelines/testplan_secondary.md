@@ -141,7 +141,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ChipAnimationStyle | Chip animation | ⬜ |  |
 | ChipAttributes | Chip attributes | ⬜ |  |
 | ChipThemeData | Chip data | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +7 |
-| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1696 |
+| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1697 |
 | ControlsDetails | Controls details | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | DataTableSource | Data source | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
 | DataTableTheme | Table theme | ✅ | material/datarow_test.dart |
@@ -623,7 +623,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | UiKitView | iOS view | ✅ | rendering/render_darwin_platform_view_test.dart, rendering/render_ui_kit_view_test.dart, services/uikit_view_gesture_blocking_policy_test.dart |
 | UndoHistory | Undo history | ✅ | widgets/undo_history_state_test.dart |
 | UndoHistoryController | Undo controller | ✅ | retest/widgets/redo_text_intent_test.dart, widgets/i_o_s_system_context_menu_item_cut_test.dart, widgets/undo_history_controller_test.dart, +3 |
-| View | View widget | ✅ | dart_ui/display_corner_radii_test.dart, dart_ui/flutter_view_test.dart, dart_ui/hit_test_request_response_test.dart, +3 |
+| View | View widget | ✅ | dart_ui/display_corner_radii_test.dart, dart_ui/flutter_view_test.dart, dart_ui/hit_test_request_response_test.dart, +4 |
 | ViewAnchor | View anchor | ⬜ |  |
 | ViewCollection | View collection | ⬜ |  |
 | Viewport | Viewport widget | ⬜ |  |
