@@ -17,7 +17,7 @@ Every name the bridges register for `rendering` (269), with its tier and the cor
 | 5 | AnnotationResult | class | Hardly Relevant | ⬜ |  |
 | 6 | BackdropFilterLayer | class | Important | ✅ | rendering/layers_test.dart |
 | 7 | BackdropKey | class | Hardly Relevant | ⬜ |  |
-| 8 | BoxConstraints | class | Essential | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +253 |
+| 8 | BoxConstraints | class | Essential | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +254 |
 | 9 | BoxHitTestEntry | class | Secondary | ✅ | rendering/box_hit_test_result_test.dart, rendering/relayout_when_system_fonts_change_mixin_test.dart |
 | 10 | BoxHitTestResult | class | Secondary | ✅ | gestures/hit_testable_test.dart, rendering/box_hit_test_result_test.dart, rendering/render_aligning_shifted_box_test.dart, +7 |
 | 11 | BoxParentData | class | Essential | ✅ | rendering/parent_data_test.dart, rendering/render_aligning_shifted_box_test.dart, rendering/viewport_test.dart, +5 |

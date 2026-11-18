@@ -192,7 +192,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | PercentProperty | (not classified) | ✅ | foundation/int_property_test.dart, foundation/percent_property_test.dart |
 | StringProperty | (not classified) | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +8 |
 | Summary | Summary annotation | ⬜ |  |
-| TargetPlatform | (not classified) | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +48 |
+| TargetPlatform | (not classified) | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +49 |
 | TextTreeConfiguration | (not classified) | ⬜ |  |
 | TextTreeRenderer | (not classified) | ✅ | foundation/text_tree_renderer_test.dart |
 
@@ -317,7 +317,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | HandleThumbShape | (not classified) | ✅ | material/gapped_slider_track_shape_test.dart |
 | HourFormat | (not classified) | ✅ | material/hour_format_test.dart, retest/material/hour_format_test.dart |
 | IconAlignment | (not classified) | ✅ | material/buttons_test.dart, material/icon_alignment_test.dart, material/text_button_test.dart |
-| Icons | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1818 |
+| Icons | (not classified) | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1820 |
 | InkDecoration | (not classified) | ⬜ |  |
 | InkSparkle | (not classified) | ✅ | material/ink_sparkle_test.dart |
 | InputDatePickerFormField | (not classified) | ✅ | material/datepicker_widgets_test.dart, material/datetime_utils_test.dart, material/input_date_picker_form_field_test.dart |
@@ -387,7 +387,7 @@ The bridged names the priority files classify as Hardly Relevant, and every brid
 | ShowValueIndicator | (not classified) | ✅ | material/base_range_slider_track_shape_test.dart, material/component_themes_test.dart, material/drop_range_slider_value_indicator_shape_test.dart, +15 |
 | SimpleDialogOption | (not classified) | ✅ | material/dialog_advanced_test.dart, material/dialog_bottom_sheet_test.dart, material/dialog_test.dart, +3 |
 | SliderInteraction | (not classified) | ✅ | material/slider_interaction_test.dart |
-| SnackBarThemeData | (not classified) | ✅ | material/component_themes_test.dart, material/fablocation_messenger_test.dart, material/scaffold_messenger_test.dart, +3 |
+| SnackBarThemeData | (not classified) | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/fablocation_messenger_test.dart, +4 |
 | SpellCheckSuggestionsToolbarLayoutDelegate | (not classified) | ✅ | material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart |
 | StandardFabLocation | (not classified) | ⬜ |  |
 | StepStyle | (not classified) | ✅ | material/step_style_test.dart |

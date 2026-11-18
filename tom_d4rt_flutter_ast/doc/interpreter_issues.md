@@ -25,6 +25,8 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | Marker | Section (heading text, verbatim) | What it is |
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
+| `[ ]` | Open (GEN-134) — a generic bridged instance's function-typed field cannot be read back through its getter adapter | A **generator** defect. Blast radius: every generic bridged class whose field type mentions a class type parameter inside a function type, built with type arguments and read back by a script; building and rendering work. Found 2026-11-18 by addtests2 (`material/radio_menu_button_on_changed_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl1_akrs-gen134-generic-function-field-getter`. |
+| `[ ]` | Open (GEN-135) — a private native class is wrapped as its bridged superclass, hiding the members of the bridged interface it implements | An **interpreter / bridge** defect. Blast radius: every private SDK class implementing a bridged interface its bridged superclass does not, read through that interface (`Material.of(context)`, a MaterialInkController). Found 2026-11-18 by addtests2 (`material/material_ink_controller_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl2_akrs-gen135-private-class-bridged-interface-members`. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -264,6 +266,48 @@ decision honest, and a closed cluster has no decision left to make.
 ---
 
 ## Active clusters
+
+### [ ] Open (GEN-134) — a generic bridged instance's function-typed field cannot be read back through its getter adapter
+
+**Found:** 2026-11-18, addtests2's runs `20261118-addtests2` (both twins, published tom_d4rt 1.264.0 / tom_d4rt_ast 0.244.0, Flutter 3.47.9). Todo `addtestscl1_akrs-gen134-generic-function-field-getter`.
+
+**Blast radius:** every generic bridged class whose field type mentions a
+class type parameter inside a function type (`ValueChanged<T?>?`,
+`PopupMenuItemSelected<T>?`, ...), built with explicit type arguments and
+read back by a script. Building and rendering the widget work; only the read
+fails.
+
+**Measured:** `material/radio_menu_button_on_changed_test.dart`
+(`flutter_extended_27`, recorded skip) fails in both twins with `type '(int?)
+=> Future<void>' is not a subtype of type '((dynamic) => void)?'`. Native
+prints `radio menu changed to: 3`.
+
+**Root cause:** `RadioMenuButton<int>(...)` comes from the generic constructor
+factory (RC-2), whose callback wrapper keeps T = int (`(int?) =>
+Future<void>`). The generated getter adapter reads the field through
+`RadioMenuButton<dynamic>`, and Dart's covariance check on the field's
+function type refuses the stored callback.
+
+### [ ] Open (GEN-135) — a private native class is wrapped as its bridged superclass, hiding the members of the bridged interface it implements
+
+**Found:** 2026-11-18, addtests2's runs `20261118-addtests2` (both twins, published tom_d4rt 1.264.0 / tom_d4rt_ast 0.244.0, Flutter 3.47.9). Todo `addtestscl2_akrs-gen135-private-class-bridged-interface-members`.
+
+**Blast radius:** every private SDK class that implements a bridged interface
+its bridged superclass does not, read by a script through that interface:
+`Material.of(context)` (a MaterialInkController) and any `of(context)` or
+factory returning such a class. The value passes a declared-type check and
+fails at its first interface member.
+
+**Measured:** `material/material_ink_controller_test.dart`
+(`flutter_extended_27`, recorded skip) fails in both twins with `Undefined
+property or method 'color' on bridged instance of 'RenderProxyBox'`. Native
+Dart builds it: the controller's color is the Material's.
+
+**Root cause:** `_RenderInkFeatures extends RenderProxyBox implements
+MaterialInkController`. The value is wrapped as a BridgedInstance of the most
+specific bridged class found for its native type, RenderProxyBox, and a
+member lookup does not consider the bridged interfaces the native object
+also satisfies.
 
 ### [X] Fixed (GEN-128) — a record type annotation drops its fields' `?`
 

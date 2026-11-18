@@ -72,7 +72,7 @@ Every name the bridges register for `foundation` (72), with its tier and the cor
 | 60 | StringProperty | class | Hardly Relevant | ✅ | foundation/class_test.dart, foundation/diagnostic_level_test.dart, foundation/diagnosticable_test.dart, +8 |
 | 61 | Summary | class | Hardly Relevant | ⬜ |  |
 | 62 | SynchronousFuture | class | Secondary | ✅ | foundation/synchronousfuture_test.dart |
-| 63 | TargetPlatform | enum | Hardly Relevant | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +48 |
+| 63 | TargetPlatform | enum | Hardly Relevant | ✅ | dart_ui/system_color_palette_test.dart, foundation/enum_property_test.dart, foundation/foundation_misc_adv_test.dart, +49 |
 | 64 | TextTreeConfiguration | class | Hardly Relevant | ⬜ |  |
 | 65 | TextTreeRenderer | class | Hardly Relevant | ✅ | foundation/text_tree_renderer_test.dart |
 | 66 | TimedBlock | class | Secondary | ✅ | foundation/aggregated_timings_test.dart, foundation/timed_block_test.dart |

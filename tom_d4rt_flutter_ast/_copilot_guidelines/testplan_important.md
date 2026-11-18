@@ -4,7 +4,7 @@
 
 The bridged names the priority files classify as Important. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 366 of 440 (83.2%)
+- **Exercised:** 395 of 440 (89.8%)
 
 ## animation (10)
 
@@ -127,21 +127,21 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 |------|-------------|--------|---------|
 | AboutDialog | About dialog | ✅ | material/aboutdialog_test.dart |
 | AboutListTile | About tile | ✅ | material/aboutdialog_test.dart |
-| ActionIconTheme | Action icon theme | ⬜ |  |
+| ActionIconTheme | Action icon theme | ✅ | material/component_themes_buttons_test.dart |
 | AnimatedIcon | Animated icon | ✅ | material/animated_icon_data_test.dart, material/animatedicon_test.dart, material/search_delegate_test.dart |
 | AnimatedIcons | Icon animations | ✅ | material/animated_icon_data_test.dart, material/animatedicon_test.dart, material/search_delegate_test.dart |
 | AppBarTheme | App bar theme | ✅ | foundation/diagnostics_block_test.dart, material/appbar_themes_test.dart, material/component_themes_test.dart, +52 |
 | Badge | Badge widget | ✅ | material/badge_test.dart, material/misc_themes_test.dart, material/nav_badge_advanced_test.dart, +3 |
-| BadgeTheme | Badge theme | ⬜ |  |
+| BadgeTheme | Badge theme | ✅ | material/component_themes_navigation_test.dart |
 | BottomAppBar | Bottom app bar | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/bottomappbar_test.dart, +5 |
-| BottomAppBarTheme | Bottom bar theme | ⬜ |  |
+| BottomAppBarTheme | Bottom bar theme | ✅ | material/component_themes_navigation_test.dart |
 | ButtonSegment | Button segment | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/misc_themes_test.dart, +37 |
 | ButtonTheme | Button theming | ✅ | retest/material/button_text_theme_test.dart |
-| ButtonThemeData | Button theme data | ⬜ |  |
+| ButtonThemeData | Button theme data | ✅ | material/component_themes_buttons_test.dart |
 | CalendarDatePicker | Calendar picker | ✅ | material/datepicker_widgets_test.dart, material/datetime_utils_test.dart, material/gregorian_calendar_delegate_test.dart |
 | CardTheme | Card theme | ✅ | material/card_theme_data_test.dart |
 | CheckboxMenuButton | Checkbox menu | ✅ | material/menu_advanced_test.dart, rendering/render_annotated_region_test.dart, rendering/render_app_kit_view_test.dart, +17 |
-| CheckboxTheme | Checkbox theme | ⬜ |  |
+| CheckboxTheme | Checkbox theme | ✅ | material/component_themes_buttons_test.dart |
 | ChipTheme | Chip theme | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +1 |
 | CircleAvatar | Circle avatar | ✅ | dart_ui/semantics_flags_test.dart, foundation/read_buffer_test.dart, foundation/timed_block_test.dart, +192 |
 | DataCell | Data cell | ✅ | foundation/persistent_hash_map_test.dart, material/data_table_test.dart, material/datarow_test.dart, +31 |
@@ -153,76 +153,76 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | DialogTheme | Dialog theme | ✅ | material/showdialog_test.dart |
 | DividerTheme | Divider theme | ✅ | material/divider_test.dart |
 | DrawerHeader | Drawer header | ✅ | material/end_drawer_button_test.dart, material/navigation_test.dart, material/no_splash_test.dart |
-| DrawerTheme | Drawer theme | ⬜ |  |
+| DrawerTheme | Drawer theme | ✅ | material/component_themes_navigation_test.dart |
 | DropdownButtonFormField | Dropdown form | ✅ | dart_ui/pointer_data_test.dart, material/dropdown_test.dart, material/dropdownform_test.dart, +20 |
-| DropdownMenuTheme | Dropdown theme | ⬜ |  |
-| ElevatedButtonTheme | Elevated theme | ⬜ |  |
-| ElevatedButtonThemeData | Elevated data | ✅ | material/buttons_test.dart, material/buttonstyle_popup_test.dart, material/component_themes_test.dart, +2 |
+| DropdownMenuTheme | Dropdown theme | ✅ | material/component_themes_menus_test.dart |
+| ElevatedButtonTheme | Elevated theme | ✅ | material/component_themes_buttons_test.dart |
+| ElevatedButtonThemeData | Elevated data | ✅ | material/buttons_test.dart, material/buttonstyle_popup_test.dart, material/component_themes_buttons_test.dart, +3 |
 | ExpansionPanel | Expansion panel | ✅ | material/expansion_stepper_test.dart, material/expansion_test.dart, material/expansionpanel_test.dart, +1 |
 | ExpansionPanelList | Panel list | ✅ | material/expansion_stepper_test.dart, material/expansionpanel_test.dart, material/expansiontile_test.dart |
 | ExpansionTile | Expansion tile | ✅ | cupertino/cupertino_expansion_tile_test.dart, material/component_themes_test.dart, material/expansion_test.dart, +5 |
 | ExpansionTileTheme | Expansion theme | ✅ | material/expansiontile_test.dart |
 | FilledButtonTheme | Filled theme | ✅ | material/filled_button_theme_data_test.dart |
 | FlexibleSpaceBar | Flexible space | ✅ | material/collapse_mode_test.dart, material/material_scroll_behavior_test.dart, material/reorderable_material_test.dart, +40 |
-| FloatingActionButtonTheme | FAB theme | ⬜ |  |
+| FloatingActionButtonTheme | FAB theme | ✅ | material/component_themes_buttons_test.dart |
 | IconButtonTheme | Icon button theme | ✅ | material/end_drawer_button_test.dart, material/icon_button_theme_data_test.dart |
 | Ink | Ink widget | ✅ | material/ink_decoration_test.dart, material/raw_material_button_test.dart, widgets/tree_sliver_state_mixin_test.dart |
-| InkFeature | Ink feature base | ⬜ |  |
-| InkHighlight | Ink highlight | ⬜ |  |
+| InkFeature | Ink feature base | ✅ | material/ink_features_test.dart |
+| InkHighlight | Ink highlight | ✅ | material/ink_features_test.dart |
 | InkResponse | Ink response | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +2 |
 | InkRipple | Ink ripple | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +3 |
 | InkSplash | Ink splash | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +1 |
-| InkWell | Ink ripple | ✅ | foundation/bit_field_test.dart, foundation/object_created_test.dart, material/card_ink_splash_test.dart, +115 |
-| InteractiveInkFeature | Ink feature | ⬜ |  |
+| InkWell | Ink ripple | ✅ | foundation/bit_field_test.dart, foundation/object_created_test.dart, material/card_ink_splash_test.dart, +116 |
+| InteractiveInkFeature | Ink feature | ✅ | material/ink_features_test.dart |
 | LicensePage | License page | ✅ | material/licensepage_test.dart |
 | ListTileTheme | Tile theme | ✅ | material/divider_listtile_test.dart, material/list_tile_style_test.dart, material/list_tile_title_alignment_test.dart, +1 |
-| Material | Material widget | ✅ | cupertino/cupertino_themes_batch4_test.dart, cupertino/list_test.dart, dart_ui/pointer_data_test.dart, +153 |
-| MaterialBannerTheme | Banner theme | ⬜ |  |
+| Material | Material widget | ✅ | cupertino/cupertino_themes_batch4_test.dart, cupertino/list_test.dart, dart_ui/pointer_data_test.dart, +154 |
+| MaterialBannerTheme | Banner theme | ✅ | material/component_themes_navigation_test.dart |
 | MaterialBasedCupertinoThemeData | Material based | ✅ | cupertino/cupertino_themes_batch4_test.dart, material/cupertino_based_material_theme_data_test.dart |
 | MaterialGap | Material gap | ✅ | material/mergeable_material_item_test.dart, material/mergeable_test.dart |
-| MaterialInkController | Ink controller | ⬜ |  |
+| MaterialInkController | Ink controller | ✅ | material/ink_features_test.dart |
 | MaterialPage | Material page | ✅ | cupertino/cupertino_page_test.dart, material/materialapp_test.dart, widgets/navigator_test.dart, +2 |
-| MaterialPageRoute | Page route | ✅ | material/materialapp_test.dart, material/pageroute_test.dart, material/scaffold_messenger_test.dart, +6 |
-| MaterialRouteTransitionMixin | Route transition | ⬜ |  |
+| MaterialPageRoute | Page route | ✅ | material/bottom_sheet_routes_test.dart, material/materialapp_test.dart, material/pageroute_test.dart, +7 |
+| MaterialRouteTransitionMixin | Route transition | ✅ | material/bottom_sheet_routes_test.dart |
 | MaterialSlice | Material slice | ✅ | material/mergeable_material_item_test.dart, material/mergeable_test.dart |
 | MenuAnchor | Menu anchor | ✅ | material/dropdown_menu_close_behavior_test.dart, material/menu_advanced_test.dart, material/menuanchor_test.dart, +1 |
 | MenuBar | Menu bar | ✅ | material/buttonstyle_popup_test.dart, material/menu_accelerator_callback_binding_test.dart, material/menu_advanced_test.dart, +2 |
-| MenuBarTheme | Menu bar theme | ⬜ |  |
+| MenuBarTheme | Menu bar theme | ✅ | material/component_themes_menus_test.dart |
 | MenuItemButton | Menu item | ✅ | material/button_types_test.dart, material/buttonstyle_popup_test.dart, material/dropdown_menu_close_behavior_test.dart, +7 |
-| MenuTheme | Menu theme | ⬜ |  |
+| MenuTheme | Menu theme | ✅ | material/component_themes_menus_test.dart |
 | MergeableMaterial | Mergeable | ✅ | material/mergeable_material_item_test.dart, material/mergeable_test.dart |
-| NavigationBarTheme | Nav bar theme | ⬜ |  |
-| NavigationDestination | Nav destination | ✅ | material/badge_test.dart, material/component_themes_test.dart, material/nav_badge_advanced_test.dart, +8 |
+| NavigationBarTheme | Nav bar theme | ✅ | material/component_themes_navigation_test.dart |
+| NavigationDestination | Nav destination | ✅ | material/badge_test.dart, material/component_themes_navigation_test.dart, material/component_themes_test.dart, +9 |
 | NavigationDrawerDestination | Drawer destination | ✅ | material/component_themes_test.dart, material/navigation_drawer_theme_test.dart, material/navigation_test.dart |
 | NavigationRailDestination | Rail destination | ✅ | material/component_themes_test.dart, material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, +9 |
-| NavigationRailTheme | Nav rail theme | ⬜ |  |
+| NavigationRailTheme | Nav rail theme | ✅ | material/component_themes_navigation_test.dart |
 | OutlinedButtonTheme | Outlined theme | ✅ | material/outlined_button_theme_data_test.dart |
-| PageTransitionsTheme | Page transitions | ✅ | material/predictive_back_fullscreen_page_transitions_builder_test.dart |
+| PageTransitionsTheme | Page transitions | ✅ | material/bottom_sheet_routes_test.dart, material/predictive_back_fullscreen_page_transitions_builder_test.dart |
 | PaginatedDataTable | Paginated table | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
-| PopupMenuTheme | Popup theme | ⬜ |  |
-| PredictiveBackPageTransitionsBuilder | Predictive back | ⬜ |  |
+| PopupMenuTheme | Popup theme | ✅ | material/component_themes_menus_test.dart |
+| PredictiveBackPageTransitionsBuilder | Predictive back | ✅ | material/bottom_sheet_routes_test.dart |
 | ProgressIndicatorTheme | Progress theme | ✅ | material/progress_indicator_test.dart |
-| RadioMenuButton | Radio menu | ⬜ |  |
-| RadioTheme | Radio theme | ⬜ |  |
+| RadioMenuButton | Radio menu | ✅ | material/component_themes_menus_test.dart |
+| RadioTheme | Radio theme | ✅ | material/component_themes_buttons_test.dart |
 | RefreshIndicator | Pull to refresh | ✅ | material/refresh_indicator_state_test.dart, material/refresh_indicator_status_test.dart, material/refresh_indicator_trigger_mode_test.dart, +4 |
 | ReorderableListView | Reorderable list | ✅ | material/reorderable_material_test.dart, painting/axis_test.dart, widgets/reorderable_list_state_test.dart, +1 |
 | Scrollbar | Scrollbar | ✅ | material/dialog_advanced_test.dart, material/material_scroll_behavior_test.dart, material/rawscrollbar_test.dart, +24 |
 | ScrollbarTheme | Scrollbar theme | ✅ | material/scrollbar_theme_data_test.dart, widgets/scrollbar_layout_misc_test.dart |
-| SearchBarTheme | Search theme | ⬜ |  |
-| SearchViewTheme | Search view theme | ⬜ |  |
+| SearchBarTheme | Search theme | ✅ | material/component_themes_menus_test.dart |
+| SearchViewTheme | Search view theme | ✅ | material/component_themes_menus_test.dart |
 | SegmentedButton | Segmented button | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/misc_themes_test.dart, +37 |
 | SegmentedButtonTheme | Segment theme | ✅ | material/segmented_button_state_test.dart, material/segmentedbutton_test.dart |
 | SelectableText | Selectable text | ✅ | foundation/buffers_misc_test.dart, foundation/message_property_test.dart, foundation/summary_test.dart, +91 |
 | SliderTheme | Slider theme | ✅ | material/base_range_slider_track_shape_test.dart, material/base_slider_track_shape_test.dart, material/drop_range_slider_value_indicator_shape_test.dart, +59 |
 | SliverAppBar | Sliver app bar | ✅ | material/collapse_mode_test.dart, material/material_scroll_behavior_test.dart, material/reorderable_material_test.dart, +50 |
-| SnackBarTheme | Snackbar theme | ⬜ |  |
+| SnackBarTheme | Snackbar theme | ✅ | material/component_themes_navigation_test.dart |
 | Step | Step item | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart, +2 |
 | Stepper | Stepper widget | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart, +2 |
 | SubmenuButton | Submenu | ✅ | material/buttonstyle_popup_test.dart, material/dropdown_menu_close_behavior_test.dart, material/menu_accelerator_callback_binding_test.dart, +4 |
-| SwitchTheme | Switch theme | ⬜ |  |
-| TabBarTheme | Tab theme | ⬜ |  |
+| SwitchTheme | Switch theme | ✅ | material/component_themes_buttons_test.dart |
+| TabBarTheme | Tab theme | ✅ | material/component_themes_navigation_test.dart |
 | TabController | Tab control | ✅ | material/tab_bar_theme_data_test.dart, material/tabs_test.dart, retest/widgets/redo_text_intent_test.dart, +38 |
-| TextButtonTheme | Text button theme | ⬜ |  |
+| TextButtonTheme | Text button theme | ✅ | material/component_themes_buttons_test.dart |
 | TextSelectionTheme | Selection theme | ✅ | rendering/render_editable_test.dart, widgets/text_editing_adv_test.dart, widgets/text_selection_widgets_test.dart |
 | TimeOfDay | Time of day | ✅ | material/day_period_test.dart, material/hour_format_test.dart, material/material_localizations_test.dart, +14 |
 | TimePickerDialog | Time dialog | ✅ | material/timepicker_widget_test.dart |
@@ -402,7 +402,7 @@ The bridged names the priority files classify as Important. Status: ✅ a script
 | Banner | Debug banner | ✅ | widgets/banner_location_test.dart, widgets/banner_test.dart, widgets/checked_mode_banner_test.dart |
 | Baseline | Baseline alignment | ✅ | rendering/render_baseline_test.dart, rendering/render_ignore_baseline_test.dart, rendering/renderobjects_sizing_test.dart |
 | BlockSemantics | Block semantics | ✅ | rendering/render_semantics_annotations_test.dart, semantics/child_semantics_configurations_result_test.dart, semantics/semantics_label_builder_test.dart |
-| Builder | Widget building | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, cupertino/cupertino_focus_halo_test.dart, +112 |
+| Builder | Widget building | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, cupertino/cupertino_focus_halo_test.dart, +113 |
 | CallbackAction | Callback action | ✅ | material/materialapp_test.dart, material/menu_accelerator_callback_binding_test.dart, retest/widgets/default_text_editing_shortcuts_test.dart, +17 |
 | ClipOval | Oval clipping | ✅ | cupertino/cupertino_text_magnifier_test.dart, dart_ui/clip_test.dart, painting/clip_context_test.dart, +11 |
 | ClipPath | Path clipping | ✅ | dart_ui/r_superellipse_test.dart, material/collapse_mode_test.dart, painting/clip_context_test.dart, +16 |

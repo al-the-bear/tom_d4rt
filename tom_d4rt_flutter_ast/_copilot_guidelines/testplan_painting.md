@@ -11,7 +11,7 @@ Every name the bridges register for `painting` (100), with its tier and the corp
 | # | Name | Kind | Tier | Status | Scripts |
 |---|------|------|------|--------|---------|
 | 1 | Accumulator | class | Hardly Relevant | ✅ | painting/accumulator_test.dart |
-| 2 | Alignment | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1872 |
+| 2 | Alignment | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1874 |
 | 3 | AlignmentDirectional | class | Essential | ✅ | dart_ui/clip_r_rect_engine_layer_test.dart, material/badge_test.dart, material/dropdown_test.dart, +17 |
 | 4 | AlignmentGeometry | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, dart_ui/vertices_test.dart, material/badge_test.dart, +14 |
 | 5 | AssetBundleImageKey | class | Hardly Relevant | ⬜ |  |
@@ -104,7 +104,7 @@ Every name the bridges register for `painting` (100), with its tier and the corp
 | 92 | TextPainter | class | Important | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, cupertino/class_test.dart, +252 |
 | 93 | TextScaler | class | Important | ✅ | material/material_text_selection_handle_controls_test.dart, material/navigation_destination_label_behavior_test.dart, widgets/icon_theme_data_test.dart, +3 |
 | 94 | TextSpan | class | Essential | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, animation/elastic_in_curve_test.dart, +463 |
-| 95 | TextStyle | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2041 |
+| 95 | TextStyle | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2042 |
 | 96 | TextWidthBasis | enum | Hardly Relevant | ✅ | painting/text_width_basis_test.dart, rendering/textpainter_test.dart, widgets/defaulttextstyle_test.dart, +2 |
 | 97 | TransformProperty | class | Hardly Relevant | ✅ | painting/transform_property_test.dart |
 | 98 | VerticalDirection | enum | Hardly Relevant | ✅ | material/button_bar_test.dart, material/button_bar_theme_data_test.dart, painting/vertical_direction_test.dart, +6 |

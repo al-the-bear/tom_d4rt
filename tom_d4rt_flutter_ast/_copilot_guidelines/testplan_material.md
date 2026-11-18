@@ -4,17 +4,17 @@
 
 Every name the bridges register for `material` (431), with its tier and the corpus scripts that use it. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 346 of 431 (80.3%)
+- **Exercised:** 378 of 431 (87.7%)
 - **Used only by scripts no running test sends:** 0
-- **Not used by any script:** 85
+- **Not used by any script:** 53
 
 | # | Name | Kind | Tier | Status | Scripts |
 |---|------|------|------|--------|---------|
 | 1 | AboutDialog | class | Important | ✅ | material/aboutdialog_test.dart |
 | 2 | AboutListTile | class | Important | ✅ | material/aboutdialog_test.dart |
 | 3 | ActionChip | class | Essential | ✅ | dart_ui/key_data_test.dart, material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, +15 |
-| 4 | ActionIconTheme | class | Important | ⬜ |  |
-| 5 | ActionIconThemeData | class | Secondary | ⬜ |  |
+| 4 | ActionIconTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 5 | ActionIconThemeData | class | Secondary | ✅ | material/component_themes_buttons_test.dart |
 | 6 | Adaptation | class | Hardly Relevant | ⬜ |  |
 | 7 | AdaptiveTextSelectionToolbar | class | Secondary | ✅ | material/selection_area_state_test.dart, material/selection_area_test.dart, widgets/context_menu_test.dart, +3 |
 | 8 | AlertDialog | class | Essential | ✅ | material/dialog_advanced_test.dart, material/dialog_bottom_sheet_test.dart, material/dialog_test.dart, +9 |
@@ -29,19 +29,19 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 17 | BackButton | class | Hardly Relevant | ✅ | material/back_button_test.dart, material/button_types_test.dart, material/close_button_test.dart, +4 |
 | 18 | BackButtonIcon | class | Hardly Relevant | ✅ | material/drawer_button_test.dart, widgets/backbutton_test.dart |
 | 19 | Badge | class | Important | ✅ | material/badge_test.dart, material/misc_themes_test.dart, material/nav_badge_advanced_test.dart, +3 |
-| 20 | BadgeTheme | class | Important | ⬜ |  |
-| 21 | BadgeThemeData | class | Secondary | ✅ | material/badge_test.dart, material/misc_themes_test.dart, material/nav_badge_advanced_test.dart |
+| 20 | BadgeTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 21 | BadgeThemeData | class | Secondary | ✅ | material/badge_test.dart, material/component_themes_navigation_test.dart, material/misc_themes_test.dart, +1 |
 | 22 | BaseRangeSliderTrackShape | class | Secondary | ⬜ |  |
 | 23 | BaseSliderTrackShape | class | Secondary | ⬜ |  |
 | 24 | BottomAppBar | class | Important | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/bottomappbar_test.dart, +5 |
-| 25 | BottomAppBarTheme | class | Important | ⬜ |  |
-| 26 | BottomAppBarThemeData | class | Secondary | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/component_themes_test.dart |
+| 25 | BottomAppBarTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 26 | BottomAppBarThemeData | class | Secondary | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/component_themes_navigation_test.dart, +1 |
 | 27 | BottomNavigationBar | class | Essential | ✅ | material/badge_test.dart, material/bottom_navigation_bar_theme_data_test.dart, material/bottom_navigation_bar_theme_test.dart, +14 |
 | 28 | BottomNavigationBarLandscapeLayout | enum | Hardly Relevant | ✅ | material/bottomnavigationbar_test.dart, material/navigation_themes_test.dart |
 | 29 | BottomNavigationBarTheme | class | Hardly Relevant | ✅ | material/bottom_navigation_bar_theme_test.dart |
 | 30 | BottomNavigationBarThemeData | class | Hardly Relevant | ✅ | material/bottom_navigation_bar_theme_test.dart, material/bottom_navigation_bar_type_test.dart, material/bottomnavigationbar_test.dart, +1 |
 | 31 | BottomNavigationBarType | enum | Hardly Relevant | ✅ | material/badge_test.dart, material/bottom_navigation_bar_theme_data_test.dart, material/bottom_navigation_bar_theme_test.dart, +5 |
-| 32 | BottomSheet | class | Essential | ⬜ |  |
+| 32 | BottomSheet | class | Essential | ✅ | material/bottom_sheet_routes_test.dart |
 | 33 | BottomSheetThemeData | class | Secondary | ✅ | material/component_themes_test.dart |
 | 34 | ButtonBarLayoutBehavior | enum | Hardly Relevant | ✅ | material/button_bar_layout_behavior_test.dart |
 | 35 | ButtonBarTheme | class | Hardly Relevant | ✅ | material/button_bar_theme_test.dart |
@@ -50,7 +50,7 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 38 | ButtonStyleButton | class | Secondary | ⬜ |  |
 | 39 | ButtonTextTheme | enum | Hardly Relevant | ✅ | material/button_text_theme_test.dart, retest/material/button_text_theme_test.dart |
 | 40 | ButtonTheme | class | Important | ✅ | retest/material/button_text_theme_test.dart |
-| 41 | ButtonThemeData | class | Important | ⬜ |  |
+| 41 | ButtonThemeData | class | Important | ✅ | material/component_themes_buttons_test.dart |
 | 42 | CalendarDatePicker | class | Important | ✅ | material/datepicker_widgets_test.dart, material/datetime_utils_test.dart, material/gregorian_calendar_delegate_test.dart |
 | 43 | CalendarDelegate | class | Secondary | ⬜ |  |
 | 44 | Card | class | Essential | ✅ | cupertino/cupertino_expansion_tile_test.dart, dart_ui/brightness_test.dart, dart_ui/checked_state_test.dart, +214 |
@@ -64,8 +64,8 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 52 | Checkbox | class | Essential | ✅ | dart_ui/semantics_update_test.dart, dart_ui/tristate_test.dart, material/animated_theme_test.dart, +36 |
 | 53 | CheckboxListTile | class | Secondary | ✅ | dart_ui/pointer_data_test.dart, material/checkbox_list_tile_test.dart, material/divider_listtile_test.dart, +11 |
 | 54 | CheckboxMenuButton | class | Important | ✅ | material/menu_advanced_test.dart, rendering/render_annotated_region_test.dart, rendering/render_app_kit_view_test.dart, +17 |
-| 55 | CheckboxTheme | class | Important | ⬜ |  |
-| 56 | CheckboxThemeData | class | Secondary | ✅ | material/component_themes_test.dart |
+| 55 | CheckboxTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 56 | CheckboxThemeData | class | Secondary | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart |
 | 57 | CheckedPopupMenuItem | class | Hardly Relevant | ✅ | material/buttonstyle_popup_test.dart, material/popup_menu_entry_test.dart, material/popup_menu_position_test.dart |
 | 58 | CheckmarkableChipAttributes | class | Secondary | ⬜ |  |
 | 59 | Chip | class | Essential | ✅ | dart_ui/pointer_data_test.dart, dart_ui/text_direction_test.dart, dart_ui/vertex_mode_test.dart, +86 |
@@ -80,7 +80,7 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 68 | CloseButtonIcon | class | Hardly Relevant | ✅ | material/drawer_button_test.dart |
 | 69 | CollapseMode | enum | Hardly Relevant | ✅ | material/collapse_mode_test.dart, material/sliverappbar_test.dart, retest/widgets/render_nested_scroll_view_viewport_test.dart |
 | 70 | ColorScheme | class | Essential | ✅ | animation/animationstyle_test.dart, animation/tween_test.dart, cupertino/cupertino_themes_batch4_test.dart, +279 |
-| 71 | Colors | class | Secondary | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1697 |
+| 71 | Colors | class | Secondary | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1699 |
 | 72 | ControlsDetails | class | Secondary | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | 73 | CupertinoBasedMaterialThemeData | class | Hardly Relevant | ⬜ |  |
 | 74 | DataCell | class | Important | ✅ | foundation/persistent_hash_map_test.dart, material/data_table_test.dart, material/datarow_test.dart, +31 |
@@ -120,8 +120,8 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 108 | DrawerController | class | Hardly Relevant | ✅ | material/drawer_controller_state_test.dart |
 | 109 | DrawerControllerState | class | Hardly Relevant | ✅ | material/drawer_controller_state_test.dart |
 | 110 | DrawerHeader | class | Important | ✅ | material/end_drawer_button_test.dart, material/navigation_test.dart, material/no_splash_test.dart |
-| 111 | DrawerTheme | class | Important | ⬜ |  |
-| 112 | DrawerThemeData | class | Secondary | ✅ | material/navigation_themes_test.dart |
+| 111 | DrawerTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 112 | DrawerThemeData | class | Secondary | ✅ | material/component_themes_navigation_test.dart, material/navigation_themes_test.dart |
 | 113 | DropRangeSliderValueIndicatorShape | class | Hardly Relevant | ✅ | material/drop_range_slider_value_indicator_shape_test.dart |
 | 114 | DropSliderValueIndicatorShape | class | Hardly Relevant | ✅ | material/drop_range_slider_value_indicator_shape_test.dart, material/drop_slider_value_indicator_shape_test.dart, material/rounded_rect_slider_value_indicator_shape_test.dart, +1 |
 | 115 | DropdownButton | class | Essential | ✅ | dart_ui/image_sampler_slot_test.dart, dart_ui/immutable_buffer_test.dart, dart_ui/isolate_name_server_test.dart, +33 |
@@ -132,14 +132,14 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 120 | DropdownMenuEntry | class | Hardly Relevant | ✅ | material/dropdown_menu_close_behavior_test.dart, material/dropdown_menu_entry_test.dart, material/dropdown_menu_form_field_test.dart, +4 |
 | 121 | DropdownMenuFormField | class | Hardly Relevant | ✅ | material/dropdownform_test.dart |
 | 122 | DropdownMenuItem | class | Hardly Relevant | ✅ | dart_ui/image_sampler_slot_test.dart, dart_ui/immutable_buffer_test.dart, dart_ui/isolate_name_server_test.dart, +54 |
-| 123 | DropdownMenuTheme | class | Important | ⬜ |  |
-| 124 | DropdownMenuThemeData | class | Secondary | ✅ | material/picker_themes_test.dart, widgets/tree_sliver_state_mixin_test.dart |
+| 123 | DropdownMenuTheme | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 124 | DropdownMenuThemeData | class | Secondary | ✅ | material/component_themes_menus_test.dart, material/picker_themes_test.dart, widgets/tree_sliver_state_mixin_test.dart |
 | 125 | Durations | class | Hardly Relevant | ✅ | material/durations_test.dart |
 | 126 | DynamicSchemeVariant | enum | Hardly Relevant | ✅ | material/dynamic_scheme_variant_test.dart |
 | 127 | Easing | class | Hardly Relevant | ✅ | material/easing_test.dart |
-| 128 | ElevatedButton | class | Essential | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +203 |
-| 129 | ElevatedButtonTheme | class | Important | ⬜ |  |
-| 130 | ElevatedButtonThemeData | class | Important | ✅ | material/buttons_test.dart, material/buttonstyle_popup_test.dart, material/component_themes_test.dart, +2 |
+| 128 | ElevatedButton | class | Essential | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +204 |
+| 129 | ElevatedButtonTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 130 | ElevatedButtonThemeData | class | Important | ✅ | material/buttons_test.dart, material/buttonstyle_popup_test.dart, material/component_themes_buttons_test.dart, +3 |
 | 131 | ElevationOverlay | class | Hardly Relevant | ✅ | material/elevation_overlay_test.dart |
 | 132 | EndDrawerButton | class | Hardly Relevant | ✅ | material/drawer_button_test.dart, material/end_drawer_button_test.dart |
 | 133 | EndDrawerButtonIcon | class | Hardly Relevant | ✅ | material/drawer_button_test.dart, material/end_drawer_button_icon_test.dart |
@@ -168,8 +168,8 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 156 | FloatingActionButton | class | Essential | ✅ | material/animated_theme_test.dart, material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, +19 |
 | 157 | FloatingActionButtonAnimator | class | Secondary | ✅ | material/fablocation_messenger_test.dart, material/scaffold_fab_test.dart, material/scaffold_test.dart |
 | 158 | FloatingActionButtonLocation | class | Secondary | ✅ | material/bottom_app_bar_test.dart, material/component_themes_test.dart, material/fablocation_messenger_test.dart, +5 |
-| 159 | FloatingActionButtonTheme | class | Important | ⬜ |  |
-| 160 | FloatingActionButtonThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/floatingactionbutton_test.dart, material/themadata_test.dart, +1 |
+| 159 | FloatingActionButtonTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 160 | FloatingActionButtonThemeData | class | Secondary | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart, material/floatingactionbutton_test.dart, +2 |
 | 161 | FloatingLabelAlignment | class | Hardly Relevant | ✅ | material/floating_label_alignment_test.dart, material/input_borders_test.dart, material/input_themes_test.dart, +1 |
 | 162 | FloatingLabelBehavior | enum | Hardly Relevant | ✅ | material/dropdownform_test.dart, material/floating_label_alignment_test.dart, material/floating_label_behavior_test.dart, +9 |
 | 163 | GappedRangeSliderTrackShape | class | Hardly Relevant | ✅ | material/gapped_range_slider_track_shape_test.dart, retest/material/gapped_range_slider_track_shape_test.dart |
@@ -184,16 +184,16 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 172 | IconButton | class | Essential | ✅ | cupertino/icons_test.dart, dart_ui/semantics_update_test.dart, material/back_button_test.dart, +95 |
 | 173 | IconButtonTheme | class | Important | ✅ | material/end_drawer_button_test.dart, material/icon_button_theme_data_test.dart |
 | 174 | IconButtonThemeData | class | Secondary | ✅ | material/end_drawer_button_test.dart, material/icon_button_theme_data_test.dart |
-| 175 | Icons | class | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1818 |
+| 175 | Icons | class | Hardly Relevant | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1820 |
 | 176 | Ink | class | Important | ✅ | material/ink_decoration_test.dart, material/raw_material_button_test.dart, widgets/tree_sliver_state_mixin_test.dart |
 | 177 | InkDecoration | class | Hardly Relevant | ⬜ |  |
-| 178 | InkFeature | class | Important | ⬜ |  |
-| 179 | InkHighlight | class | Important | ⬜ |  |
+| 178 | InkFeature | class | Important | ✅ | material/ink_features_test.dart |
+| 179 | InkHighlight | class | Important | ✅ | material/ink_features_test.dart |
 | 180 | InkResponse | class | Important | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +2 |
 | 181 | InkRipple | class | Important | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +3 |
 | 182 | InkSparkle | class | Hardly Relevant | ✅ | material/ink_sparkle_test.dart |
 | 183 | InkSplash | class | Important | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +1 |
-| 184 | InkWell | class | Important | ✅ | foundation/bit_field_test.dart, foundation/object_created_test.dart, material/card_ink_splash_test.dart, +115 |
+| 184 | InkWell | class | Important | ✅ | foundation/bit_field_test.dart, foundation/object_created_test.dart, material/card_ink_splash_test.dart, +116 |
 | 185 | InputBorder | class | Essential | ✅ | dart_ui/text_direction_test.dart, material/floating_label_behavior_test.dart, material/input_borders_test.dart, +15 |
 | 186 | InputChip | class | Essential | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +8 |
 | 187 | InputDatePickerFormField | class | Hardly Relevant | ✅ | material/datepicker_widgets_test.dart, material/datetime_utils_test.dart, material/input_date_picker_form_field_test.dart |
@@ -201,7 +201,7 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 189 | InputDecorationTheme | class | Secondary | ✅ | material/dropdown_menu_form_field_test.dart, material/dropdown_menu_test.dart, material/input_borders_test.dart, +17 |
 | 190 | InputDecorationThemeData | class | Hardly Relevant | ✅ | material/input_decoration_theme_test.dart |
 | 191 | InputDecorator | class | Hardly Relevant | ✅ | material/input_decorator_test.dart, painting/border_style_test.dart, widgets/form_test.dart |
-| 192 | InteractiveInkFeature | class | Important | ⬜ |  |
+| 192 | InteractiveInkFeature | class | Important | ✅ | material/ink_features_test.dart |
 | 193 | InteractiveInkFeatureFactory | class | Hardly Relevant | ✅ | material/card_ink_splash_test.dart, material/ink_sparkle_test.dart, material/interactive_ink_feature_factory_test.dart, +1 |
 | 194 | LicensePage | class | Important | ✅ | material/licensepage_test.dart |
 | 195 | LinearProgressIndicator | class | Essential | ✅ | cupertino/cupertino_linear_activity_indicator_test.dart, dart_ui/locale_string_attribute_test.dart, gestures/class_test.dart, +50 |
@@ -212,25 +212,25 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 200 | ListTileThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/divider_listtile_test.dart, material/list_tile_style_test.dart, +5 |
 | 201 | ListTileTitleAlignment | enum | Hardly Relevant | ✅ | material/list_tile_title_alignment_test.dart, material/listtile_test.dart |
 | 202 | Magnifier | class | Hardly Relevant | ✅ | material/magnifier_test.dart |
-| 203 | Material | class | Important | ✅ | cupertino/cupertino_themes_batch4_test.dart, cupertino/list_test.dart, dart_ui/pointer_data_test.dart, +153 |
+| 203 | Material | class | Important | ✅ | cupertino/cupertino_themes_batch4_test.dart, cupertino/list_test.dart, dart_ui/pointer_data_test.dart, +154 |
 | 204 | MaterialAccentColor | class | Essential | ✅ | material/colors_test.dart, material/materialcolor_test.dart |
 | 205 | MaterialApp | class | Essential | ✅ | animation/animation_max_test.dart, animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, +923 |
 | 206 | MaterialBanner | class | Essential | ✅ | material/fablocation_messenger_test.dart, material/material_banner_closed_reason_test.dart, material/materialbanner_test.dart, +3 |
 | 207 | MaterialBannerClosedReason | enum | Hardly Relevant | ✅ | material/fablocation_messenger_test.dart, material/material_banner_closed_reason_test.dart, material/scaffold_messenger_test.dart, +1 |
-| 208 | MaterialBannerTheme | class | Important | ⬜ |  |
-| 209 | MaterialBannerThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/fablocation_messenger_test.dart, material/materialbanner_test.dart |
+| 208 | MaterialBannerTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 209 | MaterialBannerThemeData | class | Secondary | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/fablocation_messenger_test.dart, +1 |
 | 210 | MaterialBasedCupertinoThemeData | class | Important | ✅ | cupertino/cupertino_themes_batch4_test.dart, material/cupertino_based_material_theme_data_test.dart |
 | 211 | MaterialButton | class | Secondary | ✅ | material/button_text_theme_test.dart, material/material_button_test.dart, retest/material/button_text_theme_test.dart |
 | 212 | MaterialColor | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/tweensequence_test.dart, dart_ui/view_focus_event_test.dart, +103 |
 | 213 | MaterialGap | class | Important | ✅ | material/mergeable_material_item_test.dart, material/mergeable_test.dart |
-| 214 | MaterialInkController | class | Important | ⬜ |  |
+| 214 | MaterialInkController | class | Important | ✅ | material/ink_features_test.dart |
 | 215 | MaterialLocalizations | class | Secondary | ✅ | material/datetime_utils_test.dart, material/restorable_time_of_day_test.dart, widgets/localizations_resolver_test.dart, +1 |
 | 216 | MaterialPage | class | Important | ✅ | cupertino/cupertino_page_test.dart, material/materialapp_test.dart, widgets/navigator_test.dart, +2 |
-| 217 | MaterialPageRoute | class | Important | ✅ | material/materialapp_test.dart, material/pageroute_test.dart, material/scaffold_messenger_test.dart, +6 |
+| 217 | MaterialPageRoute | class | Important | ✅ | material/bottom_sheet_routes_test.dart, material/materialapp_test.dart, material/pageroute_test.dart, +7 |
 | 218 | MaterialPointArcTween | class | Hardly Relevant | ✅ | material/material_point_arc_tween_test.dart, material/material_rect_arc_tween_test.dart, material/material_rect_center_arc_tween_test.dart |
 | 219 | MaterialRectArcTween | class | Hardly Relevant | ✅ | material/material_rect_arc_tween_test.dart, material/material_rect_center_arc_tween_test.dart |
 | 220 | MaterialRectCenterArcTween | class | Hardly Relevant | ✅ | material/material_rect_center_arc_tween_test.dart |
-| 221 | MaterialRouteTransitionMixin | class | Important | ⬜ |  |
+| 221 | MaterialRouteTransitionMixin | class | Important | ✅ | material/bottom_sheet_routes_test.dart |
 | 222 | MaterialScrollBehavior | class | Hardly Relevant | ✅ | material/material_scroll_behavior_test.dart, material/materialapp_test.dart, widgets/android_overscroll_indicator_test.dart, +1 |
 | 223 | MaterialSlice | class | Important | ✅ | material/mergeable_material_item_test.dart, material/mergeable_test.dart |
 | 224 | MaterialStateMixin | class | Hardly Relevant | ⬜ |  |
@@ -241,21 +241,21 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 229 | MenuAcceleratorLabel | class | Hardly Relevant | ✅ | material/menu_accelerator_callback_binding_test.dart, material/menu_accelerator_label_test.dart, material/menubar_test.dart |
 | 230 | MenuAnchor | class | Important | ✅ | material/dropdown_menu_close_behavior_test.dart, material/menu_advanced_test.dart, material/menuanchor_test.dart, +1 |
 | 231 | MenuBar | class | Important | ✅ | material/buttonstyle_popup_test.dart, material/menu_accelerator_callback_binding_test.dart, material/menu_advanced_test.dart, +2 |
-| 232 | MenuBarTheme | class | Important | ⬜ |  |
-| 233 | MenuBarThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/picker_themes_test.dart |
+| 232 | MenuBarTheme | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 233 | MenuBarThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_themes_test.dart, +1 |
 | 234 | MenuButtonTheme | class | Hardly Relevant | ✅ | material/menu_button_theme_data_test.dart, material/menu_button_theme_test.dart |
 | 235 | MenuButtonThemeData | class | Hardly Relevant | ✅ | material/buttonstyle_popup_test.dart, material/menu_button_theme_data_test.dart, material/menu_button_theme_test.dart, +2 |
 | 236 | MenuItemButton | class | Important | ✅ | material/button_types_test.dart, material/buttonstyle_popup_test.dart, material/dropdown_menu_close_behavior_test.dart, +7 |
-| 237 | MenuStyle | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/menu_advanced_test.dart, material/menu_style_test.dart, +5 |
-| 238 | MenuTheme | class | Important | ⬜ |  |
-| 239 | MenuThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/picker_themes_test.dart |
+| 237 | MenuStyle | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_advanced_test.dart, +6 |
+| 238 | MenuTheme | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 239 | MenuThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_themes_test.dart, +1 |
 | 240 | MergeableMaterial | class | Important | ✅ | material/mergeable_material_item_test.dart, material/mergeable_test.dart |
 | 241 | MergeableMaterialItem | class | Hardly Relevant | ✅ | material/mergeable_test.dart |
 | 242 | ModalBottomSheetRoute | class | Hardly Relevant | ⬜ |  |
-| 243 | NavigationBar | class | Essential | ✅ | material/badge_test.dart, material/component_themes_test.dart, material/nav_badge_advanced_test.dart, +8 |
-| 244 | NavigationBarTheme | class | Important | ⬜ |  |
-| 245 | NavigationBarThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/navigation_destination_label_behavior_test.dart, material/navigation_themes_test.dart, +1 |
-| 246 | NavigationDestination | class | Important | ✅ | material/badge_test.dart, material/component_themes_test.dart, material/nav_badge_advanced_test.dart, +8 |
+| 243 | NavigationBar | class | Essential | ✅ | material/badge_test.dart, material/component_themes_navigation_test.dart, material/component_themes_test.dart, +9 |
+| 244 | NavigationBarTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 245 | NavigationBarThemeData | class | Secondary | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/navigation_destination_label_behavior_test.dart, +2 |
+| 246 | NavigationDestination | class | Important | ✅ | material/badge_test.dart, material/component_themes_navigation_test.dart, material/component_themes_test.dart, +9 |
 | 247 | NavigationDestinationLabelBehavior | enum | Hardly Relevant | ✅ | material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, material/navigation_destination_label_behavior_test.dart, +4 |
 | 248 | NavigationDrawer | class | Essential | ✅ | material/component_themes_test.dart, material/navigation_drawer_theme_test.dart, material/navigation_test.dart |
 | 249 | NavigationDrawerDestination | class | Important | ✅ | material/component_themes_test.dart, material/navigation_drawer_theme_test.dart, material/navigation_test.dart |
@@ -265,8 +265,8 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 253 | NavigationRail | class | Essential | ✅ | material/component_themes_test.dart, material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, +9 |
 | 254 | NavigationRailDestination | class | Important | ✅ | material/component_themes_test.dart, material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, +9 |
 | 255 | NavigationRailLabelType | enum | Hardly Relevant | ✅ | material/component_themes_test.dart, material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, +9 |
-| 256 | NavigationRailTheme | class | Important | ⬜ |  |
-| 257 | NavigationRailThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/navigation_rail_label_type_test.dart, material/navigation_themes_test.dart, +2 |
+| 256 | NavigationRailTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 257 | NavigationRailThemeData | class | Secondary | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/navigation_rail_label_type_test.dart, +3 |
 | 258 | NoSplash | class | Hardly Relevant | ✅ | material/card_ink_splash_test.dart, material/interactive_ink_feature_factory_test.dart, material/navigation_themes_test.dart, +2 |
 | 259 | OutlineInputBorder | class | Essential | ✅ | dart_ui/key_data_test.dart, dart_ui/pointer_data_test.dart, dart_ui/semantics_update_test.dart, +128 |
 | 260 | OutlinedButton | class | Essential | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +191 |
@@ -274,7 +274,7 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 262 | OutlinedButtonThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/outlined_button_theme_data_test.dart |
 | 263 | PaddleRangeSliderValueIndicatorShape | class | Hardly Relevant | ✅ | material/drop_range_slider_value_indicator_shape_test.dart, material/drop_slider_value_indicator_shape_test.dart, material/paddle_range_slider_value_indicator_shape_test.dart, +5 |
 | 264 | PaddleSliderValueIndicatorShape | class | Hardly Relevant | ✅ | material/drop_range_slider_value_indicator_shape_test.dart, material/paddle_slider_value_indicator_shape_test.dart, material/rectangular_slider_track_shape_test.dart, +3 |
-| 265 | PageTransitionsTheme | class | Important | ✅ | material/predictive_back_fullscreen_page_transitions_builder_test.dart |
+| 265 | PageTransitionsTheme | class | Important | ✅ | material/bottom_sheet_routes_test.dart, material/predictive_back_fullscreen_page_transitions_builder_test.dart |
 | 266 | PaginatedDataTable | class | Important | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
 | 267 | PaginatedDataTableState | class | Hardly Relevant | ✅ | material/paginated_data_table_state_test.dart |
 | 268 | PersistentBottomSheetController | class | Hardly Relevant | ⬜ |  |
@@ -286,18 +286,18 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 274 | PopupMenuItem | class | Hardly Relevant | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/popup_menu_button_state_test.dart, +8 |
 | 275 | PopupMenuItemState | class | Hardly Relevant | ⬜ |  |
 | 276 | PopupMenuPosition | enum | Hardly Relevant | ✅ | material/menu_themes_test.dart, material/picker_themes_test.dart, material/popup_menu_position_test.dart, +1 |
-| 277 | PopupMenuTheme | class | Important | ⬜ |  |
-| 278 | PopupMenuThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/picker_themes_test.dart, +3 |
+| 277 | PopupMenuTheme | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 278 | PopupMenuThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_themes_test.dart, +4 |
 | 279 | PredictiveBackFullscreenPageTransitionsBuilder | class | Hardly Relevant | ✅ | material/predictive_back_fullscreen_page_transitions_builder_test.dart |
-| 280 | PredictiveBackPageTransitionsBuilder | class | Important | ⬜ |  |
+| 280 | PredictiveBackPageTransitionsBuilder | class | Important | ✅ | material/bottom_sheet_routes_test.dart |
 | 281 | ProgressIndicator | class | Hardly Relevant | ⬜ |  |
 | 282 | ProgressIndicatorTheme | class | Important | ✅ | material/progress_indicator_test.dart |
 | 283 | ProgressIndicatorThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart, material/progress_indicator_test.dart, +3 |
 | 284 | Radio | class | Essential | ✅ | material/animated_theme_test.dart, material/component_themes_test.dart, material/formcontrols_test.dart, +7 |
 | 285 | RadioListTile | class | Secondary | ✅ | material/checkbox_list_tile_test.dart, material/divider_listtile_test.dart, material/formcontrols_test.dart, +7 |
-| 286 | RadioMenuButton | class | Important | ⬜ |  |
-| 287 | RadioTheme | class | Important | ⬜ |  |
-| 288 | RadioThemeData | class | Secondary | ✅ | material/component_themes_test.dart |
+| 286 | RadioMenuButton | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 287 | RadioTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 288 | RadioThemeData | class | Secondary | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart |
 | 289 | RangeLabels | class | Secondary | ✅ | material/base_range_slider_track_shape_test.dart, material/drop_range_slider_value_indicator_shape_test.dart, material/drop_slider_value_indicator_shape_test.dart, +20 |
 | 290 | RangeSlider | class | Secondary | ✅ | material/base_range_slider_track_shape_test.dart, material/base_slider_track_shape_test.dart, material/drop_range_slider_value_indicator_shape_test.dart, +24 |
 | 291 | RangeSliderThumbShape | class | Secondary | ⬜ |  |
@@ -340,12 +340,12 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 328 | ScrollbarThemeData | class | Hardly Relevant | ✅ | material/rawscrollbar_test.dart, material/scrollbar_test.dart, material/scrollbar_theme_data_test.dart, +1 |
 | 329 | SearchAnchor | class | Essential | ✅ | material/search_anchor_test.dart, material/search_controller_test.dart, material/search_filled_test.dart, +1 |
 | 330 | SearchBar | class | Essential | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart, material/search_anchor_test.dart, +3 |
-| 331 | SearchBarTheme | class | Important | ⬜ |  |
-| 332 | SearchBarThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart |
+| 331 | SearchBarTheme | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 332 | SearchBarThemeData | class | Secondary | ✅ | material/component_themes_menus_test.dart, material/component_themes_test.dart, material/misc_themes_test.dart |
 | 333 | SearchController | class | Hardly Relevant | ✅ | material/search_anchor_test.dart, material/search_controller_test.dart, material/search_filled_test.dart, +1 |
 | 334 | SearchDelegate | class | Hardly Relevant | ✅ | material/search_delegate_test.dart |
-| 335 | SearchViewTheme | class | Important | ⬜ |  |
-| 336 | SearchViewThemeData | class | Secondary | ⬜ |  |
+| 335 | SearchViewTheme | class | Important | ✅ | material/component_themes_menus_test.dart |
+| 336 | SearchViewThemeData | class | Secondary | ✅ | material/component_themes_menus_test.dart |
 | 337 | SegmentedButton | class | Important | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/misc_themes_test.dart, +37 |
 | 338 | SegmentedButtonState | class | Hardly Relevant | ⬜ |  |
 | 339 | SegmentedButtonTheme | class | Important | ✅ | material/segmented_button_state_test.dart, material/segmentedbutton_test.dart |
@@ -371,8 +371,8 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 359 | SnackBarAction | class | Secondary | ✅ | material/fablocation_messenger_test.dart, material/scaffold_messenger_test.dart, material/snack_bar_action_test.dart, +1 |
 | 360 | SnackBarBehavior | enum | Secondary | ✅ | material/fablocation_messenger_test.dart, material/scaffold_messenger_state_test.dart, material/scaffold_messenger_test.dart, +5 |
 | 361 | SnackBarClosedReason | enum | Secondary | ✅ | material/fablocation_messenger_test.dart, material/scaffold_messenger_test.dart, material/snack_bar_closed_reason_test.dart |
-| 362 | SnackBarTheme | class | Important | ⬜ |  |
-| 363 | SnackBarThemeData | class | Hardly Relevant | ✅ | material/component_themes_test.dart, material/fablocation_messenger_test.dart, material/scaffold_messenger_test.dart, +3 |
+| 362 | SnackBarTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 363 | SnackBarThemeData | class | Hardly Relevant | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/fablocation_messenger_test.dart, +4 |
 | 364 | SpellCheckSuggestionsToolbar | class | Secondary | ✅ | material/spell_check_suggestions_toolbar_test.dart |
 | 365 | SpellCheckSuggestionsToolbarLayoutDelegate | class | Hardly Relevant | ✅ | material/spell_check_suggestions_toolbar_layout_delegate_test.dart, material/spell_check_suggestions_toolbar_test.dart |
 | 366 | StandardFabLocation | class | Hardly Relevant | ⬜ |  |
@@ -385,15 +385,15 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 373 | SubmenuButton | class | Important | ✅ | material/buttonstyle_popup_test.dart, material/dropdown_menu_close_behavior_test.dart, material/menu_accelerator_callback_binding_test.dart, +4 |
 | 374 | Switch | class | Essential | ✅ | dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/semantics_flag_test.dart, dart_ui/semantics_update_test.dart, +118 |
 | 375 | SwitchListTile | class | Secondary | ✅ | material/card_test.dart, material/checkbox_list_tile_test.dart, material/divider_listtile_test.dart, +68 |
-| 376 | SwitchTheme | class | Important | ⬜ |  |
-| 377 | SwitchThemeData | class | Secondary | ✅ | material/component_themes_test.dart, widgets/undo_history_state_test.dart |
+| 376 | SwitchTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 377 | SwitchThemeData | class | Secondary | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart, widgets/undo_history_state_test.dart |
 | 378 | Tab | class | Essential | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +193 |
 | 379 | TabAlignment | enum | Hardly Relevant | ✅ | material/list_tile_style_test.dart, material/tab_alignment_test.dart, material/tab_bar_theme_data_test.dart, +24 |
 | 380 | TabBar | class | Essential | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +193 |
 | 381 | TabBarIndicatorSize | enum | Secondary | ✅ | material/navigation_themes_test.dart, material/tab_bar_indicator_size_test.dart, material/tab_bar_theme_data_test.dart, +4 |
 | 382 | TabBarScrollController | class | Hardly Relevant | ✅ | material/tab_bar_scroll_controller_test.dart |
-| 383 | TabBarTheme | class | Important | ⬜ |  |
-| 384 | TabBarThemeData | class | Secondary | ✅ | material/component_themes_test.dart, material/navigation_themes_test.dart, material/tab_bar_theme_data_test.dart, +3 |
+| 383 | TabBarTheme | class | Important | ✅ | material/component_themes_navigation_test.dart |
+| 384 | TabBarThemeData | class | Secondary | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/navigation_themes_test.dart, +4 |
 | 385 | TabBarView | class | Essential | ✅ | material/list_tile_style_test.dart, material/navigation_themes_test.dart, material/refreshindicator_test.dart, +185 |
 | 386 | TabController | class | Important | ✅ | material/tab_bar_theme_data_test.dart, material/tabs_test.dart, retest/widgets/redo_text_intent_test.dart, +38 |
 | 387 | TabIndicatorAnimation | enum | Hardly Relevant | ✅ | material/tab_indicator_animation_test.dart |
@@ -401,9 +401,9 @@ Every name the bridges register for `material` (431), with its tier and the corp
 | 389 | TabPageSelectorIndicator | class | Hardly Relevant | ✅ | material/tab_page_selector_indicator_test.dart |
 | 390 | TableRowInkWell | class | Hardly Relevant | ✅ | material/table_row_ink_well_test.dart |
 | 391 | TappableChipAttributes | class | Hardly Relevant | ⬜ |  |
-| 392 | TextButton | class | Essential | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/text_align_test.dart, foundation/target_platform_test.dart, +132 |
-| 393 | TextButtonTheme | class | Important | ⬜ |  |
-| 394 | TextButtonThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/text_button_theme_data_test.dart |
+| 392 | TextButton | class | Essential | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/text_align_test.dart, foundation/target_platform_test.dart, +133 |
+| 393 | TextButtonTheme | class | Important | ✅ | material/component_themes_buttons_test.dart |
+| 394 | TextButtonThemeData | class | Secondary | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_buttons_test.dart, material/text_button_theme_data_test.dart |
 | 395 | TextField | class | Essential | ✅ | dart_ui/key_data_test.dart, dart_ui/semantics_update_test.dart, dart_ui/text_direction_test.dart, +114 |
 | 396 | TextFormField | class | Essential | ✅ | dart_ui/pointer_data_test.dart, material/dropdown_menu_form_field_test.dart, material/floating_label_behavior_test.dart, +7 |
 | 397 | TextMagnifier | class | Hardly Relevant | ✅ | material/selection_area_state_test.dart, widgets/text_editing_adv_test.dart |

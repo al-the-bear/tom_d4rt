@@ -4,7 +4,7 @@
 
 The bridged names the priority files classify as Essential. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 220 of 227 (96.9%)
+- **Exercised:** 221 of 227 (97.4%)
 
 ## animation (5)
 
@@ -122,7 +122,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | AlertDialog | Alert dialog | ✅ | material/dialog_advanced_test.dart, material/dialog_bottom_sheet_test.dart, material/dialog_test.dart, +9 |
 | AppBar | Top app bar | ✅ | animation/animatable_test.dart, animation/animationstyle_test.dart, cupertino/button_test.dart, +843 |
 | BottomNavigationBar | Bottom navigation | ✅ | material/badge_test.dart, material/bottom_navigation_bar_theme_data_test.dart, material/bottom_navigation_bar_theme_test.dart, +14 |
-| BottomSheet | Bottom sheet | ⬜ |  |
+| BottomSheet | Bottom sheet | ✅ | material/bottom_sheet_routes_test.dart |
 | ButtonStyle | Button styling | ✅ | material/button_style_button_test.dart, material/button_styles_misc_test.dart, material/buttons_test.dart, +32 |
 | Card | Card container | ✅ | cupertino/cupertino_expansion_tile_test.dart, dart_ui/brightness_test.dart, dart_ui/checked_state_test.dart, +214 |
 | Checkbox | Checkbox | ✅ | dart_ui/semantics_update_test.dart, dart_ui/tristate_test.dart, material/animated_theme_test.dart, +36 |
@@ -136,7 +136,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | Drawer | Side drawer | ✅ | material/drawer_controller_state_test.dart, material/end_drawer_button_test.dart, material/navigation_test.dart, +3 |
 | DropdownButton | Dropdown | ✅ | dart_ui/image_sampler_slot_test.dart, dart_ui/immutable_buffer_test.dart, dart_ui/isolate_name_server_test.dart, +33 |
 | DropdownMenu | Dropdown menu | ✅ | material/dropdown_menu_close_behavior_test.dart, material/dropdown_menu_entry_test.dart, material/dropdown_menu_form_field_test.dart, +4 |
-| ElevatedButton | Elevated button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +203 |
+| ElevatedButton | Elevated button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +204 |
 | FilledButton | Filled button | ✅ | dart_ui/pointer_data_test.dart, material/button_style_button_test.dart, material/button_styles_misc_test.dart, +118 |
 | FilterChip | Filter chip | ✅ | dart_ui/clip_rect_engine_layer_test.dart, dart_ui/image_descriptor_test.dart, dart_ui/image_filter_engine_layer_test.dart, +97 |
 | FloatingActionButton | FAB | ✅ | material/animated_theme_test.dart, material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, +19 |
@@ -150,7 +150,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | MaterialApp | Material application | ✅ | animation/animation_max_test.dart, animation/animation_misc_adv_test.dart, animation/animationstyle_test.dart, +923 |
 | MaterialBanner | Banner message | ✅ | material/fablocation_messenger_test.dart, material/material_banner_closed_reason_test.dart, material/materialbanner_test.dart, +3 |
 | MaterialColor | Material color | ✅ | animation/alwaysstoppedanimation_test.dart, animation/tweensequence_test.dart, dart_ui/view_focus_event_test.dart, +103 |
-| NavigationBar | Navigation bar | ✅ | material/badge_test.dart, material/component_themes_test.dart, material/nav_badge_advanced_test.dart, +8 |
+| NavigationBar | Navigation bar | ✅ | material/badge_test.dart, material/component_themes_navigation_test.dart, material/component_themes_test.dart, +9 |
 | NavigationDrawer | Navigation drawer | ✅ | material/component_themes_test.dart, material/navigation_drawer_theme_test.dart, material/navigation_test.dart |
 | NavigationRail | Navigation rail | ✅ | material/component_themes_test.dart, material/nav_badge_advanced_test.dart, material/nav_destinations_test.dart, +9 |
 | OutlineInputBorder | Outline border | ✅ | dart_ui/key_data_test.dart, dart_ui/pointer_data_test.dart, dart_ui/semantics_update_test.dart, +128 |
@@ -167,7 +167,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | Tab | Tab widget | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +193 |
 | TabBar | Tab bar | ✅ | material/component_themes_test.dart, material/list_tile_style_test.dart, material/navigation_themes_test.dart, +193 |
 | TabBarView | Tab content | ✅ | material/list_tile_style_test.dart, material/navigation_themes_test.dart, material/refreshindicator_test.dart, +185 |
-| TextButton | Text button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/text_align_test.dart, foundation/target_platform_test.dart, +132 |
+| TextButton | Text button | ✅ | cupertino/cupertino_themes_batch3_test.dart, dart_ui/text_align_test.dart, foundation/target_platform_test.dart, +133 |
 | TextField | Text input | ✅ | dart_ui/key_data_test.dart, dart_ui/semantics_update_test.dart, dart_ui/text_direction_test.dart, +114 |
 | TextFormField | Form text | ✅ | dart_ui/pointer_data_test.dart, material/dropdown_menu_form_field_test.dart, material/floating_label_behavior_test.dart, +7 |
 | TextTheme | Text theme | ✅ | animation/curves_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +140 |
@@ -180,7 +180,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| Alignment | Widget alignment - layout essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1872 |
+| Alignment | Widget alignment - layout essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1874 |
 | AlignmentDirectional | RTL-aware alignment | ✅ | dart_ui/clip_r_rect_engine_layer_test.dart, material/badge_test.dart, material/dropdown_test.dart, +17 |
 | AlignmentGeometry | Base alignment class | ✅ | animation/alwaysstoppedanimation_test.dart, dart_ui/vertices_test.dart, material/badge_test.dart, +14 |
 | AssetImage | Asset image loading | ✅ | dart_ui/opacity_engine_layer_test.dart, painting/decoration_test.dart, painting/image_providers_test.dart, +4 |
@@ -197,7 +197,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | LinearGradient | Linear color gradients | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1812 |
 | NetworkImage | URL image loading | ✅ | painting/image_providers_test.dart, painting/image_stream_adv_test.dart, widgets/backdrop_filter_test.dart |
 | TextSpan | Rich text spans | ✅ | animation/animation_max_test.dart, animation/cubic_test.dart, animation/elastic_in_curve_test.dart, +463 |
-| TextStyle | Text formatting | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2041 |
+| TextStyle | Text formatting | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2042 |
 
 ## physics (2)
 
@@ -210,7 +210,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| BoxConstraints | Box layout constraints | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +253 |
+| BoxConstraints | Box layout constraints | ✅ | animation/cubic_test.dart, animation/curves_test.dart, cupertino/restorable_cupertino_tab_controller_test.dart, +254 |
 | BoxParentData | Box parent data | ✅ | rendering/parent_data_test.dart, rendering/render_aligning_shifted_box_test.dart, rendering/viewport_test.dart, +5 |
 | ContainerLayer | Layer container | ✅ | rendering/render_layers_pipeline_test.dart |
 | Layer | Base layer | ✅ | rendering/render_view_layer_flow_test.dart |
@@ -265,9 +265,9 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| Align | Alignment wrapper | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_status_test.dart, +198 |
-| BuildContext | Build context | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2055 |
-| Center | Center alignment | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1358 |
+| Align | Alignment wrapper | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_status_test.dart, +199 |
+| BuildContext | Build context | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2060 |
+| Center | Center alignment | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1360 |
 | Column | Vertical layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2046 |
 | Container | All-in-one layout widget | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2031 |
 | EditableText | Low-level text edit | ✅ | widgets/default_text_editing_shortcuts_test.dart, widgets/editable_text_misc_test.dart, widgets/redo_text_intent_test.dart, +2 |
@@ -280,7 +280,7 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | GestureDetector | Gesture handling | ✅ | cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_linear_activity_indicator_test.dart, cupertino/inherited_cupertino_theme_test.dart, +195 |
 | GlobalKey | Global widget key | ✅ | foundation/key_test.dart, material/drawer_controller_state_test.dart, material/dropdown_test.dart, +50 |
 | GridView | Scrollable grid | ✅ | animation/animatable_test.dart, animation/cubic_test.dart, cupertino/refresh_test.dart, +143 |
-| Icon | Icon display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1855 |
+| Icon | Icon display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1857 |
 | IconTheme | Icon theme | ✅ | cupertino/cupertino_list_tile_chevron_test.dart, cupertino/cupertino_themes_batch2_test.dart, material/bottomnavigationbar_test.dart, +11 |
 | Image | Image display | ✅ | painting/asset_bundle_image_provider_test.dart, widgets/img_element_platform_view_test.dart |
 | ListView | Scrollable list | ✅ | animation/animationstyle_test.dart, cupertino/class_test.dart, cupertino/controls_test.dart, +433 |
@@ -291,9 +291,9 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | RichText | Rich text display | ✅ | animation/cubic_test.dart, animation/elastic_in_curve_test.dart, cupertino/class_test.dart, +218 |
 | Row | Horizontal layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2033 |
 | SingleChildScrollView | Scrollable container | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1791 |
-| SizedBox | Fixed size box | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2038 |
+| SizedBox | Fixed size box | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
 | Stack | Layered layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/catmull_rom_spline_test.dart, +724 |
 | State | Widget state | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +358 |
 | StatefulWidget | Stateful base | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +357 |
 | StatelessWidget | Stateless base | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +506 |
-| Text | Text display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2054 |
+| Text | Text display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2058 |

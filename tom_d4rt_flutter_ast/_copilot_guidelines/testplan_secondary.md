@@ -4,7 +4,7 @@
 
 The bridged names the priority files classify as Secondary. Status: ✅ a script a running corpus test sends uses the class in its code; 🟨 only scripts no running test sends (skipped or not wired) use it; ⬜ no script uses it. "Used" means named in code - not in a comment or a string, and not as a class the script declares itself.
 
-- **Exercised:** 374 of 559 (66.9%)
+- **Exercised:** 376 of 559 (67.3%)
 
 ## animation (4)
 
@@ -124,24 +124,24 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
-| ActionIconThemeData | Action icon data | ⬜ |  |
+| ActionIconThemeData | Action icon data | ✅ | material/component_themes_buttons_test.dart |
 | AdaptiveTextSelectionToolbar | Adaptive toolbar | ✅ | material/selection_area_state_test.dart, material/selection_area_test.dart, widgets/context_menu_test.dart, +3 |
 | AppBarThemeData | App bar data | ⬜ |  |
-| BadgeThemeData | Badge data | ✅ | material/badge_test.dart, material/misc_themes_test.dart, material/nav_badge_advanced_test.dart |
+| BadgeThemeData | Badge data | ✅ | material/badge_test.dart, material/component_themes_navigation_test.dart, material/misc_themes_test.dart, +1 |
 | BaseRangeSliderTrackShape | Base range track | ⬜ |  |
 | BaseSliderTrackShape | Base track | ⬜ |  |
-| BottomAppBarThemeData | Bottom data | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/component_themes_test.dart |
+| BottomAppBarThemeData | Bottom data | ✅ | material/bottom_app_bar_test.dart, material/bottom_app_bar_theme_data_test.dart, material/component_themes_navigation_test.dart, +1 |
 | BottomSheetThemeData | Sheet data | ✅ | material/component_themes_test.dart |
 | ButtonStyleButton | Style button base | ⬜ |  |
 | CalendarDelegate | Calendar delegate | ⬜ |  |
 | CardThemeData | Card data | ✅ | material/card_ink_splash_test.dart, material/card_theme_data_test.dart, material/component_themes_test.dart, +33 |
 | CheckboxListTile | Checkbox tile | ✅ | dart_ui/pointer_data_test.dart, material/checkbox_list_tile_test.dart, material/divider_listtile_test.dart, +11 |
-| CheckboxThemeData | Checkbox data | ✅ | material/component_themes_test.dart |
+| CheckboxThemeData | Checkbox data | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart |
 | CheckmarkableChipAttributes | Checkmarkable | ⬜ |  |
 | ChipAnimationStyle | Chip animation | ⬜ |  |
 | ChipAttributes | Chip attributes | ⬜ |  |
 | ChipThemeData | Chip data | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +7 |
-| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1697 |
+| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1699 |
 | ControlsDetails | Controls details | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | DataTableSource | Data source | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
 | DataTableTheme | Table theme | ✅ | material/datarow_test.dart |
@@ -158,32 +158,32 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | DialogThemeData | Dialog data | ✅ | material/component_themes_test.dart, material/dialog_test.dart, material/themadata_test.dart |
 | DisabledChipAttributes | Disabled | ⬜ |  |
 | DividerThemeData | Divider data | ✅ | material/component_themes_test.dart, material/divider_test.dart, material/themes_advanced_test.dart, +3 |
-| DrawerThemeData | Drawer data | ✅ | material/navigation_themes_test.dart |
-| DropdownMenuThemeData | Dropdown data | ✅ | material/picker_themes_test.dart, widgets/tree_sliver_state_mixin_test.dart |
+| DrawerThemeData | Drawer data | ✅ | material/component_themes_navigation_test.dart, material/navigation_themes_test.dart |
+| DropdownMenuThemeData | Dropdown data | ✅ | material/component_themes_menus_test.dart, material/picker_themes_test.dart, widgets/tree_sliver_state_mixin_test.dart |
 | ExpansionTileThemeData | Expansion data | ✅ | material/component_themes_test.dart, material/expansiontile_test.dart |
 | FilledButtonThemeData | Filled data | ✅ | material/buttonstyle_popup_test.dart, material/filled_button_theme_data_test.dart, widgets/restorable_route_future_test.dart |
 | FloatingActionButtonAnimator | FAB animator | ✅ | material/fablocation_messenger_test.dart, material/scaffold_fab_test.dart, material/scaffold_test.dart |
 | FloatingActionButtonLocation | FAB location | ✅ | material/bottom_app_bar_test.dart, material/component_themes_test.dart, material/fablocation_messenger_test.dart, +5 |
-| FloatingActionButtonThemeData | FAB data | ✅ | material/component_themes_test.dart, material/floatingactionbutton_test.dart, material/themadata_test.dart, +1 |
+| FloatingActionButtonThemeData | FAB data | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart, material/floatingactionbutton_test.dart, +2 |
 | IconButtonThemeData | Icon data | ✅ | material/end_drawer_button_test.dart, material/icon_button_theme_data_test.dart |
 | InputDecorationTheme | Input theme | ✅ | material/dropdown_menu_form_field_test.dart, material/dropdown_menu_test.dart, material/input_borders_test.dart, +17 |
 | ListTileThemeData | Tile data | ✅ | material/component_themes_test.dart, material/divider_listtile_test.dart, material/list_tile_style_test.dart, +5 |
-| MaterialBannerThemeData | Banner data | ✅ | material/component_themes_test.dart, material/fablocation_messenger_test.dart, material/materialbanner_test.dart |
+| MaterialBannerThemeData | Banner data | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/fablocation_messenger_test.dart, +1 |
 | MaterialButton | Material button | ✅ | material/button_text_theme_test.dart, material/material_button_test.dart, retest/material/button_text_theme_test.dart |
 | MaterialLocalizations | Localization | ✅ | material/datetime_utils_test.dart, material/restorable_time_of_day_test.dart, widgets/localizations_resolver_test.dart, +1 |
 | MaterialTextSelectionControls | Material controls | ✅ | material/selection_area_state_test.dart |
 | MaterialType | Material type | ✅ | dart_ui/pointer_data_test.dart, material/aboutdialog_test.dart, material/checkbox_list_tile_test.dart, +44 |
-| MenuBarThemeData | Menu bar data | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/picker_themes_test.dart |
-| MenuStyle | Menu style | ✅ | material/buttonstyle_popup_test.dart, material/menu_advanced_test.dart, material/menu_style_test.dart, +5 |
-| MenuThemeData | Menu data | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/picker_themes_test.dart |
-| NavigationBarThemeData | Nav data | ✅ | material/component_themes_test.dart, material/navigation_destination_label_behavior_test.dart, material/navigation_themes_test.dart, +1 |
+| MenuBarThemeData | Menu bar data | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_themes_test.dart, +1 |
+| MenuStyle | Menu style | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_advanced_test.dart, +6 |
+| MenuThemeData | Menu data | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_themes_test.dart, +1 |
+| NavigationBarThemeData | Nav data | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/navigation_destination_label_behavior_test.dart, +2 |
 | NavigationDrawerThemeData | Nav drawer data | ✅ | material/component_themes_test.dart, material/navigation_drawer_theme_test.dart |
-| NavigationRailThemeData | Rail data | ✅ | material/component_themes_test.dart, material/navigation_rail_label_type_test.dart, material/navigation_themes_test.dart, +2 |
+| NavigationRailThemeData | Rail data | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/navigation_rail_label_type_test.dart, +3 |
 | OutlinedButtonThemeData | Outlined data | ✅ | material/buttonstyle_popup_test.dart, material/outlined_button_theme_data_test.dart |
-| PopupMenuThemeData | Popup data | ✅ | material/buttonstyle_popup_test.dart, material/menu_themes_test.dart, material/picker_themes_test.dart, +3 |
+| PopupMenuThemeData | Popup data | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_menus_test.dart, material/menu_themes_test.dart, +4 |
 | ProgressIndicatorThemeData | Progress data | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart, material/progress_indicator_test.dart, +3 |
 | RadioListTile | Radio tile | ✅ | material/checkbox_list_tile_test.dart, material/divider_listtile_test.dart, material/formcontrols_test.dart, +7 |
-| RadioThemeData | Radio data | ✅ | material/component_themes_test.dart |
+| RadioThemeData | Radio data | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart |
 | RangeLabels | Range labels | ✅ | material/base_range_slider_track_shape_test.dart, material/drop_range_slider_value_indicator_shape_test.dart, material/drop_slider_value_indicator_shape_test.dart, +20 |
 | RangeSlider | Range slider | ✅ | material/base_range_slider_track_shape_test.dart, material/base_slider_track_shape_test.dart, material/drop_range_slider_value_indicator_shape_test.dart, +24 |
 | RangeSliderThumbShape | Range thumb | ⬜ |  |
@@ -201,8 +201,8 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ScaffoldMessenger | Messenger | ✅ | material/material_banner_closed_reason_test.dart, material/scaffold_messenger_test.dart, material/snack_bar_action_test.dart, +7 |
 | ScaffoldMessengerState | Messenger state | ✅ | material/scaffold_messenger_test.dart |
 | ScaffoldState | Scaffold state | ✅ | foundation/key_test.dart, material/navigation_drawer_theme_test.dart, widgets/builder_test.dart, +1 |
-| SearchBarThemeData | Search data | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart |
-| SearchViewThemeData | Search view data | ⬜ |  |
+| SearchBarThemeData | Search data | ✅ | material/component_themes_menus_test.dart, material/component_themes_test.dart, material/misc_themes_test.dart |
+| SearchViewThemeData | Search view data | ✅ | material/component_themes_menus_test.dart |
 | SegmentedButtonThemeData | Segment data | ✅ | material/component_themes_test.dart, material/misc_themes_test.dart, material/segmented_button_state_test.dart, +1 |
 | SelectableChipAttributes | Selectable | ⬜ |  |
 | SliderComponentShape | Component shape | ✅ | material/drop_range_slider_value_indicator_shape_test.dart, material/rounded_rect_slider_value_indicator_shape_test.dart, material/slider_component_shape_test.dart, +1 |
@@ -216,10 +216,10 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | StepState | Step state | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart, +1 |
 | StepperType | Stepper type | ✅ | material/expansion_stepper_test.dart, material/stepper_test.dart, material/stepper_type_test.dart, +1 |
 | SwitchListTile | Switch tile | ✅ | material/card_test.dart, material/checkbox_list_tile_test.dart, material/divider_listtile_test.dart, +68 |
-| SwitchThemeData | Switch data | ✅ | material/component_themes_test.dart, widgets/undo_history_state_test.dart |
+| SwitchThemeData | Switch data | ✅ | material/component_themes_buttons_test.dart, material/component_themes_test.dart, widgets/undo_history_state_test.dart |
 | TabBarIndicatorSize | Indicator size | ✅ | material/navigation_themes_test.dart, material/tab_bar_indicator_size_test.dart, material/tab_bar_theme_data_test.dart, +4 |
-| TabBarThemeData | Tab data | ✅ | material/component_themes_test.dart, material/navigation_themes_test.dart, material/tab_bar_theme_data_test.dart, +3 |
-| TextButtonThemeData | Text data | ✅ | material/buttonstyle_popup_test.dart, material/text_button_theme_data_test.dart |
+| TabBarThemeData | Tab data | ✅ | material/component_themes_navigation_test.dart, material/component_themes_test.dart, material/navigation_themes_test.dart, +4 |
+| TextButtonThemeData | Text data | ✅ | material/buttonstyle_popup_test.dart, material/component_themes_buttons_test.dart, material/text_button_theme_data_test.dart |
 | TextSelectionThemeData | Selection data | ✅ | material/material_text_selection_handle_controls_test.dart, material/selectabletext_test.dart, material/text_field_theme_test.dart, +8 |
 | TextSelectionToolbar | Selection toolbar | ✅ | material/text_selection_toolbar_test.dart |
 | TextSelectionToolbarTextButton | Toolbar button | ✅ | material/desktop_text_selection_toolbar_button_test.dart, material/text_selection_toolbar_test.dart, material/text_selection_toolbar_text_button_test.dart |

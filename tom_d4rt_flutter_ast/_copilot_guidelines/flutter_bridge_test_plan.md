@@ -17,7 +17,7 @@ Measured by `tool/testplan_report.dart` from the bridges and the corpus. A name 
 | [dart_ui](testplan_dart_ui.md) | 158 | 136 | 0 | 22 | 86.1% |
 | [foundation](testplan_foundation.md) | 72 | 58 | 0 | 14 | 80.6% |
 | [gestures](testplan_gestures.md) | 97 | 78 | 0 | 19 | 80.4% |
-| [material](testplan_material.md) | 431 | 346 | 0 | 85 | 80.3% |
+| [material](testplan_material.md) | 431 | 378 | 0 | 53 | 87.7% |
 | [meta](testplan_meta.md) | 1 | 0 | 0 | 1 | 0.0% |
 | [painting](testplan_painting.md) | 100 | 85 | 0 | 15 | 85.0% |
 | [physics](testplan_physics.md) | 10 | 10 | 0 | 0 | 100.0% |
@@ -27,15 +27,15 @@ Measured by `tool/testplan_report.dart` from the bridges and the corpus. A name 
 | [services](testplan_services.md) | 142 | 95 | 0 | 47 | 66.9% |
 | [vector_math](testplan_vector_math.md) | 19 | 1 | 1 | 17 | 5.3% |
 | [widgets](testplan_widgets.md) | 772 | 568 | 1 | 203 | 73.6% |
-| **Total** | **2251** | **1661** | **2** | **588** | **73.8%** |
+| **Total** | **2251** | **1693** | **2** | **556** | **75.2%** |
 
 By tier:
 
 | Tier | Bridged | Exercised | Coverage |
 |------|---------|-----------|----------|
-| [Essential](testplan_essential.md) | 227 | 220 | 96.9% |
-| [Important](testplan_important.md) | 440 | 366 | 83.2% |
-| [Secondary](testplan_secondary.md) | 559 | 374 | 66.9% |
+| [Essential](testplan_essential.md) | 227 | 221 | 97.4% |
+| [Important](testplan_important.md) | 440 | 395 | 89.8% |
+| [Secondary](testplan_secondary.md) | 559 | 376 | 67.3% |
 | [Hardly Relevant](testplan_hardly_relevant.md) | 1025 | 701 | 68.4% |
 <!-- testplan_report:end -->
 
