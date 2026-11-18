@@ -505,9 +505,29 @@ const _partialTwinBudget = 0;
 /// and without facts. ghissues1002 ports it after publishing. The copier
 /// surface a port would have added is generic extensions and interpolated
 /// type parameters, which the corpus copies on every run.
-const _copierGapBudget = 48;
+///
+/// 48 -> 49: GHISSUES71 added `ghissues71_slang_closure_test.dart`, which runs
+/// source to check three defects that kept Slang's package closure (GitHub
+/// #21) from loading: a deferred import's `loadLibrary()` and the error before
+/// it, another library's private interface members, and `MapView` as a
+/// superclass. Exec resolves tom_d4rt_ast 0.244.0 from pub.dev, where all
+/// three fail, so a port would fail. Its ast twin holds the mechanism, from
+/// bundles. ghissues1002 ports it after publishing. The copier surface a port
+/// would have added is deferred import directives, which the converter copies
+/// on every run (`SImportDirective.isDeferred`).
+const _copierGapBudget = 49;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues71_slang_closure_test.dart': _Coverage(
+    'ast:runtime/ghissues71_slang_closure_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 7,
+    whyPartial:
+        'the same seven programs: the reference runs them as source, the twin '
+        'as bundles that tom_ast_generator wrote, through toBytes / fromBytes.',
+  ),
   'ghissues70_static_facts_twin_test.dart': _Coverage(
     'ast:runtime/ghissues70_static_facts_test.dart',
     _astTwin,

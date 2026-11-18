@@ -29,6 +29,7 @@ class CollectionStdlib {
     environment.defineBridge(SplayTreeMapCollection.definition);
     environment.defineBridge(SplayTreeSetCollection.definition);
     environment.defineBridge(UnmodifiableListViewCollection.definition);
+    environment.defineBridge(MapViewCollection.definition);
     environment.defineBridge(UnmodifiableMapViewCollection.definition);
     environment.defineBridge(UnmodifiableSetViewCollection.definition);
     // After the bridges: the registry keys on NAME, so the edges are only

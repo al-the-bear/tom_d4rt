@@ -37,7 +37,8 @@ class CollectionHierarchyCollection {
       'HashMap': ['Map'],
       'LinkedHashMap': ['Map'],
       'SplayTreeMap': ['Map'],
-      'UnmodifiableMapView': ['Map'],
+      'MapView': ['Map'],
+      'UnmodifiableMapView': ['MapView'],
       // Sets. One edge per SDK relationship; `HashSet is Iterable` is answered
       // by following `HashSet -> Set -> Iterable`, not by restating it.
       'HashSet': ['Set'],

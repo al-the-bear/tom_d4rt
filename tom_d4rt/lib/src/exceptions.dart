@@ -484,6 +484,16 @@ class UndefinedStaticMemberD4rtException extends RuntimeD4rtException {
 ///
 /// [name] carries what the message spells, so that code branching on this
 /// failure compares a field rather than parsing a diagnostic.
+/// ghissues71: a deferred library's member was used before its
+/// `loadLibrary()` ran - Dart's `Deferred library <prefix> was not loaded.`
+class DeferredLibraryNotLoadedD4rtException extends RuntimeD4rtException {
+  /// The import prefix of the deferred library.
+  final String prefix;
+
+  DeferredLibraryNotLoadedD4rtException(this.prefix)
+    : super('Deferred library $prefix was not loaded.');
+}
+
 class UndefinedNameD4rtException extends RuntimeD4rtException {
   /// The identifier that resolved to nothing. Compared by equality, never
   /// parsed.

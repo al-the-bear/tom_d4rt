@@ -96,6 +96,7 @@ final Map<String, Fixture> _fixtures = {
   'HashMap': () => HashMap<dynamic, dynamic>.from({'a': 1, 'b': 2}),
   'LinkedHashMap': () => LinkedHashMap<dynamic, dynamic>.from({'a': 1, 'b': 2}),
   'SplayTreeMap': () => SplayTreeMap<dynamic, dynamic>.from({'a': 1, 'b': 2}),
+  'MapView': () => MapView<dynamic, dynamic>({'a': 1, 'b': 2}),
   'UnmodifiableMapView': () =>
       UnmodifiableMapView<dynamic, dynamic>({'a': 1, 'b': 2}),
   'HashSet': () => HashSet<dynamic>.of([3, 1, 2]),
@@ -406,6 +407,7 @@ final Map<String, List<Object?>> _classArgs = {
     'HashMap',
     'LinkedHashMap',
     'SplayTreeMap',
+    'MapView',
     'UnmodifiableMapView',
   ])
     '$m.addAll': [
@@ -489,6 +491,7 @@ const _mapFixtures = {
   'HashMap',
   'LinkedHashMap',
   'SplayTreeMap',
+  'MapView',
   'UnmodifiableMapView',
 };
 

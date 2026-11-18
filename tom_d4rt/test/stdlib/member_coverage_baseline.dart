@@ -6,7 +6,7 @@
 // an assertion about the interpreter that nothing measured, which is exactly the
 // claim this baseline was introduced to stop anyone making.
 //
-// Current state: 208 bridged classes registered; of those,
+// Current state: 209 bridged classes registered; of those,
 // 0 confirmed-unreachable members across 0 classes,
 // 5 members on 2 classes unreachable by decision,
 // and 36 members on 1 classes that cannot be measured at all.
@@ -137,6 +137,7 @@ const measuredClasses = <String>{
   'LinkedListEntry',
   'List',
   'ListQueue',
+  'MapView',
   'OSError',
   'Object',
   'Point',
@@ -312,6 +313,7 @@ const bridgedClasses = <String>{
   'ListQueue',
   'Map',
   'MapEntry',
+  'MapView',
   'Match',
   'MultiStreamController',
   'NetworkInterface',

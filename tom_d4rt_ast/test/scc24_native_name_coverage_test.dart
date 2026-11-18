@@ -318,6 +318,7 @@ Map<String, Object> _canonicalInstances() => {
   'LinkedHashSet': LinkedHashSet<int>()..add(1),
   'SplayTreeSet': SplayTreeSet<int>()..add(1),
   'UnmodifiableListView': UnmodifiableListView<int>(const [1]),
+  'MapView': MapView<String, int>({'a': 1}),
   'UnmodifiableMapView': UnmodifiableMapView<String, int>({'a': 1}),
   'UnmodifiableSetView': UnmodifiableSetView<int>({1}),
   'LinkedList': LinkedList<_ListEntry>()..add(_ListEntry()),

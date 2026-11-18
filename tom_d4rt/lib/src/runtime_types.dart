@@ -1083,6 +1083,40 @@ class InterpretedClass implements Callable, RuntimeType {
   /// Returns a map representing all members required by the interfaces implemented
   /// by this class and its superclasses, including those from super-interfaces.
   /// Key: member name, Value: String indicating type ('method', 'getter', 'setter')
+  /// ghissues71: whether the interface member [name] binds this class. A
+  /// library's `_` members are private to it, so they are part of the
+  /// interface only for a class of the same library: string_scanner's
+  /// `SpanScanner implements LineScanner` need not implement LineScanner's
+  /// `_adjustLineAndColumn`. A public name always binds. The library is the
+  /// environment a class was declared in, which its library's parts share.
+  bool bindsInterfaceMember(String name) {
+    if (!name.startsWith('_')) return true;
+    final visited = <InterpretedClass>{};
+    final queue = <InterpretedClass>[...interfaces];
+    for (
+      var current = superclass;
+      current != null;
+      current = current.superclass
+    ) {
+      queue.add(current);
+    }
+    while (queue.isNotEmpty) {
+      final current = queue.removeAt(0);
+      if (!visited.add(current)) continue;
+      if (identical(
+            current.classDefinitionEnvironment,
+            classDefinitionEnvironment,
+          ) &&
+          (current.methods.containsKey(name) ||
+              current.getters.containsKey(name) ||
+              current.setters.containsKey(name))) {
+        return true;
+      }
+      queue.addAll(current.interfaces);
+    }
+    return false;
+  }
+
   Map<String, String> getAllInterfaceMembers() {
     final requiredMembers = <String, String>{};
     final Set<InterpretedClass> visited = {}; // To avoid cycles/redundancy
@@ -1432,10 +1466,13 @@ class InterpretedInstance implements RuntimeValue {
   /// What an instance with no script `toString` renders as. An `Error`
   /// subclass answers its native super-object's `toString` when that is a
   /// real override (`ArgumentError`, `StateError`), as the inherited member
-  /// does in Dart; otherwise the interpreter's default.
+  /// does in Dart; otherwise the interpreter's default. ghissues71: so does a
+  /// subclass of a bridged map or iterable (path's `PathMap extends MapView`
+  /// prints its entries).
   String get _defaultString {
     final native = _bridgedSuperObject;
-    if (native is Error) {
+    if (native != null &&
+        (native is Error || native is Map || native is Iterable)) {
       return defaultToStringOver(native) ?? native.toString();
     }
     return _diagnosticString;

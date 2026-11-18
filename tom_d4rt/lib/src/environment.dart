@@ -1894,6 +1894,10 @@ class Environment {
   /// The binding of [name] as stored, throwing like [get] when it is absent:
   /// a [LateVariable] holder is returned as the holder, uninitialized or not.
   dynamic getBinding(String name) {
+    final deferred = _deferredPrefix;
+    if (deferred != null && !_deferredLoaded && name != 'loadLibrary') {
+      throw DeferredLibraryNotLoadedD4rtException(deferred);
+    }
     final value = lookup(name);
     if (identical(value, kNotFound)) {
       throw undefinedNameError(name);
@@ -3162,6 +3166,29 @@ class Environment {
         "[Environment.importEnvironment] Merge complete. Current env (hashCode: $hashCode) updated.",
       );
     }
+  }
+
+  /// ghissues71: the prefix of a deferred import (`import 'z.dart' deferred
+  /// as z;`) when this environment is that prefix's surface; null otherwise.
+  String? _deferredPrefix;
+
+  /// Whether the deferred library's `loadLibrary()` has run.
+  bool _deferredLoaded = false;
+
+  /// Makes this prefix surface a deferred library's, as Dart does: its
+  /// `loadLibrary()` returns a completed `Future<void>` (the library is
+  /// already loaded with the program) and marks it loaded; a member read
+  /// before that throws [DeferredLibraryNotLoadedD4rtException].
+  void markDeferred(String prefix) {
+    _deferredPrefix = prefix;
+    _values['loadLibrary'] = NativeFunction(
+      (visitor, positional, named, typeArgs) {
+        _deferredLoaded = true;
+        return Future<void>.value();
+      },
+      arity: 0,
+      name: 'loadLibrary',
+    );
   }
 
   // New method to handle prefixed imports

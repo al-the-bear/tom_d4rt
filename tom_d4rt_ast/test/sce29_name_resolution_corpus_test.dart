@@ -143,6 +143,14 @@ const Map<String, String> _deferred = {
       'goes to the extension the receiver\'s static type picks; unpublished, '
       'the twins resolve the published interpreter (DGUC6); ghissues1002 runs '
       'the post-publish corpus',
+  '1.272.0':
+      'ghissues71: loadLibrary resolves through a deferred prefix, its other '
+      'names throw until it ran; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.252.0':
+      'ghissues71: loadLibrary resolves through a deferred prefix, its other '
+      'names throw until it ran; unpublished, the twins resolve the published '
+      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

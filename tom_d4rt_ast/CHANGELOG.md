@@ -1,3 +1,41 @@
+## 0.252.0
+
+### Fixed — Slang's package closure, three stops (ghissues71, GitHub #21)
+
+Slang's runtime API imports its builder, so yaml, source_span, string_scanner,
+path and collection load as interpreted libraries. Three things stopped them;
+each answers as native Dart now:
+
+- **Deferred imports.** `import 'z.dart' deferred as z;` gives the prefix a
+  `loadLibrary()` that returns a completed `Future<void>`, since the library
+  is already loaded with the program. Reading one of the library's names
+  before it ran throws `Deferred library z was not loaded.`
+  (`DeferredLibraryNotLoadedD4rtException`), as the VM does. Each import
+  tracks its own state. Slang imports every non-base locale
+  `deferred as l_<locale>`. The mirror model's `SImportDirective.isDeferred` marks the import.
+- **Another library's private interface members.** A class implementing an
+  interface of another library need not implement that interface's `_`
+  members; in Dart they are private to their library (string_scanner's
+  `SpanScanner implements LineScanner`). In the interface's own library they
+  are still required.
+- **`MapView`** (`dart:collection`) is bridged and can be extended (path's
+  `PathMap extends MapView<String?, V>`):
+  - a subclass reads and writes the wrapped map through it, `[]` and `[]=`
+    included;
+  - `is Map` / `is MapView` answer for it;
+  - it prints the map.
+
+  The bridge shares its adapters with `UnmodifiableMapView`, whose `[]=`
+  adapter now returns nothing, as `Map`'s does. `UnmodifiableMapView` is a
+  `MapView` in the type registry.
+
+Slang's closure now stops at the next gap: interpreted classes extending
+`dart:collection`'s `IterableBase`, `ListBase`, `MapBase` and their mixins
+(ghissues77).
+
+Name resolution: yes — `loadLibrary` resolves through a deferred import's
+prefix, and that prefix's other names throw until it ran.
+
 ## 0.251.0
 
 ### Added — a resolved bundle's static facts (ghissues70, GitHub #18 option B2)

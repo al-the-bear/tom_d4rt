@@ -553,6 +553,21 @@ d4rt.execute(source: '''
 
 The library URI can be any valid package URI — it doesn't need to correspond to an actual file.
 
+### Deferred imports
+
+`import 'z.dart' deferred as z;` works as in Dart:
+
+- the library is loaded with the program, so `await z.loadLibrary()` returns a
+  completed `Future`;
+- reading one of its names before `loadLibrary()` ran throws
+  `Deferred library z was not loaded.` (`DeferredLibraryNotLoadedD4rtException`),
+  as the Dart VM does;
+- each import keeps its own state, so another library importing `z.dart`
+  deferred calls `loadLibrary()` itself.
+
+The same holds in tom_d4rt_ast, which reads the import's `isDeferred` from the
+bundle.
+
 ---
 
 ## Security and Permissions

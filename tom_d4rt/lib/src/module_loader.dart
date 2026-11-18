@@ -1257,6 +1257,7 @@ class ModuleLoader {
                     showNames: showNames,
                     hideNames: hideNames,
                   );
+              if (directive.deferredKeyword != null) prefixedEnv.markDeferred(prefix);
               moduleEnvironment.definePrefixedImport(prefix, prefixedEnv);
             });
             Logger.debug(

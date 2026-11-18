@@ -1442,6 +1442,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
         }
         return member; // Return the value/function directly
+      } on DeferredLibraryNotLoadedD4rtException {
+        rethrow;
       } on RuntimeD4rtException catch (e) {
         throw RuntimeD4rtException(
           "Erreur lors de la récupération du membre '$memberName' de l'import préfixé '${node.prefix.toString()}': ${e.message}",
@@ -3010,6 +3012,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           throw RuntimeD4rtException("Error executing class operator '[]': $e");
         }
       }
+      final inherited = _inheritedBridgedOperator(targetValue, '[]');
+      if (inherited != null) return inherited([indexValue]);
     } else if (targetValue is InterpretedExtensionTypeInstance) {
       // DFUB9: index operator `[]` declared on an extension type.
       final operatorMethod = targetValue.extensionType.methods['[]'];
@@ -4639,6 +4643,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
             }
           } else {
+            final inherited = _inheritedBridgedOperator(targetValue, '[]=');
+            if (inherited != null) {
+              inherited([indexValue, finalValueToAssign]);
+              return finalValueToAssign;
+            }
             // No class operator found, try extensions
             const operatorName = '[]=';
             try {
@@ -4890,6 +4899,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // The 'targetValue' for the call will be null because this is not an instance method on the environment itself,
           // but a function retrieved from this environment.
           // Functions obtained in this way are already "autonomous" or correctly bound if they come from classes.
+        } on DeferredLibraryNotLoadedD4rtException {
+          rethrow;
         } on RuntimeD4rtException catch (e) {
           final moduleName = node.target is SSimpleIdentifier
               ? (node.target as SSimpleIdentifier).name
@@ -7466,6 +7477,33 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         );
       }
     }
+  }
+
+  /// ghissues71: the operator [name] an interpreted instance inherits from
+  /// the bridged class its class extends (path's `PathMap`, which extends
+  /// `MapView`), bound to its native super object; null when the
+  /// instance has none or the bridge declares no such operator.
+  Object? Function(List<Object?> arguments)? _inheritedBridgedOperator(
+    InterpretedInstance instance,
+    String name,
+  ) {
+    final native = instance.bridgedSuperObject;
+    if (native == null) return null;
+    for (
+      InterpretedClass? current = instance.klass;
+      current != null;
+      current = current.superclass
+    ) {
+      final bridged = current.bridgedSuperclass;
+      if (bridged == null) continue;
+      final adapter = bridged.findInstanceMethodAdapter(name);
+      if (adapter == null) return null;
+      return (arguments) => adapter(this, native, [
+        for (final argument in arguments)
+          _bridgeInterpreterValueToNative(argument),
+      ], {}, null);
+    }
+    return null;
   }
 
   String stringify(Object? value) {
@@ -11976,6 +12014,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               instanceFieldNames.contains(requiredName)) {
             continue;
           }
+          // ghissues71: another library's private members are not part of
+          // the interface this class must implement.
+          if (!klass.bindsInterfaceMember(requiredName)) continue;
           if (!availableConcreteMembers.containsKey(requiredName)) {
             throw RuntimeD4rtException(
               "Missing concrete implementation for interface $memberType '$requiredName' in class '${klass.name}'.",
@@ -14285,9 +14326,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // Only the shape cases use this; `Null` / `Object` / `dynamic` / `void`
       // and the `default` branch keep the operand as it arrived, because they
       // ask about the value's identity or its bridge, not its native shape.
-      final shapeValue = expressionValue is BridgedInstance
-          ? expressionValue.nativeObject
-          : expressionValue;
+      // ghissues71: an interpreted class extending a bridged one (path's
+      // `PathMap extends MapView`) has the native super object's shape - its
+      // keys and values, so the entry check below answers for it as for any
+      // map.
+      final shapeValue = switch (expressionValue) {
+        BridgedInstance() => expressionValue.nativeObject,
+        InterpretedInstance(:final bridgedSuperObject?) => bridgedSuperObject,
+        _ => expressionValue,
+      };
 
       // Handle built-in types first
       switch (typeName) {
@@ -18203,6 +18250,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         showNames: showNames,
         hideNames: hideNames,
       );
+      if (node.isDeferred) envForPrefix.markDeferred(prefixName);
       environment.definePrefixedImport(prefixName, envForPrefix);
     } else {
       if (Logger.isDebug) {

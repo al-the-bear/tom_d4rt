@@ -1002,6 +1002,11 @@ const _instanceRecipes = <String, Recipe>{
     'UnmodifiableMapView<String, int>({\'a\': 1})',
     imports: "import 'dart:collection';",
   ),
+  // ghissues71: bridged so path's `PathMap` can extend it.
+  'MapView': Recipe(
+    'MapView<String, int>({\'a\': 1})',
+    imports: "import 'dart:collection';",
+  ),
   'LinkedList': Recipe('LinkedList()', imports: "import 'dart:collection';"),
   // The SDK's `LinkedListEntry` is abstract and exists to be subclassed; this
   // bridge models it as a concrete value carrier instead, so `LinkedListEntry(1)`

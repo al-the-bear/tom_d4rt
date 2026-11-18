@@ -1287,6 +1287,7 @@ class AstModuleLoader implements ModuleContext {
             showNames: showNames,
             hideNames: hideNames,
           );
+          if (directive.isDeferred) filteredEnv.markDeferred(prefix);
           moduleEnv.definePrefixedImport(prefix, filteredEnv);
         });
       } else {

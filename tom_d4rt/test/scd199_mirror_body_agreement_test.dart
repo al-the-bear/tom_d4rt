@@ -399,7 +399,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // check for a class with a non-trivial noSuchMethod alike.
     // GHISSUES66: 0ec82bb0 -> b1767df8, both trees count instance fields
     // against an interface's getters and setters alike.
-    'InterpreterVisitor.visitClassDeclaration': 'b1767df8',
+    // GHISSUES71: b1767df8 -> c705c230, both trees skip another library's `_` interface members alike.
+    'InterpreterVisitor.visitClassDeclaration': 'c705c230',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
@@ -433,7 +434,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES7: both trees bind a prefix to `prefixSurface`; the new residue
     // is the loader field's name, `moduleLoader` here and `moduleContext` in
     // the twin.
-    'InterpreterVisitor.visitImportDirective': 'ccb08d3d',
+    // GHISSUES71: ccb08d3d -> 3849d723, a deferred import marks its prefix: the analyzer's `deferredKeyword` against the mirror's `isDeferred`.
+    'InterpreterVisitor.visitImportDirective': '3849d723',
     // GHISSUES36: 7ad649cc -> 0ff5eaa8, both trees resolve a call's type arguments
     // with `_resolveTypeArgument` alike.
     // GHISSUES67: the body moved to `_instanceCreation`; the visitor now
@@ -457,7 +459,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES70: efa6c617 -> 88671abb, both trees note the member access with
     // its receiver and start a call's type arguments from the static-facts
     // hook alike.
-    'InterpreterVisitor.visitMethodInvocation': '88671abb',
+    // GHISSUES71: 88671abb -> 5cf0c6b5, both trees let a deferred library's not-loaded error through alike.
+    'InterpreterVisitor.visitMethodInvocation': '5cf0c6b5',
     // GHISSUES70 (GitHub #18, option B2): the static-facts hooks. tom_d4rt_ast
     // reads a resolved bundle's facts attached to the node; tom_d4rt runs
     // source, has no facts, and returns null. Every caller is shared.
@@ -507,7 +510,8 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._stepStaticProperty': '15618af1',
     // GHISSUES67: 522d3312 -> ca024abf, both trees answer a script collection's runtimeType by its written type
     // alike.
-    'InterpreterVisitor.visitPrefixedIdentifier': 'ca024abf',
+    // GHISSUES71: ca024abf -> 360f95bf, both trees let a deferred library's not-loaded error through alike.
+    'InterpreterVisitor.visitPrefixedIdentifier': '360f95bf',
     // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
     // declined-member reason to the same property-miss message.
     // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged

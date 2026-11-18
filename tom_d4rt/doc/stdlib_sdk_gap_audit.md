@@ -490,11 +490,12 @@ Dart 3.13 added thirteen: `int.oneBitCount`, `int.trailingZeroBitCount`,
 equivalents every supported SDK has, and the eight `Isolate` embedding members
 are declined (limitations doc).
 
-Measured 2026-09-21.
+Measured 2026-09-21; the class count re-measured 2026-11-18, when ghissues71
+bridged `dart:collection`'s `MapView`.
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 208 |
+| Bridged classes examined | 209 |
 | Raw candidates from the map diff | 680 |
 | … reachable anyway via instance fallback | 651 |
 | … unverified — cannot be measured, reason stated | 36 in 1 class |
@@ -1126,13 +1127,15 @@ answer is actually `false`. Measured 2026-09-06, after the `dart:io` and
 
 Measured 2026-09-07; the `isAssignable` count re-measured 2026-09-22,
 when SCE121 gave the `Function` bridge one so that `is Function` answers for
-every value the interpreter can call.
+every value the interpreter can call; the class, `isAssignable` and edge counts
+re-measured 2026-11-18, when ghissues71 bridged `MapView` (`MapView -> Map`,
+`UnmodifiableMapView -> MapView`).
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 208 |
-| … declaring `isAssignable` | 182 |
-| … with ≥ 1 registered edge | 120 |
+| Bridged classes examined | 209 |
+| … declaring `isAssignable` | 183 |
+| … with ≥ 1 registered edge | 121 |
 | Candidate edges from the cross-reference | 1 |
 | … satisfied anyway via `isAssignable` | 1 |
 | … unverified (no instance recipe) | 0 |
@@ -1365,14 +1368,15 @@ have missed both.
 
 ### Measured state
 
-Measured 2026-09-25.
+Measured 2026-09-25; re-measured 2026-11-18, when ghissues71 bridged
+`MapView` (five more members probed, one fewer not probed).
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 645 |
-| … usable (a witness read succeeded) | 645 |
+| Members whose return value was probed | 650 |
+| … usable (a witness read succeeded) | 650 |
 | … **RETURN-TYPE GAP** | **0** |
-| Not probed (no argument literal, or no witness on the return type) | 23 |
+| Not probed (no argument literal, or no witness on the return type) | 22 |
 | No answer (probe wedged) | 3 |
 | Parameter types with no bridge (static pass) | 0 |
 
