@@ -1,3 +1,23 @@
+## 1.273.0
+
+### Fixed — a generic instance's `runtimeType` keeps its type arguments (ghissues72)
+
+`Box<int>().runtimeType` printed `Box`; it now prints `Box<int>`, as in Dart.
+It is equal to another instance's of the same class with the same arguments
+only:
+- `Box<int>` against `Box<String>` is unequal;
+- `Box<int>().runtimeType == Box` is false, since `Box` denotes `Box<dynamic>`.
+
+It is a `Type`, so it works as a map or set key. The value is an
+`InterpretedGenericType`.
+
+A non-generic instance still answers with its class, and so does one whose
+arguments are the class's defaults (`Box()`, `Box<dynamic>()`, a bounded
+parameter left out). So `x.runtimeType == ScriptClass` holds as before. Such
+an instance prints `Box` where Dart prints `Box<dynamic>`.
+
+Name resolution: no.
+
 ## 1.272.0
 
 ### Fixed — Slang's package closure, three stops (ghissues71, GitHub #21)

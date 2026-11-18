@@ -515,9 +515,29 @@ const _partialTwinBudget = 0;
 /// bundles. ghissues1002 ports it after publishing. The copier surface a port
 /// would have added is deferred import directives, which the converter copies
 /// on every run (`SImportDirective.isDeferred`).
-const _copierGapBudget = 49;
+///
+/// 49 -> 50: GHISSUES72 added
+/// `ghissues72_generic_instance_runtime_type_test.dart`, which runs source to
+/// check that an interpreted generic instance's `runtimeType` keeps its type
+/// arguments (`Box<int>`), compares by class and arguments, and stays the class
+/// for a raw instance. Exec resolves tom_d4rt_ast 0.244.0 from pub.dev, where
+/// it prints `Box`, so a port would fail. Its ast twin holds the mechanism,
+/// from a bundle. ghissues1002 ports it after publishing. The copier surface a
+/// port would have added is generic instance creations, which the corpus copies
+/// on every run.
+const _copierGapBudget = 50;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues72_generic_instance_runtime_type_test.dart': _Coverage(
+    'ast:runtime/ghissues72_generic_instance_runtime_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 3,
+    whyPartial:
+        'the same three programs: the reference runs them as source, the twin '
+        'as a bundle that tom_ast_generator wrote, through toBytes / fromBytes.',
+  ),
   'ghissues71_slang_closure_test.dart': _Coverage(
     'ast:runtime/ghissues71_slang_closure_test.dart',
     _astTwin,

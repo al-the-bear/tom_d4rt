@@ -1864,7 +1864,7 @@ class InterpretedInstance implements RuntimeValue {
       case 'hashCode':
         return hashCode;
       case 'runtimeType':
-        return klass;
+        return runtimeTypeValue;
     }
     return null;
   }
@@ -1955,7 +1955,7 @@ class InterpretedInstance implements RuntimeValue {
     // Handle Object properties that all objects have
     switch (name) {
       case 'runtimeType':
-        return klass;
+        return runtimeTypeValue;
       case 'hashCode':
         return hashCode;
     }
@@ -2556,6 +2556,30 @@ class InterpretedInstance implements RuntimeValue {
     throw RuntimeD4rtException(
       "Internal Error: Field '$name' not found for super access on instance of ${klass.name}. This might indicate an issue with super property access implementation.",
     );
+  }
+
+  /// What the script's `runtimeType` answers. ghissues72: an instance
+  /// created with type arguments answers with them, `Box<int>` as Dart prints
+  /// it, equal to another instance's of the same class and arguments only
+  /// ([InterpretedGenericType]). A non-generic instance, and one whose
+  /// arguments are the class's defaults (`Box()`, which the interpreter
+  /// fills with `dynamic`, or a parameter's bound), answers with its class,
+  /// as before: in Dart the literal `Box` denotes exactly that type, so
+  /// `Box().runtimeType == Box` holds. It prints `Box` where Dart prints
+  /// `Box<dynamic>`.
+  Object get runtimeTypeValue {
+    final arguments = typeArguments;
+    if (arguments == null || arguments.isEmpty) return klass;
+    final names = klass.typeParameterNames;
+    var defaults = arguments.length == names.length;
+    for (var i = 0; defaults && i < names.length; i++) {
+      // Omitted arguments arrive as `dynamic`, bounded or not.
+      final name = arguments[i].name;
+      defaults =
+          name == 'dynamic' ||
+          name == klass.typeParameterBounds[names[i]]?.name;
+    }
+    return defaults ? klass : InterpretedGenericType(klass, arguments);
   }
 
   // Implémentation de RuntimeValue.valueType (précédemment runtimeType)
@@ -3590,4 +3614,36 @@ class InterpretedExtensionTypeInstance implements RuntimeValue {
 /// The type of [InterpretedInstance.noNoSuchMethod].
 class _NoNoSuchMethod {
   const _NoNoSuchMethod();
+}
+
+/// ghissues72: the `runtimeType` of an interpreted instance created with type
+/// arguments - `Box<int>().runtimeType` - which Dart prints as `Box<int>`.
+///
+/// The class and its arguments: equal to another of the same class with the
+/// same arguments, unequal to one with other arguments and to the class
+/// itself (`Box<int>().runtimeType == Box` is false in Dart, `Box` meaning
+/// `Box<dynamic>`). A native [Type], as `WrittenCollectionType` is for a
+/// script's collection, so `is Type`, interpolation, `toString()` and use as
+/// a map key behave as for any type.
+class InterpretedGenericType implements Type {
+  /// The class.
+  final InterpretedClass klass;
+
+  /// The type arguments the instance was created with.
+  final List<RuntimeType> typeArguments;
+
+  InterpretedGenericType(this.klass, this.typeArguments);
+
+  @override
+  String toString() =>
+      '${klass.name}<${typeArguments.map((t) => t.name).join(', ')}>';
+
+  @override
+  bool operator ==(Object other) =>
+      other is InterpretedGenericType &&
+      identical(other.klass, klass) &&
+      other.toString() == toString();
+
+  @override
+  int get hashCode => Object.hash(klass, toString());
 }
