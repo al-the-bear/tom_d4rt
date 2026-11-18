@@ -75,7 +75,14 @@ void main() {
   test('F-SCB24-AST-1: every declared bridge definition is registered '
       '[2026-09-06]', () {
     final declared = declaredDefinitionCount();
-    final live = fullyRegistered().bridgedClassNames.length;
+    // ghissues77: an ALIAS is a live name without a definition of its own -
+    // dart:collection's typedefs `IterableBase`, `ListMixin`, ... name the
+    // `Iterable`, `ListBase`, ... bridges - so only names a bridge carries as
+    // its own count.
+    final env = fullyRegistered();
+    final live = env.bridgedClassNames
+        .where((name) => env.findBridgedClassByName(name)?.name == name)
+        .length;
     expect(
       live,
       equals(declared),

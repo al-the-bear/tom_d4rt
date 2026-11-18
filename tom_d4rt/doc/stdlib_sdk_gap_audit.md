@@ -491,11 +491,12 @@ equivalents every supported SDK has, and the eight `Isolate` embedding members
 are declined (limitations doc).
 
 Measured 2026-09-21; the class count re-measured 2026-11-18, when ghissues71
-bridged `dart:collection`'s `MapView`.
+bridged `dart:collection`'s `MapView` and ghissues77 its `ListBase`, `SetBase`,
+`MapBase` and `UnmodifiableMapBase` (their typedef aliases are not counted).
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 209 |
+| Bridged classes examined | 213 |
 | Raw candidates from the map diff | 680 |
 | … reachable anyway via instance fallback | 651 |
 | … unverified — cannot be measured, reason stated | 36 in 1 class |
@@ -1129,13 +1130,15 @@ Measured 2026-09-07; the `isAssignable` count re-measured 2026-09-22,
 when SCE121 gave the `Function` bridge one so that `is Function` answers for
 every value the interpreter can call; the class, `isAssignable` and edge counts
 re-measured 2026-11-18, when ghissues71 bridged `MapView` (`MapView -> Map`,
-`UnmodifiableMapView -> MapView`).
+`UnmodifiableMapView -> MapView`) and ghissues77 the collection bases
+(`ListBase -> List`, `SetBase -> Set`, `MapBase -> Map`,
+`UnmodifiableMapBase -> MapBase`).
 
 | Metric | Count |
 |--------|-------|
-| Bridged classes examined | 209 |
+| Bridged classes examined | 213 |
 | … declaring `isAssignable` | 183 |
-| … with ≥ 1 registered edge | 121 |
+| … with ≥ 1 registered edge | 125 |
 | Candidate edges from the cross-reference | 1 |
 | … satisfied anyway via `isAssignable` | 1 |
 | … unverified (no instance recipe) | 0 |
@@ -1369,12 +1372,13 @@ have missed both.
 ### Measured state
 
 Measured 2026-09-25; re-measured 2026-11-18, when ghissues71 bridged
-`MapView` (five more members probed, one fewer not probed).
+`MapView` (five more members probed, one fewer not probed) and ghissues77 the
+collection bases (their members probed on script subclasses).
 
 | Metric | Count |
 |--------|-------|
-| Members whose return value was probed | 650 |
-| … usable (a witness read succeeded) | 650 |
+| Members whose return value was probed | 709 |
+| … usable (a witness read succeeded) | 709 |
 | … **RETURN-TYPE GAP** | **0** |
 | Not probed (no argument literal, or no witness on the return type) | 22 |
 | No answer (probe wedged) | 3 |

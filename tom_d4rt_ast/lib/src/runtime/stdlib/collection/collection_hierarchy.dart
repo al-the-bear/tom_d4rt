@@ -36,21 +36,23 @@ class CollectionHierarchyCollection {
       // Maps. `Map` is not an `Iterable` in Dart, so the chain stops there.
       'HashMap': ['Map'],
       'LinkedHashMap': ['Map'],
-      'SplayTreeMap': ['Map'],
+      // ghissues77: the SDK's `SplayTreeMap ... with MapMixin`; `MapMixin` is a
+      // typedef of `MapBase`, an alias of its bridge.
+      'SplayTreeMap': ['MapBase'],
       'MapView': ['Map'],
       'UnmodifiableMapView': ['MapView'],
       // Sets. One edge per SDK relationship; `HashSet is Iterable` is answered
       // by following `HashSet -> Set -> Iterable`, not by restating it.
       'HashSet': ['Set'],
       'LinkedHashSet': ['Set'],
-      'SplayTreeSet': ['Set'],
-      'UnmodifiableSetView': ['Set'],
+      'SplayTreeSet': ['SetBase'],
+      'UnmodifiableSetView': ['SetBase'],
       // Lists. `List -> Iterable` and `Set -> Iterable` live in
       // `CoreHierarchyCore`: both are `dart:core` types, and declaring them
       // here left them unavailable to any script that did not import
       // `dart:collection` — which `dart:typed_data` now depends on not being
       // the case.
-      'UnmodifiableListView': ['List'],
+      'UnmodifiableListView': ['ListBase'],
       // Queues.
       'DoubleLinkedQueue': ['Queue'],
       'ListQueue': ['Queue'],

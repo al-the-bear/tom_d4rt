@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:tom_d4rt_ast/runtime.dart';
 import 'package:tom_d4rt_ast/src/runtime/static_facts_index.dart';
+import 'package:tom_d4rt_ast/src/runtime/stdlib/collection/script_collection_bases.dart';
 import 'package:tom_d4rt_ast/src/runtime/stdlib/written_collection_writes.dart';
 import 'package:tom_d4rt_ast/src/runtime/unbridged_reasons.dart';
 
@@ -1701,7 +1702,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       );
     } else if (prefixValue is InterpretedInstance) {
       try {
-        final member = prefixValue.get(memberName, visitor: this);
+        final member = prefixValue.getForAccess(memberName, visitor: this);
         if (member is InterpretedFunction && member.isGetter) {
           return member.bind(prefixValue).call(this, [], {});
         } else {
@@ -2095,6 +2096,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             name: 'toString',
           );
       }
+      // ghissues77: an extension on a function type (package collection's
+      // `extension ComparatorExtension<T> on Comparator<T>`).
+      final viaExtension = _extensionGetOnFunction(prefixValue, memberName);
+      if (!identical(viaExtension, _noOverride)) return viaExtension;
       throw RuntimeD4rtException.resolutionFailure(
         "Cannot access property '$memberName' on function. Functions only support 'hashCode', 'runtimeType', and 'toString'.",
       );
@@ -2470,6 +2475,30 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } catch (e) {
           throw RuntimeD4rtException(
             "Error executing class operator '$operatorName': $e",
+          );
+        }
+      }
+      // ghissues77: an operator the instance inherits from its bridged
+      // superclass (`ListBase.+`), run on its native object or receiver
+      // proxy. `==` / `!=` keep their own handling below.
+      if (operatorName != '==' && operatorName != '!=') {
+        final inherited = _inheritedBridgedOperator(
+          leftOperandValue,
+          operatorName,
+        );
+        if (inherited != null) {
+          return wrapNativeReturnValue(inherited([rightOperandValue]));
+        }
+        // A script collection's operator the SDK implements natively
+        // (`List.+`, no bridge adapter): the receiver proxy computes it.
+        final shape = leftOperandValue.collectionShape(this);
+        if (shape is D4ScriptCollectionProxy) {
+          return wrapNativeReturnValue(
+            _dynamicBinary(
+              operatorName,
+              shape,
+              _bridgeInterpreterValueToNative(rightOperandValue),
+            ),
           );
         }
       }
@@ -6756,10 +6785,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (target is InterpretedInstance) {
       // Standard Instance Access: Try direct first, then extension
       try {
-        final member = target.get(
+        final member = target.getForAccess(
           propertyName,
           visitor: this,
-        ); // .get() handles inheritance
+        ); // handles inheritance; statics are not reachable through `x.`
         if (member is InterpretedFunction && member.isGetter) {
           return member.call(
             this,
@@ -7530,14 +7559,13 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
   /// ghissues71: the operator [name] an interpreted instance inherits from
   /// the bridged class its class extends (path's `PathMap`, which extends
-  /// `MapView`), bound to its native super object; null when the
-  /// instance has none or the bridge declares no such operator.
+  /// `MapView`), bound to its native super object, else (ghissues77) its
+  /// receiver proxy; null when the instance has neither or the bridge (and
+  /// its supertypes) declare no such operator.
   Object? Function(List<Object?> arguments)? _inheritedBridgedOperator(
     InterpretedInstance instance,
     String name,
   ) {
-    final native = instance.bridgedSuperObject;
-    if (native == null) return null;
     for (
       InterpretedClass? current = instance.klass;
       current != null;
@@ -7545,8 +7573,12 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     ) {
       final bridged = current.bridgedSuperclass;
       if (bridged == null) continue;
-      final adapter = bridged.findInstanceMethodAdapter(name);
+      final adapter = bridged.findReachableMethodAdapter(name, this);
       if (adapter == null) return null;
+      // ghissues77: an abstract bridged base (`UnmodifiableMapBase`) runs
+      // the operator on the instance's receiver proxy.
+      final native = instance.nativeReceiverFor(bridged.name, this);
+      if (native == null) return null;
       return (arguments) => adapter(this, native, [
         for (final argument in arguments)
           _bridgeInterpreterValueToNative(argument),
@@ -9366,6 +9398,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             {},
             null,
           );
+        } else if (indexTarget is InterpretedInstance &&
+            indexTarget.klass.findOperator('[]') != null) {
+          // ghissues77: a script class's own `operator []`.
+          currentValue = _callScriptOperator(indexTarget, '[]', [indexValue]);
         } else {
           throw RuntimeD4rtException(
             "Compound index assignment target must be List or Map in cascade.",
@@ -9412,6 +9448,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           {},
           null,
         );
+      } else if (indexTarget is InterpretedInstance &&
+          indexTarget.klass.findOperator('[]=') != null) {
+        // ghissues77: a script class's own `operator []=` (a `MapBase` or
+        // `ListBase` subclass, `m..['k'] = v`).
+        _callScriptOperator(indexTarget, '[]=', [indexValue, newValue]);
       } else {
         throw RuntimeD4rtException(
           "Index assignment target must be List or Map in cascade.",
@@ -12053,7 +12094,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         for (final abstractName in inheritedAbstract.keys) {
           // Check if the abstract member is satisfied by a concrete method/getter/setter OR a field
           if (!concreteMembers.containsKey(abstractName) &&
-              !fieldNames.contains(abstractName)) {
+              !fieldNames.contains(abstractName) &&
+              !klass.providesMember(abstractName, this)) {
             final abstractMember = inheritedAbstract[abstractName]!;
             String memberType = "method";
             if (abstractMember.isGetter) memberType = "getter";
@@ -12082,7 +12124,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // ghissues71: another library's private members are not part of
           // the interface this class must implement.
           if (!klass.bindsInterfaceMember(requiredName)) continue;
-          if (!availableConcreteMembers.containsKey(requiredName)) {
+          if (!availableConcreteMembers.containsKey(requiredName) &&
+              !klass.providesMember(requiredName, this)) {
             throw RuntimeD4rtException(
               "Missing concrete implementation for interface $memberType '$requiredName' in class '${klass.name}'.",
             );
@@ -14397,7 +14440,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // map.
       final shapeValue = switch (expressionValue) {
         BridgedInstance() => expressionValue.nativeObject,
-        InterpretedInstance(:final bridgedSuperObject?) => bridgedSuperObject,
+        // ghissues77: a `ListBase` / `MapBase` / `IterableBase` subclass has
+        // its receiver proxy's shape.
+        InterpretedInstance() =>
+          expressionValue.collectionShape(this) ?? expressionValue,
         _ => expressionValue,
       };
 
@@ -15135,6 +15181,67 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     _callExtensionMember(member, [target, index, value]);
     return value;
+  }
+
+  /// ghissues77: `f.name` for a function [target] through an extension's
+  /// getter (called) or method (its tear-off); [_noOverride] when no
+  /// extension declares [name] for it.
+  Object? _extensionGetOnFunction(Callable target, String name) {
+    final Callable? member;
+    try {
+      member = environment.findExtensionMember(target, name);
+    } on RuntimeD4rtException {
+      return _noOverride;
+    }
+    if (member is! ExtensionMemberCallable) return _noOverride;
+    if (member.isGetter) return _callExtensionMember(member, [target]);
+    if (member.isOperator || member.isSetter) return _noOverride;
+    return member;
+  }
+
+  /// ghissues77: the binary operator [operator] applied to the native
+  /// [left] by Dart's own dispatch (a script collection's receiver proxy:
+  /// `ListBase.+` is the SDK's `List.+`).
+  static Object? _dynamicBinary(String operator, Object left, Object? right) {
+    final l = left as dynamic;
+    final r = right as dynamic;
+    return switch (operator) {
+      '+' => l + r,
+      '-' => l - r,
+      '*' => l * r,
+      '/' => l / r,
+      '~/' => l ~/ r,
+      '%' => l % r,
+      '<' => l < r,
+      '>' => l > r,
+      '<=' => l <= r,
+      '>=' => l >= r,
+      '&' => l & r,
+      '|' => l | r,
+      '^' => l ^ r,
+      '<<' => l << r,
+      '>>' => l >> r,
+      '>>>' => l >>> r,
+      _ => throw RuntimeD4rtException(
+        'Unsupported binary operator "$operator"',
+      ),
+    };
+  }
+
+  /// ghissues77: calls the operator [symbol] [target]'s class declares.
+  Object? _callScriptOperator(
+    InterpretedInstance target,
+    String symbol,
+    List<Object?> arguments,
+  ) {
+    try {
+      return target.klass
+          .findOperator(symbol)!
+          .bind(target)
+          .call(this, arguments, {});
+    } on ReturnException catch (e) {
+      return e.value;
+    }
   }
 
   /// Calls an extension member with its receiver first in [arguments].
@@ -16149,6 +16256,14 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // conversion for Type-typed parameters is the same rule, which bridges
     // now receive already applied.
     if (interpreterValue is BridgedClass) return interpreterValue.nativeType;
+    // ghissues77: a script `ListBase` / `MapBase` / `IterableBase` ...
+    // subclass crosses as its receiver proxy - native code takes it as the
+    // List, Map, Set or Iterable it is (`List.of(x)`, `jsonEncode(x)`).
+    if (interpreterValue is InterpretedInstance &&
+        interpreterValue.bridgedSuperObject == null) {
+      final shape = interpreterValue.collectionShape(this);
+      if (shape is D4ScriptCollectionProxy) return shape;
+    }
     return D4.unwrapAs<Object?>(interpreterValue, visitor: this);
   }
 
@@ -16168,6 +16283,10 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     }
     if (nativeValue is BridgedInstance) {
       return nativeValue;
+    }
+    // ghissues77: a script collection's proxy is the script instance again.
+    if (nativeValue is D4ScriptCollectionProxy) {
+      return nativeValue.scriptInstance;
     }
     if (nativeValue is List) {
       return nativeValue.map(wrapNativeReturnValue).toList();
@@ -17778,8 +17897,11 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (e is UndefinedNameD4rtException && e.name == onTypeName) {
           // Special handling for core types that might not be explicitly defined if stdlib wasn't fully loaded?
           // Or maybe they are always NativeFunctions?
+          // ghissues77: `dart:core`'s function typedef `Comparator` (package
+          // collection's `extension ComparatorExtension<T> on Comparator<T>`)
+          // names a function type; the extension applies to functions.
           BridgedClass? coreBridgedType = _getBridgedClassForNativeType(
-            onTypeName,
+            onTypeName == 'Comparator' ? 'Function' : onTypeName,
           );
           if (coreBridgedType != null) {
             onRuntimeType = coreBridgedType;

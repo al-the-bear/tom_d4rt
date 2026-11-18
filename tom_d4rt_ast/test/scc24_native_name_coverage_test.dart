@@ -640,6 +640,34 @@ Future<void> _captureLiveInstances() async {
 ///
 /// A decline is a claim about cost, so each one names the cost:
 const _declinedInstances = <String, String>{
+  'ListBase':
+      'ghissues77: a collection base a script class extends or mixes in; '
+      'no native value resolves to it - a native subclass is claimed by the '
+      'List, Set or Map bridge, which is what native code sees too - so its '
+      'getters run only as a script subclass inherits them, on the receiver '
+      'proxy, and ghissues77_collection_bases_test measures those against '
+      'native Dart',
+  'SetBase':
+      'ghissues77: a collection base a script class extends or mixes in; '
+      'no native value resolves to it - a native subclass is claimed by the '
+      'List, Set or Map bridge, which is what native code sees too - so its '
+      'getters run only as a script subclass inherits them, on the receiver '
+      'proxy, and ghissues77_collection_bases_test measures those against '
+      'native Dart',
+  'MapBase':
+      'ghissues77: a collection base a script class extends or mixes in; '
+      'no native value resolves to it - a native subclass is claimed by the '
+      'List, Set or Map bridge, which is what native code sees too - so its '
+      'getters run only as a script subclass inherits them, on the receiver '
+      'proxy, and ghissues77_collection_bases_test measures those against '
+      'native Dart',
+  'UnmodifiableMapBase':
+      'ghissues77: a collection base a script class extends or mixes in; '
+      'no native value resolves to it - a native subclass is claimed by the '
+      'List, Set or Map bridge, which is what native code sees too - so its '
+      'getters run only as a script subclass inherits them, on the receiver '
+      'proxy, and ghissues77_collection_bases_test measures those against '
+      'native Dart',
   'Process':
       'spawning a process has consequences past the end of the test — '
       'the one resource class this file has always refused, and the reason it '
@@ -1334,7 +1362,9 @@ void main() {
 
       expect(
         uncovered.length,
-        lessThanOrEqualTo(3),
+        // ghissues77: 3 -> 7, the four collection bases (ListBase, SetBase,
+        // MapBase, UnmodifiableMapBase), which no native value resolves to.
+        lessThanOrEqualTo(7),
         reason:
             'The declined set has grown. Lower this deliberately if a bridge '
             'genuinely cannot be swept, and say why in `_declinedInstances`. '

@@ -307,7 +307,7 @@ Environment buildFullyRegisteredEnvironment() {
 /// [only] narrows the run to named classes, as `--only` does. The totals over a
 /// narrowed run are a subset and must not be published as a measurement.
 List<ClassDiff> collectMemberDiffs(Environment env, {Set<String>? only}) {
-  final names = env.bridgedClassNames..sort();
+  final names = _ownBridgeNames(env)..sort();
   final diffs = <ClassDiff>[];
   for (final name in names) {
     if (only != null && !only.contains(name)) continue;
@@ -994,6 +994,128 @@ const _instanceRecipes = <String, Recipe>{
   'UnmodifiableListView': Recipe(
     'UnmodifiableListView<int>([1, 2])',
     imports: "import 'dart:collection';",
+  ),
+  // ghissues77: asked once `SetBase` became a bridge it extends.
+  'UnmodifiableSetView': Recipe(
+    'UnmodifiableSetView<int>({1, 2})',
+    imports: "import 'dart:collection';",
+  ),
+  // ghissues77: the collection bases and their Dart 3 typedef aliases, each
+  // measured on the script subclass that is the only way to reach it (no
+  // native value resolves to these bridges).
+  'IterableBase': Recipe(
+    '_I()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _I extends IterableBase<int> {
+  Iterator<int> get iterator => [1, 2].iterator;
+}
+''',
+  ),
+  'IterableMixin': Recipe(
+    '_IM()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _IM with IterableMixin<int> {
+  Iterator<int> get iterator => [1, 2].iterator;
+}
+''',
+  ),
+  'ListBase': Recipe(
+    '_L()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _L extends ListBase<int> {
+  final _items = <int?>[1, 2];
+  int get length => _items.length;
+  set length(int n) => _items.length = n;
+  int operator [](int i) => _items[i]!;
+  void operator []=(int i, int v) => _items[i] = v;
+}
+''',
+  ),
+  'ListMixin': Recipe(
+    '_LM()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _LM with ListMixin<int> {
+  final _items = <int?>[1, 2];
+  int get length => _items.length;
+  set length(int n) => _items.length = n;
+  int operator [](int i) => _items[i]!;
+  void operator []=(int i, int v) => _items[i] = v;
+}
+''',
+  ),
+  'SetBase': Recipe(
+    '_S()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _S extends SetBase<int> {
+  final _items = <int>{1, 2};
+  bool add(int v) => _items.add(v);
+  bool contains(Object? e) => _items.contains(e);
+  int? lookup(Object? e) => _items.lookup(e);
+  bool remove(Object? v) => _items.remove(v);
+  Iterator<int> get iterator => _items.iterator;
+  int get length => _items.length;
+  Set<int> toSet() => _items.toSet();
+}
+''',
+  ),
+  'SetMixin': Recipe(
+    '_SM()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _SM with SetMixin<int> {
+  final _items = <int>{1, 2};
+  bool add(int v) => _items.add(v);
+  bool contains(Object? e) => _items.contains(e);
+  int? lookup(Object? e) => _items.lookup(e);
+  bool remove(Object? v) => _items.remove(v);
+  Iterator<int> get iterator => _items.iterator;
+  int get length => _items.length;
+  Set<int> toSet() => _items.toSet();
+}
+''',
+  ),
+  'MapBase': Recipe(
+    '_M()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _M extends MapBase<int, int> {
+  final _map = <int, int>{1: 2};
+  int? operator [](Object? k) => _map[k];
+  void operator []=(int k, int v) => _map[k] = v;
+  Iterable<int> get keys => _map.keys;
+  int? remove(Object? k) => _map.remove(k);
+  void clear() => _map.clear();
+}
+''',
+  ),
+  'MapMixin': Recipe(
+    '_MM()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _MM with MapMixin<int, int> {
+  final _map = <int, int>{1: 2};
+  int? operator [](Object? k) => _map[k];
+  void operator []=(int k, int v) => _map[k] = v;
+  Iterable<int> get keys => _map.keys;
+  int? remove(Object? k) => _map.remove(k);
+  void clear() => _map.clear();
+}
+''',
+  ),
+  'UnmodifiableMapBase': Recipe(
+    '_U()',
+    imports: "import 'dart:collection';",
+    prelude: r'''
+class _U extends UnmodifiableMapBase<int, int> {
+  int? operator [](Object? k) => k == 1 ? 2 : null;
+  Iterable<int> get keys => const [1];
+}
+''',
   ),
   // The map sibling of the view above, missing for no reason other than that
   // nobody had asked it a question — the list view was added when a `List` gap
@@ -2466,7 +2588,7 @@ String? _importForType(
 }) {
   var derived = 0;
   final unresolved = <String>{};
-  for (final name in env.bridgedClassNames) {
+  for (final name in _ownBridgeNames(env)) {
     final bridge = env.findBridgedClassByName(name);
     if (bridge == null) continue;
     final mirror = reflectType(bridge.nativeType);
@@ -2537,7 +2659,7 @@ Set<ClassMirror> _sdkSupertypeDeclarations(Type type) {
 /// have no bridge are a different finding (a missing bridge), and the member
 /// diff is not the place to raise it either.
 List<HierarchyGap> auditHierarchy(Environment env) {
-  final names = env.bridgedClassNames..sort();
+  final names = _ownBridgeNames(env)..sort();
 
   // Declaration mirror -> the bridge names registered for it. A list because
   // aliases exist: two names can share one native type.
@@ -2604,7 +2726,7 @@ List<HierarchyGap> auditHierarchy(Environment env) {
 /// future control — the `SplayTreeSet -> Set` row in
 /// `test/stdlib/hierarchy_baseline_test.dart`'s matrix is one of these.
 List<String> invisibleRegisteredEdges(Environment env) {
-  final names = env.bridgedClassNames..sort();
+  final names = _ownBridgeNames(env)..sort();
   final byDeclaration = <ClassMirror, List<String>>{};
   for (final name in names) {
     final bc = env.findBridgedClassByName(name);
@@ -3551,10 +3673,10 @@ Future<List<ReturnGap>> auditReturnTypes(
   Set<String>? only,
   void Function(String name, int probes)? onClass,
 }) async {
-  final bridgeNames = env.bridgedClassNames.toSet();
+  final bridgeNames = _ownBridgeNames(env).toSet();
   final results = <ReturnGap>[];
 
-  final names = env.bridgedClassNames..sort();
+  final names = _ownBridgeNames(env)..sort();
   for (final className in names) {
     if (only != null && !only.contains(className)) continue;
     final bc = env.findBridgedClassByName(className);
@@ -3701,8 +3823,8 @@ List<String> auditParameterTypes(Environment env, {Set<String>? only}) {
   // d4rt-side class: the `LinkedListEntry` bridge wraps
   // `BridgedLinkedListEntry`, so its own `insertAfter(BridgedLinkedListEntry)`
   // reported as taking an unbridged type when only names were compared.
-  final bridged = env.bridgedClassNames.toSet();
-  for (final n in env.bridgedClassNames) {
+  final bridged = _ownBridgeNames(env).toSet();
+  for (final n in _ownBridgeNames(env)) {
     final bc = env.findBridgedClassByName(n);
     if (bc == null) continue;
     final native = bc.nativeType.toString();
@@ -3730,7 +3852,7 @@ List<String> auditParameterTypes(Environment env, {Set<String>? only}) {
   };
   final findings = <String>[];
 
-  final names = env.bridgedClassNames..sort();
+  final names = _ownBridgeNames(env)..sort();
   for (final className in names) {
     if (only != null && !only.contains(className)) continue;
     final bc = env.findBridgedClassByName(className);
@@ -3960,7 +4082,7 @@ Future<void> main(List<String> args) async {
       stderr.writeln(
         'Refusing to write a baseline from a --only run: it would measure '
         '${only.length} classes and record that as the expected state of all '
-        '${env.bridgedClassNames.length}. Drop --only, or keep the narrowed '
+        '${_ownBridgeNames(env).length}. Drop --only, or keep the narrowed '
         'run for diagnosis and regenerate separately.',
       );
       exit(2);
@@ -3969,7 +4091,7 @@ Future<void> main(List<String> args) async {
         _optionValue(args, '--baseline-out') ??
         'test/stdlib/member_coverage_baseline.dart';
     File(path).writeAsStringSync(
-      renderBaselineSource(diffs, env.bridgedClassNames.toSet()),
+      renderBaselineSource(diffs, _ownBridgeNames(env).toSet()),
     );
     // The emitter writes one list element per line and `dart format` collapses
     // short lists onto one, so an unformatted write produced a 125-line diff
@@ -4199,3 +4321,12 @@ Future<void> main(List<String> args) async {
   // loop non-empty, so an explicit exit is what ends the run.
   exit(0);
 }
+
+/// ghissues77: the bridge names of [env] that a bridge carries as its own -
+/// not the ALIASES (`IterableBase`, `ListMixin`, ... name the `Iterable`,
+/// `ListBase`, ... bridges, Dart 3's typedefs), which add no class to measure
+/// and would make every `Iterable` subtype a candidate edge to them.
+List<String> _ownBridgeNames(Environment env) => [
+  for (final name in env.bridgedClassNames)
+    if (env.findBridgedClassByName(name)?.name == name) name,
+];

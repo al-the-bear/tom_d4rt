@@ -1,3 +1,50 @@
+## 0.257.0
+
+### Added — dart:collection's bases and Iterable as superclasses and mixins (ghissues77, GitHub #21)
+
+A script class can extend or mix in `Iterable` and dart:collection's bases:
+`ListBase`, `SetBase`, `MapBase`, `UnmodifiableMapBase`, and their Dart 3
+typedefs `IterableBase`, `IterableMixin`, `ListMixin`, `SetMixin` and
+`MapMixin` (aliases of the same bridges). The script gives the members the SDK
+leaves abstract (`iterator`; `length`, `[]`, `[]=`, `length=`; `add`,
+`contains`, `lookup`, `remove`, `toSet`; `keys`, `remove`, `clear`) and every
+other member is the SDK's own, run on a receiver proxy (a native subclass of
+the base that calls the script's members); a member the script overrides is
+the script's. `is List` / `is Map` / `is Set`, `toString()`, `List.of(x)` and
+`jsonEncode(x)` see the collection, and the proxy coming back from native code
+is the script instance again. `ListBase.listToString`, `SetBase.setToString`
+and `MapBase.mapToString` are bridged. package collection's
+`UnmodifiableSetMixin` / `UnmodifiableMapMixin` are interpreted from its
+source as before.
+
+### Fixed — what Slang's package closure needed next
+
+- An interface whose members a bridged base or `Object` provides is
+  satisfied (`EmptyUnmodifiableSet extends IterableBase<E> ... implements
+  UnmodifiableSetView<E>`).
+- `x.name` and `x.name(...)` on an instance no longer reach the class's static
+  members (Slang's `static setLocale(...) => instance.setLocale(...)` called
+  itself instead of the inherited extension method).
+- async, async* and sync* extension methods run past their first suspension;
+  an `await` inside one ended it (Slang's `loadLocale` never stored the
+  translations).
+- An empty `{}` initializing a field declared `Set` is a set, as for locals.
+- A parameter declared by a type parameter bound to `dynamic` takes any value
+  (Slang's `int score(E supported)`).
+- An extension on `Comparator<T>` applies to functions; an extension member
+  on a function value is found.
+- A script class's own `operator []` / `[]=` in a cascade (`m..['k'] = v`).
+- A bridged mixin marked with a receiver proxy runs on it; a member lookup
+  without a visitor still reaches a receiver proxy.
+
+GitHub #21's Slang closure (Slang 4.19.2 with yaml, source_span,
+string_scanner, path and collection, 158 modules) runs and prints native
+Dart's output.
+
+Name resolution: yes — `x.name` / `x.name(...)` on an instance resolves to an
+instance member or an extension member, never to a static member of the
+instance's class (as in Dart).
+
 ## 0.256.0
 
 ### Fixed — static facts for extension operators, index operators and setters (ghissues75, GitHub #18)

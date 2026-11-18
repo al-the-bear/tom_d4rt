@@ -162,6 +162,14 @@ const Map<String, String> _deferred = {
       'receiver\'s static type picks; unpublished, the twins resolve the '
       'published interpreter (DGUC6); ghissues1002 runs the post-publish '
       'corpus',
+  '1.277.0':
+      'ghissues77: an instance member access no longer reaches the class\'s '
+      'statics; unpublished, the twins resolve the published interpreter '
+      '(DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.257.0':
+      'ghissues77: an instance member access no longer reaches the class\'s '
+      'statics; unpublished, the twins resolve the published interpreter '
+      '(DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

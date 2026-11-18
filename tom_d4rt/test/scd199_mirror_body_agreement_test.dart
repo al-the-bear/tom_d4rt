@@ -240,6 +240,12 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES32: `type.name.lexeme` against the mirror model's nullable
     // `type.name?.name`; the same test otherwise.
     'ResolvedBinding.declaresDouble': 'b1de00ae',
+    // GHISSUES77: a field's initial value; the analyzer's NamedType.name is
+    // a Token, the mirror model's a nullable SSimpleIdentifier.
+    'ResolvedBinding.fieldValue': 'b1de00ae',
+    // GHISSUES77: an extension method's async / generator body; the mirror
+    // AST has no `.parent`, so the AST twin builds the parent map first.
+    'InterpretedFunction.runAsBoundBody': 'c0f390c5',
     'InterpretedFunction._beginAwaitForIteration': 'f361cfa9',
     'InterpretedFunction._isWithin': 'a8bc018c',
     'InterpretedFunction._callImpl': 'c0f390c5',
@@ -340,7 +346,8 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
     // GHISSUES73: 6ba592d9 -> a65e7fb1, both trees check a cascade's index
     // write against a written collection's type arguments alike.
-    'InterpreterVisitor._executeCascadeAssignment': 'a65e7fb1',
+    // GHISSUES77: a65e7fb1 -> 36d77fc1, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpreterVisitor._executeCascadeAssignment': '36d77fc1',
     'InterpreterVisitor._executeClassicFor': 'd58610fd',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
     // SCE104 extracted both from `visitAsExpression`, whose divergence they
@@ -387,7 +394,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES53: de77a7f3 -> 722454d8, both trees dispatch an explicit extension
     // override alike.
     // GHISSUES75: 722454d8 -> d4e21070, both trees note the receiver of an extension operator alike.
-    'InterpreterVisitor.visitBinaryExpression': 'd4e21070',
+    // GHISSUES77: d4e21070 -> 615364d4, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpreterVisitor.visitBinaryExpression': '615364d4',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
     // accessor difference this member already had.
@@ -404,7 +412,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES66: 0ec82bb0 -> b1767df8, both trees count instance fields
     // against an interface's getters and setters alike.
     // GHISSUES71: b1767df8 -> c705c230, both trees skip another library's `_` interface members alike.
-    'InterpreterVisitor.visitClassDeclaration': 'c705c230',
+    // GHISSUES77: c705c230 -> 68246380, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpreterVisitor.visitClassDeclaration': '68246380',
     'InterpreterVisitor.visitConstructorReference': '1d51b6d4',
     // VSTDM3: the analyzer 14 port edited both trees alike; the divergence
     // itself is unchanged.
@@ -420,7 +429,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES49: 4b256eea -> 10cc3007, both trees pass the extension's type
     // parameters and on-type to its methods alike.
     // GHISSUES56: 10cc3007 -> 13f71145, both trees keep a getter and a setter of one name apart alike.
-    'InterpreterVisitor.visitExtensionDeclaration': '13f71145',
+    // GHISSUES77: 13f71145 -> 436ca0b5, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpreterVisitor.visitExtensionDeclaration': '436ca0b5',
     // GHISSUES49: the receiver-type helpers; the analyzer's non-nullable
     // names (`name.lexeme`, `fields.variables`) against the mirror model's
     // nullable ones (`name?.name`, `fields?.variables`).
@@ -517,7 +527,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES67: 522d3312 -> ca024abf, both trees answer a script collection's runtimeType by its written type
     // alike.
     // GHISSUES71: ca024abf -> 360f95bf, both trees let a deferred library's not-loaded error through alike.
-    'InterpreterVisitor.visitPrefixedIdentifier': '360f95bf',
+    // GHISSUES77: 360f95bf -> ef25f067, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpreterVisitor.visitPrefixedIdentifier': 'ef25f067',
     // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
     // declined-member reason to the same property-miss message.
     // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged
@@ -534,7 +545,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // first on a property access (`p.Color.green`) alike.
     // GHISSUES67: 3227b276 -> 4bce0dcf, both trees answer a script collection's runtimeType by its written type
     // alike.
-    'InterpreterVisitor.visitPropertyAccess': '4bce0dcf',
+    // GHISSUES77: 4bce0dcf -> 232bd8f7, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpreterVisitor.visitPropertyAccess': '232bd8f7',
     'InterpreterVisitor.visitReturnStatement': 'f152feca',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     // GHISSUES66: 62e52aee -> d2853fe6, both trees resolve an enum's own
@@ -561,7 +573,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES32: 06adb03e -> 07da2480, both trees widen an int bound to a
     // `double` field alike; the mirror model's nullable field access moved
     // with it.
-    'InterpretedClass.createAndInitializeInstance': 'e5df9238',
+    // GHISSUES77: e5df9238 -> f055ee91, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
+    'InterpretedClass.createAndInitializeInstance': 'f055ee91',
     // GHISSUES32: the same set of `double` field names; the mirror model's
     // `fields` and `name` are nullable (`?.`, `?? const []`).
     'InterpretedClass.get doubleFieldNames': 'd9435592',

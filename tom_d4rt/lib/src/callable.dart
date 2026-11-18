@@ -6607,6 +6607,52 @@ class InterpretedFunction implements Callable {
   }
 
   // Replace the old placeholder _startAsyncStateMachine
+  /// ghissues77: runs this function's body, its parameters already bound
+  /// into [environment] (an extension method's), as the async function or
+  /// sync* / async* generator it is; [notSuspending] for a plain function,
+  /// which the caller runs itself. An extension method ran an async body
+  /// synchronously: the first `await` handed back a suspension nothing
+  /// resumed, so nothing after it ran (Slang's `loadLocale` never stored the
+  /// translations it loaded).
+  Object? runAsBoundBody(InterpreterVisitor visitor, Environment environment) {
+    if (isAsyncGenerator) {
+      return _createAsyncGeneratorStream(visitor, environment, false);
+    }
+    if (isGenerator) {
+      return _createSyncGeneratorIterable(visitor, environment, false);
+    }
+    if (!isAsync) return notSuspending;
+    final completer = Completer<Object?>();
+    final body = _body;
+    final AstNode? first = switch (body) {
+      BlockFunctionBody() => body.block.statements.firstOrNull,
+      ExpressionFunctionBody() => body.expression,
+      _ => null,
+    };
+    if (first == null) {
+      completer.complete(null);
+      return completer.future;
+    }
+    final previousAsyncState = visitor.currentAsyncState;
+    final state = AsyncExecutionState(
+      environment: environment,
+      completer: completer,
+      nextStateIdentifier: first,
+      function: this,
+    );
+    visitor.currentAsyncState = state;
+    try {
+      _startAsyncStateMachine(visitor, state);
+    } finally {
+      visitor.currentAsyncState = previousAsyncState;
+    }
+    return completer.future;
+  }
+
+  /// What [runAsBoundBody] answers for a function that is neither async nor
+  /// a generator.
+  static const Object notSuspending = Object();
+
   void _startAsyncStateMachine(
     InterpreterVisitor visitor,
     AsyncExecutionState initialState,
@@ -7319,6 +7365,22 @@ class ResolvedBinding {
 
   /// Whether [type] is written `double` or `double?` - a binding whose
   /// values [widen] turns into doubles (ghissues32).
+  /// ghissues77: a field's initial value [value] for its declared [type]:
+  /// an `int` bound to a `double` widens (ghissues32), and an empty `{}`
+  /// bound to a `Set` is a set - [bind]'s SCE103 rule for locals and
+  /// parameters, which fields did not get (Slang's
+  /// `final Set<E> translationsLoading = {};` was a map).
+  static Object? fieldValue(TypeAnnotation? type, Object? value) {
+    if (declaresDouble(type)) return widen('double', value);
+    if (type is NamedType &&
+        type.name.lexeme == 'Set' &&
+        value is Map &&
+        value.isEmpty) {
+      return <Object?>{};
+    }
+    return value;
+  }
+
   static bool declaresDouble(TypeAnnotation? type) =>
       type is NamedType && type.name.lexeme == 'double';
 
@@ -7335,7 +7397,14 @@ class ResolvedBinding {
     // Above the hierarchy the subtype check can express: every non-null value
     // inhabits `Object`, and `Function` is satisfied by callables whose runtime
     // type the resolver models only coarsely.
-    if (_declaredName == 'Object' || _declaredName == 'Function') return value;
+    // ghissues77: `dynamic` too - a type parameter bound to the interpreter's
+    // `dynamic` (an extension's `E` it could not infer) is declared as it, and
+    // every value inhabits it (Slang's `int score(E supported)`).
+    if (_declaredName == 'Object' ||
+        _declaredName == 'Function' ||
+        _declaredName == 'dynamic') {
+      return value;
+    }
 
     // Dart widens an `int` bound to a `double`. Without this the binding
     // receives an `int` where its own annotation promises a `double` — the same
@@ -8092,11 +8161,8 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     // type (and matching name) instead of falling back to the caller's
     // function. Mirrors the AST-side fix in
     // tom_d4rt_ast/lib/src/runtime/callable.dart.
-    visitor.currentFunction = InterpretedFunction.method(
-      declaration,
-      closure,
-      onType,
-    );
+    final method = InterpretedFunction.method(declaration, closure, onType);
+    visitor.currentFunction = method;
     visitor.environment = executionEnvironment; // USE THE NEW ENVIRONMENT
     if (Logger.isDebug) {
       Logger.debug(
@@ -8105,6 +8171,11 @@ class InterpretedExtensionMethod implements ExtensionMemberCallable {
     }
 
     try {
+      // ghissues77: an async body, or a sync* / async* one, runs as such.
+      final suspending = method.runAsBoundBody(visitor, executionEnvironment);
+      if (!identical(suspending, InterpretedFunction.notSuspending)) {
+        return suspending;
+      }
       final body = declaration.body;
       if (body is BlockFunctionBody) {
         // A `return` arrives as a ReturnException (caught below); running off

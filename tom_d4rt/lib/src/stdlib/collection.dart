@@ -8,6 +8,7 @@ import 'package:tom_d4rt/src/stdlib/collection/linked_hash_set.dart';
 import 'package:tom_d4rt/src/stdlib/collection/linked_list.dart';
 import 'package:tom_d4rt/src/stdlib/collection/list_queue.dart';
 import 'package:tom_d4rt/src/stdlib/collection/queue.dart';
+import 'package:tom_d4rt/src/stdlib/collection/script_collection_bases.dart';
 import 'package:tom_d4rt/src/stdlib/collection/splay_tree_map.dart';
 import 'package:tom_d4rt/src/stdlib/collection/splay_tree_set.dart';
 import 'package:tom_d4rt/src/stdlib/collection/unmodifiable_list_view.dart';
@@ -35,5 +36,6 @@ class CollectionStdlib {
     // After the bridges: the registry keys on NAME, so the edges are only
     // useful once the classes they name are registered.
     CollectionHierarchyCollection.register();
+    ScriptCollectionBasesCollection.register(environment);
   }
 }

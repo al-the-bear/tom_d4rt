@@ -759,9 +759,10 @@ class InterpretedClass implements Callable, RuntimeType {
                 if (variable.initializer != null) {
                   final value = variable.initializer!.accept<Object?>(visitor);
                   // Directly set the field on the instance map
-                  instance._fields[fieldName] = declaredDouble
-                      ? ResolvedBinding.widen('double', value)
-                      : value;
+                  instance._fields[fieldName] = ResolvedBinding.fieldValue(
+                    fieldDecl.fields.type,
+                    value,
+                  );
                 } else {
                   // Ensure field exists even without initializer (Dart default is null)
                   instance._fields.putIfAbsent(fieldName, () => null);
@@ -795,10 +796,10 @@ class InterpretedClass implements Callable, RuntimeType {
                     );
                     // Set (or overwrite) the field on the instance;
                     // ghissues32: an `int` bound to a `double` field widens.
-                    instance._fields[fieldName] =
-                        ResolvedBinding.declaresDouble(fieldDecl.fields.type)
-                        ? ResolvedBinding.widen('double', value)
-                        : value;
+                    instance._fields[fieldName] = ResolvedBinding.fieldValue(
+                      fieldDecl.fields.type,
+                      value,
+                    );
                     if (Logger.isDebug) {
                       Logger.debug(
                         "[Instance Init] Initialized mixin field '${klassInHierarchy.name}.$fieldName' from mixin '${mixin.name}' with value: $value",
@@ -1222,6 +1223,40 @@ class InterpretedClass implements Callable, RuntimeType {
     return requiredInterfaceMembers;
   }
 
+  /// The members every class has from `Object`.
+  static const Set<String> objectMemberNames = {
+    'toString',
+    'hashCode',
+    '==',
+    'noSuchMethod',
+    'runtimeType',
+  };
+
+  /// ghissues77: whether this class has [name] without declaring it - from
+  /// `Object` (an interface that declares `toString` concretely, package
+  /// collection's `DelegatingSet`, asks nothing of an implementing class),
+  /// or from a bridged superclass or mixin ([bridgedProvides]).
+  bool providesMember(String name, InterpreterVisitor? visitor) =>
+      objectMemberNames.contains(name) || bridgedProvides(name, visitor);
+
+  /// ghissues77: whether a bridged superclass or bridged mixin on this
+  /// class's chain provides the member [name] (with the bridge's registered
+  /// supertypes): package collection's
+  /// `EmptyUnmodifiableSet extends IterableBase<E> ... implements UnmodifiableSetView<E>`
+  /// gets `map` and the rest of the interface from `IterableBase`.
+  bool bridgedProvides(String name, InterpreterVisitor? visitor) {
+    for (InterpretedClass? c = this; c != null; c = c.superclass) {
+      for (final bridged in [?c.bridgedSuperclass, ...c.bridgedMixins]) {
+        if (bridged.findReachableMethodAdapter(name, visitor) != null ||
+            bridged.findReachableGetterAdapter(name, visitor) != null ||
+            bridged.findReachableSetterAdapter(name, visitor) != null) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   /// Returns a map of all concrete instance members (methods, getters, setters)
   /// available on this class, including those inherited via the `extends` chain.
   /// Key: member name, Value: the concrete InterpretedFunction.
@@ -1470,7 +1505,7 @@ class InterpretedInstance implements RuntimeValue {
   /// subclass of a bridged map or iterable (path's `PathMap extends MapView`
   /// prints its entries).
   String get _defaultString {
-    final native = _bridgedSuperObject;
+    final native = collectionShape(null);
     if (native != null &&
         (native is Error || native is Map || native is Iterable)) {
       return defaultToStringOver(native) ?? native.toString();
@@ -1493,9 +1528,42 @@ class InterpretedInstance implements RuntimeValue {
   ) =>
       bridgedSuperObject ??
       nativeProxy ??
-      (visitor == null
-          ? null
-          : D4.receiverProxyFor(bridgedTypeName, this, visitor));
+      _receiverProxyFor(bridgedTypeName, visitor);
+
+  /// ghissues77: the native object that gives this instance its shape - the
+  /// native super-object, else the receiver proxy of a `dart:collection`
+  /// base or `Iterable` on its class chain (an `IterableBase` subclass is
+  /// read, printed and `is`-checked as the iterable its proxy is). Null when
+  /// it has neither.
+  Object? collectionShape(InterpreterVisitor? visitor) {
+    final native = _bridgedSuperObject;
+    if (native != null) return native;
+    final seen = <InterpretedClass>{};
+    Object? walk(InterpretedClass? c) {
+      if (c == null || !seen.add(c)) return null;
+      for (final bridged in [?c.bridgedSuperclass, ...c.bridgedMixins]) {
+        final receiver = _receiverProxyFor(bridged.name, visitor);
+        if (receiver is Iterable || receiver is Map) return receiver;
+      }
+      for (final mixin in c.mixins) {
+        final found = walk(mixin);
+        if (found != null) return found;
+      }
+      return walk(c.superclass);
+    }
+
+    return walk(klass);
+  }
+
+  /// ghissues77: the receiver proxy, created with [visitor], else the
+  /// visitor that declared the class, else the active one - a member lookup
+  /// made without a visitor (`l..add(1)`) still reaches it.
+  Object? _receiverProxyFor(String bridgedTypeName, InterpreterVisitor? visitor) {
+    final effective = visitor ?? klass.declaringVisitor ?? D4.activeVisitor;
+    return effective == null
+        ? null
+        : D4.receiverProxyFor(bridgedTypeName, this, effective);
+  }
 
   /// ghissues46: answers [invocation] - a member this instance's class does
   /// not have - with its `noSuchMethod`: an interpreted one, else the one a
@@ -1841,7 +1909,10 @@ class InterpretedInstance implements RuntimeValue {
     switch (name) {
       case 'toString':
         return NativeFunction(
-          (v, positionalArgs, namedArgs, typeArgs) => _diagnosticString,
+          // ghissues77: with a native shape (a collection base's receiver
+          // proxy, a bridged map or iterable super-object) the shape's own
+          // string, as interpolation answers.
+          (v, positionalArgs, namedArgs, typeArgs) => _defaultString,
           arity: 0,
           name: 'toString',
         );
@@ -1913,6 +1984,18 @@ class InterpretedInstance implements RuntimeValue {
   Object? get(String name, {InterpreterVisitor? visitor}) =>
       _get(name, visitor, answerMissWithNoSuchMethod: true);
 
+  /// [get] for an explicit property read `x.name`: a static member is not
+  /// reachable through an instance in Dart (ghissues77; Slang's
+  /// `static get currentLocale => instance.currentLocale`, whose instance
+  /// `currentLocale` is inherited, read the static itself).
+  Object? getForAccess(String name, {required InterpreterVisitor visitor}) =>
+      _get(
+        name,
+        visitor,
+        answerMissWithNoSuchMethod: true,
+        includeStatics: false,
+      );
+
   /// [get] for the callee of a method invocation `x.name(...)`.
   ///
   /// Resolves exactly what [get] resolves, with [visitor] supplied so the
@@ -1926,12 +2009,23 @@ class InterpretedInstance implements RuntimeValue {
   Object? getForInvocation(
     String name, {
     required InterpreterVisitor visitor,
-  }) => _get(name, visitor, answerMissWithNoSuchMethod: false);
+  }) => _get(
+    name,
+    visitor,
+    answerMissWithNoSuchMethod: false,
+    includeStatics: false,
+  );
 
+  /// ghissues77: [includeStatics] false for an explicit `x.name(...)` - a
+  /// static member is not reachable through an instance in Dart, so the call
+  /// goes to an instance member or an extension (Slang's
+  /// `static setLocale(...) => instance.setLocale(...)`, whose instance
+  /// `setLocale` is an extension method, called the static itself).
   Object? _get(
     String name,
     InterpreterVisitor? visitor, {
     required bool answerMissWithNoSuchMethod,
+    bool includeStatics = true,
   }) {
     if (Logger.isDebug) {
       Logger.debug(
@@ -2001,13 +2095,17 @@ class InterpretedInstance implements RuntimeValue {
       }
 
       try {
-        final staticField = currentClass.getStaticField(name);
+        final staticField = includeStatics
+            ? currentClass.getStaticField(name)
+            : null;
         if (staticField != null) {
           return staticField;
         }
       } catch (_) {}
 
-      final staticGetter = currentClass.findStaticGetter(name);
+      final staticGetter = includeStatics
+          ? currentClass.findStaticGetter(name)
+          : null;
       if (staticGetter != null) {
         if (visitor != null) {
           return staticGetter.bind(this).call(visitor, [], {});
@@ -2018,7 +2116,9 @@ class InterpretedInstance implements RuntimeValue {
         }
       }
 
-      final staticMethod = currentClass.findStaticMethod(name);
+      final staticMethod = includeStatics
+          ? currentClass.findStaticMethod(name)
+          : null;
       if (staticMethod != null) {
         return staticMethod.bind(this);
       }
@@ -2190,7 +2290,16 @@ class InterpretedInstance implements RuntimeValue {
       // (see d4rt_runtime_registrations.dart), the proxy is registered on
       // `nativeProxy` and is the correct target. Fall back to
       // `bridgedSuperObject`, then to `this` for purely-interpreted use.
-      final mixinTarget = nativeProxy ?? bridgedSuperObject ?? this;
+      // ghissues77: a bridged mixin marked with a receiver proxy
+      // (`IterableMixin`, `ListMixin`, ...) runs on that proxy, created once
+      // and kept as the instance's native object.
+      final mixinTarget =
+          nativeProxy ??
+          bridgedSuperObject ??
+          (visitor == null
+              ? null
+              : D4.receiverProxyFor(bridgedMixin.name, this, visitor)) ??
+          this;
 
       // Try getter first
       final getterAdapter = bridgedMixin.findInstanceGetterAdapter(name);

@@ -205,7 +205,12 @@ void main() {
 
   setUpAll(() async {
     final env = buildFullyRegisteredEnvironment();
-    observedRegistry = env.bridgedClassNames.toSet();
+    // ghissues77: aliases (`IterableBase` -> `Iterable`, ...) name a bridge
+    // that is measured under its own name, as the tool measures it.
+    observedRegistry = {
+      for (final name in env.bridgedClassNames)
+        if (env.findBridgedClassByName(name)?.name == name) name,
+    };
     final diffs = collectMemberDiffs(env);
     await verifyAll(diffs);
 

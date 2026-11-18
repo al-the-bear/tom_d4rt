@@ -5,6 +5,9 @@ class IterableCore {
   static BridgedClass get definition => BridgedClass(
     nativeType: Iterable,
     name: 'Iterable',
+    // ghissues77: an `abstract mixin class` in Dart 3; `IterableMixin` is a
+    // typedef of it (`class M with IterableMixin<E>`).
+    canBeUsedAsMixin: true,
     typeParameterCount: 1,
     constructors: {
       'withIterator': (visitor, positionalArgs, namedArgs) {

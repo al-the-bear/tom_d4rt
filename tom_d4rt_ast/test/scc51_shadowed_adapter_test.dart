@@ -228,6 +228,30 @@ final Map<String, Fixture> _fixtures = {
 /// the reason no fixture exists. `F-SCE185-1` holds this set and [_fixtures]
 /// to the registry's actual shadowing bridges in both directions.
 const Map<String, String> _unwalked = {
+  'ListBase':
+      'ghissues77: a collection base whose adapters are the List, Set or '
+      'Map bridge\'s own (it is built from them), so it shadows exactly what '
+      'that bridge does and the walk of that bridge covers them; its instances '
+      'are script subclasses, compared with native Dart in '
+      'ghissues77_collection_bases_test.',
+  'SetBase':
+      'ghissues77: a collection base whose adapters are the List, Set or '
+      'Map bridge\'s own (it is built from them), so it shadows exactly what '
+      'that bridge does and the walk of that bridge covers them; its instances '
+      'are script subclasses, compared with native Dart in '
+      'ghissues77_collection_bases_test.',
+  'MapBase':
+      'ghissues77: a collection base whose adapters are the List, Set or '
+      'Map bridge\'s own (it is built from them), so it shadows exactly what '
+      'that bridge does and the walk of that bridge covers them; its instances '
+      'are script subclasses, compared with native Dart in '
+      'ghissues77_collection_bases_test.',
+  'UnmodifiableMapBase':
+      'ghissues77: a collection base whose adapters are the List, Set or '
+      'Map bridge\'s own (it is built from them), so it shadows exactly what '
+      'that bridge does and the walk of that bridge covers them; its instances '
+      'are script subclasses, compared with native Dart in '
+      'ghissues77_collection_bases_test.',
   'Stdout':
       'the only instances are the process\'s own stdout/stderr, and the '
       'walk calls `close` and `addError` on every sink — closing the test '
