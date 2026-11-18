@@ -1,3 +1,30 @@
+## 0.254.0
+
+### Fixed — writes into a written collection are checked (ghissues73)
+
+A collection the script created with type arguments (`<String>[]`,
+`<String, int>{}`, `Map<String, int>()`) now refuses an element of the wrong
+type, as Dart's run-time check does. `(<String>[] as dynamic).add(1)` throws
+`type 'int' is not a subtype of type 'String' of 'value'` (a `TypeError`).
+
+This covers:
+- the List, Set and Map writing members: `add`, `addAll`, `insert`,
+  `insertAll`, `setAll`, `setRange`, `fillRange`, `replaceRange`, `[]=`,
+  `putIfAbsent`, `update`, `updateAll`, `addEntries`;
+- the script's own `l[i] = v` / `m[k] = v`, cascades included.
+
+A written collection passed as the argument of `addAll` is checked by its
+type argument, as in Dart (`<Object>['s']` is not an `Iterable<String>`).
+
+Where it differs from Dart:
+- an `int` into a `double` collection is widened;
+- an argument Dart refuses for its static type is refused for the element it
+  would store;
+- untyped collections and native code writing into them are not checked
+  (Lim-13).
+
+Name resolution: no.
+
 ## 0.253.0
 
 ### Fixed — a generic instance's `runtimeType` keeps its type arguments (ghissues72)

@@ -2,6 +2,7 @@ import 'dart:math' show Random;
 
 import 'package:tom_d4rt_ast/runtime.dart';
 import '../cast_views.dart';
+import '../written_collection_writes.dart';
 
 class ListCore {
   static BridgedClass get definition => BridgedClass(
@@ -141,19 +142,34 @@ class ListCore {
       },
       '[]=': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.[]=', atMost: 2);
-        (target as List)[positionalArgs[0] as int] = positionalArgs[1];
+        (target as List)[positionalArgs[0] as int] = checkWrittenElement(
+          visitor,
+          target,
+          0,
+          positionalArgs[1],
+          'value',
+        );
         return null;
       },
       'add': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.add', atMost: 1);
-        (target as List).add(positionalArgs[0]);
+        (target as List).add(
+          checkWrittenElement(visitor, target, 0, positionalArgs[0], 'value'),
+        );
         return null;
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.addAll', atMost: 1);
         final list = target as List;
-        for (final e in positionalArgs[0] as Iterable) {
-          final value = e is BridgedInstance ? e.nativeObject : e;
+        // Element by element, as before: a fixed-length list (a typed-data
+        // list) raises its UnsupportedError from `add`.
+        for (final value in checkWrittenElements(
+          visitor,
+          target,
+          0,
+          positionalArgs[0] as Iterable,
+          'iterable',
+        )) {
           list.add(value);
         }
         return null;
@@ -194,7 +210,8 @@ class ListCore {
         final test = positionalArgs[0] as Callable;
         int start = positionalArgs.length > 1 ? positionalArgs[1] as int : 0;
         return (target as List).indexWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
           start,
         );
       },
@@ -205,7 +222,8 @@ class ListCore {
             ? positionalArgs[1] as int?
             : null;
         return (target as List).lastIndexWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
           start,
         );
       },
@@ -238,14 +256,16 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.any', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).any(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
       },
       'every': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.every', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).every(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
       },
       'map': (visitor, target, positionalArgs, namedArgs, _) {
@@ -259,7 +279,8 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.where', atMost: 1);
         final test = positionalArgs[0] as Callable;
         return (target as List).where(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
       },
       'whereType': (visitor, target, positionalArgs, namedArgs, typeArgs) {
@@ -270,7 +291,9 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.expand', atMost: 1);
         final toElements = positionalArgs[0] as Callable;
         return (target as List).expand(
-          (element) => D4.enterInterpreted(visitor, toElements, [element], {}) as Iterable,
+          (element) =>
+              D4.enterInterpreted(visitor, toElements, [element], {})
+                  as Iterable,
         );
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {
@@ -278,7 +301,8 @@ class ListCore {
         final combine = positionalArgs[0] as Callable;
         // SCE185: through a `cast<Object?>()` view — see `Iterable.reduce`.
         return (target as List).cast<Object?>().reduce(
-          (value, element) => D4.enterInterpreted(visitor, combine, [value, element], {}),
+          (value, element) =>
+              D4.enterInterpreted(visitor, combine, [value, element], {}),
         );
       },
       'fold': (visitor, target, positionalArgs, namedArgs, _) {
@@ -287,8 +311,10 @@ class ListCore {
         final combine = positionalArgs[1] as Callable;
         return (target as List).fold(
           initialValue,
-          (previousValue, element) =>
-              D4.enterInterpreted(visitor, combine, [previousValue, element], {}),
+          (previousValue, element) => D4.enterInterpreted(visitor, combine, [
+            previousValue,
+            element,
+          ], {}),
         );
       },
       'join': (visitor, target, positionalArgs, namedArgs, _) {
@@ -360,8 +386,11 @@ class ListCore {
         // an invented `RuntimeD4rtException` instead of the SDK's `StateError`
         // when there was no match.
         return (target as List).cast<Object?>().firstWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
-          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, [], {}),
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          orElse: orElse == null
+              ? null
+              : () => D4.enterInterpreted(visitor, orElse, [], {}),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -370,8 +399,11 @@ class ListCore {
         final orElse = namedArgs['orElse'] as Callable?;
         // SCE109: cast for the same reason as `firstWhere` above.
         return (target as List).cast<Object?>().lastWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
-          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, [], {}),
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          orElse: orElse == null
+              ? null
+              : () => D4.enterInterpreted(visitor, orElse, [], {}),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -380,21 +412,32 @@ class ListCore {
         final orElse = namedArgs['orElse'] as Callable?;
         // SCE109: cast for the same reason as `firstWhere` above.
         return (target as List).cast<Object?>().singleWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
-          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, [], {}),
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          orElse: orElse == null
+              ? null
+              : () => D4.enterInterpreted(visitor, orElse, [], {}),
         );
       },
       'insert': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.insert', atMost: 2);
-        (target as List).insert(positionalArgs[0] as int, positionalArgs[1]);
+        (target as List).insert(
+          positionalArgs[0] as int,
+          checkWrittenElement(visitor, target, 0, positionalArgs[1], 'element'),
+        );
         return null;
       },
       'insertAll': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'List.insertAll', atMost: 2);
         final list = target as List;
         var index = positionalArgs[0] as int;
-        for (final e in positionalArgs[1] as Iterable) {
-          final value = e is BridgedInstance ? e.nativeObject : e;
+        for (final value in checkWrittenElements(
+          visitor,
+          target,
+          0,
+          positionalArgs[1] as Iterable,
+          'iterable',
+        )) {
           list.insert(index++, value);
         }
         return null;
@@ -403,8 +446,13 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.setAll', atMost: 2);
         final list = target as List;
         var index = positionalArgs[0] as int;
-        for (final e in positionalArgs[1] as Iterable) {
-          final value = e is BridgedInstance ? e.nativeObject : e;
+        for (final value in checkWrittenElements(
+          visitor,
+          target,
+          0,
+          positionalArgs[1] as Iterable,
+          'iterable',
+        )) {
           list[index++] = value;
         }
         return null;
@@ -414,7 +462,15 @@ class ListCore {
         (target as List).fillRange(
           positionalArgs[0] as int,
           positionalArgs[1] as int,
-          positionalArgs.length > 2 ? positionalArgs[2] : null,
+          positionalArgs.length > 2
+              ? checkWrittenElement(
+                  visitor,
+                  target,
+                  0,
+                  positionalArgs[2],
+                  'fillValue',
+                )
+              : null,
         );
         return null;
       },
@@ -424,12 +480,17 @@ class ListCore {
         final start = positionalArgs[0] as int;
         final end = positionalArgs[1] as int;
         final iterable = positionalArgs[2] as Iterable;
-        // Remove the range first
-        list.removeRange(start, end);
         // Insert new elements one by one (dynamic values are implicitly cast)
+        final checked = checkWrittenElements(
+          visitor,
+          target,
+          0,
+          iterable,
+          'replacements',
+        );
+        list.removeRange(start, end);
         var index = start;
-        for (final e in iterable) {
-          final value = e is BridgedInstance ? e.nativeObject : e;
+        for (final value in checked) {
           list.insert(index++, value);
         }
         return null;
@@ -446,7 +507,8 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.retainWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as List).retainWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
         return null;
       },
@@ -454,7 +516,8 @@ class ListCore {
         D4.checkArity(positionalArgs, 'List.removeWhere', atMost: 1);
         final test = positionalArgs[0] as Callable;
         (target as List).removeWhere(
-          (element) => D4.enterInterpreted(visitor, test, [element], {}) as bool,
+          (element) =>
+              D4.enterInterpreted(visitor, test, [element], {}) as bool,
         );
         return null;
       },
@@ -474,7 +537,9 @@ class ListCore {
                 final compareToMethod = a.klass.findInstanceMethod('compareTo');
                 if (compareToMethod != null) {
                   final boundMethod = compareToMethod.bind(a);
-                  final result = D4.enterInterpreted(visitor, boundMethod, [b], {});
+                  final result = D4.enterInterpreted(visitor, boundMethod, [
+                    b,
+                  ], {});
                   if (result is int) {
                     return result;
                   }
@@ -583,6 +648,15 @@ class ListCore {
             .take(end - start)
             .map((e) => e is BridgedInstance ? e.nativeObject : e)
             .toList();
+        for (var i = 0; i < source.length; i++) {
+          source[i] = checkWrittenElement(
+            visitor,
+            target,
+            0,
+            source[i],
+            'iterable',
+          );
+        }
         if (source.length < end - start) {
           throw StateError('Too few elements');
         }

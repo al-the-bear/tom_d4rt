@@ -3108,8 +3108,18 @@ binding above read them: `<String>[] is List<int>` is false,
   an extension use the runtime source only.
 - An untyped literal's type is still answered from its elements: `[]` passes
   `is List<int>` (Dart: a `List<dynamic>` does not).
-- Writes are not checked against the written type arguments:
-  `(<String>[] as dynamic).add(1)` succeeds where Dart throws a `TypeError`.
+- Writes are checked against the written type arguments, as Dart's run-time
+  check does: `(<String>[] as dynamic).add(1)` throws Dart's `TypeError`. This
+  covers `add`, `insert`, `[]=`, `addAll`, `putIfAbsent`, `update` and the
+  rest of the List, Set and Map writing members, and `l[i] = v` / `m[k] = v`
+  in the script (ghissues73). It differs from Dart in three ways:
+  - an `int` written into a `double` collection is widened, because the
+    interpreter cannot tell `d.add(1)` (Dart: `1.0`) from
+    `(d as dynamic).add(1)` (Dart: `TypeError`);
+  - an argument Dart refuses for its static type (an untyped `[1]` passed to a
+    `List<String>`'s `addAll`, a closure typed `() => String`) is refused for
+    the element it would store, with that element in the message;
+  - native code writing into the same collection is not checked.
 - `runtimeType` of a written collection prints and compares like Dart's
   (`<String>[].runtimeType == <String>[].runtimeType`), but is not equal to a
   type literal such as `List<String>`, which the interpreter evaluates to the

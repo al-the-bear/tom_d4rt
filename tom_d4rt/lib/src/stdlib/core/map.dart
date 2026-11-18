@@ -1,5 +1,6 @@
 import 'package:tom_d4rt/d4rt.dart';
 import '../cast_views.dart';
+import '../written_collection_writes.dart';
 
 class MapCore {
   static BridgedClass get definition => BridgedClass(
@@ -99,7 +100,9 @@ class MapCore {
 
         return Map.fromIterable(
           iterable,
-          key: key == null ? null : (element) => D4.enterInterpreted(visitor, key, [element]),
+          key: key == null
+              ? null
+              : (element) => D4.enterInterpreted(visitor, key, [element]),
           value: value == null
               ? null
               : (element) => D4.enterInterpreted(visitor, value, [element]),
@@ -137,12 +140,30 @@ class MapCore {
       },
       '[]=': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.[]=', atMost: 2);
-        (target as Map)[positionalArgs[0]] = positionalArgs[1];
+        (target as Map)[checkWrittenElement(
+          visitor,
+          target,
+          0,
+          positionalArgs[0],
+          'key',
+        )] = checkWrittenElement(
+          visitor,
+          target,
+          1,
+          positionalArgs[1],
+          'value',
+        );
         return null;
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.addAll', atMost: 1);
-        (target as Map).addAll(positionalArgs[0] as Map);
+        final other = positionalArgs[0] as Map;
+        checkWrittenArgument(target, other, 'other');
+        final map = target as Map;
+        other.forEach((key, value) {
+          map[checkWrittenElement(visitor, target, 0, key, 'key')] =
+              checkWrittenElement(visitor, target, 1, value, 'value');
+        });
         return null;
       },
       'addEntries': (visitor, target, positionalArgs, namedArgs, _) {
@@ -150,10 +171,13 @@ class MapCore {
         final entries = positionalArgs[0] as Iterable;
         // Unwrap BridgedInstance<MapEntry> to get native MapEntry objects
         final nativeEntries = entries.map((entry) {
-          if (entry is BridgedInstance) {
-            return entry.nativeObject as MapEntry;
-          } else if (entry is MapEntry) {
-            return entry;
+          final native = entry is BridgedInstance ? entry.nativeObject : entry;
+          if (native is MapEntry) {
+            // ghissues73: a written map checks the entry's key and value.
+            return MapEntry<Object?, Object?>(
+              checkWrittenElement(visitor, target, 0, native.key, 'key'),
+              checkWrittenElement(visitor, target, 1, native.value, 'value'),
+            );
           } else {
             throw RuntimeD4rtException(
               'addEntries expects Iterable<MapEntry>, got ${entry.runtimeType}',
@@ -187,8 +211,14 @@ class MapCore {
         D4.checkArity(positionalArgs, 'Map.putIfAbsent', atMost: 2);
         final ifAbsent = positionalArgs[1] as Callable;
         return (target as Map).putIfAbsent(
-          positionalArgs[0],
-          () => D4.enterInterpreted(visitor, ifAbsent, []),
+          checkWrittenElement(visitor, target, 0, positionalArgs[0], 'key'),
+          () => checkWrittenElement(
+            visitor,
+            target,
+            1,
+            D4.enterInterpreted(visitor, ifAbsent, []),
+            'value',
+          ),
         );
       },
       'remove': (visitor, target, positionalArgs, namedArgs, _) {
@@ -208,16 +238,36 @@ class MapCore {
         final update = positionalArgs[1] as Callable;
         final ifAbsent = namedArgs['ifAbsent'] as Callable?;
         return (target as Map).update(
-          positionalArgs[0],
-          (value) => D4.enterInterpreted(visitor, update, [value]),
-          ifAbsent: ifAbsent == null ? null : () => D4.enterInterpreted(visitor, ifAbsent, []),
+          checkWrittenElement(visitor, target, 0, positionalArgs[0], 'key'),
+          (value) => checkWrittenElement(
+            visitor,
+            target,
+            1,
+            D4.enterInterpreted(visitor, update, [value]),
+            'value',
+          ),
+          ifAbsent: ifAbsent == null
+              ? null
+              : () => checkWrittenElement(
+                  visitor,
+                  target,
+                  1,
+                  D4.enterInterpreted(visitor, ifAbsent, []),
+                  'value',
+                ),
         );
       },
       'updateAll': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Map.updateAll', atMost: 1);
         final update = positionalArgs[0] as Callable;
         (target as Map).updateAll((key, value) {
-          return D4.enterInterpreted(visitor, update, [key, value]);
+          return checkWrittenElement(
+            visitor,
+            target,
+            1,
+            D4.enterInterpreted(visitor, update, [key, value]),
+            'value',
+          );
         });
         return null;
       },

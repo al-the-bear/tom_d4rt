@@ -2,6 +2,7 @@ import 'package:tom_d4rt_ast/runtime.dart';
 
 import '../collection/set_algebra_methods.dart';
 import '../cast_views.dart';
+import '../written_collection_writes.dart';
 
 class SetCore {
   static BridgedClass get definition => BridgedClass(
@@ -100,11 +101,21 @@ class SetCore {
     methods: {
       'add': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.add', atMost: 1);
-        return (target as Set).add(positionalArgs[0]);
+        return (target as Set).add(
+          checkWrittenElement(visitor, target, 0, positionalArgs[0], 'key'),
+        );
       },
       'addAll': (visitor, target, positionalArgs, namedArgs, _) {
         D4.checkArity(positionalArgs, 'Set.addAll', atMost: 1);
-        (target as Set).addAll(positionalArgs[0] as Iterable);
+        (target as Set).addAll(
+          checkWrittenElements(
+            visitor,
+            target,
+            0,
+            positionalArgs[0] as Iterable,
+            'elements',
+          ),
+        );
         return null;
       },
       'clear': (visitor, target, positionalArgs, namedArgs, _) {
@@ -216,7 +227,9 @@ class SetCore {
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).firstWhere(
           (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
-          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
+          orElse: orElse == null
+              ? null
+              : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'lastWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -225,7 +238,9 @@ class SetCore {
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).lastWhere(
           (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
-          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
+          orElse: orElse == null
+              ? null
+              : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'singleWhere': (visitor, target, positionalArgs, namedArgs, _) {
@@ -234,7 +249,9 @@ class SetCore {
         final orElse = namedArgs['orElse'] as Callable?;
         return (target as Set).singleWhere(
           (element) => D4.enterInterpreted(visitor, test, [element]) as bool,
-          orElse: orElse == null ? null : () => D4.enterInterpreted(visitor, orElse, []),
+          orElse: orElse == null
+              ? null
+              : () => D4.enterInterpreted(visitor, orElse, []),
         );
       },
       'elementAt': (visitor, target, positionalArgs, namedArgs, _) {
@@ -268,7 +285,10 @@ class SetCore {
         final initialValue = positionalArgs[0];
         final combine = positionalArgs[1] as Callable;
         return (target as Set).fold(initialValue, (previousValue, element) {
-          return D4.enterInterpreted(visitor, combine, [previousValue, element]);
+          return D4.enterInterpreted(visitor, combine, [
+            previousValue,
+            element,
+          ]);
         });
       },
       'reduce': (visitor, target, positionalArgs, namedArgs, _) {

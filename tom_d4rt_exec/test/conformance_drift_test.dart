@@ -525,9 +525,28 @@ const _partialTwinBudget = 0;
 /// from a bundle. ghissues1002 ports it after publishing. The copier surface a
 /// port would have added is generic instance creations, which the corpus copies
 /// on every run.
-const _copierGapBudget = 50;
+///
+/// 50 -> 51: GHISSUES73 added `ghissues73_written_collection_writes_test.dart`,
+/// which runs source to check that a write into a collection written with
+/// type arguments is checked against them, as Dart's run-time check does.
+/// Exec resolves tom_d4rt_ast 0.244.0 from pub.dev, where the writes succeed,
+/// so a port would fail. Its ast twin holds the mechanism, from a bundle.
+/// ghissues1002 ports it after publishing. The copier surface a port would
+/// have added is typed collection literals, which the corpus copies on every
+/// run.
+const _copierGapBudget = 51;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues73_written_collection_writes_test.dart': _Coverage(
+    'ast:runtime/ghissues73_written_collection_writes_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 3,
+    twinCases: 3,
+    whyPartial:
+        'the same program: the reference runs it as source, the twin as a '
+        'bundle that tom_ast_generator wrote, through toBytes / fromBytes.',
+  ),
   'ghissues72_generic_instance_runtime_type_test.dart': _Coverage(
     'ast:runtime/ghissues72_generic_instance_runtime_type_test.dart',
     _astTwin,

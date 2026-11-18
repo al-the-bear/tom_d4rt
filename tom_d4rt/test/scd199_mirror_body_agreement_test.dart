@@ -338,7 +338,9 @@ const _divergentBodies = <String, Map<String, String>>{
     'InterpreterVisitor._checkAppliedGenericReturn': '308278d8',
     'InterpreterVisitor._evaluateArguments': '0df79830',
     'InterpreterVisitor._evaluateArgumentsAsync': '0df79830',
-    'InterpreterVisitor._executeCascadeAssignment': '6ba592d9',
+    // GHISSUES73: 6ba592d9 -> a65e7fb1, both trees check a cascade's index
+    // write against a written collection's type arguments alike.
+    'InterpreterVisitor._executeCascadeAssignment': 'a65e7fb1',
     'InterpreterVisitor._executeClassicFor': 'd58610fd',
     'InterpreterVisitor._mapCompoundToOperatorName': 'd728ed84',
     // SCE104 extracted both from `visitAsExpression`, whose divergence they

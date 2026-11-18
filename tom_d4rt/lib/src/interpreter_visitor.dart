@@ -5,6 +5,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:tom_d4rt/d4rt.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
+import 'package:tom_d4rt/src/stdlib/written_collection_writes.dart';
 import 'package:tom_d4rt/src/unbridged_reasons.dart';
 
 /// Main visitor that walks the AST and interprets the code.
@@ -4566,9 +4567,32 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // A stored key normalises as a literal's does (SCC32, SCD198):
           // `m[String] = v` must reach the entry `m[x.runtimeType]` reads
           // (SCF40). Every `[]=` store on a Map below does the same.
-          targetValue[_unwrapHashKey(indexValue)] = finalValueToAssign;
+          // ghissues73: a written map checks the key and value.
+          final key = checkWrittenElement(
+            this,
+            targetValue,
+            0,
+            _unwrapHashKey(indexValue),
+            'key',
+          );
+          finalValueToAssign = checkWrittenElement(
+            this,
+            targetValue,
+            1,
+            finalValueToAssign,
+            'value',
+          );
+          targetValue[key] = finalValueToAssign;
           return finalValueToAssign;
         } else if (targetValue is List) {
+          // ghissues73: a written list checks the element.
+          finalValueToAssign = checkWrittenElement(
+            this,
+            targetValue,
+            0,
+            finalValueToAssign,
+            'value',
+          );
           // SCD93: the SDK decides — see `visitIndexExpression`.
           (targetValue as dynamic)[indexValue] = finalValueToAssign;
           return finalValueToAssign;
@@ -9368,9 +9392,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // Set the value
       if (indexTarget is List) {
         // SCD93: the SDK decides — see `visitIndexExpression`.
-        (indexTarget as dynamic)[indexValue] = newValue;
+        (indexTarget as dynamic)[indexValue] = checkWrittenElement(
+          this,
+          indexTarget,
+          0,
+          newValue,
+          'value',
+        );
       } else if (indexTarget is Map) {
-        indexTarget[_unwrapHashKey(indexValue)] = newValue;
+        indexTarget[checkWrittenElement(
+              this,
+              indexTarget,
+              0,
+              _unwrapHashKey(indexValue),
+              'key',
+            )] =
+            checkWrittenElement(this, indexTarget, 1, newValue, 'value');
       } else if (toBridgedInstance(indexTarget).$2) {
         // C13: bridged operator[]= in cascade (e.g. dart:foundation
         // BitField<T> used via `..[key] = value`).
