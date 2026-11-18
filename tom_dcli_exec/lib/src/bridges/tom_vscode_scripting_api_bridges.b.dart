@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 31 files
-// Generated: 2026-11-17T07:01:18.497039 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-18T20:53:14.282798 by tom_d4rt_generator 1.66.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -16887,6 +16887,10 @@ BridgedClass _createTomTodoBridge() {
         );
         final nextRepeat = D4.getOptionalNamedArg<String?>(named, 'nextRepeat');
         final repeatCount = D4.getOptionalNamedArg<int?>(named, 'repeatCount');
+        final dueReminded = D4.getOptionalNamedArg<String?>(
+          named,
+          'dueReminded',
+        );
         final onDone = D4.getOptionalNamedArg<$tom_todo_model_1.TomTodoOnDone?>(
           named,
           'onDone',
@@ -16946,6 +16950,7 @@ BridgedClass _createTomTodoBridge() {
           repeat: repeat,
           nextRepeat: nextRepeat,
           repeatCount: repeatCount,
+          dueReminded: dueReminded,
           onDone: onDone,
           filedBy: filedBy,
           resources: resources,
@@ -17037,6 +17042,9 @@ BridgedClass _createTomTodoBridge() {
       'repeatCount': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .repeatCount,
+      'dueReminded': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .dueReminded,
       'onDone': (visitor, target) => D4
           .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
           .onDone,
@@ -17284,6 +17292,13 @@ BridgedClass _createTomTodoBridge() {
             value,
             'repeatCount',
           ),
+      'dueReminded': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .dueReminded = D4.extractBridgedArgOrNull<String>(
+            value,
+            'dueReminded',
+          ),
       'onDone': (visitor, target, value) =>
           D4
               .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
@@ -17472,7 +17487,7 @@ BridgedClass _createTomTodoBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> comprisedOf = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, String? lastAnswer, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, bool userAction = false, TomTodoRepeat? repeat, String? nextRepeat, int? repeatCount, TomTodoOnDone? onDone, TomTodoFiledBy? filedBy, List<String>? resources, bool claimHold = false, bool claimFree = false})',
+      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> comprisedOf = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, String? lastAnswer, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, bool userAction = false, TomTodoRepeat? repeat, String? nextRepeat, int? repeatCount, String? dueReminded, TomTodoOnDone? onDone, TomTodoFiledBy? filedBy, List<String>? resources, bool claimHold = false, bool claimFree = false})',
     },
     methodSignatures: {
       'recordCreation':
@@ -17513,6 +17528,7 @@ BridgedClass _createTomTodoBridge() {
       'repeat': 'TomTodoRepeat? get repeat',
       'nextRepeat': 'String? get nextRepeat',
       'repeatCount': 'int? get repeatCount',
+      'dueReminded': 'String? get dueReminded',
       'onDone': 'TomTodoOnDone? get onDone',
       'filedBy': 'TomTodoFiledBy? get filedBy',
       'resources': 'List<String>? get resources',
@@ -17560,6 +17576,7 @@ BridgedClass _createTomTodoBridge() {
       'repeat': 'set repeat(dynamic value)',
       'nextRepeat': 'set nextRepeat(dynamic value)',
       'repeatCount': 'set repeatCount(dynamic value)',
+      'dueReminded': 'set dueReminded(dynamic value)',
       'onDone': 'set onDone(dynamic value)',
       'filedBy': 'set filedBy(dynamic value)',
       'resources': 'set resources(dynamic value)',

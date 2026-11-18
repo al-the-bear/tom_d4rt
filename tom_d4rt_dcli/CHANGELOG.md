@@ -1,3 +1,12 @@
+## 2.4.0
+
+### Changed — on tom_todo_model 3.1.0 (a todo's due-date reminder)
+
+`tom_todo_model` ^3.1.0, up from ^3.0.0. The scripting-API bridges are
+regenerated: scripts reach `TomTodo.dueReminded` (the `due_reminded` record of
+a todo's one due-date reminder) - read, assigned, and as a constructor
+parameter. Nothing else in the bridges changed.
+
 ## 2.3.0
 
 ### Changed — on tom_todo_model 3.0.0 and tom_vscode_scripting_api 5.0.0 (todo groups)
