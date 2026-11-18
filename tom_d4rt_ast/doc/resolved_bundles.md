@@ -16,8 +16,8 @@ stamp agrees with the host.
 
 | Where | Without facts | With facts (as in Dart) |
 | --- | --- | --- |
-| An extension's type parameters on a method call, getter or property access | From the receiver's written type, else its run-time type arguments, else `dynamic` | From the receiver's static type: `{'x': 7}.keyKind()` binds `K = String` |
-| Which extension a call goes to, when several apply | The first one in scope whose `on` type matches the receiver's run-time type | The one Dart picks by the receiver's static type |
+| An extension's type parameters on a method call, getter, property access, operator, index operator or setter | From the receiver's written type, else its run-time type arguments, else `dynamic` | From the receiver's static type: `{'x': 7}.keyKind()` binds `K = String` |
+| Which extension a member goes to, when several apply | The first one in scope whose `on` type matches the receiver's run-time type | The one Dart picks by the receiver's static type |
 | An untyped list, set or map literal | Answered from its elements; `{}` with no elements is a map | The type arguments Dart inferred: `[1, 2]` is a `List<int>`, `Set<int> s = {}` is a set |
 | A generic call or instance creation that writes no type arguments | Type parameters unbound, or taken from the arguments | The inferred type arguments: `typeOf(3)` binds `T = int`, `Box('s')` is a `Box<String>` |
 
@@ -38,10 +38,12 @@ interpreted):
 | `typeOf(3)` (`'$T'`) | `int` | `int` | `T` |
 | `Box('s').kind` (`'$T'`) | `String` | `String` | `dynamic` |
 
-**Not covered yet.** Operators, index and setter members of an extension are
-not covered: their type parameters and extension still follow the run-time
-receiver. The facts table carries them, but the runtime does not read them
-there yet.
+**Operators, index operators and setters.** An extension's binary and
+prefix operators (`m + 1`, `~m`), its index operators (`s[0]`, `s[0] = v`)
+and its setters (`m.tag = v`) use the facts too; the test
+`test/runtime/ghissues75_static_facts_operators_test.dart` runs them natively
+and interpreted. An extension `operator []` or `[]=` on `Map` never runs, in
+Dart or here: `Map` declares both itself, and an instance member wins.
 
 **A type the scope cannot name.** If a type in a fact cannot be named in the
 current scope (a type from a library the module does not import), that one

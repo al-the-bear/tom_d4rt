@@ -1,3 +1,23 @@
+## 1.276.0
+
+### Fixed — extension operators, index operators and setters bind from the written type (ghissues75)
+
+A typed local's written type now binds an extension's type parameters for
+its operators (`m + 1`, `~m`), index operators (`s[0]`, `s[0] = v`) and
+setters (`m.tag = v`) too, as it already did for method calls and getters:
+`final Map<dynamic, dynamic> wide = narrow; wide + 1` reads `K` as `dynamic`,
+as in Dart (before: `String`, from the run-time map).
+
+An extension `operator []=` on a bridged receiver that declares none (a
+`Set`) was never tried: the assignment threw `Bridged operator '[]=' not found
+directly for Set. Trying extensions.` It is now called, and with no extension
+either the error says so.
+
+tom_d4rt runs source and has no static facts; tom_d4rt_ast 0.256.0 also uses
+a resolved bundle's facts for these accesses.
+
+Name resolution: no.
+
 ## 1.275.0
 
 ### Fixed — members of a bridged interface a private native class implements (addtestscl2)

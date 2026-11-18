@@ -124,8 +124,9 @@ from gzip bytes and from the ZIP entry `facts.json.gz`.
 
 When the check passes, the runner attaches each fact to its node, and the
 interpreter uses it:
-- for an extension member call's type arguments, and for the extension Dart
-  picks by the receiver's static type;
+- for an extension member's type arguments, and for the extension Dart
+  picks by the receiver's static type - method calls, getters, operators,
+  index operators and setters alike;
 - for the inferred type arguments of literals, calls and creations.
 
 On a mismatch the run ignores the table and reports the mismatch once through

@@ -1,0 +1,55 @@
+// Extension operators, index operators and setters with a resolved bundle's
+// static facts (ghissues75, GitHub #18). The source of
+// ghissues75_operator_cases.bundle.json, written by
+// tom_ast_generator/tool/write_resolved_bundle_fixture.dart; the test
+// ghissues75_static_facts_operators_test.dart runs the same code natively.
+//
+// `Map` declares `[]` and `[]=` itself, and an instance member always wins
+// over an extension, so the index operators are declared on `Set`.
+import 'package:map_repro/native.dart';
+
+final log = <String>[];
+
+extension KeyOps<K, V> on Map<K, V> {
+  String operator +(Object? other) => 'plus $K';
+  String operator ~() => 'tilde $K';
+  set tag(Object? value) => log.add('tag $K');
+}
+
+extension WideOp on Map<dynamic, dynamic> {
+  String operator -(Object? other) => 'wide';
+}
+
+extension NarrowOp on Map<String, int> {
+  String operator -(Object? other) => 'narrow';
+}
+
+extension ElementOps<E> on Set<E> {
+  String operator [](int index) => 'index $E';
+  void operator []=(int index, Object? value) => log.add('index set $E');
+}
+
+Object main() {
+  final Map<String, int> narrow = sameMap();
+  final Map<dynamic, dynamic> wide = narrow;
+  final Set<String> narrowSet = sameSet();
+  final Set<dynamic> wideSet = narrowSet;
+  final results = [
+    narrow + 1,
+    wide + 1,
+    {'x': 7} + 1,
+    ~narrow,
+    ~wide,
+    narrow - 1,
+    wide - 1,
+    narrowSet[0],
+    wideSet[0],
+    {'a'}[0],
+  ];
+  narrow.tag = 1;
+  wide.tag = 1;
+  ({'x': 7}).tag = 1;
+  narrowSet[0] = 1;
+  wideSet[0] = 1;
+  return [...results, ...log];
+}

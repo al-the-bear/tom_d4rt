@@ -382,10 +382,12 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES53: 3a03f289 -> 3aae082b, both trees dispatch an explicit extension
     // override alike.
     // GHISSUES56: 3aae082b -> eeaf74ed, both trees update an extension-only property through the extension alike.
-    'InterpreterVisitor.visitAssignmentExpression': 'eeaf74ed',
+    // GHISSUES75: eeaf74ed -> 913ac1f1, both trees note the receiver of an extension setter and index setter, and call an extension `[]=` on a bridged receiver, alike.
+    'InterpreterVisitor.visitAssignmentExpression': '913ac1f1',
     // GHISSUES53: de77a7f3 -> 722454d8, both trees dispatch an explicit extension
     // override alike.
-    'InterpreterVisitor.visitBinaryExpression': '722454d8',
+    // GHISSUES75: 722454d8 -> d4e21070, both trees note the receiver of an extension operator alike.
+    'InterpreterVisitor.visitBinaryExpression': 'd4e21070',
     // SCE130: 57fc0f99 -> fffabfd5. Both trees gained the same call to
     // `klass.resolveDeferredTypeParameterBounds`; the residue is the
     // accessor difference this member already had.
@@ -479,7 +481,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES56: an extension property updated or stepped through the
     // extension's getter and setter; the analyzer's TokenType against the
     // mirror model's operator strings.
-    'InterpreterVisitor._extensionPropertyUpdate': '9ef7f9ed',
+    // GHISSUES75: 9ef7f9ed -> 0ae331e5, both trees note the receiver before each extension lookup and call alike.
+    'InterpreterVisitor._extensionPropertyUpdate': '0ae331e5',
     'InterpreterVisitor._stepExtensionProperty': '15618af1',
     // GHISSUES36: the same resolver; the analyzer's `question` token against
     // the mirror model's `isNullable` flag.
@@ -502,7 +505,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES53: f5947d6e -> 5f15137f, both trees dispatch an explicit extension
     // override alike.
     // GHISSUES56: 5f15137f -> bd44fa13, both trees step an extension-only property through the extension alike.
-    'InterpreterVisitor.visitPrefixExpression': 'bd44fa13',
+    // GHISSUES75: bd44fa13 -> 1bbdabcb, both trees note the receiver of an extension prefix operator alike.
+    'InterpreterVisitor.visitPrefixExpression': '1bbdabcb',
     // SCF37: the bridged step. The only difference is the operator spelling —
     // `TokenType.PLUS_PLUS` / `PLUS_EQ` here, the strings `'++'` / `'+='` in
     // the twin, as in [computeCompoundValue] which it calls.

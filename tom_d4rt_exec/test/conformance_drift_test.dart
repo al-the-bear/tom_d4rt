@@ -544,9 +544,30 @@ const _partialTwinBudget = 0;
 /// ghissues1002 ports it after publishing. The copier surface a port would
 /// have added is property reads and method calls on a static call's result,
 /// which the corpus copies on every run.
-const _copierGapBudget = 52;
+///
+/// 52 -> 53: GHISSUES75 added `ghissues75_operator_receivers_test.dart`, which
+/// runs source to check that an extension operator, index operator or setter
+/// binds its type parameters from a typed local's written type, and that an
+/// extension `operator []=` on a bridged `Set` is called. Exec resolves
+/// tom_d4rt_ast 0.244.0 from pub.dev, where the index assignment throws, so a
+/// port would fail. Its ast twin holds the mechanism, from a resolved bundle,
+/// with and without its facts. ghissues1002 ports it after publishing. The
+/// copier surface a port would have added is extension operator, index and
+/// setter declarations, which the corpus copies on every run.
+const _copierGapBudget = 53;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues75_operator_receivers_test.dart': _Coverage(
+    'ast:runtime/ghissues75_static_facts_operators_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 1,
+    twinCases: 3,
+    whyPartial:
+        'the same program: the reference runs it as source, the twin as a '
+        'bundle that tom_ast_generator wrote in resolving mode, with its '
+        'facts (native answers) and without them (the reference\'s answers).',
+  ),
   'addtestscl2_bridged_interface_members_test.dart': _Coverage(
     'ast:runtime/addtestscl2_bridged_interface_members_test.dart',
     _astTwin,

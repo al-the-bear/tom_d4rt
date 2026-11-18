@@ -2635,6 +2635,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (checkExtensionEarly) {
       Callable? extensionOperator;
       try {
+        _noteOperatorReceiver(leftOperandValue, node.leftOperand, node);
         extensionOperator = environment.findExtensionMember(
           leftOperandValue,
           operatorName,
@@ -2839,6 +2840,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (!checkExtensionEarly) {
       // Only run this if we didn't already check (and potentially succeed/fail) earlier
       try {
+        _noteOperatorReceiver(leftOperandValue, node.leftOperand, node);
         final extensionOperator = environment.findExtensionMember(
           leftOperandValue,
           operatorName,
@@ -3077,6 +3079,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
     const operatorNameForExtension = '[]';
     try {
+      _noteOperatorReceiver(targetValue, node.target, node);
       final extensionOperator = environment.findExtensionMember(
         targetValue,
         operatorNameForExtension,
@@ -3717,6 +3720,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             return rhsValue;
           }
           // No direct setter, try extension setter
+          _noteOperatorReceiver(targetValue, lhs.target, lhs);
           final extensionSetter = environment.findExtensionMember(
             targetValue,
             propertyName,
@@ -3759,6 +3763,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               propertyName,
               operatorType,
               rhsValue,
+              receiverExpression: lhs.target,
+              access: lhs,
             );
             if (!identical(updated, _noOverride)) return updated;
           }
@@ -3952,6 +3958,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             propertyName,
             operatorType,
             rhsValue,
+            receiverExpression: lhs.target,
+            access: lhs,
           );
           if (!identical(viaExtension, _noOverride)) return viaExtension;
           // No setter adapter found and no script-defined fallback.
@@ -4101,6 +4109,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             return rhsValue;
           }
 
+          _noteOperatorReceiver(target, lhs.prefix, lhs);
           final extensionSetter = environment.findExtensionMember(
             target,
             propertyName,
@@ -4143,6 +4152,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               propertyName,
               operatorType,
               rhsValue,
+              receiverExpression: lhs.prefix,
+              access: lhs,
             );
             if (!identical(updated, _noOverride)) return updated;
           }
@@ -4425,6 +4436,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             propertyName,
             operatorType,
             rhsValue,
+            receiverExpression: lhs.prefix,
+            access: lhs,
           );
           if (!identical(viaExtension, _noOverride)) return viaExtension;
           // No setter adapter found and no script-defined fallback.
@@ -4567,6 +4580,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             }
           } else {
             try {
+              _noteOperatorReceiver(targetValue, lhs.target, lhs);
               final extensionGetter = environment.findExtensionMember(
                 targetValue,
                 '[]',
@@ -4675,6 +4689,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             // No class operator found, try extensions
             const operatorName = '[]=';
             try {
+              _noteOperatorReceiver(targetValue, lhs.target, lhs);
               final extensionSetter = environment.findExtensionMember(
                 targetValue,
                 operatorName,
@@ -4778,12 +4793,22 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               );
             }
           }
+          // ghissues75: an extension `operator []=` on a bridged receiver
+          // (a `Set`, which declares none) - before, it was never tried.
+          final viaExtension = _extensionIndexAssign(
+            targetValue,
+            indexValue,
+            finalValueToAssign,
+            lhs,
+          );
+          if (!identical(viaExtension, _noOverride)) return viaExtension;
           throw RuntimeD4rtException(
-            "[Bridged operator '$operatorName' not found directly for ${bridgedClass.name}. Trying extensions.",
+            "Cannot assign to index on ${bridgedClass.name}: no operator '$operatorName' found (bridged or extension).",
           );
         } else {
           const operatorName = '[]=';
           try {
+            _noteOperatorReceiver(targetValue, lhs.target, lhs);
             final extensionSetter = environment.findExtensionMember(
               targetValue,
               operatorName,
@@ -10463,6 +10488,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         const operatorName = '-';
         try {
+          _noteOperatorReceiver(operandValue, node.operand, node);
           final extensionOperator = environment.findExtensionMember(
             operandValue,
             operatorName,
@@ -10593,6 +10619,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         // Try Extension Operator '~' (for non-int or BigInt)
         const operatorNameTilde = '~';
         try {
+          _noteOperatorReceiver(operandValue, node.operand, node);
           final extensionOperator = environment.findExtensionMember(
             operandValue,
             operatorNameTilde,
@@ -11067,6 +11094,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
 
         // Check for extension operators if no class operator found
         try {
+          _noteOperatorReceiver(operandValue, node.operand, node);
           final extensionOperator = environment.findExtensionMember(
             operandValue,
             operatorLexeme,
@@ -14715,6 +14743,18 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     );
   }
 
+  /// ghissues75: [noteExtensionReceiver] for an operator, index or setter
+  /// access, whose receiver [expression] may be absent (a cascade section's
+  /// `..[k]`); [access] is the node the static facts key the access by - the
+  /// operator or index expression, an assignment's left-hand side.
+  void _noteOperatorReceiver(
+    Object? value,
+    SExpression? expression, [
+    SAstNode? access,
+  ]) {
+    if (expression != null) noteExtensionReceiver(value, expression, access);
+  }
+
   /// The extension type parameters [names], bound for a call on [target]:
   /// matched in [onType] against the receiver's written type when the
   /// receiver is a typed local, parameter or field (the static type Dart
@@ -14990,12 +15030,21 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
   /// extension setter [name] applying to [target] (a compound assignment
   /// reads the extension getter of the same name first); [_noOverride] when
   /// no extension declares that setter.
+  ///
+  /// ghissues75: [receiverExpression] and [access] (the assignment's
+  /// left-hand side) are noted before each extension lookup and call, so a
+  /// resolved bundle's static fact for the access binds the extension's type
+  /// parameters and picks the extension.
   Object? _extensionPropertyUpdate(
     Object? target,
     String name,
     String operatorType,
-    Object? rhs,
-  ) {
+    Object? rhs, {
+    SExpression? receiverExpression,
+    SAstNode? access,
+  }) {
+    void note() => _noteOperatorReceiver(target, receiverExpression, access);
+    note();
     final setter = environment.findExtensionMember(
       target,
       name,
@@ -15005,6 +15054,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     if (setter is! ExtensionMemberCallable) return _noOverride;
     Object? value = rhs;
     if (operatorType != '=') {
+      note();
       final getter = environment.findExtensionMember(
         target,
         name,
@@ -15023,6 +15073,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         value = computeCompoundValue(current, rhs, operatorType);
       }
     }
+    note();
     _callExtensionMember(setter, [target, value]);
     return value;
   }
@@ -15061,6 +15112,29 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     );
     _callExtensionMember(setter, [target, newValue]);
     return (oldValue, newValue);
+  }
+
+  /// ghissues75: `target[index] = value` through an extension
+  /// `operator []=` applying to [target], noted for the static facts of the
+  /// left-hand side [lhs]; [_noOverride] when no extension declares it.
+  Object? _extensionIndexAssign(
+    Object? target,
+    Object? index,
+    Object? value,
+    SIndexExpression lhs,
+  ) {
+    _noteOperatorReceiver(target, lhs.target, lhs);
+    final Callable? member;
+    try {
+      member = environment.findExtensionMember(target, '[]=');
+    } on RuntimeD4rtException {
+      return _noOverride;
+    }
+    if (member is! ExtensionMemberCallable || !member.isOperator) {
+      return _noOverride;
+    }
+    _callExtensionMember(member, [target, index, value]);
+    return value;
   }
 
   /// Calls an extension member with its receiver first in [arguments].

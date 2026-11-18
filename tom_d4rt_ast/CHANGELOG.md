@@ -1,3 +1,33 @@
+## 0.256.0
+
+### Fixed — static facts for extension operators, index operators and setters (ghissues75, GitHub #18)
+
+With a resolved bundle's static facts, an extension's binary and prefix
+operators, its index operators and its setters now bind its type parameters
+from the receiver's static type and go to the extension that type picks, as
+method calls and getters already did: `{'x': 7} + 1` reads `K` as `String`,
+and with extensions on `Map<dynamic, dynamic>` and `Map<String, int>`,
+`narrow - 1` takes the second. The interpreter notes the receiver of each
+such access (the operator or index expression, or an assignment's left-hand
+side, as the bundler keys its fact).
+
+A typed local's written type now binds an extension's type parameters for
+its operators (`m + 1`, `~m`), index operators (`s[0]`, `s[0] = v`) and
+setters (`m.tag = v`) too, as it already did for method calls and getters:
+`final Map<dynamic, dynamic> wide = narrow; wide + 1` reads `K` as `dynamic`,
+as in Dart (before: `String`, from the run-time map).
+
+An extension `operator []=` on a bridged receiver that declares none (a
+`Set`) was never tried: the assignment threw `Bridged operator '[]=' not found
+directly for Set. Trying extensions.` It is now called, and with no extension
+either the error says so.
+
+Name resolution: yes — with a resolved bundle's static facts, an extension
+operator, index operator or setter resolves to the extension the receiver's
+static type picks instead of the first one whose `on` type matches. tom_d4rt
+runs source and has no facts, so it has no counterpart release (sce29
+`_twinOnly`).
+
 ## 0.255.0
 
 ### Fixed — members of a bridged interface a private native class implements (addtestscl2)

@@ -71,6 +71,11 @@ const Map<String, String> _twinOnly = {
       'ghissues70: with a resolved bundle\'s static facts an extension call '
       'goes to the extension the receiver\'s static type picks; tom_d4rt has '
       'no facts, so it has nothing to change',
+  '0.256.0':
+      'ghissues75: with a resolved bundle\'s static facts an extension '
+      'operator, index operator or setter goes to the extension the '
+      'receiver\'s static type picks; tom_d4rt has no facts, so it has '
+      'nothing to change',
 };
 
 /// The other direction: a marked tom_d4rt release whose change has no twin to
@@ -151,6 +156,12 @@ const Map<String, String> _deferred = {
       'ghissues71: loadLibrary resolves through a deferred prefix, its other '
       'names throw until it ran; unpublished, the twins resolve the published '
       'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.256.0':
+      'ghissues75: with a resolved bundle\'s static facts an extension '
+      'operator, index operator or setter goes to the extension the '
+      'receiver\'s static type picks; unpublished, the twins resolve the '
+      'published interpreter (DGUC6); ghissues1002 runs the post-publish '
+      'corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

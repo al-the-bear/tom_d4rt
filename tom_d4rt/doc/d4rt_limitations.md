@@ -3068,7 +3068,7 @@ reference.
 ### Lim-13: Extension Type Parameters Without Static Types
 
 **Status:** ⚠️ Limited
-**Recorded:** 2026-11-14 (ghissues49, GitHub #18); collections a script creates: 2026-11-17 (ghissues67); resolved bundles: 2026-11-17 (ghissues70)
+**Recorded:** 2026-11-14 (ghissues49, GitHub #18); collections a script creates: 2026-11-17 (ghissues67); resolved bundles: 2026-11-17 (ghissues70), their operators, index operators and setters: 2026-11-18 (ghissues75)
 **Complexity:** Fundamental
 
 Dart infers an extension's own type parameters (`K`, `V` of
@@ -3079,7 +3079,9 @@ interpreter in standalone binaries), so the interpreter binds them from what
 it has, in this order:
 
 1. the receiver's **written type**, when the receiver is a typed local, a
-   typed parameter, or a typed field (`m`, `this.m`, `obj.m`):
+   typed parameter, or a typed field (`m`, `this.m`, `obj.m`) - for a method
+   call, a getter, an operator (`m + 1`, `~m`), an index (`s[0]`,
+   `s[0] = v`) and a setter (`m.tag = v`) alike:
    `final Map<dynamic, dynamic> wide = narrow; wide.keyKind()` gives
    `dynamic`, as in Dart;
 2. the receiver's **runtime type arguments**: a native generic object
@@ -3104,8 +3106,7 @@ binding above read them: `<String>[] is List<int>` is false,
 - A receiver that is neither typed nor reified falls through to `dynamic`
   where Dart infers a type: an untyped collection literal (`{'x': 7}.keyKind()`
   - Dart: `String`, from the elements; it has no written type arguments), the
-  result of a call, an index or a cast. Operators, index and setter members of
-  an extension use the runtime source only.
+  result of a call, an index or a cast.
 - An untyped literal's type is still answered from its elements: `[]` passes
   `is List<int>` (Dart: a `List<dynamic>` does not).
 - Writes are checked against the written type arguments, as Dart's run-time
@@ -3133,11 +3134,13 @@ found. tom_d4rt_ast uses them in place of the order above, when their stamp
 agrees with the host (`tom_d4rt_ast/doc/resolved_bundles.md`):
 
 - **Extension type parameters** are bound from the receiver's static type.
-  This applies to a method call, a getter or a property access: `{'x': 7}.keyKind()`
-  gives `String`, and so does the result of a call.
-- **The extension** a method or getter call goes to is the one Dart picks by the
-  receiver's static type. With `on Map<dynamic, dynamic>` and
-  `on Map<String, int>` both in scope, `narrow.kind()` takes the second.
+  This applies to a method call, a getter or a property access, an operator
+  (binary or prefix), an index operator and a setter or index setter:
+  `{'x': 7}.keyKind()` and `{'x': 7} + 1` read `K` as `String`, and so does
+  the result of a call.
+- **The extension** a member goes to is the one Dart picks by the receiver's
+  static type. With `on Map<dynamic, dynamic>` and `on Map<String, int>` both
+  in scope, `narrow.kind()` and `narrow - 1` take the second.
 - **Literals, instance creations and generic calls** that write no type
   arguments get the ones Dart inferred:
   - `[1, 2]` is a `List<int>`, and `Set<int> s = {}` is a set;
@@ -3145,9 +3148,7 @@ agrees with the host (`tom_d4rt_ast/doc/resolved_bundles.md`):
   - `typeOf(3)` binds `T = int`.
 
 Without facts (a parse-only bundle, or a stamp that does not agree), and in
-tom_d4rt, which runs source and has none, the order above applies. Operators,
-index and setter members of an extension are not covered by the facts yet and
-use the runtime source in both cases.
+tom_d4rt, which runs source and has none, the order above applies.
 
 #### Workaround
 
