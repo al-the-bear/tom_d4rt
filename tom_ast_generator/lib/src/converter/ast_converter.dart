@@ -1665,7 +1665,8 @@ class AstConverter {
     return SAnnotation(
       offset: node.offset,
       length: node.length,
-      name: convert(node.name) as SSimpleIdentifier?,
+      // ghissues78 (GitHub #22): `@m.useResult` has a prefixed name.
+      name: convert(node.name) as SIdentifier?,
       typeArguments: convert(node.typeArguments) as STypeArgumentList?,
       constructorName: node.constructorName != null
           ? convert(node.constructorName!) as SSimpleIdentifier?

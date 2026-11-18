@@ -605,10 +605,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_ast_model
-      sha256: "4788bf9f9afb7bded8929927e00d953749f12d5b02971faf48170c151a44625e"
+      sha256: d695eeca45e9551f5d434d67a1a53c3d5147244e6c1a3a650c289ae5e371e38f
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.3"
   tom_build_base:
     dependency: "direct main"
     description:

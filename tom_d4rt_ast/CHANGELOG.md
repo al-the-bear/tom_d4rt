@@ -1,3 +1,14 @@
+## 0.258.0
+
+### Changed — on tom_ast_model 0.3.3 (ghissues78, GitHub #22)
+
+`tom_ast_model` ^0.3.3, up from ^0.3.2: a bundle holding a prefixed
+annotation name (`@m.useResult`, as tom_ast_generator 0.2.10 writes it) reads,
+the name an `SPrefixedIdentifier`. The interpreter ignores annotations, as
+before.
+
+Name resolution: no.
+
 ## 0.257.0
 
 ### Added — dart:collection's bases and Iterable as superclasses and mixins (ghissues77, GitHub #21)

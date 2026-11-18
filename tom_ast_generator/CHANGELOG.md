@@ -1,3 +1,15 @@
+## 0.2.10
+
+### Fixed — a prefixed annotation name converts (ghissues78, GitHub #22)
+
+`AstBundler.createFromSource` threw
+`type 'SPrefixedIdentifier' is not a subtype of type 'SSimpleIdentifier?'` on
+an annotation whose name is prefixed - Serverpod 4.1's generated
+`@_isc.useResult`, `@m.useResult`, `@m.Foo.named(1)`. The converter keeps the
+name as the analyzer gives it, an `SPrefixedIdentifier` (tom_ast_model 0.3.3:
+`SAnnotation.name` is an `SIdentifier`), and the bundle round-trips it.
+tom_ast_model ^0.3.3.
+
 ## 0.2.9
 
 ### Fixed — the resolving check reads each package under its own language version (ghissues74)
