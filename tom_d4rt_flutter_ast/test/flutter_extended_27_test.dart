@@ -161,16 +161,19 @@ void main() {
           'material/material_ink_controller_test.dart',
         );
         SendTestRunner.expectSuccess(result);
+        // The nested builder checks the controller's `color` and `vsync`
+        // and throws on a wrong answer, which expectSuccess reports.
         expect(result.output, containsAll(<String>['controller types: 1']));
       },
       // GEN-135 (todo addtestscl2): Material.of(context) returns the private
       // _RenderInkFeatures (extends RenderProxyBox implements
-      // MaterialInkController); the interpreter wraps it as its bridged
-      // superclass RenderProxyBox and the interface's members are undefined
-      // in both twins (run 20261118-addtests2: `Undefined property or method
-      // 'color' on bridged instance of 'RenderProxyBox'`). Native builds it
-      // without error; remove the skip with the fix
-      // (material_ink_controller_test.dart).
+      // MaterialInkController); the published interpreter wraps it as its
+      // bridged superclass RenderProxyBox and the interface's members are
+      // undefined in both twins (run 20261118-addtests2: `Undefined property
+      // or method 'color' on bridged instance of 'RenderProxyBox'`). Fixed in
+      // tom_d4rt 1.275.0 / tom_d4rt_ast 0.255.0, not yet published; the twins
+      // resolve the published interpreter. Remove the skip once they resolve
+      // the fix (material_ink_controller_test.dart).
       skip:
           'GEN-135: private class wrapped as its bridged superclass hides bridged interface members',
     );

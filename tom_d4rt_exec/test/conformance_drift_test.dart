@@ -534,9 +534,29 @@ const _partialTwinBudget = 0;
 /// ghissues1002 ports it after publishing. The copier surface a port would
 /// have added is typed collection literals, which the corpus copies on every
 /// run.
-const _copierGapBudget = 51;
+///
+/// 51 -> 52: ADDTESTSCL2 added `addtestscl2_bridged_interface_members_test.dart`,
+/// which runs source to check that a private native class wrapped as its
+/// bridged superclass still answers the members of a bridged interface it
+/// implements (GEN-135, `Material.of(context).color`). Exec resolves
+/// tom_d4rt_ast 0.244.0 from pub.dev, where those members are undefined, so a
+/// port would fail. Its ast twin holds the mechanism, from hand-built bundles.
+/// ghissues1002 ports it after publishing. The copier surface a port would
+/// have added is property reads and method calls on a static call's result,
+/// which the corpus copies on every run.
+const _copierGapBudget = 52;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'addtestscl2_bridged_interface_members_test.dart': _Coverage(
+    'ast:runtime/addtestscl2_bridged_interface_members_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 4,
+    whyPartial:
+        'the same four checks: the reference runs them as source, the twin as '
+        'hand-built bundles, so the converter is not exercised.',
+  ),
   'ghissues73_written_collection_writes_test.dart': _Coverage(
     'ast:runtime/ghissues73_written_collection_writes_test.dart',
     _astTwin,

@@ -146,6 +146,27 @@ extension InterpreterVisitorExtension on InterpreterVisitor {
         );
       }
     }
+    // GEN-135: the bridged classes the native object is assignable to that
+    // are neither its wrapping class nor one of that class's registered
+    // supertypes - the bridged interfaces a private native class implements
+    // beside the superclass it is wrapped as. `Material.of(context)` is a
+    // `_RenderInkFeatures extends RenderProxyBox implements
+    // MaterialInkController`; it is wrapped as `RenderProxyBox`, and `color`
+    // is a member of `MaterialInkController` only.
+    final native = bridgedInstance.nativeObject;
+    final tried = {bridgedInstance.bridgedClass.name, ...supertypeNames};
+    for (final bridge in environment.assignableBridgedClasses(native)) {
+      if (tried.contains(bridge.name)) continue;
+      final getter = bridge.findInstanceGetterAdapter(propertyName);
+      if (getter != null) return (getter(this, native), true);
+      final method = bridge.findInstanceMethodAdapter(propertyName);
+      if (method != null) {
+        return (
+          BridgedMethodCallable(bridgedInstance, method, propertyName),
+          true,
+        );
+      }
+    }
     return (null, false);
   }
 }

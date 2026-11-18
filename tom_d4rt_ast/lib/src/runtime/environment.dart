@@ -242,6 +242,10 @@ class Environment {
   // bridge-type mutation, so a later registration can still turn a cached
   // miss into a hit.
   Set<Type>? _unbridgedTypeCacheRaw;
+  // GEN-135: runtimeType -> every bridged class whose `isAssignable` accepts
+  // an object of that type, most specific first ([assignableBridgedClasses]).
+  // Cleared with [_resolvedTypeCache].
+  Map<Type, List<BridgedClass>>? _assignableBridgesCacheRaw;
   Map<String, BridgedEnum>? _bridgedEnumsRaw; // Store bridged enums
   // SCD194: the enum counterpart of [_shadowedBridgesRaw]. `defineBridgedEnum`
   // used to warn and overwrite, so a displaced enum left no trace but a log
@@ -838,6 +842,7 @@ class Environment {
   void _invalidateResolutionCache() {
     _resolvedTypeCacheRaw?.clear();
     _unbridgedTypeCacheRaw?.clear();
+    _assignableBridgesCacheRaw?.clear();
   }
 
   /// Looks up a bridged class by name, walking the enclosing scope chain.
@@ -1154,6 +1159,42 @@ class Environment {
     }
     _resolvedTypeCacheOrNew[runtimeType] = bridgedClass;
     return BridgedInstance(bridgedClass, nativeObject);
+  }
+
+  /// GEN-135: every bridged class, in this scope chain, whose `isAssignable`
+  /// accepts [nativeObject], the most specific first (by
+  /// [BridgedClass.hierarchyDepth]; registration order among equals).
+  ///
+  /// [toBridgedInstance] wraps an object as ONE of them, its most specific
+  /// class. A private native class that extends one bridged class and
+  /// implements another (`_RenderInkFeatures extends RenderProxyBox
+  /// implements MaterialInkController`) is wrapped as the deeper one, and the
+  /// interface's members are reached only through this list. Cached per
+  /// runtime type.
+  List<BridgedClass> assignableBridgedClasses(Object nativeObject) {
+    final runtimeType = nativeObject.runtimeType;
+    final cached = _assignableBridgesCacheRaw?[runtimeType];
+    if (cached != null) return cached;
+    final matches = <BridgedClass>[];
+    for (Environment? env = this; env != null; env = env._enclosing) {
+      for (final bridge in env._bridgedClassesLookupByType.values) {
+        if (bridge.isAssignable != null &&
+            !matches.contains(bridge) &&
+            bridge.isAssignable!(nativeObject)) {
+          matches.add(bridge);
+        }
+      }
+    }
+    final indexed = matches.indexed.toList()
+      ..sort((a, b) {
+        final byDepth = b.$2.hierarchyDepth.compareTo(a.$2.hierarchyDepth);
+        return byDepth != 0 ? byDepth : a.$1.compareTo(b.$1);
+      });
+    final ordered = List<BridgedClass>.unmodifiable([
+      for (final (_, bridge) in indexed) bridge,
+    ]);
+    (_assignableBridgesCacheRaw ??= {})[runtimeType] = ordered;
+    return ordered;
   }
 
   /// Whether [value] is owned by the interpreter rather than being a native

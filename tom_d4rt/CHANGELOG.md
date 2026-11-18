@@ -1,3 +1,24 @@
+## 1.275.0
+
+### Fixed — members of a bridged interface a private native class implements (addtestscl2)
+
+A native object is wrapped as its most specific bridged class. A private
+class that extends one bridged class and implements another is wrapped as
+the deeper one, and the members it has only through the bridged interface
+were undefined: `Material.of(context)` is a `_RenderInkFeatures extends
+RenderProxyBox implements MaterialInkController`, so `controller.color`
+threw `Undefined property or method 'color' on bridged instance of
+'RenderProxyBox'`, even with the local typed `MaterialInkController`.
+
+A member the wrapping class and its registered supertypes do not have is now
+looked up in the other bridged classes whose `isAssignable` accepts the
+object, the most specific first (`Environment.assignableBridgedClasses`,
+cached per runtime type): getters, methods and tear-offs. A member of a
+bridged interface the object does not implement stays undefined. Instance
+members found this way come before extension members, as in Dart (GEN-135).
+
+Name resolution: no.
+
 ## 1.274.0
 
 ### Fixed — writes into a written collection are checked (ghissues73)

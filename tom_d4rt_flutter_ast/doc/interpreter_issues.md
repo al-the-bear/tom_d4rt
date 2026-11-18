@@ -26,7 +26,7 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect. Blast radius: every script closure passed to a parameter typed as a Flutter function typedef — which is every Flutter callback, on every widget, wherever a declared parameter type is checked. Nothing narrows it to the widgets the corpus happens to contain. Found 2026-09-06. **Fixed in the interpreter (scd136) and published in 1.192.0 / 0.177.0; re-measured 2026-09-28**, base corpus, both twins: 0 refused callbacks across 910 scripts, against 117 on 2026-09-15. Open until a FULL-corpus run at a published fix confirms the 4 failing extended files (sce160). |
 | `[ ]` | Open (GEN-134) — a generic bridged instance's function-typed field cannot be read back through its getter adapter | A **generator** defect. Blast radius: every generic bridged class whose field type mentions a class type parameter inside a function type, built with type arguments and read back by a script; building and rendering work. Found 2026-11-18 by addtests2 (`material/radio_menu_button_on_changed_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl1_akrs-gen134-generic-function-field-getter`. Fixed in tom_d4rt_generator 1.67.0 (unpublished); waits for the publish, the twins' regeneration and the skip's removal. |
-| `[ ]` | Open (GEN-135) — a private native class is wrapped as its bridged superclass, hiding the members of the bridged interface it implements | An **interpreter / bridge** defect. Blast radius: every private SDK class implementing a bridged interface its bridged superclass does not, read through that interface (`Material.of(context)`, a MaterialInkController). Found 2026-11-18 by addtests2 (`material/material_ink_controller_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl2_akrs-gen135-private-class-bridged-interface-members`. |
+| `[ ]` | Open (GEN-135) — a private native class is wrapped as its bridged superclass, hiding the members of the bridged interface it implements | An **interpreter / bridge** defect. Blast radius: every private SDK class implementing a bridged interface its bridged superclass does not, read through that interface (`Material.of(context)`, a MaterialInkController). Found 2026-11-18 by addtests2 (`material/material_ink_controller_test.dart`, recorded skip in `flutter_extended_27`, both twins). Todo `addtestscl2_akrs-gen135-private-class-bridged-interface-members`. Fixed in tom_d4rt 1.275.0 / tom_d4rt_ast 0.255.0 (unpublished); waits for the publish and the skip's removal. |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -322,6 +322,26 @@ MaterialInkController`. The value is wrapped as a BridgedInstance of the most
 specific bridged class found for its native type, RenderProxyBox, and a
 member lookup does not consider the bridged interfaces the native object
 also satisfies.
+
+**Fix (interpreter, tom_d4rt 1.275.0 / tom_d4rt_ast 0.255.0, not yet
+published):** a member the wrapping class and its registered supertypes do not
+have is looked up in the other bridged classes whose `isAssignable` accepts
+the object, the most specific first (`Environment.assignableBridgedClasses`,
+cached per runtime type; the fallback in `lookupOnBridgedSupertypes`, both
+trees). Getters, methods and tear-offs; a bridged interface the object does
+not implement still answers nothing. Unit tests
+`tom_d4rt/test/addtestscl2_bridged_interface_members_test.dart` and
+`tom_d4rt_ast/test/runtime/addtestscl2_bridged_interface_members_test.dart`
+(red without the fix). With the tree interpreter path-resolved
+(`prepublish_overrides.dart --set`, not certifying runs):
+`flutter_extended_27` with the GEN-135 skip lifted passes in both twins
+(`20261118-gen135-ast`, `20261118-gen135-src`: `+7 ~1`, only GEN-134
+skipped), and the AST twin's base gate `20261118-gen135-base` gives the same
+per-file counts as `20261115-ghf3-base`.
+
+**Left:** after the publish, remove the GEN-135 skip from both
+`flutter_extended_27` drivers, run the driver alone in both twins on the
+published versions and mark the cluster fixed.
 
 ### [X] Fixed (GEN-128) — a record type annotation drops its fields' `?`
 
