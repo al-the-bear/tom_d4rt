@@ -1,3 +1,25 @@
+## 0.259.0
+
+### Fixed — a constructor tear-off through an import prefix (ghissues79, GitHub #23)
+
+`generated.Protocol.new` - the tear-off Serverpod 4.1's generated
+`ProtocolDeserialization.cached` writes, of a class imported with a prefix -
+failed with `Undefined static member 'new' on class 'Protocol'`, while
+`Protocol.new` worked. `generated.Protocol` resolves to the class and `.new`
+reached the class arm of the property access, which had no constructor
+tear-off. Both paths now share one helper per class kind:
+
+- `prefix.C.new` (an unnamed constructor or factory, or the implicit default
+  one of a class that declares none) and `prefix.C.named`;
+- `prefix.C<int>.new` / `prefix.C<int>.named`, keeping the type arguments;
+- `prefix.BridgedClass.new` (`core.StringBuffer.new`).
+
+`C.new` of a class that declares no constructor works without a prefix too
+(it answered `Undefined static member 'new'`).
+
+Name resolution: yes — `prefix.C.new` / `prefix.C.named` resolve to the
+class's constructor as a tear-off.
+
 ## 0.258.0
 
 ### Changed — on tom_ast_model 0.3.3 (ghissues78, GitHub #22)

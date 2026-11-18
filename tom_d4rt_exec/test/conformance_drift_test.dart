@@ -566,9 +566,30 @@ const _partialTwinBudget = 0;
 /// program. ghissues1002 ports it after publishing. The copier surface a port
 /// would have added is classes extending and mixing in bridged collection
 /// bases, which the corpus copies on every run.
-const _copierGapBudget = 54;
+///
+/// 54 -> 55: GHISSUES79 added `ghissues79_prefixed_constructor_tearoff_test.dart`,
+/// which runs source to check that a constructor tear-off through an import
+/// prefix (`generated.Protocol.new`, GitHub #23) and its named, generic and
+/// bridged forms answer as native Dart does. Exec resolves tom_d4rt_ast
+/// 0.244.0 from pub.dev, where `prefix.C.new` throws, so a port would fail.
+/// Its ast twin holds the mechanism, from parse-only and resolved bundles.
+/// ghissues1002 ports it after publishing. The copier surface a port would
+/// have added is constructor tear-offs through a prefix, which the corpus
+/// copies on every run.
+const _copierGapBudget = 55;
 
 const Map<String, _Coverage> _coveredElsewhere = {
+  'ghissues79_prefixed_constructor_tearoff_test.dart': _Coverage(
+    'ast:runtime/ghissues79_prefixed_constructor_tearoff_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 2,
+    twinCases: 2,
+    whyPartial:
+        'the same two files: the reference runs them as source, the twin as '
+        'parse-only and resolved bundles that tom_ast_generator wrote, '
+        'through toBytes / fromBytes (each case run once per bundle).',
+  ),
   'ghissues77_collection_bases_test.dart': _Coverage(
     'ast:runtime/ghissues77_collection_bases_test.dart',
     _astTwin,

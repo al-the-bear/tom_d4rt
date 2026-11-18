@@ -528,7 +528,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // alike.
     // GHISSUES71: ca024abf -> 360f95bf, both trees let a deferred library's not-loaded error through alike.
     // GHISSUES77: 360f95bf -> ef25f067, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
-    'InterpreterVisitor.visitPrefixedIdentifier': 'ef25f067',
+    // GHISSUES79: ef25f067 -> ab08b52f, both trees share the constructor tear-off helpers alike.
+    'InterpreterVisitor.visitPrefixedIdentifier': 'ab08b52f',
     // DART313B1: 9ac16b77 -> 4745333b, both trees appended the same
     // declined-member reason to the same property-miss message.
     // GHISSUES25: 4745333b -> 43934bf3, smaller: `super.x` on a bridged
@@ -546,7 +547,8 @@ const _divergentBodies = <String, Map<String, String>>{
     // GHISSUES67: 3227b276 -> 4bce0dcf, both trees answer a script collection's runtimeType by its written type
     // alike.
     // GHISSUES77: 4bce0dcf -> 232bd8f7, both trees changed alike (collection bases, statics through an instance, async extension methods, field Set literals).
-    'InterpreterVisitor.visitPropertyAccess': '232bd8f7',
+    // GHISSUES79: 232bd8f7 -> 1a17684f, both trees share the constructor tear-off helpers alike.
+    'InterpreterVisitor.visitPropertyAccess': '1a17684f',
     'InterpreterVisitor.visitReturnStatement': 'f152feca',
     'InterpreterVisitor.visitSetOrMapLiteral': '1a33a2d6',
     // GHISSUES66: 62e52aee -> d2853fe6, both trees resolve an enum's own

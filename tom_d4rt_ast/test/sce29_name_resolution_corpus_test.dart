@@ -170,6 +170,14 @@ const Map<String, String> _deferred = {
       'ghissues77: an instance member access no longer reaches the class\'s '
       'statics; unpublished, the twins resolve the published interpreter '
       '(DGUC6); ghissues1002 runs the post-publish corpus',
+  '1.278.0':
+      'ghissues79: prefix.C.new / prefix.C.named resolve to a constructor '
+      'tear-off; unpublished, the twins resolve the published interpreter '
+      '(DGUC6); ghissues1002 runs the post-publish corpus',
+  '0.259.0':
+      'ghissues79: prefix.C.new / prefix.C.named resolve to a constructor '
+      'tear-off; unpublished, the twins resolve the published interpreter '
+      '(DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

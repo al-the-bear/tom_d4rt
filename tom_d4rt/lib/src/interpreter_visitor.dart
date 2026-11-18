@@ -1423,21 +1423,12 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // G-DOV-5 FIX: Handle constructor tear-offs (Class.new)
           // Return the class itself as it implements Callable and its call()
           // method properly creates an instance and calls the constructor.
-          if (memberName == 'new') {
-            final constructor = prefixValue.findConstructor('');
-            if (constructor != null) return prefixValue;
-          }
-          // G-DOV2-2 FIX: Handle named constructor tear-offs (Class.fromMap, etc.)
-          // Named constructors can be used as tear-offs when passed to higher-order functions
-          final namedConstructor = prefixValue.findConstructor(memberName);
-          if (namedConstructor != null) {
-            // Return a callable that will invoke this named constructor
-            return _NamedConstructorTearOff(
-              prefixValue,
-              namedConstructor,
-              memberName,
-            );
-          }
+          // G-DOV2-2 FIX: named constructor tear-offs (`Class.fromMap`).
+          final tearOff = _interpretedConstructorTearOff(
+            prefixValue,
+            memberName,
+          );
+          if (tearOff != null) return tearOff;
           // Cluster C33: class-as-value (Type literal) semantics. A
           // PrefixedIdentifier like `slotType.hashCode` where `slotType`
           // is bound to an InterpretedClass should dispatch
@@ -1580,26 +1571,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       // tom_d4rt_ast). `EagerGestureRecognizer.new` and named-ctor
       // tear-offs like `Foo.fromMap` produce Callables that wrap the
       // bridged constructor adapter.
-      if (memberName == 'new') {
-        final ctor = bridgedClass.findConstructorAdapter('');
-        if (ctor != null) {
-          if (Logger.isDebug) {
-            Logger.debug(
-              "[PrefixedIdentifier] Returning bridged unnamed-constructor tear-off '${bridgedClass.name}.new'.",
-            );
-          }
-          return _BridgedConstructorTearOff(bridgedClass, ctor, '');
-        }
-      }
-      final namedCtor = bridgedClass.findConstructorAdapter(memberName);
-      if (namedCtor != null) {
-        if (Logger.isDebug) {
-          Logger.debug(
-            "[PrefixedIdentifier] Returning bridged named-constructor tear-off '${bridgedClass.name}.$memberName'.",
-          );
-        }
-        return _BridgedConstructorTearOff(bridgedClass, namedCtor, memberName);
-      }
+      final tearOff = _bridgedConstructorTearOff(bridgedClass, memberName);
+      if (tearOff != null) return tearOff;
       // Cluster C32: class-as-value (Type literal) semantics. A
       // PrefixedIdentifier like `slotType.hashCode` where `slotType` is
       // bound to a BridgedClass should dispatch
@@ -6980,6 +6953,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           // on the Type instance, not a static-member lookup on the class.
           // Fall back to the underlying Dart object's getters before
           // reporting an undefined-static error.
+          // ghissues79 (GitHub #23): a constructor tear-off of a class reached
+          // through an import prefix, `generated.Protocol.new` - the same
+          // tear-off `C.new` gets as a prefixed identifier.
+          final tearOff = _interpretedConstructorTearOff(target, propertyName);
+          if (tearOff != null) return tearOff;
           if (propertyName == 'hashCode') {
             return target.hashCode;
           }
@@ -7071,6 +7049,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // `Object.hashCode` on the Type instance, not a static-member
         // lookup on the bridged class. Fall back to the underlying Dart
         // object's getters before reporting an undefined-static error.
+        // ghissues79: `prefix.BridgedClass.new` / `.named` tear-offs.
+        final tearOff = _bridgedConstructorTearOff(bridgedClass, propertyName);
+        if (tearOff != null) return tearOff;
         if (propertyName == 'hashCode') {
           return bridgedClass.hashCode;
         }
@@ -7384,6 +7365,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       );
     } else if (target is Callable) {
       // ENG-006: Handle property access on function objects (InterpretedFunction, NativeFunction, etc.)
+      // ghissues79: `prefix.Box<int>.named` / `.new` - a constructor tear-off
+      // of a class instantiated with type arguments keeps them.
+      if (target is InstantiatedCallable) {
+        final klass = target.target;
+        final tearOff = klass is InterpretedClass
+            ? _interpretedConstructorTearOff(klass, propertyName)
+            : null;
+        if (tearOff is Callable) {
+          return InstantiatedCallable(tearOff, target.typeArguments);
+        }
+      }
       // Functions support runtimeType, hashCode, toString, and call tear-off.
       if (Logger.isDebug) {
         Logger.debug(
@@ -15249,6 +15241,36 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         'Unsupported binary operator "$operator"',
       ),
     };
+  }
+
+  /// ghissues79 (GitHub #23): the constructor tear-off `klass.new` (the
+  /// unnamed constructor or factory) or `klass.name` (a named one) of an
+  /// interpreted class, or null when [name] names no constructor - for
+  /// `C.new` and, through an import prefix, `prefix.C.new` alike.
+  Object? _interpretedConstructorTearOff(InterpretedClass klass, String name) {
+    // G-DOV-5: the class itself is the unnamed constructor's tear-off; its
+    // call() creates an instance and runs the constructor.
+    // A class that declares no constructor has the implicit default one.
+    if (name == 'new') {
+      final hasUnnamed =
+          klass.findConstructor('') != null ||
+          (klass.constructors.isEmpty && !klass.isAbstract);
+      return hasUnnamed ? klass : null;
+    }
+    final constructor = klass.findConstructor(name);
+    return constructor == null
+        ? null
+        : _NamedConstructorTearOff(klass, constructor, name);
+  }
+
+  /// ghissues79: [_interpretedConstructorTearOff] for a bridged class:
+  /// `EagerGestureRecognizer.new`, `Foo.fromMap`.
+  Object? _bridgedConstructorTearOff(BridgedClass bridgedClass, String name) {
+    final constructorName = name == 'new' ? '' : name;
+    final adapter = bridgedClass.findConstructorAdapter(constructorName);
+    return adapter == null
+        ? null
+        : _BridgedConstructorTearOff(bridgedClass, adapter, constructorName);
   }
 
   /// ghissues77: calls the operator [symbol] [target]'s class declares.
