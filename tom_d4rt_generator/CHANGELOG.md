@@ -1,3 +1,18 @@
+## 1.67.0
+
+### Fixed — getters whose type nests a class type parameter read through `dynamic`
+
+The instance getter adapter of a generic class read its field through the
+statically typed target, `D4.validateTarget<Picker<dynamic>>(...)`. A field
+whose type nests the class's type parameter - `ValueChanged<T?>? onChanged`,
+`List<T> values`, `T Function() make` - is covariant in `T`; reading it from a
+`Picker<int>` through `Picker<dynamic>` made the VM's covariance check throw
+(`type '(int?) => void' is not a subtype of type '((dynamic) => void)?'`).
+Such getters now read through `dynamic`, as the dispatch of getters named by
+`Object` members already did; a getter typed by the bare type parameter (`T
+value`) or by no type parameter keeps the static read. In the Flutter twins
+this fixes `RadioMenuButton.onChanged` and 156 other getters (GEN-134).
+
 ## 1.66.0
 
 ### Fixed — a sub-package barrel offers only what that package declares

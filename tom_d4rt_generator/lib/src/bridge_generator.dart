@@ -8752,7 +8752,18 @@ class BridgeGenerator {
             "      '$getterKey': $prefixedUserBridge.$getterOverride,",
           );
         } else {
-          if (_requiresDynamicMemberDispatch(getter.name)) {
+          // GEN-134: a getter whose type nests a class type parameter
+          // (`ValueChanged<T?>?` on `RadioMenuButton<T>`) is read through
+          // `dynamic`. The adapter's target is the class instantiated to
+          // bounds (`RadioMenuButton<dynamic>`), so a statically typed read
+          // makes Dart check the field against `void Function(dynamic)`,
+          // which an instance built with `T = int` fails: a type parameter in
+          // a function's parameter is contravariant.
+          if (_requiresDynamicMemberDispatch(getter.name) ||
+              nestsClassTypeParameter(
+                getter.returnType,
+                cls.typeParameters.keys,
+              )) {
             buffer.writeln(
               "      '$getterKey': (visitor, target) => "
               "(D4.validateTarget<$prefixedName>(target, '${_escapeString(cls.name)}') as dynamic).${getter.name},",
@@ -9244,6 +9255,26 @@ class BridgeGenerator {
       }
       buffer.writeln('    },');
     }
+  }
+
+  /// GEN-134: whether [type] mentions one of [typeParameters] inside a
+  /// generic or function type (`ValueChanged<T?>?`, `List<T>`,
+  /// `T Function()`), not only as the whole type (`T`, `T?`). Reading such a
+  /// field through the class instantiated to bounds can fail Dart's
+  /// covariance check.
+  @visibleForTesting
+  static bool nestsClassTypeParameter(
+    String type,
+    Iterable<String> typeParameters,
+  ) {
+    final names = typeParameters.toSet();
+    if (names.isEmpty) return false;
+    final bare = type.endsWith('?') ? type.substring(0, type.length - 1) : type;
+    if (names.contains(bare.trim())) return false;
+    if (!type.contains('<') && !type.contains('Function')) return false;
+    return RegExp(r'[A-Za-z_\$][A-Za-z0-9_\$]*')
+        .allMatches(type)
+        .any((m) => names.contains(m.group(0)));
   }
 
   bool _requiresDynamicMemberDispatch(String memberName) {
