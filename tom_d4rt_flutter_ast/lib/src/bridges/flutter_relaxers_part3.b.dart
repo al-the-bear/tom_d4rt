@@ -1,4 +1,4 @@
-// Generated: 2026-11-15T13:30:19.128784 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T08:47:51.953426 by tom_d4rt_generator 1.67.0
 /// D4rt RC-2 generic constructor factories for flutter_material_bridges, part 3 of 3 of `flutter_relaxers.b.dart`.
 ///
 /// The relaxer output is split into part files when it is too large for one file.

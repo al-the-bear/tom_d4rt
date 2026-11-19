@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 174 files
-// Generated: 2026-11-15T13:32:22.570369 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T08:38:51.648150 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -12712,9 +12712,9 @@ BridgedClass _createActionBridge() {
       },
     },
     getters: {
-      'callingAction': (visitor, target) => D4
-          .validateTarget<$flutter_122.Action>(target, 'Action')
-          .callingAction,
+      'callingAction': (visitor, target) =>
+          (D4.validateTarget<$flutter_122.Action>(target, 'Action') as dynamic)
+              .callingAction,
       'intentType': (visitor, target) =>
           D4.validateTarget<$flutter_122.Action>(target, 'Action').intentType,
       'isActionEnabled': (visitor, target) => D4
@@ -13100,9 +13100,13 @@ BridgedClass _createContextActionBridge() {
     isAbstract: true,
     constructors: {},
     getters: {
-      'callingAction': (visitor, target) => D4
-          .validateTarget<$flutter_122.ContextAction>(target, 'ContextAction')
-          .callingAction,
+      'callingAction': (visitor, target) =>
+          (D4.validateTarget<$flutter_122.ContextAction>(
+                    target,
+                    'ContextAction',
+                  )
+                  as dynamic)
+              .callingAction,
       'intentType': (visitor, target) => D4
           .validateTarget<$flutter_122.ContextAction>(target, 'ContextAction')
           .intentType,
@@ -13330,18 +13334,26 @@ BridgedClass _createCallbackActionBridge() {
       },
     },
     getters: {
-      'callingAction': (visitor, target) => D4
-          .validateTarget<$flutter_122.CallbackAction>(target, 'CallbackAction')
-          .callingAction,
+      'callingAction': (visitor, target) =>
+          (D4.validateTarget<$flutter_122.CallbackAction>(
+                    target,
+                    'CallbackAction',
+                  )
+                  as dynamic)
+              .callingAction,
       'intentType': (visitor, target) => D4
           .validateTarget<$flutter_122.CallbackAction>(target, 'CallbackAction')
           .intentType,
       'isActionEnabled': (visitor, target) => D4
           .validateTarget<$flutter_122.CallbackAction>(target, 'CallbackAction')
           .isActionEnabled,
-      'onInvoke': (visitor, target) => D4
-          .validateTarget<$flutter_122.CallbackAction>(target, 'CallbackAction')
-          .onInvoke,
+      'onInvoke': (visitor, target) =>
+          (D4.validateTarget<$flutter_122.CallbackAction>(
+                    target,
+                    'CallbackAction',
+                  )
+                  as dynamic)
+              .onInvoke,
     },
     methods: {
       'isEnabled': (visitor, target, positional, named, typeArgs) {
@@ -16285,12 +16297,13 @@ BridgedClass _createRenderObjectToWidgetAdapterBridge() {
             'RenderObjectToWidgetAdapter',
           )
           .child,
-      'container': (visitor, target) => D4
-          .validateTarget<$flutter_123.RenderObjectToWidgetAdapter>(
-            target,
-            'RenderObjectToWidgetAdapter',
-          )
-          .container,
+      'container': (visitor, target) =>
+          (D4.validateTarget<$flutter_123.RenderObjectToWidgetAdapter>(
+                    target,
+                    'RenderObjectToWidgetAdapter',
+                  )
+                  as dynamic)
+              .container,
       'debugShortDescription': (visitor, target) => D4
           .validateTarget<$flutter_123.RenderObjectToWidgetAdapter>(
             target,
@@ -16597,12 +16610,13 @@ BridgedClass _createRenderObjectToWidgetElementBridge() {
             'RenderObjectToWidgetElement',
           )
           .buildScope,
-      'renderObject': (visitor, target) => D4
-          .validateTarget<$flutter_123.RenderObjectToWidgetElement>(
-            target,
-            'RenderObjectToWidgetElement',
-          )
-          .renderObject,
+      'renderObject': (visitor, target) =>
+          (D4.validateTarget<$flutter_123.RenderObjectToWidgetElement>(
+                    target,
+                    'RenderObjectToWidgetElement',
+                  )
+                  as dynamic)
+              .renderObject,
       'renderObjectAttachingChild': (visitor, target) => D4
           .validateTarget<$flutter_123.RenderObjectToWidgetElement>(
             target,
@@ -23940,12 +23954,13 @@ BridgedClass _createStreamBuilderBaseBridge() {
             'StreamBuilderBase',
           )
           .hashCode,
-      'stream': (visitor, target) => D4
-          .validateTarget<$flutter_131.StreamBuilderBase>(
-            target,
-            'StreamBuilderBase',
-          )
-          .stream,
+      'stream': (visitor, target) =>
+          (D4.validateTarget<$flutter_131.StreamBuilderBase>(
+                    target,
+                    'StreamBuilderBase',
+                  )
+                  as dynamic)
+              .stream,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -27457,12 +27472,20 @@ BridgedClass _createStreamBuilderBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_131.StreamBuilder>(target, 'StreamBuilder')
           .hashCode,
-      'stream': (visitor, target) => D4
-          .validateTarget<$flutter_131.StreamBuilder>(target, 'StreamBuilder')
-          .stream,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_131.StreamBuilder>(target, 'StreamBuilder')
-          .builder,
+      'stream': (visitor, target) =>
+          (D4.validateTarget<$flutter_131.StreamBuilder>(
+                    target,
+                    'StreamBuilder',
+                  )
+                  as dynamic)
+              .stream,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_131.StreamBuilder>(
+                    target,
+                    'StreamBuilder',
+                  )
+                  as dynamic)
+              .builder,
       'initialData': (visitor, target) => D4
           .validateTarget<$flutter_131.StreamBuilder>(target, 'StreamBuilder')
           .initialData,
@@ -27815,12 +27838,20 @@ BridgedClass _createFutureBuilderBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_131.FutureBuilder>(target, 'FutureBuilder')
           .hashCode,
-      'future': (visitor, target) => D4
-          .validateTarget<$flutter_131.FutureBuilder>(target, 'FutureBuilder')
-          .future,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_131.FutureBuilder>(target, 'FutureBuilder')
-          .builder,
+      'future': (visitor, target) =>
+          (D4.validateTarget<$flutter_131.FutureBuilder>(
+                    target,
+                    'FutureBuilder',
+                  )
+                  as dynamic)
+              .future,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_131.FutureBuilder>(
+                    target,
+                    'FutureBuilder',
+                  )
+                  as dynamic)
+              .builder,
       'initialData': (visitor, target) => D4
           .validateTarget<$flutter_131.FutureBuilder>(target, 'FutureBuilder')
           .initialData,
@@ -28241,36 +28272,40 @@ BridgedClass _createRawAutocompleteBridge() {
             'RawAutocomplete',
           )
           .focusNode,
-      'optionsViewBuilder': (visitor, target) => D4
-          .validateTarget<$flutter_132.RawAutocomplete>(
-            target,
-            'RawAutocomplete',
-          )
-          .optionsViewBuilder,
+      'optionsViewBuilder': (visitor, target) =>
+          (D4.validateTarget<$flutter_132.RawAutocomplete>(
+                    target,
+                    'RawAutocomplete',
+                  )
+                  as dynamic)
+              .optionsViewBuilder,
       'optionsViewOpenDirection': (visitor, target) => D4
           .validateTarget<$flutter_132.RawAutocomplete>(
             target,
             'RawAutocomplete',
           )
           .optionsViewOpenDirection,
-      'displayStringForOption': (visitor, target) => D4
-          .validateTarget<$flutter_132.RawAutocomplete>(
-            target,
-            'RawAutocomplete',
-          )
-          .displayStringForOption,
-      'onSelected': (visitor, target) => D4
-          .validateTarget<$flutter_132.RawAutocomplete>(
-            target,
-            'RawAutocomplete',
-          )
-          .onSelected,
-      'optionsBuilder': (visitor, target) => D4
-          .validateTarget<$flutter_132.RawAutocomplete>(
-            target,
-            'RawAutocomplete',
-          )
-          .optionsBuilder,
+      'displayStringForOption': (visitor, target) =>
+          (D4.validateTarget<$flutter_132.RawAutocomplete>(
+                    target,
+                    'RawAutocomplete',
+                  )
+                  as dynamic)
+              .displayStringForOption,
+      'onSelected': (visitor, target) =>
+          (D4.validateTarget<$flutter_132.RawAutocomplete>(
+                    target,
+                    'RawAutocomplete',
+                  )
+                  as dynamic)
+              .onSelected,
+      'optionsBuilder': (visitor, target) =>
+          (D4.validateTarget<$flutter_132.RawAutocomplete>(
+                    target,
+                    'RawAutocomplete',
+                  )
+                  as dynamic)
+              .optionsBuilder,
       'textEditingController': (visitor, target) => D4
           .validateTarget<$flutter_132.RawAutocomplete>(
             target,
@@ -60568,27 +60603,34 @@ BridgedClass _createDragTargetBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
           .hashCode,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .builder,
-      'onWillAccept': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .onWillAccept,
-      'onWillAcceptWithDetails': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .onWillAcceptWithDetails,
-      'onAccept': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .onAccept,
-      'onAcceptWithDetails': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .onAcceptWithDetails,
-      'onLeave': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .onLeave,
-      'onMove': (visitor, target) => D4
-          .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
-          .onMove,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .builder,
+      'onWillAccept': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .onWillAccept,
+      'onWillAcceptWithDetails': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .onWillAcceptWithDetails,
+      'onAccept': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .onAccept,
+      'onAcceptWithDetails': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .onAcceptWithDetails,
+      'onLeave': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .onLeave,
+      'onMove': (visitor, target) =>
+          (D4.validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
+                  as dynamic)
+              .onMove,
       'hitTestBehavior': (visitor, target) => D4
           .validateTarget<$flutter_153.DragTarget>(target, 'DragTarget')
           .hitTestBehavior,
@@ -73885,21 +73927,24 @@ BridgedClass _createFormFieldBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_164.FormField>(target, 'FormField')
           .hashCode,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_164.FormField>(target, 'FormField')
-          .builder,
-      'onSaved': (visitor, target) => D4
-          .validateTarget<$flutter_164.FormField>(target, 'FormField')
-          .onSaved,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_164.FormField>(target, 'FormField')
+                  as dynamic)
+              .builder,
+      'onSaved': (visitor, target) =>
+          (D4.validateTarget<$flutter_164.FormField>(target, 'FormField')
+                  as dynamic)
+              .onSaved,
       'onReset': (visitor, target) => D4
           .validateTarget<$flutter_164.FormField>(target, 'FormField')
           .onReset,
       'forceErrorText': (visitor, target) => D4
           .validateTarget<$flutter_164.FormField>(target, 'FormField')
           .forceErrorText,
-      'validator': (visitor, target) => D4
-          .validateTarget<$flutter_164.FormField>(target, 'FormField')
-          .validator,
+      'validator': (visitor, target) =>
+          (D4.validateTarget<$flutter_164.FormField>(target, 'FormField')
+                  as dynamic)
+              .validator,
       'errorBuilder': (visitor, target) => D4
           .validateTarget<$flutter_164.FormField>(target, 'FormField')
           .errorBuilder,
@@ -74097,9 +74142,13 @@ BridgedClass _createFormFieldStateBridge() {
       },
     },
     getters: {
-      'widget': (visitor, target) => D4
-          .validateTarget<$flutter_164.FormFieldState>(target, 'FormFieldState')
-          .widget,
+      'widget': (visitor, target) =>
+          (D4.validateTarget<$flutter_164.FormFieldState>(
+                    target,
+                    'FormFieldState',
+                  )
+                  as dynamic)
+              .widget,
       'context': (visitor, target) => D4
           .validateTarget<$flutter_164.FormFieldState>(target, 'FormFieldState')
           .context,
@@ -106068,12 +106117,13 @@ BridgedClass _createAbstractLayoutBuilderBridge() {
             'AbstractLayoutBuilder',
           )
           .hashCode,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_183.AbstractLayoutBuilder>(
-            target,
-            'AbstractLayoutBuilder',
-          )
-          .builder,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_183.AbstractLayoutBuilder>(
+                    target,
+                    'AbstractLayoutBuilder',
+                  )
+                  as dynamic)
+              .builder,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -106319,12 +106369,13 @@ BridgedClass _createConstrainedLayoutBuilderBridge() {
             'ConstrainedLayoutBuilder',
           )
           .hashCode,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_183.ConstrainedLayoutBuilder>(
-            target,
-            'ConstrainedLayoutBuilder',
-          )
-          .builder,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_183.ConstrainedLayoutBuilder>(
+                    target,
+                    'ConstrainedLayoutBuilder',
+                  )
+                  as dynamic)
+              .builder,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -116404,7 +116455,8 @@ BridgedClass _createRouteBridge() {
       'currentResult': (visitor, target) =>
           D4.validateTarget<$flutter_191.Route>(target, 'Route').currentResult,
       'popped': (visitor, target) =>
-          D4.validateTarget<$flutter_191.Route>(target, 'Route').popped,
+          (D4.validateTarget<$flutter_191.Route>(target, 'Route') as dynamic)
+              .popped,
       'isCurrent': (visitor, target) =>
           D4.validateTarget<$flutter_191.Route>(target, 'Route').isCurrent,
       'isFirst': (visitor, target) =>
@@ -116653,7 +116705,8 @@ BridgedClass _createPageBridge() {
       'restorationId': (visitor, target) =>
           D4.validateTarget<$flutter_191.Page>(target, 'Page').restorationId,
       'onPopInvoked': (visitor, target) =>
-          D4.validateTarget<$flutter_191.Page>(target, 'Page').onPopInvoked,
+          (D4.validateTarget<$flutter_191.Page>(target, 'Page') as dynamic)
+              .onPopInvoked,
       'canPop': (visitor, target) =>
           D4.validateTarget<$flutter_191.Page>(target, 'Page').canPop,
     },
@@ -122498,24 +122551,26 @@ BridgedClass _createRestorableRouteFutureBridge() {
             'RestorableRouteFuture',
           )
           .onPresent,
-      'onComplete': (visitor, target) => D4
-          .validateTarget<$flutter_191.RestorableRouteFuture>(
-            target,
-            'RestorableRouteFuture',
-          )
-          .onComplete,
+      'onComplete': (visitor, target) =>
+          (D4.validateTarget<$flutter_191.RestorableRouteFuture>(
+                    target,
+                    'RestorableRouteFuture',
+                  )
+                  as dynamic)
+              .onComplete,
       'isPresent': (visitor, target) => D4
           .validateTarget<$flutter_191.RestorableRouteFuture>(
             target,
             'RestorableRouteFuture',
           )
           .isPresent,
-      'route': (visitor, target) => D4
-          .validateTarget<$flutter_191.RestorableRouteFuture>(
-            target,
-            'RestorableRouteFuture',
-          )
-          .route,
+      'route': (visitor, target) =>
+          (D4.validateTarget<$flutter_191.RestorableRouteFuture>(
+                    target,
+                    'RestorableRouteFuture',
+                  )
+                  as dynamic)
+              .route,
     },
     methods: {
       'createDefaultValue': (visitor, target, positional, named, typeArgs) {
@@ -122804,12 +122859,13 @@ BridgedClass _createNavigatorPopHandlerBridge() {
             'NavigatorPopHandler',
           )
           .onPop,
-      'onPopWithResult': (visitor, target) => D4
-          .validateTarget<$flutter_192.NavigatorPopHandler>(
-            target,
-            'NavigatorPopHandler',
-          )
-          .onPopWithResult,
+      'onPopWithResult': (visitor, target) =>
+          (D4.validateTarget<$flutter_192.NavigatorPopHandler>(
+                    target,
+                    'NavigatorPopHandler',
+                  )
+                  as dynamic)
+              .onPopWithResult,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -129707,12 +129763,13 @@ BridgedClass _createNotificationListenerBridge() {
             'NotificationListener',
           )
           .child,
-      'onNotification': (visitor, target) => D4
-          .validateTarget<$flutter_194.NotificationListener>(
-            target,
-            'NotificationListener',
-          )
-          .onNotification,
+      'onNotification': (visitor, target) =>
+          (D4.validateTarget<$flutter_194.NotificationListener>(
+                    target,
+                    'NotificationListener',
+                  )
+                  as dynamic)
+              .onNotification,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -137228,7 +137285,9 @@ BridgedClass _createPageRouteBridge() {
           .validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
           .currentResult,
       'popped': (visitor, target) =>
-          D4.validateTarget<$flutter_202.PageRoute>(target, 'PageRoute').popped,
+          (D4.validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
           .isCurrent,
@@ -137247,9 +137306,10 @@ BridgedClass _createPageRouteBridge() {
       'willDisposeAnimationController': (visitor, target) => D4
           .validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_202.PageRoute>(target, 'PageRoute')
           .transitionDuration,
@@ -138181,12 +138241,13 @@ BridgedClass _createPageRouteBuilderBridge() {
             'PageRouteBuilder',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_202.PageRouteBuilder>(
-            target,
-            'PageRouteBuilder',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_202.PageRouteBuilder>(
+                    target,
+                    'PageRouteBuilder',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_202.PageRouteBuilder>(
             target,
@@ -138223,12 +138284,13 @@ BridgedClass _createPageRouteBuilderBridge() {
             'PageRouteBuilder',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_202.PageRouteBuilder>(
-            target,
-            'PageRouteBuilder',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_202.PageRouteBuilder>(
+                    target,
+                    'PageRouteBuilder',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_202.PageRouteBuilder>(
             target,
@@ -143306,9 +143368,10 @@ BridgedClass _createPopScopeBridge() {
           D4.validateTarget<$flutter_208.PopScope>(target, 'PopScope').hashCode,
       'child': (visitor, target) =>
           D4.validateTarget<$flutter_208.PopScope>(target, 'PopScope').child,
-      'onPopInvokedWithResult': (visitor, target) => D4
-          .validateTarget<$flutter_208.PopScope>(target, 'PopScope')
-          .onPopInvokedWithResult,
+      'onPopInvokedWithResult': (visitor, target) =>
+          (D4.validateTarget<$flutter_208.PopScope>(target, 'PopScope')
+                  as dynamic)
+              .onPopInvokedWithResult,
       'onPopInvoked': (visitor, target) => D4
           .validateTarget<$flutter_208.PopScope>(target, 'PopScope')
           .onPopInvoked,
@@ -144199,9 +144262,10 @@ BridgedClass _createRadioGroupBridge() {
       'groupValue': (visitor, target) => D4
           .validateTarget<$flutter_211.RadioGroup>(target, 'RadioGroup')
           .groupValue,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_211.RadioGroup>(target, 'RadioGroup')
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_211.RadioGroup>(target, 'RadioGroup')
+                  as dynamic)
+              .onChanged,
       'child': (visitor, target) => D4
           .validateTarget<$flutter_211.RadioGroup>(target, 'RadioGroup')
           .child,
@@ -144404,12 +144468,13 @@ BridgedClass _createRadioGroupRegistryBridge() {
             'RadioGroupRegistry',
           )
           .groupValue,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_211.RadioGroupRegistry>(
-            target,
-            'RadioGroupRegistry',
-          )
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_211.RadioGroupRegistry>(
+                    target,
+                    'RadioGroupRegistry',
+                  )
+                  as dynamic)
+              .onChanged,
     },
     methods: {
       'registerClient': (visitor, target, positional, named, typeArgs) {
@@ -144479,9 +144544,10 @@ BridgedClass _createRadioClientBridge() {
       'focusNode': (visitor, target) => D4
           .validateTarget<$flutter_211.RadioClient>(target, 'RadioClient')
           .focusNode,
-      'registry': (visitor, target) => D4
-          .validateTarget<$flutter_211.RadioClient>(target, 'RadioClient')
-          .registry,
+      'registry': (visitor, target) =>
+          (D4.validateTarget<$flutter_211.RadioClient>(target, 'RadioClient')
+                  as dynamic)
+              .registry,
     },
     setters: {
       'registry': (visitor, target, value) =>
@@ -145791,9 +145857,10 @@ BridgedClass _createRawRadioBridge() {
           D4.validateTarget<$flutter_213.RawRadio>(target, 'RawRadio').builder,
       'enabled': (visitor, target) =>
           D4.validateTarget<$flutter_213.RawRadio>(target, 'RawRadio').enabled,
-      'groupRegistry': (visitor, target) => D4
-          .validateTarget<$flutter_213.RawRadio>(target, 'RawRadio')
-          .groupRegistry,
+      'groupRegistry': (visitor, target) =>
+          (D4.validateTarget<$flutter_213.RawRadio>(target, 'RawRadio')
+                  as dynamic)
+              .groupRegistry,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -148814,12 +148881,13 @@ BridgedClass _createRepeatingAnimationBuilderBridge() {
             'RepeatingAnimationBuilder',
           )
           .hashCode,
-      'animatable': (visitor, target) => D4
-          .validateTarget<$flutter_216.RepeatingAnimationBuilder>(
-            target,
-            'RepeatingAnimationBuilder',
-          )
-          .animatable,
+      'animatable': (visitor, target) =>
+          (D4.validateTarget<$flutter_216.RepeatingAnimationBuilder>(
+                    target,
+                    'RepeatingAnimationBuilder',
+                  )
+                  as dynamic)
+              .animatable,
       'duration': (visitor, target) => D4
           .validateTarget<$flutter_216.RepeatingAnimationBuilder>(
             target,
@@ -148832,12 +148900,13 @@ BridgedClass _createRepeatingAnimationBuilderBridge() {
             'RepeatingAnimationBuilder',
           )
           .curve,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_216.RepeatingAnimationBuilder>(
-            target,
-            'RepeatingAnimationBuilder',
-          )
-          .builder,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_216.RepeatingAnimationBuilder>(
+                    target,
+                    'RepeatingAnimationBuilder',
+                  )
+                  as dynamic)
+              .builder,
       'child': (visitor, target) => D4
           .validateTarget<$flutter_216.RepeatingAnimationBuilder>(
             target,
@@ -153220,12 +153289,13 @@ BridgedClass _createRestorableEnumNBridge() {
             'RestorableEnumN',
           )
           .value,
-      'values': (visitor, target) => D4
-          .validateTarget<$flutter_218.RestorableEnumN>(
-            target,
-            'RestorableEnumN',
-          )
-          .values,
+      'values': (visitor, target) =>
+          (D4.validateTarget<$flutter_218.RestorableEnumN>(
+                    target,
+                    'RestorableEnumN',
+                  )
+                  as dynamic)
+              .values,
     },
     setters: {
       'value': (visitor, target, value) =>
@@ -153432,9 +153502,13 @@ BridgedClass _createRestorableEnumBridge() {
       'value': (visitor, target) => D4
           .validateTarget<$flutter_218.RestorableEnum>(target, 'RestorableEnum')
           .value,
-      'values': (visitor, target) => D4
-          .validateTarget<$flutter_218.RestorableEnum>(target, 'RestorableEnum')
-          .values,
+      'values': (visitor, target) =>
+          (D4.validateTarget<$flutter_218.RestorableEnum>(
+                    target,
+                    'RestorableEnum',
+                  )
+                  as dynamic)
+              .values,
     },
     setters: {
       'value': (visitor, target, value) =>
@@ -153693,12 +153767,14 @@ BridgedClass _createRouterConfigBridge() {
       'routeInformationProvider': (visitor, target) => D4
           .validateTarget<$flutter_219.RouterConfig>(target, 'RouterConfig')
           .routeInformationProvider,
-      'routeInformationParser': (visitor, target) => D4
-          .validateTarget<$flutter_219.RouterConfig>(target, 'RouterConfig')
-          .routeInformationParser,
-      'routerDelegate': (visitor, target) => D4
-          .validateTarget<$flutter_219.RouterConfig>(target, 'RouterConfig')
-          .routerDelegate,
+      'routeInformationParser': (visitor, target) =>
+          (D4.validateTarget<$flutter_219.RouterConfig>(target, 'RouterConfig')
+                  as dynamic)
+              .routeInformationParser,
+      'routerDelegate': (visitor, target) =>
+          (D4.validateTarget<$flutter_219.RouterConfig>(target, 'RouterConfig')
+                  as dynamic)
+              .routerDelegate,
       'backButtonDispatcher': (visitor, target) => D4
           .validateTarget<$flutter_219.RouterConfig>(target, 'RouterConfig')
           .backButtonDispatcher,
@@ -153791,12 +153867,12 @@ BridgedClass _createRouterBridge() {
       'routeInformationProvider': (visitor, target) => D4
           .validateTarget<$flutter_219.Router>(target, 'Router')
           .routeInformationProvider,
-      'routeInformationParser': (visitor, target) => D4
-          .validateTarget<$flutter_219.Router>(target, 'Router')
-          .routeInformationParser,
-      'routerDelegate': (visitor, target) => D4
-          .validateTarget<$flutter_219.Router>(target, 'Router')
-          .routerDelegate,
+      'routeInformationParser': (visitor, target) =>
+          (D4.validateTarget<$flutter_219.Router>(target, 'Router') as dynamic)
+              .routeInformationParser,
+      'routerDelegate': (visitor, target) =>
+          (D4.validateTarget<$flutter_219.Router>(target, 'Router') as dynamic)
+              .routerDelegate,
       'backButtonDispatcher': (visitor, target) => D4
           .validateTarget<$flutter_219.Router>(target, 'Router')
           .backButtonDispatcher,
@@ -155775,9 +155851,10 @@ BridgedClass _createOverlayRouteBridge() {
       'currentResult': (visitor, target) => D4
           .validateTarget<$flutter_220.OverlayRoute>(target, 'OverlayRoute')
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_220.OverlayRoute>(target, 'OverlayRoute')
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.OverlayRoute>(target, 'OverlayRoute')
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_220.OverlayRoute>(target, 'OverlayRoute')
           .isCurrent,
@@ -156081,12 +156158,13 @@ BridgedClass _createTransitionRouteBridge() {
             'TransitionRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_220.TransitionRoute>(
-            target,
-            'TransitionRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.TransitionRoute>(
+                    target,
+                    'TransitionRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_220.TransitionRoute>(
             target,
@@ -156123,12 +156201,13 @@ BridgedClass _createTransitionRouteBridge() {
             'TransitionRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_220.TransitionRoute>(
-            target,
-            'TransitionRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.TransitionRoute>(
+                    target,
+                    'TransitionRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_220.TransitionRoute>(
             target,
@@ -156756,9 +156835,10 @@ BridgedClass _createModalRouteBridge() {
       'currentResult': (visitor, target) => D4
           .validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
           .isCurrent,
@@ -156777,9 +156857,10 @@ BridgedClass _createModalRouteBridge() {
       'willDisposeAnimationController': (visitor, target) => D4
           .validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_220.ModalRoute>(target, 'ModalRoute')
           .transitionDuration,
@@ -157635,9 +157716,10 @@ BridgedClass _createPopupRouteBridge() {
       'currentResult': (visitor, target) => D4
           .validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
           .isCurrent,
@@ -157656,9 +157738,10 @@ BridgedClass _createPopupRouteBridge() {
       'willDisposeAnimationController': (visitor, target) => D4
           .validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_220.PopupRoute>(target, 'PopupRoute')
           .transitionDuration,
@@ -158800,9 +158883,13 @@ BridgedClass _createRawDialogRouteBridge() {
       'currentResult': (visitor, target) => D4
           .validateTarget<$flutter_220.RawDialogRoute>(target, 'RawDialogRoute')
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_220.RawDialogRoute>(target, 'RawDialogRoute')
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.RawDialogRoute>(
+                    target,
+                    'RawDialogRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_220.RawDialogRoute>(target, 'RawDialogRoute')
           .isCurrent,
@@ -158821,9 +158908,13 @@ BridgedClass _createRawDialogRouteBridge() {
       'willDisposeAnimationController': (visitor, target) => D4
           .validateTarget<$flutter_220.RawDialogRoute>(target, 'RawDialogRoute')
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_220.RawDialogRoute>(target, 'RawDialogRoute')
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.RawDialogRoute>(
+                    target,
+                    'RawDialogRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_220.RawDialogRoute>(target, 'RawDialogRoute')
           .transitionDuration,
@@ -159687,12 +159778,13 @@ BridgedClass _createLocalHistoryRouteBridge() {
             'LocalHistoryRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_220.LocalHistoryRoute>(
-            target,
-            'LocalHistoryRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_220.LocalHistoryRoute>(
+                    target,
+                    'LocalHistoryRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_220.LocalHistoryRoute>(
             target,
@@ -162222,12 +162314,13 @@ BridgedClass _createScrollAwareImageProviderBridge() {
             'ScrollAwareImageProvider',
           )
           .context,
-      'imageProvider': (visitor, target) => D4
-          .validateTarget<$flutter_223.ScrollAwareImageProvider>(
-            target,
-            'ScrollAwareImageProvider',
-          )
-          .imageProvider,
+      'imageProvider': (visitor, target) =>
+          (D4.validateTarget<$flutter_223.ScrollAwareImageProvider>(
+                    target,
+                    'ScrollAwareImageProvider',
+                  )
+                  as dynamic)
+              .imageProvider,
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_223.ScrollAwareImageProvider>(
             target,
@@ -182897,7 +182990,8 @@ BridgedClass _createKeySetBridge() {
       'hashCode': (visitor, target) =>
           D4.validateTarget<$flutter_245.KeySet>(target, 'KeySet').hashCode,
       'keys': (visitor, target) =>
-          D4.validateTarget<$flutter_245.KeySet>(target, 'KeySet').keys,
+          (D4.validateTarget<$flutter_245.KeySet>(target, 'KeySet') as dynamic)
+              .keys,
     },
     methods: {
       '==': (visitor, target, positional, named, typeArgs) {
@@ -193475,18 +193569,26 @@ BridgedClass _createTreeSliverNodeBridge() {
       'content': (visitor, target) => D4
           .validateTarget<$flutter_255.TreeSliverNode>(target, 'TreeSliverNode')
           .content,
-      'children': (visitor, target) => D4
-          .validateTarget<$flutter_255.TreeSliverNode>(target, 'TreeSliverNode')
-          .children,
+      'children': (visitor, target) =>
+          (D4.validateTarget<$flutter_255.TreeSliverNode>(
+                    target,
+                    'TreeSliverNode',
+                  )
+                  as dynamic)
+              .children,
       'isExpanded': (visitor, target) => D4
           .validateTarget<$flutter_255.TreeSliverNode>(target, 'TreeSliverNode')
           .isExpanded,
       'depth': (visitor, target) => D4
           .validateTarget<$flutter_255.TreeSliverNode>(target, 'TreeSliverNode')
           .depth,
-      'parent': (visitor, target) => D4
-          .validateTarget<$flutter_255.TreeSliverNode>(target, 'TreeSliverNode')
-          .parent,
+      'parent': (visitor, target) =>
+          (D4.validateTarget<$flutter_255.TreeSliverNode>(
+                    target,
+                    'TreeSliverNode',
+                  )
+                  as dynamic)
+              .parent,
     },
     methods: {
       'toString': (visitor, target, positional, named, typeArgs) {
@@ -194222,7 +194324,9 @@ BridgedClass _createTreeSliverBridge() {
           .validateTarget<$flutter_255.TreeSliver>(target, 'TreeSliver')
           .hashCode,
       'tree': (visitor, target) =>
-          D4.validateTarget<$flutter_255.TreeSliver>(target, 'TreeSliver').tree,
+          (D4.validateTarget<$flutter_255.TreeSliver>(target, 'TreeSliver')
+                  as dynamic)
+              .tree,
       'treeNodeBuilder': (visitor, target) => D4
           .validateTarget<$flutter_255.TreeSliver>(target, 'TreeSliver')
           .treeNodeBuilder,
@@ -194670,12 +194774,13 @@ BridgedClass _createSlottedMultiChildRenderObjectWidgetBridge() {
             'SlottedMultiChildRenderObjectWidget',
           )
           .hashCode,
-      'slots': (visitor, target) => D4
-          .validateTarget<$flutter_256.SlottedMultiChildRenderObjectWidget>(
-            target,
-            'SlottedMultiChildRenderObjectWidget',
-          )
-          .slots,
+      'slots': (visitor, target) =>
+          (D4.validateTarget<$flutter_256.SlottedMultiChildRenderObjectWidget>(
+                    target,
+                    'SlottedMultiChildRenderObjectWidget',
+                  )
+                  as dynamic)
+              .slots,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -194980,12 +195085,13 @@ BridgedClass _createSlottedRenderObjectElementBridge() {
             'SlottedRenderObjectElement',
           )
           .buildScope,
-      'renderObject': (visitor, target) => D4
-          .validateTarget<$flutter_256.SlottedRenderObjectElement>(
-            target,
-            'SlottedRenderObjectElement',
-          )
-          .renderObject,
+      'renderObject': (visitor, target) =>
+          (D4.validateTarget<$flutter_256.SlottedRenderObjectElement>(
+                    target,
+                    'SlottedRenderObjectElement',
+                  )
+                  as dynamic)
+              .renderObject,
       'renderObjectAttachingChild': (visitor, target) => D4
           .validateTarget<$flutter_256.SlottedRenderObjectElement>(
             target,
@@ -195907,12 +196013,13 @@ BridgedClass _createSlottedContainerRenderObjectMixinBridge() {
     isAbstract: true,
     constructors: {},
     getters: {
-      'children': (visitor, target) => D4
-          .validateTarget<$flutter_256.SlottedContainerRenderObjectMixin>(
-            target,
-            'SlottedContainerRenderObjectMixin',
-          )
-          .children,
+      'children': (visitor, target) =>
+          (D4.validateTarget<$flutter_256.SlottedContainerRenderObjectMixin>(
+                    target,
+                    'SlottedContainerRenderObjectMixin',
+                  )
+                  as dynamic)
+              .children,
       'debugDisposed': (visitor, target) => D4
           .validateTarget<$flutter_256.SlottedContainerRenderObjectMixin>(
             target,
@@ -218901,18 +219008,20 @@ BridgedClass _createTweenAnimationBuilderBridge() {
             'TweenAnimationBuilder',
           )
           .onEnd,
-      'tween': (visitor, target) => D4
-          .validateTarget<$flutter_276.TweenAnimationBuilder>(
-            target,
-            'TweenAnimationBuilder',
-          )
-          .tween,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_276.TweenAnimationBuilder>(
-            target,
-            'TweenAnimationBuilder',
-          )
-          .builder,
+      'tween': (visitor, target) =>
+          (D4.validateTarget<$flutter_276.TweenAnimationBuilder>(
+                    target,
+                    'TweenAnimationBuilder',
+                  )
+                  as dynamic)
+              .tween,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_276.TweenAnimationBuilder>(
+                    target,
+                    'TweenAnimationBuilder',
+                  )
+                  as dynamic)
+              .builder,
       'child': (visitor, target) => D4
           .validateTarget<$flutter_276.TweenAnimationBuilder>(
             target,
@@ -221975,18 +222084,22 @@ BridgedClass _createUndoHistoryBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
           .hashCode,
-      'value': (visitor, target) => D4
-          .validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
-          .value,
-      'shouldChangeUndoStack': (visitor, target) => D4
-          .validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
-          .shouldChangeUndoStack,
-      'undoStackModifier': (visitor, target) => D4
-          .validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
-          .undoStackModifier,
-      'onTriggered': (visitor, target) => D4
-          .validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
-          .onTriggered,
+      'value': (visitor, target) =>
+          (D4.validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
+                  as dynamic)
+              .value,
+      'shouldChangeUndoStack': (visitor, target) =>
+          (D4.validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
+                  as dynamic)
+              .shouldChangeUndoStack,
+      'undoStackModifier': (visitor, target) =>
+          (D4.validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
+                  as dynamic)
+              .undoStackModifier,
+      'onTriggered': (visitor, target) =>
+          (D4.validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
+                  as dynamic)
+              .onTriggered,
       'focusNode': (visitor, target) => D4
           .validateTarget<$flutter_279.UndoHistory>(target, 'UndoHistory')
           .focusNode,
@@ -222177,12 +222290,13 @@ BridgedClass _createUndoHistoryStateBridge() {
       },
     },
     getters: {
-      'widget': (visitor, target) => D4
-          .validateTarget<$flutter_279.UndoHistoryState>(
-            target,
-            'UndoHistoryState',
-          )
-          .widget,
+      'widget': (visitor, target) =>
+          (D4.validateTarget<$flutter_279.UndoHistoryState>(
+                    target,
+                    'UndoHistoryState',
+                  )
+                  as dynamic)
+              .widget,
       'context': (visitor, target) => D4
           .validateTarget<$flutter_279.UndoHistoryState>(
             target,
@@ -222900,18 +223014,20 @@ BridgedClass _createValueListenableBuilderBridge() {
             'ValueListenableBuilder',
           )
           .hashCode,
-      'valueListenable': (visitor, target) => D4
-          .validateTarget<$flutter_281.ValueListenableBuilder>(
-            target,
-            'ValueListenableBuilder',
-          )
-          .valueListenable,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_281.ValueListenableBuilder>(
-            target,
-            'ValueListenableBuilder',
-          )
-          .builder,
+      'valueListenable': (visitor, target) =>
+          (D4.validateTarget<$flutter_281.ValueListenableBuilder>(
+                    target,
+                    'ValueListenableBuilder',
+                  )
+                  as dynamic)
+              .valueListenable,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_281.ValueListenableBuilder>(
+                    target,
+                    'ValueListenableBuilder',
+                  )
+                  as dynamic)
+              .builder,
       'child': (visitor, target) => D4
           .validateTarget<$flutter_281.ValueListenableBuilder>(
             target,

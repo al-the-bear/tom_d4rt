@@ -4,8 +4,7 @@
 /// classes the testplans showed unexercised (addtests2). Each test checks
 /// lines the script prints, every one taken from the same script run
 /// natively on Flutter 3.47.9, so a script that runs but computes the wrong
-/// value fails. Two scripts hold the uses that fail in both twins, each
-/// skipped with its cluster (GEN-134, GEN-135). Own test app.
+/// value fails. Own test app.
 @TestOn('vm')
 library;
 
@@ -142,16 +141,6 @@ void main() {
           containsAll(<String>['radio menu changed to: 3']),
         );
       },
-      // GEN-134 (todo addtestscl1): RadioMenuButton<int> comes from the generic
-      // constructor factory, whose callback wrapper is a `(int?) =>
-      // Future<void>`; reading `onChanged` back through the getter adapter,
-      // which reads the field through RadioMenuButton<dynamic>, fails Dart's
-      // covariance check in both twins (run 20261118-addtests2:
-      // `type '(int?) => Future<void>' is not a subtype of type
-      // '((dynamic) => void)?'`). Native prints the line below; remove the
-      // skip with the generator fix (radio_menu_button_on_changed_test.dart).
-      skip:
-          'GEN-134: generic function-typed field read back through the getter adapter',
     );
     // MaterialInkController members
     test(
@@ -165,17 +154,6 @@ void main() {
         // and throws on a wrong answer, which expectSuccess reports.
         expect(result.output, containsAll(<String>['controller types: 1']));
       },
-      // GEN-135 (todo addtestscl2): Material.of(context) returns the private
-      // _RenderInkFeatures (extends RenderProxyBox implements
-      // MaterialInkController); the published interpreter wraps it as its
-      // bridged superclass RenderProxyBox and the interface's members are
-      // undefined in both twins (run 20261118-addtests2: `Undefined property
-      // or method 'color' on bridged instance of 'RenderProxyBox'`). Fixed in
-      // tom_d4rt 1.275.0 / tom_d4rt_ast 0.255.0, not yet published; the twins
-      // resolve the published interpreter. Remove the skip once they resolve
-      // the fix (material_ink_controller_test.dart).
-      skip:
-          'GEN-135: private class wrapped as its bridged superclass hides bridged interface members',
     );
   });
 }

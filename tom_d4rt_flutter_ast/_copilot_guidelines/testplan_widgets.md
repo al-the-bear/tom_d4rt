@@ -82,15 +82,15 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 70 | BouncingScrollSimulation | class | Hardly Relevant | ✅ | physics/clamped_simulation_test.dart, physics/simulations_test.dart, physics/spring_test.dart, +2 |
 | 71 | BoxConstraintsTween | class | Hardly Relevant | ✅ | widgets/box_constraints_tween_test.dart |
 | 72 | BoxScrollView | class | Hardly Relevant | ✅ | retest/widgets/box_scroll_view_test.dart, widgets/box_scroll_view_test.dart |
-| 73 | BuildContext | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2060 |
+| 73 | BuildContext | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2062 |
 | 74 | BuildOwner | class | Secondary | ✅ | widgets/root_element_mixin_test.dart, widgets/widgets_binding_test.dart |
 | 75 | BuildScope | class | Secondary | ⬜ |  |
-| 76 | Builder | class | Important | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, cupertino/cupertino_focus_halo_test.dart, +113 |
+| 76 | Builder | class | Important | ✅ | animation/animatable_test.dart, animation/animation_misc_adv_test.dart, cupertino/cupertino_focus_halo_test.dart, +114 |
 | 77 | ButtonActivateIntent | class | Hardly Relevant | ⬜ |  |
 | 78 | CallbackAction | class | Important | ✅ | material/materialapp_test.dart, material/menu_accelerator_callback_binding_test.dart, retest/widgets/default_text_editing_shortcuts_test.dart, +17 |
 | 79 | CallbackShortcuts | class | Hardly Relevant | ✅ | widgets/callback_shortcuts_test.dart |
 | 80 | CapturedThemes | class | Hardly Relevant | ⬜ |  |
-| 81 | Center | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1360 |
+| 81 | Center | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1361 |
 | 82 | ChangeReportingBehavior | enum | Hardly Relevant | ⬜ |  |
 | 83 | CharacterActivator | class | Hardly Relevant | ✅ | services/key_events_test.dart, widgets/callback_shortcuts_test.dart, widgets/context_action_test.dart, +7 |
 | 84 | CheckedModeBanner | class | Secondary | ✅ | widgets/checked_mode_banner_test.dart |
@@ -613,7 +613,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 601 | SizeChangedLayoutNotification | class | Hardly Relevant | ✅ | widgets/size_changed_layout_notification_test.dart, widgets/size_changed_layout_notifier_test.dart |
 | 602 | SizeChangedLayoutNotifier | class | Hardly Relevant | ✅ | widgets/size_changed_layout_notification_test.dart, widgets/size_changed_layout_notifier_test.dart |
 | 603 | SizeTransition | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, widgets/animated_switcher_test.dart, widgets/animatedgrid_test.dart, +5 |
-| 604 | SizedBox | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
+| 604 | SizedBox | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2044 |
 | 605 | SizedOverflowBox | class | Hardly Relevant | ✅ | rendering/render_constrained_overflow_box_test.dart, rendering/render_sized_overflow_box_test.dart, rendering/renderobjects_layout_test.dart, +2 |
 | 606 | SlideTransition | class | Important | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, material/pageroute_test.dart, +10 |
 | 607 | SliverAnimatedGrid | class | Secondary | ✅ | widgets/sliver_animated_grid_state_test.dart, widgets/sliver_animated_grid_test.dart |
@@ -689,7 +689,7 @@ Every name the bridges register for `widgets` (772), with its tier and the corpu
 | 677 | TapRegion | class | Secondary | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/raw_menu_anchor_group_test.dart, widgets/raw_menu_anchor_test.dart, +3 |
 | 678 | TapRegionRegistry | class | Hardly Relevant | ⬜ |  |
 | 679 | TapRegionSurface | class | Secondary | ✅ | retest/widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_surface_test.dart, widgets/render_tap_region_test.dart |
-| 680 | Text | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2058 |
+| 680 | Text | class | Essential | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2059 |
 | 681 | TextEditingController | class | Important | ✅ | cupertino/cupertino_desktop_text_selection_controls_test.dart, cupertino/cupertino_focus_halo_test.dart, cupertino/cupertino_text_selection_handle_controls_test.dart, +77 |
 | 682 | TextFieldTapRegion | class | Secondary | ⬜ |  |
 | 683 | TextMagnifierConfiguration | class | Secondary | ✅ | material/selection_area_state_test.dart, widgets/text_editing_adv_test.dart, widgets/text_magnifier_configuration_test.dart |

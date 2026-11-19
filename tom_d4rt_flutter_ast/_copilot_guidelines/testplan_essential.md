@@ -266,8 +266,8 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | Name | Description | Status | Scripts |
 |------|-------------|--------|---------|
 | Align | Alignment wrapper | ✅ | animation/animatable_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_status_test.dart, +199 |
-| BuildContext | Build context | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2060 |
-| Center | Center alignment | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1360 |
+| BuildContext | Build context | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2062 |
+| Center | Center alignment | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animation_eager_listener_mixin_test.dart, animation/animation_lazy_listener_mixin_test.dart, +1361 |
 | Column | Vertical layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2046 |
 | Container | All-in-one layout widget | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2031 |
 | EditableText | Low-level text edit | ✅ | widgets/default_text_editing_shortcuts_test.dart, widgets/editable_text_misc_test.dart, widgets/redo_text_intent_test.dart, +2 |
@@ -291,9 +291,9 @@ The bridged names the priority files classify as Essential. Status: ✅ a script
 | RichText | Rich text display | ✅ | animation/cubic_test.dart, animation/elastic_in_curve_test.dart, cupertino/class_test.dart, +218 |
 | Row | Horizontal layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2033 |
 | SingleChildScrollView | Scrollable container | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1791 |
-| SizedBox | Fixed size box | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2043 |
+| SizedBox | Fixed size box | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2044 |
 | Stack | Layered layout | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/catmull_rom_spline_test.dart, +724 |
 | State | Widget state | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +358 |
 | StatefulWidget | Stateful base | ✅ | cupertino/textfield_test.dart, dart_ui/clip_r_superellipse_engine_layer_test.dart, dart_ui/clip_rect_engine_layer_test.dart, +357 |
 | StatelessWidget | Stateless base | ✅ | animation/animation_max_test.dart, animation/animationstyle_test.dart, animation/cubic_test.dart, +506 |
-| Text | Text display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2058 |
+| Text | Text display | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +2059 |

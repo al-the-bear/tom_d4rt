@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 243 files
-// Generated: 2026-11-15T13:29:28.235840 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T08:46:19.728315 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -21336,24 +21336,28 @@ BridgedClass _createAutocompleteBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
           .hashCode,
-      'displayStringForOption': (visitor, target) => D4
-          .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
-          .displayStringForOption,
+      'displayStringForOption': (visitor, target) =>
+          (D4.validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
+                  as dynamic)
+              .displayStringForOption,
       'fieldViewBuilder': (visitor, target) => D4
           .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
           .fieldViewBuilder,
       'focusNode': (visitor, target) => D4
           .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
           .focusNode,
-      'onSelected': (visitor, target) => D4
-          .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
-          .onSelected,
-      'optionsBuilder': (visitor, target) => D4
-          .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
-          .optionsBuilder,
-      'optionsViewBuilder': (visitor, target) => D4
-          .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
-          .optionsViewBuilder,
+      'onSelected': (visitor, target) =>
+          (D4.validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
+                  as dynamic)
+              .onSelected,
+      'optionsBuilder': (visitor, target) =>
+          (D4.validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
+                  as dynamic)
+              .optionsBuilder,
+      'optionsViewBuilder': (visitor, target) =>
+          (D4.validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
+                  as dynamic)
+              .optionsViewBuilder,
       'optionsViewOpenDirection': (visitor, target) => D4
           .validateTarget<$flutter_32.Autocomplete>(target, 'Autocomplete')
           .optionsViewOpenDirection,
@@ -25777,12 +25781,13 @@ BridgedClass _createModalBottomSheetRouteBridge() {
             'ModalBottomSheetRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_41.ModalBottomSheetRoute>(
-            target,
-            'ModalBottomSheetRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(
+                    target,
+                    'ModalBottomSheetRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_41.ModalBottomSheetRoute>(
             target,
@@ -25819,12 +25824,13 @@ BridgedClass _createModalBottomSheetRouteBridge() {
             'ModalBottomSheetRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_41.ModalBottomSheetRoute>(
-            target,
-            'ModalBottomSheetRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_41.ModalBottomSheetRoute>(
+                    target,
+                    'ModalBottomSheetRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_41.ModalBottomSheetRoute>(
             target,
@@ -49163,9 +49169,10 @@ BridgedClass _createDialogRouteBridge() {
       'currentResult': (visitor, target) => D4
           .validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
           .isCurrent,
@@ -49184,9 +49191,10 @@ BridgedClass _createDialogRouteBridge() {
       'willDisposeAnimationController': (visitor, target) => D4
           .validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_73.DialogRoute>(target, 'DialogRoute')
           .transitionDuration,
@@ -53926,9 +53934,13 @@ BridgedClass _createDropdownButtonBridge() {
       'hashCode': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButton>(target, 'DropdownButton')
           .hashCode,
-      'items': (visitor, target) => D4
-          .validateTarget<$flutter_80.DropdownButton>(target, 'DropdownButton')
-          .items,
+      'items': (visitor, target) =>
+          (D4.validateTarget<$flutter_80.DropdownButton>(
+                    target,
+                    'DropdownButton',
+                  )
+                  as dynamic)
+              .items,
       'value': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButton>(target, 'DropdownButton')
           .value,
@@ -53938,9 +53950,13 @@ BridgedClass _createDropdownButtonBridge() {
       'disabledHint': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButton>(target, 'DropdownButton')
           .disabledHint,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_80.DropdownButton>(target, 'DropdownButton')
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_80.DropdownButton>(
+                    target,
+                    'DropdownButton',
+                  )
+                  as dynamic)
+              .onChanged,
       'onTap': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButton>(target, 'DropdownButton')
           .onTap,
@@ -54450,18 +54466,20 @@ BridgedClass _createDropdownButtonFormFieldBridge() {
             'DropdownButtonFormField',
           )
           .hashCode,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_80.DropdownButtonFormField>(
-            target,
-            'DropdownButtonFormField',
-          )
-          .builder,
-      'onSaved': (visitor, target) => D4
-          .validateTarget<$flutter_80.DropdownButtonFormField>(
-            target,
-            'DropdownButtonFormField',
-          )
-          .onSaved,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_80.DropdownButtonFormField>(
+                    target,
+                    'DropdownButtonFormField',
+                  )
+                  as dynamic)
+              .builder,
+      'onSaved': (visitor, target) =>
+          (D4.validateTarget<$flutter_80.DropdownButtonFormField>(
+                    target,
+                    'DropdownButtonFormField',
+                  )
+                  as dynamic)
+              .onSaved,
       'onReset': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButtonFormField>(
             target,
@@ -54474,12 +54492,13 @@ BridgedClass _createDropdownButtonFormFieldBridge() {
             'DropdownButtonFormField',
           )
           .forceErrorText,
-      'validator': (visitor, target) => D4
-          .validateTarget<$flutter_80.DropdownButtonFormField>(
-            target,
-            'DropdownButtonFormField',
-          )
-          .validator,
+      'validator': (visitor, target) =>
+          (D4.validateTarget<$flutter_80.DropdownButtonFormField>(
+                    target,
+                    'DropdownButtonFormField',
+                  )
+                  as dynamic)
+              .validator,
       'errorBuilder': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButtonFormField>(
             target,
@@ -54510,12 +54529,13 @@ BridgedClass _createDropdownButtonFormFieldBridge() {
             'DropdownButtonFormField',
           )
           .restorationId,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_80.DropdownButtonFormField>(
-            target,
-            'DropdownButtonFormField',
-          )
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_80.DropdownButtonFormField>(
+                    target,
+                    'DropdownButtonFormField',
+                  )
+                  as dynamic)
+              .onChanged,
       'decoration': (visitor, target) => D4
           .validateTarget<$flutter_80.DropdownButtonFormField>(
             target,
@@ -55149,9 +55169,10 @@ BridgedClass _createDropdownMenuBridge() {
       'initialSelection': (visitor, target) => D4
           .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
           .initialSelection,
-      'onSelected': (visitor, target) => D4
-          .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
-          .onSelected,
+      'onSelected': (visitor, target) =>
+          (D4.validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
+                  as dynamic)
+              .onSelected,
       'focusNode': (visitor, target) => D4
           .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
           .focusNode,
@@ -55161,18 +55182,21 @@ BridgedClass _createDropdownMenuBridge() {
       'selectOnly': (visitor, target) => D4
           .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
           .selectOnly,
-      'dropdownMenuEntries': (visitor, target) => D4
-          .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
-          .dropdownMenuEntries,
+      'dropdownMenuEntries': (visitor, target) =>
+          (D4.validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
+                  as dynamic)
+              .dropdownMenuEntries,
       'expandedInsets': (visitor, target) => D4
           .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
           .expandedInsets,
-      'filterCallback': (visitor, target) => D4
-          .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
-          .filterCallback,
-      'searchCallback': (visitor, target) => D4
-          .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
-          .searchCallback,
+      'filterCallback': (visitor, target) =>
+          (D4.validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
+                  as dynamic)
+              .filterCallback,
+      'searchCallback': (visitor, target) =>
+          (D4.validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
+                  as dynamic)
+              .searchCallback,
       'inputFormatters': (visitor, target) => D4
           .validateTarget<$flutter_81.DropdownMenu>(target, 'DropdownMenu')
           .inputFormatters,
@@ -55711,18 +55735,20 @@ BridgedClass _createDropdownMenuFormFieldBridge() {
             'DropdownMenuFormField',
           )
           .hashCode,
-      'builder': (visitor, target) => D4
-          .validateTarget<$flutter_82.DropdownMenuFormField>(
-            target,
-            'DropdownMenuFormField',
-          )
-          .builder,
-      'onSaved': (visitor, target) => D4
-          .validateTarget<$flutter_82.DropdownMenuFormField>(
-            target,
-            'DropdownMenuFormField',
-          )
-          .onSaved,
+      'builder': (visitor, target) =>
+          (D4.validateTarget<$flutter_82.DropdownMenuFormField>(
+                    target,
+                    'DropdownMenuFormField',
+                  )
+                  as dynamic)
+              .builder,
+      'onSaved': (visitor, target) =>
+          (D4.validateTarget<$flutter_82.DropdownMenuFormField>(
+                    target,
+                    'DropdownMenuFormField',
+                  )
+                  as dynamic)
+              .onSaved,
       'onReset': (visitor, target) => D4
           .validateTarget<$flutter_82.DropdownMenuFormField>(
             target,
@@ -55735,12 +55761,13 @@ BridgedClass _createDropdownMenuFormFieldBridge() {
             'DropdownMenuFormField',
           )
           .forceErrorText,
-      'validator': (visitor, target) => D4
-          .validateTarget<$flutter_82.DropdownMenuFormField>(
-            target,
-            'DropdownMenuFormField',
-          )
-          .validator,
+      'validator': (visitor, target) =>
+          (D4.validateTarget<$flutter_82.DropdownMenuFormField>(
+                    target,
+                    'DropdownMenuFormField',
+                  )
+                  as dynamic)
+              .validator,
       'errorBuilder': (visitor, target) => D4
           .validateTarget<$flutter_82.DropdownMenuFormField>(
             target,
@@ -55771,12 +55798,13 @@ BridgedClass _createDropdownMenuFormFieldBridge() {
             'DropdownMenuFormField',
           )
           .restorationId,
-      'onSelected': (visitor, target) => D4
-          .validateTarget<$flutter_82.DropdownMenuFormField>(
-            target,
-            'DropdownMenuFormField',
-          )
-          .onSelected,
+      'onSelected': (visitor, target) =>
+          (D4.validateTarget<$flutter_82.DropdownMenuFormField>(
+                    target,
+                    'DropdownMenuFormField',
+                  )
+                  as dynamic)
+              .onSelected,
       'controller': (visitor, target) =>
           (D4.validateTarget<$flutter_82.DropdownMenuFormField>(
                     target,
@@ -55784,12 +55812,13 @@ BridgedClass _createDropdownMenuFormFieldBridge() {
                   )
                   as dynamic)
               .controller,
-      'dropdownMenuEntries': (visitor, target) => D4
-          .validateTarget<$flutter_82.DropdownMenuFormField>(
-            target,
-            'DropdownMenuFormField',
-          )
-          .dropdownMenuEntries,
+      'dropdownMenuEntries': (visitor, target) =>
+          (D4.validateTarget<$flutter_82.DropdownMenuFormField>(
+                    target,
+                    'DropdownMenuFormField',
+                  )
+                  as dynamic)
+              .dropdownMenuEntries,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -105201,12 +105230,13 @@ BridgedClass _createRadioMenuButtonBridge() {
             'RadioMenuButton',
           )
           .toggleable,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_121.RadioMenuButton>(
-            target,
-            'RadioMenuButton',
-          )
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_121.RadioMenuButton>(
+                    target,
+                    'RadioMenuButton',
+                  )
+                  as dynamic)
+              .onChanged,
       'onHover': (visitor, target) => D4
           .validateTarget<$flutter_121.RadioMenuButton>(
             target,
@@ -113684,12 +113714,13 @@ BridgedClass _createMaterialPageRouteBridge() {
             'MaterialPageRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_137.MaterialPageRoute>(
-            target,
-            'MaterialPageRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_137.MaterialPageRoute>(
+                    target,
+                    'MaterialPageRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_137.MaterialPageRoute>(
             target,
@@ -113726,12 +113757,13 @@ BridgedClass _createMaterialPageRouteBridge() {
             'MaterialPageRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_137.MaterialPageRoute>(
-            target,
-            'MaterialPageRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_137.MaterialPageRoute>(
+                    target,
+                    'MaterialPageRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_137.MaterialPageRoute>(
             target,
@@ -114651,9 +114683,10 @@ BridgedClass _createMaterialPageBridge() {
       'restorationId': (visitor, target) => D4
           .validateTarget<$flutter_137.MaterialPage>(target, 'MaterialPage')
           .restorationId,
-      'onPopInvoked': (visitor, target) => D4
-          .validateTarget<$flutter_137.MaterialPage>(target, 'MaterialPage')
-          .onPopInvoked,
+      'onPopInvoked': (visitor, target) =>
+          (D4.validateTarget<$flutter_137.MaterialPage>(target, 'MaterialPage')
+                  as dynamic)
+              .onPopInvoked,
       'canPop': (visitor, target) => D4
           .validateTarget<$flutter_137.MaterialPage>(target, 'MaterialPage')
           .canPop,
@@ -114792,12 +114825,13 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
             'MaterialRouteTransitionMixin',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_137.MaterialRouteTransitionMixin>(
-            target,
-            'MaterialRouteTransitionMixin',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(
+                    target,
+                    'MaterialRouteTransitionMixin',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_137.MaterialRouteTransitionMixin>(
             target,
@@ -114834,12 +114868,13 @@ BridgedClass _createMaterialRouteTransitionMixinBridge() {
             'MaterialRouteTransitionMixin',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_137.MaterialRouteTransitionMixin>(
-            target,
-            'MaterialRouteTransitionMixin',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_137.MaterialRouteTransitionMixin>(
+                    target,
+                    'MaterialRouteTransitionMixin',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_137.MaterialRouteTransitionMixin>(
             target,
@@ -118584,12 +118619,13 @@ BridgedClass _createPopupMenuButtonBridge() {
             'PopupMenuButton',
           )
           .hashCode,
-      'itemBuilder': (visitor, target) => D4
-          .validateTarget<$flutter_140.PopupMenuButton>(
-            target,
-            'PopupMenuButton',
-          )
-          .itemBuilder,
+      'itemBuilder': (visitor, target) =>
+          (D4.validateTarget<$flutter_140.PopupMenuButton>(
+                    target,
+                    'PopupMenuButton',
+                  )
+                  as dynamic)
+              .itemBuilder,
       'initialValue': (visitor, target) => D4
           .validateTarget<$flutter_140.PopupMenuButton>(
             target,
@@ -118602,12 +118638,13 @@ BridgedClass _createPopupMenuButtonBridge() {
             'PopupMenuButton',
           )
           .onOpened,
-      'onSelected': (visitor, target) => D4
-          .validateTarget<$flutter_140.PopupMenuButton>(
-            target,
-            'PopupMenuButton',
-          )
-          .onSelected,
+      'onSelected': (visitor, target) =>
+          (D4.validateTarget<$flutter_140.PopupMenuButton>(
+                    target,
+                    'PopupMenuButton',
+                  )
+                  as dynamic)
+              .onSelected,
       'onCanceled': (visitor, target) => D4
           .validateTarget<$flutter_140.PopupMenuButton>(
             target,
@@ -118966,12 +119003,13 @@ BridgedClass _createPopupMenuButtonStateBridge() {
       },
     },
     getters: {
-      'widget': (visitor, target) => D4
-          .validateTarget<$flutter_140.PopupMenuButtonState>(
-            target,
-            'PopupMenuButtonState',
-          )
-          .widget,
+      'widget': (visitor, target) =>
+          (D4.validateTarget<$flutter_140.PopupMenuButtonState>(
+                    target,
+                    'PopupMenuButtonState',
+                  )
+                  as dynamic)
+              .widget,
       'context': (visitor, target) => D4
           .validateTarget<$flutter_140.PopupMenuButtonState>(
             target,
@@ -122243,7 +122281,8 @@ BridgedClass _createRadioBridge() {
       'groupValue': (visitor, target) =>
           D4.validateTarget<$flutter_145.Radio>(target, 'Radio').groupValue,
       'onChanged': (visitor, target) =>
-          D4.validateTarget<$flutter_145.Radio>(target, 'Radio').onChanged,
+          (D4.validateTarget<$flutter_145.Radio>(target, 'Radio') as dynamic)
+              .onChanged,
       'mouseCursor': (visitor, target) =>
           D4.validateTarget<$flutter_145.Radio>(target, 'Radio').mouseCursor,
       'toggleable': (visitor, target) =>
@@ -122273,7 +122312,8 @@ BridgedClass _createRadioBridge() {
           .validateTarget<$flutter_145.Radio>(target, 'Radio')
           .useCupertinoCheckmarkStyle,
       'groupRegistry': (visitor, target) =>
-          D4.validateTarget<$flutter_145.Radio>(target, 'Radio').groupRegistry,
+          (D4.validateTarget<$flutter_145.Radio>(target, 'Radio') as dynamic)
+              .groupRegistry,
       'enabled': (visitor, target) =>
           D4.validateTarget<$flutter_145.Radio>(target, 'Radio').enabled,
       'backgroundColor': (visitor, target) => D4
@@ -122866,9 +122906,13 @@ BridgedClass _createRadioListTileBridge() {
       'groupValue': (visitor, target) => D4
           .validateTarget<$flutter_146.RadioListTile>(target, 'RadioListTile')
           .groupValue,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_146.RadioListTile>(target, 'RadioListTile')
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_146.RadioListTile>(
+                    target,
+                    'RadioListTile',
+                  )
+                  as dynamic)
+              .onChanged,
       'mouseCursor': (visitor, target) => D4
           .validateTarget<$flutter_146.RadioListTile>(target, 'RadioListTile')
           .mouseCursor,
@@ -131879,12 +131923,13 @@ BridgedClass _createScaffoldFeatureControllerBridge() {
             'ScaffoldFeatureController',
           )
           .setState,
-      'closed': (visitor, target) => D4
-          .validateTarget<$flutter_152.ScaffoldFeatureController>(
-            target,
-            'ScaffoldFeatureController',
-          )
-          .closed,
+      'closed': (visitor, target) =>
+          (D4.validateTarget<$flutter_152.ScaffoldFeatureController>(
+                    target,
+                    'ScaffoldFeatureController',
+                  )
+                  as dynamic)
+              .closed,
     },
     getterSignatures: {
       'close': 'VoidCallback get close',
@@ -139937,30 +139982,33 @@ BridgedClass _createSegmentedButtonBridge() {
             'SegmentedButton',
           )
           .hashCode,
-      'segments': (visitor, target) => D4
-          .validateTarget<$flutter_159.SegmentedButton>(
-            target,
-            'SegmentedButton',
-          )
-          .segments,
+      'segments': (visitor, target) =>
+          (D4.validateTarget<$flutter_159.SegmentedButton>(
+                    target,
+                    'SegmentedButton',
+                  )
+                  as dynamic)
+              .segments,
       'direction': (visitor, target) => D4
           .validateTarget<$flutter_159.SegmentedButton>(
             target,
             'SegmentedButton',
           )
           .direction,
-      'selected': (visitor, target) => D4
-          .validateTarget<$flutter_159.SegmentedButton>(
-            target,
-            'SegmentedButton',
-          )
-          .selected,
-      'onSelectionChanged': (visitor, target) => D4
-          .validateTarget<$flutter_159.SegmentedButton>(
-            target,
-            'SegmentedButton',
-          )
-          .onSelectionChanged,
+      'selected': (visitor, target) =>
+          (D4.validateTarget<$flutter_159.SegmentedButton>(
+                    target,
+                    'SegmentedButton',
+                  )
+                  as dynamic)
+              .selected,
+      'onSelectionChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_159.SegmentedButton>(
+                    target,
+                    'SegmentedButton',
+                  )
+                  as dynamic)
+              .onSelectionChanged,
       'multiSelectionEnabled': (visitor, target) => D4
           .validateTarget<$flutter_159.SegmentedButton>(
             target,
@@ -140318,12 +140366,13 @@ BridgedClass _createSegmentedButtonStateBridge() {
       },
     },
     getters: {
-      'widget': (visitor, target) => D4
-          .validateTarget<$flutter_159.SegmentedButtonState>(
-            target,
-            'SegmentedButtonState',
-          )
-          .widget,
+      'widget': (visitor, target) =>
+          (D4.validateTarget<$flutter_159.SegmentedButtonState>(
+                    target,
+                    'SegmentedButtonState',
+                  )
+                  as dynamic)
+              .widget,
       'context': (visitor, target) => D4
           .validateTarget<$flutter_159.SegmentedButtonState>(
             target,
@@ -140336,12 +140385,13 @@ BridgedClass _createSegmentedButtonStateBridge() {
             'SegmentedButtonState',
           )
           .mounted,
-      'statesControllers': (visitor, target) => D4
-          .validateTarget<$flutter_159.SegmentedButtonState>(
-            target,
-            'SegmentedButtonState',
-          )
-          .statesControllers,
+      'statesControllers': (visitor, target) =>
+          (D4.validateTarget<$flutter_159.SegmentedButtonState>(
+                    target,
+                    'SegmentedButtonState',
+                  )
+                  as dynamic)
+              .statesControllers,
     },
     methods: {
       'initState': (visitor, target, positional, named, typeArgs) {

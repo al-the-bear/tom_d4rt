@@ -141,7 +141,7 @@ The bridged names the priority files classify as Secondary. Status: ✅ a script
 | ChipAnimationStyle | Chip animation | ⬜ |  |
 | ChipAttributes | Chip attributes | ⬜ |  |
 | ChipThemeData | Chip data | ✅ | material/autocomplete_chips_test.dart, material/chip_attributes_test.dart, material/chip_variants_test.dart, +7 |
-| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1699 |
+| Colors | Color constants | ✅ | animation/alwaysstoppedanimation_test.dart, animation/animatable_test.dart, animation/animation_behavior_test.dart, +1700 |
 | ControlsDetails | Controls details | ✅ | material/expansion_stepper_test.dart, material/step_style_test.dart, material/stepper_test.dart |
 | DataTableSource | Data source | ✅ | material/data_table_test.dart, material/paginated_data_table_state_test.dart |
 | DataTableTheme | Table theme | ✅ | material/datarow_test.dart |

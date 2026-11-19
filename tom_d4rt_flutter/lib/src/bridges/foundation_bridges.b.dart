@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 28 files
-// Generated: 2026-11-15T13:31:56.928815 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T08:38:09.980548 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2133,9 +2133,13 @@ BridgedClass _createCachingIterableBridge() {
       },
     },
     getters: {
-      'iterator': (visitor, target) => D4
-          .validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable')
-          .iterator,
+      'iterator': (visitor, target) =>
+          (D4.validateTarget<$flutter_3.CachingIterable>(
+                    target,
+                    'CachingIterable',
+                  )
+                  as dynamic)
+              .iterator,
       'length': (visitor, target) => D4
           .validateTarget<$flutter_3.CachingIterable>(target, 'CachingIterable')
           .length,
@@ -2628,7 +2632,8 @@ BridgedClass _createFactoryBridge() {
     },
     getters: {
       'constructor': (visitor, target) =>
-          D4.validateTarget<$flutter_3.Factory>(target, 'Factory').constructor,
+          (D4.validateTarget<$flutter_3.Factory>(target, 'Factory') as dynamic)
+              .constructor,
       'type': (visitor, target) =>
           D4.validateTarget<$flutter_3.Factory>(target, 'Factory').type,
     },
@@ -5744,12 +5749,13 @@ BridgedClass _createIterablePropertyBridge() {
             'IterableProperty',
           )
           .emptyBodyDescription,
-      'value': (visitor, target) => D4
-          .validateTarget<$flutter_12.IterableProperty>(
-            target,
-            'IterableProperty',
-          )
-          .value,
+      'value': (visitor, target) =>
+          (D4.validateTarget<$flutter_12.IterableProperty>(
+                    target,
+                    'IterableProperty',
+                  )
+                  as dynamic)
+              .value,
       'allowWrap': (visitor, target) => D4
           .validateTarget<$flutter_12.IterableProperty>(
             target,
@@ -7848,9 +7854,10 @@ BridgedClass _createFlagsSummaryBridge() {
       'emptyBodyDescription': (visitor, target) => D4
           .validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary')
           .emptyBodyDescription,
-      'value': (visitor, target) => D4
-          .validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary')
-          .value,
+      'value': (visitor, target) =>
+          (D4.validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary')
+                  as dynamic)
+              .value,
       'allowWrap': (visitor, target) => D4
           .validateTarget<$flutter_12.FlagsSummary>(target, 'FlagsSummary')
           .allowWrap,
@@ -14456,9 +14463,10 @@ BridgedClass _createObserverListBridge() {
       },
     },
     getters: {
-      'iterator': (visitor, target) => D4
-          .validateTarget<$flutter_18.ObserverList>(target, 'ObserverList')
-          .iterator,
+      'iterator': (visitor, target) =>
+          (D4.validateTarget<$flutter_18.ObserverList>(target, 'ObserverList')
+                  as dynamic)
+              .iterator,
       'isEmpty': (visitor, target) => D4
           .validateTarget<$flutter_18.ObserverList>(target, 'ObserverList')
           .isEmpty,
@@ -14973,12 +14981,13 @@ BridgedClass _createHashedObserverListBridge() {
       },
     },
     getters: {
-      'iterator': (visitor, target) => D4
-          .validateTarget<$flutter_18.HashedObserverList>(
-            target,
-            'HashedObserverList',
-          )
-          .iterator,
+      'iterator': (visitor, target) =>
+          (D4.validateTarget<$flutter_18.HashedObserverList>(
+                    target,
+                    'HashedObserverList',
+                  )
+                  as dynamic)
+              .iterator,
       'isEmpty': (visitor, target) => D4
           .validateTarget<$flutter_18.HashedObserverList>(
             target,

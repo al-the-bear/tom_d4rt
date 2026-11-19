@@ -99,85 +99,10 @@ const Map<String, String> _referenceOnly = {
 /// blocker lifts — the guard then holds the release to the same standard as
 /// every other.
 const Map<String, String> _deferred = {
-  // Every release up to tom_d4rt 1.264.0 / tom_d4rt_ast 0.244.0 is covered by
+  // Every release up to tom_d4rt 1.279.0 / tom_d4rt_ast 0.260.0 is covered by
   // the post-publish full corpus recorded under `Verification runs` at that
-  // pair (ghfeatures1000, 2026-11-15). An empty map is the normal state; each
+  // pair (ghissues1002, 2026-11-19). An empty map is the normal state; each
   // entry is a debt with its reason, deleted when the run is made.
-  '1.265.0':
-      'ghissues60: a top-level function\'s bound and return type resolve '
-      'across an import cycle; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.245.0':
-      'ghissues60: a top-level function\'s bound and return type resolve '
-      'across an import cycle; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '1.266.0':
-      'ghissues61: parts resolve in their library, a library\'s _ names '
-      'stay in it; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.246.0':
-      'ghissues61: parts resolve in their library, a library\'s _ names '
-      'stay in it; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '1.267.0':
-      'ghissues62: an if-case\'s variables in an async function resolve in '
-      'its then branch; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.247.0':
-      'ghissues62: an if-case\'s variables in an async function resolve in '
-      'its then branch; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '1.268.0':
-      'ghissues63: a block is a scope in an async function; unpublished, '
-      'the twins resolve the published interpreter (DGUC6); ghissues1002 '
-      'runs the post-publish corpus',
-  '0.248.0':
-      'ghissues63: a block is a scope in an async function; unpublished, '
-      'the twins resolve the published interpreter (DGUC6); ghissues1002 '
-      'runs the post-publish corpus',
-  '1.269.0':
-      'ghissues66: a prefixed enum value and an enum\'s own names in its '
-      'members resolve; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.249.0':
-      'ghissues66: a prefixed enum value and an enum\'s own names in its '
-      'members resolve; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.251.0':
-      'ghissues70: with a resolved bundle\'s static facts an extension call '
-      'goes to the extension the receiver\'s static type picks; unpublished, '
-      'the twins resolve the published interpreter (DGUC6); ghissues1002 runs '
-      'the post-publish corpus',
-  '1.272.0':
-      'ghissues71: loadLibrary resolves through a deferred prefix, its other '
-      'names throw until it ran; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.252.0':
-      'ghissues71: loadLibrary resolves through a deferred prefix, its other '
-      'names throw until it ran; unpublished, the twins resolve the published '
-      'interpreter (DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.256.0':
-      'ghissues75: with a resolved bundle\'s static facts an extension '
-      'operator, index operator or setter goes to the extension the '
-      'receiver\'s static type picks; unpublished, the twins resolve the '
-      'published interpreter (DGUC6); ghissues1002 runs the post-publish '
-      'corpus',
-  '1.277.0':
-      'ghissues77: an instance member access no longer reaches the class\'s '
-      'statics; unpublished, the twins resolve the published interpreter '
-      '(DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.257.0':
-      'ghissues77: an instance member access no longer reaches the class\'s '
-      'statics; unpublished, the twins resolve the published interpreter '
-      '(DGUC6); ghissues1002 runs the post-publish corpus',
-  '1.278.0':
-      'ghissues79: prefix.C.new / prefix.C.named resolve to a constructor '
-      'tear-off; unpublished, the twins resolve the published interpreter '
-      '(DGUC6); ghissues1002 runs the post-publish corpus',
-  '0.259.0':
-      'ghissues79: prefix.C.new / prefix.C.named resolve to a constructor '
-      'tear-off; unpublished, the twins resolve the published interpreter '
-      '(DGUC6); ghissues1002 runs the post-publish corpus',
 };
 
 List<int> _key(String v) => v.split('.').map(int.parse).toList();

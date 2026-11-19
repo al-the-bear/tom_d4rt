@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 111 files
-// Generated: 2026-11-15T13:32:55.159555 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T08:39:25.350547 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -27234,9 +27234,13 @@ BridgedClass _createCupertinoRadioBridge() {
       'groupValue': (visitor, target) => D4
           .validateTarget<$flutter_35.CupertinoRadio>(target, 'CupertinoRadio')
           .groupValue,
-      'onChanged': (visitor, target) => D4
-          .validateTarget<$flutter_35.CupertinoRadio>(target, 'CupertinoRadio')
-          .onChanged,
+      'onChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_35.CupertinoRadio>(
+                    target,
+                    'CupertinoRadio',
+                  )
+                  as dynamic)
+              .onChanged,
       'mouseCursor': (visitor, target) => D4
           .validateTarget<$flutter_35.CupertinoRadio>(target, 'CupertinoRadio')
           .mouseCursor,
@@ -27264,9 +27268,13 @@ BridgedClass _createCupertinoRadioBridge() {
       'autofocus': (visitor, target) => D4
           .validateTarget<$flutter_35.CupertinoRadio>(target, 'CupertinoRadio')
           .autofocus,
-      'groupRegistry': (visitor, target) => D4
-          .validateTarget<$flutter_35.CupertinoRadio>(target, 'CupertinoRadio')
-          .groupRegistry,
+      'groupRegistry': (visitor, target) =>
+          (D4.validateTarget<$flutter_35.CupertinoRadio>(
+                    target,
+                    'CupertinoRadio',
+                  )
+                  as dynamic)
+              .groupRegistry,
       'enabled': (visitor, target) => D4
           .validateTarget<$flutter_35.CupertinoRadio>(target, 'CupertinoRadio')
           .enabled,
@@ -28153,12 +28161,13 @@ BridgedClass _createCupertinoPageRouteBridge() {
             'CupertinoPageRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoPageRoute>(
-            target,
-            'CupertinoPageRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoPageRoute>(
+                    target,
+                    'CupertinoPageRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoPageRoute>(
             target,
@@ -28195,12 +28204,13 @@ BridgedClass _createCupertinoPageRouteBridge() {
             'CupertinoPageRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoPageRoute>(
-            target,
-            'CupertinoPageRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoPageRoute>(
+                    target,
+                    'CupertinoPageRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoPageRoute>(
             target,
@@ -29137,9 +29147,10 @@ BridgedClass _createCupertinoPageBridge() {
       'restorationId': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoPage>(target, 'CupertinoPage')
           .restorationId,
-      'onPopInvoked': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoPage>(target, 'CupertinoPage')
-          .onPopInvoked,
+      'onPopInvoked': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoPage>(target, 'CupertinoPage')
+                  as dynamic)
+              .onPopInvoked,
       'canPop': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoPage>(target, 'CupertinoPage')
           .canPop,
@@ -29913,12 +29924,13 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
             'CupertinoModalPopupRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoModalPopupRoute>(
-            target,
-            'CupertinoModalPopupRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoModalPopupRoute>(
+                    target,
+                    'CupertinoModalPopupRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoModalPopupRoute>(
             target,
@@ -29955,12 +29967,13 @@ BridgedClass _createCupertinoModalPopupRouteBridge() {
             'CupertinoModalPopupRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoModalPopupRoute>(
-            target,
-            'CupertinoModalPopupRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoModalPopupRoute>(
+                    target,
+                    'CupertinoModalPopupRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoModalPopupRoute>(
             target,
@@ -30935,12 +30948,13 @@ BridgedClass _createCupertinoDialogRouteBridge() {
             'CupertinoDialogRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoDialogRoute>(
-            target,
-            'CupertinoDialogRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoDialogRoute>(
+                    target,
+                    'CupertinoDialogRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoDialogRoute>(
             target,
@@ -30977,12 +30991,13 @@ BridgedClass _createCupertinoDialogRouteBridge() {
             'CupertinoDialogRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoDialogRoute>(
-            target,
-            'CupertinoDialogRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoDialogRoute>(
+                    target,
+                    'CupertinoDialogRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoDialogRoute>(
             target,
@@ -32001,12 +32016,13 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
             'CupertinoRouteTransitionMixin',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoRouteTransitionMixin>(
-            target,
-            'CupertinoRouteTransitionMixin',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoRouteTransitionMixin>(
+                    target,
+                    'CupertinoRouteTransitionMixin',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoRouteTransitionMixin>(
             target,
@@ -32043,12 +32059,13 @@ BridgedClass _createCupertinoRouteTransitionMixinBridge() {
             'CupertinoRouteTransitionMixin',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_37.CupertinoRouteTransitionMixin>(
-            target,
-            'CupertinoRouteTransitionMixin',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_37.CupertinoRouteTransitionMixin>(
+                    target,
+                    'CupertinoRouteTransitionMixin',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_37.CupertinoRouteTransitionMixin>(
             target,
@@ -35291,24 +35308,26 @@ BridgedClass _createCupertinoSegmentedControlBridge() {
             'CupertinoSegmentedControl',
           )
           .hashCode,
-      'children': (visitor, target) => D4
-          .validateTarget<$flutter_40.CupertinoSegmentedControl>(
-            target,
-            'CupertinoSegmentedControl',
-          )
-          .children,
+      'children': (visitor, target) =>
+          (D4.validateTarget<$flutter_40.CupertinoSegmentedControl>(
+                    target,
+                    'CupertinoSegmentedControl',
+                  )
+                  as dynamic)
+              .children,
       'groupValue': (visitor, target) => D4
           .validateTarget<$flutter_40.CupertinoSegmentedControl>(
             target,
             'CupertinoSegmentedControl',
           )
           .groupValue,
-      'onValueChanged': (visitor, target) => D4
-          .validateTarget<$flutter_40.CupertinoSegmentedControl>(
-            target,
-            'CupertinoSegmentedControl',
-          )
-          .onValueChanged,
+      'onValueChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_40.CupertinoSegmentedControl>(
+                    target,
+                    'CupertinoSegmentedControl',
+                  )
+                  as dynamic)
+              .onValueChanged,
       'unselectedColor': (visitor, target) => D4
           .validateTarget<$flutter_40.CupertinoSegmentedControl>(
             target,
@@ -35351,12 +35370,13 @@ BridgedClass _createCupertinoSegmentedControlBridge() {
             'CupertinoSegmentedControl',
           )
           .padding,
-      'disabledChildren': (visitor, target) => D4
-          .validateTarget<$flutter_40.CupertinoSegmentedControl>(
-            target,
-            'CupertinoSegmentedControl',
-          )
-          .disabledChildren,
+      'disabledChildren': (visitor, target) =>
+          (D4.validateTarget<$flutter_40.CupertinoSegmentedControl>(
+                    target,
+                    'CupertinoSegmentedControl',
+                  )
+                  as dynamic)
+              .disabledChildren,
     },
     methods: {
       'createElement': (visitor, target, positional, named, typeArgs) {
@@ -35960,12 +35980,13 @@ BridgedClass _createCupertinoSheetRouteBridge() {
             'CupertinoSheetRoute',
           )
           .currentResult,
-      'popped': (visitor, target) => D4
-          .validateTarget<$flutter_41.CupertinoSheetRoute>(
-            target,
-            'CupertinoSheetRoute',
-          )
-          .popped,
+      'popped': (visitor, target) =>
+          (D4.validateTarget<$flutter_41.CupertinoSheetRoute>(
+                    target,
+                    'CupertinoSheetRoute',
+                  )
+                  as dynamic)
+              .popped,
       'isCurrent': (visitor, target) => D4
           .validateTarget<$flutter_41.CupertinoSheetRoute>(
             target,
@@ -36002,12 +36023,13 @@ BridgedClass _createCupertinoSheetRouteBridge() {
             'CupertinoSheetRoute',
           )
           .willDisposeAnimationController,
-      'completed': (visitor, target) => D4
-          .validateTarget<$flutter_41.CupertinoSheetRoute>(
-            target,
-            'CupertinoSheetRoute',
-          )
-          .completed,
+      'completed': (visitor, target) =>
+          (D4.validateTarget<$flutter_41.CupertinoSheetRoute>(
+                    target,
+                    'CupertinoSheetRoute',
+                  )
+                  as dynamic)
+              .completed,
       'transitionDuration': (visitor, target) => D4
           .validateTarget<$flutter_41.CupertinoSheetRoute>(
             target,
@@ -37341,30 +37363,33 @@ BridgedClass _createCupertinoSlidingSegmentedControlBridge() {
             'CupertinoSlidingSegmentedControl',
           )
           .hashCode,
-      'children': (visitor, target) => D4
-          .validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
-            target,
-            'CupertinoSlidingSegmentedControl',
-          )
-          .children,
-      'disabledChildren': (visitor, target) => D4
-          .validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
-            target,
-            'CupertinoSlidingSegmentedControl',
-          )
-          .disabledChildren,
+      'children': (visitor, target) =>
+          (D4.validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
+                    target,
+                    'CupertinoSlidingSegmentedControl',
+                  )
+                  as dynamic)
+              .children,
+      'disabledChildren': (visitor, target) =>
+          (D4.validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
+                    target,
+                    'CupertinoSlidingSegmentedControl',
+                  )
+                  as dynamic)
+              .disabledChildren,
       'groupValue': (visitor, target) => D4
           .validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
             target,
             'CupertinoSlidingSegmentedControl',
           )
           .groupValue,
-      'onValueChanged': (visitor, target) => D4
-          .validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
-            target,
-            'CupertinoSlidingSegmentedControl',
-          )
-          .onValueChanged,
+      'onValueChanged': (visitor, target) =>
+          (D4.validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
+                    target,
+                    'CupertinoSlidingSegmentedControl',
+                  )
+                  as dynamic)
+              .onValueChanged,
       'backgroundColor': (visitor, target) => D4
           .validateTarget<$flutter_43.CupertinoSlidingSegmentedControl>(
             target,
