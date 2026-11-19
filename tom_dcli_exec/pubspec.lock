@@ -141,10 +141,10 @@ packages:
     dependency: transitive
     description:
       name: coverage
-      sha256: ff89e37c19355194e279d26dafe8e4bece46c9ea63a30be4dc68214f5bc290d3
+      sha256: "0a864527020e20835094b04b6ca1f9e50c7defedb74892aed72e67323e5072b7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.16.0"
+    version: "1.16.1"
   crypto:
     dependency: "direct main"
     description:
@@ -605,10 +605,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_ast_generator
-      sha256: b0e6f2bc1fa9679eaa0d88210636e064becb9ef430af1d35d0e4880adb93fc6c
+      sha256: e9058ce08f6160681cec03e00bbb433139ebf91a0313294574e2479d8b478dfc
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.11"
   tom_ast_model:
     dependency: transitive
     description:
@@ -629,34 +629,34 @@ packages:
     dependency: transitive
     description:
       name: tom_d4rt
-      sha256: "3eabef769ff0c925b418396547c7654c04d0970f7ccdc8e8bae5a046196e93c6"
+      sha256: "58bec3bcb8a6b6ee5c8e5b472bf72f3122479bb8f5b04c4b04412da4ee7831cc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.264.0"
+    version: "1.279.0"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
       name: tom_d4rt_ast
-      sha256: "267c2b3afdae5dd693e2a2ccaa9037ca6dec33347b1a83f28ae315b674cd7e0f"
+      sha256: e04921caa616d09d7a79320acc232e1fe9a14c9c582764a3e7d57f33b4cf3fa9
       url: "https://pub.dev"
     source: hosted
-    version: "0.244.0"
+    version: "0.260.0"
   tom_d4rt_exec:
     dependency: "direct main"
     description:
       name: tom_d4rt_exec
-      sha256: "40a94c487d3e760465c23bc965c946c8c1a0e15b7f82ff68499f1776df9fa5eb"
+      sha256: "5aab9a7681f5120bebce0b76d25bb4bd1d42fb1eca74912126bee8fa57acf80b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.61.0"
+    version: "1.62.0"
   tom_d4rt_generator:
     dependency: "direct dev"
     description:
       name: tom_d4rt_generator
-      sha256: "3792ba6a46410d7a05be90e0e84a7b2b501930e037f1b15722953128e5662e96"
+      sha256: "8621ebc49b52165a8a68e36d9584e6e593836326058d7b7535d8d3c7ac03c4fc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.66.0"
+    version: "1.67.0"
   tom_dcli:
     dependency: "direct main"
     description:
