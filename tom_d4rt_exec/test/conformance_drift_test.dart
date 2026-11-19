@@ -584,191 +584,19 @@ const _partialTwinBudget = 0;
 /// holds the mechanism, from parse-only and resolved bundles. ghissues1002
 /// ports it after publishing. The copier surface a port would have added is
 /// type literals with type arguments, which the corpus copies on every run.
-const _copierGapBudget = 56;
+///
+/// 56 -> 41: GHISSUES1002 ported the fifteen script-level suites the third
+/// GitHub-issue batch had added here (GHISSUES60-63, GHISSUES66, GHISSUES67,
+/// GHISSUES70-73, ADDTESTSCL2, GHISSUES75, GHISSUES77, GHISSUES79,
+/// GHISSUES80), each paired with its ast twin while exec resolved
+/// tom_d4rt_ast 0.244.0 without the fix. Since the batch release exec resolves
+/// tom_d4rt_ast 0.260.0, so each is now a verbatim port and runs through
+/// exec's own front end; gh20, gh21, ghissues66, 67, 70, 75, 79 and 80 also
+/// run their cases on the bundle path through AstBundler
+/// (`<name>_bundle_test.dart`).
+const _copierGapBudget = 41;
 
 const Map<String, _Coverage> _coveredElsewhere = {
-  'ghissues80_applied_type_equality_test.dart': _Coverage(
-    'ast:runtime/ghissues80_applied_type_equality_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 4,
-    twinCases: 5,
-    whyPartial:
-        'the same program: the reference runs it as source, the twin as '
-        'parse-only and resolved bundles that tom_ast_generator wrote, '
-        'through toBytes / fromBytes (each case run once per bundle), and '
-        'checks that its copy of the program is the reference\'s.',
-  ),
-  'ghissues79_prefixed_constructor_tearoff_test.dart': _Coverage(
-    'ast:runtime/ghissues79_prefixed_constructor_tearoff_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 2,
-    twinCases: 2,
-    whyPartial:
-        'the same two files: the reference runs them as source, the twin as '
-        'parse-only and resolved bundles that tom_ast_generator wrote, '
-        'through toBytes / fromBytes (each case run once per bundle).',
-  ),
-  'ghissues77_collection_bases_test.dart': _Coverage(
-    'ast:runtime/ghissues77_collection_bases_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 7,
-    twinCases: 8,
-    whyPartial:
-        'the same program: the reference runs it as source, the twin as a '
-        'bundle that tom_ast_generator wrote, through toBytes / fromBytes; '
-        'the twin also checks its copy of the program is the reference\'s.',
-  ),
-  'ghissues75_operator_receivers_test.dart': _Coverage(
-    'ast:runtime/ghissues75_static_facts_operators_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 1,
-    twinCases: 3,
-    whyPartial:
-        'the same program: the reference runs it as source, the twin as a '
-        'bundle that tom_ast_generator wrote in resolving mode, with its '
-        'facts (native answers) and without them (the reference\'s answers).',
-  ),
-  'addtestscl2_bridged_interface_members_test.dart': _Coverage(
-    'ast:runtime/addtestscl2_bridged_interface_members_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 4,
-    twinCases: 4,
-    whyPartial:
-        'the same four checks: the reference runs them as source, the twin as '
-        'hand-built bundles, so the converter is not exercised.',
-  ),
-  'ghissues73_written_collection_writes_test.dart': _Coverage(
-    'ast:runtime/ghissues73_written_collection_writes_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 3,
-    twinCases: 3,
-    whyPartial:
-        'the same program: the reference runs it as source, the twin as a '
-        'bundle that tom_ast_generator wrote, through toBytes / fromBytes.',
-  ),
-  'ghissues72_generic_instance_runtime_type_test.dart': _Coverage(
-    'ast:runtime/ghissues72_generic_instance_runtime_type_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 3,
-    twinCases: 3,
-    whyPartial:
-        'the same three programs: the reference runs them as source, the twin '
-        'as a bundle that tom_ast_generator wrote, through toBytes / fromBytes.',
-  ),
-  'ghissues71_slang_closure_test.dart': _Coverage(
-    'ast:runtime/ghissues71_slang_closure_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 7,
-    twinCases: 7,
-    whyPartial:
-        'the same seven programs: the reference runs them as source, the twin '
-        'as bundles that tom_ast_generator wrote, through toBytes / fromBytes.',
-  ),
-  'ghissues70_static_facts_twin_test.dart': _Coverage(
-    'ast:runtime/ghissues70_static_facts_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 2,
-    twinCases: 7,
-    whyPartial:
-        'the reference has no static facts: it pins the map cases as source '
-        'approximates them and a type interpolated into a string. The twin '
-        'runs the same cases from a resolved bundle against native Dart, with '
-        'the facts, without them, on a stamp mismatch and through each bundle '
-        'format; the interpolation is in its with-facts answers.',
-  ),
-  'ghissues67_written_collection_type_arguments_test.dart': _Coverage(
-    'ast:runtime/ghissues67_written_collection_type_arguments_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 10,
-    twinCases: 4,
-    whyPartial:
-        'the twin pins runtimeType, is on an empty collection, a failed as, '
-        'a script class as the argument and K bound from a written map, as '
-        'bundles. The reference runs ten shapes against native Dart '
-        '(covariance, nullability, nesting and top types, type parameters, '
-        'constructors, runtimeType equality, the untyped literal left as it '
-        'was), which take the same recorded arguments.',
-  ),
-  'ghissues66_prefixed_enum_value_test.dart': _Coverage(
-    'ast:runtime/ghissues66_prefixed_enum_value_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 8,
-    twinCases: 4,
-    whyPartial:
-        'the twin pins the prefixed value, the refused unknown name, an '
-        'enum\'s own names in a static initializer and in static and '
-        'instance members, and a field implementing an interface getter, as '
-        'bundles. The reference runs eight shapes against native Dart (a '
-        'Slang-shaped enhanced enum, prefixed switch cases and statics, a '
-        'mutable field implementing a setter, source_span\'s shape, a field '
-        'that does not implement a method), which take the same lookups.',
-  ),
-  'ghissues63_async_block_scope_test.dart': _Coverage(
-    'ast:runtime/ghissues63_async_block_scope_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 1,
-    twinCases: 3,
-    whyPartial:
-        'the twin pins the todo\'s three shapes and a while body that must be '
-        'a fresh scope every iteration, as bundles. The reference runs twenty '
-        'shapes against native Dart (else, labelled, nested and finally '
-        'blocks, the loop / try / if-case nestings, closures per iteration), '
-        'which take the same block-environment selection.',
-  ),
-  'ghissues62_await_propagation_test.dart': _Coverage(
-    'ast:runtime/ghissues62_await_propagation_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 4,
-    twinCases: 6,
-    whyPartial:
-        'the twin pins one bundle per mechanism: is / as / conditional, a '
-        'switch expression and a record literal, an if-case with and without '
-        'an await, a switch statement, a pattern declaration / assert / '
-        'throw, and the for condition. The reference adds the remaining '
-        'forms of the same two mechanisms (propagation, re-entry), the '
-        'if-case scoping cases and the Future-of-record return type, which '
-        'the AST twin always resolved.',
-  ),
-  'gh21_parts_and_library_privacy_test.dart': _Coverage(
-    'ast:runtime/gh21_parts_and_library_privacy_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 9,
-    twinCases: 8,
-    whyPartial:
-        'the twin pins the issue\'s five graphs as bundles, a named library '
-        'with a part as the entry, the wrong-owner, missing-part-of, '
-        'own-directive and part-missing-from-the-bundle refusals, and a part '
-        'imported, exported or run. The reference adds the direct-source '
-        'refusals, which the AST line has no counterpart of (a bundle always '
-        'has URIs).',
-  ),
-  'gh20_function_signature_import_cycle_test.dart': _Coverage(
-    'ast:runtime/gh20_function_signature_import_cycle_test.dart',
-    _astTwin,
-    layer: _Layer.script,
-    refCases: 7,
-    twinCases: 6,
-    whyPartial:
-        'the twin pins the issue\'s graph as bundles: the bound never called, '
-        'the bound checked on a call, a return type checked on a return, the '
-        'applied return type List<Node>, the generic block-body return and an '
-        'undefined name. The reference adds a returned closure and an '
-        'F-bounded parameter, which take the same deferral.',
-  ),
   'sce208_bind_forwarding_source_errors_test.dart': _Coverage(
     'ast:runtime/sce208_bind_forwarding_source_errors_test.dart',
     _astTwin,
@@ -2320,6 +2148,23 @@ double? _reasonOverlap(String reason, File file) {
 /// detectable but localisable. F-SCE142-2 pins that with the two reasons
 /// verbatim, so the control can never become vacuous.
 const Map<String, _Convergence> _convergenceLog = {
+  // GHISSUES1002: the two _divergentBaseline entries GHISSUES67 opened
+  // (a collection keeps its written type arguments, tom_d4rt 1.270.0 /
+  // tom_d4rt_ast 0.250.0) closed once exec resolved the published
+  // tom_d4rt_ast 0.260.0: the reference copies, ported, replaced exec's.
+  'scc78_bridged_runtimetype_test.dart': _Convergence(
+    _Direction.downstream,
+    'GHISSUES1002: F-SCC78-7 takes the reference\'s `List<int>` for '
+    '`<int>[].runtimeType` (the port pinned the native list\'s '
+    '`List<Object?>` while exec resolved tom_d4rt_ast 0.244.0).',
+  ),
+  'sce101_element_type_test.dart': _Convergence(
+    _Direction.downstream,
+    'GHISSUES1002: the element-predicate probes take the reference\'s '
+    'untyped literals (a written `<Object?>[...]` is decided by its type '
+    'arguments since GHISSUES67; the port kept the typed ones while exec '
+    'resolved tom_d4rt_ast 0.244.0).',
+  ),
   // SCE64 reconstructed the entries below from the commits that converged
   // them. Only convergences whose direction the COMMIT MESSAGE states are
   // here; the rule's own hazard is that a converged file looks identical
@@ -2511,21 +2356,6 @@ const Map<String, _Convergence> _convergenceLog = {
 /// re-measure the whole register when the floor moves, not the entry you
 /// happened to be reading.
 const Map<String, _Divergence> _divergentBaseline = {
-  // GHISSUES67: a collection a script creates keeps its written type
-  // arguments in the trees (tom_d4rt 1.270.0 / tom_d4rt_ast 0.250.0). The
-  // references moved with it: scc78's F-SCC78-7 expects `<int>[].runtimeType`
-  // to print `List<int>` (it pinned `List<Object?>`), and sce101 writes its
-  // element-predicate probes as untyped literals (`<Object?>[null] is
-  // List<Null>` is now false, as in Dart, without asking the elements). Exec
-  // resolves the published tom_d4rt_ast 0.244.0, where the old answers hold, so
-  // the ports keep them (DGUC6). ghissues1002 converges both downstream after
-  // the publish.
-  'scc78_bridged_runtimetype_test.dart': _Divergence.deliberate,
-  // GHISSUES67: sce101's element-predicate probes are untyped literals in the
-  // reference (a written `<Object?>[...]` is now decided by its type
-  // arguments); the port keeps the typed ones the published interpreter
-  // answers from the elements. ghissues1002 converges it downstream.
-  'sce101_element_type_test.dart': _Divergence.deliberate,
   // SCH2: the three repo-wide guards below are ported WITHOUT their source
   // scans. Each scan reads both interpreter trees off disk, so a second copy
   // here would re-read the identical files and produce a duplicate failure,
@@ -2637,8 +2467,6 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// Recomputing without reading the new difference is the failure mode; the
 /// message says so.
 const Map<String, String> _divergenceFingerprints = <String, String>{
-  'scc78_bridged_runtimetype_test.dart': '1257c4fe402d4946',
-  'sce101_element_type_test.dart': '17ac05334ac0ff3c',
   'dart313b1_sdk_313_members_test.dart': '7b2fbfaa832e8b8a',
   'scd34_constructor_trace_forwarding_test.dart': '239ecf0a3afc35f2',
   'scd35_bridged_tearoff_as_callback_test.dart': '2af9f62cc4643311',
@@ -3712,7 +3540,7 @@ const Map<String, String> _astDriftFingerprints = <String, String>{
 // expressed, and that is the state this constant returns to. The lint reasons
 // from today's value alone.
 // ignore: unnecessary_nullable_for_final_variable_declarations
-const String? _astPublishBlock = 'ghissues1002_akpu-batch-release-github-20-21';
+const String? _astPublishBlock = null;
 
 /// One baseline entry and the comment block written directly above it.
 typedef _BaselineEntry = ({String path, String comment});

@@ -131,9 +131,12 @@ void main() {
           equals('String'),
         );
         expect(await _run('return 1.runtimeType.toString();'), equals('int'));
+        // ghissues67: a written collection keeps its type arguments, so
+        // this is Dart's `List<int>` now (it was the native list's
+        // `List<Object?>`).
         expect(
           await _run('return <int>[].runtimeType.toString();'),
-          equals('List<Object?>'),
+          equals('List<int>'),
         );
       },
     );

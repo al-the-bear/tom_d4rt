@@ -1,3 +1,35 @@
+## 1.62.0
+
+### Changed — takes the GitHub #18, #20-#24 batch: tom_d4rt_ast ^0.260.0, tom_ast_generator ^0.2.11
+
+Exec runs the interpreter fixes of tom_d4rt 1.265.0-1.279.0 / tom_d4rt_ast
+0.245.0-0.260.0: a top-level function signature across an import cycle
+(#20), parts and library privacy (#21), `await` inside `is` / `?:` / switch /
+patterns, block scopes in async functions, enum values through an import
+prefix (#21), collections keeping their written type arguments, a generic
+instance's `runtimeType`, deferred imports, `MapView` and the
+`dart:collection` bases as superclasses (#21, Slang), extension operators and
+setters, `prefix.Class.new` (#23), `T == List<String>` (#24); and, on the
+bundle path, the static facts of a resolving `AstBundler` (#18), carried in
+`AstBundle.facts`.
+
+### Fixed — exec's own module loader: parts, private names, deferred imports in a loaded library (GitHub #21)
+
+Exec loads source libraries with a loader of its own, which the ports of the
+batch's tests found behind tom_d4rt's:
+
+- a library's `part` files are merged in (their declarations share its imports
+  and its private names), a part must name its library in its `part of` and
+  have no directive of its own, and a part imported, exported or run is
+  refused; a `source:` with a part directive is refused unless filesystem
+  imports anchor it at `<basePath>/main.dart`;
+- an import or export barrel no longer carries a library's `_` names;
+- `import ... deferred as z` in a loaded library marks the prefix deferred, so
+  `z.loadLibrary()` is found there.
+
+Name resolution: yes — parts' declarations resolve in their library, and an
+imported library's `_` names no longer resolve in its importers.
+
 ## 1.61.0
 
 ### Added — per-execution hooks (GitHub #19), as in tom_d4rt's `D4rt`

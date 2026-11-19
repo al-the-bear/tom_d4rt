@@ -1595,8 +1595,32 @@ class D4rt {
       Logger.debug(
         "[D4rt._parseSource] Parsing the provided source string directly (no source URI).",
       );
-      final unit = _parseExecutableSource(source);
+      var unit = _parseExecutableSource(source);
       _moduleLoader.recordEntrySource(unit, source);
+      // GitHub #21: a part is not a library, and a library's parts are part
+      // of it. A direct source has no URI to find its parts from unless
+      // filesystem imports anchor it at `<basePath>/main.dart`.
+      if (unit.directives.any(
+        (d) => d is SPartDirective || d is SPartOfDirective,
+      )) {
+        final basePath = _moduleLoader.basePath;
+        if (unit.directives.any((d) => d is SPartDirective) &&
+            !(_moduleLoader.allowFileSystemImports && basePath != null)) {
+          throw SourceCodeD4rtException(
+            "A 'source:' with a part directive has no URI to find its parts "
+            "from: run it as 'library:' with 'sources:', or with filesystem "
+            'imports and a basePath.',
+          );
+        }
+        unit = _moduleLoader.libraryUnit(
+          basePath != null
+              ? Uri.base
+                    .resolveUri(Uri.directory(basePath))
+                    .resolve('main.dart')
+              : Uri.parse('main.dart'),
+          unit,
+        );
+      }
       Logger.debug(
         "[D4rt._parseSource] Direct source string parsed successfully.",
       );
