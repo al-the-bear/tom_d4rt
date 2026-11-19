@@ -7,7 +7,7 @@
 > **→ [tom_d4rt/doc/d4rt_limitations.md](../../tom_d4rt/doc/d4rt_limitations.md)**
 >
 > Every entry there applies identically here — the two packages are kept in
-> strict 1:1 sync (`_copilot_guidelines/sync_with_tom_d4rt.md` enforces it).
+> strict 1:1 sync (`_agent_guidelines/sync_with_tom_d4rt.md` enforces it).
 > This file lists only the limitations that are **specific to the
 > analyzer-free runtime**.
 

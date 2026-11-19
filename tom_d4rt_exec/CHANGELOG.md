@@ -1015,7 +1015,7 @@ Two new cases in `test/conformance_drift_test.dart`:
 `>=`, so the caret would have turned it into a `fail()` and disarmed
 `F-SCC43-1` — the register check — on the very edit meant to harden it.
 
-`_copilot_guidelines/testing.md` gains the run recipe: `dart pub upgrade` before
+`_agent_guidelines/testing.md` gains the run recipe: `dart pub upgrade` before
 any conformance measurement, and quote the printed version alongside any number
 reported.
 

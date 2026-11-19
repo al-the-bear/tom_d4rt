@@ -284,7 +284,7 @@ case this package exists for), see
 
 ### The 1:1-with-analyzer principle
 
-When a bug is found in the interpreter logic (type coercion, enum handling, `isSubtypeOf` chain walk, etc.), the fix goes into `tom_ast_model` or into both `tom_d4rt` and `tom_d4rt_ast` simultaneously. The rule is: **fix the AST model or the shared interpreter logic, not a one-off workaround in one package**. The `_copilot_guidelines/sync_with_tom_d4rt.md` document in this package enforces this contract.
+When a bug is found in the interpreter logic (type coercion, enum handling, `isSubtypeOf` chain walk, etc.), the fix goes into `tom_ast_model` or into both `tom_d4rt` and `tom_d4rt_ast` simultaneously. The rule is: **fix the AST model or the shared interpreter logic, not a one-off workaround in one package**. The `_agent_guidelines/sync_with_tom_d4rt.md` document in this package enforces this contract.
 
 ### Bridging: native-to-interpreted interop
 

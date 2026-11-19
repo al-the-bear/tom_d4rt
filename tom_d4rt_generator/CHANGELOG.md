@@ -2544,7 +2544,7 @@ pub.dev is a different build; this repository's 1.8.7 content shipped as
 ### Documentation
 - Expanded `doc/issues.md` to 46 documented issues (GEN-001 through GEN-046).
 - Added `doc/test_coverage.md` — full bridge generator feature inventory with pass/fail status.
-- Added project-level `_copilot_guidelines/testing.md`.
+- Added project-level `_agent_guidelines/testing.md`.
 
 ### Dependencies
 - Updated `tom_build_base` to `^1.2.0` (adds `yamlToMap`/`yamlListToList` utilities).

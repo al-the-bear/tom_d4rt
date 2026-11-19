@@ -24,9 +24,9 @@ See [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) for details. Both packages mu
 ### Dart Guidelines
 | Document | Purpose |
 |----------|---------|
-| [Coding Guidelines](../../../../_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
-| [Unit Tests](../../../../_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
-| [Examples](../../../../_copilot_guidelines/dart/examples.md) | Example file creation guidelines |
+| [Coding Guidelines](../../../../_agent_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
+| [Unit Tests](../../../../_agent_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
+| [Examples](../../../../_agent_guidelines/dart/examples.md) | Example file creation guidelines |
 
 ## Project-Specific Guidelines
 
@@ -34,7 +34,7 @@ See [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) for details. Both packages mu
 |------|-------------|
 | [testing.md](testing.md) | This tree's own testing conventions — no source execution, hand-built bundles, the `-AST-` id infix, and the dependency and platform constraints |
 | [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) | 🚨 **CRITICAL** D4 class synchronization with tom_d4rt |
-| [same_name_class_resolution.md](../../tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md) | Resolution rule for two packages declaring the same class name (implemented identically here and in `tom_d4rt`; canonical doc lives with the generator) |
+| [same_name_class_resolution.md](../../tom_d4rt_generator/_agent_guidelines/same_name_class_resolution.md) | Resolution rule for two packages declaring the same class name (implemented identically here and in `tom_d4rt`; canonical doc lives with the generator) |
 
 ## The four files the other two trees have and this one does not
 

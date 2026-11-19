@@ -17,7 +17,7 @@ tom_d4rt/
 ├── example/                    # Example files
 ├── test/                       # Test files
 ├── doc/                        # Documentation
-├── _copilot_guidelines/        # This folder
+├── _agent_guidelines/        # This folder
 ├── pubspec.yaml
 ├── README.md
 ├── CHANGELOG.md

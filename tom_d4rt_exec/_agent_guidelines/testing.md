@@ -125,7 +125,7 @@ measures is per-machine state that appears in no diff and no review.
 This is not exec's problem alone — every consumer in the repo has it, and the
 rules that follow from it (a caret for libraries, a floor for copy surfaces,
 where each resolved version is recorded) are one document:
-`tom_ai/d4rt/_copilot_guidelines/interpreter_resolution.md`. What is written
+`tom_ai/d4rt/_agent_guidelines/interpreter_resolution.md`. What is written
 here is exec's instance of it.
 
 Any run whose result is going to be quoted — a baseline, a conformance claim, a
@@ -393,7 +393,7 @@ runs source (`test/bridge/scd5a_script_level_ambiguity_test.dart`);
 (`test/runtime/scd5a_script_level_ambiguity_test.dart`). After publishing, run
 both Flutter twins' base corpus and record the run. tcca19 broke 17 corpus
 scripts with every registration-level test green. The rule and its tests:
-`tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md`.
+`tom_d4rt_generator/_agent_guidelines/same_name_class_resolution.md`.
 
 ### Network Tests Stay on Loopback
 

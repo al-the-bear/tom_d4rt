@@ -354,7 +354,7 @@ runs source (`test/bridge/scd5a_script_level_ambiguity_test.dart`);
 (`test/runtime/scd5a_script_level_ambiguity_test.dart`). After publishing, run
 both Flutter twins' base corpus and record the run. tcca19 broke 17 corpus
 scripts with every registration-level test green. The rule and its tests:
-`tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md`.
+`tom_d4rt_generator/_agent_guidelines/same_name_class_resolution.md`.
 
 ### Network Tests Stay on Loopback
 

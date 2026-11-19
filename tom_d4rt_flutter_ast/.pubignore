@@ -9,7 +9,7 @@ build/
 ztmp/
 
 # Development guidelines (not user documentation).
-_copilot_guidelines/
+_agent_guidelines/
 
 # Bug-fix-campaign test-run logs and orchestration dumps kept under doc/.
 doc/*.log.txt

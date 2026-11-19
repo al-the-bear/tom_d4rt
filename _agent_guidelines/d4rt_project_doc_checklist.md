@@ -23,12 +23,12 @@ projects ship from it; this checklist applies to all of them.
 | D3 | User guide | `doc/<project>_user_guide.md` | Full guide, **or** a pointer file that links to the canonical base-project guide (allowed for `*_ast` variants and exec/cli entry points — see categories). |
 | D4 | Configuration guide | `doc/<project>_configuration.md` | **Only where the project has a configuration surface** (`tom_d4rt_generator`'s `buildkit.yaml`, runner/engine knobs). Projects with no config surface omit this. |
 | D5 | Limitations | `doc/<project>_limitations.md` | Per todo-2 canon: `tom_d4rt` owns the canonical `d4rt_limitations.md`; every other project ships a **delta** file (its own limits only) that backlinks to the canon. A project with genuinely no deltas ships an explicit "no project-specific limitations beyond the base — see `tom_d4rt`" note. |
-| D6 | API summary | `doc/api/<project>_api_summary.md` | Generated/curated API surface summary per `_copilot_guidelines/dart/api_summary_creation.md`. Required for library projects; pointer allowed for thin entry-point/test/sample projects. |
+| D6 | API summary | `doc/api/<project>_api_summary.md` | Generated/curated API surface summary per `_agent_guidelines/dart/api_summary_creation.md`. Required for library projects; pointer allowed for thin entry-point/test/sample projects. |
 
 **Shipping vs internal (P5).** Everything under `doc/` is user-facing.
 Internal development notes, migration plans, quest trackers, and
 cleanup logs do **not** belong in `doc/` — keep them under
-`_copilot_guidelines/` or the quest folder.
+`_agent_guidelines/` or the quest folder.
 
 **Naming uniformity.** Use the `<project>_user_guide.md`,
 `<project>_configuration.md`, `<project>_limitations.md` pattern for
@@ -132,7 +132,7 @@ DRY).
 | `tom_d4rt_dcli/doc/known_issues_macos.md` | 129 | Rename/fold into `tom_d4rt_dcli_limitations.md` (macOS DCli known issues as its delta) + backlink. |
 | `tom_d4rt_flutter/doc/interpreter_limits_and_workarounds.md` | 854 | Becomes `tom_d4rt_flutter_limitations.md` (Flutter-runtime deltas — bridge-adapter limits, perf/GC) + backlink. |
 | `tom_d4rt_flutter_ast/doc/interpreter_limits_and_workarounds.md` | 854 (identical copy) | Replace with `tom_d4rt_flutter_ast_limitations.md` delta vs the flutter base (no analyzer, bundle, web fit) + backlink to `tom_d4rt_flutter`. |
-| `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | 8941 | Internal corpus tracker, **not user-facing** — relocate under quest folder / `_copilot_guidelines/` per P5 (todo 26); fold any genuine user-visible limits into the flutter delta/canon. |
+| `tom_d4rt_flutter_ast/doc/interpreter_unfixable.md` | 8941 | Internal corpus tracker, **not user-facing** — relocate under quest folder / `_agent_guidelines/` per P5 (todo 26); fold any genuine user-visible limits into the flutter delta/canon. |
 
 ### Projects with no limitations file yet — add a delta or explicit "none"
 

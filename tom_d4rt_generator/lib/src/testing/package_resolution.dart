@@ -17,7 +17,7 @@
 /// second, needs no network, and writes nothing when the resolution is current.
 ///
 /// WHAT PUB CANNOT SEE. A cached package directory that exists but lost its
-/// `pubspec.yaml` (shape B in `_copilot_guidelines/dart/pub_cache_troubleshooting.md`)
+/// `pubspec.yaml` (shape B in `_agent_guidelines/dart/pub_cache_troubleshooting.md`)
 /// passes a resolve — pub treats the directory's existence as "installed". So
 /// after resolving, [resolutionProblems] reads the config once more.
 library;

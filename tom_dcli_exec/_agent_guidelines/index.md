@@ -13,13 +13,13 @@
 
 | Document | Purpose |
 |----------|---------|
-| [Coding Guidelines](../../../../_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
-| [Unit Tests](../../../../_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
-| [Examples](../../../../_copilot_guidelines/dart/examples.md) | Example file creation guidelines |
+| [Coding Guidelines](../../../../_agent_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
+| [Unit Tests](../../../../_agent_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
+| [Examples](../../../../_agent_guidelines/dart/examples.md) | Example file creation guidelines |
 
 ## Publishing
 
-This package is published to pub.dev. See [Project Republishing](../../../../_copilot_guidelines/dart/project_republishing.md) for the complete publishing workflow.
+This package is published to pub.dev. See [Project Republishing](../../../../_agent_guidelines/dart/project_republishing.md) for the complete publishing workflow.
 
 ## Project-Specific Guidelines
 

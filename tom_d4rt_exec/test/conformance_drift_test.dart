@@ -3033,12 +3033,12 @@ const Map<String, Map<String, String>> _guidelineOneSided = {
   },
 };
 
-/// Every `_copilot_guidelines/*.md` in [packageRoot], keyed by file name.
+/// Every `_agent_guidelines/*.md` in [packageRoot], keyed by file name.
 ///
 /// The guidelines are flat, so a name is enough — unlike the test corpora,
 /// which need relative paths.
 Map<String, File> _guidelineFiles(Directory packageRoot) {
-  final dir = Directory('${packageRoot.path}/_copilot_guidelines');
+  final dir = Directory('${packageRoot.path}/_agent_guidelines');
   if (!dir.existsSync()) return {};
   return {
     for (final f in dir.listSync().whereType<File>())

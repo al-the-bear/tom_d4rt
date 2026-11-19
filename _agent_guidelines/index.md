@@ -2,7 +2,7 @@
 
 Local development guidelines for the `tom_d4rt` repo (`tom_ai/d4rt/`),
 covering the full D4rt project family. Check this folder before the
-global `_copilot_guidelines/` when working in any of these projects.
+global `_agent_guidelines/` when working in any of these projects.
 
 | Document | Purpose |
 |----------|---------|
