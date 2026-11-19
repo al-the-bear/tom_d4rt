@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 6 files
-// Generated: 2026-11-17T07:00:54.746579 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T08:30:17.306420 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1248,9 +1248,11 @@ BridgedClass _createPathMapBridge() {
       'keys': (visitor, target) =>
           D4.validateTarget<$path_5.PathMap>(target, 'PathMap').keys,
       'values': (visitor, target) =>
-          D4.validateTarget<$path_5.PathMap>(target, 'PathMap').values,
+          (D4.validateTarget<$path_5.PathMap>(target, 'PathMap') as dynamic)
+              .values,
       'entries': (visitor, target) =>
-          D4.validateTarget<$path_5.PathMap>(target, 'PathMap').entries,
+          (D4.validateTarget<$path_5.PathMap>(target, 'PathMap') as dynamic)
+              .entries,
     },
     methods: {
       'cast': (visitor, target, positional, named, typeArgs) {

@@ -35,7 +35,7 @@ dependencies:
   # the list is cumulative, and the comment above it used to name 1.29.0 while
   # the constraint said ^1.77.0, which reads as an invitation to do exactly
   # that.
-  tom_d4rt: "^1.264.0"
+  tom_d4rt: "^1.279.0"
   # VS Code scripting API (for bridge support)
   tom_vscode_scripting_api: ^5.0.0
   # The generated scripting-API bridges import the todo model directly.
@@ -66,4 +66,4 @@ dev_dependencies:
   # `dart run tom_d4rt_generator:d4rtgen` works and `bridges_fresh_test.dart`
   # can run: without it this was one of two consumers configuring d4rtgen that
   # could neither regenerate nor check what they had committed (SCE3).
-  tom_d4rt_generator: "^1.66.0"
+  tom_d4rt_generator: "^1.67.0"
