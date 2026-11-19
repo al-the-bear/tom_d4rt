@@ -7,7 +7,7 @@
 
 | Document | Purpose |
 |----------|---------|
-| [Documentation Guidelines](../../../../_copilot_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
+| [Documentation Guidelines](../../../../../../../../_agent_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
 
 ## Dart Guidelines
 

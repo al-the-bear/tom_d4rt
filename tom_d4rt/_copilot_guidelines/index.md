@@ -17,7 +17,7 @@ See [sync_with_tom_d4rt_ast.md](sync_with_tom_d4rt_ast.md) for details. Both pac
 
 | Document | Purpose |
 |----------|---------|
-| [Documentation Guidelines](../../../../_copilot_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
+| [Documentation Guidelines](../../../../../../../../_agent_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
 
 ## Dart Guidelines
 
