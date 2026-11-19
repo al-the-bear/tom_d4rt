@@ -2,7 +2,7 @@
 
 This guideline is maintained in `tom_d4rt`:
 
-**[`tom_d4rt/_copilot_guidelines/d4rt_interpreter_vs_d4rt_generator.md`](../../tom_d4rt/_copilot_guidelines/d4rt_interpreter_vs_d4rt_generator.md)**
+**[`tom_d4rt/_agent_guidelines/d4rt_interpreter_vs_d4rt_generator.md`](../../tom_d4rt/_agent_guidelines/d4rt_interpreter_vs_d4rt_generator.md)**
 
 It says which interpreter code is generator support (the `D4` helpers and the
 user-bridge annotations that generated bridges call) and which is pure

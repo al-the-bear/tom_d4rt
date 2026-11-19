@@ -841,7 +841,7 @@ void main() {
           'These member bodies now differ between the two interpreter '
           'trees:\n${unrecorded.join('\n')}\n\n'
           'The mirror rule says a fix lands in BOTH trees in one commit — see '
-          '_copilot_guidelines/d4rt/mirror_maintenance.md. This is that rule '
+          '_agent_guidelines/d4rt/mirror_maintenance.md. This is that rule '
           'measured at the granularity a mirror defect has: one member. Port '
           'the change to the other tree. If the two genuinely cannot say the '
           'same thing here, add the member to _divergentBodies with the '

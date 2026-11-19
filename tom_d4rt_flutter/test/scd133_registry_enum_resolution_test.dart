@@ -131,7 +131,7 @@
 /// bridging a transitively-reached type, not laxity about imports, and it
 /// stands as a deliberate allowance. This line reaches those types through
 /// what `material.dart`'s import registers. See
-/// `_copilot_guidelines/d4rt/mirror_maintenance.md`.
+/// `_agent_guidelines/d4rt/mirror_maintenance.md`.
 ///
 /// Twin of
 /// `tom_d4rt_flutter_ast/test/scd133_registry_enum_resolution_test.dart`.

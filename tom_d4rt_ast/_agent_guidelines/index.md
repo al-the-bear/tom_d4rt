@@ -18,15 +18,15 @@ See [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) for details. Both packages mu
 ### Global Guidelines
 | Document | Purpose |
 |----------|---------|
-| [Documentation Guidelines](../../../../_copilot_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
-| [Specification Workflow](../../../../_copilot_guidelines/spec_workflow.md) | How to implement from specifications |
+| [Documentation Guidelines](../../../../../../../../_agent_guidelines/documentation_guidelines.md) | Where to place user docs vs development docs |
+| [Specification Workflow](../../../../../../../../_agent_guidelines/spec_workflow.md) | How to implement from specifications |
 
 ### Dart Guidelines
 | Document | Purpose |
 |----------|---------|
-| [Coding Guidelines](../../../../_copilot_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
-| [Unit Tests](../../../../_copilot_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
-| [Examples](../../../../_copilot_guidelines/dart/examples.md) | Example file creation guidelines |
+| [Coding Guidelines](../../../../_agent_guidelines/dart/coding_guidelines.md) | Naming conventions, error handling, patterns |
+| [Unit Tests](../../../../_agent_guidelines/dart/unit_tests.md) | Test structure, matchers, mocking patterns |
+| [Examples](../../../../_agent_guidelines/dart/examples.md) | Example file creation guidelines |
 
 ## Project-Specific Guidelines
 
@@ -34,7 +34,7 @@ See [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) for details. Both packages mu
 |------|-------------|
 | [testing.md](testing.md) | This tree's own testing conventions — no source execution, hand-built bundles, the `-AST-` id infix, and the dependency and platform constraints |
 | [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md) | 🚨 **CRITICAL** D4 class synchronization with tom_d4rt |
-| [same_name_class_resolution.md](../../tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md) | Resolution rule for two packages declaring the same class name (implemented identically here and in `tom_d4rt`; canonical doc lives with the generator) |
+| [same_name_class_resolution.md](../../tom_d4rt_generator/_agent_guidelines/same_name_class_resolution.md) | Resolution rule for two packages declaring the same class name (implemented identically here and in `tom_d4rt`; canonical doc lives with the generator) |
 
 ## The four files the other two trees have and this one does not
 
@@ -47,7 +47,7 @@ which is which — the reason this section exists at all is that the absence of
 | File they have | Status here |
 |----------------|-------------|
 | `build.md` | **Partly covered.** Its publishing half — publish in step, order, run both suites first — is [sync_with_tom_d4rt.md](sync_with_tom_d4rt.md), which is stricter than theirs because these two packages must be published together. Its analyzer/test half is two commands and is in [testing.md](testing.md). |
-| `documentation.md` | **Not needed.** Nothing about doc placement differs from the workspace rule, and a third copy is a third thing to keep in step. See the global [Documentation Guidelines](../../../../_copilot_guidelines/documentation_guidelines.md). |
+| `documentation.md` | **Not needed.** Nothing about doc placement differs from the workspace rule, and a third copy is a third thing to keep in step. See the global [Documentation Guidelines](../../../../../../../../_agent_guidelines/documentation_guidelines.md). |
 | `d4rt_interpreter_vs_d4rt_generator.md` | **Kept in `tom_d4rt`**, and it applies here too: `lib/src/runtime/generator/` mirrors the generator support code it describes, and the issue-routing rule is the same. Read `tom_d4rt/_copilot_guidelines/d4rt_interpreter_vs_d4rt_generator.md`. |
 | `example.md` | **A real gap, not a decision.** `example/` here holds one `README.md` and no runnable example, and an example for this package has a constraint the other two do not: it cannot parse source, so it needs a pre-built `AstBundle`. Nobody has written that, and nothing here says so until now. |
 

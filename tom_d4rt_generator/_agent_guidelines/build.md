@@ -21,7 +21,7 @@ tom_d4rt_generator/
 ├── example/                    # Example project with test classes
 ├── test/                       # Unit tests
 ├── doc/                        # Documentation
-├── _copilot_guidelines/        # This folder
+├── _agent_guidelines/        # This folder
 ├── pubspec.yaml
 ├── build.yaml                  # Build runner config
 ├── README.md

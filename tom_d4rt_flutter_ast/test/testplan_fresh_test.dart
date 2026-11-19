@@ -1,5 +1,5 @@
 // RUNNER BUCKET: guard — run_guard_tests.sh
-/// The testplans under `_copilot_guidelines/` are what
+/// The testplans under `_agent_guidelines/` are what
 /// `tool/testplan_report.dart` writes from the bridges and the corpus, and the
 /// priority files it reads name only bridged classes (ghissues20).
 ///

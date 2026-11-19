@@ -4,8 +4,8 @@ Which code in the interpreter packages is **generator support code** — it live
 there because every generated bridge calls it — and which is **pure interpreter
 logic**. The distinction decides where a bug is tracked, and who has to be told.
 
-This is the maintained copy. `tom_d4rt_exec/_copilot_guidelines/` and the
-workspace's `_copilot_guidelines/d4rt/` carry pointers to it.
+This is the maintained copy. `tom_d4rt_exec/_agent_guidelines/` and the
+workspace's `_agent_guidelines/d4rt/` carry pointers to it.
 
 ---
 
@@ -21,7 +21,7 @@ Generator support code sits in the INTERPRETER packages, not in the generator,
 because it runs inside the interpreter at execution time: generated bridges
 call it. That is also why a fix to it is an interpreter fix for release and
 mirroring purposes — it lands in both `tom_d4rt` and `tom_d4rt_ast` (see
-`_copilot_guidelines/d4rt/mirror_maintenance.md`) — while being a generator
+`_agent_guidelines/d4rt/mirror_maintenance.md`) — while being a generator
 concern for tracking purposes.
 
 ---
@@ -136,4 +136,4 @@ Everything else in `lib/src/`:
 - Generator issues: `tom_d4rt_generator/doc/issues.md`
 - Interpreter issues: `tom_d4rt/doc/issues.md`
 - Documented limitations: `tom_d4rt/doc/d4rt_limitations.md`
-- Keeping the twins in step: `_copilot_guidelines/d4rt/mirror_maintenance.md`
+- Keeping the twins in step: `_agent_guidelines/d4rt/mirror_maintenance.md`

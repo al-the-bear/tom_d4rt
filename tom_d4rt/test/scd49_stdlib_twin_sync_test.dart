@@ -292,7 +292,7 @@ void main() {
           'tree and read as applying to both. A file that differs here breaks '
           'that inference for its class. Either port the change to the other '
           'tree — which is the usual answer, and the mirror rule in '
-          '_copilot_guidelines/d4rt/mirror_maintenance.md says so — or, if the '
+          '_agent_guidelines/d4rt/mirror_maintenance.md says so — or, if the '
           'trees genuinely cannot agree, add an entry to _allowed recording '
           'both sides and why.',
     );

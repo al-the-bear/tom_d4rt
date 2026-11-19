@@ -2,7 +2,7 @@
 
 This document tracks bridge generator features and the tests that verify them. It serves as a living inventory to identify coverage gaps and guide future test development.
 
-**Test infrastructure:** See `_copilot_guidelines/testing.md` for the D4rtTester architecture and test conventions.
+**Test infrastructure:** See `_agent_guidelines/testing.md` for the D4rtTester architecture and test conventions.
 
 **Test files:**
 - `test/d4rt_tester_test.dart` — end-to-end tests using D4rtTester (per-example-project)

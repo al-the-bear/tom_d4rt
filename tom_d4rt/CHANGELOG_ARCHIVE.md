@@ -3845,7 +3845,7 @@ Import-over-ambient (GEN-100, e.g. `painting.TextStyle` overriding the ambient
 import-vs-import is ambiguous.
 
 The rule is documented in
-`tom_d4rt_generator/_copilot_guidelines/same_name_class_resolution.md`.
+`tom_d4rt_generator/_agent_guidelines/same_name_class_resolution.md`.
 
 ## 1.26.0
 

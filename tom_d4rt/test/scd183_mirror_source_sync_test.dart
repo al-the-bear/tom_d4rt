@@ -9,7 +9,7 @@
 //
 // SCD183 — the mirror rule, measured on the half SCD49 does not cover.
 //
-// WHAT THE RULE IS. `_copilot_guidelines/d4rt/mirror_maintenance.md` and the
+// WHAT THE RULE IS. `_agent_guidelines/d4rt/mirror_maintenance.md` and the
 // quest overview both say it: a fix to the interpreter lands in BOTH
 // `tom_d4rt/lib/src/` and `tom_d4rt_ast/lib/src/runtime/`, in one commit. Until
 // SCD49 that rule was prose — it told an editor what to do and detected
@@ -650,7 +650,7 @@ void main() {
               '      ref: ${tokenExcerpt(divergences[f]!.$1)}\n'
               '      ast: ${tokenExcerpt(divergences[f]!.$2)}').join('\n')}\n\n'
           'The mirror rule says a fix lands in both trees in one commit — see '
-          '_copilot_guidelines/d4rt/mirror_maintenance.md. Port the change. If '
+          '_agent_guidelines/d4rt/mirror_maintenance.md. Port the change. If '
           'the trees genuinely cannot agree, add an entry to _allowedRegions '
           'pinning both sides (when the divergence is one region) or to '
           '_structural saying why token identity cannot express it (when it is '

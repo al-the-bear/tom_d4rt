@@ -172,7 +172,7 @@ worded for their trees.
 ## Shared conventions, not restated here
 
 These are identical in both trees. Read them in
-[`../../tom_d4rt/_copilot_guidelines/testing.md`](../../tom_d4rt/_copilot_guidelines/testing.md):
+[`../../tom_d4rt/_agent_guidelines/testing.md`](../../tom_d4rt/_agent_guidelines/testing.md):
 
 | Convention | Section there |
 | ---------- | ------------- |

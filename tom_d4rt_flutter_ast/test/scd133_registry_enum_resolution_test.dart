@@ -133,7 +133,7 @@
 /// `DeviceGestureSettings`), whose types no import ever named. The baseline is
 /// this line's mechanism for bridging a transitively-reached type, not laxity
 /// about imports, and it stands as a deliberate allowance. See
-/// `_copilot_guidelines/d4rt/mirror_maintenance.md`.
+/// `_agent_guidelines/d4rt/mirror_maintenance.md`.
 ///
 /// Twin of `tom_d4rt_flutter/test/scd133_registry_enum_resolution_test.dart`.
 /// The two differ only in how the throwaway script reaches the interpreter —

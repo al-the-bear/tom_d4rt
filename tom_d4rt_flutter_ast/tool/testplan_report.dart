@@ -15,10 +15,10 @@
 /// string, and not as a class the script declares itself (a local shim of the
 /// same name does not exercise the bridge). The tiers (Essential, Important,
 /// Secondary, Hardly Relevant) are the only hand-maintained input: the tables
-/// of `_copilot_guidelines/testpriority_<library>.md`; a bridged class no
+/// of `_agent_guidelines/testpriority_<library>.md`; a bridged class no
 /// priority file names is Hardly Relevant.
 ///
-/// Output, all under `_copilot_guidelines/`: `testplan_<library>.md` per
+/// Output, all under `_agent_guidelines/`: `testplan_<library>.md` per
 /// library, `testplan_<tier>.md` per tier, and the block between the
 /// `testplan_report` markers in `flutter_bridge_test_plan.md`. The guard
 /// `test/testplan_fresh_test.dart` runs [buildTestplans] and fails when a
@@ -35,7 +35,7 @@ import 'package:path/path.dart' as p;
 
 const String scriptsDir =
     'test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts';
-const String guidelinesDir = '_copilot_guidelines';
+const String guidelinesDir = '_agent_guidelines';
 const String bridgesDir = 'lib/src/bridges';
 const String summaryFile = 'flutter_bridge_test_plan.md';
 const String beginMarker = '<!-- testplan_report:begin -->';

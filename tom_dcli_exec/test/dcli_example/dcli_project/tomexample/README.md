@@ -122,6 +122,6 @@ try {
 
 ## See Also
 
-- Global DCli overview: `_copilot_guidelines/d4rt/dcli_overview.md`
-- Scripting guide: `_copilot_guidelines/d4rt/dcli_scripting_guide.md`
+- Global DCli overview: `_agent_guidelines/d4rt/dcli_overview.md`
+- Scripting guide: `_agent_guidelines/d4rt/dcli_scripting_guide.md`
 - Tom tests: `test/tomtest/`
