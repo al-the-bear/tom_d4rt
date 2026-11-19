@@ -16,12 +16,22 @@
 ///      with an `onCompareTo` callback that overrides `compareTo`), and
 ///   2. the `registerProxyFactories()` adapter that registers the proxy as an
 ///      interface proxy and forwards an `InterpretedInstance.compareTo` back
-///      through `findInstanceMethod/bind/call` + `D4.extractBridgedArg<int>`.
+///      through `findInstanceMethod/bind` and a call (`D4.enterInterpreted` on an
+///      interpreter with the entry hooks) + `D4.extractBridgedArg<int>`.
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
+
+/// How the factory calls the script method, for the interpreter this package
+/// resolves: through `D4.enterInterpreted(visitor, method.bind(instance), ...)`
+/// once it has the entry hooks (GitHub #19, [entryInterpreterFloors]), else
+/// `method.bind(instance).call(visitor, ...)`.
+final String _scriptCall =
+    interpreterAtLeast(Directory.current.path, null, entryInterpreterFloors)
+    ? 'D4.enterInterpreted(\n            visitor,\n            method.bind(instance),'
+    : '.bind(instance).call(visitor,';
 
 void main() {
   group('A2 forwarding-proxy template (generateProxies)', () {
@@ -106,7 +116,7 @@ void main() {
         // The factory body is the InterpretedInstance→native bridge: it looks
         // up the script method, binds+calls it, and coerces the typed return.
         expect(generatedCode, contains("findInstanceMethod('compareTo')"));
-        expect(generatedCode, contains('.bind(instance).call(visitor,'));
+        expect(generatedCode, contains(_scriptCall));
         expect(
           generatedCode,
           contains("D4.extractBridgedArg<int>(result, 'compareTo', visitor)"),
@@ -185,7 +195,7 @@ void main() {
     test('PROXY-A2-09: the void factory delegation calls the script method but '
         'emits no return coercion (the void path). [2026-06-07] (PASS)', () {
       expect(generatedCode, contains("findInstanceMethod('add')"));
-      expect(generatedCode, contains('.bind(instance).call(visitor,'));
+      expect(generatedCode, contains(_scriptCall));
       // The defining property of the void path: a void return must NOT be
       // run through `D4.extractBridgedArg` — the delegation calls and returns.
       expect(generatedCode, isNot(contains('extractBridgedArg<void>')));
