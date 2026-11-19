@@ -203,8 +203,9 @@ try {
 With the check on, the bundler also records the static types the runtime
 cannot see in the syntax: the receiver type and type arguments of each
 extension call, and the inferred type arguments of generic calls, instance
-creations and untyped collection literals. It returns a `ResolvedAstBundle`,
-whose JSON (and `toBytes`) carries them under the optional `facts` key.
+creations and untyped collection literals. The bundle carries them in
+`AstBundle.facts`; its JSON (and `toBytes`) holds them under the optional
+`facts` key, and its ZIP form as the entry `facts.json.gz`.
 Readers that do not know the key ignore it. `AstBundlerConfig(staticFacts: false)`
 leaves the table out. Layout, stamp and sizes:
 [resolved_bundles.md](resolved_bundles.md).

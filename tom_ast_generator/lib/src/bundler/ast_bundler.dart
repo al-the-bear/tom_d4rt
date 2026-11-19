@@ -12,7 +12,6 @@ import 'package:tom_d4rt_ast/ast.dart';
 import 'package:tom_d4rt_ast/runtime.dart' show AstBundle;
 
 import 'package:tom_ast_generator/src/converter/ast_converter.dart';
-import 'package:tom_ast_generator/src/bundler/resolved_ast_bundle.dart';
 import 'package:tom_ast_generator/src/resolver/ast_resolver.dart';
 import 'package:tom_ast_generator/src/resolver/dart_sdk_locator.dart';
 import 'package:tom_ast_generator/src/version.versioner.dart';
@@ -182,7 +181,7 @@ class AstBundlerConfig {
   /// (GitHub #18 option 3): the static receiver type, extension and type
   /// arguments of every extension member access, and the inferred type
   /// arguments of generic calls, instance creations and collection literals.
-  /// The bundle is then a [ResolvedAstBundle] carrying them under the
+  /// The bundle then carries them in [AstBundle.facts], under the
   /// optional `facts` key, which readers that do not know it ignore. A
   /// runtime uses them where it would otherwise approximate (tom_d4rt_ast,
   /// ghissues70); see `doc/resolved_bundles.md`.
@@ -499,20 +498,11 @@ class AstBundler {
   AstBundle _bundle(String entryUri, Map<String, SCompilationUnit> modules) {
     final sources = _collectedSources;
     _collectedSources = null;
-    final facts = _lastResolveReport?.facts;
-    if (facts != null) {
-      return ResolvedAstBundle(
-        entryPointUri: entryUri,
-        modules: modules,
-        sources: sources,
-        facts: facts,
-        generator: 'tom_ast_generator ${AstgenVersionInfo.version}',
-      );
-    }
     return AstBundle(
       entryPointUri: entryUri,
       modules: modules,
       sources: sources,
+      facts: _lastResolveReport?.facts,
       // SCF3 / SCE15: name the producer, so a bundle that misbehaves on a
       // device can say which astgen built it. The versioner stamp is the value
       // `astgen --version` prints and that version_stamp_test holds equal to

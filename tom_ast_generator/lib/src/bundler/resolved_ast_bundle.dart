@@ -1,52 +1,47 @@
-/// A bundle with a static facts table (ghissues69, GitHub #18 option 3).
+/// The former bundle type with a static facts table (ghissues69, GitHub #18
+/// option 3), kept as a deprecated alias: [AstBundle.facts] carries the
+/// table since tom_d4rt_ast 0.251.0.
 library;
 
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:tom_ast_model/tom_ast_model.dart' show SStaticFacts;
-import 'package:tom_d4rt_ast/runtime.dart' show AstBundle;
+import 'package:tom_d4rt_ast/runtime.dart' show AstBundle, AstBundleFormat;
 
-/// The bundle key of the static facts table.
+/// The bundle key of the static facts table ([AstBundleFormat.keyFacts]).
 ///
 /// Optional and additive: a reader that does not know it reads the bundle as
-/// before (`AstBundle.fromJson` takes known keys only), so the bundle format
-/// version does not change for it.
-const String bundleFactsKey = 'facts';
+/// before, so the bundle format version does not change for it.
+const String bundleFactsKey = AstBundleFormat.keyFacts;
 
-/// An [AstBundle] that carries the [facts] its resolving bundler recorded.
+/// An [AstBundle] whose [facts] are set.
 ///
-/// Its JSON - and so [toBytes] - holds the table under [bundleFactsKey].
-/// [readFacts] reads it back from those bytes; `AstBundle.fromBytes` reads
-/// such bytes as a plain bundle. The ZIP form ([toZip]) does not carry the
-/// table yet.
+/// The bundler returns a plain [AstBundle] with [AstBundle.facts]; this type
+/// stays for code that names it. Its JSON, bytes and ZIP form are the plain
+/// bundle's, the table included.
+@Deprecated(
+  'Use AstBundle and AstBundle.facts (tom_d4rt_ast 0.251.0); the bundler '
+  'returns a plain AstBundle since tom_ast_generator 0.2.11.',
+)
 class ResolvedAstBundle extends AstBundle {
-  /// The static facts of the bundle's modules.
-  final SStaticFacts facts;
-
   ResolvedAstBundle({
     required super.entryPointUri,
     required super.modules,
-    required this.facts,
+    required SStaticFacts super.facts,
     super.sources,
     super.generator,
   });
 
+  /// The static facts of the bundle's modules.
   @override
-  Map<String, dynamic> toJson() => {
-    ...super.toJson(),
-    bundleFactsKey: facts.toJson(),
-  };
+  SStaticFacts get facts => super.facts!;
 
-  /// The facts table of a bundle serialized by [toBytes] (gzip-compressed
-  /// JSON), or null when it has none, or one of another format.
-  static SStaticFacts? readFacts(List<int> bytes) => factsOf(
-    jsonDecode(utf8.decode(gzip.decode(bytes))) as Map<String, dynamic>,
-  );
+  /// The facts table of a bundle serialized by `toBytes` (gzip-compressed
+  /// JSON), or null when it has none, or one of another format: the
+  /// [AstBundle.facts] of the bundle read back.
+  static SStaticFacts? readFacts(List<int> bytes) =>
+      AstBundle.fromBytes(bytes).facts;
 
-  /// The facts table of a bundle's JSON, or null.
-  static SStaticFacts? factsOf(Map<String, dynamic> json) {
-    final table = json[bundleFactsKey];
-    return table is Map<String, dynamic> ? SStaticFacts.fromJson(table) : null;
-  }
+  /// The facts table of a bundle's JSON, or null: the [AstBundle.facts] of
+  /// the bundle read from it.
+  static SStaticFacts? factsOf(Map<String, dynamic> json) =>
+      AstBundle.fromJson(json).facts;
 }

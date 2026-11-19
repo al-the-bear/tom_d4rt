@@ -1,3 +1,16 @@
+## 0.2.11
+
+### Changed — the bundle carries its static facts in `AstBundle.facts`
+
+tom_d4rt_ast 0.251.0 gave `AstBundle` its `facts` field, so a resolving
+`AstBundler` now returns a plain `AstBundle` with `facts` set (null without
+`resolve`, with `staticFacts: false`, or when nothing was recorded). Its JSON,
+`toBytes` and - new - its ZIP form (`toZip`, the entry `facts.json.gz`) carry
+the table, and `AstBundle.fromJson` / `fromBytes` / `fromZip` read it back.
+
+`ResolvedAstBundle` stays as a deprecated alias: an `AstBundle` whose `facts`
+are set; `readFacts` / `factsOf` read `AstBundle.facts`. tom_d4rt_ast ^0.260.0.
+
 ## 0.2.10
 
 ### Fixed — a prefixed annotation name converts (ghissues78, GitHub #22)

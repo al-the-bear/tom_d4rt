@@ -13,7 +13,7 @@ would otherwise approximate.
 
 `AstBundlerConfig(resolve: true)` runs the resolving check (see the user
 guide). With `staticFacts: true`, the default, the same resolution also
-records the facts, and the bundler returns a `ResolvedAstBundle`:
+records the facts, and the bundle carries them in `AstBundle.facts`:
 
 ```dart
 final bundle = await AstBundler(
@@ -23,14 +23,17 @@ final bundle = await AstBundler(
   config: const AstBundlerConfig(resolve: true),
 ).createFromSource(sources[entry]!, sourcePath: entry);
 
-if (bundle is ResolvedAstBundle) {
-  print('${bundle.facts.factCount} facts');
+final facts = bundle.facts;
+if (facts != null) {
+  print('${facts.factCount} facts');
 }
 final bytes = bundle.toBytes(); // carries the table under "facts"
 ```
 
-A program with no fact gets a plain `AstBundle`. So does bundling with
-`staticFacts: false`, or without `resolve`. `astgen --resolve` checks
+A program with no fact gets a bundle whose `facts` is null. So does bundling
+with `staticFacts: false`, or without `resolve`. `ResolvedAstBundle`, the type
+the bundler returned before, is a deprecated alias: an `AstBundle` whose
+`facts` are set. `astgen --resolve` checks
 entrypoints but writes single converted units, not bundles, so it writes no
 table.
 
@@ -86,8 +89,8 @@ Two kinds of fact are recorded, each keyed by the node it is about.
   `AstBundle.fromJson` reads the keys it knows, so a reader that does not know
   `facts` reads and runs the bundle as before. The bundle's `version` stays
   `2.0`.
-- **The ZIP form.** `ResolvedAstBundle.toZip` (tom_d4rt_ast 0.244's) does not
-  carry the table; tom_d4rt_ast 0.251.0's `AstBundle.toZip` does.
+- **The ZIP form.** `toZip` carries the table as the entry `facts.json.gz`;
+  `AstBundle.fromZip` reads it back.
 
 ## The stamp, and when a runtime trusts the facts
 

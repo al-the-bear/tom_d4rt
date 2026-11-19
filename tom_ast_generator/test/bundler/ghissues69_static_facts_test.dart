@@ -5,10 +5,11 @@
 // analyzer's resolved units, the static receiver type, extension and type
 // arguments of every extension member access, and the inferred type
 // arguments of generic calls, instance creations and collection literals
-// that do not write them. The bundle is then a `ResolvedAstBundle`, whose
-// JSON carries the table under the optional `facts` key. A reader that does
-// not know the key - the published tom_d4rt_ast this package resolves - reads
-// and runs the bundle as before.
+// that do not write them. The bundle then carries them in `AstBundle.facts`;
+// its JSON holds the table under the optional `facts` key and its ZIP form as
+// the entry `facts.json.gz`. A reader that does not know the key reads and
+// runs the bundle as before. `ResolvedAstBundle`, the type the bundler
+// returned before tom_ast_generator 0.2.11, is a deprecated alias.
 
 import 'dart:io';
 
@@ -130,8 +131,7 @@ void main() {
         stubs: {'package:map_repro/native.dart': _nativeStub},
         bridged: {'package:map_repro/native.dart'},
       );
-      expect(b, isA<ResolvedAstBundle>());
-      final facts = (b as ResolvedAstBundle).facts;
+      final facts = b.facts!;
       final call = _fact(facts, _entry, _repro, 'narrow.keyKind()');
       expect(call, isA<SExtensionCallFact>());
       call as SExtensionCallFact;
@@ -147,8 +147,7 @@ void main() {
       'GH69-2: inferred type arguments of literals, instance creations '
       'and generic calls; none where they are written [2026-11-17]',
       () async {
-        final b = await bundle(_inferred) as ResolvedAstBundle;
-        final facts = b.facts;
+        final facts = (await bundle(_inferred)).facts!;
         String at(String s) =>
             _args(facts, _fact(facts, _entry, _inferred, s)).join(', ');
         expect(at('[1, 2]'), 'int');
@@ -172,13 +171,14 @@ void main() {
     test('GH69-3: without a stub, a typed local still names its receiver; '
         'an untyped one from a runtime-only library cannot and gets no fact '
         '[2026-11-17]', () async {
-      final typed =
-          await bundle(_repro, bridged: {'package:map_repro/native.dart'})
-              as ResolvedAstBundle;
+      final typed = (await bundle(
+        _repro,
+        bridged: {'package:map_repro/native.dart'},
+      )).facts!;
       final call =
-          _fact(typed.facts, _entry, _repro, 'narrow.keyKind()')
+          _fact(typed, _entry, _repro, 'narrow.keyKind()')
               as SExtensionCallFact;
-      expect(_name(typed.facts, call.receiverType), 'Map<String, int>');
+      expect(_name(typed, call.receiverType), 'Map<String, int>');
 
       final untyped = _repro.replaceFirst(
         'final Map<String, int> narrow',
@@ -188,7 +188,7 @@ void main() {
         untyped,
         bridged: {'package:map_repro/native.dart'},
       );
-      final facts = b is ResolvedAstBundle ? b.facts : null;
+      final facts = b.facts;
       expect(
         facts == null
             ? null
@@ -200,59 +200,87 @@ void main() {
     test('GH69-4: no table without resolve, with staticFacts: false, or '
         'without a fact [2026-11-17]', () async {
       expect(
-        await bundle(_inferred, config: const AstBundlerConfig()),
-        isNot(isA<ResolvedAstBundle>()),
+        (await bundle(_inferred, config: const AstBundlerConfig())).facts,
+        isNull,
       );
       expect(
-        await bundle(
+        (await bundle(
           _inferred,
           config: const AstBundlerConfig(resolve: true, staticFacts: false),
-        ),
-        isNot(isA<ResolvedAstBundle>()),
+        )).facts,
+        isNull,
       );
-      expect(
-        await bundle('Object main() => 1;'),
-        isNot(isA<ResolvedAstBundle>()),
-      );
+      expect((await bundle('Object main() => 1;')).facts, isNull);
     });
 
     test(
       'GH69-5: the stamp names the SDK the analyzer ran on [2026-11-17]',
       () async {
-        final b = await bundle(_inferred) as ResolvedAstBundle;
+        final facts = (await bundle(_inferred)).facts!;
         final sdk = File(
           p.join(resolver.dartSdk, 'version'),
         ).readAsStringSync().trim();
-        expect(b.facts.stamp.sdkVersion, sdk);
+        expect(facts.stamp.sdkVersion, sdk);
         // Only dart: types here - no package to stamp.
-        expect(b.facts.stamp.packages, isEmpty);
+        expect(facts.stamp.packages, isEmpty);
       },
     );
   });
 
   group('ghissues69: the table in the bundle bytes', () {
-    test('GH69-6: toBytes carries the table and readFacts reads it back '
-        '[2026-11-17]', () async {
-      final b = await bundle(_inferred) as ResolvedAstBundle;
-      final read = ResolvedAstBundle.readFacts(b.toBytes())!;
-      expect(read.stamp, b.facts.stamp);
-      expect(read.types, b.facts.types);
-      expect(read.factCount, b.facts.factCount);
-      expect(
-        read.factAt(_entry, _inferred.indexOf('[1, 2]'), 6),
-        b.facts.factAt(_entry, _inferred.indexOf('[1, 2]'), 6),
-      );
-      // A plain bundle's bytes have none.
+    test('GH69-6: toBytes and toZip carry the table and AstBundle reads it '
+        'back [2026-11-17]', () async {
+      final b = await bundle(_inferred);
+      final facts = b.facts!;
+      for (final read in [
+        AstBundle.fromBytes(b.toBytes()).facts!,
+        AstBundle.fromZip(b.toZip()).facts!,
+      ]) {
+        expect(read.stamp, facts.stamp);
+        expect(read.types, facts.types);
+        expect(read.factCount, facts.factCount);
+        expect(
+          read.factAt(_entry, _inferred.indexOf('[1, 2]'), 6),
+          facts.factAt(_entry, _inferred.indexOf('[1, 2]'), 6),
+        );
+      }
+      // A plain bundle's bytes and ZIP have none.
       final plain = await bundle(_inferred, config: const AstBundlerConfig());
+      expect(AstBundle.fromBytes(plain.toBytes()).facts, isNull);
+      expect(AstBundle.fromZip(plain.toZip()).facts, isNull);
+    });
+
+    test('GH69-6b: ResolvedAstBundle, the deprecated alias, is an AstBundle '
+        'with facts; readFacts / factsOf read AstBundle.facts '
+        '[2026-11-19]', () async {
+      final b = await bundle(_inferred);
+      // ignore: deprecated_member_use_from_same_package
+      final alias = ResolvedAstBundle(
+        entryPointUri: b.entryPointUri,
+        modules: b.modules,
+        facts: b.facts!,
+      );
+      expect(alias, isA<AstBundle>());
+      expect(alias.toJson()[bundleFactsKey], b.toJson()[bundleFactsKey]);
+      // ignore: deprecated_member_use_from_same_package
+      final read = ResolvedAstBundle.readFacts(alias.toBytes())!;
+      expect(read.factCount, b.facts!.factCount);
+      expect(
+        // ignore: deprecated_member_use_from_same_package
+        ResolvedAstBundle.factsOf(b.toJson())!.factCount,
+        b.facts!.factCount,
+      );
+      final plain = await bundle(_inferred, config: const AstBundlerConfig());
+      // ignore: deprecated_member_use_from_same_package
       expect(ResolvedAstBundle.readFacts(plain.toBytes()), isNull);
     });
 
     test(
-      'GH69-7: an old reader ignores the table - the published '
-      'tom_d4rt_ast reads and runs the bundle as without it [2026-11-17]',
+      'GH69-7: a bundle with the table runs as one without it where the '
+      'facts change nothing [2026-11-17]',
       () async {
-        final resolved = await bundle(_runnable) as ResolvedAstBundle;
-        expect(resolved.facts.factCount, greaterThan(0));
+        final resolved = await bundle(_runnable);
+        expect(resolved.facts!.factCount, greaterThan(0));
         final plain = await bundle(_runnable, config: const AstBundlerConfig());
 
         final read = AstBundle.fromBytes(resolved.toBytes());
@@ -316,9 +344,8 @@ Object main() {
                 projectRoot: project.path,
                 config: _resolve,
                 resolver: resolver,
-              ).createFromFile(file.path)
-              as ResolvedAstBundle;
-      final facts = b.facts;
+              ).createFromFile(file.path);
+      final facts = b.facts!;
       final module = b.entryPointUri;
       final area = _fact(facts, module, source, 'shapes.first.area');
       expect(area, isA<SExtensionCallFact>());

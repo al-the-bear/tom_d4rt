@@ -65,7 +65,8 @@ Future<void> _write(String fixtures, String name, AstResolver resolver) async {
       config: const AstBundlerConfig(resolve: true),
       resolver: resolver,
     ).createFromSource(source, sourcePath: _entry);
-    if (bundle is! ResolvedAstBundle) {
+    final facts = bundle.facts;
+    if (facts == null) {
       stderr.writeln(
         'write_resolved_bundle_fixture: no static facts recorded for $name',
       );
@@ -75,8 +76,8 @@ Future<void> _write(String fixtures, String name, AstResolver resolver) async {
     final out = File(p.join(fixtures, '$name.bundle.json'));
     out.writeAsStringSync('${jsonEncode(bundle.toJson())}\n');
     print(
-      'Wrote ${out.path}: ${bundle.facts.factCount} facts, '
-      '${bundle.facts.types.length} types',
+      'Wrote ${out.path}: ${facts.factCount} facts, '
+      '${facts.types.length} types',
     );
   }
 }
