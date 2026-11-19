@@ -141,10 +141,10 @@ packages:
     dependency: transitive
     description:
       name: coverage
-      sha256: ff89e37c19355194e279d26dafe8e4bece46c9ea63a30be4dc68214f5bc290d3
+      sha256: "0a864527020e20835094b04b6ca1f9e50c7defedb74892aed72e67323e5072b7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.16.0"
+    version: "1.16.1"
   crypto:
     dependency: transitive
     description:
@@ -621,10 +621,10 @@ packages:
     dependency: transitive
     description:
       name: tom_d4rt
-      sha256: "3eabef769ff0c925b418396547c7654c04d0970f7ccdc8e8bae5a046196e93c6"
+      sha256: "58bec3bcb8a6b6ee5c8e5b472bf72f3122479bb8f5b04c4b04412da4ee7831cc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.264.0"
+    version: "1.279.0"
   tom_d4rt_ast:
     dependency: "direct main"
     description:
@@ -645,10 +645,10 @@ packages:
     dependency: "direct dev"
     description:
       name: tom_d4rt_generator
-      sha256: "3792ba6a46410d7a05be90e0e84a7b2b501930e037f1b15722953128e5662e96"
+      sha256: "8621ebc49b52165a8a68e36d9584e6e593836326058d7b7535d8d3c7ac03c4fc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.66.0"
+    version: "1.67.0"
   tom_dcli:
     dependency: transitive
     description:

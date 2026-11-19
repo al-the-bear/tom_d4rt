@@ -685,18 +685,18 @@ packages:
     dependency: "direct main"
     description:
       name: tom_build_base
-      sha256: "92ff03e77ac8deb3592a3f6b926cd209c3f4640fcdefa731447e23be7caef6fc"
+      sha256: "4882e5f94dabcb6acad76b5bf1b522cdd2c6b4b2bbc0af65c71081052356422c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.42.0"
+    version: "2.44.0"
   tom_d4rt:
     dependency: "direct main"
     description:
       name: tom_d4rt
-      sha256: "3eabef769ff0c925b418396547c7654c04d0970f7ccdc8e8bae5a046196e93c6"
+      sha256: "58bec3bcb8a6b6ee5c8e5b472bf72f3122479bb8f5b04c4b04412da4ee7831cc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.264.0"
+    version: "1.279.0"
   tom_dcli:
     dependency: transitive
     description:

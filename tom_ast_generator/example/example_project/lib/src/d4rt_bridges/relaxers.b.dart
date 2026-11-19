@@ -1,4 +1,4 @@
-// Generated: 2026-11-17T13:18:45.030356 by tom_d4rt_generator 1.66.0
+// Generated: 2026-11-19T11:18:17.196460 by tom_d4rt_generator 1.67.0
 /// D4rt GEN-079 Relaxer Wrappers for d4rt_generator_example
 ///
 /// Auto-generated wrapper classes and factory functions for generic
