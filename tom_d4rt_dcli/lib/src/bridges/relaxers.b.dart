@@ -1,4 +1,4 @@
-// Generated: 2026-11-19T08:30:17.493642 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-20T12:13:48.709789 by tom_d4rt_generator 1.67.0
 /// D4rt GEN-079 Relaxer Wrappers for tom_d4rt_dcli
 ///
 /// Auto-generated wrapper classes and factory functions for generic
@@ -315,7 +315,7 @@ Object? _rc2PathMap$leaf2(String typeName, dynamic visitor, Context? context) {
     'TodoEntry' => PathMap<TodoEntry>(context: context),
     'TodoFileListResult' => PathMap<TodoFileListResult>(context: context),
     'TodoListResult' => PathMap<TodoListResult>(context: context),
-    'TomTodo' => PathMap<TomTodo>(context: context),
+    'TomItem' => PathMap<TomItem>(context: context),
     'TomTodoDecision' => PathMap<TomTodoDecision>(context: context),
     'TomTodoReference' => PathMap<TomTodoReference>(context: context),
     'TomTodoRepeat' => PathMap<TomTodoRepeat>(context: context),
@@ -1156,8 +1156,8 @@ Object? _rc2PathMap_of$leaf2(
       D4.coerceMap<String, TodoListResult>(other, 'other'),
       context: context,
     ),
-    'TomTodo' => PathMap<TomTodo>.of(
-      D4.coerceMap<String, TomTodo>(other, 'other'),
+    'TomItem' => PathMap<TomItem>.of(
+      D4.coerceMap<String, TomItem>(other, 'other'),
       context: context,
     ),
     'TomTodoDecision' => PathMap<TomTodoDecision>.of(
@@ -1562,7 +1562,7 @@ Object? _rc2StackList$leaf2(String typeName, dynamic visitor) {
     'TodoEntry' => StackList<TodoEntry>(),
     'TodoFileListResult' => StackList<TodoFileListResult>(),
     'TodoListResult' => StackList<TodoListResult>(),
-    'TomTodo' => StackList<TomTodo>(),
+    'TomItem' => StackList<TomItem>(),
     'TomTodoDecision' => StackList<TomTodoDecision>(),
     'TomTodoReference' => StackList<TomTodoReference>(),
     'TomTodoRepeat' => StackList<TomTodoRepeat>(),
@@ -2238,8 +2238,8 @@ Object? _rc2StackList_fromList$leaf2(
     'TodoListResult' => StackList<TodoListResult>.fromList(
       D4.coerceList<TodoListResult>(initialStack, 'initialStack'),
     ),
-    'TomTodo' => StackList<TomTodo>.fromList(
-      D4.coerceList<TomTodo>(initialStack, 'initialStack'),
+    'TomItem' => StackList<TomItem>.fromList(
+      D4.coerceList<TomItem>(initialStack, 'initialStack'),
     ),
     'TomTodoDecision' => StackList<TomTodoDecision>.fromList(
       D4.coerceList<TomTodoDecision>(initialStack, 'initialStack'),

@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
-// Sources: 31 files
-// Generated: 2026-11-19T08:41:42.024160 by tom_d4rt_generator 1.67.0
+// Sources: 32 files
+// Generated: 2026-11-20T12:14:02.466501 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -10,6 +10,7 @@ import 'dart:async';
 
 import 'package:tom_todo_model/tom_todo_model.dart' as $tom_todo_model_1;
 import 'package:tom_todo_model/tom_todo_model.dart' as $tom_todo_model_2;
+import 'package:tom_todo_model/tom_todo_model.dart' as $tom_todo_model_3;
 import 'package:tom_vscode_scripting_api/script_globals.dart'
     as $tom_vscode_scripting_api_1;
 import 'package:tom_vscode_scripting_api/script_globals.dart'
@@ -184,7 +185,7 @@ class TomVscodeScriptingApiBridge {
       _createVSCodeBridgeAgentSdkTransportBridge(),
       _createBridgeRequestDispatcherBridge(),
       _createAgentSdkToolRegistryBridge(),
-      _createTomTodoBridge(),
+      _createTomItemBridge(),
       _createTomTodoDecisionBridge(),
       _createTomTodoScopeBridge(),
       _createTomTodoReferenceBridge(),
@@ -343,7 +344,7 @@ class TomVscodeScriptingApiBridge {
           _createVSCodeBridgeAgentSdkTransportBridge,
       'BridgeRequestDispatcher': _createBridgeRequestDispatcherBridge,
       'AgentSdkToolRegistry': _createAgentSdkToolRegistryBridge,
-      'TomTodo': _createTomTodoBridge,
+      'TomItem': _createTomItemBridge,
       'TomTodoDecision': _createTomTodoDecisionBridge,
       'TomTodoScope': _createTomTodoScopeBridge,
       'TomTodoReference': _createTomTodoReferenceBridge,
@@ -516,11 +517,11 @@ class TomVscodeScriptingApiBridge {
       'BridgeRequestDispatcher':
           $tom_vscode_scripting_api_10.BridgeRequestDispatcher,
       'AgentSdkToolRegistry': $tom_vscode_scripting_api_8.AgentSdkToolRegistry,
-      'TomTodo': $tom_todo_model_1.TomTodo,
-      'TomTodoDecision': $tom_todo_model_1.TomTodoDecision,
-      'TomTodoScope': $tom_todo_model_1.TomTodoScope,
-      'TomTodoReference': $tom_todo_model_1.TomTodoReference,
-      'TomTodoRepeat': $tom_todo_model_2.TomTodoRepeat,
+      'TomItem': $tom_todo_model_1.TomItem,
+      'TomTodoDecision': $tom_todo_model_2.TomTodoDecision,
+      'TomTodoScope': $tom_todo_model_2.TomTodoScope,
+      'TomTodoReference': $tom_todo_model_2.TomTodoReference,
+      'TomTodoRepeat': $tom_todo_model_3.TomTodoRepeat,
       'TodoEntry': $tom_vscode_scripting_api_15.TodoEntry,
       'InvalidTodo': $tom_vscode_scripting_api_15.InvalidTodo,
       'TodoWire': $tom_vscode_scripting_api_15.TodoWire,
@@ -761,7 +762,7 @@ class TomVscodeScriptingApiBridge {
           'package:tom_vscode_scripting_api/src/bridge_request_dispatcher.dart',
       'AgentSdkToolRegistry':
           'package:tom_vscode_scripting_api/src/agent_sdk_tool_registry.dart',
-      'TomTodo': 'package:tom_todo_model/src/todo.dart',
+      'TomItem': 'package:tom_todo_model/src/item.dart',
       'TomTodoDecision': 'package:tom_todo_model/src/todo.dart',
       'TomTodoScope': 'package:tom_todo_model/src/todo.dart',
       'TomTodoReference': 'package:tom_todo_model/src/todo.dart',
@@ -895,7 +896,7 @@ class TomVscodeScriptingApiBridge {
   /// are registered so that code using the alias name can resolve to the
   /// bridged class under its canonical name.
   static Map<String, String> classAliases() {
-    return {};
+    return {'TomTodo': 'TomItem'};
   }
 
   /// Returns the list of function typedef names declared in this library.
@@ -1059,51 +1060,51 @@ class TomVscodeScriptingApiBridge {
           },
         },
       ),
-      BridgedEnumDefinition<$tom_todo_model_1.TomTodoStatus>(
+      BridgedEnumDefinition<$tom_todo_model_2.TomTodoStatus>(
         name: 'TomTodoStatus',
-        values: $tom_todo_model_1.TomTodoStatus.values,
+        values: $tom_todo_model_2.TomTodoStatus.values,
         getters: {
           'wire': (visitor, target) =>
-              (target as $tom_todo_model_1.TomTodoStatus).wire,
+              (target as $tom_todo_model_2.TomTodoStatus).wire,
         },
         staticMethods: {
           'fromWire': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_todo_model_1.TomTodoStatus.fromWire,
+              $tom_todo_model_2.TomTodoStatus.fromWire,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_todo_model_1.TomTodoPriority>(
+      BridgedEnumDefinition<$tom_todo_model_2.TomTodoPriority>(
         name: 'TomTodoPriority',
-        values: $tom_todo_model_1.TomTodoPriority.values,
+        values: $tom_todo_model_2.TomTodoPriority.values,
         getters: {
           'wire': (visitor, target) =>
-              (target as $tom_todo_model_1.TomTodoPriority).wire,
+              (target as $tom_todo_model_2.TomTodoPriority).wire,
         },
         staticMethods: {
           'fromWire': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_todo_model_1.TomTodoPriority.fromWire,
+              $tom_todo_model_2.TomTodoPriority.fromWire,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
           },
         },
       ),
-      BridgedEnumDefinition<$tom_todo_model_2.TomTodoRepeatRule>(
+      BridgedEnumDefinition<$tom_todo_model_3.TomTodoRepeatRule>(
         name: 'TomTodoRepeatRule',
-        values: $tom_todo_model_2.TomTodoRepeatRule.values,
+        values: $tom_todo_model_3.TomTodoRepeatRule.values,
         getters: {
           'wire': (visitor, target) =>
-              (target as $tom_todo_model_2.TomTodoRepeatRule).wire,
+              (target as $tom_todo_model_3.TomTodoRepeatRule).wire,
         },
         staticMethods: {
           'fromWire': (visitor, positional, named, typeArgs) {
             return Function.apply(
-              $tom_todo_model_2.TomTodoRepeatRule.fromWire,
+              $tom_todo_model_3.TomTodoRepeatRule.fromWire,
               positional,
               named.map((k, v) => MapEntry(Symbol(k), v)),
             );
@@ -1300,6 +1301,24 @@ class TomVscodeScriptingApiBridge {
       ),
       (
         source: 'package:tom_todo_model/tom_todo_model.dart',
+        target: 'package:tom_todo_model/src/item.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_todo_model/tom_todo_model.dart',
+        target: 'package:tom_todo_model/src/item_store.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_todo_model/tom_todo_model.dart',
+        target: 'package:tom_todo_model/src/mail_store.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_todo_model/tom_todo_model.dart',
         target: 'package:tom_todo_model/src/todo.dart',
         show: null,
         hide: null,
@@ -1307,6 +1326,12 @@ class TomVscodeScriptingApiBridge {
       (
         source: 'package:tom_todo_model/tom_todo_model.dart',
         target: 'package:tom_todo_model/src/todo_file.dart',
+        show: null,
+        hide: null,
+      ),
+      (
+        source: 'package:tom_todo_model/tom_todo_model.dart',
+        target: 'package:tom_todo_model/src/todo_file_store.dart',
         show: null,
         hide: null,
       ),
@@ -1338,7 +1363,7 @@ class TomVscodeScriptingApiBridge {
         source: 'package:tom_vscode_scripting_api/src/tom_todo_api.dart',
         target: 'package:tom_todo_model/tom_todo_model.dart',
         show: {
-          'TomTodo',
+          'TomItem',
           'TomTodoDecision',
           'TomTodoPriority',
           'TomTodoReference',
@@ -1633,6 +1658,14 @@ class TomVscodeScriptingApiBridge {
         sourceUri: funcSources[entry.key],
         signature: funcSigs[entry.key],
       );
+    }
+
+    // Register class aliases (typedef type aliases)
+    final aliases = classAliases();
+    for (final entry in aliases.entries) {
+      // An alias follows the class it names; it has no source of its own.
+      if (ownPrefix != null && !include(classSources[entry.value])) continue;
+      interpreter.registerClassAlias(entry.key, entry.value, importPath);
     }
 
     // Register function typedefs for type resolution
@@ -4351,6 +4384,7 @@ class TomVscodeScriptingApiBridge {
   /// multiple barrels.
   static List<String> sourceLibraries() {
     return [
+      'package:tom_todo_model/src/item.dart',
       'package:tom_todo_model/src/todo.dart',
       'package:tom_todo_model/src/todo_repeat.dart',
       'package:tom_vscode_scripting_api/script_globals.dart',
@@ -16773,56 +16807,73 @@ BridgedClass _createAgentSdkToolRegistryBridge() {
 }
 
 // =============================================================================
-// TomTodo Bridge
+// TomItem Bridge
 // =============================================================================
 
-BridgedClass _createTomTodoBridge() {
+BridgedClass _createTomItemBridge() {
   return BridgedClass(
-    nativeType: $tom_todo_model_1.TomTodo,
-    name: 'TomTodo',
-    isAssignable: (v) => v is $tom_todo_model_1.TomTodo,
+    nativeType: $tom_todo_model_1.TomItem,
+    name: 'TomItem',
+    isAssignable: (v) => v is $tom_todo_model_1.TomItem,
     constructors: {
       '': (visitor, positional, named) {
-        final id = D4.getRequiredNamedArg<String>(named, 'id', 'TomTodo');
-        final title = D4.getRequiredNamedArg<String>(named, 'title', 'TomTodo');
+        final id = D4.getRequiredNamedArg<String>(named, 'id', 'TomItem');
+        final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
+        final title = D4.getOptionalNamedArg<String?>(named, 'title');
+        final summary = D4.getOptionalNamedArg<String?>(named, 'summary');
         final description = D4.getOptionalNamedArg<String?>(
           named,
           'description',
         );
-        final status = D4
-            .getNamedArgWithDefault<$tom_todo_model_1.TomTodoStatus>(
-              named,
-              'status',
-              $tom_todo_model_1.TomTodoStatus.notStarted,
-            );
-        final priority = D4
-            .getOptionalNamedArg<$tom_todo_model_1.TomTodoPriority?>(
-              named,
-              'priority',
-            );
-        final due = D4.getOptionalNamedArg<DateTime?>(named, 'due');
-        final estimate = D4.getOptionalNamedArg<String?>(named, 'estimate');
+        final categories =
+            named.containsKey('categories') && named['categories'] != null
+            ? D4.coerceList<String>(named['categories'], 'categories')
+            : const <String>[];
         final tags = named.containsKey('tags') && named['tags'] != null
             ? D4.coerceList<String>(named['tags'], 'tags')
             : const <String>[];
-        final scope = D4.getOptionalNamedArg<$tom_todo_model_1.TomTodoScope?>(
+        final status = D4
+            .getNamedArgWithDefault<$tom_todo_model_2.TomTodoStatus>(
+              named,
+              'status',
+              $tom_todo_model_2.TomTodoStatus.notStarted,
+            );
+        final priority = D4
+            .getOptionalNamedArg<$tom_todo_model_2.TomTodoPriority?>(
+              named,
+              'priority',
+            );
+        final flag = D4.getNamedArgWithDefault<bool>(named, 'flag', false);
+        final start = D4.getOptionalNamedArg<DateTime?>(named, 'start');
+        final due = D4.getOptionalNamedArg<DateTime?>(named, 'due');
+        final estimate = D4.getOptionalNamedArg<String?>(named, 'estimate');
+        final reminders =
+            named.containsKey('reminders') && named['reminders'] != null
+            ? D4.coerceList<$tom_todo_model_1.TomItemReminder>(
+                named['reminders'],
+                'reminders',
+              )
+            : const <$tom_todo_model_1.TomItemReminder>[];
+        final repeat = D4.getOptionalNamedArg<$tom_todo_model_3.TomTodoRepeat?>(
           named,
-          'scope',
+          'repeat',
         );
-        final decisions =
-            named.containsKey('decisions') && named['decisions'] != null
-            ? D4.coerceList<$tom_todo_model_1.TomTodoDecision>(
-                named['decisions'],
-                'decisions',
-              )
-            : const <$tom_todo_model_1.TomTodoDecision>[];
-        final references =
-            named.containsKey('references') && named['references'] != null
-            ? D4.coerceList<$tom_todo_model_1.TomTodoReference>(
-                named['references'],
-                'references',
-              )
-            : const <$tom_todo_model_1.TomTodoReference>[];
+        final nextRepeat = D4.getOptionalNamedArg<String?>(named, 'nextRepeat');
+        final repeatCount = D4.getOptionalNamedArg<int?>(named, 'repeatCount');
+        final remind = D4.getOptionalNamedArg<$tom_todo_model_3.TomTodoRepeat?>(
+          named,
+          'remind',
+        );
+        final nextRemind = D4.getOptionalNamedArg<String?>(named, 'nextRemind');
+        final remindCount = D4.getOptionalNamedArg<int?>(named, 'remindCount');
+        final completedDate = D4.getOptionalNamedArg<DateTime?>(
+          named,
+          'completedDate',
+        );
+        final completedBy = D4.getOptionalNamedArg<String?>(
+          named,
+          'completedBy',
+        );
         final dependencies =
             named.containsKey('dependencies') && named['dependencies'] != null
             ? D4.coerceList<String>(named['dependencies'], 'dependencies')
@@ -16835,29 +16886,82 @@ BridgedClass _createTomTodoBridge() {
             named.containsKey('blocking') && named['blocking'] != null
             ? D4.coerceList<String>(named['blocking'], 'blocking')
             : const <String>[];
-        final comprisedOf =
-            named.containsKey('comprisedOf') && named['comprisedOf'] != null
-            ? D4.coerceList<String>(named['comprisedOf'], 'comprisedOf')
-            : const <String>[];
         final blockedUntil =
             named.containsKey('blockedUntil') && named['blockedUntil'] != null
             ? D4.coerceList<String>(named['blockedUntil'], 'blockedUntil')
             : const <String>[];
+        final comprisedOf =
+            named.containsKey('comprisedOf') && named['comprisedOf'] != null
+            ? D4.coerceList<String>(named['comprisedOf'], 'comprisedOf')
+            : const <String>[];
+        final assignees =
+            named.containsKey('assignees') && named['assignees'] != null
+            ? D4.coerceList<$tom_todo_model_1.TomItemAddress>(
+                named['assignees'],
+                'assignees',
+              )
+            : const <$tom_todo_model_1.TomItemAddress>[];
+        final memberships =
+            named.containsKey('memberships') && named['memberships'] != null
+            ? D4.coerceList<$tom_todo_model_1.TomItemMembership>(
+                named['memberships'],
+                'memberships',
+              )
+            : const <$tom_todo_model_1.TomItemMembership>[];
+        final links = D4.getOptionalNamedArg<$tom_todo_model_1.TomItemLinks?>(
+          named,
+          'links',
+        );
+        final references = D4
+            .coerceListOrNull<$tom_todo_model_2.TomTodoReference>(
+              named['references'],
+              'references',
+            );
+        final source = D4.getOptionalNamedArg<String?>(named, 'source');
         final notes = D4.getOptionalNamedArg<String?>(named, 'notes');
         final created = D4.getOptionalNamedArg<DateTime?>(named, 'created');
         final updated = D4.getOptionalNamedArg<DateTime?>(named, 'updated');
-        final completedDate = D4.getOptionalNamedArg<DateTime?>(
-          named,
-          'completedDate',
-        );
         final author = D4.getOptionalNamedArg<String?>(named, 'author');
-        final completedBy = D4.getOptionalNamedArg<String?>(
-          named,
-          'completedBy',
+        final editedBy = D4.getOptionalNamedArg<String?>(named, 'editedBy');
+        final bodyType = D4.getOptionalNamedArg<String?>(named, 'bodyType');
+        final body = D4.getOptionalNamedArg<Object?>(named, 'body');
+        final presentation = D4.coerceMapOrNull<String, Object?>(
+          named['presentation'],
+          'presentation',
         );
-        final lastAnswer = D4.getOptionalNamedArg<String?>(named, 'lastAnswer');
-        final archived = D4.getOptionalNamedArg<DateTime?>(named, 'archived');
-        final deleted = D4.getOptionalNamedArg<DateTime?>(named, 'deleted');
+        final template = D4.getNamedArgWithDefault<bool>(
+          named,
+          'template',
+          false,
+        );
+        final container = D4
+            .getOptionalNamedArg<$tom_todo_model_1.TomItemContainer?>(
+              named,
+              'container',
+            );
+        final people = D4.getOptionalNamedArg<$tom_todo_model_1.TomItemPeople?>(
+          named,
+          'people',
+        );
+        final mail = D4.getOptionalNamedArg<$tom_todo_model_1.TomItemMail?>(
+          named,
+          'mail',
+        );
+        final workflow = D4
+            .getOptionalNamedArg<$tom_todo_model_1.TomItemWorkflow?>(
+              named,
+              'workflow',
+            );
+        final decisions = D4
+            .coerceListOrNull<$tom_todo_model_2.TomTodoDecision>(
+              named['decisions'],
+              'decisions',
+            );
+        final userAction = D4.getOptionalNamedArg<bool?>(named, 'userAction');
+        final scope = D4.getOptionalNamedArg<$tom_todo_model_2.TomTodoScope?>(
+          named,
+          'scope',
+        );
         final executionRole = D4.getOptionalNamedArg<String?>(
           named,
           'executionRole',
@@ -16876,509 +16980,864 @@ BridgedClass _createTomTodoBridge() {
           named,
           'feedbackSource',
         );
-        final userAction = D4.getNamedArgWithDefault<bool>(
-          named,
-          'userAction',
-          false,
-        );
-        final repeat = D4.getOptionalNamedArg<$tom_todo_model_2.TomTodoRepeat?>(
-          named,
-          'repeat',
-        );
-        final nextRepeat = D4.getOptionalNamedArg<String?>(named, 'nextRepeat');
-        final repeatCount = D4.getOptionalNamedArg<int?>(named, 'repeatCount');
-        final dueReminded = D4.getOptionalNamedArg<String?>(
-          named,
-          'dueReminded',
-        );
-        final onDone = D4.getOptionalNamedArg<$tom_todo_model_1.TomTodoOnDone?>(
-          named,
-          'onDone',
-        );
         final filedBy = D4
-            .getOptionalNamedArg<$tom_todo_model_1.TomTodoFiledBy?>(
+            .getOptionalNamedArg<$tom_todo_model_2.TomTodoFiledBy?>(
               named,
               'filedBy',
             );
+        final onDone = D4.getOptionalNamedArg<$tom_todo_model_2.TomTodoOnDone?>(
+          named,
+          'onDone',
+        );
+        final lastAnswer = D4.getOptionalNamedArg<String?>(named, 'lastAnswer');
         final resources = D4.coerceListOrNull<String>(
           named['resources'],
           'resources',
         );
-        final claimHold = D4.getNamedArgWithDefault<bool>(
+        final claimHold = D4.getOptionalNamedArg<bool?>(named, 'claimHold');
+        final claimFree = D4.getOptionalNamedArg<bool?>(named, 'claimFree');
+        final dueReminded = D4.getOptionalNamedArg<String?>(
           named,
-          'claimHold',
-          false,
+          'dueReminded',
         );
-        final claimFree = D4.getNamedArgWithDefault<bool>(
-          named,
-          'claimFree',
-          false,
-        );
-        return $tom_todo_model_1.TomTodo(
-          id: id,
-          title: title,
-          description: description,
-          status: status,
-          priority: priority,
-          due: due,
-          estimate: estimate,
-          tags: tags,
-          scope: scope,
-          decisions: decisions,
-          references: references,
-          dependencies: dependencies,
-          blockedBy: blockedBy,
-          blocking: blocking,
-          comprisedOf: comprisedOf,
-          blockedUntil: blockedUntil,
-          notes: notes,
-          created: created,
-          updated: updated,
-          completedDate: completedDate,
-          author: author,
-          completedBy: completedBy,
-          lastAnswer: lastAnswer,
-          archived: archived,
-          deleted: deleted,
-          executionRole: executionRole,
-          qaRole: qaRole,
-          orchestrationRole: orchestrationRole,
-          bundleId: bundleId,
-          derivedFrom: derivedFrom,
-          feedbackSource: feedbackSource,
-          userAction: userAction,
-          repeat: repeat,
-          nextRepeat: nextRepeat,
-          repeatCount: repeatCount,
-          dueReminded: dueReminded,
-          onDone: onDone,
-          filedBy: filedBy,
-          resources: resources,
-          claimHold: claimHold,
-          claimFree: claimFree,
+        final archived = D4.getOptionalNamedArg<DateTime?>(named, 'archived');
+        final deleted = D4.getOptionalNamedArg<DateTime?>(named, 'deleted');
+        if (!named.containsKey('itemTypes')) {
+          return $tom_todo_model_1.TomItem(
+            id: id,
+            headline: headline,
+            title: title,
+            summary: summary,
+            description: description,
+            categories: categories,
+            tags: tags,
+            status: status,
+            priority: priority,
+            flag: flag,
+            start: start,
+            due: due,
+            estimate: estimate,
+            reminders: reminders,
+            repeat: repeat,
+            nextRepeat: nextRepeat,
+            repeatCount: repeatCount,
+            remind: remind,
+            nextRemind: nextRemind,
+            remindCount: remindCount,
+            completedDate: completedDate,
+            completedBy: completedBy,
+            dependencies: dependencies,
+            blockedBy: blockedBy,
+            blocking: blocking,
+            blockedUntil: blockedUntil,
+            comprisedOf: comprisedOf,
+            assignees: assignees,
+            memberships: memberships,
+            links: links,
+            references: references,
+            source: source,
+            notes: notes,
+            created: created,
+            updated: updated,
+            author: author,
+            editedBy: editedBy,
+            bodyType: bodyType,
+            body: body,
+            presentation: presentation,
+            template: template,
+            container: container,
+            people: people,
+            mail: mail,
+            workflow: workflow,
+            decisions: decisions,
+            userAction: userAction,
+            scope: scope,
+            executionRole: executionRole,
+            qaRole: qaRole,
+            orchestrationRole: orchestrationRole,
+            bundleId: bundleId,
+            derivedFrom: derivedFrom,
+            feedbackSource: feedbackSource,
+            filedBy: filedBy,
+            onDone: onDone,
+            lastAnswer: lastAnswer,
+            resources: resources,
+            claimHold: claimHold,
+            claimFree: claimFree,
+            dueReminded: dueReminded,
+            archived: archived,
+            deleted: deleted,
+          );
+        }
+        if (named.containsKey('itemTypes')) {
+          final itemTypes = D4.coerceList<String>(
+            named['itemTypes'],
+            'itemTypes',
+          );
+          return $tom_todo_model_1.TomItem(
+            id: id,
+            headline: headline,
+            title: title,
+            summary: summary,
+            description: description,
+            categories: categories,
+            tags: tags,
+            status: status,
+            priority: priority,
+            flag: flag,
+            start: start,
+            due: due,
+            estimate: estimate,
+            reminders: reminders,
+            repeat: repeat,
+            nextRepeat: nextRepeat,
+            repeatCount: repeatCount,
+            remind: remind,
+            nextRemind: nextRemind,
+            remindCount: remindCount,
+            completedDate: completedDate,
+            completedBy: completedBy,
+            dependencies: dependencies,
+            blockedBy: blockedBy,
+            blocking: blocking,
+            blockedUntil: blockedUntil,
+            comprisedOf: comprisedOf,
+            assignees: assignees,
+            memberships: memberships,
+            links: links,
+            references: references,
+            source: source,
+            notes: notes,
+            created: created,
+            updated: updated,
+            author: author,
+            editedBy: editedBy,
+            bodyType: bodyType,
+            body: body,
+            presentation: presentation,
+            template: template,
+            container: container,
+            people: people,
+            mail: mail,
+            workflow: workflow,
+            decisions: decisions,
+            userAction: userAction,
+            scope: scope,
+            executionRole: executionRole,
+            qaRole: qaRole,
+            orchestrationRole: orchestrationRole,
+            bundleId: bundleId,
+            derivedFrom: derivedFrom,
+            feedbackSource: feedbackSource,
+            filedBy: filedBy,
+            onDone: onDone,
+            lastAnswer: lastAnswer,
+            resources: resources,
+            claimHold: claimHold,
+            claimFree: claimFree,
+            dueReminded: dueReminded,
+            archived: archived,
+            deleted: deleted,
+            itemTypes: itemTypes,
+          );
+        }
+        throw StateError(
+          'Unreachable: all named parameter combinations should be covered',
         );
       },
     },
     getters: {
       'id': (visitor, target) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').id,
-      'title': (visitor, target) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').title,
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').id,
+      'itemTypes': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .itemTypes,
+      'headline': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .headline,
+      'summary': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .summary,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .description,
+      'categories': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .categories,
+      'tags': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').tags,
       'status': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .status,
       'priority': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .priority,
+      'flag': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').flag,
       'estimate': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .estimate,
-      'tags': (visitor, target) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').tags,
-      'scope': (visitor, target) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').scope,
-      'decisions': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .decisions,
-      'references': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .references,
-      'dependencies': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .dependencies,
-      'blockedBy': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .blockedBy,
-      'blocking': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .blocking,
-      'comprisedOf': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .comprisedOf,
-      'blockedUntil': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .blockedUntil,
-      'notes': (visitor, target) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').notes,
-      'author': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .author,
-      'completedBy': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .completedBy,
-      'lastAnswer': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .lastAnswer,
-      'executionRole': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .executionRole,
-      'qaRole': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .qaRole,
-      'orchestrationRole': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .orchestrationRole,
-      'bundleId': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .bundleId,
-      'derivedFrom': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .derivedFrom,
-      'feedbackSource': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .feedbackSource,
-      'userAction': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .userAction,
+      'reminders': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .reminders,
       'repeat': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .repeat,
       'nextRepeat': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .nextRepeat,
       'repeatCount': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .repeatCount,
-      'dueReminded': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .dueReminded,
-      'onDone': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .onDone,
-      'filedBy': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .filedBy,
-      'resources': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .resources,
-      'claimHold': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .claimHold,
-      'claimFree': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .claimFree,
-      'isRepeated': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-          .isRepeated,
-      'due': (visitor, target) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').due,
+      'remind': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .remind,
+      'nextRemind': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .nextRemind,
+      'remindCount': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .remindCount,
+      'completedBy': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .completedBy,
+      'dependencies': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .dependencies,
+      'blockedBy': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .blockedBy,
+      'blocking': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .blocking,
+      'blockedUntil': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .blockedUntil,
+      'comprisedOf': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .comprisedOf,
+      'assignees': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .assignees,
+      'memberships': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .memberships,
+      'links': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').links,
+      'source': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .source,
+      'notes': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').notes,
       'created': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .created,
       'updated': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .updated,
+      'author': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .author,
+      'editedBy': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .editedBy,
+      'bodyType': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .bodyType,
+      'body': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').body,
+      'presentation': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .presentation,
+      'template': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .template,
+      'container': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .container,
+      'people': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .people,
+      'mail': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').mail,
+      'workflow': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .workflow,
+      'title': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').title,
+      'start': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').start,
+      'due': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').due,
       'completedDate': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .completedDate,
+      'references': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .references,
+      'decisions': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .decisions,
+      'userAction': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .userAction,
+      'scope': (visitor, target) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').scope,
+      'executionRole': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .executionRole,
+      'qaRole': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .qaRole,
+      'orchestrationRole': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .orchestrationRole,
+      'bundleId': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .bundleId,
+      'derivedFrom': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .derivedFrom,
+      'feedbackSource': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .feedbackSource,
+      'filedBy': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .filedBy,
+      'onDone': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .onDone,
+      'lastAnswer': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .lastAnswer,
+      'resources': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .resources,
+      'claimHold': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .claimHold,
+      'claimFree': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .claimFree,
+      'dueReminded': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .dueReminded,
       'archived': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .archived,
       'deleted': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .deleted,
+      'isRepeated': (visitor, target) => D4
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+          .isRepeated,
       'isDone': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .isDone,
       'isGroup': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .isGroup,
       'hasOpenDecision': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .hasOpenDecision,
       'hasBlocker': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .hasBlocker,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+          .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
           .hashCode,
     },
     setters: {
-      'title': (visitor, target, value) =>
+      'itemTypes': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .title = D4.extractBridgedArg<String>(
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .itemTypes = D4.coerceList<String>(
             value,
-            'title',
+            'itemTypes',
+          ),
+      'headline': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .headline = D4.extractBridgedArg<String>(
+            value,
+            'headline',
+          ),
+      'summary': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .summary = D4.extractBridgedArgOrNull<String>(
+            value,
+            'summary',
           ),
       'description': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .description = D4.extractBridgedArgOrNull<String>(
             value,
             'description',
           ),
+      'categories': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .categories = D4.coerceList<String>(
+            value,
+            'categories',
+          ),
+      'tags': (visitor, target, value) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').tags =
+              D4.coerceList<String>(value, 'tags'),
       'status': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .status = D4.extractBridgedArg<$tom_todo_model_1.TomTodoStatus>(
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .status = D4.extractBridgedArg<$tom_todo_model_2.TomTodoStatus>(
             value,
             'status',
           ),
       'priority': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .priority = D4
-              .extractBridgedArgOrNull<$tom_todo_model_1.TomTodoPriority>(
+              .extractBridgedArgOrNull<$tom_todo_model_2.TomTodoPriority>(
                 value,
                 'priority',
               ),
+      'flag': (visitor, target, value) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').flag =
+              D4.extractBridgedArg<bool>(value, 'flag'),
       'estimate': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .estimate = D4.extractBridgedArgOrNull<String>(
             value,
             'estimate',
           ),
-      'tags': (visitor, target, value) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').tags =
-              D4.coerceList<String>(value, 'tags'),
-      'scope': (visitor, target, value) =>
+      'reminders': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .scope = D4
-              .extractBridgedArgOrNull<$tom_todo_model_1.TomTodoScope>(
-                value,
-                'scope',
-              ),
-      'decisions': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .decisions = D4.coerceList<$tom_todo_model_1.TomTodoDecision>(
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .reminders = D4.coerceList<$tom_todo_model_1.TomItemReminder>(
             value,
-            'decisions',
-          ),
-      'references': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .references = D4.coerceList<$tom_todo_model_1.TomTodoReference>(
-            value,
-            'references',
-          ),
-      'dependencies': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .dependencies = D4.coerceList<String>(
-            value,
-            'dependencies',
-          ),
-      'blockedBy': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .blockedBy = D4.coerceList<String>(
-            value,
-            'blockedBy',
-          ),
-      'blocking': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .blocking = D4.coerceList<String>(
-            value,
-            'blocking',
-          ),
-      'comprisedOf': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .comprisedOf = D4.coerceList<String>(
-            value,
-            'comprisedOf',
-          ),
-      'blockedUntil': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .blockedUntil = D4.coerceList<String>(
-            value,
-            'blockedUntil',
-          ),
-      'notes': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .notes = D4.extractBridgedArgOrNull<String>(
-            value,
-            'notes',
-          ),
-      'author': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .author = D4.extractBridgedArgOrNull<String>(
-            value,
-            'author',
-          ),
-      'completedBy': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .completedBy = D4.extractBridgedArgOrNull<String>(
-            value,
-            'completedBy',
-          ),
-      'lastAnswer': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .lastAnswer = D4.extractBridgedArgOrNull<String>(
-            value,
-            'lastAnswer',
-          ),
-      'executionRole': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .executionRole = D4.extractBridgedArgOrNull<String>(
-            value,
-            'executionRole',
-          ),
-      'qaRole': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .qaRole = D4.extractBridgedArgOrNull<String>(
-            value,
-            'qaRole',
-          ),
-      'orchestrationRole': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .orchestrationRole = D4.extractBridgedArgOrNull<String>(
-            value,
-            'orchestrationRole',
-          ),
-      'bundleId': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .bundleId = D4.extractBridgedArgOrNull<String>(
-            value,
-            'bundleId',
-          ),
-      'derivedFrom': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .derivedFrom = D4.extractBridgedArgOrNull<String>(
-            value,
-            'derivedFrom',
-          ),
-      'feedbackSource': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .feedbackSource = D4.extractBridgedArgOrNull<String>(
-            value,
-            'feedbackSource',
-          ),
-      'userAction': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .userAction = D4.extractBridgedArg<bool>(
-            value,
-            'userAction',
+            'reminders',
           ),
       'repeat': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .repeat = D4
-              .extractBridgedArgOrNull<$tom_todo_model_2.TomTodoRepeat>(
+              .extractBridgedArgOrNull<$tom_todo_model_3.TomTodoRepeat>(
                 value,
                 'repeat',
               ),
       'nextRepeat': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .nextRepeat = D4.extractBridgedArgOrNull<String>(
             value,
             'nextRepeat',
           ),
       'repeatCount': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .repeatCount = D4.extractBridgedArgOrNull<int>(
             value,
             'repeatCount',
           ),
-      'dueReminded': (visitor, target, value) =>
+      'remind': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .dueReminded = D4.extractBridgedArgOrNull<String>(
-            value,
-            'dueReminded',
-          ),
-      'onDone': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .onDone = D4
-              .extractBridgedArgOrNull<$tom_todo_model_1.TomTodoOnDone>(
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .remind = D4
+              .extractBridgedArgOrNull<$tom_todo_model_3.TomTodoRepeat>(
                 value,
-                'onDone',
+                'remind',
               ),
-      'filedBy': (visitor, target, value) =>
+      'nextRemind': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .filedBy = D4
-              .extractBridgedArgOrNull<$tom_todo_model_1.TomTodoFiledBy>(
-                value,
-                'filedBy',
-              ),
-      'resources': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .resources = value == null
-          ? null
-          : D4.coerceList<String>(value, 'resources'),
-      'claimHold': (visitor, target, value) =>
-          D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .claimHold = D4.extractBridgedArg<bool>(
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .nextRemind = D4.extractBridgedArgOrNull<String>(
             value,
-            'claimHold',
+            'nextRemind',
           ),
-      'claimFree': (visitor, target, value) =>
+      'remindCount': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
-              .claimFree = D4.extractBridgedArg<bool>(
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .remindCount = D4.extractBridgedArgOrNull<int>(
             value,
-            'claimFree',
+            'remindCount',
           ),
-      'due': (visitor, target, value) =>
-          D4.validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo').due =
-              D4.extractBridgedArgOrNull<DateTime>(value, 'due'),
+      'completedBy': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .completedBy = D4.extractBridgedArgOrNull<String>(
+            value,
+            'completedBy',
+          ),
+      'dependencies': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .dependencies = D4.coerceList<String>(
+            value,
+            'dependencies',
+          ),
+      'blockedBy': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .blockedBy = D4.coerceList<String>(
+            value,
+            'blockedBy',
+          ),
+      'blocking': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .blocking = D4.coerceList<String>(
+            value,
+            'blocking',
+          ),
+      'blockedUntil': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .blockedUntil = D4.coerceList<String>(
+            value,
+            'blockedUntil',
+          ),
+      'comprisedOf': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .comprisedOf = D4.coerceList<String>(
+            value,
+            'comprisedOf',
+          ),
+      'assignees': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .assignees = D4.coerceList<$tom_todo_model_1.TomItemAddress>(
+            value,
+            'assignees',
+          ),
+      'memberships': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .memberships = D4.coerceList<$tom_todo_model_1.TomItemMembership>(
+            value,
+            'memberships',
+          ),
+      'links': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .links = D4.extractBridgedArg<$tom_todo_model_1.TomItemLinks>(
+            value,
+            'links',
+          ),
+      'source': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .source = D4.extractBridgedArgOrNull<String>(
+            value,
+            'source',
+          ),
+      'notes': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .notes = D4.extractBridgedArgOrNull<String>(
+            value,
+            'notes',
+          ),
       'created': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .created = D4.extractBridgedArgOrNull<DateTime>(
             value,
             'created',
           ),
       'updated': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .updated = D4.extractBridgedArgOrNull<DateTime>(
             value,
             'updated',
           ),
+      'author': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .author = D4.extractBridgedArgOrNull<String>(
+            value,
+            'author',
+          ),
+      'editedBy': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .editedBy = D4.extractBridgedArgOrNull<String>(
+            value,
+            'editedBy',
+          ),
+      'bodyType': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .bodyType = D4.extractBridgedArgOrNull<String>(
+            value,
+            'bodyType',
+          ),
+      'body': (visitor, target, value) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').body =
+              D4.extractBridgedArgOrNull<Object>(value, 'body'),
+      'template': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .template = D4.extractBridgedArg<bool>(
+            value,
+            'template',
+          ),
+      'container': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .container = D4
+              .extractBridgedArgOrNull<$tom_todo_model_1.TomItemContainer>(
+                value,
+                'container',
+              ),
+      'people': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .people = D4
+              .extractBridgedArgOrNull<$tom_todo_model_1.TomItemPeople>(
+                value,
+                'people',
+              ),
+      'mail': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .mail = D4.extractBridgedArgOrNull<$tom_todo_model_1.TomItemMail>(
+            value,
+            'mail',
+          ),
+      'workflow': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .workflow = D4
+              .extractBridgedArgOrNull<$tom_todo_model_1.TomItemWorkflow>(
+                value,
+                'workflow',
+              ),
+      'title': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .title = D4.extractBridgedArg<String>(
+            value,
+            'title',
+          ),
+      'start': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .start = D4.extractBridgedArgOrNull<DateTime>(
+            value,
+            'start',
+          ),
+      'due': (visitor, target, value) =>
+          D4.validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem').due =
+              D4.extractBridgedArgOrNull<DateTime>(value, 'due'),
       'completedDate': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .completedDate = D4.extractBridgedArgOrNull<DateTime>(
             value,
             'completedDate',
           ),
+      'references': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .references = D4.coerceList<$tom_todo_model_2.TomTodoReference>(
+            value,
+            'references',
+          ),
+      'decisions': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .decisions = D4.coerceList<$tom_todo_model_2.TomTodoDecision>(
+            value,
+            'decisions',
+          ),
+      'userAction': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .userAction = D4.extractBridgedArg<bool>(
+            value,
+            'userAction',
+          ),
+      'scope': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .scope = D4
+              .extractBridgedArgOrNull<$tom_todo_model_2.TomTodoScope>(
+                value,
+                'scope',
+              ),
+      'executionRole': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .executionRole = D4.extractBridgedArgOrNull<String>(
+            value,
+            'executionRole',
+          ),
+      'qaRole': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .qaRole = D4.extractBridgedArgOrNull<String>(
+            value,
+            'qaRole',
+          ),
+      'orchestrationRole': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .orchestrationRole = D4.extractBridgedArgOrNull<String>(
+            value,
+            'orchestrationRole',
+          ),
+      'bundleId': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .bundleId = D4.extractBridgedArgOrNull<String>(
+            value,
+            'bundleId',
+          ),
+      'derivedFrom': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .derivedFrom = D4.extractBridgedArgOrNull<String>(
+            value,
+            'derivedFrom',
+          ),
+      'feedbackSource': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .feedbackSource = D4.extractBridgedArgOrNull<String>(
+            value,
+            'feedbackSource',
+          ),
+      'filedBy': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .filedBy = D4
+              .extractBridgedArgOrNull<$tom_todo_model_2.TomTodoFiledBy>(
+                value,
+                'filedBy',
+              ),
+      'onDone': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .onDone = D4
+              .extractBridgedArgOrNull<$tom_todo_model_2.TomTodoOnDone>(
+                value,
+                'onDone',
+              ),
+      'lastAnswer': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .lastAnswer = D4.extractBridgedArgOrNull<String>(
+            value,
+            'lastAnswer',
+          ),
+      'resources': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .resources = value == null
+          ? null
+          : D4.coerceList<String>(value, 'resources'),
+      'claimHold': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .claimHold = D4.extractBridgedArg<bool>(
+            value,
+            'claimHold',
+          ),
+      'claimFree': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .claimFree = D4.extractBridgedArg<bool>(
+            value,
+            'claimFree',
+          ),
+      'dueReminded': (visitor, target, value) =>
+          D4
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
+              .dueReminded = D4.extractBridgedArgOrNull<String>(
+            value,
+            'dueReminded',
+          ),
       'archived': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .archived = D4.extractBridgedArgOrNull<DateTime>(
             value,
             'archived',
           ),
       'deleted': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodo>(target, 'TomTodo')
+              .validateTarget<$tom_todo_model_1.TomItem>(target, 'TomItem')
               .deleted = D4.extractBridgedArgOrNull<DateTime>(
             value,
             'deleted',
           ),
     },
     methods: {
-      'recordCreation': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodo>(
+      'hasStoredType': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
           target,
-          'TomTodo',
+          'TomItem',
+        );
+        D4.requireMinArgs(positional, 1, 'hasStoredType');
+        final type = D4.getRequiredArg<$tom_todo_model_1.TomItemType>(
+          positional,
+          0,
+          'type',
+          'hasStoredType',
+        );
+        return t.hasStoredType(type);
+      },
+      'addType': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
+          target,
+          'TomItem',
+        );
+        D4.requireMinArgs(positional, 1, 'addType');
+        final type = D4.getRequiredArg<$tom_todo_model_1.TomItemType>(
+          positional,
+          0,
+          'type',
+          'addType',
+        );
+        t.addType(type);
+        return null;
+      },
+      'removeType': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
+          target,
+          'TomItem',
+        );
+        D4.requireMinArgs(positional, 1, 'removeType');
+        final type = D4.getRequiredArg<$tom_todo_model_1.TomItemType>(
+          positional,
+          0,
+          'type',
+          'removeType',
+        );
+        t.removeType(type);
+        return null;
+      },
+      'types': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
+          target,
+          'TomItem',
+        );
+        final context = D4
+            .getOptionalArgWithDefault<$tom_todo_model_1.TomItemTypeContext>(
+              positional,
+              0,
+              'context',
+              const $tom_todo_model_1.TomItemTypeContext(),
+            );
+        return t.types(context);
+      },
+      'recordCreation': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
+          target,
+          'TomItem',
         );
         final on = D4.getRequiredNamedArg<DateTime>(
           named,
@@ -17390,12 +17849,12 @@ BridgedClass _createTomTodoBridge() {
         return null;
       },
       'changeStatus': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodo>(
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
           target,
-          'TomTodo',
+          'TomItem',
         );
         D4.requireMinArgs(positional, 1, 'changeStatus');
-        final next = D4.getRequiredArg<$tom_todo_model_1.TomTodoStatus>(
+        final next = D4.getRequiredArg<$tom_todo_model_2.TomTodoStatus>(
           positional,
           0,
           'next',
@@ -17410,31 +17869,207 @@ BridgedClass _createTomTodoBridge() {
         t.changeStatus(next, on: on, by: by);
         return null;
       },
-      'copy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodo>(
+      'check': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
           target,
-          'TomTodo',
+          'TomItem',
+        );
+        t.check();
+        return null;
+      },
+      'copy': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
+          target,
+          'TomItem',
         );
         return t.copy();
       },
-      'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodo>(
+      'copyWith': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
           target,
-          'TomTodo',
+          'TomItem',
+        );
+        final headline = D4.getOptionalNamedArg<String?>(named, 'headline');
+        final itemTypes = D4.coerceListOrNull<String>(
+          named['itemTypes'],
+          'itemTypes',
+        );
+        final summary = D4.getOptionalNamedArg<String?>(named, 'summary');
+        final description = D4.getOptionalNamedArg<String?>(
+          named,
+          'description',
+        );
+        final categories = D4.coerceListOrNull<String>(
+          named['categories'],
+          'categories',
+        );
+        final tags = D4.coerceListOrNull<String>(named['tags'], 'tags');
+        final status = D4.getOptionalNamedArg<$tom_todo_model_2.TomTodoStatus?>(
+          named,
+          'status',
+        );
+        final priority = D4
+            .getOptionalNamedArg<$tom_todo_model_2.TomTodoPriority?>(
+              named,
+              'priority',
+            );
+        final flag = D4.getOptionalNamedArg<bool?>(named, 'flag');
+        final start = D4.getOptionalNamedArg<DateTime?>(named, 'start');
+        final due = D4.getOptionalNamedArg<DateTime?>(named, 'due');
+        final estimate = D4.getOptionalNamedArg<String?>(named, 'estimate');
+        final reminders = D4
+            .coerceListOrNull<$tom_todo_model_1.TomItemReminder>(
+              named['reminders'],
+              'reminders',
+            );
+        final repeat = D4.getOptionalNamedArg<$tom_todo_model_3.TomTodoRepeat?>(
+          named,
+          'repeat',
+        );
+        final nextRepeat = D4.getOptionalNamedArg<String?>(named, 'nextRepeat');
+        final repeatCount = D4.getOptionalNamedArg<int?>(named, 'repeatCount');
+        final remind = D4.getOptionalNamedArg<$tom_todo_model_3.TomTodoRepeat?>(
+          named,
+          'remind',
+        );
+        final nextRemind = D4.getOptionalNamedArg<String?>(named, 'nextRemind');
+        final remindCount = D4.getOptionalNamedArg<int?>(named, 'remindCount');
+        final completedDate = D4.getOptionalNamedArg<DateTime?>(
+          named,
+          'completedDate',
+        );
+        final completedBy = D4.getOptionalNamedArg<String?>(
+          named,
+          'completedBy',
+        );
+        final dependencies = D4.coerceListOrNull<String>(
+          named['dependencies'],
+          'dependencies',
+        );
+        final blockedBy = D4.coerceListOrNull<String>(
+          named['blockedBy'],
+          'blockedBy',
+        );
+        final blocking = D4.coerceListOrNull<String>(
+          named['blocking'],
+          'blocking',
+        );
+        final blockedUntil = D4.coerceListOrNull<String>(
+          named['blockedUntil'],
+          'blockedUntil',
+        );
+        final comprisedOf = D4.coerceListOrNull<String>(
+          named['comprisedOf'],
+          'comprisedOf',
+        );
+        final assignees = D4.coerceListOrNull<$tom_todo_model_1.TomItemAddress>(
+          named['assignees'],
+          'assignees',
+        );
+        final memberships = D4
+            .coerceListOrNull<$tom_todo_model_1.TomItemMembership>(
+              named['memberships'],
+              'memberships',
+            );
+        final links = D4.getOptionalNamedArg<$tom_todo_model_1.TomItemLinks?>(
+          named,
+          'links',
+        );
+        final source = D4.getOptionalNamedArg<String?>(named, 'source');
+        final notes = D4.getOptionalNamedArg<String?>(named, 'notes');
+        final created = D4.getOptionalNamedArg<DateTime?>(named, 'created');
+        final updated = D4.getOptionalNamedArg<DateTime?>(named, 'updated');
+        final author = D4.getOptionalNamedArg<String?>(named, 'author');
+        final editedBy = D4.getOptionalNamedArg<String?>(named, 'editedBy');
+        final bodyType = D4.getOptionalNamedArg<String?>(named, 'bodyType');
+        final body = D4.getOptionalNamedArg<Object?>(named, 'body');
+        final presentation = D4.coerceMapOrNull<String, Object?>(
+          named['presentation'],
+          'presentation',
+        );
+        final template = D4.getOptionalNamedArg<bool?>(named, 'template');
+        final container = D4
+            .getOptionalNamedArg<$tom_todo_model_1.TomItemContainer?>(
+              named,
+              'container',
+            );
+        final people = D4.getOptionalNamedArg<$tom_todo_model_1.TomItemPeople?>(
+          named,
+          'people',
+        );
+        final mail = D4.getOptionalNamedArg<$tom_todo_model_1.TomItemMail?>(
+          named,
+          'mail',
+        );
+        final workflow = D4
+            .getOptionalNamedArg<$tom_todo_model_1.TomItemWorkflow?>(
+              named,
+              'workflow',
+            );
+        return t.copyWith(
+          headline: headline,
+          itemTypes: itemTypes,
+          summary: summary,
+          description: description,
+          categories: categories,
+          tags: tags,
+          status: status,
+          priority: priority,
+          flag: flag,
+          start: start,
+          due: due,
+          estimate: estimate,
+          reminders: reminders,
+          repeat: repeat,
+          nextRepeat: nextRepeat,
+          repeatCount: repeatCount,
+          remind: remind,
+          nextRemind: nextRemind,
+          remindCount: remindCount,
+          completedDate: completedDate,
+          completedBy: completedBy,
+          dependencies: dependencies,
+          blockedBy: blockedBy,
+          blocking: blocking,
+          blockedUntil: blockedUntil,
+          comprisedOf: comprisedOf,
+          assignees: assignees,
+          memberships: memberships,
+          links: links,
+          source: source,
+          notes: notes,
+          created: created,
+          updated: updated,
+          author: author,
+          editedBy: editedBy,
+          bodyType: bodyType,
+          body: body,
+          presentation: presentation,
+          template: template,
+          container: container,
+          people: people,
+          mail: mail,
+          workflow: workflow,
+        );
+      },
+      'toMap': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
+          target,
+          'TomItem',
         );
         return t.toMap();
       },
       'toString': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodo>(
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
           target,
-          'TomTodo',
+          'TomItem',
         );
         return t.toString();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodo>(
+        final t = D4.validateTarget<$tom_todo_model_1.TomItem>(
           target,
-          'TomTodo',
+          'TomItem',
         );
         // GEN-103: Dart spec — non-null == null is always false.
         if (positional.isEmpty || positional[0] == null) return false;
@@ -17447,8 +18082,20 @@ BridgedClass _createTomTodoBridge() {
         return t == other;
       },
     },
-    staticGetters: {'fields': (visitor) => $tom_todo_model_1.TomTodo.fields},
+    staticGetters: {
+      'recordFields': (visitor) => $tom_todo_model_1.TomItem.recordFields,
+      'baseFields': (visitor) => $tom_todo_model_1.TomItem.baseFields,
+      'planningFields': (visitor) => $tom_todo_model_1.TomItem.planningFields,
+      'dependencyFields': (visitor) =>
+          $tom_todo_model_1.TomItem.dependencyFields,
+      'fields': (visitor) => $tom_todo_model_1.TomItem.fields,
+    },
     staticMethods: {
+      'fromMap': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'fromMap');
+        final map = D4.getRequiredArg<Map>(positional, 0, 'map', 'fromMap');
+        return $tom_todo_model_1.TomItem.fromMap(map);
+      },
       'encodeDate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'encodeDate');
         final date = D4.getRequiredArg<DateTime>(
@@ -17457,7 +18104,17 @@ BridgedClass _createTomTodoBridge() {
           'date',
           'encodeDate',
         );
-        return $tom_todo_model_1.TomTodo.encodeDate(date);
+        return $tom_todo_model_1.TomItem.encodeDate(date);
+      },
+      'encodeDateOrTime': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'encodeDateOrTime');
+        final value = D4.getRequiredArg<DateTime>(
+          positional,
+          0,
+          'value',
+          'encodeDateOrTime',
+        );
+        return $tom_todo_model_1.TomItem.encodeDateOrTime(value);
       },
       'decodeDate': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'decodeDate');
@@ -17468,7 +18125,22 @@ BridgedClass _createTomTodoBridge() {
           'decodeDate',
         );
         final field = D4.getNamedArgWithDefault<String>(named, 'field', 'due');
-        return $tom_todo_model_1.TomTodo.decodeDate(value, field: field);
+        return $tom_todo_model_1.TomItem.decodeDate(value, field: field);
+      },
+      'decodeDateOrTime': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'decodeDateOrTime');
+        final value = D4.getRequiredArg<Object>(
+          positional,
+          0,
+          'value',
+          'decodeDateOrTime',
+        );
+        final field = D4.getRequiredNamedArg<String>(
+          named,
+          'field',
+          'decodeDateOrTime',
+        );
+        return $tom_todo_model_1.TomItem.decodeDateOrTime(value, field: field);
       },
       'checkBlockedUntil': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'checkBlockedUntil');
@@ -17478,69 +18150,95 @@ BridgedClass _createTomTodoBridge() {
           'condition',
           'checkBlockedUntil',
         );
-        return $tom_todo_model_1.TomTodo.checkBlockedUntil(condition);
-      },
-      'fromMap': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'fromMap');
-        final map = D4.getRequiredArg<Map>(positional, 0, 'map', 'fromMap');
-        return $tom_todo_model_1.TomTodo.fromMap(map);
+        return $tom_todo_model_1.TomItem.checkBlockedUntil(condition);
       },
     },
     constructorSignatures: {
-      '': 'TomTodo({required String id, required String title, String? description, TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, DateTime? due, String? estimate, List<String> tags = const [], TomTodoScope? scope, List<TomTodoDecision> decisions = const [], List<TomTodoReference> references = const [], List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> comprisedOf = const [], List<String> blockedUntil = const [], String? notes, DateTime? created, DateTime? updated, DateTime? completedDate, String? author, String? completedBy, String? lastAnswer, DateTime? archived, DateTime? deleted, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, bool userAction = false, TomTodoRepeat? repeat, String? nextRepeat, int? repeatCount, String? dueReminded, TomTodoOnDone? onDone, TomTodoFiledBy? filedBy, List<String>? resources, bool claimHold = false, bool claimFree = false})',
+      '': 'TomItem({required String id, String? headline, String? title, List<String> itemTypes = const [TomTodoItemTypes.todo], String? summary, String? description, List<String> categories = const [], List<String> tags = const [], TomTodoStatus status = TomTodoStatus.notStarted, TomTodoPriority? priority, bool flag = false, DateTime? start, DateTime? due, String? estimate, List<TomItemReminder> reminders = const [], TomTodoRepeat? repeat, String? nextRepeat, int? repeatCount, TomTodoRepeat? remind, String? nextRemind, int? remindCount, DateTime? completedDate, String? completedBy, List<String> dependencies = const [], List<String> blockedBy = const [], List<String> blocking = const [], List<String> blockedUntil = const [], List<String> comprisedOf = const [], List<TomItemAddress> assignees = const [], List<TomItemMembership> memberships = const [], TomItemLinks? links, List<TomTodoReference>? references, String? source, String? notes, DateTime? created, DateTime? updated, String? author, String? editedBy, String? bodyType, Object? body, Map<String, Object?>? presentation, bool template = false, TomItemContainer? container, TomItemPeople? people, TomItemMail? mail, TomItemWorkflow? workflow, List<TomTodoDecision>? decisions, bool? userAction, TomTodoScope? scope, String? executionRole, String? qaRole, String? orchestrationRole, String? bundleId, String? derivedFrom, String? feedbackSource, TomTodoFiledBy? filedBy, TomTodoOnDone? onDone, String? lastAnswer, List<String>? resources, bool? claimHold, bool? claimFree, String? dueReminded, DateTime? archived, DateTime? deleted})',
     },
     methodSignatures: {
+      'hasStoredType': 'bool hasStoredType(TomItemType type)',
+      'addType': 'void addType(TomItemType type)',
+      'removeType': 'void removeType(TomItemType type)',
+      'types':
+          'Set<TomItemType> types([TomItemTypeContext context = const TomItemTypeContext()])',
       'recordCreation':
           'void recordCreation({required DateTime on, String? author})',
       'changeStatus':
           'void changeStatus(TomTodoStatus next, {required DateTime on, String? by})',
-      'copy': 'TomTodo copy()',
+      'check': 'void check()',
+      'copy': 'TomItem copy()',
+      'copyWith':
+          'TomItem copyWith({String? headline, List<String>? itemTypes, String? summary, String? description, List<String>? categories, List<String>? tags, TomTodoStatus? status, TomTodoPriority? priority, bool? flag, DateTime? start, DateTime? due, String? estimate, List<TomItemReminder>? reminders, TomTodoRepeat? repeat, String? nextRepeat, int? repeatCount, TomTodoRepeat? remind, String? nextRemind, int? remindCount, DateTime? completedDate, String? completedBy, List<String>? dependencies, List<String>? blockedBy, List<String>? blocking, List<String>? blockedUntil, List<String>? comprisedOf, List<TomItemAddress>? assignees, List<TomItemMembership>? memberships, TomItemLinks? links, String? source, String? notes, DateTime? created, DateTime? updated, String? author, String? editedBy, String? bodyType, Object? body, Map<String, Object?>? presentation, bool? template, TomItemContainer? container, TomItemPeople? people, TomItemMail? mail, TomItemWorkflow? workflow})',
       'toMap': 'Map<String, Object?> toMap()',
       'toString': 'String toString()',
     },
     getterSignatures: {
       'id': 'String get id',
-      'title': 'String get title',
+      'itemTypes': 'List<String> get itemTypes',
+      'headline': 'String get headline',
+      'summary': 'String? get summary',
       'description': 'String? get description',
+      'categories': 'List<String> get categories',
+      'tags': 'List<String> get tags',
       'status': 'TomTodoStatus get status',
       'priority': 'TomTodoPriority? get priority',
+      'flag': 'bool get flag',
       'estimate': 'String? get estimate',
-      'tags': 'List<String> get tags',
-      'scope': 'TomTodoScope? get scope',
-      'decisions': 'List<TomTodoDecision> get decisions',
-      'references': 'List<TomTodoReference> get references',
+      'reminders': 'List<TomItemReminder> get reminders',
+      'repeat': 'TomTodoRepeat? get repeat',
+      'nextRepeat': 'String? get nextRepeat',
+      'repeatCount': 'int? get repeatCount',
+      'remind': 'TomTodoRepeat? get remind',
+      'nextRemind': 'String? get nextRemind',
+      'remindCount': 'int? get remindCount',
+      'completedBy': 'String? get completedBy',
       'dependencies': 'List<String> get dependencies',
       'blockedBy': 'List<String> get blockedBy',
       'blocking': 'List<String> get blocking',
-      'comprisedOf': 'List<String> get comprisedOf',
       'blockedUntil': 'List<String> get blockedUntil',
+      'comprisedOf': 'List<String> get comprisedOf',
+      'assignees': 'List<TomItemAddress> get assignees',
+      'memberships': 'List<TomItemMembership> get memberships',
+      'links': 'TomItemLinks get links',
+      'source': 'String? get source',
       'notes': 'String? get notes',
+      'created': 'DateTime? get created',
+      'updated': 'DateTime? get updated',
       'author': 'String? get author',
-      'completedBy': 'String? get completedBy',
-      'lastAnswer': 'String? get lastAnswer',
+      'editedBy': 'String? get editedBy',
+      'bodyType': 'String? get bodyType',
+      'body': 'Object? get body',
+      'presentation': 'Map<String, Object?>? get presentation',
+      'template': 'bool get template',
+      'container': 'TomItemContainer? get container',
+      'people': 'TomItemPeople? get people',
+      'mail': 'TomItemMail? get mail',
+      'workflow': 'TomItemWorkflow? get workflow',
+      'title': 'String get title',
+      'start': 'DateTime? get start',
+      'due': 'DateTime? get due',
+      'completedDate': 'DateTime? get completedDate',
+      'references': 'List<TomTodoReference> get references',
+      'decisions': 'List<TomTodoDecision> get decisions',
+      'userAction': 'bool get userAction',
+      'scope': 'TomTodoScope? get scope',
       'executionRole': 'String? get executionRole',
       'qaRole': 'String? get qaRole',
       'orchestrationRole': 'String? get orchestrationRole',
       'bundleId': 'String? get bundleId',
       'derivedFrom': 'String? get derivedFrom',
       'feedbackSource': 'String? get feedbackSource',
-      'userAction': 'bool get userAction',
-      'repeat': 'TomTodoRepeat? get repeat',
-      'nextRepeat': 'String? get nextRepeat',
-      'repeatCount': 'int? get repeatCount',
-      'dueReminded': 'String? get dueReminded',
-      'onDone': 'TomTodoOnDone? get onDone',
       'filedBy': 'TomTodoFiledBy? get filedBy',
+      'onDone': 'TomTodoOnDone? get onDone',
+      'lastAnswer': 'String? get lastAnswer',
       'resources': 'List<String>? get resources',
       'claimHold': 'bool get claimHold',
       'claimFree': 'bool get claimFree',
-      'isRepeated': 'bool get isRepeated',
-      'due': 'DateTime? get due',
-      'created': 'DateTime? get created',
-      'updated': 'DateTime? get updated',
-      'completedDate': 'DateTime? get completedDate',
+      'dueReminded': 'String? get dueReminded',
       'archived': 'DateTime? get archived',
       'deleted': 'DateTime? get deleted',
+      'isRepeated': 'bool get isRepeated',
       'isDone': 'bool get isDone',
       'isGroup': 'bool get isGroup',
       'hasOpenDecision': 'bool get hasOpenDecision',
@@ -17548,55 +18246,87 @@ BridgedClass _createTomTodoBridge() {
       'hashCode': 'int get hashCode',
     },
     setterSignatures: {
-      'title': 'set title(dynamic value)',
+      'itemTypes': 'set itemTypes(dynamic value)',
+      'headline': 'set headline(dynamic value)',
+      'summary': 'set summary(dynamic value)',
       'description': 'set description(dynamic value)',
+      'categories': 'set categories(dynamic value)',
+      'tags': 'set tags(dynamic value)',
       'status': 'set status(dynamic value)',
       'priority': 'set priority(dynamic value)',
+      'flag': 'set flag(dynamic value)',
       'estimate': 'set estimate(dynamic value)',
-      'tags': 'set tags(dynamic value)',
-      'scope': 'set scope(dynamic value)',
-      'decisions': 'set decisions(dynamic value)',
-      'references': 'set references(dynamic value)',
-      'dependencies': 'set dependencies(dynamic value)',
-      'blockedBy': 'set blockedBy(dynamic value)',
-      'blocking': 'set blocking(dynamic value)',
-      'comprisedOf': 'set comprisedOf(dynamic value)',
-      'blockedUntil': 'set blockedUntil(dynamic value)',
-      'notes': 'set notes(dynamic value)',
-      'author': 'set author(dynamic value)',
-      'completedBy': 'set completedBy(dynamic value)',
-      'lastAnswer': 'set lastAnswer(dynamic value)',
-      'executionRole': 'set executionRole(dynamic value)',
-      'qaRole': 'set qaRole(dynamic value)',
-      'orchestrationRole': 'set orchestrationRole(dynamic value)',
-      'bundleId': 'set bundleId(dynamic value)',
-      'derivedFrom': 'set derivedFrom(dynamic value)',
-      'feedbackSource': 'set feedbackSource(dynamic value)',
-      'userAction': 'set userAction(dynamic value)',
+      'reminders': 'set reminders(dynamic value)',
       'repeat': 'set repeat(dynamic value)',
       'nextRepeat': 'set nextRepeat(dynamic value)',
       'repeatCount': 'set repeatCount(dynamic value)',
-      'dueReminded': 'set dueReminded(dynamic value)',
-      'onDone': 'set onDone(dynamic value)',
-      'filedBy': 'set filedBy(dynamic value)',
-      'resources': 'set resources(dynamic value)',
-      'claimHold': 'set claimHold(dynamic value)',
-      'claimFree': 'set claimFree(dynamic value)',
+      'remind': 'set remind(dynamic value)',
+      'nextRemind': 'set nextRemind(dynamic value)',
+      'remindCount': 'set remindCount(dynamic value)',
+      'completedBy': 'set completedBy(dynamic value)',
+      'dependencies': 'set dependencies(dynamic value)',
+      'blockedBy': 'set blockedBy(dynamic value)',
+      'blocking': 'set blocking(dynamic value)',
+      'blockedUntil': 'set blockedUntil(dynamic value)',
+      'comprisedOf': 'set comprisedOf(dynamic value)',
+      'assignees': 'set assignees(dynamic value)',
+      'memberships': 'set memberships(dynamic value)',
+      'links': 'set links(dynamic value)',
+      'source': 'set source(dynamic value)',
+      'notes': 'set notes(dynamic value)',
+      'created': 'set created(dynamic value)',
+      'updated': 'set updated(dynamic value)',
+      'author': 'set author(dynamic value)',
+      'editedBy': 'set editedBy(dynamic value)',
+      'bodyType': 'set bodyType(dynamic value)',
+      'body': 'set body(dynamic value)',
+      'presentation': 'set presentation(dynamic value)',
+      'template': 'set template(dynamic value)',
+      'container': 'set container(dynamic value)',
+      'people': 'set people(dynamic value)',
+      'mail': 'set mail(dynamic value)',
+      'workflow': 'set workflow(dynamic value)',
+      'title': 'set title(String value)',
+      'start': 'set start(DateTime? value)',
       'due': 'set due(DateTime? value)',
-      'created': 'set created(DateTime? value)',
-      'updated': 'set updated(DateTime? value)',
       'completedDate': 'set completedDate(DateTime? value)',
+      'references': 'set references(List<TomTodoReference> value)',
+      'decisions': 'set decisions(List<TomTodoDecision> value)',
+      'userAction': 'set userAction(bool value)',
+      'scope': 'set scope(TomTodoScope? value)',
+      'executionRole': 'set executionRole(String? value)',
+      'qaRole': 'set qaRole(String? value)',
+      'orchestrationRole': 'set orchestrationRole(String? value)',
+      'bundleId': 'set bundleId(String? value)',
+      'derivedFrom': 'set derivedFrom(String? value)',
+      'feedbackSource': 'set feedbackSource(String? value)',
+      'filedBy': 'set filedBy(TomTodoFiledBy? value)',
+      'onDone': 'set onDone(TomTodoOnDone? value)',
+      'lastAnswer': 'set lastAnswer(String? value)',
+      'resources': 'set resources(List<String>? value)',
+      'claimHold': 'set claimHold(bool value)',
+      'claimFree': 'set claimFree(bool value)',
+      'dueReminded': 'set dueReminded(String? value)',
       'archived': 'set archived(DateTime? value)',
       'deleted': 'set deleted(DateTime? value)',
     },
     staticMethodSignatures: {
+      'fromMap': 'TomItem fromMap(Map map)',
       'encodeDate': 'String encodeDate(DateTime date)',
+      'encodeDateOrTime': 'String encodeDateOrTime(DateTime value)',
       'decodeDate':
           'DateTime decodeDate(Object value, {String field = \'due\'})',
+      'decodeDateOrTime':
+          'DateTime decodeDateOrTime(Object value, {required String field})',
       'checkBlockedUntil': 'void checkBlockedUntil(String condition)',
-      'fromMap': 'TomTodo fromMap(Map map)',
     },
-    staticGetterSignatures: {'fields': 'Set<String> get fields'},
+    staticGetterSignatures: {
+      'recordFields': 'List<String> get recordFields',
+      'baseFields': 'List<String> get baseFields',
+      'planningFields': 'List<String> get planningFields',
+      'dependencyFields': 'List<String> get dependencyFields',
+      'fields': 'Set<String> get fields',
+    },
   );
 }
 
@@ -17606,9 +18336,9 @@ BridgedClass _createTomTodoBridge() {
 
 BridgedClass _createTomTodoDecisionBridge() {
   return BridgedClass(
-    nativeType: $tom_todo_model_1.TomTodoDecision,
+    nativeType: $tom_todo_model_2.TomTodoDecision,
     name: 'TomTodoDecision',
-    isAssignable: (v) => v is $tom_todo_model_1.TomTodoDecision,
+    isAssignable: (v) => v is $tom_todo_model_2.TomTodoDecision,
     constructors: {
       '': (visitor, positional, named) {
         final summary = D4.getRequiredNamedArg<String>(
@@ -17622,7 +18352,7 @@ BridgedClass _createTomTodoDecisionBridge() {
           'TomTodoDecision',
         );
         final decision = D4.getOptionalNamedArg<String?>(named, 'decision');
-        return $tom_todo_model_1.TomTodoDecision(
+        return $tom_todo_model_2.TomTodoDecision(
           summary: summary,
           decisionNeeded: decisionNeeded,
           decision: decision,
@@ -17631,25 +18361,25 @@ BridgedClass _createTomTodoDecisionBridge() {
     },
     getters: {
       'summary': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+          .validateTarget<$tom_todo_model_2.TomTodoDecision>(
             target,
             'TomTodoDecision',
           )
           .summary,
       'decisionNeeded': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+          .validateTarget<$tom_todo_model_2.TomTodoDecision>(
             target,
             'TomTodoDecision',
           )
           .decisionNeeded,
       'decision': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+          .validateTarget<$tom_todo_model_2.TomTodoDecision>(
             target,
             'TomTodoDecision',
           )
           .decision,
       'isOpen': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+          .validateTarget<$tom_todo_model_2.TomTodoDecision>(
             target,
             'TomTodoDecision',
           )
@@ -17658,7 +18388,7 @@ BridgedClass _createTomTodoDecisionBridge() {
     setters: {
       'summary': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+              .validateTarget<$tom_todo_model_2.TomTodoDecision>(
                 target,
                 'TomTodoDecision',
               )
@@ -17668,7 +18398,7 @@ BridgedClass _createTomTodoDecisionBridge() {
           ),
       'decisionNeeded': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+              .validateTarget<$tom_todo_model_2.TomTodoDecision>(
                 target,
                 'TomTodoDecision',
               )
@@ -17678,7 +18408,7 @@ BridgedClass _createTomTodoDecisionBridge() {
           ),
       'decision': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoDecision>(
+              .validateTarget<$tom_todo_model_2.TomTodoDecision>(
                 target,
                 'TomTodoDecision',
               )
@@ -17689,14 +18419,14 @@ BridgedClass _createTomTodoDecisionBridge() {
     },
     methods: {
       'copy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodoDecision>(
+        final t = D4.validateTarget<$tom_todo_model_2.TomTodoDecision>(
           target,
           'TomTodoDecision',
         );
         return t.copy();
       },
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodoDecision>(
+        final t = D4.validateTarget<$tom_todo_model_2.TomTodoDecision>(
           target,
           'TomTodoDecision',
         );
@@ -17707,7 +18437,7 @@ BridgedClass _createTomTodoDecisionBridge() {
       'fromMap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromMap');
         final map = D4.getRequiredArg<Map>(positional, 0, 'map', 'fromMap');
-        return $tom_todo_model_1.TomTodoDecision.fromMap(map);
+        return $tom_todo_model_2.TomTodoDecision.fromMap(map);
       },
     },
     constructorSignatures: {
@@ -17738,9 +18468,9 @@ BridgedClass _createTomTodoDecisionBridge() {
 
 BridgedClass _createTomTodoScopeBridge() {
   return BridgedClass(
-    nativeType: $tom_todo_model_1.TomTodoScope,
+    nativeType: $tom_todo_model_2.TomTodoScope,
     name: 'TomTodoScope',
-    isAssignable: (v) => v is $tom_todo_model_1.TomTodoScope,
+    isAssignable: (v) => v is $tom_todo_model_2.TomTodoScope,
     constructors: {
       '': (visitor, positional, named) {
         final project = D4.getOptionalNamedArg<String?>(named, 'project');
@@ -17754,7 +18484,7 @@ BridgedClass _createTomTodoScopeBridge() {
             ? D4.coerceList<String>(named['files'], 'files')
             : const <String>[];
         final path = D4.getOptionalNamedArg<String?>(named, 'path');
-        return $tom_todo_model_1.TomTodoScope(
+        return $tom_todo_model_2.TomTodoScope(
           project: project,
           projects: projects,
           module: module,
@@ -17766,43 +18496,43 @@ BridgedClass _createTomTodoScopeBridge() {
     },
     getters: {
       'project': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
           .project,
       'projects': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
           .projects,
       'module': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
           .module,
       'area': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
           .area,
       'files': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
           .files,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
           .path,
       'isEmpty': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoScope>(
+          .validateTarget<$tom_todo_model_2.TomTodoScope>(
             target,
             'TomTodoScope',
           )
@@ -17811,7 +18541,7 @@ BridgedClass _createTomTodoScopeBridge() {
     setters: {
       'project': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoScope>(
+              .validateTarget<$tom_todo_model_2.TomTodoScope>(
                 target,
                 'TomTodoScope',
               )
@@ -17821,7 +18551,7 @@ BridgedClass _createTomTodoScopeBridge() {
           ),
       'projects': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoScope>(
+              .validateTarget<$tom_todo_model_2.TomTodoScope>(
                 target,
                 'TomTodoScope',
               )
@@ -17831,7 +18561,7 @@ BridgedClass _createTomTodoScopeBridge() {
           ),
       'module': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoScope>(
+              .validateTarget<$tom_todo_model_2.TomTodoScope>(
                 target,
                 'TomTodoScope',
               )
@@ -17841,7 +18571,7 @@ BridgedClass _createTomTodoScopeBridge() {
           ),
       'area': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoScope>(
+              .validateTarget<$tom_todo_model_2.TomTodoScope>(
                 target,
                 'TomTodoScope',
               )
@@ -17851,7 +18581,7 @@ BridgedClass _createTomTodoScopeBridge() {
           ),
       'files': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoScope>(
+              .validateTarget<$tom_todo_model_2.TomTodoScope>(
                 target,
                 'TomTodoScope',
               )
@@ -17861,7 +18591,7 @@ BridgedClass _createTomTodoScopeBridge() {
           ),
       'path': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_1.TomTodoScope>(
+              .validateTarget<$tom_todo_model_2.TomTodoScope>(
                 target,
                 'TomTodoScope',
               )
@@ -17872,14 +18602,14 @@ BridgedClass _createTomTodoScopeBridge() {
     },
     methods: {
       'copy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodoScope>(
+        final t = D4.validateTarget<$tom_todo_model_2.TomTodoScope>(
           target,
           'TomTodoScope',
         );
         return t.copy();
       },
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodoScope>(
+        final t = D4.validateTarget<$tom_todo_model_2.TomTodoScope>(
           target,
           'TomTodoScope',
         );
@@ -17890,7 +18620,7 @@ BridgedClass _createTomTodoScopeBridge() {
       'fromMap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromMap');
         final map = D4.getRequiredArg<Map>(positional, 0, 'map', 'fromMap');
-        return $tom_todo_model_1.TomTodoScope.fromMap(map);
+        return $tom_todo_model_2.TomTodoScope.fromMap(map);
       },
     },
     constructorSignatures: {
@@ -17927,9 +18657,9 @@ BridgedClass _createTomTodoScopeBridge() {
 
 BridgedClass _createTomTodoReferenceBridge() {
   return BridgedClass(
-    nativeType: $tom_todo_model_1.TomTodoReference,
+    nativeType: $tom_todo_model_2.TomTodoReference,
     name: 'TomTodoReference',
-    isAssignable: (v) => v is $tom_todo_model_1.TomTodoReference,
+    isAssignable: (v) => v is $tom_todo_model_2.TomTodoReference,
     constructors: {
       '': (visitor, positional, named) {
         final type = D4.getOptionalNamedArg<String?>(named, 'type');
@@ -17940,7 +18670,7 @@ BridgedClass _createTomTodoReferenceBridge() {
           'description',
         );
         final lines = D4.getOptionalNamedArg<String?>(named, 'lines');
-        return $tom_todo_model_1.TomTodoReference(
+        return $tom_todo_model_2.TomTodoReference(
           type: type,
           path: path,
           url: url,
@@ -17951,37 +18681,37 @@ BridgedClass _createTomTodoReferenceBridge() {
     },
     getters: {
       'type': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoReference>(
+          .validateTarget<$tom_todo_model_2.TomTodoReference>(
             target,
             'TomTodoReference',
           )
           .type,
       'path': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoReference>(
+          .validateTarget<$tom_todo_model_2.TomTodoReference>(
             target,
             'TomTodoReference',
           )
           .path,
       'url': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoReference>(
+          .validateTarget<$tom_todo_model_2.TomTodoReference>(
             target,
             'TomTodoReference',
           )
           .url,
       'description': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoReference>(
+          .validateTarget<$tom_todo_model_2.TomTodoReference>(
             target,
             'TomTodoReference',
           )
           .description,
       'lines': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoReference>(
+          .validateTarget<$tom_todo_model_2.TomTodoReference>(
             target,
             'TomTodoReference',
           )
           .lines,
       'hashCode': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_1.TomTodoReference>(
+          .validateTarget<$tom_todo_model_2.TomTodoReference>(
             target,
             'TomTodoReference',
           )
@@ -17989,14 +18719,14 @@ BridgedClass _createTomTodoReferenceBridge() {
     },
     methods: {
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodoReference>(
+        final t = D4.validateTarget<$tom_todo_model_2.TomTodoReference>(
           target,
           'TomTodoReference',
         );
         return t.toMap();
       },
       '==': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_1.TomTodoReference>(
+        final t = D4.validateTarget<$tom_todo_model_2.TomTodoReference>(
           target,
           'TomTodoReference',
         );
@@ -18015,7 +18745,7 @@ BridgedClass _createTomTodoReferenceBridge() {
       'fromMap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromMap');
         final map = D4.getRequiredArg<Map>(positional, 0, 'map', 'fromMap');
-        return $tom_todo_model_1.TomTodoReference.fromMap(map);
+        return $tom_todo_model_2.TomTodoReference.fromMap(map);
       },
     },
     constructorSignatures: {
@@ -18040,13 +18770,13 @@ BridgedClass _createTomTodoReferenceBridge() {
 
 BridgedClass _createTomTodoRepeatBridge() {
   return BridgedClass(
-    nativeType: $tom_todo_model_2.TomTodoRepeat,
+    nativeType: $tom_todo_model_3.TomTodoRepeat,
     name: 'TomTodoRepeat',
-    isAssignable: (v) => v is $tom_todo_model_2.TomTodoRepeat,
+    isAssignable: (v) => v is $tom_todo_model_3.TomTodoRepeat,
     constructors: {
       '': (visitor, positional, named) {
         final rule = D4
-            .getRequiredNamedArg<$tom_todo_model_2.TomTodoRepeatRule>(
+            .getRequiredNamedArg<$tom_todo_model_3.TomTodoRepeatRule>(
               named,
               'rule',
               'TomTodoRepeat',
@@ -18070,7 +18800,7 @@ BridgedClass _createTomTodoRepeatBridge() {
         final time = D4.getOptionalNamedArg<String?>(named, 'time');
         final until = D4.getOptionalNamedArg<String?>(named, 'until');
         final count = D4.getOptionalNamedArg<int?>(named, 'count');
-        return $tom_todo_model_2.TomTodoRepeat(
+        return $tom_todo_model_3.TomTodoRepeat(
           rule: rule,
           every: every,
           unit: unit,
@@ -18089,79 +18819,79 @@ BridgedClass _createTomTodoRepeatBridge() {
     },
     getters: {
       'rule': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .rule,
       'every': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .every,
       'unit': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .unit,
       'weekdays': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .weekdays,
       'day': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .day,
       'lastDay': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .lastDay,
       'nth': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .nth,
       'weekday': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .weekday,
       'workingDay': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .workingDay,
       'month': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .month,
       'time': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .time,
       'until': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
           .until,
       'count': (visitor, target) => D4
-          .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+          .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
             target,
             'TomTodoRepeat',
           )
@@ -18170,17 +18900,17 @@ BridgedClass _createTomTodoRepeatBridge() {
     setters: {
       'rule': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
-              .rule = D4.extractBridgedArg<$tom_todo_model_2.TomTodoRepeatRule>(
+              .rule = D4.extractBridgedArg<$tom_todo_model_3.TomTodoRepeatRule>(
             value,
             'rule',
           ),
       'every': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18190,7 +18920,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'unit': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18200,7 +18930,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'weekdays': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18210,7 +18940,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'day': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18220,7 +18950,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'lastDay': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18230,7 +18960,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'nth': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18240,7 +18970,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'weekday': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18250,7 +18980,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'workingDay': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18260,7 +18990,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'month': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18270,7 +19000,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'time': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18280,7 +19010,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'until': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18290,7 +19020,7 @@ BridgedClass _createTomTodoRepeatBridge() {
           ),
       'count': (visitor, target, value) =>
           D4
-              .validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+              .validateTarget<$tom_todo_model_3.TomTodoRepeat>(
                 target,
                 'TomTodoRepeat',
               )
@@ -18301,7 +19031,7 @@ BridgedClass _createTomTodoRepeatBridge() {
     },
     methods: {
       'check': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+        final t = D4.validateTarget<$tom_todo_model_3.TomTodoRepeat>(
           target,
           'TomTodoRepeat',
         );
@@ -18309,14 +19039,14 @@ BridgedClass _createTomTodoRepeatBridge() {
         return null;
       },
       'toMap': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+        final t = D4.validateTarget<$tom_todo_model_3.TomTodoRepeat>(
           target,
           'TomTodoRepeat',
         );
         return t.toMap();
       },
       'copy': (visitor, target, positional, named, typeArgs) {
-        final t = D4.validateTarget<$tom_todo_model_2.TomTodoRepeat>(
+        final t = D4.validateTarget<$tom_todo_model_3.TomTodoRepeat>(
           target,
           'TomTodoRepeat',
         );
@@ -18324,16 +19054,16 @@ BridgedClass _createTomTodoRepeatBridge() {
       },
     },
     staticGetters: {
-      'weekdayNames': (visitor) => $tom_todo_model_2.TomTodoRepeat.weekdayNames,
-      'units': (visitor) => $tom_todo_model_2.TomTodoRepeat.units,
-      'fields': (visitor) => $tom_todo_model_2.TomTodoRepeat.fields,
-      'nextRepeatRe': (visitor) => $tom_todo_model_2.TomTodoRepeat.nextRepeatRe,
+      'weekdayNames': (visitor) => $tom_todo_model_3.TomTodoRepeat.weekdayNames,
+      'units': (visitor) => $tom_todo_model_3.TomTodoRepeat.units,
+      'fields': (visitor) => $tom_todo_model_3.TomTodoRepeat.fields,
+      'nextRepeatRe': (visitor) => $tom_todo_model_3.TomTodoRepeat.nextRepeatRe,
     },
     staticMethods: {
       'fromMap': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'fromMap');
         final map = D4.getRequiredArg<Map>(positional, 0, 'map', 'fromMap');
-        return $tom_todo_model_2.TomTodoRepeat.fromMap(map);
+        return $tom_todo_model_3.TomTodoRepeat.fromMap(map);
       },
     },
     constructorSignatures: {
@@ -18395,7 +19125,7 @@ BridgedClass _createTodoEntryBridge() {
     isAssignable: (v) => v is $tom_vscode_scripting_api_15.TodoEntry,
     constructors: {
       '': (visitor, positional, named) {
-        final todo = D4.getRequiredNamedArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredNamedArg<$tom_todo_model_1.TomItem>(
           named,
           'todo',
           'TodoEntry',
@@ -18448,10 +19178,10 @@ BridgedClass _createTodoEntryBridge() {
           .unknownFields,
     },
     constructorSignatures: {
-      '': 'TodoEntry({required TomTodo todo, String? sourceFile, TodoLevel? level, Map<String, Object?> unknownFields = const {}})',
+      '': 'TodoEntry({required TomItem todo, String? sourceFile, TodoLevel? level, Map<String, Object?> unknownFields = const {}})',
     },
     getterSignatures: {
-      'todo': 'TomTodo get todo',
+      'todo': 'TomItem get todo',
       'sourceFile': 'String? get sourceFile',
       'level': 'TodoLevel? get level',
       'unknownFields': 'Map<String, Object?> get unknownFields',
@@ -18544,7 +19274,7 @@ BridgedClass _createTodoWireBridge() {
       },
       'toBridge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'toBridge');
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           0,
           'todo',
@@ -18554,7 +19284,7 @@ BridgedClass _createTodoWireBridge() {
       },
       'toSessionBridge': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'toSessionBridge');
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           0,
           'todo',
@@ -18575,8 +19305,8 @@ BridgedClass _createTodoWireBridge() {
     },
     staticMethodSignatures: {
       'fromBridge': 'TodoEntry fromBridge(Map<String, dynamic> json)',
-      'toBridge': 'Map<String, Object?> toBridge(TomTodo todo)',
-      'toSessionBridge': 'Map<String, Object?> toSessionBridge(TomTodo todo)',
+      'toBridge': 'Map<String, Object?> toBridge(TomItem todo)',
+      'toSessionBridge': 'Map<String, Object?> toSessionBridge(TomItem todo)',
       'fromBridgeOrNull':
           'TodoEntry? fromBridgeOrNull(Map<String, dynamic> json)',
     },
@@ -18670,7 +19400,7 @@ BridgedClass _createTodoListResultBridge() {
       'invalid': 'List<InvalidTodo> get invalid',
       'questId': 'String? get questId',
       'file': 'String? get file',
-      'todos': 'List<TomTodo> get todos',
+      'todos': 'List<TomItem> get todos',
     },
   );
 }
@@ -18813,7 +19543,7 @@ BridgedClass _createTomTodoApiBridge() {
           'questId',
           'createQuestTodo',
         );
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           1,
           'todo',
@@ -18834,7 +19564,7 @@ BridgedClass _createTomTodoApiBridge() {
           'questId',
           'updateQuestTodo',
         );
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           1,
           'todo',
@@ -18893,7 +19623,7 @@ BridgedClass _createTomTodoApiBridge() {
       },
       'createWorkspaceTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createWorkspaceTodo');
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           0,
           'todo',
@@ -18907,7 +19637,7 @@ BridgedClass _createTomTodoApiBridge() {
       },
       'updateWorkspaceTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'updateWorkspaceTodo');
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           0,
           'todo',
@@ -18948,7 +19678,7 @@ BridgedClass _createTomTodoApiBridge() {
       },
       'createSessionTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'createSessionTodo');
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           0,
           'todo',
@@ -18958,7 +19688,7 @@ BridgedClass _createTomTodoApiBridge() {
       },
       'updateSessionTodo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'updateSessionTodo');
-        final todo = D4.getRequiredArg<$tom_todo_model_1.TomTodo>(
+        final todo = D4.getRequiredArg<$tom_todo_model_1.TomItem>(
           positional,
           0,
           'todo',
@@ -19012,9 +19742,9 @@ BridgedClass _createTomTodoApiBridge() {
       'getQuestTodo':
           'Future<TodoEntry?> getQuestTodo(String questId, String todoId, {String? file})',
       'createQuestTodo':
-          'Future<TodoEntry> createQuestTodo(String questId, TomTodo todo, {String? file})',
+          'Future<TodoEntry> createQuestTodo(String questId, TomItem todo, {String? file})',
       'updateQuestTodo':
-          'Future<TodoEntry> updateQuestTodo(String questId, TomTodo todo, {String? file})',
+          'Future<TodoEntry> updateQuestTodo(String questId, TomItem todo, {String? file})',
       'deleteQuestTodo':
           'Future<bool> deleteQuestTodo(String questId, String todoId, {String? file})',
       'listWorkspaceTodoFiles':
@@ -19024,15 +19754,15 @@ BridgedClass _createTomTodoApiBridge() {
       'getWorkspaceTodo':
           'Future<TodoEntry?> getWorkspaceTodo(String todoId, {String? file})',
       'createWorkspaceTodo':
-          'Future<TodoEntry> createWorkspaceTodo(TomTodo todo, {String? file})',
+          'Future<TodoEntry> createWorkspaceTodo(TomItem todo, {String? file})',
       'updateWorkspaceTodo':
-          'Future<TodoEntry> updateWorkspaceTodo(TomTodo todo, {String? file})',
+          'Future<TodoEntry> updateWorkspaceTodo(TomItem todo, {String? file})',
       'deleteWorkspaceTodo':
           'Future<bool> deleteWorkspaceTodo(String todoId, {String? file})',
       'listSessionTodos': 'Future<TodoListResult> listSessionTodos()',
       'getSessionTodo': 'Future<TodoEntry?> getSessionTodo(String todoId)',
-      'createSessionTodo': 'Future<TodoEntry> createSessionTodo(TomTodo todo)',
-      'updateSessionTodo': 'Future<TodoEntry> updateSessionTodo(TomTodo todo)',
+      'createSessionTodo': 'Future<TodoEntry> createSessionTodo(TomItem todo)',
+      'updateSessionTodo': 'Future<TodoEntry> updateSessionTodo(TomItem todo)',
       'deleteSessionTodo': 'Future<bool> deleteSessionTodo(String todoId)',
       'listAllTodos':
           'Future<TodoListResult> listAllTodos({bool includeQuest = true, bool includeWorkspace = true, bool includeSession = true, String? questId})',

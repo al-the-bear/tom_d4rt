@@ -1,3 +1,14 @@
+## 2.5.0
+
+### Changed — on tom_todo_model 4.1.0 (the item model)
+
+`tom_todo_model` ^4.1.0, up from ^3.1.0, and `tom_vscode_scripting_api`
+^6.0.0, up from ^5.0.0. The scripting-API bridges are regenerated: scripts
+reach `TomItem` with its 4.x members (the headline, `links`, `workflow`, the
+reminder schedule `remind` / `nextRemind` / `remindCount`, `reminders`, the
+item extensions) and the status `none`; `TomTodo` stays a registered alias of
+`TomItem`, so scripts written against 3.x keep working.
+
 ## 2.4.0
 
 ### Changed — on tom_todo_model 3.1.0 (a todo's due-date reminder)
