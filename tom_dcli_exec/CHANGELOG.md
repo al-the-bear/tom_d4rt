@@ -1,3 +1,16 @@
+## 2.6.0
+
+### Changed — on tom_vscode_scripting_api 7.0.0 (no Notes operations)
+
+`tom_vscode_scripting_api` ^7.0.0, up from ^6.0.0. The scripting-API bridges
+are regenerated: `TomDocumentApi.listNotes`, `readNote` and `writeNote` and the
+folders `DocumentFolder.notes` and `DocumentFolder.clarifications` are no
+longer reachable from scripts. `_ai/notes/` and the `_ai/clarifications…`
+folders are not part of a Tom workspace any more, and the extension's bridge
+refuses those calls; a script uses the quest documents instead
+(`listQuestDocuments`, `readQuestDocument`, `writeQuestDocument`). Nothing
+else in the bridges changed.
+
 ## 2.5.0
 
 ### Changed — on tom_todo_model 4.1.0 (the item model)
