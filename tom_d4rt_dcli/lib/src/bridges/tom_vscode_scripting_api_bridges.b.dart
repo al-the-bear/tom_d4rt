@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 32 files
-// Generated: 2026-11-20T12:13:46.153836 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-25T17:04:51.597655 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -22354,41 +22354,6 @@ BridgedClass _createTomDocumentApiBridge() {
         );
         return $tom_vscode_scripting_api_12.TomDocumentApi.readGuideline(name);
       },
-      'listNotes': (visitor, positional, named, typeArgs) {
-        final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_vscode_scripting_api_12.TomDocumentApi.listNotes(
-          pattern: pattern,
-        );
-      },
-      'readNote': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'readNote');
-        final filename = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'filename',
-          'readNote',
-        );
-        return $tom_vscode_scripting_api_12.TomDocumentApi.readNote(filename);
-      },
-      'writeNote': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 2, 'writeNote');
-        final filename = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'filename',
-          'writeNote',
-        );
-        final content = D4.getRequiredArg<String>(
-          positional,
-          1,
-          'content',
-          'writeNote',
-        );
-        return $tom_vscode_scripting_api_12.TomDocumentApi.writeNote(
-          filename,
-          content,
-        );
-      },
       'listQuestDocuments': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 1, 'listQuestDocuments');
         final questId = D4.getRequiredArg<String>(
@@ -22473,9 +22438,6 @@ BridgedClass _createTomDocumentApiBridge() {
       'listGuidelines':
           'Future<GuidelineListResult> listGuidelines({String? category})',
       'readGuideline': 'Future<DocumentContent> readGuideline(String name)',
-      'listNotes': 'Future<DocumentListResult> listNotes({String? pattern})',
-      'readNote': 'Future<DocumentContent> readNote(String filename)',
-      'writeNote': 'Future<bool> writeNote(String filename, String content)',
       'listQuestDocuments':
           'Future<DocumentListResult> listQuestDocuments(String questId, {String? pattern})',
       'readQuestDocument':
