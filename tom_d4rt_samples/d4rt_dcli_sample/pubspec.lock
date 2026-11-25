@@ -605,10 +605,10 @@ packages:
     dependency: transitive
     description:
       name: tom_build_base
-      sha256: fe5b4627ded39ef25325052b28d015cbf80ec8cd2eef72664b7dc24c19502cfe
+      sha256: d5681f4b870d105d3a1b0c05159063138851df278edcf5fb2f0c8886d8b81bbd
       url: "https://pub.dev"
     source: hosted
-    version: "2.50.0"
+    version: "2.52.0"
   tom_d4rt:
     dependency: "direct main"
     description:
