@@ -1,6 +1,6 @@
 name: tom_dcli_exec
 description: Base D4rt CLI with dcli bridges using tom_d4rt_exec (analyzer-free). Extensible foundation for D4rt tools.
-version: 2.7.0
+version: 2.8.0
 repository: https://github.com/al-the-bear/tom_d4rt
 homepage: https://github.com/al-the-bear/tom_d4rt/tree/main/tom_dcli_exec
 topics:
@@ -52,7 +52,7 @@ dependencies:
   analyzer: ^14.5.0
 
   # VS Code scripting API (for bridge support)
-  tom_vscode_scripting_api: ^8.0.0
+  tom_vscode_scripting_api: ^9.0.0
   # The generated scripting-API bridges import the todo model directly.
   tom_todo_model: ^4.1.0
 

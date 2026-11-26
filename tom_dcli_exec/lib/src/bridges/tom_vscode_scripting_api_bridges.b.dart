@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 32 files
-// Generated: 2026-11-26T09:59:20.652285 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-26T13:09:21.645631 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -21359,32 +21359,62 @@ BridgedClass _createTrailEntryBridge() {
     constructors: {
       '': (visitor, positional, named) {
         final id = D4.getRequiredNamedArg<String>(named, 'id', 'TrailEntry');
-        final requestId = D4.getOptionalNamedArg<String?>(named, 'requestId');
-        final promptFile = D4.getRequiredNamedArg<String>(
+        final questId = D4.getRequiredNamedArg<String>(
           named,
-          'promptFile',
+          'questId',
           'TrailEntry',
         );
-        final answerFile = D4.getOptionalNamedArg<String?>(named, 'answerFile');
-        final promptContent = D4.getOptionalNamedArg<String?>(
+        final file = D4.getRequiredNamedArg<String>(
           named,
-          'promptContent',
+          'file',
+          'TrailEntry',
         );
-        final answerContent = D4.getOptionalNamedArg<String?>(
+        final time = D4.getRequiredNamedArg<String>(
           named,
-          'answerContent',
+          'time',
+          'TrailEntry',
         );
-        final timestamp = D4.getOptionalNamedArg<String?>(named, 'timestamp');
-        final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
+        final host = D4.getRequiredNamedArg<String>(
+          named,
+          'host',
+          'TrailEntry',
+        );
+        final session = D4.getRequiredNamedArg<String>(
+          named,
+          'session',
+          'TrailEntry',
+        );
+        final profile = D4.getRequiredNamedArg<String>(
+          named,
+          'profile',
+          'TrailEntry',
+        );
+        final model = D4.getRequiredNamedArg<String>(
+          named,
+          'model',
+          'TrailEntry',
+        );
+        final prompt = D4.getRequiredNamedArg<String>(
+          named,
+          'prompt',
+          'TrailEntry',
+        );
+        final answer = D4.getRequiredNamedArg<String>(
+          named,
+          'answer',
+          'TrailEntry',
+        );
         return $tom_vscode_scripting_api_12.TrailEntry(
           id: id,
-          requestId: requestId,
-          promptFile: promptFile,
-          answerFile: answerFile,
-          promptContent: promptContent,
-          answerContent: answerContent,
-          timestamp: timestamp,
           questId: questId,
+          file: file,
+          time: time,
+          host: host,
+          session: session,
+          profile: profile,
+          model: model,
+          prompt: prompt,
+          answer: answer,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -21405,62 +21435,91 @@ BridgedClass _createTrailEntryBridge() {
             'TrailEntry',
           )
           .id,
-      'requestId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
-            target,
-            'TrailEntry',
-          )
-          .requestId,
-      'promptFile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
-            target,
-            'TrailEntry',
-          )
-          .promptFile,
-      'answerFile': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
-            target,
-            'TrailEntry',
-          )
-          .answerFile,
-      'promptContent': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
-            target,
-            'TrailEntry',
-          )
-          .promptContent,
-      'answerContent': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
-            target,
-            'TrailEntry',
-          )
-          .answerContent,
-      'timestamp': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
-            target,
-            'TrailEntry',
-          )
-          .timestamp,
       'questId': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
             target,
             'TrailEntry',
           )
           .questId,
+      'file': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .file,
+      'time': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .time,
+      'host': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .host,
+      'session': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .session,
+      'profile': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .profile,
+      'model': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .model,
+      'prompt': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .prompt,
+      'answer': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailEntry>(
+            target,
+            'TrailEntry',
+          )
+          .answer,
+    },
+    staticMethods: {
+      'fromJsonOrNull': (visitor, positional, named, typeArgs) {
+        D4.requireMinArgs(positional, 1, 'fromJsonOrNull');
+        if (positional.isEmpty) {
+          throw ArgumentError(
+            'fromJsonOrNull: Missing required argument "json" at position 0',
+          );
+        }
+        final json = D4.coerceMap<String, dynamic>(positional[0], 'json');
+        return $tom_vscode_scripting_api_12.TrailEntry.fromJsonOrNull(json);
+      },
     },
     constructorSignatures: {
-      '': 'TrailEntry({required String id, String? requestId, required String promptFile, String? answerFile, String? promptContent, String? answerContent, String? timestamp, String? questId})',
+      '': 'TrailEntry({required String id, required String questId, required String file, required String time, required String host, required String session, required String profile, required String model, required String prompt, required String answer})',
       'fromJson': 'factory TrailEntry.fromJson(Map<String, dynamic> json)',
     },
     getterSignatures: {
       'id': 'String get id',
-      'requestId': 'String? get requestId',
-      'promptFile': 'String get promptFile',
-      'answerFile': 'String? get answerFile',
-      'promptContent': 'String? get promptContent',
-      'answerContent': 'String? get answerContent',
-      'timestamp': 'String? get timestamp',
-      'questId': 'String? get questId',
+      'questId': 'String get questId',
+      'file': 'String get file',
+      'time': 'String get time',
+      'host': 'String get host',
+      'session': 'String get session',
+      'profile': 'String get profile',
+      'model': 'String get model',
+      'prompt': 'String get prompt',
+      'answer': 'String get answer',
+    },
+    staticMethodSignatures: {
+      'fromJsonOrNull': 'TrailEntry? fromJsonOrNull(Map<String, dynamic> json)',
     },
   );
 }
@@ -21491,10 +21550,12 @@ BridgedClass _createTrailListResultBridge() {
           'TrailListResult',
         );
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
+        final host = D4.getOptionalNamedArg<String?>(named, 'host');
         return $tom_vscode_scripting_api_12.TrailListResult(
           entries: entries,
           totalCount: totalCount,
           questId: questId,
+          host: host,
         );
       },
       'fromJson': (visitor, positional, named) {
@@ -21527,15 +21588,22 @@ BridgedClass _createTrailListResultBridge() {
             'TrailListResult',
           )
           .questId,
+      'host': (visitor, target) => D4
+          .validateTarget<$tom_vscode_scripting_api_12.TrailListResult>(
+            target,
+            'TrailListResult',
+          )
+          .host,
     },
     constructorSignatures: {
-      '': 'TrailListResult({required List<TrailEntry> entries, required int totalCount, String? questId})',
+      '': 'TrailListResult({required List<TrailEntry> entries, required int totalCount, String? questId, String? host})',
       'fromJson': 'factory TrailListResult.fromJson(Map<String, dynamic> json)',
     },
     getterSignatures: {
       'entries': 'List<TrailEntry> get entries',
       'totalCount': 'int get totalCount',
       'questId': 'String? get questId',
+      'host': 'String? get host',
     },
   );
 }
@@ -21828,8 +21896,10 @@ BridgedClass _createTomDocumentApiBridge() {
           'entryId',
           'getTrailEntry',
         );
+        final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
         return $tom_vscode_scripting_api_12.TomDocumentApi.getTrailEntry(
           entryId,
+          questId: questId,
         );
       },
       'findTrailByRequestId': (visitor, positional, named, typeArgs) {
@@ -21840,8 +21910,10 @@ BridgedClass _createTomDocumentApiBridge() {
           'requestId',
           'findTrailByRequestId',
         );
+        final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
         return $tom_vscode_scripting_api_12.TomDocumentApi.findTrailByRequestId(
           requestId,
+          questId: questId,
         );
       },
       'listGuidelines': (visitor, positional, named, typeArgs) {
@@ -21935,9 +22007,10 @@ BridgedClass _createTomDocumentApiBridge() {
           'Future<String> createPrompt(String content, {String? filename})',
       'listTrail':
           'Future<TrailListResult> listTrail({String? questId, int? limit, String? since})',
-      'getTrailEntry': 'Future<TrailEntry?> getTrailEntry(String entryId)',
+      'getTrailEntry':
+          'Future<TrailEntry?> getTrailEntry(String entryId, {String? questId})',
       'findTrailByRequestId':
-          'Future<TrailEntry?> findTrailByRequestId(String requestId)',
+          'Future<TrailEntry?> findTrailByRequestId(String requestId, {String? questId})',
       'listGuidelines':
           'Future<GuidelineListResult> listGuidelines({String? category})',
       'readGuideline': 'Future<DocumentContent> readGuideline(String name)',

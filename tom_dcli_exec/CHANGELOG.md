@@ -1,3 +1,16 @@
+## 2.8.0
+
+### Changed — on tom_vscode_scripting_api 9.0.0 (the trail is the quest's host trail)
+
+`tom_vscode_scripting_api` ^9.0.0, up from ^8.0.0. The scripting-API bridges
+are regenerated: `TrailEntry` is a turn of the quest's host trail (`id`,
+`questId`, `file`, `time`, `host`, `session`, `profile`, `model`, `prompt`,
+`answer`; `requestId`, `promptFile`, `answerFile`, `promptContent`,
+`answerContent` and `timestamp` are gone), `TrailListResult` has `host`,
+`TomDocumentApi.getTrailEntry` / `findTrailByRequestId` take an optional
+`questId`, and `DocumentFolder.botConversations` / `sendToChat` are no longer
+reachable from scripts. Nothing else in the bridges changed.
+
 ## 2.7.0
 
 ### Changed — on tom_vscode_scripting_api 8.0.0 (no Copilot answer files or reminders)
