@@ -1,3 +1,16 @@
+## 2.7.0
+
+### Changed — on tom_vscode_scripting_api 8.0.0 (no Copilot answer files or reminders)
+
+`tom_vscode_scripting_api` ^8.0.0, up from ^7.0.0. The scripting-API bridges
+are regenerated: `TomQueueApi.updateReminder`, `QueuedPromptType.reminder`,
+the reminder and `answerWrapper` fields and parameters of the queue and
+timed-request classes, `VsCodeHelper.askCopilotChat`, and
+`TomDocumentApi.listAnswers` / `readAnswer` with `DocumentFolder.answers` are
+no longer reachable from scripts (the Tom extension has no Copilot transport,
+answer files or queue reminders any more). `VsCodeHelper.askCopilot` and the
+`lm` API stay. Nothing else in the bridges changed.
+
 ## 2.6.0
 
 ### Changed — on tom_vscode_scripting_api 7.0.0 (no Notes operations)

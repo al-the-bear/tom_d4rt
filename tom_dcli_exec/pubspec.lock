@@ -677,10 +677,10 @@ packages:
     dependency: "direct main"
     description:
       name: tom_vscode_scripting_api
-      sha256: d85e4dfcf03487b90765b44578a0aa08261b0a433fbee07e64de924dc11ecd6a
+      sha256: a6ec1cddffec08a02125cd8960b15526abebe976e9dfab0f8722aa14aee37729
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "8.0.0"
   typed_data:
     dependency: transitive
     description:
