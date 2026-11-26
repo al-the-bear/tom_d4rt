@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 32 files
-// Generated: 2026-11-25T17:04:51.597655 by tom_d4rt_generator 1.67.0
+// Generated: 2026-11-26T09:52:04.567140 by tom_d4rt_generator 1.67.0
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -9113,38 +9113,6 @@ BridgedClass _createVsCodeHelperBridge() {
           timeoutSeconds: timeoutSeconds,
         );
       },
-      'askCopilotChat': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'askCopilotChat');
-        final prompt = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'prompt',
-          'askCopilotChat',
-        );
-        final requestId = D4.getOptionalNamedArg<String?>(named, 'requestId');
-        final pollIntervalSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'pollIntervalSeconds',
-          10,
-        );
-        final timeoutSeconds = D4.getNamedArgWithDefault<int>(
-          named,
-          'timeoutSeconds',
-          7200,
-        );
-        final customResponseInstructions = D4.getNamedArgWithDefault<bool>(
-          named,
-          'customResponseInstructions',
-          false,
-        );
-        return $tom_vscode_scripting_api_25.VsCodeHelper.askCopilotChat(
-          prompt,
-          requestId: requestId,
-          pollIntervalSeconds: pollIntervalSeconds,
-          timeoutSeconds: timeoutSeconds,
-          customResponseInstructions: customResponseInstructions,
-        );
-      },
       'askModel': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'askModel');
         final modelId = D4.getRequiredArg<String>(
@@ -9793,8 +9761,6 @@ BridgedClass _createVsCodeHelperBridge() {
           'Future<bool> runFlutterApp({String? deviceId, int timeoutSeconds = 420})',
       'askCopilot':
           'Future<String> askCopilot(String prompt, {String? context, int timeoutSeconds = 300})',
-      'askCopilotChat':
-          'Future<Map<String, dynamic>> askCopilotChat(String prompt, {String? requestId, int pollIntervalSeconds = 10, int timeoutSeconds = 7200, bool customResponseInstructions = false})',
       'askModel':
           'Future<String> askModel(String modelId, String prompt, {String? context, String vendor = \'copilot\', int timeoutSeconds = 300})',
       'getCopilotSuggestion':
@@ -19792,22 +19758,6 @@ BridgedClass _createQueuedFollowUpBridge() {
           'QueuedFollowUp',
         );
         final template = D4.getOptionalNamedArg<String?>(named, 'template');
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
         final createdAt = D4.getRequiredNamedArg<String>(
           named,
           'createdAt',
@@ -19817,10 +19767,6 @@ BridgedClass _createQueuedFollowUpBridge() {
           id: id,
           originalText: originalText,
           template: template,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
-          reminderEnabled: reminderEnabled,
           createdAt: createdAt,
         );
       },
@@ -19854,30 +19800,6 @@ BridgedClass _createQueuedFollowUpBridge() {
             'QueuedFollowUp',
           )
           .template,
-      'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
-            target,
-            'QueuedFollowUp',
-          )
-          .reminderTemplateId,
-      'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
-            target,
-            'QueuedFollowUp',
-          )
-          .reminderTimeoutMinutes,
-      'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
-            target,
-            'QueuedFollowUp',
-          )
-          .reminderRepeat,
-      'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
-            target,
-            'QueuedFollowUp',
-          )
-          .reminderEnabled,
       'createdAt': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_13.QueuedFollowUp>(
             target,
@@ -19896,7 +19818,7 @@ BridgedClass _createQueuedFollowUpBridge() {
       },
     },
     constructorSignatures: {
-      '': 'QueuedFollowUp({required String id, required String originalText, String? template, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat, bool? reminderEnabled, required String createdAt})',
+      '': 'QueuedFollowUp({required String id, required String originalText, String? template, required String createdAt})',
       'fromJson': 'factory QueuedFollowUp.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
@@ -19904,10 +19826,6 @@ BridgedClass _createQueuedFollowUpBridge() {
       'id': 'String get id',
       'originalText': 'String get originalText',
       'template': 'String? get template',
-      'reminderTemplateId': 'String? get reminderTemplateId',
-      'reminderTimeoutMinutes': 'int? get reminderTimeoutMinutes',
-      'reminderRepeat': 'bool? get reminderRepeat',
-      'reminderEnabled': 'bool? get reminderEnabled',
       'createdAt': 'String get createdAt',
     },
   );
@@ -19929,10 +19847,6 @@ BridgedClass _createQueuedPromptBridge() {
           named,
           'template',
           'QueuedPrompt',
-        );
-        final answerWrapper = D4.getOptionalNamedArg<bool?>(
-          named,
-          'answerWrapper',
         );
         final originalText = D4.getRequiredNamedArg<String>(
           named,
@@ -19961,34 +19875,6 @@ BridgedClass _createQueuedPromptBridge() {
         );
         final sentAt = D4.getOptionalNamedArg<String?>(named, 'sentAt');
         final error = D4.getOptionalNamedArg<String?>(named, 'error');
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderQueued = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderQueued',
-        );
-        final reminderSentCount = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderSentCount',
-        );
-        final lastReminderAt = D4.getOptionalNamedArg<String?>(
-          named,
-          'lastReminderAt',
-        );
         final requestId = D4.getOptionalNamedArg<String?>(named, 'requestId');
         final expectedRequestId = D4.getOptionalNamedArg<String?>(
           named,
@@ -20006,7 +19892,6 @@ BridgedClass _createQueuedPromptBridge() {
         return $tom_vscode_scripting_api_13.QueuedPrompt(
           id: id,
           template: template,
-          answerWrapper: answerWrapper,
           originalText: originalText,
           expandedText: expandedText,
           status: status,
@@ -20014,13 +19899,6 @@ BridgedClass _createQueuedPromptBridge() {
           createdAt: createdAt,
           sentAt: sentAt,
           error: error,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
-          reminderEnabled: reminderEnabled,
-          reminderQueued: reminderQueued,
-          reminderSentCount: reminderSentCount,
-          lastReminderAt: lastReminderAt,
           requestId: requestId,
           expectedRequestId: expectedRequestId,
           followUps: followUps,
@@ -20051,12 +19929,6 @@ BridgedClass _createQueuedPromptBridge() {
             'QueuedPrompt',
           )
           .template,
-      'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .answerWrapper,
       'originalText': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
@@ -20099,48 +19971,6 @@ BridgedClass _createQueuedPromptBridge() {
             'QueuedPrompt',
           )
           .error,
-      'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .reminderTemplateId,
-      'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .reminderTimeoutMinutes,
-      'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .reminderRepeat,
-      'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .reminderEnabled,
-      'reminderQueued': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .reminderQueued,
-      'reminderSentCount': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .reminderSentCount,
-      'lastReminderAt': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
-            target,
-            'QueuedPrompt',
-          )
-          .lastReminderAt,
       'requestId': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_13.QueuedPrompt>(
             target,
@@ -20176,14 +20006,13 @@ BridgedClass _createQueuedPromptBridge() {
       },
     },
     constructorSignatures: {
-      '': 'QueuedPrompt({required String id, required String template, bool? answerWrapper, required String originalText, required String expandedText, required QueuedPromptStatus status, required QueuedPromptType type, required String createdAt, String? sentAt, String? error, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat, bool? reminderEnabled, bool? reminderQueued, int? reminderSentCount, String? lastReminderAt, String? requestId, String? expectedRequestId, List<QueuedFollowUp>? followUps, int? followUpIndex})',
+      '': 'QueuedPrompt({required String id, required String template, required String originalText, required String expandedText, required QueuedPromptStatus status, required QueuedPromptType type, required String createdAt, String? sentAt, String? error, String? requestId, String? expectedRequestId, List<QueuedFollowUp>? followUps, int? followUpIndex})',
       'fromJson': 'factory QueuedPrompt.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
     getterSignatures: {
       'id': 'String get id',
       'template': 'String get template',
-      'answerWrapper': 'bool? get answerWrapper',
       'originalText': 'String get originalText',
       'expandedText': 'String get expandedText',
       'status': 'QueuedPromptStatus get status',
@@ -20191,13 +20020,6 @@ BridgedClass _createQueuedPromptBridge() {
       'createdAt': 'String get createdAt',
       'sentAt': 'String? get sentAt',
       'error': 'String? get error',
-      'reminderTemplateId': 'String? get reminderTemplateId',
-      'reminderTimeoutMinutes': 'int? get reminderTimeoutMinutes',
-      'reminderRepeat': 'bool? get reminderRepeat',
-      'reminderEnabled': 'bool? get reminderEnabled',
-      'reminderQueued': 'bool? get reminderQueued',
-      'reminderSentCount': 'int? get reminderSentCount',
-      'lastReminderAt': 'String? get lastReminderAt',
       'requestId': 'String? get requestId',
       'expectedRequestId': 'String? get expectedRequestId',
       'followUps': 'List<QueuedFollowUp>? get followUps',
@@ -20315,34 +20137,9 @@ BridgedClass _createQueueItemInputBridge() {
           'QueueItemInput',
         );
         final template = D4.getOptionalNamedArg<String?>(named, 'template');
-        final answerWrapper = D4.getOptionalNamedArg<bool?>(
-          named,
-          'answerWrapper',
-        );
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
         return $tom_vscode_scripting_api_13.QueueItemInput(
           promptText: promptText,
           template: template,
-          answerWrapper: answerWrapper,
-          reminderEnabled: reminderEnabled,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
         );
       },
     },
@@ -20359,36 +20156,6 @@ BridgedClass _createQueueItemInputBridge() {
             'QueueItemInput',
           )
           .template,
-      'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
-            target,
-            'QueueItemInput',
-          )
-          .answerWrapper,
-      'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
-            target,
-            'QueueItemInput',
-          )
-          .reminderEnabled,
-      'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
-            target,
-            'QueueItemInput',
-          )
-          .reminderTemplateId,
-      'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
-            target,
-            'QueueItemInput',
-          )
-          .reminderTimeoutMinutes,
-      'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.QueueItemInput>(
-            target,
-            'QueueItemInput',
-          )
-          .reminderRepeat,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
@@ -20401,17 +20168,12 @@ BridgedClass _createQueueItemInputBridge() {
       },
     },
     constructorSignatures: {
-      '': 'QueueItemInput({required String promptText, String? template, bool? answerWrapper, bool? reminderEnabled, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat})',
+      '': 'QueueItemInput({required String promptText, String? template})',
     },
     methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
     getterSignatures: {
       'promptText': 'String get promptText',
       'template': 'String? get template',
-      'answerWrapper': 'bool? get answerWrapper',
-      'reminderEnabled': 'bool? get reminderEnabled',
-      'reminderTemplateId': 'String? get reminderTemplateId',
-      'reminderTimeoutMinutes': 'int? get reminderTimeoutMinutes',
-      'reminderRepeat': 'bool? get reminderRepeat',
     },
   );
 }
@@ -20433,29 +20195,9 @@ BridgedClass _createFollowUpInputBridge() {
           'FollowUpInput',
         );
         final template = D4.getOptionalNamedArg<String?>(named, 'template');
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
         return $tom_vscode_scripting_api_13.FollowUpInput(
           promptText: promptText,
           template: template,
-          reminderEnabled: reminderEnabled,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
         );
       },
     },
@@ -20472,30 +20214,6 @@ BridgedClass _createFollowUpInputBridge() {
             'FollowUpInput',
           )
           .template,
-      'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
-            target,
-            'FollowUpInput',
-          )
-          .reminderEnabled,
-      'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
-            target,
-            'FollowUpInput',
-          )
-          .reminderTemplateId,
-      'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
-            target,
-            'FollowUpInput',
-          )
-          .reminderTimeoutMinutes,
-      'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_13.FollowUpInput>(
-            target,
-            'FollowUpInput',
-          )
-          .reminderRepeat,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
@@ -20507,16 +20225,12 @@ BridgedClass _createFollowUpInputBridge() {
       },
     },
     constructorSignatures: {
-      '': 'FollowUpInput({required String promptText, String? template, bool? reminderEnabled, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat})',
+      '': 'FollowUpInput({required String promptText, String? template})',
     },
     methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
     getterSignatures: {
       'promptText': 'String get promptText',
       'template': 'String? get template',
-      'reminderEnabled': 'bool? get reminderEnabled',
-      'reminderTemplateId': 'String? get reminderTemplateId',
-      'reminderTimeoutMinutes': 'int? get reminderTimeoutMinutes',
-      'reminderRepeat': 'bool? get reminderRepeat',
     },
   );
 }
@@ -20632,29 +20346,6 @@ BridgedClass _createTomQueueApiBridge() {
           text,
         );
       },
-      'updateReminder': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'updateReminder');
-        final itemId = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'itemId',
-          'updateReminder',
-        );
-        final enabled = D4.getOptionalNamedArg<bool?>(named, 'enabled');
-        final templateId = D4.getOptionalNamedArg<String?>(named, 'templateId');
-        final timeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'timeoutMinutes',
-        );
-        final repeat = D4.getOptionalNamedArg<bool?>(named, 'repeat');
-        return $tom_vscode_scripting_api_13.TomQueueApi.updateReminder(
-          itemId,
-          enabled: enabled,
-          templateId: templateId,
-          timeoutMinutes: timeoutMinutes,
-          repeat: repeat,
-        );
-      },
       'moveTo': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 2, 'moveTo');
         final itemId = D4.getRequiredArg<String>(
@@ -20749,31 +20440,11 @@ BridgedClass _createTomQueueApiBridge() {
         );
         final text = D4.getOptionalNamedArg<String?>(named, 'text');
         final template = D4.getOptionalNamedArg<String?>(named, 'template');
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
         return $tom_vscode_scripting_api_13.TomQueueApi.updateFollowUp(
           itemId,
           followUpId,
           text: text,
           template: template,
-          reminderEnabled: reminderEnabled,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
         );
       },
       'sendNext': (visitor, positional, named, typeArgs) {
@@ -20802,8 +20473,6 @@ BridgedClass _createTomQueueApiBridge() {
           'Future<QueuedPrompt> updateStatus(String itemId, QueuedPromptStatus status)',
       'updateText':
           'Future<QueuedPrompt> updateText(String itemId, String text)',
-      'updateReminder':
-          'Future<QueuedPrompt> updateReminder(String itemId, {bool? enabled, String? templateId, int? timeoutMinutes, bool? repeat})',
       'moveTo': 'Future<bool> moveTo(String itemId, int newIndex)',
       'moveUp': 'Future<bool> moveUp(String itemId)',
       'moveDown': 'Future<bool> moveDown(String itemId)',
@@ -20812,7 +20481,7 @@ BridgedClass _createTomQueueApiBridge() {
       'removeFollowUp':
           'Future<bool> removeFollowUp(String itemId, String followUpId)',
       'updateFollowUp':
-          'Future<QueuedFollowUp> updateFollowUp(String itemId, String followUpId, {String? text, String? template, bool? reminderEnabled, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat})',
+          'Future<QueuedFollowUp> updateFollowUp(String itemId, String followUpId, {String? text, String? template})',
       'sendNext': 'Future<bool> sendNext()',
       'pause': 'Future<void> pause()',
       'resume': 'Future<void> resume()',
@@ -20908,10 +20577,6 @@ BridgedClass _createTimedRequestBridge() {
           'template',
           'TimedRequest',
         );
-        final answerWrapper = D4.getOptionalNamedArg<bool?>(
-          named,
-          'answerWrapper',
-        );
         final originalText = D4.getRequiredNamedArg<String>(
           named,
           'originalText',
@@ -20932,22 +20597,6 @@ BridgedClass _createTimedRequestBridge() {
               named['scheduledTimes'],
               'scheduledTimes',
             );
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
         final lastSentAt = D4.getOptionalNamedArg<String?>(named, 'lastSentAt');
         final status = D4
             .getRequiredNamedArg<
@@ -20957,15 +20606,10 @@ BridgedClass _createTimedRequestBridge() {
           id: id,
           enabled: enabled,
           template: template,
-          answerWrapper: answerWrapper,
           originalText: originalText,
           scheduleMode: scheduleMode,
           intervalMinutes: intervalMinutes,
           scheduledTimes: scheduledTimes,
-          reminderEnabled: reminderEnabled,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
           lastSentAt: lastSentAt,
           status: status,
         );
@@ -21000,12 +20644,6 @@ BridgedClass _createTimedRequestBridge() {
             'TimedRequest',
           )
           .template,
-      'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
-            target,
-            'TimedRequest',
-          )
-          .answerWrapper,
       'originalText': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
@@ -21030,30 +20668,6 @@ BridgedClass _createTimedRequestBridge() {
             'TimedRequest',
           )
           .scheduledTimes,
-      'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
-            target,
-            'TimedRequest',
-          )
-          .reminderEnabled,
-      'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
-            target,
-            'TimedRequest',
-          )
-          .reminderTemplateId,
-      'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
-            target,
-            'TimedRequest',
-          )
-          .reminderTimeoutMinutes,
-      'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
-            target,
-            'TimedRequest',
-          )
-          .reminderRepeat,
       'lastSentAt': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_14.TimedRequest>(
             target,
@@ -21077,7 +20691,7 @@ BridgedClass _createTimedRequestBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TimedRequest({required String id, required bool enabled, required String template, bool? answerWrapper, required String originalText, required ScheduleMode scheduleMode, int? intervalMinutes, List<ScheduledTime>? scheduledTimes, bool? reminderEnabled, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat, String? lastSentAt, required TimedRequestStatus status})',
+      '': 'TimedRequest({required String id, required bool enabled, required String template, required String originalText, required ScheduleMode scheduleMode, int? intervalMinutes, List<ScheduledTime>? scheduledTimes, String? lastSentAt, required TimedRequestStatus status})',
       'fromJson': 'factory TimedRequest.fromJson(Map<String, dynamic> json)',
     },
     methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
@@ -21085,15 +20699,10 @@ BridgedClass _createTimedRequestBridge() {
       'id': 'String get id',
       'enabled': 'bool get enabled',
       'template': 'String get template',
-      'answerWrapper': 'bool? get answerWrapper',
       'originalText': 'String get originalText',
       'scheduleMode': 'ScheduleMode get scheduleMode',
       'intervalMinutes': 'int? get intervalMinutes',
       'scheduledTimes': 'List<ScheduledTime>? get scheduledTimes',
-      'reminderEnabled': 'bool? get reminderEnabled',
-      'reminderTemplateId': 'String? get reminderTemplateId',
-      'reminderTimeoutMinutes': 'int? get reminderTimeoutMinutes',
-      'reminderRepeat': 'bool? get reminderRepeat',
       'lastSentAt': 'String? get lastSentAt',
       'status': 'TimedRequestStatus get status',
     },
@@ -21227,10 +20836,6 @@ BridgedClass _createTimedRequestInputBridge() {
           'TimedRequestInput',
         );
         final template = D4.getOptionalNamedArg<String?>(named, 'template');
-        final answerWrapper = D4.getOptionalNamedArg<bool?>(
-          named,
-          'answerWrapper',
-        );
         final scheduleMode = D4
             .getRequiredNamedArg<$tom_vscode_scripting_api_14.ScheduleMode>(
               named,
@@ -21246,33 +20851,12 @@ BridgedClass _createTimedRequestInputBridge() {
               named['scheduledTimes'],
               'scheduledTimes',
             );
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
         return $tom_vscode_scripting_api_14.TimedRequestInput(
           promptText: promptText,
           template: template,
-          answerWrapper: answerWrapper,
           scheduleMode: scheduleMode,
           intervalMinutes: intervalMinutes,
           scheduledTimes: scheduledTimes,
-          reminderEnabled: reminderEnabled,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
         );
       },
     },
@@ -21289,12 +20873,6 @@ BridgedClass _createTimedRequestInputBridge() {
             'TimedRequestInput',
           )
           .template,
-      'answerWrapper': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
-            target,
-            'TimedRequestInput',
-          )
-          .answerWrapper,
       'scheduleMode': (visitor, target) => D4
           .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
             target,
@@ -21313,30 +20891,6 @@ BridgedClass _createTimedRequestInputBridge() {
             'TimedRequestInput',
           )
           .scheduledTimes,
-      'reminderEnabled': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
-            target,
-            'TimedRequestInput',
-          )
-          .reminderEnabled,
-      'reminderTemplateId': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
-            target,
-            'TimedRequestInput',
-          )
-          .reminderTemplateId,
-      'reminderTimeoutMinutes': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
-            target,
-            'TimedRequestInput',
-          )
-          .reminderTimeoutMinutes,
-      'reminderRepeat': (visitor, target) => D4
-          .validateTarget<$tom_vscode_scripting_api_14.TimedRequestInput>(
-            target,
-            'TimedRequestInput',
-          )
-          .reminderRepeat,
     },
     methods: {
       'toJson': (visitor, target, positional, named, typeArgs) {
@@ -21349,20 +20903,15 @@ BridgedClass _createTimedRequestInputBridge() {
       },
     },
     constructorSignatures: {
-      '': 'TimedRequestInput({required String promptText, String? template, bool? answerWrapper, required ScheduleMode scheduleMode, int? intervalMinutes, List<ScheduledTime>? scheduledTimes, bool? reminderEnabled, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat})',
+      '': 'TimedRequestInput({required String promptText, String? template, required ScheduleMode scheduleMode, int? intervalMinutes, List<ScheduledTime>? scheduledTimes})',
     },
     methodSignatures: {'toJson': 'Map<String, dynamic> toJson()'},
     getterSignatures: {
       'promptText': 'String get promptText',
       'template': 'String? get template',
-      'answerWrapper': 'bool? get answerWrapper',
       'scheduleMode': 'ScheduleMode get scheduleMode',
       'intervalMinutes': 'int? get intervalMinutes',
       'scheduledTimes': 'List<ScheduledTime>? get scheduledTimes',
-      'reminderEnabled': 'bool? get reminderEnabled',
-      'reminderTemplateId': 'String? get reminderTemplateId',
-      'reminderTimeoutMinutes': 'int? get reminderTimeoutMinutes',
-      'reminderRepeat': 'bool? get reminderRepeat',
     },
   );
 }
@@ -21424,10 +20973,6 @@ BridgedClass _createTomTimedApiBridge() {
         );
         final promptText = D4.getOptionalNamedArg<String?>(named, 'promptText');
         final template = D4.getOptionalNamedArg<String?>(named, 'template');
-        final answerWrapper = D4.getOptionalNamedArg<bool?>(
-          named,
-          'answerWrapper',
-        );
         final scheduleMode = D4
             .getOptionalNamedArg<$tom_vscode_scripting_api_14.ScheduleMode?>(
               named,
@@ -21442,22 +20987,6 @@ BridgedClass _createTomTimedApiBridge() {
               named['scheduledTimes'],
               'scheduledTimes',
             );
-        final reminderEnabled = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderEnabled',
-        );
-        final reminderTemplateId = D4.getOptionalNamedArg<String?>(
-          named,
-          'reminderTemplateId',
-        );
-        final reminderTimeoutMinutes = D4.getOptionalNamedArg<int?>(
-          named,
-          'reminderTimeoutMinutes',
-        );
-        final reminderRepeat = D4.getOptionalNamedArg<bool?>(
-          named,
-          'reminderRepeat',
-        );
         final status = D4
             .getOptionalNamedArg<
               $tom_vscode_scripting_api_14.TimedRequestStatus?
@@ -21466,14 +20995,9 @@ BridgedClass _createTomTimedApiBridge() {
           entryId,
           promptText: promptText,
           template: template,
-          answerWrapper: answerWrapper,
           scheduleMode: scheduleMode,
           intervalMinutes: intervalMinutes,
           scheduledTimes: scheduledTimes,
-          reminderEnabled: reminderEnabled,
-          reminderTemplateId: reminderTemplateId,
-          reminderTimeoutMinutes: reminderTimeoutMinutes,
-          reminderRepeat: reminderRepeat,
           status: status,
         );
       },
@@ -21526,7 +21050,7 @@ BridgedClass _createTomTimedApiBridge() {
       'get': 'Future<TimedRequest?> get(String entryId)',
       'create': 'Future<TimedRequest> create(TimedRequestInput input)',
       'update':
-          'Future<TimedRequest> update(String entryId, {String? promptText, String? template, bool? answerWrapper, ScheduleMode? scheduleMode, int? intervalMinutes, List<ScheduledTime>? scheduledTimes, bool? reminderEnabled, String? reminderTemplateId, int? reminderTimeoutMinutes, bool? reminderRepeat, TimedRequestStatus? status})',
+          'Future<TimedRequest> update(String entryId, {String? promptText, String? template, ScheduleMode? scheduleMode, int? intervalMinutes, List<ScheduledTime>? scheduledTimes, TimedRequestStatus? status})',
       'delete': 'Future<bool> delete(String entryId)',
       'enable': 'Future<TimedRequest> enable(String entryId)',
       'disable': 'Future<TimedRequest> disable(String entryId)',
@@ -22286,24 +21810,6 @@ BridgedClass _createTomDocumentApiBridge() {
           filename: filename,
         );
       },
-      'listAnswers': (visitor, positional, named, typeArgs) {
-        final subfolder = D4.getOptionalNamedArg<String?>(named, 'subfolder');
-        final pattern = D4.getOptionalNamedArg<String?>(named, 'pattern');
-        return $tom_vscode_scripting_api_12.TomDocumentApi.listAnswers(
-          subfolder: subfolder,
-          pattern: pattern,
-        );
-      },
-      'readAnswer': (visitor, positional, named, typeArgs) {
-        D4.requireMinArgs(positional, 1, 'readAnswer');
-        final path = D4.getRequiredArg<String>(
-          positional,
-          0,
-          'path',
-          'readAnswer',
-        );
-        return $tom_vscode_scripting_api_12.TomDocumentApi.readAnswer(path);
-      },
       'listTrail': (visitor, positional, named, typeArgs) {
         final questId = D4.getOptionalNamedArg<String?>(named, 'questId');
         final limit = D4.getOptionalNamedArg<int?>(named, 'limit');
@@ -22427,9 +21933,6 @@ BridgedClass _createTomDocumentApiBridge() {
       'readPrompt': 'Future<DocumentContent> readPrompt(String filename)',
       'createPrompt':
           'Future<String> createPrompt(String content, {String? filename})',
-      'listAnswers':
-          'Future<DocumentListResult> listAnswers({String? subfolder, String? pattern})',
-      'readAnswer': 'Future<DocumentContent> readAnswer(String path)',
       'listTrail':
           'Future<TrailListResult> listTrail({String? questId, int? limit, String? since})',
       'getTrailEntry': 'Future<TrailEntry?> getTrailEntry(String entryId)',
